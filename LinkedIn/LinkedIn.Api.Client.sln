@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30501.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkedIn.Api.Client.Owin", "LinkedIn.Api.Client.Owin\LinkedIn.Api.Client.Owin.csproj", "{A03F6185-7470-4895-B43A-FE8AE3F345B1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkedIn.Api.Client.Core", "LinkedIn.Api.Client.Core\LinkedIn.Api.Client.Core.csproj", "{8DB68D0A-BD61-4AEB-A17C-78562B2CCE53}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://tfs.codeplex.com/tfs/tfs20
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = LinkedIn.Api.Client.Owin\\LinkedIn.Api.Client.Owin.csproj
+		SccProjectName1 = LinkedIn.Api.Client.Owin
+		SccLocalPath1 = LinkedIn.Api.Client.Owin
+		SccProjectUniqueName2 = LinkedIn.Api.Client.Core\\LinkedIn.Api.Client.Core.csproj
+		SccProjectName2 = LinkedIn.Api.Client.Core
+		SccLocalPath2 = LinkedIn.Api.Client.Core
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A03F6185-7470-4895-B43A-FE8AE3F345B1}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{A03F6185-7470-4895-B43A-FE8AE3F345B1}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{A03F6185-7470-4895-B43A-FE8AE3F345B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A03F6185-7470-4895-B43A-FE8AE3F345B1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DB68D0A-BD61-4AEB-A17C-78562B2CCE53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DB68D0A-BD61-4AEB-A17C-78562B2CCE53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DB68D0A-BD61-4AEB-A17C-78562B2CCE53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DB68D0A-BD61-4AEB-A17C-78562B2CCE53}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

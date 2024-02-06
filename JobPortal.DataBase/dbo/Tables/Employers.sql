@@ -1,0 +1,37 @@
+﻿CREATE TABLE [dbo].[Employers] (
+    [Id]              BIGINT          IDENTITY (1, 1) NOT NULL,
+    [Username]        NVARCHAR (256)  NOT NULL,
+    [Company]         NVARCHAR (250)  NOT NULL,
+    [FirstName]       VARCHAR (50)    NULL,
+    [LastName]        VARCHAR (50)    NULL,
+    [LogoName]        NVARCHAR (250)  NULL,
+    [Website]         NVARCHAR (100)  NULL,
+    [Address]         NVARCHAR (100)  NULL,
+    [CountryId]       BIGINT          NULL,
+    [StateId]         BIGINT          NULL,
+    [City]            NVARCHAR (50)   NULL,
+    [Zip]             NVARCHAR (15)   NULL,
+    [Telephone]       NVARCHAR (50)   NULL,
+    [Fax]             NVARCHAR (50)   NULL,
+    [AlternateEmail]  NVARCHAR (256)  NULL,
+    [IsRecruiter]     BIT             CONSTRAINT [DF_employer_isrecruiter] DEFAULT ((0)) NOT NULL,
+    [DateCreated]     DATETIME        CONSTRAINT [DF_employer_createdate] DEFAULT (getdate()) NOT NULL,
+    [DateUpdated]     DATETIME        NULL,
+    [CreatedBy]       NVARCHAR (250)  NOT NULL,
+    [UpdatedBy]       NVARCHAR (250)  NULL,
+    [CompanyProfile]  NVARCHAR (MAX)  NULL,
+    [PermaLink]       NVARCHAR (255)  NULL,
+    [JobsInPermaLink] NVARCHAR (255)  NULL,
+    [JobPermaLink]    NVARCHAR (255)  NULL,
+    [IsPause]         BIT             NULL,
+    [IsDeleted]       BIT             CONSTRAINT [DF_employer_isdeleted] DEFAULT ((0)) NULL,
+    [Comments]        NVARCHAR (MAX)  NULL,
+    [Logo]            VARBINARY (MAX) NULL,
+    CONSTRAINT [PK_employer] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_Employers_CountryList] FOREIGN KEY ([CountryId]) REFERENCES [dbo].[Lists] ([Id]),
+    CONSTRAINT [FK_Employers_StateList] FOREIGN KEY ([StateId]) REFERENCES [dbo].[Lists] ([Id]),
+    CONSTRAINT [IX_Employers] UNIQUE NONCLUSTERED ([Username] ASC)
+);
+
+
+

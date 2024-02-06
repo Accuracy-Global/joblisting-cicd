@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>JobPortal.DataBase</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{ed98568c-3ea5-43f4-af1b-d3bf1aca1de2}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql110DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>JobPortal.DataBase</RootNamespace>
+    <AssemblyName>JobPortal.DataBase</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+    <SccProjectName>SAK</SccProjectName>
+    <SccProvider>SAK</SccProvider>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccLocalPath>SAK</SccLocalPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <!-- VS10 without SP1 will not have VisualStudioVersion set, so do that here -->
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <!-- Default to the v10.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Views\" />
+    <Folder Include="Security\" />
+    <Folder Include="dbo\Functions\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="DataPatch" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\ContactType.sql" />
+    <Build Include="dbo\Tables\question_type.sql" />
+    <Build Include="dbo\Tables\Candidates.sql" />
+    <Build Include="dbo\Tables\emailsetting.sql" />
+    <Build Include="dbo\Tables\Contacts.sql" />
+    <Build Include="dbo\Tables\Employers.sql" />
+    <Build Include="dbo\Tables\Partners.sql" />
+    <Build Include="dbo\Tables\TrackJobHits.sql" />
+    <Build Include="dbo\Tables\aspnet_Applications.sql" />
+    <Build Include="dbo\Tables\Courses.sql" />
+    <Build Include="dbo\Tables\EmailTemplates.sql" />
+    <Build Include="dbo\Tables\EmployerTransactions.sql" />
+    <Build Include="dbo\Tables\JobInterviewNotes.sql" />
+    <Build Include="dbo\Tables\Resumes.sql" />
+    <Build Include="dbo\Tables\EmailEvent.sql" />
+    <Build Include="dbo\Tables\aspnet_UsersInRoles.sql" />
+    <Build Include="dbo\Tables\JobInterviews.sql" />
+    <Build Include="dbo\Tables\exceljobs.sql" />
+    <Build Include="dbo\Tables\emailsettingtype.sql" />
+    <Build Include="dbo\Tables\SitePages.sql" />
+    <Build Include="dbo\Tables\EmailToken.sql" />
+    <Build Include="dbo\Tables\audit_log.sql" />
+    <Build Include="dbo\Tables\Invoices.sql" />
+    <Build Include="dbo\Tables\LoginHistories.sql" />
+    <Build Include="dbo\Tables\Messages.sql" />
+    <Build Include="dbo\Tables\Newsletters.sql" />
+    <Build Include="dbo\Tables\Notifications.sql" />
+    <Build Include="dbo\Tables\message_type.sql" />
+    <Build Include="dbo\Tables\news_category.sql" />
+    <Build Include="dbo\Tables\Options.sql" />
+    <Build Include="dbo\Tables\notifiction_type.sql" />
+    <Build Include="dbo\Tables\AgeRange.sql" />
+    <Build Include="dbo\Tables\Qualifications.sql" />
+    <Build Include="dbo\Tables\UserSocialSiteInfo.sql" />
+    <Build Include="dbo\Tables\ExperienceRange.sql" />
+    <Build Include="dbo\Tables\Questions.sql" />
+    <Build Include="dbo\Tables\ResumeBookmarks.sql" />
+    <Build Include="dbo\Tables\JobBookmarks.sql" />
+    <Build Include="dbo\Tables\aspnet_Users.sql" />
+    <Build Include="dbo\Tables\candidate_resume.sql" />
+    <Build Include="dbo\Tables\SubSpecializations.sql" />
+    <Build Include="dbo\Tables\JobAlerts.sql" />
+    <Build Include="dbo\Tables\BulkJobs.sql" />
+    <Build Include="dbo\Tables\JobApplications.sql" />
+    <Build Include="dbo\Tables\ScreeningStatuses.sql" />
+    <Build Include="dbo\Tables\News.sql" />
+    <Build Include="dbo\Tables\aspnet_Paths.sql" />
+    <Build Include="dbo\Tables\aspnet_Roles.sql" />
+    <Build Include="dbo\Tables\ConfigParameters.sql" />
+    <Build Include="dbo\Tables\Jobs.sql" />
+    <Build Include="dbo\Tables\EmailEventToken.sql" />
+    <Build Include="dbo\Tables\Lists.sql" />
+    <Build Include="dbo\Tables\site.sql" />
+    <Build Include="dbo\Tables\Categories.sql" />
+    <Build Include="dbo\Tables\Packages.sql" />
+    <Build Include="dbo\Tables\UserProfiles.sql" />
+    <Build Include="dbo\Tables\JobSavedSearches.sql" />
+    <Build Include="dbo\Tables\JobApplicationScreenings.sql" />
+    <Build Include="dbo\Tables\question_option.sql" />
+    <Build Include="dbo\Tables\webpages_OAuthMembership.sql" />
+    <Build Include="dbo\Tables\Screenings.sql" />
+    <Build Include="dbo\Tables\webpages_Membership.sql" />
+    <Build Include="dbo\Tables\webpages_Roles.sql" />
+    <Build Include="dbo\Tables\aspnet_PersonalizationPerUser.sql" />
+    <Build Include="dbo\Tables\Specializations.sql" />
+    <Build Include="dbo\Tables\webpages_UsersInRoles.sql" />
+    <Build Include="dbo\Tables\aspnet_Membership.sql" />
+    <Build Include="dbo\Tables\ResumeAlerts.sql" />
+    <Build Include="dbo\Views\vw_SearchResume.sql" />
+    <Build Include="dbo\Views\ViewCategoryWiseJobCounts.sql" />
+    <Build Include="Security\aspnet_Membership_BasicAccess.sql" />
+    <Build Include="Security\aspnet_Membership_FullAccess.sql" />
+    <Build Include="Security\aspnet_Membership_ReportingAccess.sql" />
+    <Build Include="Security\aspnet_Personalization_BasicAccess.sql" />
+    <Build Include="Security\aspnet_Personalization_FullAccess.sql" />
+    <Build Include="Security\aspnet_Personalization_ReportingAccess.sql" />
+    <Build Include="Security\aspnet_Profile_BasicAccess.sql" />
+    <Build Include="Security\aspnet_Profile_FullAccess.sql" />
+    <Build Include="Security\aspnet_Profile_ReportingAccess.sql" />
+    <Build Include="Security\aspnet_Roles_BasicAccess.sql" />
+    <Build Include="Security\aspnet_Roles_FullAccess.sql" />
+    <Build Include="Security\aspnet_Roles_ReportingAccess.sql" />
+    <Build Include="Security\aspnet_WebEvent_FullAccess.sql" />
+    <Build Include="dbo\Stored Procedures\sp_SearchAdvanceJobSeekers.sql" />
+    <Build Include="dbo\Stored Procedures\sp_SearchAdvanceResumes.sql" />
+    <Build Include="dbo\Stored Procedures\sp_SearchJobSeekers.sql" />
+    <Build Include="dbo\Stored Procedures\sp_SearchResumes.sql" />
+    <Build Include="dbo\Functions\svf_IsNullOrEmpty.sql" />
+    <Build Include="dbo\Stored Procedures\sp_GetBookMarkedJobsByuserName.sql" />
+    <Build Include="dbo\Stored Procedures\sp_SearchJobs.sql" />
+    <Build Include="dbo\Tables\BlockedEmployers.sql" />
+    <Build Include="dbo\Functions\GetMinimumExperience.sql" />
+    <Build Include="dbo\Functions\GetMaximumExperience.sql" />
+    <Build Include="dbo\Views\vw_SearchJobSeeker.sql" />
+  </ItemGroup>
+</Project>

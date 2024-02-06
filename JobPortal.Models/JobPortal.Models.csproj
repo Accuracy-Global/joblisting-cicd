@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CCE4F690-EAFD-4753-B732-2A0790FD5DB9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>JobPortal.Models</RootNamespace>
+    <AssemblyName>JobPortal.Models</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.10.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
+      <HintPath>..\packages\Portable.BouncyCastle.1.8.10\lib\net40\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="MailKit, Version=2.11.0.0, Culture=neutral, PublicKeyToken=4e064fe7c44a8f1b, processorArchitecture=MSIL">
+      <HintPath>..\packages\MailKit.2.11.1\lib\net45\MailKit.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="MimeKit, Version=2.11.0.0, Culture=neutral, PublicKeyToken=bede1c8a46c66814, processorArchitecture=MSIL">
+      <HintPath>..\packages\MimeKit.2.11.0\lib\net45\MimeKit.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net452\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\netstandard1.1\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives, Version=4.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddBlog.cs" />
+    <Compile Include="IpGeolocation.cs" />
+    <Compile Include="Latestcompanies.cs" />
+    <Compile Include="LatestJob21.cs" />
+    <Compile Include="ListJobs1.cs" />
+    <Compile Include="Student.cs" />
+    <Compile Include="Companies.cs" />
+    <Compile Include="RecommendedJob1.cs" />
+    <Compile Include="LatestJob.cs" />
+    <Compile Include="AccountsInfoEntity.cs" />
+    <Compile Include="Agreement.cs" />
+    <Compile Include="ApplicationEntity.cs" />
+    <Compile Include="ApplicationFilter.cs" />
+    <Compile Include="AuditEntity.cs" />
+    <Compile Include="AutomatchJob.cs" />
+    <Compile Include="AutomatchResume.cs" />
+    <Compile Include="BaseModel.cs" />
+    <Compile Include="Blocked.cs" />
+    <Compile Include="BlockedEntity.cs" />
+    <Compile Include="Boost.cs" />
+    <Compile Include="CommunicationEntity.cs" />
+    <Compile Include="DeviceChangePass.cs" />
+    <Compile Include="InterviewEntity.cs" />
+    <Compile Include="InterviewFilter.cs" />
+    <Compile Include="JobBookmarked.cs" />
+    <Compile Include="JobBookmarkFilter.cs" />
+    <Compile Include="MessageFilter.cs" />
+    <Compile Include="PromoteItem.cs" />
+    <Compile Include="BuyPromote.cs" />
+    <Compile Include="BuyResume.cs" />
+    <Compile Include="Category.cs" />
+    <Compile Include="ConnectionEntity.cs" />
+    <Compile Include="ConnectionFilter.cs" />
+    <Compile Include="ConnectResult.cs" />
+    <Compile Include="CreditEntry.cs" />
+    <Compile Include="DialingEntity.cs" />
+    <Compile Include="DownloadEntity.cs" />
+    <Compile Include="IndeedEntity.cs" />
+    <Compile Include="IndeedJob.cs" />
+    <Compile Include="JobFeedEntity.cs" />
+    <Compile Include="JobNotifyEntity.cs" />
+    <Compile Include="PackageSelect.cs" />
+    <Compile Include="Promote.cs" />
+    <Compile Include="Qualification.cs" />
+    <Compile Include="SkillList.cs" />
+    <Compile Include="Specialization.cs" />
+    <Compile Include="UserEntity.cs" />
+    <Compile Include="UserMatchEntity.cs" />
+    <Compile Include="ProfileViewEntity.cs" />
+    <Compile Include="SMSStatusEntity.cs" />
+    <Compile Include="UserContact.cs" />
+    <Compile Include="UserContactsByCountry.cs" />
+    <Compile Include="ContactByCountry.cs" />
+    <Compile Include="ContactEntity.cs" />
+    <Compile Include="State.cs" />
+    <Compile Include="Country.cs" />
+    <Compile Include="DeviceEntity.cs" />
+    <Compile Include="DeviceRegister.cs" />
+    <Compile Include="ExtendedTrackingEntity.cs" />
+    <Compile Include="FileEntity.cs" />
+    <Compile Include="GlobalInboxEntity.cs" />
+    <Compile Include="ImageEntity.cs" />
+    <Compile Include="Inbox.cs" />
+    <Compile Include="InboxEntity.cs" />
+    <Compile Include="InboxItem.cs" />
+    <Compile Include="JobDetailByCountryEntity.cs" />
+    <Compile Include="JobEntity.cs" />
+    <Compile Include="JobPostModel.cs" />
+    <Compile Include="JobsByCountryEntity.cs" />
+    <Compile Include="MatchEntity.cs" />
+    <Compile Include="PhoneContactReminder.cs" />
+    <Compile Include="ResponseContext.cs" />
+    <Compile Include="TrackingEntity.cs" />
+    <Compile Include="UserFilter.cs" />
+    <Compile Include="UserState.cs" />
+    <Compile Include="ViewedEntity.cs" />
+    <Compile Include="ViewJobModel.cs" />
+    <Compile Include="LocationEntity.cs" />
+    <Compile Include="LoginEntity.cs" />
+    <Compile Include="LoginHistoryEntity.cs" />
+    <Compile Include="MessageEntity.cs" />
+    <Compile Include="MessageModel.cs" />
+    <Compile Include="Package.cs" />
+    <Compile Include="PackageEntity.cs" />
+    <Compile Include="PaidProfileEntity.cs" />
+    <Compile Include="PaymentInfoEntity.cs" />
+    <Compile Include="PeopleSearchModel.cs" />
+    <Compile Include="PhoneContactEntity.cs" />
+    <Compile Include="RecentJobEntity.cs" />
+    <Compile Include="RegisterEntity.cs" />
+    <Compile Include="RequestContacts.cs" />
+    <Compile Include="ResponseEntity.cs" />
+    <Compile Include="ResumeEntity.cs" />
+    <Compile Include="SaleByCountryEntity.cs" />
+    <Compile Include="SalesDetails.cs" />
+    <Compile Include="SoldPackageEntity.cs" />
+    <Compile Include="StatusEntity.cs" />
+    <Compile Include="StreamEntity.cs" />
+    <Compile Include="TrackingStatus.cs" />
+    <Compile Include="TransactionEntity.cs" />
+    <Compile Include="UserByCountryEntity.cs" />
+    <Compile Include="JobsByCategory.cs" />
+    <Compile Include="Month.cs" />
+    <Compile Include="PeopleEntity.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Recipinent.cs" />
+    <Compile Include="SearchedJobEntity.cs" />
+    <Compile Include="SearchJob.cs" />
+    <Compile Include="SearchResume.cs" />
+    <Compile Include="CountEntity.cs" />
+    <Compile Include="UserInfoEntity.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\JobPortal.Data\JobPortal.Data.csproj">
+      <Project>{689faec9-fe86-44cd-82c7-69cc645f3de2}</Project>
+      <Name>JobPortal.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\JobPortal.Library\JobPortal.Library.csproj">
+      <Project>{49a025a7-93d8-4c65-b5f8-66b51c752195}</Project>
+      <Name>JobPortal.Library</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
+    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
