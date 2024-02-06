@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="61291b498fb64aa290835b5ec62301ff" Name="Diagram1" ZoomLevel="88">
+        <EntityTypeShape EntityType="JobPortalDBNewModel.ConfigParameter" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.FrequencyType" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.Interview" Width="1.5" PointX="20.125" PointY="40.875" FillColor="Brown" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.List" Width="1.5" PointX="0.75" PointY="40.875" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.LoginHistory" Width="1.5" PointX="4.75" PointY="3.75" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.Newsletter" Width="1.5" PointX="3" PointY="82.625" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.SitePage" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.Specialization" Width="1.5" PointX="4.75" PointY="48.625" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.SubSpecialization" Width="1.5" PointX="4.75" PointY="33.875" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.UserProfile" Width="2.125" PointX="7" PointY="34.125" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.webpages_Membership" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.webpages_OAuthMembership" Width="1.75" PointX="2.75" PointY="6.75" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.webpages_Roles" Width="1.5" PointX="0.75" PointY="0.875" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.webpages_UsersInRoles" Width="1.5" PointX="3" PointY="0.875" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_UserProfiles_Country" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_UserProfiles_State" />
+        <AssociationConnector Association="JobPortalDBNewModel.fk_RoleId" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.OnlineUser" Width="1.5" PointX="9.625" PointY="73" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_OnlineUsers_UserProfiles" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.Resume" Width="2.375" PointX="3" PointY="38.875" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_Resumes_Countries" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_Resumes_States" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_Resumes_Specializations" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_Resumes_SubSpecializations" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_Resumes_Qualifications" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.Message" Width="1.5" PointX="9.625" PointY="69.125" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_Messages_Recipients" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_Messages_Senders" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_Newsletters_Countries" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.Tracking" Width="1.5" PointX="14.875" PointY="41" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_ResumeTracking_Resumes" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.TrackingDetail" Width="1.5" PointX="17.125" PointY="41.5" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_TrackingDetails_Trackings" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_TrackingDetails_Countries" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_TrackingDetails_States" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_TrackingDetails_Categories" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_TrackingDetails_Specializations" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_Interviews_Trackings" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_Trackings_UserProfiles" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_Interviews_UserProfiles" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.FollowUp" Width="1.5" PointX="22.375" PointY="41.625" FillColor="Brown" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_JobInterviewFeedBack_JobInterviews1" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_FollowUps_UserProfiles" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.AlertHistory" Width="1.5" PointX="12.625" PointY="51.5" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.Alert" Width="1.5" PointX="10.375" PointY="49.625" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.Unsubscription" Width="1.5" PointX="12.625" PointY="48.75" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_AlertHistories_Alerts" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_Unsubscriptions_Alerts" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.DocumentType" Width="1.5" PointX="6.75" PointY="5.75" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.BlockedPeople" Width="1.5" PointX="9.625" PointY="66" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_BlockedMembers_BlockedUsers" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_BlockedMembers_Blockers" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_UserProfiles_Categories" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_UserProfiles_Specializations" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.Connection" Width="1.5" PointX="9.625" PointY="59.75" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_NetworkContacts_UserProfiles" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_Trackings_Jobseekers" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.EmailAddress" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.InterviewDiscussion" Width="1.5" PointX="25.375" PointY="41.875" FillColor="Brown" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.InterviewNote" Width="1.5" PointX="22.375" PointY="37.875" FillColor="Brown" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_InterviewDiscussions_Interviews" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_InterviewDiscussions_UserProfiles" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_InterviewNotes_JobInterviews" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_InterviewNotes_UserProfiles" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.Announcement" Width="1.5" PointX="10.375" PointY="53.875" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.UserAnnouncement" Width="1.5" PointX="12.625" PointY="42.125" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_UserAnnouncements_Announcements" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_UserAnnouncements_UserProfiles" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.Communication" Width="1.5" PointX="9.625" PointY="32.125" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_Communications_Receivers" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_Communications_Senders" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_Communications_Messages" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.Hit" Width="1.5" PointX="8.75" PointY="3.75" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.Tip" Width="1.5" PointX="5.75" PointY="8.75" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.Dictionary" Width="1.5" PointX="8.75" PointY="6.75" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.Activity" Width="1.5" PointX="9.625" PointY="75.75" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_Activities_UserProfiles" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.AlertSetting" Width="1.5" PointX="12.625" PointY="38.125" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_AlertSettings_Alerts" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_AlertSettings_UserProfiles" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.Invite" Width="1.5" PointX="2.75" PointY="9.75" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.Photo" Width="1.5" PointX="9.625" PointY="27.875" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_Photos_UserProfiles" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.ProfileView" Width="1.5" PointX="6.75" PointY="79.375" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_ProfileViews_UserProfiles" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.PeopleMatch" Width="1.5" PointX="7.75" PointY="9.75" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.Job" Width="1.5" PointX="9.625" PointY="38.125" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_Jobs_Countries" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_Jobs_Employers" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_Jobs_JobTypes" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_Jobs_Qualifications" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_Jobs_Specializations" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_Jobs_States" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_Jobs_SubSpecializations" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_ResumeTracking_Jobs" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.User_Certificate" Width="1.5" PointX="9.875" PointY="79.5" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.User_Education" Width="1.5" PointX="9.875" PointY="24.375" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.User_Skills" Width="1.5" PointX="9.875" PointY="16.625" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_User_Certificate_UserProfiles" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_User_Education_UserProfiles" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_User_Skills_UserProfiles" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.User_Experience" Width="1.5" PointX="9.875" PointY="19.875" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_User_Experience_UserProfiles" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.Campaign" Width="1.5" PointX="11.375" PointY="0.75" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.UserCampaign" Width="1.5" PointX="9.875" PointY="12.375" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_UserCampaign_Campaign" />
+        <AssociationConnector Association="JobPortalDBNewModel.FK_UserCampaign_UserProfiles" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.ListJob1C" Width="1.5" PointX="12.375" PointY="10.75" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.WebsiteList" Width="1.5" PointX="11.375" PointY="5.75" />
+        <EntityTypeShape EntityType="JobPortalDBNewModel.Blog" Width="1.5" PointX="5.375" PointY="12.75" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
