@@ -1,0 +1,1626 @@
+﻿@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Models
+@{
+    int countryId;
+
+    string username = string.Empty;
+    string url1 = HttpContext.Current.Request.Url.AbsoluteUri;
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+    JobPortal.Services.JobService jobService = new JobPortal.Services.JobService();
+    JobPortal.Services.UserService userService = new JobPortal.Services.UserService();
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#mywork").click(function () {
+            $("#myw").toggle();
+            $("#myw1").toggle();
+        });
+    });
+    $(document).ready(function () {
+        $("#myaccount").click(function () {
+            $("#mya").toggle();
+            $("#mya1").toggle();
+            $("#mya2").toggle();
+            $("#mya3").toggle();
+        });
+    });
+    $(document).ready(function () {
+        $("#campaign").click(function () {
+            $("#camp").toggle();
+            $("#camp1").toggle();
+            $("#camp2").toggle();
+            $("#camp3").toggle();
+        });
+    });
+</script>
+<style>
+
+    #campaign a:visited {
+        color: #34ba08;
+    }
+
+    #myaccount a:visited {
+        color: #34ba08;
+    }
+
+    #mywork a:visited {
+        color: #34ba08;
+    }
+</style>
+<style>
+    i.fa-angle-down {
+        float: right;
+    }
+
+    .toggled-on .fa-angle-down {
+        display: none;
+    }
+
+
+
+    .koh-faqs-page-title {
+        /* font-family: Nexa W01 Heavy;*/
+        font-size: 30px;
+        color: #04202E;
+        font-weight: 700;
+    }
+
+    .koh-faq-question-span {
+        /* font-family: Helvetica Neue LT Pro Roman !important;*/
+        font-size: 16px !important;
+        color: #000 !important;
+        font-weight: 700 !important;
+        display: inline-block;
+    }
+
+    .koh-faq-answer {
+        /*  font-family: Helvetica Neue LT Pro Roman;*/
+        color: #000;
+        font-weight: 400;
+        display: none;
+    }
+
+    .koh-faq-answer1 {
+        /*  font-family: Helvetica Neue LT Pro Roman;*/
+        color: #000;
+        font-weight: 400;
+    }
+
+
+    .icon {
+        font-size: 10px;
+        padding-right: 5px;
+    }
+
+    .fa {
+        transition: transform .2s;
+    }
+
+        .fa.active {
+            transform: rotateZ(90deg);
+        }
+</style>
+<script>
+    function myFunction() {
+        var x = document.getElementById("dil");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+    $(document).ready(function () {
+        $(this).on("click", ".koh-faq-question", function () {
+            $(this).parent().find(".koh-faq-answer").toggle();
+            $(this).find(".fa").toggleClass('active');
+        });
+    });
+</script>
+<script>
+    function myFunction() {
+        var x = document.getElementById("dil");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+    $(document).ready(function () {
+        $(this).on("click", ".koh-faq-question", function () {
+            $(this).parent().find(".koh-faq-answer1").toggle();
+            $(this).find(".fa").toggleClass('active');
+        });
+    });
+</script>
+
+
+<div class="col-sm-3">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
+
+
+
+    <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important;width:230px;">
+
+
+
+        @if (Request.IsAuthenticated && user.Role == SecurityRoles.Jobseeker)
+        {
+            username = user.Username;
+            int announcements = MemberService.Instance.GetAnnouncements(username);
+            int apps = jobService.ApplicationCounts(null, user.Id);
+            int bookmarks = jobService.BookmarkCounts(user.Id);
+            int interviews = jobService.InterviewCounts(null, user.Id);
+
+            <div class="koh-tab-content">
+                <div class="koh-tab-content-body">
+                    <div class="koh-faq">
+                        <div class="koh-faq-question">
+                            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                                <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;">SOCIAL NETWORK <i class="fa fa-chevron-right" style="float: right; color: #34ba08" aria-hidden="true"></i></a> </li>
+                            </ul>
+                            @*<span class="koh-faq-question-span"> Test Question 1 </span>*@
+
+                        </div>
+                        <div class="koh-faq-answer1">
+                            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+
+                                @if (Request.IsAuthenticated && (user.Role == SecurityRoles.Employers || user.Role == SecurityRoles.Jobseeker || user.Role == SecurityRoles.Institute || user.Role == SecurityRoles.Student || user.Role == SecurityRoles.RecruitmentAgency || user.Role == SecurityRoles.Interns))
+                                {
+                                    username = user.Username;
+                                    int msg_counts = jobService.MessageCounts(user.Id);
+                                    int con_counts = ConnectionHelper.Counts(user.Id);
+                                    int blocks = EmployerService.Instance.GetBlockCount(username);
+                                    int peopleYouMayKnowCounts = userService.PeopleMatchCounts(user.Id);
+                                    int profileviews = userService.ProfileViews(user.Id);
+
+
+
+                                    if (con_counts > 0)
+                                    {
+                                        <li><a href="/connections" class="active">Connections (<span style="color:red;">@con_counts</span>)</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a href="/connections" class="active">Connections</a></li>
+                                    }
+                                    if (peopleYouMayKnowCounts > 0)
+                                    {
+                                        <li><a href="/Network/PeopleYouMayKnow">People You May Know (<span style="color:red;">@peopleYouMayKnowCounts</span>)</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li>@Html.ActionLink("People You May Know", "PeopleYouMayKnow", "Network")</li>
+                                    }
+                                    if (profileviews > 0)
+                                    {
+                                        <li><a href="/Network/ProfileViewed">Viewed Your Profile (<span style="color:red;">@profileviews</span>)</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li>@Html.ActionLink("Viewed Your Profile", "ProfileViewed", "Network")</li>
+                                    }
+                                    if (msg_counts > 0)
+                                    {
+                                        <li><a href="/Message/Index">Messaging(<span style="color:red;">@msg_counts</span>)</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li>@Html.ActionLink("Messaging", "Index", "Message")</li>
+                                    }
+                                    if (blocks > 0)
+                                    {
+                                        <li><a href="/Network/BlockedList">Block List (<span style="color:red;">@blocks</span>)</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li>@Html.ActionLink("Block List", "BlockedList", "Network")</li>
+                                    }
+
+                                }
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="koh-tab-content">
+                <div class="koh-tab-content-body">
+                    <div class="koh-faq">
+                        <div class="koh-faq-question">
+                            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                                <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;">APPLICATIONS <i class="fa fa-chevron-right" style="float: right; color: #34ba08" aria-hidden="true"></i></a> </li>
+                            </ul>
+                        </div>
+                        <div class="koh-faq-answer">
+                            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                                @if (apps > 0)
+                                {
+                                    <li><a href="/JobSeeker/Index">Applications (<span style="color:red;">@apps</span>)</a></li>
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink("Applications", "Index", "JobSeeker")</li>
+                                }
+
+                                @if (bookmarks > 0)
+                                {
+                                    <li><a href="/JobSeeker/BookMarkedJobs">Bookmarks (<span style="color:red;">@bookmarks</span>)</a></li>
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink("Bookmarks", "BookMarkedJobs", "JobSeeker")</li>
+                                }
+
+                                @if (interviews > 0)
+                                {
+                                    <li><a href="/Interview/Index">Interviews (<span style="color:red;">@interviews</span>)</a></li>
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink("Interviews", "Index", "Interview")</li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            int inboxItems = DomainService.Instance.DashboardInboxItems(user.Id);
+            //myAccount//
+            <div class="koh-tab-content">
+                <div class="koh-tab-content-body">
+                    <div class="koh-faq">
+                        <div class="koh-faq-question">
+                            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                                <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;">MY ACCOUNT <i class="fa fa-chevron-right" style="float: right; color: #34ba08" aria-hidden="true"></i></a> </li>
+                            </ul>
+                        </div>
+                        <div class="koh-faq-answer">
+                            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+
+                                @if (inboxItems > 0)
+                                {
+                                    <li><a href="/Inbox/Index">Inbox (<span style="color:red;">@inboxItems</span>)</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="/Inbox/Index">Inbox</a></li>
+                                }
+                                <li>@Html.ActionLink("My Profile & Resume", "UpdateProfile1", "JobSeeker")</li>
+                                @*<li>@Html.ActionLink("Purchased Profiles", "PaidProfiles", "Payment", new { userId = user.Id }, null)</li>*@
+                                <li>@Html.ActionLink("Build Resume Online", "UpdateProfile1", "JobSeeker")</li>
+                                <li>@Html.ActionLink("Billing & Invoices", "billing", "Payment", new { userId = user.Id }, null)</li>
+                                @*<li>@Html.ActionLink("Change Password", "Manage", "Account")</li>*@
+                                <li><a role="button" data-toggle="modal" data-target="#ChangePasswordDialog" style="cursor:pointer">Change Password</a></li>
+                                <li>@Html.ActionLink("Change Login Email", "ChangeEmailAddress", "Account")</li>
+                                <li>@Html.ActionLink("Confirm Email", "ConfirmRegistration", "Account")</li>
+                                <li>@Html.ActionLink("Login History", "LoginHistory", "account")</li>
+                                @if (announcements > 0)
+                                {
+                                    <li><a href="/announcements">Announcements (<span style="color:red;">@announcements</span>)</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="/announcements">Announcements</a></li>
+                                }
+                                <li>@Html.ActionLink("Career Tips", "CareerTips", "JobSeeker", new { }, new { })</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            //End My Account
+            <div class="koh-tab-content">
+                <div class="koh-tab-content-body">
+                    <div class="koh-faq">
+                        <div class="koh-faq-question">
+
+                            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                                <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;">LATEST ACTIVITY <i class="fa fa-chevron-right" style="float: right; color: #34ba08" aria-hidden="true"></i></a> </li>
+                            </ul>
+                            @*<ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                                <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;">LATEST ACTIVITY <i class="fa fa-chevron-right" style="float: right;position:absolute;right:22px; color: #34ba08" aria-hidden="true"></i></a> </li>
+                            </ul>*@
+                            @*<span class="koh-faq-question-span"> Test Question 1 </span>*@
+
+                        </div>
+                        <div id="ex1" class="koh-faq-answer" style="margin-bottom:0 !important;font-family: Calibri;">
+                            <p style="font-family: Calibri;">
+                                Make sure your elevator pitch is perfect.
+                            </p>
+                            <p style="font-family: Calibri;">
+                                Updates resume regularly, and they are uploaded to multiple platforms.
+                            </p>
+                            <p style="font-family: Calibri;">
+                                Stay active on job-hunting platforms.
+                            </p>
+                            <p style="font-family: Calibri;">
+                                Keep Your Network Up-to-Date on Your Job Search
+                            </p>
+                            <p style="font-family: Calibri;">
+                                Building your personal brand
+                            </p>
+                            <p style="font-family: Calibri;">
+                                Audit yourself online.
+                            </p>
+                            <p style="font-family: Calibri;">
+                                Reach out to recruiters.
+                            </p>
+                            <p style="font-family: Calibri;">
+                                earch for a Trusted Mentor
+                            </p>
+                            <p style="font-family: Calibri;">
+                                Earn a Professional Certification
+                            </p>
+                            <p style="font-family: Calibri;">
+                                Prepare for remote work
+                            </p>
+                            <p style="font-family: Calibri;">
+                                Enroll in career-related workshops.
+                            </p>
+                            <p style="font-family: Calibri;">
+                                Focus on Quality Over Quantity
+                            </p>
+                            <p style="font-family: Calibri;">
+                                Figure out what makes you stand out.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        }
+        else if (Request.IsAuthenticated && user.Role == SecurityRoles.WebScraper)
+        {
+            <li class="active"><a href="#">WEB JOBLIST</a></li>
+            <li>@Html.ActionLink("New WebJobList", "AddWebsites1", "Employer")</li>
+            <li>@Html.ActionLink("WebJobList", "Websites1", "Employer")</li>
+            <li>@Html.ActionLink("Summary", "Summary", "Employer")</li>
+        }
+        else if (Request.IsAuthenticated && (user.Role == SecurityRoles.Student || user.Role == SecurityRoles.Interns))
+        {
+            username = user.Username;
+            int announcements = MemberService.Instance.GetAnnouncements(username);
+            int apps = jobService.ApplicationCounts(null, user.Id);
+            int bookmarks = jobService.BookmarkCounts(user.Id);
+            int interviews = jobService.InterviewCounts(null, user.Id);
+
+            <div class="koh-tab-content">
+                <div class="koh-tab-content-body">
+                    <div class="koh-faq">
+                        <div class="koh-faq-question">
+                            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                                <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;">APPLICATIONS <i class="fa fa-chevron-right" style="float: right; color: #34ba08" aria-hidden="true"></i></a> </li>
+                            </ul>
+                        </div>
+                        <div class="koh-faq-answer">
+                            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+
+
+                                @if (apps > 0)
+                                {
+                                    <li><a href="/JobSeeker/Index">Applications (<span style="color:red;">@apps</span>)</a></li>
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink("Applications", "Index", "JobSeeker")</li>
+                                }
+
+                                @if (bookmarks > 0)
+                                {
+                                    <li><a href="/JobSeeker/BookMarkedJobs">Bookmarks (<span style="color:red;">@bookmarks</span>)</a></li>
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink("Bookmarks", "BookMarkedJobs", "JobSeeker")</li>
+                                }
+
+                                @if (interviews > 0)
+                                {
+                                    <li><a href="/Interview/Index">Interviews (<span style="color:red;">@interviews</span>)</a></li>
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink("Interviews", "Index", "Interview")</li>
+                                }
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            int inboxItems = DomainService.Instance.DashboardInboxItems(user.Id);
+            <div class="koh-tab-content">
+                <div class="koh-tab-content-body">
+                    <div class="koh-faq">
+                        <div class="koh-faq-question">
+                            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                                <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;">MY ACCOUNT <i class="fa fa-chevron-right" style="float: right; color: #34ba08" aria-hidden="true"></i></a> </li>
+                            </ul>
+                        </div>
+                        <div class="koh-faq-answer">
+                            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+
+
+
+
+                                @if (inboxItems > 0)
+                                {
+                                    <li><a href="/Inbox/Index">Inbox (<span style="color:red;">@inboxItems</span>)</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="/Inbox/Index">Inbox</a></li>
+                                }
+                                <li>@Html.ActionLink("My Profile & Resume", "UpdateProfile1", "JobSeeker")</li>
+                                <li>@Html.ActionLink("Purchased Profiles", "PaidProfiles", "Payment", new { userId = user.Id }, null)</li>
+                                <li>@Html.ActionLink("Build Resume Online", "UpdateProfile1", "JobSeeker")</li>
+                                <li>@Html.ActionLink("Billing & Invoices", "billing", "Payment", new { userId = user.Id }, null)</li>
+                                @*<li>@Html.ActionLink("Change Password", "Manage", "Account")</li>*@
+                                <li><a role="button" data-toggle="modal" data-target="#ChangePasswordDialog" style="cursor:pointer">Change Password</a></li>
+                                <li>@Html.ActionLink("Change Login Email", "ChangeEmailAddress", "Account")</li>
+                                <li>@Html.ActionLink("Confirm Email", "ConfirmRegistration", "Account")</li>
+                                <li>@Html.ActionLink("Login History", "LoginHistory", "account")</li>
+                                @if (announcements > 0)
+                                {
+                                    <li><a href="/announcements">Announcements (<span style="color:red;">@announcements</span>)</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="/announcements">Announcements</a></li>
+                                }
+                                <li>@Html.ActionLink("Career Tips", "CareerTips", "JobSeeker", new { }, new { })</li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        }
+        else if (Request.IsAuthenticated && user.Role == SecurityRoles.Employers)
+        {
+            username = user.Username;
+            int announcements = MemberService.Instance.GetAnnouncements(username);
+
+            int apps = jobService.ApplicationCounts(user.Id);
+            int bookmarks = jobService.BookmarkCounts(user.Id);
+            int interviews = jobService.InterviewCounts(user.Id);
+
+            int downloads = EmployerService.Instance.GetDownloadCount(username);
+            int listedJobs = userService.JobCounts(user.Id);
+            int inboxItems = DomainService.Instance.DashboardInboxItems(user.Id);
+            <div class="koh-tab-content">
+                <div class="koh-tab-content-body">
+                    <div class="koh-faq">
+                        <div class="koh-faq-question">
+                            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                                <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;">JOB MANAGEMENT <i class="fa fa-chevron-right" style="float: right; color: #34ba08" aria-hidden="true"></i></a> </li>
+                            </ul>
+                        </div>
+                        <div class="koh-faq-answer1">
+                            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+
+
+
+
+                                @*<li>@Html.ActionLink("List Job", "ListJob", "Employer")</li>*@
+                                <li>@Html.ActionLink("List Job", "Addjob", "Admin")</li>
+                                @if (listedJobs > 0)
+                                {
+                                    <li><a href="/Employer/Index">Listed Jobs (<span style="color:red;">@listedJobs</span>)</a></li>
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink("Listed Jobs", "Index", "Employer")</li>
+                                }
+                                @if (user.Type == 5)
+                                {
+                                    <li>@Html.ActionLink("JobSeekers", "Search", "Jobseeker")</li>
+                                }
+
+                                @if (apps > 0)
+                                {
+                                    <li><a href="/Employer/Applications">Applications (<span style="color:red;">@apps</span>)</a></li>
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink("Applications", "Applications", "Employer")</li>
+                                }
+
+                                @if (bookmarks > 0)
+                                {
+                                    <li><a href="/Employer/Bookmarks">Bookmarks (<span style="color:red;">@bookmarks</span>)</a></li>
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink("Bookmarks", "Bookmarks", "Employer")</li>
+                                }
+
+                                @if (interviews > 0)
+                                {
+                                    <li><a href="/Interview/Index">Interviews (<span style="color:red;">@interviews</span>)</a></li>
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink("Interviews", "Index", "Interview")</li>
+                                }
+
+                                @if (downloads > 0)
+                                {
+                                    @*<li><a href="/Employer/DownloadHistory">Resume Downloads (<span style="color:red;">@downloads</span>)</a></li>*@
+                                    <li><a href="/Employer/DownloadHistory">Resume Downloads</a></li>
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink("Resume Downloads", "DownloadHistory", "Employer")</li>
+                                }
+                                <li>@Html.ActionLink("Purchased Profiles", "PaidProfiles", "Payment", new { userId = user.Id }, null)</li>
+
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            ////
+            ///
+            <div class="koh-tab-content">
+                <div class="koh-tab-content-body">
+                    <div class="koh-faq">
+                        <div class="koh-faq-question">
+                            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                                <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;">MY ACCOUNT<i class="fa fa-chevron-right" style="float: right; color: #34ba08" aria-hidden="true"></i></a> </li>
+                            </ul>
+                        </div>
+                        <div class="koh-faq-answer">
+                            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+
+
+
+                                @if (inboxItems > 0)
+                                {
+                                    <li><a href="/Inbox/Index">Inbox (<span style="color:red">@inboxItems</span>)</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="/Inbox/Index">Inbox</a></li>
+                                }
+                                <li>@Html.ActionLink("Billing & Invoices", "billing", "Payment", new { userId = user.Id }, null)</li>
+                                <li>@Html.ActionLink("My Profile", "UpdateProfile", "Employer")</li>
+                                <li><a role="button" data-toggle="modal" data-target="#ChangePasswordDialog" style="cursor:pointer">Change Password</a></li>
+                                @*<li>@Html.ActionLink("Change Password", "Manage", "Account")</li>*@
+                                <li>@Html.ActionLink("Change Login Email", "ChangeEmailAddress", "Account")</li>
+                                <li>@Html.ActionLink("Confirm Email", "ConfirmRegistration", "Account")</li>
+                                <li>@Html.ActionLink("Login History", "LoginHistory", "account")</li>
+                                @if (announcements > 0)
+                                {
+                                    <li><a href="/announcements">Announcements (<span style="color:red;">@announcements</span>)</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="/announcements">Announcements</a></li>
+                                }
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            /////
+
+            <div class="koh-tab-content">
+                <div class="koh-tab-content-body">
+                    <div class="koh-faq">
+                        <div class="koh-faq-question">
+                            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                                <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;">CAMPAIGN <i class="fa fa-chevron-right" style="float: right; color: #34ba08" aria-hidden="true"></i></a> </li>
+                            </ul>
+                        </div>
+                        <div class="koh-faq-answer">
+                            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+
+
+
+
+                                <li id="camp">@Html.ActionLink("Announcements", "Announcements", "Admin")</li>
+                                <li id="camp1">@Html.ActionLink("Updates", "Updates", "Admin")</li>
+                                <li id="camp2">@Html.ActionLink("Campaign List", "Campaign", "Admin")</li>
+
+                                <li id="camp3">@Html.ActionLink("Tips", "Tips", "Admin")</li>
+                                @*<li class="active"><a href="#">WEB SCRAPING</a></li>*@
+                                @*<li>@Html.ActionLink("Websites", "Websites", "Admin")</li>*@
+                                @*<li>@Html.ActionLink("Social Media", "SMJobs", "Admin")</li>*@
+
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        }
+        else if (Request.IsAuthenticated && user.Role == SecurityRoles.RecruitmentAgency || user.Username == "Doli.chauhan123@accuracy.com.sg")
+        {
+            username = user.Username;
+            int announcements = MemberService.Instance.GetAnnouncements(username);
+
+            int apps = jobService.ApplicationCounts(user.Id);
+            int bookmarks = jobService.BookmarkCounts(user.Id);
+            int interviews = jobService.InterviewCounts(user.Id);
+
+            int downloads = EmployerService.Instance.GetDownloadCount(username);
+            int listedJobs = userService.JobCounts(user.Id);
+
+
+            <div class="koh-tab-content">
+                <div class="koh-tab-content-body">
+                    <div class="koh-faq">
+                        <div class="koh-faq-question">
+                            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                                <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;">JOB MANAGEMENT <i class="fa fa-chevron-right" style="float: right; color: #34ba08" aria-hidden="true"></i></a> </li>
+                            </ul>
+                        </div>
+                        <div class="koh-faq-answer">
+                            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+
+
+
+                                <li>@Html.ActionLink("Post Jobs", "ListJob1", "Admin")</li>
+                                @if (listedJobs > 0)
+                                {
+                                    <li><a href="/Employer/Index">Listed Jobs (<span style="color:red;">@listedJobs</span>)</a></li>
+                                }
+                                else
+                                {
+                                    @*<li>@Html.ActionLink("Posted Job", "Index1", "Admin")</li>*@
+                                    <li>@Html.ActionLink("Posted Job", "Index1", "Admin")</li>
+
+                                }
+                                @if (apps > 0)
+                                {
+                                    <li><a href="/Employer/Applications">Applications (<span style="color:red;">@apps</span>)</a></li>
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink("Applications", "Applications", "Employer")</li>
+                                }
+
+                                @if (bookmarks > 0)
+                                {
+                                    <li><a href="/Employer/Bookmarks">Bookmarks (<span style="color:red;">@bookmarks</span>)</a></li>
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink("Bookmarks", "Bookmarks", "Employer")</li>
+                                }
+
+                                @if (interviews > 0)
+                                {
+                                    <li><a href="/Interview/Index">Interviews (<span style="color:red;">@interviews</span>)</a></li>
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink("Interviews", "Index", "Interview")</li>
+                                }
+
+                                @if (downloads > 0)
+                                {
+                                    @*<li><a href="/Employer/DownloadHistory">Resume Downloads (<span style="color:red;">@downloads</span>)</a></li>*@
+                                    <li><a href="/Employer/DownloadHistory">Resume Downloads</a></li>
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink("Resume Downloads", "DownloadHistory", "Employer")</li>
+                                }
+                                <li>@Html.ActionLink("Purchased Profiles", "PaidProfiles", "Payment", new { userId = user.Id }, null)</li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            int inboxItems = DomainService.Instance.DashboardInboxItems(user.Id);
+            <div class="koh-tab-content">
+                <div class="koh-tab-content-body">
+                    <div class="koh-faq">
+                        <div class="koh-faq-question">
+                            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                                <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;">MY ACCOUNT <i class="fa fa-chevron-right" style="float: right; color: #34ba08" aria-hidden="true"></i></a> </li>
+                            </ul>
+                        </div>
+                        <div class="koh-faq-answer">
+                            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+
+
+
+                                @if (inboxItems > 0)
+                                {
+                                    <li><a href="/Inbox/Index">Inbox (<span style="color:red">@inboxItems</span>)</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="/Inbox/Index">Inbox</a></li>
+                                }
+                                <li>@Html.ActionLink("Billing & Invoices", "billing", "Payment", new { userId = user.Id }, null)</li>
+                                <li>@Html.ActionLink("My Profile", "UpdateProfile", "Employer")</li>
+                                <li><a role="button" data-toggle="modal" data-target="#ChangePasswordDialog" style="cursor:pointer">Change Password</a></li>
+                                @*<li>@Html.ActionLink("Change Password", "Manage", "Account")</li>*@
+                                <li>@Html.ActionLink("Change Login Email", "ChangeEmailAddress", "Account")</li>
+                                <li>@Html.ActionLink("Confirm Email", "ConfirmRegistration", "Account")</li>
+                                <li>@Html.ActionLink("Login History", "LoginHistory", "account")</li>
+                                @if (announcements > 0)
+                                {
+                                    <li><a href="/announcements">Announcements (<span style="color:red;">@announcements</span>)</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="/announcements">Announcements</a></li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        }
+
+        else if (Request.IsAuthenticated && user.Role == SecurityRoles.Institute)
+        {
+            username = user.Username;
+            int announcements = MemberService.Instance.GetAnnouncements(username);
+
+
+            int bookmarks = jobService.BookmarkCounts(user.Id);
+
+
+            int downloads = EmployerService.Instance.GetDownloadCount(username);
+
+
+
+            <div class="koh-tab-content">
+                <div class="koh-tab-content-body">
+                    <div class="koh-faq">
+                        <div class="koh-faq-question">
+                            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                                <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;">RECRUITMENT MANAGEMENT <i class="fa fa-chevron-right" style="float: right; color: #34ba08" aria-hidden="true"></i></a> </li>
+                            </ul>
+                        </div>
+                        <div class="koh-faq-answer">
+                            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+
+
+
+                                <li><a href="/company">Listed Companies</a></li>
+                                <li><a href="/student">Listed Students</a></li>
+
+                                @if (bookmarks > 0)
+                                {
+                                    <li><a href="/Employer/Bookmarks">Bookmarks (<span style="color:red;">@bookmarks</span>)</a></li>
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink("Bookmarks", "Bookmarks", "Employer")</li>
+                                }
+
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            int inboxItems = DomainService.Instance.DashboardInboxItems(user.Id);
+            <div class="koh-tab-content">
+                <div class="koh-tab-content-body">
+                    <div class="koh-faq">
+                        <div class="koh-faq-question">
+                            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                                <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;">MY ACCOUNT <i class="fa fa-chevron-right" style="float: right; color: #34ba08" aria-hidden="true"></i></a> </li>
+                            </ul>
+                        </div>
+                        <div class="koh-faq-answer">
+                            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+
+
+
+                                @if (inboxItems > 0)
+                                {
+                                    <li><a href="/Inbox/Index">Inbox (<span style="color:red">@inboxItems</span>)</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="/Inbox/Index">Inbox</a></li>
+                                }
+                                <li>@Html.ActionLink("My Profile", "UpdateProfile", "Employer")</li>
+                                <li><a role="button" data-toggle="modal" data-target="#ChangePasswordDialog" style="cursor:pointer">Change Password</a></li>
+                                @*<li>@Html.ActionLink("Change Password", "Manage", "Account")</li>*@
+                                <li>@Html.ActionLink("Change Login Email", "ChangeEmailAddress", "Account")</li>
+                                <li>@Html.ActionLink("Confirm Email", "ConfirmRegistration", "Account")</li>
+                                <li>@Html.ActionLink("Login History", "LoginHistory", "account")</li>
+                                @if (announcements > 0)
+                                {
+                                    <li><a href="/announcements">Announcements (<span style="color:red;">@announcements</span>)</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="/announcements">Announcements</a></li>
+                                }
+
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+        }
+        else if (Request.IsAuthenticated && user.Role == SecurityRoles.SuperUser)
+        {
+            if (user.Username == "tasnim@joblisting.com" || user.Username == "lakshmii@joblisting.com" || user.Username == "Sailajaadmin@joblisting.com")
+            {
+                countryId = 106;
+            }
+            else if (user.Username == "maitrantn@joblisting.com" || user.Username == "Linhv@joblisting.com")
+            {
+                countryId = 3343;
+            }
+            else if (user.Username == "sandhyam@joblisting.com" || user.Username == "Tanyam@joblisting.com")
+            {
+                countryId = 139;
+            }
+            else if (user.Username == "sandhyas@joblisting.com" || user.Username == "balus@joblisting.com")
+            {
+                countryId = 205;
+            }
+            else if (user.Username == "adminIndo@joblisting.com" || user.Username == "RecruiterIndo@joblisting.com")
+            {
+                countryId = 107;
+            }
+            else if (user.Username == "adminPhil@joblisting.com" || user.Username == "RecruiterPhil@joblisting.com")
+            {
+                countryId = 180;
+            }
+
+            else if (user.Username == "adminCom@joblisting.com" || user.Username == "RecruiterCom@joblisting.com" || user.Username == "vani123@accuracy.com.sg" || user.Username == "tasnim@accuracy.com.sg" || User.Username == "ganeshr@joblisting.com" || user.Username == "deepti@accuracy.com.sg" || user.Username == "doli.chauhan123@accuracy.com.sg" || user.Username == "sandhya@accuracy.com.sg" || user.Username == "shreyag1234@accuracy.com.sg" || user.Username == "pallavi123@accuracy.com.sg" || user.Username == "druthi@accuracy.com.sg" || user.Username == "baba@accuracy.com.sg" || user.Username == "anshikagupta@accuracy.com.sg" || user.Username == "dianna@accuracy.com.sg" || user.Username == "haris@joblisting.com" || user.Username == "denise@accuracy.com.sg" || user.Username == "lakshmip@accuracy.com.sg" || user.Username == "vanshika@accuracy.com.sg" || user.Username == "sarika123@accuracy.com.sg" || user.Username == "naveena@accuracy.com.sg" || user.Username == "gowthami@accuracy.com.sg"
+
+
+    )
+            {
+                countryId = 40;
+            }
+
+            else
+            {
+                countryId = 0;
+            }
+
+            int jobCounts = DomainService.Instance.GetJobCount1(JobStatus.IN_APPROVAL, countryId);
+            int photo_counts = DomainService.Instance.GetPhotoCount1(SecurityRoles.Jobseeker, countryId);
+            int logo_counts = DomainService.Instance.GetPhotoCount1(SecurityRoles.Employers, countryId);
+
+            if (user.Username == "recruiter@joblisting.com" || user.Username == "lakshmii@joblisting.com" || user.Username == "Linhv@joblisting.com" || user.Username == "tasnim@accuracy.com.sg" || User.Username == "ganeshr@joblisting.com" || user.Username == "deepti@accuracy.com.sg" || user.Username == "doli.chauhan123@accuracy.com.sg" || user.Username == "sandhya@accuracy.com.sg" || user.Username == "Tanyam@joblisting.com" || user.Username == "balus@joblisting.com" || user.Username == "vani123@accuracy.com.sg" || user.Username == "RecruiterCom@joblisting.com" || user.Username == "RecruiterPhil@joblisting.com" || user.Username == "RecruiterIndo@joblisting.com" || user.Username == "shreyag1234@accuracy.com.sg" || user.Username == "pallavi123@accuracy.com.sg" || user.Username == "druthi@accuracy.com.sg" || user.Username == "baba@accuracy.com.sg" || user.Username == "anshikagupta@accuracy.com.sg" || user.Username == "dianna@accuracy.com.sg" || user.Username == "haris@joblisting.com" || user.Username == "denise@accuracy.com.sg" || user.Username == "lakshmip@accuracy.com.sg" || user.Username == "vanshika@accuracy.com.sg" || user.Username == "sarika123@accuracy.com.sg" || user.Username == "naveena@accuracy.com.sg" || user.Username == "gowthami@accuracy.com.sg")
+            {
+                <div class="koh-tab-content">
+                    <div class="koh-tab-content-body">
+                        <div class="koh-faq">
+                            <div class="koh-faq-question">
+                                <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                                    <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;">JOB MANAGEMENT <i class="fa fa-chevron-right" style="float: right; color: #34ba08" aria-hidden="true"></i></a> </li>
+                                </ul>
+                            </div>
+                            <div class="koh-faq-answer1">
+                                <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+
+
+
+                                    <li id="myw">@Html.ActionLink("List Job", "AddJob", "Admin")</li>
+                                    @*<li>@Html.ActionLink("User Accounts", "Index", "Admin")</li>*@
+                                    @*<li><a href="/Admin/Users?CountryId=@countryId&typeid=5&fd=&fm=&fy=&td=&tm=&ty=" target="_blank">Companies</a></li>*@
+                                    <li id="myw1"><a href="/Admin/JobsByCompanyAll?CountryId=@countryId" target="_blank">Listed Jobs</a></li>
+
+                                    <li>@Html.ActionLink("Applications", "Applications", "Employer")</li>
+                                    <li>@Html.ActionLink("Bookmarks", "Bookmarks", "Employer")</li>
+                                    <li id="myw1">@Html.ActionLink("Account Manager", "jobs", "Admin")</li>
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                //
+
+                <div class="koh-tab-content">
+                    <div class="koh-tab-content-body">
+                        <div class="koh-faq">
+                            <div class="koh-faq-question">
+                                <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                                    <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;">MY @*&amp;*@ ACCOUNT <i class="fa fa-chevron-right" style="float: right; color: #34ba08" aria-hidden="true"></i></a> </li>
+                                </ul>
+                            </div>
+                            <div class="koh-faq-answer">
+                                <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+
+
+                                    <li id="mya">@Html.ActionLink("My Profile", "MyProfile", "Admin")</li>
+                                    <li id="mya1"><a role="button" data-toggle="modal" data-target="#ChangePasswordDialog" style="cursor:pointer">Change Password</a></li>
+                                    @*<li>@Html.ActionLink("Change Password", "Manage", "Account")</li>*@
+                                    <li id="mya2">@Html.ActionLink("Change Login Email", "ChangeEmailAddress", "Account")</li>
+                                    <li id="mya3">@Html.ActionLink("Login History", "LoginHistory", "account")</li>
+
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                //
+
+                <div class="koh-tab-content">
+                    <div class="koh-tab-content-body">
+                        <div class="koh-faq">
+                            <div class="koh-faq-question">
+                                <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                                    <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;">CAMPAIGN <i class="fa fa-chevron-right" style="float: right; color: #34ba08" aria-hidden="true"></i></a> </li>
+                                </ul>
+                            </div>
+                            <div class="koh-faq-answer">
+                                <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+
+
+
+
+                                    <li id="camp">@Html.ActionLink("Announcements", "Announcements", "Admin")</li>
+                                    <li id="camp1">@Html.ActionLink("Updates", "Updates", "Admin")</li>
+                                    <li id="camp2">@Html.ActionLink("Campaign List", "Campaign", "Admin")</li>
+
+                                    <li id="camp3">@Html.ActionLink("Tips", "Tips", "Admin")</li>
+                                    @*<li class="active"><a href="#">WEB SCRAPING</a></li>*@
+                                    @*<li>@Html.ActionLink("Websites", "Websites", "Admin")</li>*@
+                                    @*<li>@Html.ActionLink("Social Media", "SMJobs", "Admin")</li>*@
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+            }
+            else if (user.Username == "anilkumar@joblisting.com" || user.Username != "recruiter@joblisting.com" || user.Username != "lakshmii@joblisting.com" || user.Username != "Linhv@joblisting.com" || user.Username != "Tanyam@joblisting.com" || user.Username != "balus@joblisting.com" || user.Username != "RecruiterCom@joblisting.com" || user.Username != "vani123@accuracy.com.sg" || user.Username != "RecruiterPhil@joblisting.com" || user.Username != "RecruiterIndo@joblisting.com")
+            {
+                int inboxItems = DomainService.Instance.DashboardInboxItems(user.Id);
+                <div class="koh-tab-content">
+                    <div class="koh-tab-content-body">
+                        <div class="koh-faq">
+                            <div class="koh-faq-question">
+                                <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                                    <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;">REGISTRATIONS <i class="fa fa-chevron-right" style="float: right; color: #34ba08" aria-hidden="true"></i></a> </li>
+                                </ul>
+                            </div>
+                            <div class="koh-faq-answer1">
+                                <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+
+
+                                    <li>@Html.ActionLink("Overall Status", "Dashboard", "Admin")</li>
+                                    @*<li>@Html.ActionLink("Post Jobs", "listjob1", "Admin")</li>*@
+                                    <li>@Html.ActionLink("User Accounts", "Index", "Admin")</li>
+                                    <li>@Html.ActionLink("Connections", "Contacts", "Admin")</li>
+                                    <li>@Html.ActionLink("Phone Contacts", "ContactList", "Admin")</li>
+                                    @*<li>@Html.ActionLink("Messaging", "MessageList", "Admin")</li>*@
+
+
+
+
+
+
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                //
+
+                <div class="koh-tab-content">
+                    <div class="koh-tab-content-body">
+                        <div class="koh-faq">
+                            <div class="koh-faq-question">
+                                <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                                    <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;">APPROVALS <i class="fa fa-chevron-right" style="float: right; color: #34ba08" aria-hidden="true"></i></a> </li>
+                                </ul>
+                            </div>
+                            <div class="koh-faq-answer">
+                                <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+
+
+
+                                    @if (jobCounts > 0)
+                                    {
+                                        <li><a href="/admin/jobs">Jobs (<span style="color:red; font-weight:bold">@jobCounts</span>)</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a href="/admin/jobs">Jobs</a></li>
+                                    }
+
+                                    @if (logo_counts > 0)
+                                    {
+                                        <li><a href="@Url.Action("PhotoList", "Admin", new { type = 5 })">Company Photos (<span style="color:red; font-weight:bold">@logo_counts</span>)</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a href="@Url.Action("PhotoList", "Admin", new { type = 5 })">Company Photos</a></li>
+                                    }
+
+                                    @if (photo_counts > 0)
+                                    {
+                                        <li><a href="@Url.Action("PhotoList", "Admin", new { type = 4 })">Individual Photos (<span style="color:red; font-weight:bold">@photo_counts</span>)</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a href="@Url.Action("PhotoList", "Admin", new { type = 4 })">Individual Photos</a></li>
+                                    }
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                //111//
+
+
+                <div class="koh-tab-content">
+                    <div class="koh-tab-content-body">
+                        <div class="koh-faq">
+                            <div class="koh-faq-question">
+                                <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                                    <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;">SALES<i class="fa fa-chevron-right" style="float: right; color: #34ba08" aria-hidden="true"></i></a> </li>
+                                </ul>
+                            </div>
+                            <div class="koh-faq-answer">
+                                <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+
+                                    <li><a href="/Inbox/Index">Inbox</a></li>
+                                    @*<li><a href="/admin/globalinbox">Inbox</a></li>*@
+                                    <li>@Html.ActionLink("Messaging", "MessageList", "Admin")</li>
+                                    <li>@Html.ActionLink("JobSeekers", "Search", "Jobseeker")</li>
+                                    <li><a href="/jobs/">Search Jobs</a></li>
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                //2//
+
+                <div class="koh-tab-content">
+                    <div class="koh-tab-content-body">
+                        <div class="koh-faq">
+                            <div class="koh-faq-question">
+                                <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                                    <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;">CONTENT<i class="fa fa-chevron-right" style="float: right; color: #34ba08" aria-hidden="true"></i></a> </li>
+                                </ul>
+                            </div>
+                            <div class="koh-faq-answer">
+                                <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+
+                                    <li>@Html.ActionLink("Categories", "CategoryList", "Admin")</li>
+                                    <li>@Html.ActionLink("Contents Management", "ContentViews", "Admin")</li>
+                                    <li>@Html.ActionLink("Safety Advice", "SafetyAdvice", "Admin")</li>
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                //33//
+                <div class="koh-tab-content">
+                    <div class="koh-tab-content-body">
+                        <div class="koh-faq">
+                            <div class="koh-faq-question">
+                                <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                                    <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;">WEB SCRAPING<i class="fa fa-chevron-right" style="float: right; color: #34ba08" aria-hidden="true"></i></a> </li>
+                                </ul>
+                            </div>
+                            <div class="koh-faq-answer">
+                                <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+
+                                    @*<li class="active"><a href="#">WEB SCRAPING</a></li>*@
+                                    <li>@Html.ActionLink("Websites", "Websites", "Admin")</li>
+                                    <li>@Html.ActionLink("Social Media", "SMJobs", "Admin")</li>
+                                    @*<li class="active"><a href="#">PAYMENT&nbsp;MANAGEMENT</a></li>
+                                    <li>@Html.ActionLink("Payments", "Sales", "Admin")</li>
+                                    <li><a href="#">@Html.ActionLink("Packages", "Index", "Package")</a></li>
+                                    <li><a href="#">Payment Gateway</a></li>*@
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                //233//
+
+                <div class="koh-tab-content">
+                    <div class="koh-tab-content-body">
+                        <div class="koh-faq">
+                            <div class="koh-faq-question">
+                                <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                                    <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;">PAYMENT&nbsp;MANAGEMENT<i class="fa fa-chevron-right" style="float: right; color: #34ba08" aria-hidden="true"></i></a> </li>
+                                </ul>
+                            </div>
+                            <div class="koh-faq-answer">
+                                <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+
+
+                                    <li>@Html.ActionLink("Payments", "Sales", "Admin")</li>
+                                    <li><a href="#">@Html.ActionLink("Packages", "Index", "Package")</a></li>
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                //4//
+                <div class="koh-tab-content">
+                    <div class="koh-tab-content-body">
+                        <div class="koh-faq">
+                            <div class="koh-faq-question">
+                                <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                                    <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;">MY ACCOUNT<i class="fa fa-chevron-right" style="float: right; color: #34ba08" aria-hidden="true"></i></a> </li>
+                                </ul>
+                            </div>
+                            <div class="koh-faq-answer">
+                                <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+
+
+                                    <li>@Html.ActionLink("My Profile", "MyProfile", "Admin")</li>
+                                    <li><a role="button" data-toggle="modal" data-target="#ChangePasswordDialog">Change Password</a></li>
+                                    @*<li>@Html.ActionLink("Change Password", "Manage", "Account")</li>*@
+                                    <li>@Html.ActionLink("Change Login Email", "ChangeEmailAddress", "Account")</li>
+                                    <li>@Html.ActionLink("Login History", "LoginHistory", "account")</li>
+                                    <li>@Html.ActionLink("Announcements", "Announcements", "Admin")</li>
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                //5//
+
+                <div class="koh-tab-content">
+                    <div class="koh-tab-content-body">
+                        <div class="koh-faq">
+                            <div class="koh-faq-question">
+                                <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                                    <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;">CAMPAIGN<i class="fa fa-chevron-right" style="float: right; color: #34ba08" aria-hidden="true"></i></a> </li>
+                                </ul>
+                            </div>
+                            <div class="koh-faq-answer">
+                                <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+
+
+
+                                    <li>@Html.ActionLink("Updates", "Updates", "Admin")</li>
+                                    <li>@Html.ActionLink("Campaign", "Campaign", "Admin")</li>
+                                    <li>@Html.ActionLink("Tips", "Tips", "Admin")</li>
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="koh-tab-content">
+                    <div class="koh-tab-content-body">
+                        <div class="koh-faq">
+                            <div class="koh-faq-question">
+                                <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                                    <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;">JOB MANAGEMENT <i class="fa fa-chevron-right" style="float: right; color: #34ba08" aria-hidden="true"></i></a> </li>
+                                </ul>
+                            </div>
+                            <div class="koh-faq-answer">
+                                <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+
+
+
+
+                                    @*<li>@Html.ActionLink("List Job", "ListJob", "Employer")</li>*@
+                                    <li>@Html.ActionLink("List Job", "Addjob", "Admin")</li>
+
+
+                                    <li>@Html.ActionLink("Listed Jobs", "Index", "Employer")</li>
+
+                                    @if (user.Type == 5)
+                                    {
+                                        <li>@Html.ActionLink("Job Seekers", "Search", "Jobseeker")</li>
+                                    }
+
+
+                                    else
+                                    {
+                                        <li>@Html.ActionLink("Applications", "Applications", "Employer")</li>
+                                    }
+
+
+
+                                    <li>@Html.ActionLink("Bookmarks", "Bookmarks", "Employer")</li>
+
+
+
+
+
+                                    <li>@Html.ActionLink("Interviews", "Index", "Interview")</li>
+
+
+
+                                    <li>@Html.ActionLink("Resume Downloads", "DownloadHistory", "Employer")</li>
+
+                                    <li>@Html.ActionLink("Purchased Profiles", "PaidProfiles", "Payment", new { userId = user.Id }, null)</li>
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            }
+        }
+
+        else if (Request.IsAuthenticated && user.Role == SecurityRoles.Administrator)
+        {
+            if (user.Username == "tasnim@joblisting.com" || user.Username == "lakshmii@joblisting.com" || user.Username == "Sailajaadmin@joblisting.com")
+            {
+                countryId = 106;
+            }
+            else if (user.Username == "maitrantn@joblisting.com" || user.Username == "Linhv@joblisting.com")
+            {
+                countryId = 3343;
+            }
+            else if (user.Username == "sandhyam@joblisting.com" || user.Username == "Tanyam@joblisting.com")
+            {
+                countryId = 139;
+            }
+            else if (user.Username == "sandhyas@joblisting.com" || user.Username == "balus@joblisting.com")
+            {
+                countryId = 205;
+            }
+            else if (user.Username == "adminIndo@joblisting.com" || user.Username == "RecruiterIndo@joblisting.com")
+            {
+                countryId = 107;
+            }
+            else if (user.Username == "adminPhil@joblisting.com" || user.Username == "RecruiterPhil@joblisting.com")
+            {
+                countryId = 180;
+            }
+
+            else if (user.Username == "adminCom@joblisting.com" || user.Username == "RecruiterCom@joblisting.com" || user.Username == "vani123@accuracy.com.sg" || user.Username == "tasnim@accuracy.com.sg" || User.Username == "ganeshr@joblisting.com" || user.Username == "deepti@accuracy.com.sg" || user.Username == "doli.chauhan123@accuracy.com.sg" || user.Username == "sandhya@accuracy.com.sg" || user.Username == "shreyag1234@accuracy.com.sg" || user.Username == "pallavi123@accuracy.com.sg" || user.Username == "druthi@accuracy.com.sg" || user.Username == "baba@accuracy.com.sg" || user.Username == "anshikagupta@accuracy.com.sg" || user.Username == "dianna@accuracy.com.sg" || user.Username == "haris@joblisting.com" || user.Username == "anilkumar@joblisting.com" || user.Username == "denise@accuracy.com.sg" || user.Username == "lakshmip@accuracy.com.sg" || user.Username == "vanshika@accuracy.com.sg" || user.Username == "sarika123@accuracy.com.sg" || user.Username == "naveena@accuracy.com.sg" || user.Username == "gowthami@accuracy.com.sg")
+            {
+                countryId = 40;
+            }
+            else
+            {
+                countryId = 0;
+            }
+            int jobCounts = DomainService.Instance.GetJobCount1(JobStatus.IN_APPROVAL, countryId);
+            int photo_counts = DomainService.Instance.GetPhotoCount1(SecurityRoles.Jobseeker, countryId);
+            int logo_counts = DomainService.Instance.GetPhotoCount1(SecurityRoles.Employers, countryId);
+            if (user.Username == "recruiter@joblisting.com" || user.Username == "lakshmii@joblisting.com" || user.Username == "Linhv@joblisting.com" || user.Username == "Tanyam@joblisting.com" || user.Username == "tasnim@accuracy.com.sg" || user.Username == "ganeshr@joblisting.com" || user.Username == "deepti@accuracy.com.sg" || user.Username == "doli.chauhan123@accuracy.com.sg" || user.Username == "sandhya@accuracy.com.sg" || user.Username == "balus@joblisting.com" || user.Username == "vani123@accuracy.com.sg" || user.Username == "RecruiterCom@joblisting.com" || user.Username == "RecruiterPhil@joblisting.com" || user.Username == "RecruiterIndo@joblisting.com")
+            {
+                <li class="active"><a href="#">USERS &amp; RESUMES</a></li>
+
+                <li>@Html.ActionLink("User Accounts", "Index", "Admin")</li>
+
+                <li class="active"><a href="#">MY ACCOUNT</a></li>
+                <li>@Html.ActionLink("My Profile", "MyProfile", "Admin")</li>
+                <li><a role="button" data-toggle="modal" data-target="#ChangePasswordDialog" style="cursor:pointer">Change Password</a></li>
+                @*<li>@Html.ActionLink("Change Password", "Manage", "Account")</li>*@
+                <li>@Html.ActionLink("Change Login Email", "ChangeEmailAddress", "Account")</li>
+                <li>@Html.ActionLink("Login History", "LoginHistory", "account")</li>
+                <li>@Html.ActionLink("Announcements", "Announcements", "Admin")</li>
+                <li>@Html.ActionLink("Updates", "Updates", "Admin")</li>
+                <li>@Html.ActionLink("Campaign", "Campaign", "Admin")</li>
+                <li>@Html.ActionLink("Tips", "Tips", "Admin")</li>
+                <li class="active"><a href="#">WEB SCRAPING</a></li>
+                <li>@Html.ActionLink("Websites", "Websites", "Admin")</li>
+                <li>@Html.ActionLink("Social Media", "SMJobs", "Admin")</li>
+            }
+            else if (user.Username != "recruiter@joblisting.com" || user.Username != "lakshmii@joblisting.com" || user.Username != "Linhv@joblisting.com" || user.Username != "Tanyam@joblisting.com" || user.Username != "balus@joblisting.com" || user.Username != "tasnim@accuracy.com.sg" || user.Username == "ganeshr@joblisting.com" || user.Username != "deepti@accuracy.com.sg" || user.Username != "doli.chauhan123@accuracy.com.sg" || user.Username != "sandhya@accuracy.com.sg" || user.Username != "vani123@accuracy.com.sg" || user.Username != "RecruiterCom@joblisting.com" || user.Username != "RecruiterPhil@joblisting.com" || user.Username != "RecruiterIndo@joblisting.com" || User.Username != "shreyag1234@accuracy.com.sg" || User.Username != "pallavi123@accuracy.com.sg" || User.Username != "druthi@accuracy.com.sg" || User.Username != "baba@accuracy.com.sg" || User.Username != "anshikagupta@accuracy.com.sg" || User.Username != "dianna@accuracy.com.sg" || user.Username == "haris@joblisting.com" || user.Username == "anilkumar@joblisting.com" || User.Username != "denise@accuracy.com.sg" || User.Username != "lakshmip@accuracy.com.sg" || User.Username != "vanshika@accuracy.com.sg" || User.Username != "sarika123@accuracy.com.sg" || User.Username != "naveena@accuracy.com.sg" || User.Username != "gowthami@accuracy.com.sg")
+            {
+                <li class="active"><a href="#">USERS &amp; RESUMES</a></li>
+                <li>@Html.ActionLink("Overall Status", "Dashboard", "Admin")</li>
+                <li>@Html.ActionLink("List New Job", "listjob1", "Admin")</li>
+                <li>@Html.ActionLink("User Accounts", "Index", "Admin")</li>
+                <li>@Html.ActionLink("Connections", "Contacts", "Admin")</li>
+                <li>@Html.ActionLink("Phone Contacts", "ContactList", "Admin")</li>
+                <li>@Html.ActionLink("Messaging", "MessageList", "Admin")</li>
+
+                int inboxItems = DomainService.Instance.DashboardInboxItems(user.Id);
+                if (inboxItems > 0)
+                {
+                    <li><a href="/admin/globalinbox">Inbox (<span style="color:red;">@inboxItems</span>)</a></li>
+                }
+                else
+                {
+                    <li><a href="/admin/globalinbox">Inbox</a></li>
+                }
+                <li class="active"><a href="#">APPROVALS</a></li>
+                if (jobCounts > 0)
+                {
+                    <li><a href="/admin/jobs">Jobs (<span style="color:red; font-weight:bold">@jobCounts</span>)</a></li>
+                }
+                else
+                {
+                    <li><a href="/admin/jobs">Jobs</a></li>
+                }
+
+                if (logo_counts > 0)
+                {
+                    <li><a href="@Url.Action("PhotoList", "Admin", new { type = 5 })">Company Photos (<span style="color:red; font-weight:bold">@logo_counts</span>)</a></li>
+                }
+                else
+                {
+                    <li><a href="@Url.Action("PhotoList", "Admin", new { type = 5 })">Company Photos</a></li>
+                }
+
+                if (photo_counts > 0)
+                {
+                    <li><a href="@Url.Action("PhotoList", "Admin", new { type = 4 })">Individual Photos (<span style="color:red; font-weight:bold">@photo_counts</span>)</a></li>
+                }
+                else
+                {
+                    <li><a href="@Url.Action("PhotoList", "Admin", new { type = 4 })">Individual Photos</a></li>
+                }
+                <li class="active"><a href="#">CONTENT&nbsp;MANAGEMENT</a></li>
+                <li>@Html.ActionLink("Categories", "CategoryList", "Admin")</li>
+                <li>@Html.ActionLink("Contents Management", "ContentViews", "Admin")</li>
+                <li>@Html.ActionLink("Safety Advice", "SafetyAdvice", "Admin")</li>
+                <li class="active"><a href="#">WEB SCRAPING</a></li>
+                <li>@Html.ActionLink("Websites", "Websites", "Admin")</li>
+                <li>@Html.ActionLink("Social Media", "SMJobs", "Admin")</li>
+                <li class="active"><a href="#">PAYMENT&nbsp;MANAGEMENT</a></li>
+                <li>@Html.ActionLink("Payments", "Sales", "Admin")</li>
+                <li><a href="#">@Html.ActionLink("Packages", "Index", "Package")</a></li>
+                <li><a href="#">Payment Gateway</a></li>
+
+                <li class="active"><a href="#">MY ACCOUNT</a></li>
+                <li>@Html.ActionLink("My Profile", "MyProfile", "Admin")</li>
+                <li><a role="button" data-toggle="modal" data-target="#ChangePasswordDialog">Change Password</a></li>
+                @*<li>@Html.ActionLink("Change Password", "Manage", "Account")</li>*@
+                <li>@Html.ActionLink("Change Login Email", "ChangeEmailAddress", "Account")</li>
+                <li>@Html.ActionLink("Login History", "LoginHistory", "account")</li>
+                <li>@Html.ActionLink("Announcements", "Announcements", "Admin")</li>
+                <li>@Html.ActionLink("Campaign", "Campaign", "Admin")</li>
+                <li>@Html.ActionLink("Tips", "Tips", "Admin")</li>
+            }
+        }
+
+
+
+        else if (url1 == "http://localhost:1511/india/jobs" || url1 == "https://www.joblisting.com/india/jobs")
+        {
+            <div class="koh-tab-content">
+                <div class="koh-tab-content-body">
+                    <div class="koh-faq">
+                        <div class="koh-faq-question">
+                            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                                <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;">RECRUITMENT MANAGEMENT <i class="fa fa-chevron-right" style="float: right; color: #34ba08" aria-hidden="true"></i></a> </li>
+                            </ul>
+                        </div>
+                        <div class="koh-faq-answer">
+                            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+
+
+
+                                <li><a href="/company">Listed Companies</a></li>
+                                <li><a href="/student">Listed Students</a></li>
+
+                             
+
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </ul>
+    <br />
+    @if (user.Role == SecurityRoles.Jobseeker)
+    {
+
+    }
+
+
+
+
+</div>
+<style>
+    div#ex1 {
+        background-color: white;
+        width: 210px;
+        height: 150px;
+        overflow: hidden;
+        position: absolute;
+        left: 36px;
+    }
+
+        div#ex1:hover {
+            overflow-y: scroll;
+        }
+</style>
+
+
+
+<div class="modal fade chp" id="ChangePasswordDialog" role="dialog">
+
+    <div class="modal-dialog">
+
+        < !--Modal content-- >
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <button type="button" class="close" data - dismiss="modal"> &times;</button>
+                <h4 class="modal-title" id="title">Change Password</h4>
+            </div>
+            <div class="modal-body">
+                <form id="ChangePasswordForm">
+                    <div id="ErrorBox" class="alert alert-danger hide"></div>
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label for="OldPassword">Old Password</label>
+                                <input type="password" id="OldPassword" name="OldPassword" class="form-control input-sm" placeholder="Old Password" title="Old Password" required oninvalid="this.setCustomValidity('You can\t leave Old Password empty!');" oninput="this.setCustomValidity('');" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label for="NewPassword">New Password</label>
+                                <input type="password" id="NewPassword" name="NewPassword" class="form-control input-sm" placeholder="New Password" title="New Password" pattern="(?=.*\d)(?=.*[a-zA-Z]).{9,}" required oninvalid="this.setCustomValidity('You can\t leave New Password empty!');" oninput="this.setCustomValidity('');" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label for="ConfirmPassword">Confirm Password</label>
+                                <input type="password" id="ConfirmPassword" name="ConfirmPassword" class="form-control input-sm" placeholder="Confirm Password" title="Confirm Password" pattern="(?=.*\d)(?=.*[a-zA-Z]).{9,}" required oninvalid="this.setCustomValidity('You can\t leave Confirm Password empty!');" oninput="this.setCustomValidity('');" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" id="ChangePassword" class="btn btn-primary" value="Change Password" />
+                <a id="btnCancel" class="btn btn-default btn-ok" data-dismiss="modal" style="width:57px">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('.nav-pills a').filter(function () { return this.href == location.href }).parent().addClass('highlight').siblings().removeClass('highlight');
+        $('.nav-pills a').click(function () {
+            $(this).parent().addClass('highlight').siblings().removeClass('highlight');
+        });
+
+        $("#btnCancel").click(function () {
+            $("#ErrorBox").removeClass("show");
+            $("#ErrorBox").addClass("hide");
+            $("#OldPassword").val("");
+            $("#NewPassword").val("");
+            $("#ConfirmPassword").val("");
+        });
+
+        $("#ChangePassword").click(function () {
+            $("#ErrorBox").removeClass("show");
+            $("#ErrorBox").addClass("hide");
+            var input = $("#ChangePasswordForm").serializeObject();
+            if ($("#ChangePasswordForm")[0].checkValidity()) {
+                $.post("/account/changepass", input, function (result) {
+                    if (result.Id == 1) {
+                        toastr.info(result.Message);
+                        $("#ChangePasswordDialog").modal("hide");
+                    } else {
+                        $("#ErrorBox").html(result.Message);
+                        $("#ErrorBox").removeClass("hide");
+                        $("#ErrorBox").addClass("show");
+                    }
+                });
+                return false;
+            } else {
+                var err = "";
+                if (input.OldPassword == "") {
+                    err += "You can't leave Old Password empty!" + "<br/>"
+                }
+                if (input.NewPassword == "") {
+                    err += "You can't leave New Password empty!" + " Password Min. 9 numbers & letters mixed.<br/>";
+                }
+
+                if (input.ConfirmPassword == "") {
+                    err += "You can't leave Confirm Password empty!" + " Password Min. 9 numbers & letters mixed.<br/>";
+                }
+
+                if (input.NewPassword != input.ConfirmPassword) {
+                    err += "New Password and Confirm Password does not match!" + "<br/>";
+                }
+
+                if (input.NewPassword.length < 9) {
+                    err += "New Password Min. 9 numbers & letters mixed.<br/>";
+                }
+
+                if (input.ConfirmPassword.length < 9) {
+                    err += "Confirm Password Min. 9 numbers & letters mixed.<br/>";
+                }
+
+                err = err.substr(0, err.length - 5);
+                $("#ErrorBox").removeClass("hide");
+                $("#ErrorBox").addClass("show");
+                $("#ErrorBox").html(err);
+                return true;
+            }
+        });
+    })
+</script>

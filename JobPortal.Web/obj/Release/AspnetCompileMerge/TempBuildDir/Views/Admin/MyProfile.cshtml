@@ -1,0 +1,217 @@
+﻿@model JobPortal.Web.Models.UserModel
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="section">
+    <div class="row">
+        <div class="col-lg-10 col-md-10 col-sm-10">
+            <div class="title-login">
+                <h1 style="margin-top: -15px;">Profile</h1>
+                Update your profile here.
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2" style="margin-top: -15px;">
+            <img src="data:image/png;base64,@Model.Logo" alt="@Model.FirstName @Model.LastName" class="img-responsive" />
+            <a href="#" role="button" data-toggle='modal' data-target='#uploadDialog'>Update&nbsp;Photo</a>
+        </div>
+    </div>
+    @Html.Partial("_MessagePartial")
+    @using (Html.BeginForm("MyProfile", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FirstName)
+
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LastName)
+
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Address)
+
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CountryId)
+
+                            @Html.DropDownListFor(model => Model.CountryId, new SelectList(Model.Countries, "Id", "Text", Model.CountryId), Model.SELECT, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.CountryId)
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.StateId)
+
+                            @Html.DropDownListFor(model => Model.StateId, new SelectList(Model.States, "Id", "Text", Model.StateId), Model.SELECT, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.City)
+
+                            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Zip)
+
+                            @Html.EditorFor(model => model.Zip, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Zip, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Phone)
+
+                            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Email)
+
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        </div>
+                    </div>
+                </div>
+                <div class="clear" style="height: 15px;"></div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                        <input type="submit" value="Save" class="btn btn-info" style="width: 75px;" /> @Html.ActionLink("Back", "Index", "Admin", null, new { @class = "btn btn-info", @style = "width:75px;" })
+                    </div>
+                </div>
+
+                <div class="modal fade" id="uploadDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="myModalLabel">
+                                    Update Profile Picture
+                                </h4>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Photo)
+                                        (JPG, PNG or GIF up to size of 300 KB.)
+
+                                        <input id="Photo" name="Photo" type="file" title="JPG, PNG or GIF up to size of 300 KB." onchange="return validate();" />
+                                        <div id="divvalidFile" style="color: red; font-weight: bold;"></div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script type="text/javascript" language="javascript">
+    function validate() {
+
+        var uploadcontrol = document.getElementById('Photo');
+        var uploadval = document.getElementById('Photo').value;
+        var divvalidFile = document.getElementById('divvalidFile');
+
+        var reg = /^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))+(.jpg|.png|.gif|.jpeg)$/;
+
+        if (uploadval.length > 0) {
+            var fileSize = uploadcontrol.files[0].size;
+            if (reg.test(uploadval)) {
+                var DefineSize = 300 * 1024;
+
+                if (parseInt(DefineSize) >= parseInt(fileSize))
+                { divvalidFile.innerHTML = ""; }
+                else {
+                    divvalidFile.innerHTML = "File size exceed maximum limit of 300 KB.";
+                    return false;
+                }
+            }
+            else {
+                divvalidFile.innerHTML = "Please Browse JPG, PNG, GIF, JPEG files only.";
+                return false;
+            }
+        }
+        else {
+            divvalidFile.innerHTML = "";
+            return true;
+        }
+
+
+    }
+
+
+    $(document).ready(function () {
+        $("#CountryId").change(function () {
+            $("#StateId").empty();
+            if ($("#CountryId option:selected").text() == "--- Select ---") {
+                return;
+            }
+            $.post('@Url.Action("GetStates", "JsonHelper")', { countryid: $('option:selected', $(this)).val() },
+                    function (result) {
+                        if (result.length != 0) {
+                            $("#StateId").empty();
+                            $(result).each(function () {
+                                $("#StateId").append("<option value =" + this.Value + ">" + this.Text + "</option>");
+                            });
+                        }
+                    });
+        });
+
+    });
+
+    tinymce.init({ selector: '#CompanyProfile', menubar: false });
+
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

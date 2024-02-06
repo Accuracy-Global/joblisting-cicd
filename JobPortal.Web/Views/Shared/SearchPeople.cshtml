@@ -1,0 +1,135 @@
+﻿@model JobPortal.Web.Models.SearchModel
+@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Models;
+@{
+    UserInfoEntity user = User.Info;
+}
+<script src="~/Scripts/jquery.twbsPagination.min.js"></script>
+<fieldset style="padding:15px;">
+    @*<legend style="font-size:0.9em">Search People</legend>*@
+    @using (Html.BeginForm())
+    {
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+
+                    @Html.TextBoxFor(model => model.FullName, "", new { @class = "form-control", placeholder = "SEARCH PEOPLE BY NAME", title = "Search People by Name" })
+                    @Html.ValidationMessageFor(mode => mode.FullName)
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-lg-offset-8 col-md-offset-8">
+                <div class="form-group">
+                    <input type="submit" id="SearchPeople" value="@Model.ButtonText" class="btn btn-info btn-block" style="height:28px; font-size:13px;" title="Search & Invite" />
+                </div>
+            </div>
+        </div>
+    }
+    <div id="divContainer" style="padding-top:30px; padding-bottom:20px;"></div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <a id="ViewMorePeople" class="btn btn-info btn-block hide" style="width:100%; text-transform:capitalize">View More</a>
+        </div>
+    </div>
+</fieldset>
+<script type="text/javascript">
+    var pgs = 1;
+    var vpgs = 1;
+    $(document).ready(function () {
+        $("#divContainer").hide();
+        $("#SearchPeople").click(function () {
+            $("#divContainer").html("<div style=\"text-align:center; padding:25px;\"><i class=\"fa fa-spinner fa-spin fa-3x fa-fw margin-bottom\" style=\"font-size: 64px; color: #34ba08;\"></i></div>")
+            $("#divContainer").show();
+            $.post('@Url.Action("SearchPeople", "JsonHelper")', { name: $("#FullName").val(), showconnect: '@Model.ShowConnect' },
+                     function (result) {
+                         if (result.Rows != 0) {
+                             var row = result.Rows;
+                             pgs = 1;
+                             if (row > 6) {
+                                 pgs = Math.ceil(row / 6);                                
+                             }
+                             $("#divContainer").html(result.Data);                                                        
+                         } else {                             
+                             $("#divContainer").html("<div class=\"clear\" style=\"height:10px;\"></div><div class=\"message-instruction\" style=\"margin-right:20px;\">We didn't find people<div>");
+                         }
+
+                         if (vpgs < pgs) {
+                             $('#ViewMorePeople').removeClass("hide");
+                             $('#ViewMorePeople').addClass("show");
+                         }else{
+                             $('#ViewMorePeople').removeClass("show");
+                             $('#ViewMorePeople').addClass("hide");
+                         }
+                     });
+            return false;
+        });
+
+        $("#ViewMorePeople").click(function () {
+            if (vpgs <= pgs) {
+                vpgs++;
+            } else {
+                vpgs = 1;
+            }
+
+            $.post('@Url.Action("SearchPeople", "JsonHelper")', { name: $("#FullName").val(), showconnect: '@Model.ShowConnect', PageNumber: vpgs },
+            function (result) {
+                $("#divContainer").append(result.Data);
+            });
+            if (vpgs < pgs) {
+                $('#ViewMorePeople').removeClass("hide");
+                $('#ViewMorePeople').addClass("show");
+            } else {
+                $('#ViewMorePeople').removeClass("show");
+                $('#ViewMorePeople').addClass("hide");
+            }
+        });
+
+        $("#divContainer").on("click", ".aBlock", function () {
+            var bname = $(this).data('name');
+            var actionUrl = $(this).data('href');
+            var msgText = "";
+            var loggedInUserRole = "@(user!=null ? (user.Role).GetDescription() :"")";
+            var isConfirmed = "@user.IsConfirmed";
+            if (isConfirmed == "True") {
+                var role = $(this).data('role');
+                if ((role == "Company" && loggedInUserRole == "Individual") || (loggedInUserRole == "Company" && role == "Individual")) {
+                    msgText = "<b>Following may be withdrawn with <span id=\"bname\" style=\"font-weight:bold\">" + bname + "</span>:</b><br/>";
+                    msgText += "<ul>";
+                    msgText += "<li>Application(s)!</li>";
+                    msgText += "<li>Matching!</li>";
+                    msgText += "<li>Bookmark(s)!</li>";
+                    msgText += "<li>Interview(s)!</li>";
+                    msgText += "<li>Connection!</li>";
+                    msgText += "</ul>";
+                } else {
+                    if ($(this).data('connected') == "True") {
+                        msgText = "<b>Block</b> action will disconnect you with <span id=\"bname\" style=\"font-weight:bold\"><b>" + bname + "</span></b><br/>";
+                    } else {
+                        msgText = "<b>Block</b> <span id=\"bname\" style=\"font-weight:bold\"><b>" + bname + "</span></b><br/>";
+                    }
+                }
+                msgText += "<div style=\"text-align:right; color:red; font-size:1.5em;\">Are you sure?</div>";
+                $(".modal-body #divMsg").html(msgText);
+
+                actionUrl = $(this).data('href');
+                $("#dialogOk").click(function () {
+                    window.location.href = actionUrl;
+                });
+            } else {
+                window.location.href = actionUrl;
+            }
+        });
+
+        $("#divContainer").on("click", ".discon", function () {
+            discUrl = $(this).data('aurl');
+            $("#discDialog #dialogOk").click(function () {
+                window.location.href = discUrl;
+            });
+        })
+    });
+</script>

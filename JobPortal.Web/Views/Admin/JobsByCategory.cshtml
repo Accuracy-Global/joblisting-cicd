@@ -1,0 +1,156 @@
+﻿@using JobPortal.Domain
+@using JobPortal.Data
+@using PagedList.Mvc
+@using JobPortal.Library.Helpers;
+@{
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<Job>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+}
+
+@{
+    ViewBag.Title = ViewBag.Country.Text + " - " + ViewBag.Category.Name + " Jobs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">@ViewBag.Country.Text - @ViewBag.Category.Name Jobs</h1>
+            Manage @ViewBag.Category.Name Jobs here
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:15px;"></div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        @{
+            WebGrid grid = new WebGrid(ViewBag.Model, ajaxUpdateContainerId: "grid");
+
+            WebGridColumn strPause = new WebGridColumn();
+            strPause.Header = "Actions";
+            strPause.CanSort = false;
+            strPause.Format = (item) =>
+            {
+                var links = "";
+                if (item.IsPublished == null || !item.IsPublished)
+                {
+                    DateTime expiry = item.ClosingDate;
+                    if (expiry.Date >= DateTime.Now.Date)
+                    {
+                        links += Html.ActionLink("Approve", "ApproveJob", "Admin", new { Id = item.Id }, new { title = "Approve" }).ToString();
+                        links += " | " + "<a href=\"#rejectJobDialog\" data-id='" + @item.Id + "' role='button' data-toggle='modal' class=\"jreject\">Reject</a>";
+                    }
+                }
+
+                if (item.IsActive == true && (item.IsPublished != null && item.IsPublished == true))
+                {
+
+                    DateTime expiry = item.ClosingDate;
+                    if (expiry.Date >= DateTime.Now.Date)
+                    {
+
+                        if (!string.IsNullOrEmpty(links))
+                        {
+                            links += " | " + "<a href=\"#deactivateJobDialog\" data-id='" + @item.Id + "' role='button' data-toggle='modal' class=\"jdeactive\">Deactivate</a>";
+                        }
+                        else
+                        {
+                            links += "<a href=\"#deactivateJobDialog\" data-id='" + @item.Id + "' role='button' data-toggle='modal' class=\"jdeactive\">Deactivate</a>";
+                        }
+                    }
+                }
+                else if (item.IsActive == false && (item.IsPublished != null && item.IsPublished == true))
+                {
+                    DateTime expiry = item.ClosingDate;
+                    if (expiry.Date >= DateTime.Now.Date)
+                    {
+                        links += Html.ActionLink("Activate", "ActivateJob", "Admin", new { Id = item.Id }, new { title = "Activate", onclick = "return confirm('Are you sure to activate this job?');" }).ToString();
+                    }
+                }
+
+                if (User.IsInRole("SuperUser"))
+                {
+                    if (!string.IsNullOrEmpty(links))
+                    {
+                        links += " | " + Html.ActionLink("Delete", "RemoveJob", "Admin", new { Id = item.Id }, new { title = "Delete Job Permanently", onclick = "return confirm('Are you sure to delete this job?');" }).ToString();
+                    }
+                    else
+                    {
+                        links += Html.ActionLink("Delete", "RemoveJob", "Admin", new { Id = item.Id }, new { title = "Delete Job Permanently", onclick = "return confirm('Are you sure to delete this job?');" }).ToString();
+                    }
+                }
+                return Html.Raw(links);
+            };
+        }
+
+        <div id="container-grid" class="table-responsive">
+            @grid.GetHtml(htmlAttributes: new { id = "grid", @style = "width:100%" }, tableStyle: "table table-bordered table-hover",
+    columns: new[] {
+         grid.Column(columnName:"ID#",header:"ID#", canSort:false, format: p=>p.Id),
+        grid.Column(columnName:"Title", header: "Title", canSort:false, format: p=> Html.Raw("<a href=\"/job/" + string.Format("{0}-{1}",p.PermaLink, p.Id) +"\" target=\"_blank\">" + p.Title + "</a>")),
+        grid.Column(columnName:"Employer", header: "Company", canSort:false, format: p=>
+            {
+                UserProfile employer = MemberService.Instance.Get(p.EmployerId);
+                return Html.Raw("<a href=\"/" + employer.PermaLink + "\" target=\"_blank\">" + employer.Company + "</a>");
+            }),
+        grid.Column(columnName:"Country",header:"Country", canSort:false, format: p=>
+        {
+            string countryName = string.Empty;
+            List country = SharedService.Instance.GetCountry(p.CountryId);
+            if (country != null)
+            {
+                countryName = country.Text;
+            }
+            return countryName;
+        }),
+        grid.Column(columnName:"PublishedDate",header:"Listed", canSort:false, format: p=>p.PublishedDate.ToString("MMM-dd-yyyy")),
+        grid.Column(columnName:"ClosingDate",header:"Expiry", canSort:false, format: p=>p.ClosingDate.ToString("MMM-dd-yyyy")),
+        grid.Column("Status", canSort:false, format: (item) =>
+                         {
+                             var links2 = "";
+                             if (item.IsActive == true && item.IsPublished == true && item.IsRejected == false)
+                         {
+                             links2 = "Live";
+                         }
+                         else if (item.IsActive == false && item.IsPublished == true && item.IsRejected == false)
+                         {
+                             links2 = "Deactivated";
+                         }
+                        else if (item.IsActive == true && item.IsPublished == false && item.IsRejected==false)
+                        {
+                            links2 = "In Approval Process";
+                        }
+                        else if (item.IsActive == true && item.IsPublished == false && item.IsRejected == true)
+                        {
+                            links2 = "Rejected";
+                        }
+
+                        if (item.ClosingDate.Date < System.DateTime.Now.Date)
+                        {
+                            links2 = "<b style='color:red;'>Expired</b>";
+                        }
+                         return Html.Raw(links2);
+
+                        }),
+       strPause
+    })
+
+
+        </div>
+        <div style="text-align:center">
+
+            @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Jobs",
+            new RouteValueDictionary()
+            {
+                { "PageNumber" , PageNumber}
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    </div>
+</div>

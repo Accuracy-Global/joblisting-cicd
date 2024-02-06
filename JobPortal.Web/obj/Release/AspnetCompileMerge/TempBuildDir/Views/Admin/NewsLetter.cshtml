@@ -1,0 +1,23 @@
+﻿@model IEnumerable<JobPortal.Data.Newsletter>
+@{
+    ViewBag.Title = "Manage NewsLetters";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    WebGrid grid = new WebGrid(Model, ajaxUpdateContainerId: "grid");
+}
+
+<div class="title-login">
+    <h1 style="margin-top: -15px">NewsLetters</h1>
+    Manage newsletters here.
+</div>
+@Html.Partial("_MessagePartial")
+<div id="grd" class="table-responsive">
+    @grid.GetHtml(htmlAttributes: new { id = "grid", @style = "width:100%" }, tableStyle: "table table-bordered table-hover",
+    columns: new[] 
+    {
+        grid.Column(columnName:"News",header:"News", format: p=>  MvcHtmlString.Create(p.Content)),
+        grid.Column("Actions", format: (item) => new HtmlString(Html.ActionLink("Edit", "UpdateNews", new { id = item.Id}, new {title="Edit", @class="edit"}).ToString() 
+            + " | " + Html.ActionLink("Delete", "UpdateNews", new { id = item.Id}, new {title="Edit", @class="edit"}).ToString()))
+    },
+    mode: WebGridPagerModes.All, firstText: "<< First",
+    previousText: "< Previous", nextText: "Next >", lastText: "Last >>")
+</div>

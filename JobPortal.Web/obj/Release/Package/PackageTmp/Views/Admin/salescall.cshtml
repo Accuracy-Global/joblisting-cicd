@@ -1,0 +1,43 @@
+﻿@model JobPortal.Web.Models.SearchCompanyModel
+@using JobPortal.Library.Constants
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Domain
+@using JobPortal.Models
+@using PagedList.Mvc;
+@using PagedList;
+@{
+
+    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+    var pagedModel = ViewBag.Latestcompanies as PagedList.IPagedList<JobPortal.Web.Models.salescall>;
+}
+@Html.Partial("_MessagePartial")
+@{
+    WebGrid grid = new WebGrid(@ViewBag.Latestcompanies, ajaxUpdateContainerId: "grid");
+}
+<div class="col-lg-12 col-md-12 col-sm-12 text-right">
+    @Html.ActionLink("New Call Log", "salescalllog", "admin", null, new { @class = "btn btn-info" })
+</div>
+@Html.Partial("_MessagePartial")
+<div class="clear" style="height:15px;"></div>
+<div id="container-grid" class="container-fluid table-responsive" style="table-layout:fixed;  width: 100%;">
+    @grid.GetHtml(htmlAttributes: new { id = "grid", @style = "word-wrap:break-word; width:100%;" }, tableStyle: "table table-bordered table-hover",
+        columns: new[]
+        {
+            grid.Column(columnName: "Associate Name", header: "Associate Name", canSort:true, format: p => p.associatename),
+            grid.Column(columnName: "CompanyName", header: "CompanyName", canSort:true, format: p => p.CompanyName),
+            grid.Column(columnName: "Phone", header: "Phone", canSort:true, style:"text", format: p => p.Phone),
+            grid.Column(columnName: "Email", header: "Email", canSort:true, format: p => p.Email),
+            grid.Column(columnName: "Name", header: "Name", canSort:true, format: p => p.Name),
+            grid.Column(columnName: "Time Of Call", header: "Time Of Call", canSort:true, style:"text",format: p => p.TimeOfCall),
+            grid.Column(columnName: "Duration Of Call", header: "Duration Of Call", canSort:true, style:"text",format: p => p.DofCall),
+            grid.Column(columnName: "Call Back Number", header: "Call Back Number", canSort:true, format: p => p.CallBackNo),
+            grid.Column(columnName: "Action To Be Taken", header: "Action To Be Taken", canSort:true, format: p => p.ActiontobeTaken),
+            grid.Column(columnName: "Notes", header: "Notes", canSort:true, format: p => p.Notes)
+
+
+        })
+</div>
+<div style="text-align:center; margin-top: -15px;" id="paginationDiv">
+    @Html.PagedListPager(pagedModel, i => Url.Action("salescall", "admin", new { i }))
+</div>

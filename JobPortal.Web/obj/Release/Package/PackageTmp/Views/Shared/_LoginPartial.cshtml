@@ -1,0 +1,20 @@
+﻿@if (Request.IsAuthenticated) {
+    string username = User.Username;
+    if (Roles.IsUserInRole(username, JobPortal.Library.Enumerators.SecurityRoles.Employers.ToString()))
+    {  
+        @Html.ActionLink("Control Panel", "Index", "Employer", routeValues: null, htmlAttributes: new { id = "lnkControlPanel" })
+    }
+    else if (Roles.IsUserInRole(username, JobPortal.Library.Enumerators.SecurityRoles.Jobseeker.ToString()))
+    { 
+       @Html.ActionLink("Control Panel", "Index", "JobSeeker", routeValues: null, htmlAttributes: new { id = "lnkControlPanel" })
+    }
+    @Html.ActionLink("Logout", "logoff", "Account")
+    @*<a href="~/Account/LogOff">Logout</a>*@
+}
+else
+{
+
+        @*<li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>*@
+       @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+    
+}

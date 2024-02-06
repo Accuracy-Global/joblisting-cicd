@@ -1,0 +1,461 @@
+﻿@using PagedList.Mvc;
+@using PagedList;
+@{
+    ViewBag.Title = "Joblisting";
+    Layout = "~/Views/Shared/_LandingLayout.cshtml";
+    var pagedModel = ViewBag.profiles as PagedList.IPagedList<JobPortal.Models.UserInfoEntity>;
+}
+
+<style type="text/css">
+    table {
+        font-family: Calibri;
+        font-size: 1.2em;
+        width: 100%;
+        display: table;
+        border-collapse: separate;
+        border: solid 1px #595c51;
+        background-color: white;
+        border-collapse: collapse;
+    }
+
+    td, th {
+        border: 1px solid #d4dbbf;
+        padding: 3px 7px 2px;
+    }
+    /*Here we will add css for style webgrid*/
+    .webgrid-table {
+        font-family: Calibri;
+        font-size: 1.2em;
+        width: 100%;
+        display: table;
+        border-collapse: separate;
+        border: solid #ddd;
+        background-color: white;
+    }
+
+    table, td, th {
+        border: 1px solid #ddd;
+    }
+
+
+    table-header {
+        background-color: black;
+        color: #FFFFFF;
+        padding-bottom: 4px;
+        padding-top: 5px;
+        text-align: left;
+    }
+
+    table-footer {
+    }
+
+    .webgrid-row-style {
+        padding: 3px 7px 2px;
+    }
+
+    .webgrid-alternating-row {
+        background-color: #EAF2D3;
+        padding: 3px 7px 2px;
+    }
+
+    .text {
+        word-wrap: break-word;
+        width: 350px;
+        overflow-wrap: break-word;
+        overflow: hidden;
+        word-break: break-word;
+    }
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+</script>
+
+<script>
+    function geeks1(msg, gfg) {
+        var confirmBox = $("#container1");
+
+        /* Trace message to display */
+        confirmBox.find(".message1").text(msg);
+
+        /* Calling function */
+        confirmBox.find(".yes").unbind().click(function () {
+            confirmBox.hide();
+        });
+        confirmBox.find(".yes").click(gfg);
+        confirmBox.show();
+
+        confirmBox.find(".no").unbind().click(function () {
+            confirmBox.hide();
+        });
+        confirmBox.find(".no").click(gfg);
+        confirmBox.show();
+    }
+</script>
+<style>
+
+    /* Body alignment */
+    /*body {
+            text-align: center;
+        }*/
+
+    /* Color for h1 tag */
+    /*h1 {
+            color: green;
+        }*/
+
+    /* Designing dialog box */
+    #container1 {
+        display: none;
+        background-image: linear-gradient(to right, #FFFFFF, #FFFFFF);
+        background-size: cover;
+        color: white;
+        position: absolute;
+        width: 350px;
+        border-radius: 5px;
+        left: 50%;
+        margin-left: -160px;
+        padding: 16px 8px 8px;
+        box-sizing: border-box;
+        top: 110px;
+        border-style: ridge;
+    }
+
+        /* Designing dialog box's okay button */
+        #container1 .yes {
+            background-color: #34ba08;
+            display: inline-block;
+            border-radius: 5px;
+            border: 2px solid gray;
+            padding: 5px;
+            margin-right: 10px;
+            text-align: center;
+            width: 60px;
+            float: right;
+        }
+
+            /* #container .no {
+                background-color: #34ba08;
+                display: inline-block;
+                border-radius: 5px;
+                border: 2px solid gray;
+                padding: 5px;
+                margin-right: 10px;
+                text-align: center;
+                width: 95px;
+                float: right;
+            }*/
+
+            #container1 .yes:hover {
+                background-color: #82c91e;
+            }
+
+        /*  #container .no:hover {
+                background-color: #99e9f2;
+            }
+    */
+        /* Dialog box message decorating */
+        #container1 .message1 {
+            text-align: left;
+            padding: 10px 40px;
+            color: black;
+        }
+</style>
+
+<script>
+    function geeks(msg, gfg) {
+        var confirmBox = $("#container");
+
+        /* Trace message to display */
+        confirmBox.find(".message").text(msg);
+
+        /* Calling function */
+        confirmBox.find(".yes").unbind().click(function () {
+            confirmBox.hide();
+        });
+        confirmBox.find(".yes").click(gfg);
+        confirmBox.show();
+
+        confirmBox.find(".no").unbind().click(function () {
+            confirmBox.hide();
+        });
+        confirmBox.find(".no").click(gfg);
+        confirmBox.show();
+    }
+</script>
+<style>
+
+    /* Body alignment */
+    /*body {
+            text-align: center;
+        }*/
+
+    /* Color for h1 tag */
+    /*h1 {
+            color: green;
+        }*/
+
+    /* Designing dialog box */
+    #container {
+        display: none;
+        background-image: linear-gradient(to right, #FFFFFF, #FFFFFF);
+        background-size: cover;
+        color: white;
+        position: absolute;
+        width: 350px;
+        border-radius: 5px;
+        left: 50%;
+        margin-left: -160px;
+        padding: 16px 8px 8px;
+        box-sizing: border-box;
+        top: 110px;
+        border-style: ridge;
+    }
+
+        /* Designing dialog box's okay button */
+        #container .yes {
+            background-color: #34ba08;
+            display: inline-block;
+            border-radius: 5px;
+            border: 2px solid gray;
+            padding: 5px;
+            margin-right: 10px;
+            text-align: center;
+            width: 60px;
+            float: right;
+        }
+
+            /* #container .no {
+                background-color: #34ba08;
+                display: inline-block;
+                border-radius: 5px;
+                border: 2px solid gray;
+                padding: 5px;
+                margin-right: 10px;
+                text-align: center;
+                width: 95px;
+                float: right;
+            }*/
+
+            #container .yes:hover {
+                background-color: #82c91e;
+            }
+
+        /*  #container .no:hover {
+                background-color: #99e9f2;
+            }
+    */
+        /* Dialog box message decorating */
+        #container .message {
+            text-align: left;
+            padding: 10px 40px;
+            color: black;
+        }
+</style>
+
+
+<script>
+    function geeks2(msg, gfg) {
+        var confirmBox = $("#container2");
+
+        /* Trace message to display */
+        confirmBox.find(".message2").text(msg);
+
+        /* Calling function */
+        confirmBox.find(".yes").unbind().click(function () {
+            confirmBox.hide();
+        });
+        confirmBox.find(".yes").click(gfg);
+        confirmBox.show();
+
+        confirmBox.find(".no").unbind().click(function () {
+            confirmBox.hide();
+        });
+        confirmBox.find(".no").click(gfg);
+        confirmBox.show();
+    }
+</script>
+<style>
+
+    /* Body alignment */
+    /*body {
+            text-align: center;
+        }*/
+
+    /* Color for h1 tag */
+    /*h1 {
+            color: green;
+        }*/
+
+    /* Designing dialog box */
+    #container2 {
+        display: none;
+        background-image: linear-gradient(to right, #FFFFFF, #FFFFFF);
+        background-size: cover;
+        color: white;
+        position: absolute;
+        width: 350px;
+        border-radius: 5px;
+        left: 50%;
+        margin-left: -160px;
+        padding: 16px 8px 8px;
+        box-sizing: border-box;
+        top: 110px;
+        border-style: ridge;
+    }
+
+        /* Designing dialog box's okay button */
+        #container2 .yes {
+            background-color: #34ba08;
+            display: inline-block;
+            border-radius: 5px;
+            border: 2px solid gray;
+            padding: 5px;
+            margin-right: 10px;
+            text-align: center;
+            width: 60px;
+            float: right;
+        }
+
+            /* #container .no {
+                background-color: #34ba08;
+                display: inline-block;
+                border-radius: 5px;
+                border: 2px solid gray;
+                padding: 5px;
+                margin-right: 10px;
+                text-align: center;
+                width: 95px;
+                float: right;
+            }*/
+
+            #container2 .yes:hover {
+                background-color: #82c91e;
+            }
+
+        /*  #container .no:hover {
+                background-color: #99e9f2;
+            }
+    */
+        /* Dialog box message decorating */
+        #container2 .message2 {
+            text-align: left;
+            padding: 10px 40px;
+            color: black;
+        }
+</style>
+
+
+
+@*<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>*@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<h2>Joblisting</h2>
+
+
+<div id="container">
+    <div class="message">
+        WWW.Joblisting.com says<br><br>
+        Mobile number not there!
+    </div>
+    <button class="yes">OK</button>
+    @*<button class="no">Unsubscribe</button>*@
+</div>
+<!--<div id="container2">
+    <div class="message2">
+        WWW.Joblisting.com says<br><br>
+        Job sharing link sent successfully!
+        <h1 style="color: #34ba08; background-color: #ddd; font-size: 180%;">@TempData["UpdateData11"] </h1>
+    </div>
+    <button class="yes">OK</button>-->
+    @*<button class="no">Unsubscribe</button>*@
+<!--</div>-->
+
+<div id="container1">
+    <div class="message1">
+        WWW.Joblisting.com says<br><br>
+        Resume is not Avilable to this Profile!
+    </div>
+    <button class="yes">OK</button>
+    @*<button class="no">Unsubscribe</button>*@
+</div>
+@*<input type="button" value="Subscribe" onclick="geeks();" />*@
+
+@*@if (TempData["UpdateData11"] != null)
+    {
+        <h1 style="color: #34ba08; background-color: #ddd; font-size: 180%;">@TempData["UpdateData11"] </h1>
+    }*@
+<form id="container2" style="display: none; background-image: linear-gradient(to right, #FFFFFF, #FFFFFF); background-size: cover; color: white; position: absolute; width: 350px; border-radius: 5px; left: 50%; margin-left: -160px; padding: 16px 8px 8px; box-sizing: border-box; top: 110px; border-style: ridge;">
+    <div class="message2" style=" text-align: left; padding: 10px 40px; color: black;">
+        WWW.Joblisting.com says<br><br>
+        <p style="color: #34ba08; background-color: #ddd;">@TempData["UpdateData11"] </p>
+    </div>
+    <button class="yes" style=" background-color: #34ba08; display: inline-block; border-radius: 5px; border: 2px solid gray; padding: 5px; margin-right: 10px; text-align: center; width: 60px; float: right;">OK</button>
+    @*<button class="no">Unsubscribe</button>*@
+</form>
+
+
+
+@if (TempData["UpdateData11"] != null)
+{
+
+    <script type='text/javascript'>
+        $(document).ready(function () {
+            /**/
+            geeks2();
+            /* $('#container2').modal('show');*/
+            /**/
+        });
+    </script>
+}
+
+
+
+
+<div id="container-grid" class="table-responsive" style="table-layout:fixed;  width: 100%;">
+    <table cellpadding="0" cellspacing="0">
+        <tr>
+
+            <th>Name</th>
+            <th> Skills</th>
+            <th> Emails</th>
+            <th> Phone</th>
+            <th> Location</th>
+
+            <th> Actions</th>
+        </tr>
+        @foreach (var itemss in ViewBag.profiles)
+        {
+            <tr>
+                <td> @itemss.FirstName  @itemss.LastName </td>
+                <td>@itemss.Title </td>
+                <td> @itemss.Username </td>
+                <td>
+                    @if (itemss.Mobile == null)
+                    {
+                        itemss.Mobile = "null";
+                    }
+                    @itemss.Mobile
+                </td>
+                <td>
+                    @if (itemss.CountryName == null)
+                    {
+                        itemss.CountryName = "null";
+                    }
+                    @itemss.CountryName
+                </td>
+
+                <td>
+                    <a href="#"><i class='fa fa-phone'></i></a>  |  <a href='@Url.Action("EmailforList", "Job", new { mobcode = @itemss.FirstName,name=@itemss.Username,title=@itemss.Title,link=@itemss.Title,id=12354 })'><i class='fa fa-envelope'></i></a>  |  @if (itemss.Mobile == null || itemss.Mobile == "" || itemss.Mobile == "null")
+                    {<a href="#" onClick="geeks();"><i class='fa fa-comment'></i></a> }
+                    else
+                    {<a href='@Url.Action("SmsList", "Job", new {id=itemss.Id, mob = itemss.Mobile,title=@itemss.PermaLink })' ><i class='fa fa-comment'></i></a>}  |  <a href="#" onClick="geeks1();"><i class='fa fa-download'></i></a>
+                </td>
+            </tr>
+        }
+    </table>
+    <div style="text-align:center; margin-top: -15px;" id="paginationDiv">
+        @Html.PagedListPager(pagedModel, i => Url.Action("profileslists", "admin", new { i }))
+    </div>
+</div>
+
+
+

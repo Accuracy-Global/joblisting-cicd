@@ -1,0 +1,435 @@
+﻿@model IEnumerable<Tracking>
+@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Web.Models;
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using PagedList.Mvc
+@using JobPortal.Models;
+@{
+    ViewBag.Title = "Bookmarked Jobs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+}
+@Scripts.Render("~/bundles/jScripts")
+<script src="~/Scripts/jquery.tmpl.min.js"></script>
+<script src="~/Scripts/jquery.tmplPlus.min.js"></script>
+<style>
+    .box:nth-child(odd) {
+        float: left;
+        width: 382px;
+        margin-right: 15px;
+        margin-bottom: 25px;
+    }
+
+    .box:nth-child(even) {
+        float: left;
+        width: 382px;
+        margin-right: 0px;
+        margin-bottom: 25px;
+    }
+
+    .seemore {
+        text-align: right;
+    }
+
+        .seemore > a {
+            color: #000000;
+            font-family: "Roboto", sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .seemore i {
+            font-size: 16px;
+            padding: 0 0 0 5px;
+            vertical-align: middle;
+        }
+
+    .sponsored {
+        background: #ffffff;
+    }
+
+    .sponsored {
+        background: #fff none repeat scroll 0 0;
+        padding: 0px 15px 0;
+        margin-top: -6px;
+    }
+
+    .abcdesign {
+        margin: 0 0 18px 0;
+    }
+
+        .abcdesign > h3 {
+            color: #333;
+            font-size: 14px;
+            margin: 0 0 11px 0;
+        }
+
+    .sub-heading h2 {
+        color: #000;
+        font-size: 14px;
+        margin: 0 0 20px;
+        padding-bottom: 6px;
+        position: relative;
+        font-weight: bold;
+    }
+
+        .sub-heading h2::after {
+            border-bottom: 2px solid #e93100;
+            bottom: 0;
+            content: "";
+            display: block;
+            left: 0;
+            position: absolute;
+            width: 100%;
+        }
+
+    .actionlinks {
+        list-style: none;
+        padding-left: 0;
+    }
+
+        .actionlinks li {
+            float: left;
+            list-style-type: none;
+        }
+
+            .actionlinks li a {
+                font-size: 14px;
+                font-weight: normal;
+            }
+</style>
+<div class="row">
+    <div class="col-lg-6 col-md-6">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">Bookmarks</h1>
+            Manage bookmarks here
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-2">
+        <div class="form-group">
+            @if (user != null && user.Type == 4)
+            {
+                if (user.PromoteDate != null)
+                {
+                    if (user.PromoteDate.Value.Date < DateTime.Now.Date)
+                    {
+                        <a href="/package/promote?id=@user.Id&type=P&returnUrl=@Request.Url.ToString()" class="btn btn-info promote" style="width:165px;">Promote Profile</a>
+                    }
+                }
+                else
+                {
+                    <a href="/package/promote?id=@user.Id&type=P&returnUrl=@Request.Url.ToString()" class="btn btn-info promote" style="width:165px;">Promote Profile</a>
+                }
+            }
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-2">
+        <div class="form-group"></div>
+    </div>
+    <div class="col-lg-2 col-md-2">
+        <div class="form-group">
+            @if (user != null && user.Type == 4)
+            {
+                <div style=" ">
+                    <a href="https://apps.apple.com/in/app/job-listing/id1575724994">
+                        <img src="~/Images/ios.png" style="height:40px;width:40px;" border="0" />
+
+                    </a>
+
+
+                    <a href="https://play.google.com/store/apps/details?id=com.accuracy.joblisting">
+                        <img src="~/Images/android-icon.png" style="height:40px;width:40px;" border="0" />
+
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:30px;"></div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        @Html.Partial("_MessagePartial")
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                @using (Html.BeginForm())
+                {
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    @Html.Label("Company")
+                                    <select id="EmployerId" name="EmployerId" class="form-control">
+                                        <option>SELECT</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                @Html.Label("Country")
+                                <select id="CountryId" name="CountryId" class="form-control">
+                                    <option>SELECT</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            @Html.Label("From Date")
+                            <div class='input-group date' style="margin-bottom:0;">
+                                @Html.TextBox("Start", null, new { @class = "form-control", placeholder = "FROM DATE", @title = "FROM DATE", @readonly = "readonly" })
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            @Html.Label("To Date")
+                            <div class='input-group date' style="margin-bottom:0;">
+                                @Html.TextBox("End", null, new { @class = "form-control", placeholder = "TO DATE", @title = "TO DATE", @readonly = "readonly" })
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="clear" style="height:15px"></div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-lg-offset-8 col-md-offset-8">
+                            <input type="submit" id="manage" value="Search" class="btn btn-info btn-block" style="background-color:#34ba08" />
+                        </div>
+                    </div>
+                    <div class="clear" style="height:15px"></div>
+                }
+            </div>
+        </div>
+        <div class="clear" style="height:15px;"></div>
+        <div id="ResultArea"></div>
+        @*<a id="ViewMore" class="btn btn-primary btn-block hide" style="width:100%;">View More</a>*@
+    </div>
+
+</div>
+<script>
+    var page = 1;
+    var pages = 1;
+    $(document).ready(function () {
+        $.getJSON("/help/countrylist", {}, function (list) {
+            $("#CountryId").empty();
+            $("#CountryId").append("<option value = ''>SELECT</option>");
+
+            if (list.length != 0) {
+                $(list).each(function () {
+                    $("#CountryId").append("<option value =" + this.Id + ">" + this.Name + "</option>");
+                });
+            }
+        });
+
+        $.post("/jobseeker/BookmarkedCompanies", {}, function (result) {
+            if (result.length > 0) {
+                $("#EmployerId").empty();
+                $("#EmployerId").append("<option value =\"\">SELECT</option>");
+                $.each(result, function () {
+                    $("#EmployerId").append("<option value =" + this.UserId + ">" + this.Company + "</option>");
+                });
+            }
+        });
+
+        $.post("/jobseeker/bookmarkedjobs", { pageNumber: page }, function (result) {
+            if (result.length > 0) {
+                var rows = result[0].MaxRows;
+                pages = Math.ceil(rows / 10);
+                $.each(result, function () {
+                    this.authenticated = "@Request.IsAuthenticated";
+                    this.role = "@user.Role.GetDescription()";
+                    $("#ResultItem").tmpl(this).appendTo("#ResultArea");
+                });
+            }
+
+            if (page < pages) {
+                $("#ViewMore").removeClass("hide");
+                $("#ViewMore").addClass("show");
+            } else {
+                $("#ViewMore").removeClass("show");
+                $("#ViewMore").addClass("hide");
+            }
+        });
+
+        @*$("#manage").click(function () {
+            $("#waitDialog").modal("show");
+            var json = $("#manage").closest("form").serializeObject();
+            json.pageNumber = 1;
+            $.post("/jobseeker/bookmarkedjobs", json, function (result) {
+                $("#waitDialog").modal("hide");
+                $("#ResultArea").empty();
+                if (result.length > 0) {
+                    var rows = result[0].MaxRows;
+                    pages = Math.ceil(rows / 10);
+                    $.each(result, function () {
+                        this.authenticated = "@Request.IsAuthenticated";
+                        this.role = "@user.Role.GetDescription()";
+                        $("#ResultItem").tmpl(this).appendTo("#ResultArea");
+                    });
+                }
+
+                if (page < pages) {
+                    $("#ViewMore").removeClass("hide");
+                    $("#ViewMore").addClass("show");
+                } else {
+                    $("#ViewMore").removeClass("show");
+                    $("#ViewMore").addClass("hide");
+                }
+            });
+            return false;
+        });*@
+
+        $("#manage").click(function () {
+
+            location.reload();
+
+        });
+
+        $("#ViewMore").click(function () {
+            if (page <= pages) {
+                page++;
+                $("#waitDialog").modal("show");
+                var json = $("#manage").closest("form").serializeObject();
+                json.pageNumber = page;
+                $.post("/jobseeker/bookmarkedjobs", json, function (result) {
+                    $("#waitDialog").modal("hide");
+                    $.each(result, function () {
+                        this.authenticated = "@Request.IsAuthenticated";
+                        this.role = "@user.Role.GetDescription()";
+                        $("#ResultItem").tmpl(this).appendTo("#ResultArea");
+                    });
+                });
+            }
+
+            if (page < pages) {
+                $("#ViewMore").removeClass("hide");
+                $("#ViewMore").addClass("show");
+            } else {
+                $("#ViewMore").removeClass("show");
+                $("#ViewMore").addClass("hide");
+            }
+        });
+
+        @*$("#ResultArea").on("click", ".rmv", function () {
+            $("#waitDialog").modal("show");
+            $.post('@Url.Action("Remove", "JsonHelper")', { Id: $(this).data('pid') },
+                function (result) {
+                    $("#waitDialog").modal("hide");
+                    if (result == "Success") {
+                        window.location.reload();
+                    }
+                }
+            );
+        });*@
+    })
+</script>
+
+<script type="text/x-jquery-tmpl" id="ResultItem">
+    <div class="list-group">
+        <div class="list-group-item">
+            <a role="button" style="position:absolute; top:5px; right:5px; color:red; padding:4px; height:20px; text-align:center; z-index:1000; cursor:pointer" class="rmv" title="Remove" data-pid="${UserId}"></a>
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    <div class="form-group">
+                        <a href="/${EmployerUrl}">
+                            <div style="width:64px; height:64px; background:url('/Image/Avtar?Id=${UserId}') no-repeat; background-size:contain; background-position:top center">
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <i><b>Job Title: </b></i><a href="/job/${JobUrl}-${JobId}" title="${Title}" target="_blank">${Title}</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <i><b>Company: </b></i><a href="/${EmployerUrl}" title="${Company}" target="_blank">${Company}</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <i><b>Country: </b></i>${Country}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <ul class="actionlinks">
+                                    <li>
+                                        {{if Messages > 0 }}
+                                        <b><a href="/Message/List?SenderId=${UserId}" target="_blank">Message (<span style="color:red;">${Messages}</span>)</a></b>
+                                        {{else}}
+                                        <b><a href="/Message/List?SenderId=${UserId}" target="_blank">Message</a></b>
+                                        {{/if}}
+                                    </li>
+                                    {{if authenticated == "False"}}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/Home/Connect?id=${UserId}" target="_blank" title="Connect">Connect</a></b>
+                                    </li>
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/${PermaLink}" title="View profile" target="_blank">View Profile</a></b>
+                                    </li>
+                                    {{/if}}
+
+                                    {{if authenticated == "True" }}
+
+                                    {{if IsConnected == true }}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a data-aurl="/Network/Disconnect?Id=${ConnectionId}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
+                                    </li>
+                                    {{else}}
+                                    {{if InvitedByMe > 0 || InvitedBySomeone > 0}}
+                                    {{if InvitedByMe > 0}}
+                                    <li>
+                                        &nbsp;|&nbsp; <b><a data-aurl="/Network/Disconnect?Id=${ConnectionId}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{if InvitedBySomeone > 0}}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/Network/Accept?Id=${ConnectionId}&redirect=@Request.Url.ToString()" title="Accept" target="_blank">Accept</a></b>
+                                        &nbsp;|&nbsp;<b><a data-aurl="/Network/Disconnect?Id=${ConnectionId}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{else}}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/Home/Connect?id=${UserId}&redirect=@Request.Url.ToString()" title="Connect" target="_blank">Connect</a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{/if}}
+
+                                    @*{{if BlockedByMe > 0 }}
+                                        <li>
+                                            &nbsp;|&nbsp;<b><a href="/Home/Unblock?id=${UserId}&redirect=@Request.Url.ToString()" title="Unblock" target="_blank">Unblock</a></b>
+                                        </li>
+                                        {{/if}}
+                                        {{if BlockedByMe <= 0 && Blocked <= 0 }}
+                                        <li>
+                                            &nbsp;|&nbsp;<b><a data-href="/Home/Block?email=${Username}" data-name="${Name}" role="button" data-toggle="modal" data-target="#cDialog" class="aBlock" data-role="${TypeName}" data-connected="${IsConnected}" style="cursor:pointer;" title="Block">Block</a></b>
+                                        </li>
+                                        {{/if}}*@
+                                    {{/if}}
+                                    <li>&nbsp;|&nbsp;<a href="/job/apply?JobId=${JobId}&redirect=@Request.Url.ToString()" title="Apply">Apply</a></li>
+                                    <li>&nbsp;|&nbsp;<a href="/jobseeker/remove?Id=${Id}" title="Remove Bookmark">Remove</a></li>
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

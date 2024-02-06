@@ -1,0 +1,387 @@
+﻿@model JobPortal.Web.Models.UserModel
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="section">
+    <div class="row">
+        <div class="col-lg-10 col-md-10 col-sm-10">
+            <div class="title-login">
+                <h1 style="margin-top: -15px;">Profile</h1>
+                Update your profile here.
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2" style="margin-top: -15px;">
+            @if (@Model.Logo != null)
+            {
+                <img src="data:image/png;base64,@Model.Logo" alt="@Model.FirstName @Model.LastName" class="img-responsive" />
+            }
+            else
+            {
+                <span style="padding:10px;">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAG4AAABuCAYAAADGWyb7AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJ
+bWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdp
+bj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6
+eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYxIDY0LjE0
+MDk0OSwgMjAxMC8xMi8wNy0xMDo1NzowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJo
+dHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlw
+dGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAv
+IiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RS
+ZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpD
+cmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNS4xIFdpbmRvd3MiIHhtcE1NOkluc3RhbmNl
+SUQ9InhtcC5paWQ6MjkwQjEyNjZDMDNEMTFFNUIzMzJDMTA5QURGMzE3QzgiIHhtcE1NOkRvY3Vt
+ZW50SUQ9InhtcC5kaWQ6MjkwQjEyNjdDMDNEMTFFNUIzMzJDMTA5QURGMzE3QzgiPiA8eG1wTU06
+RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoyOTBCMTI2NEMwM0QxMUU1QjMz
+MkMxMDlBREYzMTdDOCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDoyOTBCMTI2NUMwM0QxMUU1
+QjMzMkMxMDlBREYzMTdDOCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1w
+bWV0YT4gPD94cGFja2V0IGVuZD0iciI/Pl495loAACCPSURBVHja7F0JfFXFuZ85d8slCUkg7KIC
+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" alt="@Model.FirstName @Model.LastName" class="img-responsive" />
+                </span>
+            }
+            <a href="#" role="button" data-toggle='modal' data-target='#uploadDialog'>Update&nbsp;Photo</a>
+        </div>
+    </div>
+    @Html.Partial("_MessagePartial")
+    @using (Html.BeginForm("MyProfile", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.Id)
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.FirstName)
+
+                            @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LastName)
+
+                            @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Address)
+
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CountryId)
+
+                            @Html.DropDownListFor(model => Model.CountryId, new SelectList(Model.Countries, "Id", "Text", Model.CountryId), Model.SELECT, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.CountryId)
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.StateId)
+
+                            @Html.DropDownListFor(model => Model.StateId, new SelectList(Model.States, "Id", "Text", Model.StateId), Model.SELECT, new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.City)
+
+                            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Zip)
+
+                            @Html.EditorFor(model => model.Zip, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Zip, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Phone)
+
+                            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Email)
+
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+                        </div>
+                    </div>
+                </div>
+                <div class="clear" style="height: 15px;"></div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                        <input type="submit" value="Save" class="btn btn-info" style="width: 75px;" /> @Html.ActionLink("Back", "Index", "Admin", null, new { @class = "btn btn-info", @style = "width:75px;" })
+                    </div>
+                </div>
+
+                <div class="modal fade" id="uploadDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="myModalLabel">
+                                    Update Profile Picture
+                                </h4>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Photo)
+                                        (JPG, PNG or GIF up to size of 300 KB.)
+
+                                        <input id="Photo" name="Photo" type="file" title="JPG, PNG or GIF up to size of 300 KB." onchange="return validate();" />
+                                        <div id="divvalidFile" style="color: red; font-weight: bold;"></div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script type="text/javascript" language="javascript">
+    function validate() {
+
+        var uploadcontrol = document.getElementById('Photo');
+        var uploadval = document.getElementById('Photo').value;
+        var divvalidFile = document.getElementById('divvalidFile');
+
+        var reg = /^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))+(.jpg|.png|.gif|.jpeg)$/;
+
+        if (uploadval.length > 0) {
+            var fileSize = uploadcontrol.files[0].size;
+            if (reg.test(uploadval)) {
+                var DefineSize = 300 * 1024;
+
+                if (parseInt(DefineSize) >= parseInt(fileSize))
+                { divvalidFile.innerHTML = ""; }
+                else {
+                    divvalidFile.innerHTML = "File size exceed maximum limit of 300 KB.";
+                    return false;
+                }
+            }
+            else {
+                divvalidFile.innerHTML = "Please Browse JPG, PNG, GIF, JPEG files only.";
+                return false;
+            }
+        }
+        else {
+            divvalidFile.innerHTML = "";
+            return true;
+        }
+
+
+    }
+
+
+    $(document).ready(function () {
+        $("#CountryId").change(function () {
+            $("#StateId").empty();
+            if ($("#CountryId option:selected").text() == "--- Select ---") {
+                return;
+            }
+            $.post('@Url.Action("GetStates", "JsonHelper")', { countryid: $('option:selected', $(this)).val() },
+                    function (result) {
+                        if (result.length != 0) {
+                            $("#StateId").empty();
+                            $(result).each(function () {
+                                $("#StateId").append("<option value =" + this.Value + ">" + this.Text + "</option>");
+                            });
+                        }
+                    });
+        });
+
+    });
+
+    tinymce.init({ selector: '#CompanyProfile', menubar: false });
+
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

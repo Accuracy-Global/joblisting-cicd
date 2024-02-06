@@ -1,0 +1,130 @@
+﻿@using PagedList.Mvc
+@using JobPortal.Library.Enumerators
+@using JobPortal.Data
+@using JobPortal.Domain
+@{
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<JobPortal.Data.Resume>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+    WebGrid grid = new WebGrid(source: ViewBag.Model, ajaxUpdateContainerId: "grid");
+}
+
+<div id="container-grid" class="table-responsive">
+
+    @grid.GetHtml(htmlAttributes: new { id = "grid", @style = "width:100%" },
+            tableStyle: "table table-bordered",
+            fillEmptyRows: false,
+            alternatingRowStyle: "alt",
+            mode: WebGridPagerModes.All,
+            firstText: "First",
+            previousText: "« Prev",
+            nextText: "Next »",
+            lastText: "Last",
+
+            columns: new[]
+            {
+                grid.Column("Title", header: "Title", canSort:false, style: "signingdate", format: (item) =>
+                {
+                    string link = string.Empty;
+                    if (Request.IsAuthenticated && User.IsInRole("Company"))
+                    {
+                        link = Html.ActionLink((string)item.Title, "Download", "Jobseeker", new { id = item.Id, type = DownloadTypes.RESUME, redirect = Request.Url.ToString() }, new { title = "Download Resume" }).ToString();
+                    }
+                    else
+                    {
+                        link = item.Title;
+                    }
+
+                    return Html.Raw(link);
+                }),
+                grid.Column("Country", header: "Country", canSort:false, style: "signingdate", format: (item) =>
+                {
+                    List country = new List();
+                    if (item.CountryId != null)
+                    {
+                        country = SharedService.Instance.GetCountry(item.CountryId);
+                    }
+                    return (country != null) ? country.Text : "";
+                }),
+                grid.Column("State", header: "State", canSort:false, format: item =>
+                {
+                    List state = new List();
+                    if (item.StateId != null) {
+                        state = SharedService.Instance.GetState(item.StateId);
+                    }
+                    return (state != null) ? state.Text : "";
+                }),
+                grid.Column("City", header: "City", canSort:false, style: "signingdate", format: (item) => { return item.City; }),
+                grid.Column("Actions", canSort:false, format: (item) =>
+                {
+                    var links = string.Empty;
+                    if (Request.IsAuthenticated) {
+                        links = Html.ActionLink("Download", "Download", "Jobseeker", new { id = item.Id, type = DownloadTypes.RESUME, redirect = Request.Url.ToString() }, new { title = "Download" }).ToString();
+                    }
+
+                    if (!string.IsNullOrEmpty(links)) {
+                        links += " | " + Html.ActionLink("Bookmark", "BookmarkResume", "Employer", new { Id = item.Id, redirect = Request.Url.ToString() }, new { title = "Bookmark" }).ToString();
+                    }
+                    else
+                    {
+                        links += Html.ActionLink("Bookmark", "BookmarkResume", "Employer", new { Id = item.Id, redirect = Request.Url.ToString() }, new { title = "Bookmark" }).ToString();
+                    }
+                    return Html.Raw(links);
+                })
+            }
+            )
+
+</div>
+@if (pagedModel.PageNumber == 1 && !Request.IsAuthenticated) {
+<style>
+    .pagination {
+        color: #FFFFFF;
+        position: relative;
+        background-color: #000000;
+        opacity: 0.5;
+        filter: alpha(opacity=50);
+        -moz-opacity: 0.5;
+        padding: 0px;
+    }
+</style>
+}
+<div style="text-align:center;">
+
+    @if (pagedModel.PageNumber == 1 && !Request.IsAuthenticated)
+    {
+        <div><a href="@Url.Action("Register", "Account", new { returnUrl = Request.Url.ToString() })" class="btn btn-info" style="width:150px;">Join to See More</a></div>
+        <div>
+            @Html.PagedListPager(pagedModel, PageNumber => Url.Action("SearchResumes",
+            new RouteValueDictionary()
+            {
+                { "pageNumber" , PageNumber}
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    }
+    else
+    {
+        @Html.PagedListPager(pagedModel, PageNumber => Url.Action("SearchResumes",
+            new RouteValueDictionary()
+            {
+                { "pageNumber" , PageNumber}
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+    }
+</div>
+@if (pagedModel.PageNumber == 1 && !Request.IsAuthenticated)
+{
+    <script>
+    $(document).ready(function () {
+        $(".pagination").click(function () {
+            return false;
+        })
+    })
+    </script>
+}

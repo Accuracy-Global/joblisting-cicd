@@ -1,0 +1,49 @@
+﻿@using JobPortal.Data
+@using JobPortal.Domain
+@model JobPortal.Web.Models.SearchJobSeekerModel
+<div class="invite-friend">
+    <div class="sub-heading">
+        <h2>Searches</h2>
+    </div>
+    <div class="iyf">
+        <div style="font-size:small; padding-bottom:5px;">
+            <span>Search People</span>
+        </div>
+        @using (Html.BeginForm("SearchPeople", "Home", FormMethod.Post))
+        {
+            @Html.TextBoxFor(model => model.Name, new { placeholder = "SEARCH BY NAME", @class = "form-control", @maxlength = 50 })
+            @Html.ValidationMessageFor(model => model.Name)
+            <div class="clear" style="height:5px"></div>
+            <div class="input-group">
+                <select id="CountryId" name="CountryId" class="form-control country" style="font-size:small">
+                    <option>SELECT</option>
+                </select>
+                <span class="input-group-btn">
+                    @*<button class="btn btn-default" type="button" style="line-height: 19px;">Search</button>*@
+                    <input type="submit" id="basic_search_people" value="Search" class="btn btn-default" />
+                </span>
+            </div>
+        }
+    </div>
+</div>
+<script>
+    $(function () {
+        $.getJSON("/help/countrylist", {}, function (list) {
+            $("#CountryId").empty();
+            $("#CountryId").append("<option value = ''>SELECT</option>");
+
+            if (list.length != 0) {
+                $(list).each(function () {
+                    $("#CountryId").append("<option value =" + this.Id + ">" + this.Name + "</option>");
+                });
+            }
+        });
+
+        $("#basic_search_people").click(function () {
+            var nm = $(this).closest("form").serializeObject();            
+            url = "/search-people?name=" + nm.Name + "&CountryId=" + nm.CountryId;
+            window.location.href = url;
+            return false;
+        });
+    });
+</script>

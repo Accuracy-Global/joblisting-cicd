@@ -1,0 +1,1169 @@
+﻿@model JobPortal.Web.Models.AdminJobSearchModel
+@using JobPortal.Domain
+@using JobPortal.Data
+@using PagedList.Mvc
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers;
+@using JobPortal.Models
+@using System.Configuration;
+@using System.Data.SqlClient;
+@using System.Data;
+@{
+    //var pagedModel = ViewBag.Model as PagedList.IPagedList<Listjob>;
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<Job>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+    string username = string.Empty;
+
+
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        username = User.Username;
+        user = User.Info;
+    }
+
+    UserProfile profile = MemberService.Instance.Get(ViewBag.Employer.UserId);
+    int inbox_items = DomainService.Instance.DashboardInboxItems(User.Id, ViewBag.Employer.UserId);
+}
+@{
+    ViewBag.Title = "Listed Jobs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Scripts.Render("~/bundles/jScripts")
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+<style>
+    .infoBtn {
+        background: #fff;
+        border: 1px solid #f6dc4d;
+        padding: 4px;
+        border-radius: 4px;
+        font-size: 7pt;
+    }
+
+        .infoBtn:before { /* use :before to add the relevant icons */
+            font-family: "FontAwesome";
+            content: "\f129"; /* add facebook icon */
+        }
+
+        .infoBtn:hover {
+            color: #4060A5;
+            background: #f6dc4d;
+            text-decoration: none;
+            border: 1px solid #f6dc4d;
+        }
+
+    .cdate {
+        padding-left: 0px;
+        list-style-type: none;
+    }
+
+        .cdate li {
+            display: inline-block;
+            width: auto;
+        }
+</style>
+<div class="section" style="width:100%">
+    <div class="row">
+
+        <div class="col-lg-16 col-md-16 col-sm-16">
+           
+
+            @*@Html.Partial("_MessagePartial")*@
+            <div class="clear" style="height:7px;"></div>
+           
+      
+            <div class="clear" style="height:1px;"></div>
+            <style>
+                .Title1 {
+                    width: 99px;
+                }
+            </style>
+            <div class="row">
+                <div class="row">
+                    <div class="col-lg-14 col-md-14 col-sm-14" style="width:100%">
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.JobTitle, new { @class = "form-control", placeholder = "Job Title" })
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        <div class='input-group date'>
+                                            @Html.TextBox("StartDate", null, new { @class = "form-control", placeholder = "FROM DATE", @title = "FROM DATE", @readonly = "readonly" })
+                                            <span class="input-group-addon">
+                                                <span class="glyphicon glyphicon-calendar"></span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <div class='input-group date'>
+                                                @Html.TextBox("EndDate", null, new { @class = "form-control", placeholder = "TO DATE", @title = "TO DATE", @readonly = "readonly" })
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 text-right">
+                            <input type="submit" value="Search" class="btn btn-info btn-block" />
+                        </div>
+                    </div>
+                </div>
+                <div class="clear" style="height:8px;"></div>
+                <div class="col-lg-14 col-md-14 col-sm-14" style="width:100%">
+                    @{
+                        WebGrid grid1 = new WebGrid(ViewBag.Model, ajaxUpdateContainerId: "grid1");
+
+                        WebGridColumn strPause1 = new WebGridColumn();
+                        strPause1.Header = "Invites";
+                        strPause1.CanSort = false;
+                        strPause1.Format = (item) =>
+                        {
+                            var links = string.Empty;
+
+                            links += "<a style='margin:8px 8px;' href=\"#" + item.Id + "\" target=\"_blank\"><i class='fa fa-phone'></i></a>";
+                            links += "|<a style='margin:8px 8px;' href=\"/job/Email1/" + item.Id + "\"><i class='fa fa-envelope'></i></a>";
+                            links += "|<a style='margin:8px 8px;' href=\"/Admin/SMSFORALL/" + item.Id + "\" target=\"_blank\"><i class='fa fa-comment'></i></a>";
+                            return Html.Raw(links);
+                        };
+                    }
+                    @{
+                        WebGrid grid = new WebGrid(ViewBag.Model, ajaxUpdateContainerId: "grid");
+
+                        WebGridColumn strPause = new WebGridColumn();
+                        strPause.Header = "Action";
+                        strPause.CanSort = false;
+                        strPause.Format = (item) =>
+                        {
+                            var links = string.Empty;
+
+                            UserProfile employer = MemberService.Instance.Get(item.EmployerId);
+                                        //links = Html.ActionLink("Manage", "ManageCompany", "Admin", new { Id = employer.UserId }, new { target = "_blank" }).ToString();
+                                        if (!item.IsDeleted)
+                            {
+                                if (!item.IsRejected)
+                                {
+                                    if (!string.IsNullOrEmpty(links))
+                                    {
+                                        links += " | " + Html.ActionLink("Edit", "EditJob", "Admin", new { UserId = item.EmployerId, Id = item.Id, redirectUrl = Request.Url }, new { title = "Edit Job", target = "_blank" }).ToString();
+                                    }
+                                    else
+                                    {
+                                        links += Html.ActionLink("Edit", "EditJob", "Admin", new { UserId = item.EmployerId, Id = item.Id, redirectUrl = Request.Url }, new { title = "Edit Job", target = "_blank" }).ToString();
+                                    }
+                                }
+
+                            }
+                                        //links += "              |  <a href=\"/job/Email/" + item.Id + "\" target=\"_blank\">Email</a>";
+                                        //links += "              |  <a href=\"/job/SMS/" + item.Id + "\" target=\"_blank\">SMS</a>";
+
+                                        //links += "              |  <a  target=\"_blank\">WhatsApp</a>";
+
+
+
+                                        return Html.Raw(links);
+                        };
+                    }
+
+                    <div id="container-grid" class="table-responsive">
+                        @grid.GetHtml(htmlAttributes: new { id = "grid", @style = "width:100%" }, tableStyle: "table table-bordered table-hover",
+    columns: new[] {
+        grid.Column(columnName:"Title", header: "Job Title", canSort:false, format: p=> p.Title ),
+        grid.Column(columnName:"JobListing", header: "JobListing", canSort:false, format: (itemss)=>
+            {
+                string skil=itemss.Title;
+                string re=skil.Remove(3);
+                string skills=""+re+"%";
+
+                List<User_Skills> profilee = new List<User_Skills>();
+                List<UserInfoEntity> profile1 = new List<UserInfoEntity>();
+                profilee = MemberService.Instance.GetUserskillProfiles(skills);
+                int count=0;
+            foreach (var item1 in profilee)
+            {
+                     if (username=="sandhya@accuracy.com.sg"||username == "lakshmip@accuracy.com.sg" || username == "haris@joblisting.com" ||username == "anilkumar@joblisting.com"|| username == "denise@accuracy.com.sg" || username== "dianna@accuracy.com.sg" )
+                                {
+
+            string countryName = string.Empty;
+                                List country = SharedService.Instance.GetCountry(itemss.CountryId);
+            if (country != null)
+            {
+                countryName = country.Text;
+            }
+
+                        var profile11 = MemberService.Instance.GetUserInfo(item1.UserId);
+                        if (profile11.CountryName == countryName && profile11.CountryName == countryName)
+                        {
+                            profile1.Add(profile11);
+                            TempData["profiles"]=profile1;
+                            count++;
+                        }
+                    }
+                      else   if (username== "gowthami@accuracy.com.sg" || username == "naveena@accuracy.com.sg" ||username == "sarika123@accuracy.com.sg" || username == "vanshika@accuracy.com.sg"||username=="Doli.chauhan123@accuracy.com.sg"||username=="doli.chauhan123@accuracy.com.sg")
+                            {
+                         var profile11 = MemberService.Instance.GetUserInfo(item1.UserId);
+                        if (profile11.CountryName == "india" || profile11.CountryName == "India")
+                        {
+                            profile1.Add(profile11);
+                            TempData["profiles"]=profile1;
+                            count++;
+                        }
+                    }
+
+                      else  if(username == "anshikagupta@accuracy.com.sg" || username == "baba@accuracy.com.sg" || username == "pallavi@accuracy.com.sg" || username == "Shreyag@accuracy.com.sg"||username=="shreyag1234@accuracy.com.sg"|| username=="tasnim@accuracy.com.sg"||username=="pallavi123@accuracy.com.sg"|| username == "haris@joblisting.com" || username == "anilkumar@joblisting.com")
+                    {
+                          var profile11 = MemberService.Instance.GetUserInfo(item1.UserId);
+                        if (profile11.CountryName == "india" || profile11.CountryName == "India")
+                        {
+                            profile1.Add(profile11);
+                            TempData["profiles"]=profile1;
+                            count++;
+                        }
+                    }
+                     else  if(username == "vani123@accuracy.com.sg" || username == "ganeshr@joblisting.com" ||username=="deepti@accuracy.com.sg")
+                    {
+                           var profile11 = MemberService.Instance.GetUserInfo(item1.UserId);
+                        if (profile11.CountryName == "india" || profile11.CountryName == "India")
+                        {
+                            profile1.Add(profile11);
+                            TempData["profiles"]=profile1;
+                            count++;
+                        }
+                    }
+             //  var  profile11 = MemberService.Instance.GetUserInfo(item1.UserId);
+             //   // list = item.UserId;
+             //   profile1.Add(profile11);
+             //          TempData["profiles"]=profile1;
+             //count++;
+
+            }
+             if (username=="sandhya@accuracy.com.sg"||username == "lakshmip@accuracy.com.sg" || username == "haris@joblisting.com" || username == "anilkumar@joblisting.com"|| username == "denise@accuracy.com.sg" || username== "dianna@accuracy.com.sg" ){
+                     //return  @Html.Raw(string.Format("<a href=\"/admin/"+"profileslists/"+skil,itemss.CountryId+"\" target=\"_blank\"><div>{0}</div>"+"</a>",count)) ;
+                      return  @Html.Raw(string.Format("<a href=\"/admin/"+"profileslists/"+skil+"/"+itemss.CountryId+"\" target=\"_blank\"><div>{0}</div>"+"</a>",count)) ;
+                }
+             else
+                {
+                    return  @Html.Raw(string.Format("<a href=\"/admin/"+"profileslists/"+skil+"/"+itemss.CountryId+"\" target=\"_blank\"><div>{0}</div>"+"</a>",count)) ;
+                }
+
+            }),
+
+        grid.Column(columnName:"Monster", header: "Monster", canSort:false, format: (itemss)=>
+            {
+                string skil=itemss.Title;
+                string loc="Singapore";
+
+
+                  string re=skil.Remove(3);
+                string skills=""+re+"%";
+                int count=0;
+                string constr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(constr))
+                {
+
+
+                    // UserInfoEntity uinfo = _service.Get(User.Id);
+                                if (username=="sandhya@accuracy.com.sg"||username == "lakshmip@accuracy.com.sg" || username == "haris@joblisting.com" || username == "anilkumar@joblisting.com"|| username == "denise@accuracy.com.sg" || username== "dianna@accuracy.com.sg" )
+                                {
+                                    using (SqlCommand cmd = new SqlCommand("select distinct COUNT(distinct Email) from Monstar2 where Designation LIKE '"+skills+"'",con))
+                                    {
+                                        cmd.CommandType = CommandType.Text;
+                                        using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                                        {
+                                            using (DataTable dt = new DataTable())
+                                            {
+                                                sda.Fill(dt);
+                                                TempData["count11"] = dt.Rows[0][0];
+                                                count = (int)TempData["count11"];
+
+                                            }
+                                        }
+                                    }
+
+
+                                }
+
+                                else   if (username== "gowthami@accuracy.com.sg" || username == "naveena@accuracy.com.sg" ||username == "sarika123@accuracy.com.sg" || username == "vanshika@accuracy.com.sg"||username=="Doli.chauhan123@accuracy.com.sg"||username=="doli.chauhan123@accuracy.com.sg")
+                            {
+                    using (SqlCommand cmd = new SqlCommand("select distinct COUNT(distinct Email) from Monstar2 where Designation LIKE '"+skills+"' AND  Location like '%india%' ",con))
+                                    {
+                                        cmd.CommandType = CommandType.Text;
+                                        using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                                        {
+                                            using (DataTable dt = new DataTable())
+                                            {
+                                                sda.Fill(dt);
+                                                TempData["count11"] = dt.Rows[0][0];
+                                                count = (int)TempData["count11"];
+
+                                            }
+                                        }
+                                    }
+                    }
+                                  else  if(username == "anshikagupta@accuracy.com.sg" || username == "baba@accuracy.com.sg" || username == "pallavi@accuracy.com.sg" ||username=="shreyag1234@accuracy.com.sg"|| username == "Shreyag@accuracy.com.sg"|| username=="tasnim@accuracy.com.sg"||username=="pallavi123@accuracy.com.sg")
+                    {                    using (SqlCommand cmd = new SqlCommand("select distinct COUNT(distinct Email) from Monstar2 where Designation LIKE '"+skills+"'AND Location like '%india%' ",con))
+                                    {
+                                        cmd.CommandType = CommandType.Text;
+                                        using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                                        {
+                                            using (DataTable dt = new DataTable())
+                                            {
+                                                sda.Fill(dt);
+                                                TempData["count11"] = dt.Rows[0][0];
+                                                count = (int)TempData["count11"];
+
+                                            }
+                                        }
+                                    }
+                    }
+                     else  if(username == "vani123@accuracy.com.sg" || User.Username == "ganeshr@joblisting.com" ||username=="deepti@accuracy.com.sg")
+                    {                    using (SqlCommand cmd = new SqlCommand("select distinct COUNT(distinct Email) from Monstar2 where Designation LIKE '"+skills+"' AND Location like '%india%'",con))
+                                    {
+                                        cmd.CommandType = CommandType.Text;
+                                        using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                                        {
+                                            using (DataTable dt = new DataTable())
+                                            {
+                                                sda.Fill(dt);
+                                                TempData["count11"] = dt.Rows[0][0];
+                                                count = (int)TempData["count11"];
+
+                                            }
+                                        }
+                                    }
+                    }
+
+                            }
+                if (username=="sandhya@accuracy.com.sg"||username == "lakshmip@accuracy.com.sg" || username == "haris@joblisting.com" || username == "anilkumar@joblisting.com" || username == "denise@accuracy.com.sg" || username== "dianna@accuracy.com.sg" ){
+                     //return  @Html.Raw(string.Format("<a href=\"/admin/"+"profileslists/"+skil,itemss.CountryId+"\" target=\"_blank\"><div>{0}</div>"+"</a>",count)) ;
+                      return  @Html.Raw(string.Format("<a href=\"/admin/"+"Monsterlist/"+skil+"/"+itemss.CountryId+"\" target=\"_blank\"><div>{0}</div>"+"</a>",count)) ;
+                }
+             else
+                {
+                    return  @Html.Raw(string.Format("<a href=\"/admin/"+"Monsterlist/"+skil+"/"+itemss.CountryId+"\" target=\"_blank\"><div>{0}</div>"+"</a>",count)) ;
+                }
+
+           // return  @Html.Raw(string.Format("<a href=\"/admin/"+"Monsterlist/"+skil+"\" target=\"_blank\"><div>{0}</div>"+"</a>",count)) ;
+                                }),
+
+          grid.Column(columnName:"Shine", header: "Shine", canSort:false, format: (itemss)=>
+            {
+                string skil=itemss.Title;
+                string loc="Singapore";
+
+
+                  string re=skil.Remove(3);
+                string skills=""+re+"%";
+                int count=0;
+                string constr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(constr))
+                {
+
+
+                    // UserInfoEntity uinfo = _service.Get(User.Id);
+                                if (username=="sandhya@accuracy.com.sg"||username == "lakshmip@accuracy.com.sg" || username == "haris@joblisting.com" || username == "anilkumar@joblisting.com"|| username == "denise@accuracy.com.sg" || username== "dianna@accuracy.com.sg" )
+                                {
+                                    using (SqlCommand cmd = new SqlCommand("select distinct COUNT(distinct Email) from Shine where Designation LIKE '"+skills+"'",con))
+                                    {
+                                        cmd.CommandType = CommandType.Text;
+                                        using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                                        {
+                                            using (DataTable dt = new DataTable())
+                                            {
+                                                sda.Fill(dt);
+                                                TempData["count11"] = dt.Rows[0][0];
+                                                count = (int)TempData["count11"];
+
+                                            }
+                                        }
+                                    }
+
+
+                                }
+
+                                else   if (username== "gowthami@accuracy.com.sg" || username == "naveena@accuracy.com.sg" ||username == "sarika123@accuracy.com.sg" || username == "vanshika@accuracy.com.sg"||username=="Doli.chauhan123@accuracy.com.sg"||username=="doli.chauhan123@accuracy.com.sg")
+                            {
+                    using (SqlCommand cmd = new SqlCommand("select distinct COUNT(distinct Email) from Shine where Designation LIKE '"+skills+"' AND  Location like '%india%' ",con))
+                                    {
+                                        cmd.CommandType = CommandType.Text;
+                                        using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                                        {
+                                            using (DataTable dt = new DataTable())
+                                            {
+                                                sda.Fill(dt);
+                                                TempData["count11"] = dt.Rows[0][0];
+                                                count = (int)TempData["count11"];
+
+                                            }
+                                        }
+                                    }
+                    }
+                                  else  if(username == "anshikagupta@accuracy.com.sg" || username == "baba@accuracy.com.sg" || username == "pallavi@accuracy.com.sg" ||username=="shreyag1234@accuracy.com.sg"|| username == "Shreyag@accuracy.com.sg"|| username=="tasnim@accuracy.com.sg"||username=="pallavi123@accuracy.com.sg")
+                    {                    using (SqlCommand cmd = new SqlCommand("select distinct COUNT(distinct Email) from Shine where Designation LIKE '"+skills+"'AND Location like '%india%' ",con))
+                                    {
+                                        cmd.CommandType = CommandType.Text;
+                                        using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                                        {
+                                            using (DataTable dt = new DataTable())
+                                            {
+                                                sda.Fill(dt);
+                                                TempData["count11"] = dt.Rows[0][0];
+                                                count = (int)TempData["count11"];
+
+                                            }
+                                        }
+                                    }
+                    }
+                     else  if(username == "vani123@accuracy.com.sg" || User.Username == "ganeshr@joblisting.com" ||username=="deepti@accuracy.com.sg")
+                    {                    using (SqlCommand cmd = new SqlCommand("select distinct COUNT(distinct Email) from Shine where Designation LIKE '"+skills+"' AND Location like '%india%'",con))
+                                    {
+                                        cmd.CommandType = CommandType.Text;
+                                        using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                                        {
+                                            using (DataTable dt = new DataTable())
+                                            {
+                                                sda.Fill(dt);
+                                                TempData["count11"] = dt.Rows[0][0];
+                                                count = (int)TempData["count11"];
+
+                                            }
+                                        }
+                                    }
+                    }
+
+                            }
+                if (username=="sandhya@accuracy.com.sg"||username == "lakshmip@accuracy.com.sg" || username == "haris@joblisting.com" || username == "anilkumar@joblisting.com" || username == "denise@accuracy.com.sg" || username== "dianna@accuracy.com.sg" ){
+                     //return  @Html.Raw(string.Format("<a href=\"/admin/"+"profileslists/"+skil,itemss.CountryId+"\" target=\"_blank\"><div>{0}</div>"+"</a>",count)) ;
+                      return  @Html.Raw(string.Format("<a href=\"/admin/"+"Shinelist/"+skil+"/"+itemss.CountryId+"\" target=\"_blank\"><div>{0}</div>"+"</a>",count)) ;
+                }
+             else
+                {
+                    return  @Html.Raw(string.Format("<a href=\"/admin/"+"Shinelist/"+skil+"/"+itemss.CountryId+"\" target=\"_blank\"><div>{0}</div>"+"</a>",count)) ;
+                }
+
+           // return  @Html.Raw(string.Format("<a href=\"/admin/"+"Monsterlist/"+skil+"\" target=\"_blank\"><div>{0}</div>"+"</a>",count)) ;
+                                }),
+
+           grid.Column(columnName:"Naukri", header: "Naukri", canSort:false, format: (itemss)=>
+            {
+                string skil=itemss.Title;
+                string loc="Singapore";
+
+
+                  string re=skil.Remove(3);
+                string skills=""+re+"%";
+                int count=0;
+                string constr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(constr))
+                {
+
+
+                    // UserInfoEntity uinfo = _service.Get(User.Id);
+                                if (username=="sandhya@accuracy.com.sg"||username == "lakshmip@accuracy.com.sg" || username == "haris@joblisting.com" || username == "anilkumar@joblisting.com"|| username == "denise@accuracy.com.sg" || username== "dianna@accuracy.com.sg" )
+                                {
+                                    using (SqlCommand cmd = new SqlCommand("select distinct COUNT(distinct Email) from Shine where Designation LIKE '"+skills+"'",con))
+                                    {
+                                        cmd.CommandType = CommandType.Text;
+                                        using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                                        {
+                                            using (DataTable dt = new DataTable())
+                                            {
+                                                sda.Fill(dt);
+                                                TempData["count11"] = dt.Rows[0][0];
+                                                count = (int)TempData["count11"];
+
+                                            }
+                                        }
+                                    }
+
+
+                                }
+
+                                else   if (username== "gowthami@accuracy.com.sg" || username == "naveena@accuracy.com.sg" ||username == "sarika123@accuracy.com.sg" || username == "vanshika@accuracy.com.sg"||username=="Doli.chauhan123@accuracy.com.sg"||username=="doli.chauhan123@accuracy.com.sg")
+                            {
+                    using (SqlCommand cmd = new SqlCommand("select distinct COUNT(distinct Email) from Shine where Designation LIKE '"+skills+"' AND  Location like '%india%' ",con))
+                                    {
+                                        cmd.CommandType = CommandType.Text;
+                                        using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                                        {
+                                            using (DataTable dt = new DataTable())
+                                            {
+                                                sda.Fill(dt);
+                                                TempData["count11"] = dt.Rows[0][0];
+                                                count = (int)TempData["count11"];
+
+                                            }
+                                        }
+                                    }
+                    }
+                                  else  if(username == "anshikagupta@accuracy.com.sg" || username == "baba@accuracy.com.sg" || username == "pallavi@accuracy.com.sg" ||username=="shreyag1234@accuracy.com.sg"|| username == "Shreyag@accuracy.com.sg"|| username=="tasnim@accuracy.com.sg"||username=="pallavi123@accuracy.com.sg")
+                    {                    using (SqlCommand cmd = new SqlCommand("select distinct COUNT(distinct Email) from Shine where Designation LIKE '"+skills+"'AND Location like '%india%' ",con))
+                                    {
+                                        cmd.CommandType = CommandType.Text;
+                                        using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                                        {
+                                            using (DataTable dt = new DataTable())
+                                            {
+                                                sda.Fill(dt);
+                                                TempData["count11"] = dt.Rows[0][0];
+                                                count = (int)TempData["count11"];
+
+                                            }
+                                        }
+                                    }
+                    }
+                     else  if(username == "vani123@accuracy.com.sg" || User.Username == "ganeshr@joblisting.com" ||username=="deepti@accuracy.com.sg")
+                    {                    using (SqlCommand cmd = new SqlCommand("select distinct COUNT(distinct Email) from Shine where Designation LIKE '"+skills+"' AND Location like '%india%'",con))
+                                    {
+                                        cmd.CommandType = CommandType.Text;
+                                        using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                                        {
+                                            using (DataTable dt = new DataTable())
+                                            {
+                                                sda.Fill(dt);
+                                                TempData["count11"] = dt.Rows[0][0];
+                                                count = (int)TempData["count11"];
+
+                                            }
+                                        }
+                                    }
+                    }
+
+                            }
+                if (username=="sandhya@accuracy.com.sg"||username == "lakshmip@accuracy.com.sg" || username == "haris@joblisting.com" || username == "anilkumar@joblisting.com" || username == "denise@accuracy.com.sg" || username== "dianna@accuracy.com.sg" ){
+                     //return  @Html.Raw(string.Format("<a href=\"/admin/"+"profileslists/"+skil,itemss.CountryId+"\" target=\"_blank\"><div>{0}</div>"+"</a>",count)) ;
+                      return  @Html.Raw(string.Format("<a href=\"/admin/"+"Shinelist/"+skil+"/"+itemss.CountryId+"\" target=\"_blank\"><div>{0}</div>"+"</a>",count)) ;
+                }
+             else
+                {
+                    return  @Html.Raw(string.Format("<a href=\"/admin/"+"Shinelist/"+skil+"/"+itemss.CountryId+"\" target=\"_blank\"><div>{0}</div>"+"</a>",count)) ;
+                }
+
+           // return  @Html.Raw(string.Format("<a href=\"/admin/"+"Monsterlist/"+skil+"\" target=\"_blank\"><div>{0}</div>"+"</a>",count)) ;
+                                }),
+
+             grid.Column(columnName:"Upwork", header: "Upwork", canSort:false, format: (itemss)=>
+            {
+                string skil=itemss.Title;
+                string loc="Singapore";
+
+
+                  string re=skil.Remove(3);
+                string skills=""+re+"%";
+                int count=0;
+                string constr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(constr))
+                {
+
+
+                    // UserInfoEntity uinfo = _service.Get(User.Id);
+                                if (username=="sandhya@accuracy.com.sg"||username == "lakshmip@accuracy.com.sg" || username == "haris@joblisting.com" || username == "anilkumar@joblisting.com"|| username == "denise@accuracy.com.sg" || username== "dianna@accuracy.com.sg" )
+                                {
+                                    using (SqlCommand cmd = new SqlCommand("select distinct COUNT(distinct Email) from Shine where Designation LIKE '"+skills+"'",con))
+                                    {
+                                        cmd.CommandType = CommandType.Text;
+                                        using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                                        {
+                                            using (DataTable dt = new DataTable())
+                                            {
+                                                sda.Fill(dt);
+                                                TempData["count11"] = dt.Rows[0][0];
+                                                count = (int)TempData["count11"];
+
+                                            }
+                                        }
+                                    }
+
+
+                                }
+
+                                else   if (username== "gowthami@accuracy.com.sg" || username == "naveena@accuracy.com.sg" ||username == "sarika123@accuracy.com.sg" || username == "vanshika@accuracy.com.sg"||username=="Doli.chauhan123@accuracy.com.sg"||username=="doli.chauhan123@accuracy.com.sg")
+                            {
+                    using (SqlCommand cmd = new SqlCommand("select distinct COUNT(distinct Email) from Shine where Designation LIKE '"+skills+"' AND  Location like '%india%' ",con))
+                                    {
+                                        cmd.CommandType = CommandType.Text;
+                                        using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                                        {
+                                            using (DataTable dt = new DataTable())
+                                            {
+                                                sda.Fill(dt);
+                                                TempData["count11"] = dt.Rows[0][0];
+                                                count = (int)TempData["count11"];
+
+                                            }
+                                        }
+                                    }
+                    }
+                                  else  if(username == "anshikagupta@accuracy.com.sg" || username == "baba@accuracy.com.sg" || username == "pallavi@accuracy.com.sg" ||username=="shreyag1234@accuracy.com.sg"|| username == "Shreyag@accuracy.com.sg"|| username=="tasnim@accuracy.com.sg"||username=="pallavi123@accuracy.com.sg")
+                    {                    using (SqlCommand cmd = new SqlCommand("select distinct COUNT(distinct Email) from Shine where Designation LIKE '"+skills+"'AND Location like '%india%' ",con))
+                                    {
+                                        cmd.CommandType = CommandType.Text;
+                                        using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                                        {
+                                            using (DataTable dt = new DataTable())
+                                            {
+                                                sda.Fill(dt);
+                                                TempData["count11"] = dt.Rows[0][0];
+                                                count = (int)TempData["count11"];
+
+                                            }
+                                        }
+                                    }
+                    }
+                     else  if(username == "vani123@accuracy.com.sg" || User.Username == "ganeshr@joblisting.com" ||username=="deepti@accuracy.com.sg")
+                    {                    using (SqlCommand cmd = new SqlCommand("select distinct COUNT(distinct Email) from Shine where Designation LIKE '"+skills+"' AND Location like '%india%'",con))
+                                    {
+                                        cmd.CommandType = CommandType.Text;
+                                        using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                                        {
+                                            using (DataTable dt = new DataTable())
+                                            {
+                                                sda.Fill(dt);
+                                                TempData["count11"] = dt.Rows[0][0];
+                                                count = (int)TempData["count11"];
+
+                                            }
+                                        }
+                                    }
+                    }
+
+                            }
+                if (username=="sandhya@accuracy.com.sg"||username == "lakshmip@accuracy.com.sg" || username == "haris@joblisting.com" || username == "anilkumar@joblisting.com" || username == "denise@accuracy.com.sg" || username== "dianna@accuracy.com.sg" ){
+                     //return  @Html.Raw(string.Format("<a href=\"/admin/"+"profileslists/"+skil,itemss.CountryId+"\" target=\"_blank\"><div>{0}</div>"+"</a>",count)) ;
+                      return  @Html.Raw(string.Format("<a href=\"/admin/"+"Shinelist/"+skil+"/"+itemss.CountryId+"\" target=\"_blank\"><div>{0}</div>"+"</a>",count)) ;
+                }
+             else
+                {
+                    return  @Html.Raw(string.Format("<a href=\"/admin/"+"Shinelist/"+skil+"/"+itemss.CountryId+"\" target=\"_blank\"><div>{0}</div>"+"</a>",count)) ;
+                }
+
+           // return  @Html.Raw(string.Format("<a href=\"/admin/"+"Monsterlist/"+skil+"\" target=\"_blank\"><div>{0}</div>"+"</a>",count)) ;
+                                }),
+            grid.Column(columnName:"LinkedIn", header: "LinkedIn", canSort:false, format: (itemss)=>
+            {
+                string skil=itemss.Title;
+                string loc="Singapore";
+
+
+                  string re=skil.Remove(3);
+                string skills=""+re+"%";
+                int count=0;
+                string constr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+                using (SqlConnection con = new SqlConnection(constr))
+                {
+
+
+                    // UserInfoEntity uinfo = _service.Get(User.Id);
+                                if (username=="sandhya@accuracy.com.sg"||username == "lakshmip@accuracy.com.sg" || username == "haris@joblisting.com" || username == "anilkumar@joblisting.com"|| username == "denise@accuracy.com.sg" || username== "dianna@accuracy.com.sg" )
+                                {
+                                    using (SqlCommand cmd = new SqlCommand("select distinct COUNT(distinct Email) from Shine where Designation LIKE '"+skills+"'",con))
+                                    {
+                                        cmd.CommandType = CommandType.Text;
+                                        using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                                        {
+                                            using (DataTable dt = new DataTable())
+                                            {
+                                                sda.Fill(dt);
+                                                TempData["count11"] = dt.Rows[0][0];
+                                                count = (int)TempData["count11"];
+
+                                            }
+                                        }
+                                    }
+
+
+                                }
+
+                                else   if (username== "gowthami@accuracy.com.sg" || username == "naveena@accuracy.com.sg" ||username == "sarika123@accuracy.com.sg" || username == "vanshika@accuracy.com.sg"||username=="Doli.chauhan123@accuracy.com.sg"||username=="doli.chauhan123@accuracy.com.sg")
+                            {
+                    using (SqlCommand cmd = new SqlCommand("select distinct COUNT(distinct Email) from Shine where Designation LIKE '"+skills+"' AND  Location like '%india%' ",con))
+                                    {
+                                        cmd.CommandType = CommandType.Text;
+                                        using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                                        {
+                                            using (DataTable dt = new DataTable())
+                                            {
+                                                sda.Fill(dt);
+                                                TempData["count11"] = dt.Rows[0][0];
+                                                count = (int)TempData["count11"];
+
+                                            }
+                                        }
+                                    }
+                    }
+                                  else  if(username == "anshikagupta@accuracy.com.sg" || username == "baba@accuracy.com.sg" || username == "pallavi@accuracy.com.sg" ||username=="shreyag1234@accuracy.com.sg"|| username == "Shreyag@accuracy.com.sg"|| username=="tasnim@accuracy.com.sg"||username=="pallavi123@accuracy.com.sg")
+                    {                    using (SqlCommand cmd = new SqlCommand("select distinct COUNT(distinct Email) from Shine where Designation LIKE '"+skills+"'AND Location like '%india%' ",con))
+                                    {
+                                        cmd.CommandType = CommandType.Text;
+                                        using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                                        {
+                                            using (DataTable dt = new DataTable())
+                                            {
+                                                sda.Fill(dt);
+                                                TempData["count11"] = dt.Rows[0][0];
+                                                count = (int)TempData["count11"];
+
+                                            }
+                                        }
+                                    }
+                    }
+                     else  if(username == "vani123@accuracy.com.sg" || User.Username == "ganeshr@joblisting.com" ||username=="deepti@accuracy.com.sg")
+                    {                    using (SqlCommand cmd = new SqlCommand("select distinct COUNT(distinct Email) from Shine where Designation LIKE '"+skills+"' AND Location like '%india%'",con))
+                                    {
+                                        cmd.CommandType = CommandType.Text;
+                                        using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                                        {
+                                            using (DataTable dt = new DataTable())
+                                            {
+                                                sda.Fill(dt);
+                                                TempData["count11"] = dt.Rows[0][0];
+                                                count = (int)TempData["count11"];
+
+                                            }
+                                        }
+                                    }
+                    }
+
+                            }
+                if (username=="sandhya@accuracy.com.sg"||username == "lakshmip@accuracy.com.sg" || username == "haris@joblisting.com" || username == "anilkumar@joblisting.com" || username == "denise@accuracy.com.sg" || username== "dianna@accuracy.com.sg" ){
+                     //return  @Html.Raw(string.Format("<a href=\"/admin/"+"profileslists/"+skil,itemss.CountryId+"\" target=\"_blank\"><div>{0}</div>"+"</a>",count)) ;
+                      return  @Html.Raw(string.Format("<a href=\"/admin/"+"Shinelist/"+skil+"/"+itemss.CountryId+"\" target=\"_blank\"><div>{0}</div>"+"</a>",count)) ;
+                }
+             else
+                {
+                    return  @Html.Raw(string.Format("<a href=\"/admin/"+"Shinelist/"+skil+"/"+itemss.CountryId+"\" target=\"_blank\"><div>{0}</div>"+"</a>",count)) ;
+                }
+
+           // return  @Html.Raw(string.Format("<a href=\"/admin/"+"Monsterlist/"+skil+"\" target=\"_blank\"><div>{0}</div>"+"</a>",count)) ;
+                                }),
+
+
+                            grid.Column(columnName:"Company",header:"Company", canSort:false,style: "Title1", format: p=>p.CompanyName1),
+
+
+        //grid.Column(columnName:"Employer", header: "Company", canSort:false, format: p=>
+        //        {
+        //            UserProfile employer = MemberService.Instance.Get(p.EmployerId);
+        //          //  return @Html.Raw(string.Format("<a href=\"/{0}\" target=\"_blank\">{1}</a>", employer.PermaLink, employer.Company));
+        //            return @Html.Raw(string.Format("<div>{0}</div>",employer.Company));
+        //        }),
+            //grid.Column(columnName:"Country",header:"Country", canSort:false, format: p=>
+            //{
+            //    UserProfile employer = MemberService.Instance.Get(p.EmployerId);
+            //    return @Html.Raw(string.Format("<a href=\"/{0}\" target=\"_blank\">{1}</a>", employer.PermaLink, employer.Company));
+            //}),
+ grid.Column(columnName:"Country",header:"Country", canSort:false, format: p=>
+ {
+     string countryName = string.Empty;
+     List country = SharedService.Instance.GetCountry(p.CountryId);
+     if (country != null)
+     {
+         countryName = country.Text;
+     }
+     return countryName;
+ }),
+        //grid.Column(columnName:"PublishedDate",header:"Listed", canSort:false, format: p=>p.PublishedDate.ToString("MMM-dd-yyyy")),
+        //grid.Column(columnName:"ClosingDate",header:"Expiry", canSort:false, format: p=>p.ClosingDate.ToString("MMM-dd-yyyy")),
+
+                                grid.Column("Status", canSort: false, format: (item) =>
+                                {
+                                    var links2 = "";
+                                    if (item.IsActive == true && item.IsPublished == true && item.IsRejected == false && item.IsDeleted == false)
+                                    {
+                                        links2 = "Live";
+                                    }
+                                    else if (item.IsActive == false && item.IsPublished == true && item.IsRejected == false && item.IsDeleted == false)
+                                    {
+                                        links2 = "Deactivated";
+                                    }
+                                    else if (item.IsActive == true && item.IsPublished == false && item.IsRejected == false && item.IsDeleted == false)
+                                    {
+                                        links2 = "In Approval";
+                                    }
+                                    else if (item.IsActive == true && item.IsPublished == false && item.IsRejected == true && item.IsDeleted == false)
+                                    {
+                                        links2 = "Rejected";
+                                    }
+                                    else if (item.IsDeleted)
+                                    {
+                                        links2 = "Deleted";
+                                    }
+                                    if (item.ClosingDate.Date < System.DateTime.Now.Date)
+                                    {
+                                        links2 = "<b style='color:red;'>Expired</b>";
+                                    }
+                                    string link2 = string.Empty;
+
+                                    //if (item.IsPaid == true)
+                                    //{
+                                    //    link2 = "<label class='label label-success'>PAID</b>";
+                                    //}
+                                    //else
+                                    //{
+                                    //    link2 = "<label class='label label-danger'>FREE</b>";
+                                    //}
+                                    links2 += "<br/>" + link2;
+                                    return Html.Raw(links2);
+                                }),
+   strPause,
+   strPause1
+
+
+
+                        })
+
+
+                    </div>
+                    <div style="text-align:center">
+                        @if (ViewBag.Employer != null)
+                        {
+                            @Html.PagedListPager(pagedModel, PageNumber => Url.Action("JobsByCompanyAll", "Admin",
+                new RouteValueDictionary()
+                {
+                    { "PageNumber" , PageNumber},
+                    { "CountryId" , (ViewBag.Country != null ? ViewBag.Country.Id : null)},
+                    { "TypeId" , ViewBag.TypeId},
+                    { "Id" , ViewBag.Employer.UserId},
+                    { "JobTitle", Request["JobTitle"]},
+                    { "FromDay", Request["FromDay"]},
+                    { "FromMonth", Request["FromMonth"]},
+                    { "FromYear", Request["FromYear"]},
+                    { "ToDay", Request["ToDay"]},
+                    { "ToMonth", Request["ToMonth"]},
+                    { "ToYear", Request["ToYear"]},
+                }).Replace("/0?", "?"),
+                PagedListRenderOptions.ClassicPlusFirstAndLast)
+                        }
+                        else
+                        {
+                            @Html.PagedListPager(pagedModel, PageNumber => Url.Action("JobsByCompanyAll", "Admin",
+                new RouteValueDictionary()
+                {
+                    { "PageNumber" , PageNumber},
+                    { "CountryId" , (ViewBag.Country != null ? ViewBag.Country.Id : null)},
+                    { "TypeId" , ViewBag.TypeId},
+                    { "Id" , ViewBag.Employer.UserId},
+                    { "JobTitle", Request["JobTitle"]},
+                    { "FromDay", Request["FromDay"]},
+                    { "FromMonth", Request["FromMonth"]},
+                    { "FromYear", Request["FromYear"]},
+                    { "ToDay", Request["ToDay"]},
+                    { "ToMonth", Request["ToMonth"]},
+                    { "ToYear", Request["ToYear"]},
+                }).Replace("/0?", "?"),
+                PagedListRenderOptions.ClassicPlusFirstAndLast)
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="approveJobDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        @using (Html.BeginForm("ApproveJob", "Admin", FormMethod.Post))
+                        {
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="myModalLabel">
+                                    Approve Job
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        @Html.Hidden("JobId")
+                                        @Html.Hidden("Redirect", Request.Url.ToString())
+                                        @Html.Hidden("PostOnMedia", false)
+                                        Are you sure to approve this job?
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" style="width:186px; font-weight:bold;">Cancel</button>
+                                <button type="submit" id="WithoutMedia" class="btn btn-primary" style="background-color:#fecf71; border-color:#fecf71; color:#000;">Approve Without Social Media</button>
+                                <button type="submit" id="WithMedia" class="btn btn-primary">Approve With Social Media</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="rejectJobDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        @using (Html.BeginForm("RejectJob", "Admin", FormMethod.Post))
+                        {
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="myModalLabel">
+                                    Reject Job
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        @Html.Hidden("Id")
+                                        @Html.Label("Write reason for rejection")
+                                        @Html.TextArea("Reason", new { @class = "form-control", @style = "height:100px", @maxlength = "400", @required = "required" })
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px">Close</button>
+                                <button type="submit" class="btn btn-primary" style="width:75px">Submit</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="deactivateJobDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        @using (Html.BeginForm("DeactivateJob", "Admin", FormMethod.Post))
+                        {
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="myModalLabel">
+                                    Deactivate Job
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        @Html.Hidden("Id")
+                                        @Html.Label("Write reason for deactivation")
+                                        @Html.TextArea("Reason", new { @class = "form-control", @style = "height:100px", @maxlength = "400" })
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px">Close</button>
+                                <button type="submit" class="btn btn-primary" style="width:75px">Submit</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="deleteJobDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        @using (Html.BeginForm("DeleteJob", "Admin", FormMethod.Post))
+                        {
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="myModalLabel">
+                                    Delete Job
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        @Html.Hidden("Id")
+                                        @Html.Label("Write reason for deletion")
+                                        @Html.TextArea("Reason", new { @class = "form-control", @style = "height:100px", @maxlength = "400" })
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px">Close</button>
+                                <button type="submit" class="btn btn-primary" style="width:75px">Submit</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="activateDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        @using (Html.BeginForm("ActivateJob", "Admin", FormMethod.Post))
+                        {
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h4 class="modal-title" id="myModalLabel">
+                                    Delete Job
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        @Html.Hidden("Id")
+                                        @Html.Label("Write reason for activation")
+                                        @Html.TextArea("Reason", new { @class = "form-control", @style = "height:100px", @maxlength = "400" })
+                                    </div>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px">Close</button>
+                                <button type="submit" class="btn btn-primary" style="width:75px">Submit</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="jobMsgDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="JobMessageForm">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        Message
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            @Html.Hidden("ReferenceId")
+                            @Html.Hidden("SenderId", User.Id)
+                            @Html.Hidden("ReceiverId")
+                            @Html.Hidden("ReferenceType", 1)
+                            @Html.Hidden("Subject")
+                        </div>
+                        <div class="form-group">
+                            @Html.Label("Write message here")
+                            @Html.TextArea("Body", new { @class = "form-control", @style = "height:100px", @maxlength = "400", @required = "required" })
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px">Close</button>
+                    <button id="Send" type="submit" class="btn btn-primary" style="width:75px">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+        $(".jactivate").click(function () {
+            var jobId = $(this).data('id');
+            $(".modal-body #Id").val(jobId);
+        });
+
+        $(".japprove").click(function () {
+            var jobId = $(this).data('id');
+
+            $(".modal-body #JobId").val(jobId);
+            var share = $(this).data("distribute");
+            //if (share == "True") {
+            //    $("#WithoutMedia").hide();
+            //} else {
+            //    $("#WithoutMedia").show();
+            //}
+
+            //var onmedia = $(this).data('onmedia');
+            //if (onmedia == "True") {
+            //    $("#WithMedia").hide();
+            //} else {
+            //    $("#WithMedia").show();
+            //}
+
+            $("#PostOnMedia").val(false);
+        });
+
+        $(".jreject").click(function () {
+            var jobId = $(this).data('id');
+            $(".modal-body #Id").val(jobId);
+        });
+
+        $(".jdeactive").click(function () {
+            var jobId = $(this).data('id');
+            $(".modal-body #Id").val(jobId);
+        });
+
+        $(".jdelete").click(function () {
+            var jobId = $(this).data('id');
+            $(".modal-body #Id").val(jobId);
+        });
+
+        $(".jmsg").click(function () {
+            var jobId = $(this).data('id');
+            var employerId = $(this).data('uid');
+            var jobTitle = $(this).data('jobtitle');
+            $(".modal-body #ReferenceId").val(jobId);
+            $(".modal-body #ReceiverId").val(employerId);
+            $(".modal-body #Subject").val(jobTitle + " - Listed ");
+        });
+
+        $("#Search").click(function () {
+            var isValidStartDate = isValidDate($("#fd").val(), $("#fm").val(), $("#fy").val());
+            var isValidEndDate = isValidDate($("#td").val(), $("#tm").val(), $("#ty").val());
+
+            if (isValidStartDate) {
+                $("#fromDateError").html("");
+                $("#fromDateError").show();
+                $("#Search").enabled = true;
+            } else {
+                $("#fromDateError").html("Provide correct from date!");
+                $("#fromDateError").show();
+                $("#Search").enabled = false;
+            }
+
+            if (isValidEndDate) {
+                $("#toDateError").html("");
+                $("#toDateError").show();
+                $("#Search").enabled = true;
+            } else {
+                $("#toDateError").html("Provide correct to date!");
+                $("#toDateError").show();
+                $("#Search").enabled = false;
+            }
+            return (isValidStartDate == true && isValidEndDate == true);
+        });
+
+        $("#Send").click(function () {
+            if ($("#JobMessageForm")[0].checkValidity()) {
+                var jsonForm = $("#JobMessageForm").serializeObject();
+                $.post("@Url.Action("SendMessage", "Admin")", jsonForm, function (result) {
+                    window.location.reload();
+                });
+            }
+            return false;
+        });
+    });
+
+    $.fn.serializeObject = function () {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function () {
+            if (o[this.name]) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+
+</script>

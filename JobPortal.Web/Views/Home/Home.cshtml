@@ -1,0 +1,43 @@
+﻿@using JobPortal.Library.Constants
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Domain
+@using JobPortal.Models
+
+
+<div>
+    <table id="t01">
+        <thead>
+        <th>UserID</th>
+        <th>Username</th>
+        <th>Password</th>
+        <th>FullName</th>
+        <th>EmailID</th>
+        </thead>
+        @foreach (var item in ViewBag.userdetails)
+        {
+
+            <tr>
+                <td>
+                    @item.UserID
+                </td>
+                <td>
+                    @item.Username
+                </td>
+                <td>
+                    @item.Password
+                </td>
+                <td>
+                    @item.FullName
+                </td>
+                <td>
+                    @item.EmailID
+                </td>
+            </tr>
+
+
+
+        }
+
+    </table>
+</div> 

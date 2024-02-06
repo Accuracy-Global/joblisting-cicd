@@ -1,0 +1,437 @@
+﻿@model JobPortal.Web.Models.CampaignModel
+@using JobPortal.Domain
+@using System.Collections
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@{
+    ViewBag.Title = "Campaign";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+<script src="~/Scripts/tinymce/tinymce.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1 style="margin-top:-15px"></h1>
+         
+        </div>
+        <p> @ViewBag.exception1 </p>
+        <p> @ViewBag.exception2 </p>
+        <p> @ViewBag.exception3 </p>
+        <p> @ViewBag.exception4 </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-2 col-lg-2" style="margin: 5px 15px;">
+        <div class="card text-center" style="border: 1px thin black; border-radius: 8px; padding: 5px; min-height: 180px;">
+            <i class="fa fa-3x fa-user-graduate bi-align-center" style="color: #34ba08;"></i>
+            <div class="card-body">
+                <h3 class="card-title text-center">Students</h3>
+                <h2 class="card-text text-center" id="student" style="color: #34ba08;">+</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2 col-lg-2" style="margin: 5px 15px;">
+        <div class="card text-center" style="border: 1px thin black; border-radius: 8px; padding: 5px; min-height: 180px;">
+            <i class="fa fa-3x fa-building bi-align-center" style="color: #34ba08;"></i>
+            <div class="card-body">
+                <h3 class="card-title text-center">Companies</h3>
+                <h2 class="card-text text-center" id="company" style="color: #34ba08;">+</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2 col-lg-2" style="margin: 5px 15px;">
+        <div class="card text-center" style="border: 1px thin black; border-radius: 8px; padding: 5px; min-height: 180px;">
+            <i class="fa fa-3x fa-user-tie bi-align-center" style="color: #34ba08;"></i>
+            <div class="card-body">
+                <h3 class="card-title text-center">Jobseekers</h3>
+                <h2 class="card-text text-center" id="jobseeker" style="color: #34ba08;">+</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2 col-lg-2" style="margin: 5px 15px;">
+        <div class="card text-center" style="border: 1px thin black; border-radius: 8px; padding: 5px; min-height: 180px;">
+            <i class="fa fa-3x fa-landmark bi-align-center" style="color: #34ba08;"></i>
+            <div class="card-body">
+                <h3 class="card-title text-center">Institutes</h3>
+                <h2 class="card-text text-center" id="institute" style="color: #34ba08;">45</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-2 col-lg-2" style="margin: 5px 15px;">
+        <div class="card text-center" style="border: 1px thin black; border-radius: 8px; padding: 5px; max-height: 180px;">
+            <i class="fa fa-3x fa-brands fa-briefcase bi-align-center" style="color: #34ba08;"></i>
+            <div class="card-body">
+                <h3 class="card-title text-center">Recruitment Agencies</h3>
+                <p class="card-text text-center" id="recruiter" style="color: #34ba08; font-size:30px; ">88</p>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-sm-12">
+        <h3>Total numbers of users registered in selected city : <span style="height: 80px; width: 80px; border: dashed limegreen; margin-left:20px;"><strong id="count" name="count" style="color:black; font-size:22px; padding:5px;"> 0 </strong></span></h3>
+    </div>
+</div>
+<div class="clear" style="height:15px;"></div>
+@using (Html.BeginForm())
+{
+    <div>
+        @Html.ValidationSummary(true)
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Type)
+
+                    @*@Html.TextBoxFor(model => model.Type, new { @class = "form-control" })*@
+                    @Html.DropDownListFor(model => model.Type, new SelectList(new SortedDictionary<int, string>() { { 4, "Jobseeker" }, { 5, "Employers" }, { 12, "University" }, { 13, "Student" }, { 18, "Interns" }, { 0, "All" },{ 19,"Test"} }, "key", "value"), "--SELECT--", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Type)
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <div class="form-group">
+                    @Html.Label("Search By Country")
+                    @*@Html.DropDownList("CountryId", new SelectList(SharedService.Instance.GetCountryList(), "Id", "Text"), "SELECT COUNTRY", new { @class = "form-control" })*@
+                    <select class="form-control" id="country">
+                        <option value="">Country</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <div class="form-group">
+                    @Html.Label("Search By State")
+                    @* @Html.DropDownList("StateId", new SelectList("Id", "Text"), "", new { @class = "form-control" })*@
+
+                    <select class="form-control" id="state">
+                        <option value="">State</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <div class="form-group">
+                    @Html.Label("Search By City")
+                    <select class="form-control" id="city">
+                        <option value="">City</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CategoryId)
+                    <select id="CategoryId" name="CategoryId" class="form-control" required data-value="@Model.CategoryId"></select>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Subject)
+
+                    @Html.TextBoxFor(model => model.Subject, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Subject)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Body)
+                    @Html.TextAreaFor(model => model.Body, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Body)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 text-right">
+                <div class="form-group">
+                    @Html.ActionLink("Back", "Campaign", null, new { @class = "btn btn-default", @style = "width:75px;" }) &nbsp;<input type="submit" value="Submit" class="btn btn-info" style="width:75px;" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/start/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script>
+    $(document).ready(function () {
+
+        $.getJSON("/help/categorylist", {}, function (list) {
+            $("#CategoryId").empty();
+            $("#CategoryId").append("<option value = ''>SELECT</option>");
+
+            if (list.length != 0) {
+                $(list).each(function () {
+                    $("#CategoryId").append("<option value =" + this.Id + ">" + this.Name + "</option>");
+                });
+                $("#CategoryId").val($("#CategoryId").data("value"));
+            }
+        });
+        //$("#Name").autocomplete({
+        //    source: function (request, response) {
+        //        $.ajax({
+        //            url: "/JsonHelper/GetNamesd",
+        //            type: "POST",
+        //            dataType: "json",
+        //            data: { categoryid: $('option:selected', $(this)).val(), type: $('option:selected', $("#Type")).val(), Prefix: request.term },
+        //            success: function (data) {
+        //                response($.map(data, function (item) {
+        //                    return { label: item.Text, value: item.value };
+        //                }))
+
+        //            }
+        //        })
+        //    },
+        //    messages: {
+        //        noResults: "",
+        //        results: function (count) {
+        //            return count + (count > 1 ? ' results' : ' result ') + ' found';
+        //        }
+        //    }
+        //});
+    })
+
+
+        //Fetch Subspecialization on change of dropdownlist value.
+        @*$("#CategoryId").change(function () {
+            $("#Name").empty();
+            var type = $("#Type").val()
+            $("#Name").append("<option value =\"\">SELECT NAME</option>");
+            $.post('@Url.Action("GetName", "JsonHelper")', { categoryid: $('option:selected', $(this)).val(), type: $('option:selected', $("#Type")).val() },
+                function (result)
+                {
+                    if (result.length != 0)
+                    {
+                        $(result).each(function ()
+                        {
+                            $("#Name").append("<option value =" + this.Value + ">" + this.Text + "</option>");
+                        });
+                    }
+                });
+
+        });*@
+    tinymce.init({ selector: '#Body', plugins: "link", toolbar: "bold | italic | underline | strikethrough | alignleft | aligncenter | alignright | alignjustify | styleselect | formatselect | fontselect | fontsizeselect | bullist | numlist | outdent | indent | blockquote | undo | redo | removeformat | subscript | superscript | link", menubar: false, height: "285px" });
+</script>
+
+<script>
+
+    let auth_token;
+    $(document).ready(function () {
+        $('#Type').change(function () {
+            getCountry();
+            getState();
+            getCity();
+           
+        })
+        //document.getElementById('Type').addEventListener('change', function () {
+        //    console.log('You selected: ', this.value);
+        //    $("#country").empty();
+        //    $('#state').empty();
+
+        //});
+        $.ajax({
+            type: 'get',
+            url: 'https://www.universal-tutorial.com/api/getaccesstoken',
+            success: function (data) {
+                auth_token = data.auth_token
+                getCountry(data.auth_token);
+            },
+            error: function (error) {
+                console.log(error);
+            },
+            headers: {
+                "Accept": "application/json",
+                "api-token": "008QaJ40Z_0Fj4jseSjOMwhCTuRxBRrAz0la1UTtbKOaGkarZb8iFesMqa05R-u7S1k",
+                "user-email": "hmdddhsn@gmail.com"
+            }
+
+        })
+        $('#Type').change(function () {
+            getCountry(auth_token);
+            getState();
+            getCity();
+           
+        })
+      
+        $('#country').change(function () {
+           
+            getState();
+            getCity();
+        })
+        $('#state').change(function () {
+            getCity();
+           
+        })
+        /*For Count the users*/
+        $('#city').change(function () {
+            getCount();
+        })
+
+    })
+    function getCountry(auth_token) {
+        $.ajax({
+            type: 'get',
+            url: 'https://www.universal-tutorial.com/api/countries/',
+            success: function (data) {
+                $("#country").empty();
+                $("#country").append("<option value='0'>Select</option>");
+                data.forEach(element => {
+                    $('#country').append('<option value="' + element.country_name + '">' + element.country_name + '</option>');
+                });
+                //getState(auth_token)
+            },
+            error: function (error) {
+                console.log(error);
+            },
+            headers: {
+                "Authorization": "Bearer " + auth_token,
+                "Accept": "application/json"
+            }
+
+        })
+    }
+    function getState() {
+        let country_name = $('#country').val();
+        $.ajax({
+            type: 'get',
+            url: 'https://www.universal-tutorial.com/api/states/' + country_name,
+            success: function (data) {
+                $('#state').empty();
+                $("#state").append("<option value='0'>Select</option>");
+                data.forEach(element => {
+                    $('#state').append('<option value="' + element.state_name + '">' + element.state_name + '</option>');
+                });
+                //getCity(auth_token);
+            },
+            error: function (error) {
+                console.log(error);
+            },
+            headers: {
+                "Authorization": "Bearer " + auth_token,
+                "Accept": "application/json"
+            }
+
+        })
+    }
+    function getCity() {
+        let state_name = $('#state').val();
+        $.ajax({
+            type: 'get',
+            url: 'https://www.universal-tutorial.com/api/cities/' + state_name,
+            success: function (data) {
+                $('#city').empty();
+                $("#city").append("<option value='0'>Select</option>");
+                data.forEach(element => {
+                    $('#city').append('<option value="' + element.city_name + '">' + element.city_name + '</option>');
+                });
+            },
+            error: function (error) {
+                console.log(error);
+            },
+            headers: {
+                "Authorization": "Bearer " + auth_token,
+                "Accept": "application/json"
+            }
+
+        })
+    }
+
+    function getCount() {
+        $.ajax({
+            type: "POST",
+            url: "/Admin/GetUserCount",
+            data: '{city: "' + $("#city").val() + '", country: "' + $("#country").val() + '", state: "' + $("#state").val() + '" , type: "' + $("#Type").val() + '"}',
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                //$('#count').append(response);
+                document.getElementById('count').innerHTML
+                    = response;
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (response) {
+                alert(response.responseText);
+            }
+        });
+    }
+
+</script>
+<script type="text/javascript">
+    window.onload = function () {
+        getusers();
+    };
+    function getusers() {
+        $.ajax({
+            type: "POST",
+            url: "/Admin/GetStudentCount",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+
+                document.getElementById('student').innerHTML
+                    = response;
+            },
+        });
+        $.ajax({
+            type: "POST",
+            url: "/Admin/GetCompanyCount",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+
+                document.getElementById('company').innerHTML
+                    = response;
+            },
+        });
+        $.ajax({
+            type: "POST",
+            url: "/Admin/GetJobseekerCount",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+
+                document.getElementById('jobseeker').innerHTML
+                    = response;
+            },
+        });
+        $.ajax({
+            type: "POST",
+            url: "/Admin/GetInstituteCount",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+
+                document.getElementById('institute').innerHTML
+                    = response;
+            },
+        });
+        $.ajax({
+            type: "POST",
+            url: "/Admin/GetRecruiterCount",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                document.getElementById('recruiter').innerHTML
+                    = response;
+            },
+        });
+    }
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-G1CXYWJBM9');
+</script>
+
+
+
+

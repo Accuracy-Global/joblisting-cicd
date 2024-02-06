@@ -1,0 +1,330 @@
+﻿@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using PagedList.Mvc
+@using JobPortal.Models
+@{
+    ViewBag.Title = "Resume Downloads";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<DownloadEntity>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+    WebGrid grid = new WebGrid(ViewBag.Model, ajaxUpdateContainerId: "grid");
+}
+@Scripts.Render("~/bundles/jScripts")
+<style>
+    .seemore {
+        text-align: right;
+    }
+
+        .seemore > a {
+            color: #000000;
+            font-family: "Roboto", sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .seemore i {
+            font-size: 16px;
+            padding: 0 0 0 5px;
+            vertical-align: middle;
+        }
+
+    .sponsored {
+        background: #ffffff;
+    }
+
+    .sponsored {
+        background: #fff none repeat scroll 0 0;
+        padding: 0px 15px 0;
+        margin-top: -6px;
+    }
+
+    .abcdesign {
+        margin: 0 0 18px 0;
+    }
+
+        .abcdesign > h3 {
+            color: #333;
+            font-size: 14px;
+            margin: 0 0 11px 0;
+        }
+
+    .sub-heading h2 {
+        color: #000;
+        font-size: 14px;
+        margin: 0 0 20px;
+        padding-bottom: 6px;
+        position: relative;
+        font-weight: bold;
+    }
+
+        .sub-heading h2::after {
+            border-bottom: 2px solid #e93100;
+            bottom: 0;
+            content: "";
+            display: block;
+            left: 0;
+            position: absolute;
+            width: 100%;
+        }
+</style>
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="title-login">
+            <h1 style="margin-top: -15px;">Resume Downloads</h1>
+            View downloaded resumes here
+        </div>
+    </div>
+    @*<div class="col-lg-6 col-md-6 col-sm-6 text-right">
+        @Html.ActionLink("List New Job", "ListJob", null, new { @class = "btn btn-info", @style = "width:125px; margin-top: 10px;" })
+    </div>*@
+</div>
+@Html.Partial("_MessagePartial")
+<div class="clear" style="height:15px"></div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        @using (Html.BeginForm())
+        {
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        @Html.Label("Title")
+                        @if (ViewBag.ResumeList != null)
+                        {
+                            @Html.DropDownList("Title", ViewBag.ResumeList as SelectList, "SELECT", new { @class = "form-control" })
+                        }
+                        else
+                        {
+                            <select id="Title" class="form-control">
+                                <option value="">SELECT</option>
+                            </select>
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        @Html.Label("Country")
+                        @Html.DropDownList("CountryId", ViewBag.CountryList as SelectList, "SELECT", new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        @Html.Label("From Date")
+                        <div class='input-group date' style="margin-bottom:0;">
+                            @Html.TextBox("StartDate", null, new { @class = "form-control", placeholder = "FROM DATE", @title = "FROM DATE", @readonly = "readonly" })
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        @Html.Label("To Date")
+                        <div class='input-group date' style="margin-bottom:0;">
+                            @Html.TextBox("EndDate", null, new { @class = "form-control", placeholder = "TO DATE", @title = "TO DATE", @readonly = "readonly" })
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear" style="height:15px;"></div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-lg-offset-8 col-md-offset-8">
+                    <input type="submit" value="Search" class="btn btn-info btn-block" />
+                </div>
+            </div>
+            <div class="clear" style="height:25px;"></div>
+        }
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+
+                @if (ViewBag.Model != null)
+                {
+                    foreach (var item in ViewBag.Model)
+                    {
+                        var tlink = "";
+                        UserProfile jobSeeker = null;
+                        if (item.JobseekerId != null)
+                        {
+                            jobSeeker = MemberService.Instance.Get(item.JobseekerId);
+                        }
+                        if (jobSeeker != null)
+                        {
+                            if (!string.IsNullOrEmpty(jobSeeker.Title))
+                            {
+                                tlink = Html.ActionLink((string)jobSeeker.Title, "Download", "Jobseeker", new { id = item.JobseekerId, redirect = Request.Url.ToString() }, null).ToString();
+                            }
+                        }
+
+                        var jlink = "";
+                        if (jobSeeker != null)
+                        {
+                            jlink = string.Format("<a href=\"/{0}\" target=\"_blank\">{1} {2}</a>", jobSeeker.PermaLink, jobSeeker.FirstName, jobSeeker.LastName);
+                        }
+
+                        string countryName = string.Empty;
+                        if (item.JobseekerId != null)
+                        {
+                            List country = SharedService.Instance.GetCountry(jobSeeker.CountryId.Value);
+                            countryName = country.Text;
+                        }
+
+
+                        var links = "";
+                        if (jobSeeker != null)
+                        {
+                            string username = user.Username;
+                            if (!string.IsNullOrEmpty(username))
+                            {
+                                bool isConnected = DomainService.Instance.IsConnected(jobSeeker.UserId, user.Id);
+                                bool isBlockedByMe = DomainService.Instance.IsBlockedByMe(jobSeeker.UserId, user.Id);
+                                bool isBlockedBySomeone = DomainService.Instance.IsBlockedBySomeone(jobSeeker.UserId, user.Id);
+                                bool isInvitedByMe = DomainService.Instance.IsInvitedByMe(jobSeeker.UserId, user.Id);
+                                bool isInvitedBySomeone = DomainService.Instance.IsInvitedBySomeone(jobSeeker.UserId, user.Id);
+
+                                Connection connection = ConnectionHelper.Get(jobSeeker.Username, username);
+
+                                int msg_counts = ConnectionHelper.MessageCounts(jobSeeker.UserId, user.Id);
+                                string view_text = "Message";
+                                if (msg_counts > 0)
+                                {
+                                    view_text = string.Format("Message (<span style=\"color:red;\">{0}</span>)", msg_counts);
+                                }
+                                links += "<b>" + string.Format("<a href=\"{0}\" target=\"_blank\">{1}</a>", Url.Action("List", "Message", new { SenderId = jobSeeker.UserId }), view_text) + "</b>";
+
+
+                                if (isConnected)
+                                {
+                                    links += string.Format(" | <b><a href=\"#\" data-aurl=\"{0}\" role=\"button\" data-toggle=\"modal\" data-target=\"#discDialog\" class=\"disc\">Disconnect</a></b>", Url.Action("Disconnect", "Network", new { Id = connection.Id, redirect = Request.Url.ToString() }));
+                                }
+                                else
+                                {
+                                    if (isInvitedByMe)
+                                    {
+                                        links += string.Format(" | <b><a href=\"#\" data-aurl=\"{0}\" role=\"button\" data-toggle=\"modal\" data-target=\"#discDialog\" class=\"disc\">Disconnect</a></b>", Url.Action("Disconnect", "Network", new { Id = connection.Id, redirect = Request.Url.ToString() }));
+                                    }
+                                    else if (isInvitedBySomeone)
+                                    {
+                                        links += " | " + "<b>" + Html.ActionLink("Accept", "Accept", "Network", new { Id = connection.Id, redirect = Request.Url.ToString() }, new { title = "Accept" }).ToString() + "</b>";
+                                        links += string.Format(" | <b><a href=\"#\" data-aurl=\"{0}\" role=\"button\" data-toggle=\"modal\" data-target=\"#discDialog\" class=\"disc\">Disconnect</a></b>", Url.Action("Disconnect", "Network", new { Id = connection.Id, redirect = Request.Url.ToString() }));
+                                    }
+                                    else
+                                    {
+                                        if (!isConnected)
+                                        {
+                                            links += " | " + "<b>" + Html.ActionLink("Connect", "Connect", "Home", new { id = jobSeeker.UserId, redirect = Request.Url.ToString() }, new { title = "Connect" }).ToString() + "</b>";
+                                        }
+                                    }
+                                }
+
+                                if (!string.IsNullOrEmpty(jobSeeker.Title) && jobSeeker.CategoryId != null && jobSeeker.SpecializationId != null)
+                                {
+                                    Interview interview = InterviewService.Instance.Get(jobSeeker.UserId, user.Id);
+                                    List<int> status_list = new List<int>() { (int)InterviewStatus.INTERVIEW_IN_PROGRESS, (int)InterviewStatus.INITIATED };
+                                    if (interview.Id > 0 && status_list.Contains(interview.Status))
+                                    {
+                                        links += string.Format(" | <b><a href=\"{0}\" title=\"View In-progress interview details\" target=\"_blank\"><span>Interview&nbsp;In-progress</span></a></b>", Url.Action("Update", "Interview", new { id = interview.Id }));
+                                    }
+                                    else
+                                    {
+                                        List<int> statuslist = new List<int>() { (int)InterviewStatus.SELECTED, (int)InterviewStatus.COMPLETED, (int)InterviewStatus.WITHDRAW, (int)InterviewStatus.REJECTED };
+                                        if (interview.Id > 0 && !statuslist.Contains(interview.Status))
+                                        {
+                                            links += " | " + "<b>" + Html.ActionLink("Interview", "Start", "Interview", new { id = jobSeeker.UserId }, new { title = "Start an Interview", target = "_blank" }) + "</b>";
+                                        }
+                                        else if (interview.Id == 0)
+                                        {
+                                            links += " | " + "<b>" + Html.ActionLink("Interview", "Start", "Interview", new { id = jobSeeker.UserId }, new { title = "Start an Interview", target = "_blank" }) + "</b>";
+                                        }
+                                    }
+                                    links += " | " + "<b>< a href = ~/JobSeeker/Resume12?uid=" + jobSeeker.UserId + " title = 'Download Resume' target = '_blank' > Download </ a ></b>";
+                                }
+
+                                if (isBlockedByMe)
+                                {
+                                    links += " | " + "<b>" + Html.ActionLink("Unblock", "Unblock", "Home", new { id = jobSeeker.UserId, redirect = Request.Url.ToString() }, new { @target = "_blank" }).ToString() + "</b>";
+                                }
+                                else if (isBlockedByMe == false && isBlockedBySomeone == false)
+                                {
+                                    links += " | " + string.Format("<b><a href=\"#\"  data-href=\"/Home/Block?email={0}\" data-name=\"{1}\" role=\"button\" data-toggle=\"modal\" data-target=\"#cDialog\" class=\"aBlock\" data-role=\"{2}\"  data-connected=\"{3}\">Block</a></b>", jobSeeker.Username, string.Format("{0} {1}", jobSeeker.FirstName, jobSeeker.LastName), ((SecurityRoles)jobSeeker.Type).GetDescription(), isConnected);
+                                }
+                            }
+                        }
+
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <i><b>Title:</b></i> @Html.Raw(tlink)
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <i><b>Jobseeker:</b></i> @Html.Raw(jlink)
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <i><b>Country:</b></i> @Html.Raw(countryName)
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <i><b>Download Date:</b></i> @Html.Raw(item.DateUpdated.ToString("MMM-dd-yyyy hh:mm tt"))
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        @Html.Raw(links)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        <div style="text-align:center; width:100%">
+
+            @Html.PagedListPager(pagedModel, PageNumber => Url.Action("DownloadHistory",
+            new RouteValueDictionary()
+            {
+            { "PageNumber" , PageNumber},
+            { "Title" , Request["Title"]},
+            { "CountryId" , Request["CountryId"]},
+            { "StartDate" , Request["StartDate"]},
+            { "EndDate" , Request["EndDate"]}
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(function () {
+
+        $('#Title').change(function () {
+            this.form.submit();
+        });
+
+        $('#CountryId').change(function () {
+            this.form.submit();
+        });
+    });
+</script>

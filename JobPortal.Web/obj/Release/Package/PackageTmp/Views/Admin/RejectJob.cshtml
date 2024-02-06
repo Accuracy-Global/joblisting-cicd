@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "Reject Job";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1>Reject Job</h1>
+        </div>
+    </div>
+</div>
+@using (Html.BeginForm())
+{
+    <div class="well">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                @Html.Hidden("Id", (long)ViewBag.JobId)
+                @Html.Label("Write reason for rejection")
+                @Html.TextArea("Reason", new { @class = "form-control", @maxlength = "400" })
+            </div>
+        </div>
+        <div class="clear" style="height:15px;"></div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <input type="submit" value="Submit" class="btn btn-info" />
+            </div>
+        </div>
+    </div>
+}

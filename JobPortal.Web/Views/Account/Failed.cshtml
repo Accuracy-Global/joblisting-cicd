@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Failed";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="section">
+    <div style="padding:15px; text-align:center">
+        <div style="font-size:20px; font-weight:lighter; color:red;">This email <b>@ViewBag.Email</b> already exist!</div>
+        <div style="font-size:20px; font-weight:lighter">Forgot your password then <a href="/home/Forgot?email=@ViewBag.Email">CLICK HERE</a>.</div>
+        @if (ViewBag.ReturnUrl != null) { 
+            <div style="font-size:20px; font-weight:lighter">If you remember password then <a href="/account/login?ReturnUrl=@ViewBag.ReturnUrl">CLICK HERE</a> to login.</div>
+        }
+        else
+        {
+            <div style="font-size:20px; font-weight:lighter">If you remember password then <a href="/account/login">CLICK HERE</a> to login.</div>
+        }
+    </div>
+</div>

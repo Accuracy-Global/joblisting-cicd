@@ -1,0 +1,1212 @@
+﻿@model JobPortal.Web.Models.JobseekerProfileModel
+@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+<style>
+    .editor {
+        box-shadow: 0 0 2px #CCC;
+        min-height: 150px;
+        overflow: auto;
+        padding: 1em;
+        resize: vertical;
+        outline: none;
+        border: 1px solid #CCC;
+    }
+
+    .toolbar {
+        border: 1px solid #CCC;
+        text-align: left;
+        background-color: #f2f2f2;
+        padding: 2px;
+    }
+
+        .toolbar a,
+        .fore-wrapper,
+        .back-wrapper {
+            border-radius: 1px;
+            color: black;
+            width: 1.5em;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+            .toolbar a:hover,
+            .fore-wrapper:hover,
+            .back-wrapper:hover {
+                background: #f2f2f2;
+                border-color: #8c8c8c;
+            }
+
+    a[data-command='redo'],
+    a[data-command='strikeThrough'],
+    a[data-command='justifyFull'],
+    a[data-command='insertOrderedList'],
+    a[data-command='outdent'],
+    a[data-command='p'],
+    a[data-command='superscript'] {
+        margin-right: 5px;
+        border-radius: 0 3px 3px 0;
+    }
+
+    a[data-command='undo'],
+    .fore-wrapper,
+    a[data-command='justifyLeft'],
+    a[data-command='insertUnorderedList'],
+    a[data-command='indent'],
+    a[data-command='h1'],
+    a[data-command='subscript'] {
+        border-radius: 3px 0 0 3px;
+    }
+
+    a.palette-item {
+        height: 1em;
+        border-radius: 3px;
+        margin: 2px;
+        width: 1em;
+        border: 1px solid #CCC;
+    }
+
+        a.palette-item:hover {
+            border: 1px solid #CCC;
+            box-shadow: 0 0 3px #333;
+        }
+
+    .fore-palette,
+    .back-palette {
+        display: none;
+    }
+
+    .fore-wrapper,
+    .back-wrapper {
+        display: inline-block;
+        cursor: pointer;
+    }
+
+        .fore-wrapper:hover .fore-palette,
+        .back-wrapper:hover .back-palette {
+            display: block;
+            float: left;
+            position: absolute;
+            padding: 3px;
+            width: 160px;
+            background: #FFF;
+            border: 1px solid #DDD;
+            box-shadow: 0 0 5px #CCC;
+            height: 70px;
+        }
+
+    .fore-palette a,
+    .back-palette a {
+        background: #FFF;
+        margin-bottom: 2px;
+    }
+    .bday {
+        padding-left: 0px;
+        list-style-type: none;
+    }
+
+        .bday li {
+            display: inline-block;
+        }
+</style>
+@{
+    ViewBag.Title = "User Profile";
+    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+    UserProfile profile = MemberService.Instance.Get(Model.Id);
+    int inboxItems = DomainService.Instance.DashboardInboxItems(Model.Id);
+    int appCounts = MemberService.Instance.GetApplicationCount(profile.Username);
+    int intCounts = MemberService.Instance.GetInterviewCount(profile.Username);
+    Photo photo = MemberService.Instance.GetPhoto("Profile", profile.Username);
+}
+
+<div class="section">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                <li class="active"><a href="#">QUICK LINKS</a></li>
+                <li>@Html.ActionLink("Connections", "Connections", "Admin", new { UserId = Model.Id }, new { target = "_blank" })</li>
+                <li>@Html.ActionLink("Messages", "Messages", "Admin", new { Id = Model.Id }, new { target = "_blank" })</li>
+                @if (appCounts > 0)
+                {
+                <li>@Html.ActionLink(string.Format("Applications ({0})", appCounts), "Applications", "Admin", new { UserId = Model.Id }, new { target = "_blank" })</li>
+                }
+                else
+                {
+                <li>@Html.ActionLink("Applications", "Applications", "Admin", new { UserId = Model.Id }, new { target = "_blank" })</li>
+                }
+                @if (intCounts > 0)
+                {
+                <li>@Html.ActionLink(string.Format("Interviews ({0})", intCounts), "Interviews", "Admin", new { UserId = Model.Id }, new { target = "_blank" })</li>
+                }
+                else
+                {
+                <li>@Html.ActionLink("Interviews", "Interviews", "Admin", new { UserId = Model.Id }, new { target = "_blank" })</li>
+                }
+                @if (inboxItems > 0)
+                {
+                <li><a href="/Admin/Inbox?Id=@Model.Id" target="_blank">Inbox (<span style="color:red; font-weight:bold">@inboxItems</span>)</a></li>
+                }
+                else
+                {
+                <li><a href="/Admin/Inbox?Id=@Model.Id" target="_blank">Inbox</a></li>
+                }
+
+                <li>@Html.ActionLink("Profile", "ManageIndividual", "Admin", new { Id = Model.Id }, new { })</li>
+                <li>@Html.ActionLink("Purchased Profiles", "PaidProfiles", "Payment", new { userId = Model.Id }, null)</li>
+                <li>@Html.ActionLink("Billing & Invoices", "billing", "Payment", new { userId = Model.Id }, new { })</li>
+                <li>@Html.ActionLink("Reset Password", "ResetPassword", "Admin", new { Id = Model.Id }, new { target = "_blank" })</li>
+                <li>@Html.ActionLink("Login History", "LoginHistory", "Admin", new { Id = Model.Id }, new { target = "_blank" })</li>
+                <li>@Html.ActionLink("Alert Settings", "Alerts", "Admin", new { Id = Model.Id }, new { target = "_blank" })</li>
+            </ul>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-9">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="title-login">
+                        <h1 style="margin-top: -15px;">User Profile</h1>
+                        Manage <b>@Model.FirstName  @Model.LastName</b> profile here
+                    </div>
+                </div>
+            </div>
+            <div class="clear" style="height:15px;"></div>
+            <div class="list-group-item">
+                @using (Html.BeginForm("ManageIndividual", "Admin", FormMethod.Post, new { @autocomplete = "off" }))
+                {
+                    @Html.ValidationSummary(true)
+                    @Html.HiddenFor(model => model.Id)
+
+                    @Html.Partial("_MessagePartial")
+                    <div class="clear" style="height:5px"></div>
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-2 text-center">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class=" form-group">
+                                        <div class="list-group-item text-center" style="min-height:184px;height: 184px; width:172px; display: table-cell; vertical-align: middle; text-align: center;">
+                                            <div style="height: 130px; width:145px; display: table-cell; vertical-align: middle; text-align: center;">
+                                                <div style="height: 135px; width:135px;background:url(/Image/Avtar?Id=@Model.Id&height=135&width=135); background-repeat:no-repeat; background-size:contain; background-position:center top;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class=" form-group">
+                                        <b><a href="#" id="lnkbUploadPhoto" role="button" data-id="@Model.Id" data-toggle='modal' data-target='#uploadDialog' title="Upload Photo">Upload</a></b>
+                                        @if (photo != null && photo.IsApproved)
+                                        {
+                                            <text> | </text><b><a href="#" id="lnkbDeletePhoto" role="button" data-id="@Model.Id" data-toggle='modal' data-target='#deleteDialog' title="Delete Photo">Delete</a></b>
+                                        }
+                                        else
+                                        {
+                                            <text> | </text><b><a id="deletePhoto" title="Delete Photo">Delete</a></b>
+                                            <script>
+                                                $("#deletePhoto").attr("disabled", true);
+                                            </script>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-10">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12  col-lg-push-10">
+                                    <button value="Save" class="btn btn-info save" style="width: 80px">Submit</button>
+                                </div>
+                            </div>
+                            <div class="clear" style="height: 15px;"></div>
+                            <div class="clear" style="height: 15px;"></div>
+                            <div class="row">
+                                <div class="col-lg-10 col-md-10 col-sm-10 col-lg-push-2">
+                                    <div class="form-group">
+
+                                        @if (!string.IsNullOrEmpty(Model.PremaLink))
+                                        {
+                                            <div style="padding: 5px; text-align:left; border: #c9cacc 1px solid; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;">
+                                                Profile Url:&nbsp;&nbsp;<a href="/@Model.PremaLink" target="_blank">@Request.Url.Scheme://@Request.Url.Authority/@Model.PremaLink</a>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="clear" style="height: 25px;"></div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            @Html.Label("Title") (Optional)
+
+                            @Html.TextBoxFor(model => model.Title, new { @class = "form-control", placeholder = "TITLE (For example, Software Engineer)", title = "TITLE (For example, Software Engineer)", @maxlength = 50 })
+                            <span class="profileError field-validation-valid" id="divTitle" style="color:red"></span>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CategoryId) (Mandatory for Title)
+
+                                @Html.DropDownListFor(model => model.CategoryId, new SelectList(Model.Categories, "Id", "Name", Model.CategoryId), "SELECT CATEGORY", new { @class = "form-control" })
+                                <span class="profileError field-validation-valid" id="divCategory" style="color:red"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.SpecializationId) (Mandatory for Title)
+
+                                @Html.DropDownListFor(model => model.SpecializationId, new SelectList(Model.Specialisations, "Id", "Name", Model.SpecializationId), "SELECT SPECIALIZATION", new { @class = "form-control" })
+                                <span class="profileError field-validation-valid" id="divSpecialization" style="color:red"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FirstName)
+
+                                @Html.TextBoxFor(model => model.FirstName, new { placeholder = "FIRST NAME", @class = "form-control", @maxlength = 20 })
+                                @Html.ValidationMessageFor(model => model.FirstName)
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LastName)
+
+                                @Html.TextBoxFor(model => model.LastName, new { placeholder = "LAST NAME", @class = "form-control", @maxlength = 20 })
+                                @Html.ValidationMessageFor(model => model.LastName)
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="form-group">
+                                <label>Birth Date</label>
+                                <ul class="bday" title="Providing birth date helps to make sure that\nyou get right experience for your age!">
+                                    <li>
+                                        <select id="BDay" name="BDay" title="Birth Day" class="form-control">
+                                            <option value="">DAY</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
+                                            <option value="26">26</option>
+                                            <option value="27">27</option>
+                                            <option value="28">28</option>
+                                            <option value="29">29</option>
+                                            <option value="30">30</option>
+                                            <option value="31">31</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        <select id="BMonth" name="BMonth" title="Birth Month" class="form-control" style="width:96px;">
+                                            <option value="">MONTH</option>
+                                            <option value="1">January</option>
+                                            <option value="2">February</option>
+                                            <option value="3">March</option>
+                                            <option value="4">April</option>
+                                            <option value="5">May</option>
+                                            <option value="6">June</option>
+                                            <option value="7">July</option>
+                                            <option value="8">August</option>
+                                            <option value="9">September</option>
+                                            <option value="10">October</option>
+                                            <option value="11">November</option>
+                                            <option value="12">December</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        @Html.DropDownListFor(model => model.BYear, new SelectList(SharedService.Instance.GetYearList(true, DateTime.Now.Year)), "YEAR", new { @class = "form-control", placeholder = "YEAR" })
+                                    </li>
+                                </ul>
+                                @Html.ValidationMessageFor(model => model.BYear)
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="form-group">
+                                @Html.Label("Gender")
+                                @Html.DropDownListFor(model => model.Gender, new SelectList(new List<string>() { "Male", "Female" }), "SELECT", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Gender)
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.RelationshipStatus)
+                                @Html.DropDownListFor(model => model.RelationshipStatus, UIHelper.DropDown<Relationships>(), "SELECT", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.RelationshipStatus)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Address)
+
+                                @Html.TextAreaFor(model => model.Address, new { placeholder = "ADDRESS", @class = "form-control", @maxlength = 255, @style = "height:100px;" })
+                                @Html.ValidationMessageFor(model => model.Address)
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CountryId)
+                                        @Html.DropDownListFor(model => Model.CountryId, new SelectList(Model.Countries, "Id", "Text", Model.CountryId), "SELECT COUNTRY", new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.CountryId)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.StateId)
+                                                @Html.DropDownListFor(model => Model.StateId, new SelectList(Model.States, "Id", "Text", Model.StateId), "SELECT STATE", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <div class="form-group">
+                                                @Html.LabelFor(model => model.City)
+
+                                                @Html.TextBoxFor(model => model.City, new { placeholder = "CITY", @class = "form-control", @maxlength = 50 })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Zip)
+
+                                @Html.TextBoxFor(model => model.Zip, new { placeholder = "ZIP CODE", @class = "form-control", @maxlength = 15 })
+                                @Html.ValidationMessageFor(model => model.Zip)
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="form-group">
+                                @Html.Label("Mobile Number")
+
+                                <div class="input-group">
+                                    @Html.DropDownListFor(model => model.MobileCountryCode, new SelectList(Model.CountryWithCodes, "Value", "Value", Model.MobileCountryCode), new { @class = "form-control", @required = "required", @style = "height:31px" })
+                                    <span class="input-group-btn" style="width:0px;"></span>
+                                    @Html.TextBoxFor(model => model.Mobile, new { @class = "form-control", placeholder = "MOBILE NUMBER", maxlength = "10", @style = "height:31px" })
+                                </div>
+
+                                @Html.ValidationMessageFor(model => model.Mobile)
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="form-group">
+                                @Html.Label("Phone Number")
+
+                                <div class="input-group">
+                                    @Html.DropDownListFor(model => model.PhoneCountryCode, new SelectList(Model.CountryWithCodes, "Value", "Value", Model.PhoneCountryCode), new { @class = "form-control", @required = "required", @style = "height:31px" })
+                                    <span class="input-group-btn" style="width:0px;"></span>
+                                    @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", placeholder = "PHONE NUMBER", maxlength = "15", @style = "height:31px" })
+                                </div>
+
+                                @Html.ValidationMessageFor(model => model.Phone)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.QualificationId)
+
+                                @Html.DropDownListFor(model => model.QualificationId, new SelectList(Model.Qualifications, "Id", "Text"), "SELECT", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.QualificationId)
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Experience)
+
+                                @Html.DropDownListFor(model => model.Experience, Model.ExperienceList, "SELECT", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Experience)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CurrentCurrency)
+                                @Html.DropDownListFor(model => Model.CurrentCurrency, Model.CurrencySymbols, "SELECT", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CurrentSalary)
+                                @Html.TextBoxFor(model => model.CurrentSalary, new { placeholder = "CURRENT SALARY", title = "Current Salary", @class = "form-control", @maxlength = 9 })
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ExpectedCurrency)
+                                @Html.DropDownListFor(model => Model.ExpectedCurrency, Model.CurrencySymbols, "SELECT", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.ExpectedSalary)
+                                @Html.TextBoxFor(model => model.ExpectedSalary, new { placeholder = "EXPECTED SALARY", title = "Expected Salary", @class = "form-control", @maxlength = 9 })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CurrentEmployer)
+                                @Html.TextBoxFor(model => model.CurrentEmployer, new { @class = "form-control", @placeholder = "CURRENT EMPLOYER (For example, Company Inc.)", @maxlength = 100 })
+                                @Html.ValidationMessageFor(model => model.CurrentEmployer)
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.PreviousEmployer)
+                                    @Html.TextBoxFor(model => model.PreviousEmployer, new { @class = "form-control", @placeholder = "PREVIOUS EMPLOYER (For example, Company Inc.)", @maxlength = 100 })
+                                    @Html.ValidationMessageFor(model => model.PreviousEmployer)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.School)
+
+                                @Html.TextBoxFor(model => model.School, new { @class = "form-control", @placeholder = "SCHOOL/COLLAGE", @maxlength = 100 })
+                                @Html.ValidationMessageFor(model => model.School)
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.University)
+
+                                    @Html.TextBoxFor(model => model.University, new { @class = "form-control", @placeholder = "UNIVERSITY", @maxlength = 100 })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Website)
+                                @Html.TextBoxFor(model => model.Website, new { @class = "form-control", placeholder = "WEBSITE (For example, http://www.example.com)" })
+                                @Html.ValidationMessageFor(model => model.Website)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                @Html.Label("Facebook Page") (Optional)
+
+                                @Html.TextBoxFor(model => model.Facebook, new { @class = "form-control", placeholder = "FACEBOOK PAGE" })
+                                @Html.ValidationMessageFor(model => model.Facebook)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                @Html.Label("Twitter Page") (Optional)
+
+                                @Html.TextBoxFor(model => model.Twitter, new { @class = "form-control", placeholder = "TWITTER PAGE" })
+                                @Html.ValidationMessageFor(model => model.Twitter)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                @Html.Label("LinkedIn Page") (Optional)
+
+                                @Html.TextBoxFor(model => model.LinkedIn, new { @class = "form-control", placeholder = "LINKEDIN PAGE" })
+                                @Html.ValidationMessageFor(model => model.LinkedIn)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                @Html.Label("GooglePlus Page") (Optional)
+
+                                @Html.TextBoxFor(model => model.GooglePlus, new { @class = "form-control", placeholder = "GOOGLEPLUS PAGE" })
+                                @Html.ValidationMessageFor(model => model.GooglePlus)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear" style="height: 15px;"></div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <div id="SummaryEditor">
+                                    <h4 style="line-height: 0px;">
+                                        <b>@Html.LabelFor(model => model.Summary)</b> <small>(Max. 1500 characters)</small>
+                                    </h4>
+                                    <input type="hidden" id="Summary" name="Summary" />
+
+                                    <div class="toolbar">
+                                        <a href="#" data-command='indent'>
+                                            <svg style="width:21px; height:21px;">
+                                                <g id="format-indent-increase"><path d="M3 21h18v-2H3v2zM3 8v8l4-4-4-4zm8 9h10v-2H11v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z" /></g>
+                                            </svg>
+                                        </a>
+                                        <a href="#" data-command='outdent'>
+                                            <svg style="width:21px; height:21px;">
+                                                <g id="format-indent-decrease"><path d="M11 17h10v-2H11v2zm-8-5l4 4V8l-4 4zm0 9h18v-2H3v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z" /></g>
+                                            </svg>
+                                        </a>
+                                        <a href="#" data-command='insertUnorderedList'><svg style="width:21px; height:21px;"><g id="format-list-bulleted"><path d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12.17c-.74 0-1.33.6-1.33 1.33s.6 1.33 1.33 1.33 1.33-.6 1.33-1.33-.59-1.33-1.33-1.33zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z" /></g></svg></a>
+                                        <a href="#" data-command='insertOrderedList'><svg style="width:21px; height:21px;"><g id="format-list-numbered"><path d="M2 17h2v.5H3v1h1v.5H2v1h3v-4H2v1zm1-9h1V4H2v1h1v3zm-1 3h1.8L2 13.1v.9h3v-1H3.2L5 10.9V10H2v1zm5-6v2h14V5H7zm0 14h14v-2H7v2zm0-6h14v-2H7v2z" /></g></svg></a>
+                                    </div>
+                                    <div class="editor form-control" style="height:200px; overflow-x:hidden; overflow-y:auto" data-field="Summary" contenteditable>
+                                        @Html.Raw(Model.Summary)
+                                    </div>
+                                    <div class="chars_left"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear" style="height: 10px;"></div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <div id="AreaOfExpertiseEditor">
+                                    <h4 style="line-height: 0px;">
+                                        <b>@Html.LabelFor(model => model.AreaOfExpertise)</b> <small>(Max. 1500 characters)</small>
+                                    </h4>
+                                    <input type="hidden" id="AreaOfExpertise" name="AreaOfExpertise" />
+
+                                    <div class="toolbar">
+                                        <a href="#" data-command='indent'>
+                                            <svg style="width:21px; height:21px;">
+                                                <g id="format-indent-increase"><path d="M3 21h18v-2H3v2zM3 8v8l4-4-4-4zm8 9h10v-2H11v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z" /></g>
+                                            </svg>
+                                        </a>
+                                        <a href="#" data-command='outdent'>
+                                            <svg style="width:21px; height:21px;">
+                                                <g id="format-indent-decrease"><path d="M11 17h10v-2H11v2zm-8-5l4 4V8l-4 4zm0 9h18v-2H3v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z" /></g>
+                                            </svg>
+                                        </a>
+                                        <a href="#" data-command='insertUnorderedList'><svg style="width:21px; height:21px;"><g id="format-list-bulleted"><path d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12.17c-.74 0-1.33.6-1.33 1.33s.6 1.33 1.33 1.33 1.33-.6 1.33-1.33-.59-1.33-1.33-1.33zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z" /></g></svg></a>
+                                        <a href="#" data-command='insertOrderedList'><svg style="width:21px; height:21px;"><g id="format-list-numbered"><path d="M2 17h2v.5H3v1h1v.5H2v1h3v-4H2v1zm1-9h1V4H2v1h1v3zm-1 3h1.8L2 13.1v.9h3v-1H3.2L5 10.9V10H2v1zm5-6v2h14V5H7zm0 14h14v-2H7v2zm0-6h14v-2H7v2z" /></g></svg></a>
+                                    </div>
+                                    <div class="editor form-control" style="height:200px; overflow-x:hidden; overflow-y:auto" data-field="AreaOfExpertise" contenteditable>
+                                        @Html.Raw(Model.AreaOfExpertise)
+                                    </div>
+                                    <div class="chars_left"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear" style="height: 10px;"></div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div id="ProfessionalExperienceEditor">
+                                <h4 style="line-height: 0px;">
+                                    <b>@Html.LabelFor(model => model.ProfessionalExperience)</b> <small>(Max. 1500 characters)</small>
+                                </h4>
+                                <input type="hidden" id="ProfessionalExperience" name="ProfessionalExperience" />
+
+                                <div class="toolbar">
+                                    <a href="#" data-command='indent'>
+                                        <svg style="width:21px; height:21px;">
+                                            <g id="format-indent-increase"><path d="M3 21h18v-2H3v2zM3 8v8l4-4-4-4zm8 9h10v-2H11v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z" /></g>
+                                        </svg>
+                                    </a>
+                                    <a href="#" data-command='outdent'>
+                                        <svg style="width:21px; height:21px;">
+                                            <g id="format-indent-decrease"><path d="M11 17h10v-2H11v2zm-8-5l4 4V8l-4 4zm0 9h18v-2H3v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z" /></g>
+                                        </svg>
+                                    </a>
+                                    <a href="#" data-command='insertUnorderedList'><svg style="width:21px; height:21px;"><g id="format-list-bulleted"><path d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12.17c-.74 0-1.33.6-1.33 1.33s.6 1.33 1.33 1.33 1.33-.6 1.33-1.33-.59-1.33-1.33-1.33zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z" /></g></svg></a>
+                                    <a href="#" data-command='insertOrderedList'><svg style="width:21px; height:21px;"><g id="format-list-numbered"><path d="M2 17h2v.5H3v1h1v.5H2v1h3v-4H2v1zm1-9h1V4H2v1h1v3zm-1 3h1.8L2 13.1v.9h3v-1H3.2L5 10.9V10H2v1zm5-6v2h14V5H7zm0 14h14v-2H7v2zm0-6h14v-2H7v2z" /></g></svg></a>
+                                </div>
+                                <div class="editor form-control" style="height:200px; overflow-x:hidden; overflow-y:auto" data-field="ProfessionalExperience" contenteditable>
+                                    @Html.Raw(Model.ProfessionalExperience)
+                                </div>
+                                <div class="chars_left"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear" style="height: 10px;"></div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div id="TechnicalSkillsEditor">
+                                <h4 style="line-height: 0px;"><b>@Html.Label("Skills")</b> <small>(Max. 1500 Characters)</small></h4>
+                                <input type="hidden" id="TechnicalSkills" name="TechnicalSkills" />
+
+                                <div class="toolbar">
+                                    <a href="#" data-command='indent'>
+                                        <svg style="width:21px; height:21px;">
+                                            <g id="format-indent-increase"><path d="M3 21h18v-2H3v2zM3 8v8l4-4-4-4zm8 9h10v-2H11v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z" /></g>
+                                        </svg>
+                                    </a>
+                                    <a href="#" data-command='outdent'>
+                                        <svg style="width:21px; height:21px;">
+                                            <g id="format-indent-decrease"><path d="M11 17h10v-2H11v2zm-8-5l4 4V8l-4 4zm0 9h18v-2H3v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z" /></g>
+                                        </svg>
+                                    </a>
+                                    <a href="#" data-command='insertUnorderedList'><svg style="width:21px; height:21px;"><g id="format-list-bulleted"><path d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12.17c-.74 0-1.33.6-1.33 1.33s.6 1.33 1.33 1.33 1.33-.6 1.33-1.33-.59-1.33-1.33-1.33zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z" /></g></svg></a>
+                                    <a href="#" data-command='insertOrderedList'><svg style="width:21px; height:21px;"><g id="format-list-numbered"><path d="M2 17h2v.5H3v1h1v.5H2v1h3v-4H2v1zm1-9h1V4H2v1h1v3zm-1 3h1.8L2 13.1v.9h3v-1H3.2L5 10.9V10H2v1zm5-6v2h14V5H7zm0 14h14v-2H7v2zm0-6h14v-2H7v2z" /></g></svg></a>
+                                </div>
+                                <div class="editor form-control" style="height:200px; overflow-x:hidden; overflow-y:auto" data-field="TechnicalSkills" contenteditable>
+                                    @Html.Raw(Model.TechnicalSkills)
+                                </div>
+                                <div class="chars_left"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear" style="height: 10px;"></div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div id="ManagementSkillsEditor">
+                                <h4 style="line-height: 0px;"><b>@Html.Label("Management Skills")</b> <small>(Max. 1500 Characters)</small></h4>
+                                <input type="hidden" id="ManagementSkills" name="ManagementSkills" />
+
+                                <div class="toolbar">
+                                    <a href="#" data-command='indent'>
+                                        <svg style="width:21px; height:21px;">
+                                            <g id="format-indent-increase"><path d="M3 21h18v-2H3v2zM3 8v8l4-4-4-4zm8 9h10v-2H11v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z" /></g>
+                                        </svg>
+                                    </a>
+                                    <a href="#" data-command='outdent'>
+                                        <svg style="width:21px; height:21px;">
+                                            <g id="format-indent-decrease"><path d="M11 17h10v-2H11v2zm-8-5l4 4V8l-4 4zm0 9h18v-2H3v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z" /></g>
+                                        </svg>
+                                    </a>
+                                    <a href="#" data-command='insertUnorderedList'><svg style="width:21px; height:21px;"><g id="format-list-bulleted"><path d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12.17c-.74 0-1.33.6-1.33 1.33s.6 1.33 1.33 1.33 1.33-.6 1.33-1.33-.59-1.33-1.33-1.33zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z" /></g></svg></a>
+                                    <a href="#" data-command='insertOrderedList'><svg style="width:21px; height:21px;"><g id="format-list-numbered"><path d="M2 17h2v.5H3v1h1v.5H2v1h3v-4H2v1zm1-9h1V4H2v1h1v3zm-1 3h1.8L2 13.1v.9h3v-1H3.2L5 10.9V10H2v1zm5-6v2h14V5H7zm0 14h14v-2H7v2zm0-6h14v-2H7v2z" /></g></svg></a>
+                                </div>
+                                <div class="editor form-control" style="height:200px; overflow-x:hidden; overflow-y:auto" data-field="ManagementSkills" contenteditable>
+                                    @Html.Raw(Model.ManagementSkills)
+                                </div>
+                                <div class="chars_left"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear" style="height: 10px;"></div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div id="EducationEditor">
+                                <h4 style="line-height: 0px;"><b>@Html.LabelFor(model => model.Education)</b> <small>(Max. 1500 Characters)</small></h4>
+                                <input type="hidden" id="Education" name="Education" />
+
+                                <div class="toolbar">
+                                    <a href="#" data-command='indent'>
+                                        <svg style="width:21px; height:21px;">
+                                            <g id="format-indent-increase"><path d="M3 21h18v-2H3v2zM3 8v8l4-4-4-4zm8 9h10v-2H11v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z" /></g>
+                                        </svg>
+                                    </a>
+                                    <a href="#" data-command='outdent'>
+                                        <svg style="width:21px; height:21px;">
+                                            <g id="format-indent-decrease"><path d="M11 17h10v-2H11v2zm-8-5l4 4V8l-4 4zm0 9h18v-2H3v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z" /></g>
+                                        </svg>
+                                    </a>
+                                    <a href="#" data-command='insertUnorderedList'><svg style="width:21px; height:21px;"><g id="format-list-bulleted"><path d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12.17c-.74 0-1.33.6-1.33 1.33s.6 1.33 1.33 1.33 1.33-.6 1.33-1.33-.59-1.33-1.33-1.33zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z" /></g></svg></a>
+                                    <a href="#" data-command='insertOrderedList'><svg style="width:21px; height:21px;"><g id="format-list-numbered"><path d="M2 17h2v.5H3v1h1v.5H2v1h3v-4H2v1zm1-9h1V4H2v1h1v3zm-1 3h1.8L2 13.1v.9h3v-1H3.2L5 10.9V10H2v1zm5-6v2h14V5H7zm0 14h14v-2H7v2zm0-6h14v-2H7v2z" /></g></svg></a>
+                                </div>
+                                <div class="editor form-control" style="height:200px; overflow-x:hidden; overflow-y:auto" data-field="Education" contenteditable>
+                                    @Html.Raw(Model.Education)
+                                </div>
+                                <div class="chars_left"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear" style="height: 10px;"></div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div id="ProfessionalCertificationEditor">
+                                <h4 style="line-height: 0px;"><b>@Html.Label("Professional Certification")</b><small>(Max. 1500 Characters)</small></h4>
+                                <input type="hidden" id="ProfessionalCertification" name="ProfessionalCertification" />
+
+                                <div class="toolbar">
+                                    <a href="#" data-command='indent'>
+                                        <svg style="width:21px; height:21px;">
+                                            <g id="format-indent-increase"><path d="M3 21h18v-2H3v2zM3 8v8l4-4-4-4zm8 9h10v-2H11v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z" /></g>
+                                        </svg>
+                                    </a>
+                                    <a href="#" data-command='outdent'>
+                                        <svg style="width:21px; height:21px;">
+                                            <g id="format-indent-decrease"><path d="M11 17h10v-2H11v2zm-8-5l4 4V8l-4 4zm0 9h18v-2H3v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z" /></g>
+                                        </svg>
+                                    </a>
+                                    <a href="#" data-command='insertUnorderedList'><svg style="width:21px; height:21px;"><g id="format-list-bulleted"><path d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12.17c-.74 0-1.33.6-1.33 1.33s.6 1.33 1.33 1.33 1.33-.6 1.33-1.33-.59-1.33-1.33-1.33zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z" /></g></svg></a>
+                                    <a href="#" data-command='insertOrderedList'><svg style="width:21px; height:21px;"><g id="format-list-numbered"><path d="M2 17h2v.5H3v1h1v.5H2v1h3v-4H2v1zm1-9h1V4H2v1h1v3zm-1 3h1.8L2 13.1v.9h3v-1H3.2L5 10.9V10H2v1zm5-6v2h14V5H7zm0 14h14v-2H7v2zm0-6h14v-2H7v2z" /></g></svg></a>
+                                </div>
+                                <div class="editor form-control" style="height:200px; overflow-x:hidden; overflow-y:auto" data-field="ProfessionalCertification" contenteditable>
+                                    @Html.Raw(Model.ProfessionalCertification)
+                                </div>
+                                <div class="chars_left"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear" style="height: 10px;"></div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div id="ProfessionalAffiliationEditor">
+                                <h4 style="line-height: 0px;"><b>@Html.Label("Professional Bodies Affiliation")</b> <small>(Max. 1500 Characters)</small></h4>
+                                <input type="hidden" id="ProfessionalAffiliation" name="ProfessionalAffiliation" />
+
+                                <div class="toolbar">
+                                    <a href="#" data-command='indent'>
+                                        <svg style="width:21px; height:21px;">
+                                            <g id="format-indent-increase"><path d="M3 21h18v-2H3v2zM3 8v8l4-4-4-4zm8 9h10v-2H11v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z" /></g>
+                                        </svg>
+                                    </a>
+                                    <a href="#" data-command='outdent'>
+                                        <svg style="width:21px; height:21px;">
+                                            <g id="format-indent-decrease"><path d="M11 17h10v-2H11v2zm-8-5l4 4V8l-4 4zm0 9h18v-2H3v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z" /></g>
+                                        </svg>
+                                    </a>
+                                    <a href="#" data-command='insertUnorderedList'><svg style="width:21px; height:21px;"><g id="format-list-bulleted"><path d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12.17c-.74 0-1.33.6-1.33 1.33s.6 1.33 1.33 1.33 1.33-.6 1.33-1.33-.59-1.33-1.33-1.33zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z" /></g></svg></a>
+                                    <a href="#" data-command='insertOrderedList'><svg style="width:21px; height:21px;"><g id="format-list-numbered"><path d="M2 17h2v.5H3v1h1v.5H2v1h3v-4H2v1zm1-9h1V4H2v1h1v3zm-1 3h1.8L2 13.1v.9h3v-1H3.2L5 10.9V10H2v1zm5-6v2h14V5H7zm0 14h14v-2H7v2zm0-6h14v-2H7v2z" /></g></svg></a>
+                                </div>
+                                <div class="editor form-control" style="height:200px; overflow-x:hidden; overflow-y:auto" data-field="ProfessionalAffiliation" contenteditable>
+                                    @Html.Raw(Model.ProfessionalAffiliation)
+                                </div>
+                                <div class="chars_left"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="clear" style="height: 10px;"></div>
+                            <div class="form-group" style="text-align: center">
+                                <input type="submit" value="Submit" class="btn btn-info save" style="width: 100px" />
+                                <input type="hidden" value="@ViewBag.ResumeId" id="hdnrsmid" name="hdnrsmid" />
+                            </div>
+                            <div class="clear" style="height: 15px;"></div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="uploadDialog" tabindex="-1" role="dialog" aria-labelledby="uploadDialogLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="uploadDialogLabel">
+                    Upload Photo
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    @Html.Label("Upload Photo")
+                    (JPG, PNG or GIF up to size of 500 KB.)
+                    <input type="hidden" id="Id" name="Id" />
+                    <input id="Photo" name="Photo" type="file" title="JPG, PNG or GIF up to size of 500 KB." placeholder="UPLOAD PHOTO" class="form-control" />
+                    <div id="divPhotoError" style="color: red; font-weight: bold;"></div>
+                    <div class="clear"></div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px;">Close</button>
+                <button type="button" id="photoUpload" data-dismiss="modal" class="btn btn-primary" style="width:75px;">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Write reason for Deleting Photo
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <textarea id="Reason" name="Reason" class="form-control" style="height:100px;" maxlength="400" required></textarea>
+                    <input type="hidden" id="Id" name="Id" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="deleteUpload" class="btn btn-primary" data-dismiss="modal" style="width:75px;" formnovalidate="formnovalidate">Submit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px;">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {      
+        var max_chars = 1500; //max characters
+        var max_for_html = 1500; //max characters for html tags
+        var allowed_keys = [8, 13, 16, 17, 18, 20, 33, 34, 35, 36, 37, 38, 39, 40, 46];
+        var chars_without_html = 0;
+        var chars_with_html = 0;
+
+        function alarmChars() {
+            if (chars_without_html > (max_chars - 25)) {
+                $('.chars_left').css('color', 'red');
+            } else {
+                $('.chars_left').css('color', 'gray');
+            }
+        }
+        $("#BDay").val(@Model.BDay);
+        $("#BMonth").val(@Model.BMonth);
+
+        $(".editor").focusin(function () {            
+            chars_without_html = $.trim($(this).html().replace(/(<([^>]+)>)/ig, "")).length;
+            var eid = '#' + $(this).data('field') + 'Editor > .chars_left';
+            $(eid).html("<b style=\"color:#000\">Remaining characters:</b> " + (max_chars - chars_without_html));
+            alarmChars();
+        });
+
+        $(".editor").mouseenter(function () {
+            chars_without_html = $.trim($(this).html().replace(/(<([^>]+)>)/ig, "")).length;
+            var eid = '#' + $(this).data('field') + 'Editor > .chars_left';
+            $(eid).html("<b style=\"color:#000\">Remaining characters:</b> " + (max_chars - chars_without_html));
+            alarmChars();
+        });
+
+        $(".editor").bind("paste", function (e) {
+            var pastedData = e.originalEvent.clipboardData.getData('text');
+            document.execCommand('insertText', false, pastedData);
+            return false;
+        });
+
+        $(".editor").keydown(function (e) {
+            chars_with_html = $(this).html().length;
+            var key = e.which;
+            var eid = '#' + $(this).data('field') + 'Editor > .chars_left';
+            $(eid).html("<b style=\"color:red\">Remaining characters:</b> " + (max_for_html - chars_with_html));
+
+            if (allowed_keys.indexOf(key) != -1) {
+                alarmChars();
+                return;
+            }
+
+            if (chars_with_html > max_for_html) {
+                return false;
+            }
+            alarmChars();
+        });
+
+        $('.toolbar a').click(function (e) {
+            var command = $(this).data('command');
+            if (command == 'h1' || command == 'h2' || command == 'p') {
+                document.execCommand('formatBlock', false, command);
+            }
+            if (command == 'forecolor' || command == 'backcolor') {
+                document.execCommand($(this).data('command'), false, $(this).data('value'));
+            }
+            if (command == 'createlink' || command == 'insertimage') {
+                url = prompt('Enter the link here: ', 'http:\/\/');
+                document.execCommand($(this).data('command'), false, url);
+            } else {
+                document.execCommand($(this).data('command'), false, null);
+            };
+            return false;
+        });
+
+        $("#MinimumAge").change(function () {
+            $("#MaximumAge").empty();
+            $("#MaximumAge").append("<option value =\"\">SELECT</option>");
+            if ($("#MinimumAge option:selected").text() == "SELECT") {
+                return;
+            }
+            $.post('@Url.Action("GetAgeList", "JsonHelper")', { age: $('option:selected', $(this)).val() },
+                        function (result) {
+                            if (result.length != 0) {
+                                $("#MaximumAge").empty();
+                                $("#MaximumAge").append("<option value =\"\">SELECT</option>");
+                                $(result).each(function () {
+                                    $("#MaximumAge").append("<option value =" + this.Value + ">" + this.Text + "</option>");
+                                });
+                            }
+                        });
+        });
+
+        $("#CountryId").change(function () {
+            $("#StateId").empty();
+            $("#StateId").append("<option value =\"\">SELECT STATE</option>");
+            if ($("#CountryId option:selected").text() == "--SELECT--") {
+                return;
+            }
+            $.post('@Url.Action("GetStates", "JsonHelper")', { countryid: $('option:selected', $(this)).val() },
+                    function (result) {
+                        if (result.length != 0) {
+                            $(result).each(function () {
+                                $("#StateId").append("<option value =" + this.Value + ">" + this.Text + "</option>");
+                            });
+                        }
+                    });
+
+            if ($(this).val() != "") {
+                $.post('@Url.Action("GetDialingCode", "JsonHelper")', { countryId: $(this).val() },
+                   function (result) {
+                       $("#MobileCountryCode").val(result);
+                       $("#PhoneCountryCode").val(result);
+                   });
+            }
+        });
+        if($("#CountryId").val() != ""){
+            $.post('@Url.Action("GetDialingCode", "JsonHelper")', { countryId: $("#CountryId").val() },
+            function (result) {
+                $("#MobileCountryCode").val(result);
+                $("#PhoneCountryCode").val(result);
+            });
+        }
+        $.post('@Url.Action("GetStates", "JsonHelper")', { countryid: $('option:selected', $("#CountryId")).val() },
+                       function (result) {
+                           var st = @(Model.StateId!= null ? Model.StateId : 0);
+                           $("#StateId").empty();
+                           $("#StateId").append("<option value =\"\">SELECT STATE</option>");
+                           if (result.length != 0) {
+                               $(result).each(function () {
+                                   if(this.Value == st){
+                                       $("#StateId").append("<option value =" + this.Value + " selected>" + this.Text + "</option>");
+                                   }else{
+                                       $("#StateId").append("<option value =" + this.Value + ">" + this.Text + "</option>");
+                                   }
+                               });
+                           }
+                       });
+
+        $("#CategoryId").change(function () {
+            $("#SpecializationId").empty();
+            $("#SpecializationId").append("<option value =\"\">SELECT SPECIALIZATION</option>");
+            $.post('@Url.Action("GetSpecializations", "JsonHelper")', { categoryid: $('option:selected', $(this)).val() },
+                    function (result) {
+                        if (result.length != 0) {
+                            $("#SpecializationId").empty();
+                            $("#SpecializationId").append("<option value =\"\">SELECT SPECIALIZATION</option>");
+                            $(result).each(function () {
+                                $("#SpecializationId").append("<option value =" + this.Value + ">" + this.Text + "</option>");
+                            });
+                        }
+                    });
+            $("#divCategory").hide();
+        });
+
+        $("#SpecializationId").change(function () {
+            if ($(this).val() != "") {
+            } $("#divSpecialization").hide();
+        });
+
+        $(".profileError").hide();
+
+        $("#Title").change(function () {
+            if ($(this).val() == "" || $(this).val() == null) {
+                $("#CategoryId").val("");
+                $("#SpecializationId").val("");
+                $(".profileError").hide();
+            }
+        })
+
+        $(".save").click(function () {
+            var flag = true;
+            if ($("#Title").val() != "" && $("#CategoryId").val() == "" && $("#SpecializationId").val() == "") {
+                flag = false;
+
+                $("#divTitle").html("");
+                $("#divCategory").html("Category is mandatory for Title!");
+                $("#divSpecialization").html("Specialization is mandatory for Title!");
+
+                $(".profileError").show();
+            } else if ($("#Title").val() != "" && $("#CategoryId").val() != "" && $("#SpecializationId").val() == "") {
+                flag = false;
+
+                $("#divTitle").html("");
+                $("#divCategory").html("");
+                $("#divSpecialization").html("Specialization is mandatory for Title!");
+
+                $(".profileError").show();
+            } else if ($("#Title").val() == "" && $("#CategoryId").val() != "" && $("#SpecializationId").val() != "") {
+                flag = true;
+
+                $("#CategoryId").val("");
+                $("#SpecializationId").val("");
+
+                $(".profileError").hide();
+            } else if ($("#Title").val() == "" && $("#CategoryId").val() != "" && $("#SpecializationId").val() == "") {
+                flag = false;
+
+                $("#divTitle").html("Provide Title!");
+                $("#divCategory").html("");
+                $("#divSpecialization").html("Specialization is mandatory for Title!");
+
+                $(".profileError").show();
+            }
+            else {
+                $(".profileError").hide();
+            }
+
+            if ($("#SummaryEditor > .editor").text().trim().length > 0) {
+                $("#Summary").val($("#SummaryEditor > .editor").html());
+            } else {
+                $("#Summary").val(null);
+            }
+
+            if ($("#AreaOfExpertiseEditor > .editor").text().trim().length > 0) {
+                $("#AreaOfExpertise").val($("#AreaOfExpertiseEditor > .editor").html());
+            } else {
+                $("#AreaOfExpertise").val(null);
+            }
+
+            if ($("#ProfessionalExperienceEditor > .editor").text().trim().length > 0) {
+                $("#ProfessionalExperience").val($("#ProfessionalExperienceEditor > .editor").html());
+            } else {
+                $("#ProfessionalExperience").val(null);
+            }
+
+            if ($("#TechnicalSkillsEditor > .editor").text().trim().length > 0) {
+                $("#TechnicalSkills").val($("#TechnicalSkillsEditor > .editor").html());
+            } else {
+                $("#TechnicalSkills").val(null);
+            }
+
+            if ($("#ManagementSkillsEditor > .editor").text().trim().length > 0) {
+                $("#ManagementSkills").val($("#ManagementSkillsEditor > .editor").html());
+            } else {
+                $("#ManagementSkills").val(null);
+            }
+
+            if ($("#EducationEditor > .editor").text().trim().length > 0) {
+                $("#Education").val($("#EducationEditor > .editor").html());
+            } else {
+                $("#Education").val(null);
+            }
+
+            if ($("#ProfessionalCertificationEditor > .editor").text().trim().length > 0) {
+                $("#ProfessionalCertification").val($("#ProfessionalCertificationEditor > .editor").html());
+            } else {
+                $("#ProfessionalCertification").val(null);
+            }
+
+            if ($("#ProfessionalAffiliationEditor > .editor").text().trim().length > 0) {
+                $("#ProfessionalAffiliation").val($("#ProfessionalAffiliationEditor > .editor").html());
+            } else {
+                $("#ProfessionalAffiliation").val(null);
+            }
+
+            return flag;
+        });
+
+        $("#photoUploadCancel").click(function () {
+            $("#divPhotoError").html("");
+            $("#Photo").val("");
+        });
+
+
+
+        $("#lnkbUploadPhoto").click(function () {
+            id = $(this).data('id');
+            $(".modal-body #Id").val(id);
+        });
+
+        $("#lnkbDeletePhoto").click(function () {
+            id = $(this).data('id');
+            $(".modal-body #Id").val(id);
+        });
+
+        $("#photoUpload").click(function () {
+
+            var file = document.getElementById('Photo').files[0];
+            var defineSize = 500 * 1024;
+            var fileSize = file.size;
+            var name = file.name;
+            var ext = name.substr(name.lastIndexOf(".") + 1, 4).toLowerCase();
+            var allowed = "png, jpg, jpeg, gif";
+
+            if (name.length > 0) {
+                if (allowed.indexOf(ext) >= 0) {
+                    if (parseInt(defineSize) > parseInt(fileSize)) {
+                        if (file) {
+                            $("#divMsgBox").show();
+                            var reader = new FileReader();
+                            reader.readAsDataURL(file);
+                            reader.onload = function (e) {
+                                var binaryString = e.target.result.toString();
+                                binaryString = binaryString.replace("data:image/png;base64,", "");
+                                binaryString = binaryString.replace("data:image/jpeg;base64,", "");
+                                binaryString = binaryString.replace("data:image/gif;base64,", "");
+                                binaryString = binaryString.replace("data:image/jpg;base64,", "");
+
+                                var type = "";
+                                if (ext == "jpg") {
+                                    type = "data:image/jpg;base64";
+                                } else if (ext == "jpeg") {
+                                    type = "data:image/jpeg;base64";
+                                } else if (ext == "png") {
+                                    type = "data:image/png;base64";
+                                } else if (ext == "gif") {
+                                    type = "data:image/gif;base64";
+                                }
+
+                                $.post('@Url.Action("PictureUpload", "JsonHelper")', { Username: "@profile.Username", data: binaryString, area: "Profile", type: type },
+                                   function (result) {
+                                       $("#divMsgBox").show();
+                                       $("#divMsgBox").html(result);
+                                       $("#divMsgBox").removeClass("message-instruction");
+                                       $("#divMsgBox").addClass("message-info");
+                                       setTimeout(window.location.reload(), 5);
+                                   });
+                            };
+                        }
+                    }
+                    else {
+                        $("#divPhotoError").html("File upload failed - Exceeded max file size (300 KB)!");
+                    }
+                } else {
+                    $("#divPhotoError").html("Only JPG,JPEG, PNG, GIF files are allowed!");
+                }
+            } else {
+                $("#divPhotoError").html("Please select file!");
+
+            }
+        });
+
+        $("#deleteUpload").click(function () {
+            $.post('@Url.Action("DeleteImage", "JsonHelper")', { Username: "@profile.Username", Reason: $("#Reason").val() },
+              function (result) {
+                  $("#divMsgBox").html(result);
+                  $("#divMsgBox").removeClass("message-instruction");
+                  $("#divMsgBox").addClass("message-info");
+                  $("#divMsgBox").show();
+
+                  setTimeout(window.location.reload(), 5);
+              });
+        });
+    });
+</script>

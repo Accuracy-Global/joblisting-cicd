@@ -1,0 +1,198 @@
+﻿@model JobPortal.Web.Models.EmployerRequiredModel
+@using JobPortal.Domain
+@{
+    ViewBag.Title = "Required Details for listing job";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("ListJobError", "Employer", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-lg-10 col-md-10 col-sm-10">
+            <span class="label label-danger" style="font-size:18px;"> For listing job, complete following;</span>
+        </div>
+    </div>
+    <div style="height:30px;"></div>
+    <div class="row">
+        <div class="col-lg-10 col-md-10 col-sm-10">
+            @Html.Label("Overview") <span style="color:#ff6a00">(Min. 150 &amp; Max. 700 characters)</span>
+        </div>
+        <div class="col-lg-2 col-md-2">
+            <input type="submit" value="Next" class="btn btn-info pull-right" style="width: 100px; font-size: 20px;" />
+        </div>
+    </div>
+    <div style="height:10px;"></div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+                @Html.TextAreaFor(model => model.Overview, new { @class = "form-control", @maxlength = 700, @style = "height:85px;resize:vertical" })
+                @Html.ValidationMessageFor(model => model.Overview)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address)
+
+                @Html.TextAreaFor(model => model.Address, new { @class = "form-control", @maxlength = 150, @style = "height:100px;resize:none" })
+                @Html.ValidationMessageFor(model => model.Address)
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CountryId)
+                        @Html.DropDownListFor(model => Model.CountryId, new SelectList(Model.Countries, "Id", "Text", Model.CountryId), "SELECT COUNTRY", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CountryId)
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.StateId)
+                        @Html.DropDownListFor(model => Model.StateId, new SelectList(Model.States, "Id", "Text", Model.StateId), "SELECT STATE", new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.City)
+
+                @Html.TextBoxFor(model => model.City, new { @class = "form-control", @maxlength = 50 })
+                @Html.ValidationMessageFor(model => model.City)
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Zip)
+
+                @Html.TextBoxFor(model => model.Zip, new { @class = "form-control", @maxlength = 15 })
+                @Html.ValidationMessageFor(model => model.Zip)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
+                @Html.Label("Mobile Number")
+
+                <div class="input-group">
+                    @Html.DropDownListFor(model => model.MobileCountryCode, new SelectList(Model.CountryWithCodes, "Value", "Key", Model.MobileCountryCode), "SELECT", new { @class = "form-control", @required = "required", @style = "height:31px" })
+                    <span class="input-group-btn" style="width:0px;"></span>
+                    @Html.TextBoxFor(model => model.Mobile, new { @class = "form-control", placeholder = "MOBILE NUMBER", maxlength = "15", @style = "height:31px" })
+                </div>
+
+                @Html.ValidationMessageFor(model => model.Mobile)
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
+                @Html.Label("Phone Number")
+
+                <div class="input-group">
+                    @Html.DropDownListFor(model => model.PhoneCountryCode, new SelectList(Model.CountryWithCodes, "Value", "Key", Model.PhoneCountryCode), "SELECT", new { @class = "form-control", @required = "required", @style = "height:31px" })
+                    <span class="input-group-btn" style="width:0px;"></span>
+                    @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", placeholder = "PHONE NUMBER", maxlength = "15", @style = "height:31px" })
+                </div>
+
+                @Html.ValidationMessageFor(model => model.Phone)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Website) (Optional)
+
+                @Html.TextBoxFor(model => model.Website, new { @class = "form-control", @maxlength = 80 })
+                @Html.ValidationMessageFor(model => model.Website)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+                @Html.Label("Facebook Page") (Optional)
+
+                @Html.TextBoxFor(model => model.Facebook, new { @class = "form-control", placeholder = "FACEBOOK PAGE" })
+                @Html.ValidationMessageFor(model => model.Facebook)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+                @Html.Label("Twitter Page") (Optional)
+
+                @Html.TextBoxFor(model => model.Twitter, new { @class = "form-control", placeholder = "TWITTER PAGE" })
+                @Html.ValidationMessageFor(model => model.Twitter)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+                @Html.Label("LinkedIn Page") (Optional)
+
+                @Html.TextBoxFor(model => model.LinkedIn, new { @class = "form-control", placeholder = "LINKEDIN PAGE" })
+                @Html.ValidationMessageFor(model => model.LinkedIn)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+                @Html.Label("Other Url") (Optional)
+
+                @Html.TextBoxFor(model => model.GooglePlus, new { @class = "form-control", placeholder = "OTHER URL" })
+                @Html.ValidationMessageFor(model => model.GooglePlus)
+            </div>
+        </div>
+    </div>
+    <div class="clear" style="height:10px;"></div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.ReturnUrl)
+
+            <input type="submit" value="Next" class="btn btn-info" style="width: 100px; font-size: 20px;" />
+        </div>
+    </div>
+    <div class="clear" style="height:30px;"></div>
+}
+<script>
+    $(function () {
+        $("#CountryId").change(function () {
+            $.post('@Url.Action("GetDialingCode", "JsonHelper")', { countryId: $(this).val() },
+               function (result) {
+                   $("#MobileCountryCode").val(result);
+                   $("#PhoneCountryCode").val(result);
+               });
+        });
+
+        var mcc = $("#MobileCountryCode").val();
+        var pcc = $("#PhoneCountryCode").val();
+
+        if ((mcc == "" || mcc == null) || (pcc == "" || pcc == null)) {
+            $.post('@Url.Action("GetDialingCode", "JsonHelper")', { countryId: $("#CountryId").val() },
+               function (result) {
+                   if (mcc == "" || mcc == null) {
+                       $("#MobileCountryCode").val(result);
+                   } else {
+                       $("#MobileCountryCode").val(mcc)
+                   }
+                   if (pcc == "" || pcc == null) {
+                       $("#PhoneCountryCode").val(result);
+                   } else {
+                       $("#PhoneCountryCode").val(pcc);
+                   }
+               });
+        }
+    })
+</script>

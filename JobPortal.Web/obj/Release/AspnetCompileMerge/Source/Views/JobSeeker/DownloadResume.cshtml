@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "Download";
+    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        &nbsp;
+    </div>
+</div>
+<div class="text-center" style="padding:15px">    
+    <div style="font-size:22px; font-weight:normal; color:green">Wait for a while!</div>
+    <div style="font-size:22px; font-weight:normal; color:green">Your download will start in few moments.</div>
+</div>
+
+<script>
+    var usertype = "@Request.IsAuthenticated";
+    $(document).ready(function () {
+        //window.location.href = "/jobseeker/download?id=@ViewBag.Id&redirect=@ViewBag.ReturnUrl";
+        window.open("/jobseeker/download?id=@ViewBag.Id&redirect=@ViewBag.ReturnUrl");
+        window.location.href = "/downloads";
+    });
+</script>

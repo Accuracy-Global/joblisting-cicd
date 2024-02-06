@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Forgot";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="section">
+    <div class="clear" style="height:10px;"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-1 col-md-1 col-sm-1">
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+
+                <div class="title-login">
+                    <h1>Forgot Password</h1>
+                </div>
+                <div class=" row well">
+                    <div class="form-group">
+                        @Html.Label("Provide Your Email Address")
+
+                        @Html.TextBox("EmailAddress", null, new { placeholder = "Your Email Address", title = "Provide Your Email Address", @class = "form-control" })
+                    </div>
+                    <input name="Submit" type="submit" value="Proceed" class="btn btn-info" />
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-5">
+        </div>
+    </div>
+    <div class="clear" style="height:50px;"></div>
+</div>

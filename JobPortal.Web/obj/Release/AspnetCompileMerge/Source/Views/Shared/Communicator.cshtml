@@ -1,0 +1,252 @@
+﻿<div>
+    <div id="communicator" class="chat-window" style="right: 15px; height:30px;">
+        <div class="chat-window-title">
+            <div class="text">Chat</div>
+            </div>
+        <div class="chat-window-content" style="height: 300px; display: block;">
+            <div class="chat-window-inner-content user-list" style="min-height: 20px;">
+                @*<div id="u2" class="user-list-item" data-val-id="2">
+                        <div id="profile-id">2</div>
+                        <img class="profile-picture" src="http://www.gravatar.com/avatar/4ec6b20c5fed48b6b01e88161c0a3e20.jpg">
+                        <div class="profile-status online"></div>
+                        <div class="content">Echobot</div>
+                    </div>
+                    <div id="u3" class="user-list-item" data-val-id="3">
+                        <div id="profile-id">3</div>
+                        <img class="profile-picture" src="http://www.gravatar.com/avatar/4ec6b20c5fed48b6b01e88161c0a3e20.jpg">
+                        <div class="profile-status online"></div>
+                        <div class="content">Ravindra</div>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="CommunicatorId" />
+<script type="text/javascript">
+    var rt = 247;
+    $(function () {
+
+        // Configuring Chat proxy hub.
+        var connector = $.connection.chatHub;
+        registerClientMethods(connector);
+
+        // Start Hub
+        $.connection.hub.start();
+
+        $(".chat-window-title").click(function () {
+            if ($("#communicator").height() == 29) {
+                $("#communicator").css("height", "auto");
+            } else {
+                $("#communicator").css("height", "30px");
+            }
+        });
+    });
+
+    function registerClientMethods(chatHub, MessageData) {
+        alert("Trying to connect");
+        // Calls when user successfully logged in
+        chatHub.client.connected = function (id, allUsers, messages) {
+            alert(id);
+            $('#CommunicatorId').val(id);
+
+            $(".chat-window-inner-content").html("");
+            if (allUsers != null || allUsers != "") {
+                $(allUsers).each(function () {
+                    if (this.ConnectionId != null) {
+                        if ($.find('#U' + this.UserId).length == 0) {
+                            if (isFriend(this.UserId)) {
+                                var content = "<div id=\"U" + this.UserId + "\" class=\"user-list-item\" data-val-id=\"" + this.UserId + "\">";
+                                if (this.Status.toLowerCase() == "online") {
+                                    content += "<img class=\"profile-picture\" src=\"data:image/png;base64," + this.Photo + "\">";
+                                } else {
+                                    content += "<img class=\"profile-picture\" src=\"data:image/png;base64," + this.Photo + "\">";
+                                }
+                                content += "<div class=\"profile-status " + this.Status.toLowerCase() + "\" title=\"" + this.Status.toLowerCase() + "\"></div>";
+                                content += "<div class=\"content\" title=\"" + this.FullName + "\">" + this.FullName + "</div>";
+                                content += "</div>";
+
+                                $(".chat-window-inner-content").append(content);
+
+                                $('#U' + this.UserId).click(function () {
+                                    var receiverId = this.id.replace("U", "");
+
+                                    if ($("#communicator").find("#Window_" + receiverId).length == 0) {
+
+                                        $("#communicator").append("<div id=\"Window_" + receiverId + "\" class=\"chat-window\" style=\"right: 247px; height:auto\"><div class=\"chat-window-title\"><div class=\"close\" title=\"Min\" style=\"margin-top:-5px;\"><i class=\"fa fa-minus-square-o\" style=\"font-size:16px;\"></i></div><div class=\"close\" title=\"Close\" style=\"margin-top:-5px;\"><i class=\"fa fa-times\" style=\"font-size:16px;\"></i></div><div class=\"text\">" + $(this).find(".content").text() + "</div></div><div class=\"chat-window-content\"><div class=\"chat-window-inner-content message-board pm-window\" style=\"height: 235px;\"><div class=\"messages-wrapper\" style=\"height: 214px;\"></div><div class=\"chat-window-text-box-wrapper\"><textarea id=\"MsgBox_" + receiverId + "\" class=\"chat-window-text-box\" style=\"overflow: hidden; word-wrap: break-word; resize: none; height: 21px;\"></textarea></div></div></div></div>");
+                                        $("#Window_" + receiverId).find(".close").click(function () {
+                                            $("#Window_" + receiverId).remove();
+                                        });
+
+                                        $("#MsgBox_" + receiverId).keypress(function (ev) {
+                                            var keycode = (ev.keyCode ? ev.keyCode : ev.which);
+                                            if (keycode == '13') {
+                                                var msg = $(this).val();
+                                                if (msg.length > 0) {
+                                                    $(this).val("");
+                                                    $(this).focus();
+                                                    chatHub.server.send($('#CommunicatorId').val(), receiverId, msg);
+                                                }
+                                            }
+                                        })
+
+                                        $("#Window_" + receiverId).find(".chat-window-title").click(function () {
+                                            if ($("#Window_" + receiverId).height() == 29) {
+                                                $("#Window_" + receiverId).css("height", "auto");
+                                            } else {
+                                                $("#Window_" + receiverId).css("height", "30px");
+                                            }
+                                        });
+
+                                        rt = 0;
+                                        $($("#communicator").find(".chat-window")).each(function () {
+                                            rt += 247;
+                                            var rtPos = rt + "px";
+                                            $(this).css("right", rtPos);
+
+                                        });
+                                    }
+                                });
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Add Existing Messages
+            for (i = 0; i < messages.length; i++) {
+                AddMessage(messages[i].UserName, messages[i].Message);
+            }
+        }
+        // On New User Connected
+        chatHub.client.onNewUserConnected = function (model) {
+            ConfigNewUser(chatHub, model);
+        }
+
+        // On User Disconnected
+        chatHub.client.disconnected = function (id, userName) {
+     
+            if ($.find('#U' + id).length > 0) {
+                $('#U' + id).remove();
+            }
+
+            if ($.find('#Window_' + id).length > 0) {
+                $('#Window_' + id).remove();
+            }
+        }
+
+        chatHub.client.messageReceived = function (userName, message) {
+            AddMessage(userName, message);
+        }
+
+        chatHub.client.send = function (model, message) {
+
+            if ($("#Window_" + model.UserId).length == 0) {
+                var receiverId = model.UserId;
+
+                $("#communicator").append("<div id=\"Window_" + model.UserId + "\" class=\"chat-window\" style=\"right: 247px;\"><div class=\"chat-window-title\"><div class=\"close\" title=\"Close\" style=\"margin-top:-5px;\"><i class=\"fa fa-times\" style=\"font-size:16px;\"></i></div><div class=\"text\">" + model.FullName + "</div></div><div class=\"chat-window-content\"><div class=\"chat-window-inner-content message-board pm-window\" style=\"height: 235px;\"><div class=\"messages-wrapper\" style=\"height: 214px;\"></div><div class=\"chat-window-text-box-wrapper\"><textarea id=\"MsgBox_" + model.UserId + "\" class=\"chat-window-text-box\" style=\"overflow: hidden; word-wrap: break-word; resize: none; height: 21px;\"></textarea></div></div></div></div>");
+                $(".close").click(function () {
+                    $("#Window_" + model.UserId).remove();
+                });
+
+                $("#MsgBox_" + model.UserId).keypress(function (ev) {
+                    var keycode = (ev.keyCode ? ev.keyCode : ev.which);
+                    if (keycode == '13') {
+                        var msg = $(this).val();
+                        if (msg.length > 0) {
+                            $(this).val("");
+                            $(this).focus();
+                            chatHub.server.send($('#CommunicatorId').val(), receiverId, msg);
+                        }
+                    }
+                })
+
+                $("#communicator").find(".chat-window-title").click(function () {
+                    if ($("#Window_" + receiverId).height() == 29) {
+                        $("#Window_" + receiverId).css("height", "auto");
+                    } else {
+                        $("#Window_" + receiverId).css("height", "30px");
+                    }
+                });
+
+                $("#Window_" + model.UserId).find(".messages-wrapper").append(message);
+
+            } else {
+                $("#Window_" + model.UserId).find(".messages-wrapper").append(message);
+            }
+        }
+    }
+
+    function ConfigNewUser(chatHub, model) {
+        if ($.find("#U" + model.UserId).length == 0) {
+            if (isFriend(model.UserId)) {
+                var content = "<div id=\"U" + model.UserId + "\" class=\"user-list-item\" data-val-id=\"" + model.UserId + "\">";
+                if (model.Status.toLowerCase() == "online") {
+                    content += "<img class=\"profile-picture\" src=\"data:image/png;base64," + model.Photo + "\">";
+                } else {
+                    content += "<img class=\"profile-picture\" src=\"data:image/png;base64," + model.Photo + "\">";
+                }
+                content += "<div class=\"profile-status " + model.Status.toLowerCase() + "\" title=\"" + model.Status.toLowerCase() + "\"></div>";
+                content += "<div class=\"content\" title=\"" + model.FullName + "\">" + model.FullName + "</div>";
+                content += "</div>";
+
+                $(".chat-window-inner-content").append(content);
+
+                $('#U' + model.UserId).click(function () {
+                    var receiverId = this.id.replace("U", "");
+                   
+                    $("#communicator").append("<div id=\"Window_" + receiverId + "\" class=\"chat-window\" style=\"right: 247px;\"><div class=\"chat-window-title\"><div class=\"close\"></div><div class=\"text\">" + $(this).find(".content").text() + "</div></div><div class=\"chat-window-content\"><div class=\"chat-window-inner-content message-board pm-window\" style=\"height: 235px;\"><div class=\"messages-wrapper\" style=\"height: 214px;\"></div><div class=\"chat-window-text-box-wrapper\"><textarea id=\"MsgBox_" + receiverId + "\" class=\"chat-window-text-box\" style=\"overflow: hidden; word-wrap: break-word; resize: none; height: 21px;\"></textarea></div></div></div></div>");
+                    $(".close").click(function () {
+                        $("#Window_" + receiverId).remove();
+                    });
+
+                    $("#MsgBox_" + receiverId).keypress(function (ev) {
+                        var keycode = (ev.keyCode ? ev.keyCode : ev.which);
+                        if (keycode == '13') {
+                            var msg = $(this).val();
+                            if (msg.length > 0) {
+                                $(this).val("");
+                                $(this).focus();
+                                chatHub.server.send($('#CommunicatorId').val(), receiverId, msg);
+                            }
+                        }
+                    })
+
+                    $("#communicator").find(".chat-window-title").click(function () {
+                        if ($("#Window_" + receiverId).height() == 29) {
+                            $("#Window_" + receiverId).css("height", "auto");
+                        } else {
+                            $("#Window_" + receiverId).css("height", "30px");
+                        }
+                    });
+                });
+            }
+        }
+    }
+
+
+    function AddMessage(userName, message, userchatid, MessageId, UserChatTime, MessageDate) {
+        if ((userchatid != undefined || userchatid != '#private_' + userchatid) && MessageId != undefined) {
+            $('#private_' + userchatid).find('#divMessage').append('<div class="message"><span class="userName">' + userName + '</span>: ' + message + ' <div style="float:right; display:inline-block;font-size:10px;">' + UserChatTime + '</div> </div>');
+        }
+        else {
+            $('#divChatWindow').append('<div class="message"><span class="userName">' + userName + '</span>: ' + message + ' <div style="float:right; display:inline-block;font-size:10px;">' + UserChatTime + '</div> </div>');
+        }
+    }
+
+    var flag = false;
+    function isFriend(id) {
+
+        $.ajax({
+            url: '@Url.Action("IsFriend", "JsonHelper")',
+            dataType: "json",
+            type: "POST",
+            data: { UserId: id, Username: "@User.Username" },
+            success: function (data) {
+
+                flag = data;
+            },
+            async:false
+        });    
+        return flag;
+    }
+</script>

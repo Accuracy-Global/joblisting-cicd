@@ -1,0 +1,49 @@
+﻿@model IEnumerable<JobPortal.Data.SubSpecialization>
+
+@{
+    ViewBag.Title = "Specializations";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-9 col-md-9 col-sm-9">
+        <div class="title-login">
+            <h1 style="margin-top:-15px;">Specializations</h1>
+            Manage specializations here
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-3" style="text-align:right">
+        @Html.ActionLink("Add New Specialization", "AddSpecialization", new { CategoryId = ViewBag.CategoryId }, new { @class = "btn btn-info" })
+    </div>
+</div>
+@Html.Partial("_MessagePartial")
+<div class="clear" style="height:15px;"></div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        @{
+            WebGrid grid = new WebGrid(Model, ajaxUpdateContainerId: "grid", rowsPerPage:15);
+
+            WebGridColumn column = new WebGridColumn();
+            column.Header = "Actions";
+            column.Format = (item) =>
+            {
+                var links = "";
+
+                links = Html.ActionLink("Delete", "DeleteSpecialization", "Admin", new { Id = item.Id }, new { title = "Delete Specialization", onclick = "return confirm('Are you sure, want to delete?');", @class = "delete" }).ToString() + " | ";
+                links += Html.ActionLink("Edit", "EditSpecialization", "Admin", new { Id = item.Id }, new { title = "Edit Specialization", @class = "Edit" }).ToString() + " ";
+                return Html.Raw(links);
+            };
+        }
+
+        <div id="container-grid" class="table-responsive">
+            @grid.GetHtml(htmlAttributes: new { id = "grid", @style = "width:100%" }, tableStyle: "table table-bordered table-hover",
+    columns: new[] {
+
+   grid.Column(columnName:"Name", header: "Title",canSort:false, format: p=>p.Name),
+   column
+    })
+
+
+        </div>
+    </div>
+</div>

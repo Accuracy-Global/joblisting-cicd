@@ -1,0 +1,249 @@
+﻿@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Models
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Login History";
+    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+    string action = string.Format("Manage{0}", ViewBag.UserType);
+    
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+    
+    int inboxItems = DomainService.Instance.DashboardInboxItems(user.Id, ViewBag.UserInfo.UserId);
+    int appCounts = MemberService.Instance.GetApplicationCount(ViewBag.UserInfo.Username);
+    int intCounts = MemberService.Instance.GetInterviewCount(ViewBag.UserInfo.Username);
+
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<LoginHistoryEntity>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+}
+<div class="section">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                <li class="active"><a href="#">QUICK LINKS</a></li>
+                <li>@Html.ActionLink("Connections", "Connections", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                <li>@Html.ActionLink("Messages", "Messages", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                @if (ViewBag.UserInfo.Type == (int)SecurityRoles.Employers)
+                {
+                    <li>@Html.ActionLink("Jobs", "JobsByCompany", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                @if (appCounts > 0)
+                {
+                    <li>@Html.ActionLink(string.Format("Applications ({0})", appCounts), "Applications", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Applications", "Applications", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                @if (intCounts > 0)
+                {
+                    <li>@Html.ActionLink(string.Format("Interviews ({0})", intCounts), "Interviews", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Interviews", "Interviews", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                @if (ViewBag.UserInfo.Type == (int)SecurityRoles.Employers)
+                {
+                    <li>@Html.ActionLink("Downloads", "DownloadHistory", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                @if (inboxItems > 0)
+                {
+                    <li><a href="/Admin/Inbox?Id=@ViewBag.UserInfo.UserId" target="_blank">Inbox (<span style="color:red; font-weight:bold">@inboxItems</span>)</a></li>
+                }
+                else
+                {
+                    <li><a href="/Admin/Inbox?Id=@ViewBag.UserInfo.UserId" target="_blank">Inbox</a></li>
+                }
+                @if (ViewBag.UserInfo.Type == (int)SecurityRoles.Employers)
+                {
+                    <li>@Html.ActionLink("Profile", "ManageCompany", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                else if (ViewBag.UserInfo.Type == (int)SecurityRoles.Jobseeker)
+                {
+                    <li>@Html.ActionLink("Profile", "ManageIndividual", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                <li>@Html.ActionLink("Billing & Invoices", "billing", "Payment", new { userId = ViewBag.UserInfo.UserId }, new { })</li>
+                <li>@Html.ActionLink("Reset Password", "ResetPassword", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                <li>@Html.ActionLink("Login History", "LoginHistory", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { @class = "active" })</li>
+                <li>@Html.ActionLink("Alert Settings", "Alerts", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+            </ul>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-9">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="title-login">
+                        <h1 style="margin-top: -15px">
+                            Login History
+                        </h1>
+                        @if (ViewBag.UserInfo.Type == (int)SecurityRoles.Employers)
+                        {
+                            <text>Manage login history of <b>@ViewBag.UserInfo.Company</b> here</text>
+                        }
+                        else if (ViewBag.UserInfo.Type == (int)SecurityRoles.Jobseeker)
+                        {
+                            <text>Manage login history of <b>@ViewBag.UserInfo.FirstName  @ViewBag.UserInfo.LastName</b> here</text>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div style="background-color:#ede9e9; padding:4px;">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <strong>Country: </strong> @ViewBag.Country
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <strong>State: </strong> @ViewBag.State
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <strong>City: </strong> @ViewBag.City
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 ">
+                                <div class="form-group">
+                                    <strong>Zip: </strong> @ViewBag.Zip
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @{
+                //var grid = new WebGrid(rowsPerPage: 10);
+                if (ViewBag.Model != null && ViewBag.Model.Count > 0)
+                {
+                    WebGrid grid = new WebGrid(source: ViewBag.Model, ajaxUpdateContainerId: "grid", canPage:false);
+                    List<WebGridColumn> columnlist = new List<WebGridColumn>();
+
+                    columnlist.Add(new WebGridColumn()
+                    {
+                        ColumnName = "LoginDate",
+                        Header = "Date",
+                        CanSort = false,
+                        Format = (item) =>
+                        {
+                            return item.LoginDateTime.ToString("MMM dd, yyyy");
+                        },
+                    });
+
+                    columnlist.Add(new WebGridColumn()
+                    {
+                        ColumnName = "LoginTime",
+                        Header = "Time",
+                        CanSort = false,
+                        Format = (item) =>
+                        {
+                            return item.LoginDateTime.ToString("HH:mm:ss");
+                        },
+                    });
+                    columnlist.Add(new WebGridColumn()
+                    {
+                        ColumnName = "TimeZone",
+                        Header = "Time Zone",
+                        CanSort = false,
+                        Format = (item) =>
+                        {
+                            return "PST";
+                        }
+                    });
+                    columnlist.Add(new WebGridColumn()
+                    {
+                        ColumnName = "IPAddress",
+                        Header = "IP Address",
+                        CanSort = false,
+                        Format = (item) => { return item.IPAddress; }
+                    });
+
+                    if (user != null && (user.Role == JobPortal.Library.Enumerators.SecurityRoles.Administrator || user.Role == JobPortal.Library.Enumerators.SecurityRoles.SuperUser))
+                    {
+                        columnlist.Add(new WebGridColumn()
+                        {
+                            ColumnName = "LoginCountry",
+                            Header = "Login Country",
+                            CanSort = false,
+                            Format = (item) =>
+                            {
+                                string cname = "";
+                                if (!item.IPAddress.Equals("::1"))
+                                {
+                                    LocationEntity entity = DomainService.Instance.GetLocation(item.IPAddress);
+                                    cname = entity.CountryName;
+                                    if (!string.IsNullOrEmpty(entity.StateName))
+                                    {
+                                        cname += ", " + entity.StateName;
+                                    }
+                                    if (!string.IsNullOrEmpty(entity.City))
+                                    {
+                                        cname += ", " + entity.City;
+                                    }
+                                }
+                                return cname;
+                            }
+                        });
+                    }
+
+                    columnlist.Add(new WebGridColumn()
+                    {
+                        ColumnName = "Browser",
+                        Header = "Browser",
+                        CanSort = false,
+                        Format = (item) =>
+                        {
+                            return item.Browser;
+                        }
+                    });
+
+                    <div id="container-grid" class="table-responsive">
+                        @grid.GetHtml(htmlAttributes: new { id = "grid", @style = "width:100%" },
+                        tableStyle: "table table-bordered table-hover",
+                        fillEmptyRows: false,
+                        alternatingRowStyle: "alt",
+                        columns: columnlist
+                        )
+                    </div>
+                }
+                else
+                {
+                    <div class="loginGrid">
+                        <h3>
+                            No History Found!
+                        </h3>
+                    </div>
+                }
+            }
+
+            <div style="text-align:center; margin-top: -15px;">
+
+                @Html.PagedListPager(pagedModel, PageNumber => Url.Action("LoginHistory",
+            new RouteValueDictionary()
+            {
+                { "PageNumber" , PageNumber},
+                { "Id" , ViewBag.UserInfo.UserId}
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+            </div>
+        </div>
+    </div>
+</div>

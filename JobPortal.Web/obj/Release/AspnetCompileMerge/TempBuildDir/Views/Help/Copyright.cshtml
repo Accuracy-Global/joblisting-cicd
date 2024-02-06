@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Read Copyright | Joblisting.com";
+    ViewBag.Description = "Read copyright, copyright license, permissions, data mining and enforcement of Joblisting.com.";
+    ViewBag.Keywords = "Joblisting, Job Listing, Job Search, Latest Jobs";
+
+    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+}
+<script src="@Url.Content("~/scripts/js/ga.js")" type="text/javascript"></script>
+<div class="section">
+    <div class="clear" style="height:10px;"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                @Html.Raw(ViewBag.Content)
+            </div>
+        </div>
+    </div>
+</div>

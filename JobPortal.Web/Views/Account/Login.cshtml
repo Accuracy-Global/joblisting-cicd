@@ -1,0 +1,241 @@
+@model JobPortal.Web.Models.LoginModel
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+
+    .p-viewer {
+        float: right;
+        margin-top: -23px;
+        padding-right: 8px;
+    }
+
+    .social-login__icon {
+        padding: 20px 10px;
+        color: #1877F2;
+        text-decoration: none;
+        text-shadow: 0px 0px 4px #1877F2;
+    }
+
+        .social-login__icon:hover {
+            transform: scale(1.5);
+            color: #1877F2;
+            text-decoration: none;
+        }
+
+    .social-login__icong {
+        padding: 20px 10px;
+        color: #34A853;
+        text-decoration: none;
+        text-shadow: 0px 0px 4px #34A853;
+    }
+
+        .social-login__icong:hover {
+            transform: scale(1.5);
+            color: #34A853;
+            text-decoration: none;
+        }
+
+    .social-login__iconl {
+        padding: 20px 10px;
+        color: #0072b1;
+        text-decoration: none;
+        text-shadow: 0px 0px 4px #0072b1;
+    }
+
+        .social-login__iconl:hover {
+            transform: scale(1.5);
+            color: #0072b1;
+            text-decoration: none;
+        }
+</style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+<section class="vh-100" style="background-color: #34ba08; padding:50px;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100" style="justify-content:center;">
+            <div class="col-xl-12 col-lg-12 col-sm-12">
+                <div class="card " style="border-radius: 1rem; background-color:white;">
+                    <div class="row bg-white">
+                        <div class="col-md-6 col-lg-6 bg-white">
+                            @if (Session["cn"] != null)
+                            {
+                                string dileep = (string)Session["cn"];
+                                if (dileep.Contains("India"))
+                                {
+                                    <img src="~/Images/indialogin1.png" alt="login form" class="img-fluid" style="width:100%; height:100%; border-radius: 1rem 0 0 1rem;" />
+
+                                }
+                                else if (dileep.Contains("Suriname"))
+                                {
+                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp" alt="login form" class="img-fluid" style="width:100%; border-radius: 1rem 0 0 1rem;" />
+
+                                }
+                                else if (dileep.Contains("Singapore"))
+                                {
+                                    <img src="~/Images/singaporelogin1.jpg" alt="login form" class="img-fluid" style="width:100%; border-radius: 1rem 0 0 1rem;" />
+
+                                }
+                                else if (dileep.Contains("Fiji"))
+                                {
+                                    <img src="~/Images/fijilogin1.jpeg" alt="login form" class="img-fluid" style="width:100%; border-radius: 1rem 0 0 1rem;" />
+                                }
+
+                                else if (dileep.Contains("Malaysia"))
+                                {
+                                    <img src="~/Images/malaysialogin1.jpeg" alt="login form" class="img-fluid" style="width:100%; border-radius: 1rem 0 0 1rem;" />
+
+                                }
+                                else if (dileep.Contains("Srilanka"))
+                                {
+                                    <img src="~/Images/srilankalogin1.jpg" alt="login form" class="img-fluid" style="width:100%; border-radius: 1rem 0 0 1rem;" />
+                                }
+                                else if (dileep.Contains("Cambodia"))
+                                {
+                                    <img src="~/Images/Cambodialogin.png" alt="login form" class="img-fluid" style="width:100%; border-radius: 1rem 0 0 1rem;" />
+                                }
+                                @*else if (dileep.Contains("Pakistan"))
+                                    {
+                                        <img src="~/Images/pakistanlogin1.jpg" alt="login form" class="img-fluid" style="width:100%; border-radius: 1rem 0 0 1rem;" />
+
+                                    }
+                                    else if (dileep.Contains("Indonesia"))
+                                    {
+                                        <img src="~/Images/alllogin.jpeg" alt="login form" class="img-fluid" style="width:100%; border-radius: 1rem 0 0 1rem;" />
+
+                                    }
+                                    else if (dileep.Contains("China"))
+                                    {
+                                        <img src="~/Images/chinalogin.jpeg" alt="login form" class="img-fluid" style="width:100%; border-radius: 1rem 0 0 1rem;" />
+
+                                    }
+                                    else if (dileep.Contains("Afghanistan"))
+                                    {
+                                        <img src="~/Images/alllogin.jpeg" alt="login form" class="img-fluid" style="width:100%; border-radius: 1rem 0 0 1rem;" />
+
+                                    }
+                                    else if (dileep.Contains("Armenia"))
+                                    {
+                                        <img src="~/Images/alllogin.jpeg" alt="login form" class="img-fluid" style="width:100%; border-radius: 1rem 0 0 1rem;" />
+
+                                    }
+                                    else if (dileep.Contains("Azerbaijan"))
+                                    {
+                                        <img src="~/Images/alllogin.jpeg" alt="login form" class="img-fluid" style="width:100%; border-radius: 1rem 0 0 1rem;" />
+
+                                    }
+                                    else if (dileep.Contains("Bahrain"))
+                                    {
+                                        <img src="~/Images/alllogin.jpeg" alt="login form" class="img-fluid" style="width:100%; border-radius: 1rem 0 0 1rem;" />
+
+                                    }
+                                    else if (dileep.Contains("Bangladesh"))
+                                    {
+                                        <img src="~/Images/alllogin.jpeg" alt="login form" class="img-fluid" style="width:100%; border-radius: 1rem 0 0 1rem;" />
+
+                                    }
+                                    else if (dileep.Contains("Bhutan"))
+                                    {
+                                        <img src="~/Images/alllogin.jpeg" alt="login form" class="img-fluid" style="width:100%; border-radius: 1rem 0 0 1rem;" />
+                                    }*@
+                                else if (dileep.Contains("Maldives"))
+                                {
+                                    <img src="~/Images/maldiveslogin1.png" alt="login form" class="img-fluid" style="width:100%; border-radius: 1rem 0 0 1rem;" />
+                                }
+                                else if (dileep.Contains("Nepal"))
+                                {
+                                    <img src="~/Images/nepallogin1.png" alt="login form" class="img-fluid" style="width:100%; border-radius: 1rem 0 0 1rem;" />
+                                }
+                                else if (dileep.Contains("Myanmar"))
+                                {
+                                    <img src="~/Images/myanmarlogin1.png" alt="login form" class="img-fluid" style="width:100%; border-radius: 1rem 0 0 1rem;" />
+                                }
+                                else if (dileep.Contains("Australia"))
+                                {
+                                    <img src="~/Images/australialogin1.jpg" alt="login form" class="img-fluid" style="width:100%; border-radius: 1rem 0 0 1rem;" />
+                                }
+                                else if (dileep.Contains("Ecuador"))
+                                {
+                                    <img src="~/Images/ecuadorlogin1.jpg" alt="login form" class="img-fluid" style="width:100%; border-radius: 1rem 0 0 1rem;" />
+                                }
+                                else
+                                {
+                                    <img src="~/Images/alllogin1.jpg" alt="login form" class="img-fluid" style="width:100%; border-radius: 1rem 0 0 1rem;" />
+                                }
+
+                            }
+                            else
+                            {
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp"
+                                     alt="login form" class="img-fluid" style="width:100%; border-radius: 1rem 0 0 1rem;" />
+                            }
+                            @*<img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/img1.webp"
+                                alt="login form" class="img-fluid" style="width:100%; border-radius: 1rem 0 0 1rem;" />*@
+                        </div>
+                        <div class="col-md-6 col-lg-6 align-items-center" style="padding: 50px 50px 0px 50px;">
+                            <div class="card-body p-4 p-lg-5 text-black">
+
+                                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "", id = "jblLoginForm", @autocomplete = "off" }))
+                                {
+
+                                    <div class="d-flex align-items-center mb-3 pb-1">
+                                        @if (ViewBag.LoginError != null)
+                                        {
+                                            <div>
+                                                <p style="font-size:14px;">@Html.Raw(ViewBag.LoginError) </p>
+                                            </div>
+                                        }
+                                    </div>
+
+                                    <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h3>
+
+                                    <div class="form-outline mb-4">
+                                        <input type="email" name="LoginUsername" id="LoginUsername" maxlength="100" placeholder="username (eg: abc@gmail.com)" required class="form-control form-control-lg" style="height:40px;" />
+                                        <label class="form-label" for="form2Example17">Email address</label>
+                                    </div>
+                                    <br />
+                                    <div class="form-outline mb-4">
+                                        <input type="password" placeholder="Password" id="LoginPassword" name="LoginPassword" class="form-control form-control-lg" style="height:40px;" />
+                                        <i id="togglePassword" class="fa fa-eye p-viewer"></i>
+                                        <label class="form-label" for="form2Example27">Password</label>
+                                    </div>
+                                    <div class="form-outline mb-4">
+                                        <label class="checkbox">@Html.CheckBoxFor(m => m.RememberMe, new { @checked = "checked" }) Remember Me</label>
+                                    </div>
+                                    <div class="form-outline mb-4">
+                                        <button class="btn btn-dark btn-lg  form-control" id="login" type="submit" style=" color:white; background-color:#34ba08;">Login</button>
+                                    </div><br />
+
+                                    <a class="small text-muted" href="/home/forgotpassword">Forgot password?</a>
+                                    <p class="mb-5 pb-lg-2" style="color: #393f81;">
+                                        Don't have an account? @Html.ActionLink("Register here", "Register", "Account", new { @style = "color:#393f81;" })
+                                    </p>
+                                    @*<h3 class="text-center">OR</h3>*@
+                                    <!--<p class="text-center">Login with social account</p>
+                                    <p class="text-center">
+                                        <a href="/Account/Facebook" class="social-login__icon fab fa-facebook fa-3x"></a>-->
+                                    @*<a href="/Account/TwitterAuth" class="social-login__icon fab fa-twitter"></a>*@
+                                    <!--<a class="social-login__icong fab fa-google fa-3x" href="https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=255991447078-cks91bjg79kgv0sbdrjj7u1k56tlbsq5.apps.googleusercontent.com&redirect_uri=https://www.joblisting.com/Account/GoogleLoginCallback&scope=https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"></a>
+                                        <a class="social-login__iconl fab fa-linkedin fa-3x" href="https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=867wz1tc9q7hv1&redirect_uri=https://www.joblisting.com/account/linkedINAuth&state=987654321&scope=r_liteprofile,r_emailaddress"></a>
+                                    </p>-->
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+    var togglePassword = document.querySelector('#togglePassword');
+    var password = document.querySelector('#LoginPassword');
+    togglePassword.addEventListener('click', function (e) {
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        this.classList.toggle('fa-eye-slash');
+    });
+</script>

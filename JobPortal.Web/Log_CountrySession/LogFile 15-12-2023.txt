@@ -1,0 +1,2186 @@
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+================================================================================================================
+15-12-2023 12:09:46 AM
+Initial Url => http://localhost:1515/us/profile-resume
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/job/View/135032296
+UrlPrivilegeFilter => Contoller: job, Action: view, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/job/view/135032296
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+================================================================================================================
+15-12-2023 01:04:48 AM
+Initial Url => http://localhost:1515/us/profile-resume
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+================================================================================================================
+15-12-2023 01:48:02 AM
+Initial Url => http://localhost:1515/us/profile-resume
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+================================================================================================================
+15-12-2023 01:53:16 AM
+Initial Url => http://localhost:1515/us/profile-resume
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/account/logout
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/account/login
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/account/login
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile/mouni-ch-180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+================================================================================================================
+15-12-2023 03:49:50 AM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54934
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54925
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54924
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54931
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54933
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54936
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54928
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54930
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/account/login
+UrlPrivilegeFilter => Contoller: account, Action: login, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/account/login
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile/mouni-ch-180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+================================================================================================================
+15-12-2023 04:59:03 AM
+Initial Url => http://localhost:1515/Account/LogOff
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Account/LogOff
+UrlPrivilegeFilter => Contoller: account, Action: logoff, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/account/logout
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/account/login
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+================================================================================================================
+15-12-2023 06:33:13 AM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54936
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54925
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54933
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54934
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54924
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54931
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54930
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54928
+================================================================================================================
+15-12-2023 06:35:51 AM
+Initial Url => http://localhost:1515/us/account/login
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/account/login
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile/mouni-ch-180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44006
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43826
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42790
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/43824
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/44064
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/jobs/
+UrlPrivilegeFilter => Contoller: job, Action: searchjobs, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Jobs
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55462
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/help/countrylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/help/categorylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54990
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/jobs
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54987
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55376
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42820
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55493
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55492
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54782
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54781
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55482
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/24580
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55233
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55232
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/26146
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55141
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55389
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42825
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42915
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55404
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42827
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/41961
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55332
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/help/qualifications
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54967
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55356
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55464
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/0
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54936
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54925
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54924
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54933
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54930
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54931
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54934
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54928
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54936
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54931
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54930
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54928
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54925
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54924
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54934
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54933
+================================================================================================================
+15-12-2023 06:41:12 AM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54936
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54925
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54924
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54930
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54931
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54933
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54934
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54928
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54936
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54925
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54924
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54934
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54930
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54931
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54933
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54928
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/jobs
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/jobs/
+UrlPrivilegeFilter => Contoller: job, Action: searchjobs, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Jobs
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55464
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/0
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55356
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54967
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54990
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54987
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54782
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54781
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55482
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/24580
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55233
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55232
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/26146
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55141
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55462
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/help/qualifications
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/help/countrylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/help/categorylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/jobs
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/0
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42820
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55493
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55389
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42825
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42915
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55404
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/42827
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/41961
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55332
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55492
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55376
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54936
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54925
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54924
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54934
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54930
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54933
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54931
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54928
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54936
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54925
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54924
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54930
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54934
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54933
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54931
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54928
+================================================================================================================
+15-12-2023 06:59:39 AM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54936
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54925
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54924
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54933
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54931
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54934
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54930
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54928
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54934
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54925
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54924
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54931
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54933
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54930
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54936
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54928
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+================================================================================================================
+15-12-2023 07:14:55 AM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54795
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55065
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54715
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55066
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55095
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54714
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54796
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55096
+================================================================================================================
+15-12-2023 07:45:07 AM
+Initial Url => http://localhost:1515/Account/LogOff
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Account/LogOff
+UrlPrivilegeFilter => Contoller: account, Action: logoff, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/account/logout
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/account/login
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+================================================================================================================
+15-12-2023 07:47:26 AM
+Initial Url => http://localhost:1515/us/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55523
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55542
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55543
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55526
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55528
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55524
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55525
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55529
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55523
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55542
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55543
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55524
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55528
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55526
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55525
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55529
+================================================================================================================
+15-12-2023 07:48:36 AM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55523
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55542
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55543
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55528
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55525
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55526
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55524
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55529
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55523
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55542
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55543
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55524
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55528
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55525
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55526
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55529
+================================================================================================================
+15-12-2023 07:55:15 AM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55523
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55542
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55543
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55524
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55525
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55526
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55528
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55529
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+================================================================================================================
+15-12-2023 08:02:25 AM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55523
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55542
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55543
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55526
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55528
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55524
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55525
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55529
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55524
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55542
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55543
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55525
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55528
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55523
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55526
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55529
+================================================================================================================
+15-12-2023 08:24:34 AM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55523
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55542
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55543
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55526
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55524
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55525
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55528
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55529
+================================================================================================================
+15-12-2023 08:36:14 AM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55523
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55542
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55543
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55528
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55525
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55524
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55526
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55529
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55524
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55542
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55543
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55528
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55525
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55523
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55526
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55529
+================================================================================================================
+15-12-2023 06:05:06 PM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54995
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/37684
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55054
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55008
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/31498
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55010
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55005
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55072
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54995
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/37684
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55072
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/31498
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55005
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55010
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55008
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55054
+================================================================================================================
+15-12-2023 06:22:44 PM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54995
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/37684
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55072
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55008
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/31498
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55005
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55010
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55054
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/jobs
+UrlPrivilegeFilter => Contoller: job, Action: searchjobs, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Jobs
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55005
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/help/countrylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/help/categorylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/help/qualifications
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/37684
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55072
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/jobs
+================================================================================================================
+15-12-2023 11:06:24 PM
+Initial Url => http://localhost:1515/Image/Avtar/55010
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+================================================================================================================
+15-12-2023 11:06:24 PM
+================================================================================================================
+15-12-2023 11:06:24 PM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+================================================================================================================
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+15-12-2023 11:06:24 PM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+================================================================================================================
+15-12-2023 11:06:24 PM
+================================================================================================================
+15-12-2023 11:06:24 PM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+================================================================================================================
+15-12-2023 11:06:24 PM
+================================================================================================================
+15-12-2023 11:06:24 PM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+Initial Url => http://localhost:1515/india/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+================================================================================================================
+15-12-2023 11:06:25 PM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+================================================================================================================
+15-12-2023 11:06:25 PM
+Initial Url => http://localhost:1515/india/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/Home
+Controller: Job, Action: Home => Session: US
+================================================================================================================
+15-12-2023 11:06:26 PM
+Initial Url => http://localhost:1515/india/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+================================================================================================================
+15-12-2023 11:06:26 PM
+Initial Url => http://localhost:1515/india/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/Home
+Controller: Job, Action: Home => Session: US
+================================================================================================================
+15-12-2023 11:06:27 PM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+================================================================================================================
+15-12-2023 11:06:27 PM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+Controller: Job, Action: Home => Session: US
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+Controller: Job, Action: Home => Session: US
+================================================================================================================
+15-12-2023 11:06:27 PM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+================================================================================================================
+15-12-2023 11:06:28 PM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/Home
+Controller: Job, Action: Home => Session: US
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+================================================================================================================
+15-12-2023 11:06:28 PM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+Controller: Job, Action: Home => Session: US
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+================================================================================================================
+15-12-2023 11:06:28 PM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+Controller: Job, Action: Home => Session: US
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+================================================================================================================
+15-12-2023 11:06:28 PM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+Controller: Job, Action: Home => Session: US
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+================================================================================================================
+15-12-2023 11:06:28 PM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+Controller: Job, Action: Home => Session: US
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+================================================================================================================
+15-12-2023 11:06:29 PM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55010
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55515
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/31498
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54995
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55008
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55054
+================================================================================================================
+15-12-2023 11:08:55 PM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54995
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/37684
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55072
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55008
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55005
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/31498
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55010
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55054
+================================================================================================================
+15-12-2023 11:12:39 PM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54995
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/37684
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55072
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55005
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55010
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55054
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55008
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/31498
+================================================================================================================
+15-12-2023 11:12:52 PM
+Initial Url => http://localhost:1515/us/account/login
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/account/login
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+================================================================================================================
+15-12-2023 11:20:48 PM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54995
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/37684
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55072
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55005
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55008
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/31498
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55010
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55054
+================================================================================================================
+15-12-2023 11:46:40 PM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/54995
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/37684
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55072
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55010
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55054
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55005
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/31498
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/55008

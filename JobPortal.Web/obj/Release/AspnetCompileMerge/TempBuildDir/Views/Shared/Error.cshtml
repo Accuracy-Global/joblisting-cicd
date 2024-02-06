@@ -1,0 +1,17 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Error";
+    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+}
+
+<div class="clear" style="height:25px;"></div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+        <h2 class="error"><span style="color: red">Oops!</span><br/>Something went wrong!</h2>
+        <h3 class="error">Check out our <a href="/home/contact">Help Center</a></h3>
+        @*@Model.Exception.Message<br />
+        @Model.Exception.StackTrace*@
+    </div>
+</div>
+<div class="clear" style="height:25px;"></div>

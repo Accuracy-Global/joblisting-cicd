@@ -1,0 +1,119 @@
+﻿@model JobPortal.Web.Models.InterviewModel
+@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@{
+    ViewBag.Title = "Interview";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    Specialization category = new Specialization();
+    SubSpecialization specialization = new SubSpecialization();
+       
+    category = SharedService.Instance.GetCategory(ViewBag.Jobseeker.CategoryId);
+    specialization = SharedService.Instance.GetSpecialization(ViewBag.Jobseeker.SpecializationId); 
+}
+
+<div class="title-login">
+    <h1 style="margin-top:-15px">
+        Interview
+    </h1>
+    Start interview here
+</div>
+<div class="clear" style="height:5px"></div>
+@Html.Partial("_MessagePartial")
+<div class="clear" style="height:5px"></div>
+<div class="row" style="padding-left:15px;padding-right:15px;">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="row">           
+            <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                <strong>Jobseeker:&nbsp;&nbsp;</strong><a href="@(string.Format("/{0}", ViewBag.Jobseeker.ProfileUrl))" target="_blank">@ViewBag.Jobseeker.Name</a>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                <strong>Country:&nbsp;&nbsp;</strong>@ViewBag.Jobseeker.Area
+            </div>
+        </div>    
+    </div>
+</div>
+<div class="clear" style="height:25px;"></div>
+
+<div class="well">
+    @using (Html.BeginForm())
+    {
+        <div class="errorSummary">
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.JobseekerId)
+            @Html.HiddenFor(model => model.Round)
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label><span class="requiredleft">*</span>Interviewer Name:</label>
+                            @Html.TextBoxFor(model => model.Interviewer, new { @class = "form-control", placeholder = "INTERVIEWER NAME" })
+                            @Html.ValidationMessageFor(model => model.Interviewer)
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <label>Interview&nbsp;Date&nbsp;&&nbsp;(PST Time)</label>
+                        <div class='input-group datetime' style="margin-bottom:0;">
+                            @Html.TextBoxFor(model => model.InterviewDate, new { @class = "form-control", placeholder = "INTERVIEW DATE & TIME", @title = "Interview Date & Time" })
+                            <div id="divstartdate" class="_startdate" style="color:red;"></div>
+
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-time"></span>
+                            </span>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.InterviewDate)
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label>Details (Details will be sent to the Jobseeker)</label>
+
+                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", placeholder = "INTERVIEW DETAILS", @style = "height:95px;" })
+                            @Html.ValidationMessageFor(model => model.Description)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <input type="submit" value="Start" name="savenemail" class="btn btn-info" style="width:100px;" />
+            </div>
+        </div>
+    }
+</div>
+
+<script type="text/javascript">
+        $(function () {
+            var y = Number("@DateTime.Now.Year");
+            var m = Number("@(DateTime.Now.Month-1)");
+            var d = Number("@DateTime.Now.Day");
+            var h = Number("@DateTime.Now.Hour");
+            var i = Number("@(DateTime.Now.Minute + 15)");
+            var s = Number("@DateTime.Now.Second")
+            $('#InterviewDate').datetimepicker({
+                format: "mm/dd/yyyy HH:ii P",
+                pickDate: true,
+                pickTime: true,
+                autoclose: true,
+                minView: 0,
+                maxView: 4,
+                pickerPosition: "bottom-left",
+                startDate: new Date(y, m, d, h, i, s),
+                icons: {
+                    up: 'glyphicon-chevron-up',
+                    down: 'glyphicon-chevron-down'
+                }
+            });
+        });
+</script>

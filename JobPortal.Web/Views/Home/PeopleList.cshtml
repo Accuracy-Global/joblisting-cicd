@@ -1,0 +1,33 @@
+﻿@model IEnumerable<JobPortal.Models.UserMatchEntity>
+@using JobPortal.Data
+@using JobPortal.Domain
+
+@{
+    int items = Model.Count();
+    Dictionary<int, string> defaultImages = new Dictionary<int, string>();
+    defaultImages.Add(1, "Doe");
+    defaultImages.Add(2, "Aura");
+    defaultImages.Add(3, "Stalnaker");
+    defaultImages.Add(4, "Jenifer");
+    defaultImages.Add(5, "Kiser");
+    defaultImages.Add(6, "Kristopher");
+    defaultImages.Add(7, "Corum");
+    defaultImages.Add(8, "Bezio");
+}
+@foreach (var item in Model)
+{
+    <li data-toggle="tooltip" title="@(item.Name)">@Html.Raw(MemberService.Instance.ProfileLinkAndLogo(item.Username))</li>
+}
+@if (Model.Count() < 8)
+{
+    for (int idx = items + 1; idx <= 8; idx++)
+    {
+        <li data-toggle="tooltip" title="@defaultImages[idx]"><a href="javascript:void(0);"><img alt=".." src="/images/@(string.Format("{0}.png", idx))"></a></li>
+    }
+}
+
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
+    });
+</script>

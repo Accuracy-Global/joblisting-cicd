@@ -1,0 +1,604 @@
+﻿@model JobPortal.Web.Models.RegisterModel
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Domain
+@using JobPortal.Models
+@*@{Layout = "~/Views/Shared/_Layout.cshtml";
+        string email_pattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,3}$";
+    }*@
+@{
+    string email_pattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,3}$";
+}
+<style>
+    .bday {
+        padding-left: 0px;
+        list-style-type: none;
+    }
+
+        .bday li {
+            display: inline-block;
+        }
+</style>
+
+
+<style>
+
+    .p-viewer {
+        float: right;
+        margin-top: -23px;
+        padding-right: 8px;
+    }
+
+    .social-login__icon {
+        padding: 20px 10px;
+        color: #34ba08;
+        text-decoration: none;
+        text-shadow: 0px 0px 4px #7875B5;
+    }
+
+        .social-login__icon:hover {
+            transform: scale(1.5);
+            color: black;
+            text-decoration: none;
+        }
+
+
+    /*  //*/
+
+    .multi-dropdown.form-control {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px thin #f2f2f2;
+        border-radius: 10px;
+        box-sizing: border-box;
+    }
+
+    .multi-dropdown dd,
+    .multi-dropdown dt {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .multi-dropdown ul {
+        margin: -1px 0 0 0;
+    }
+
+    .multi-dropdown dd {
+        position: relative;
+    }
+
+    .multi-dropdown a,
+    .multi-dropdown a:visited {
+        color: #34ba08;
+        text-decoration: none;
+        outline: none;
+        font-size: 16px;
+        font-weight: normal;
+    }
+
+    .multi-dropdown dt dl {
+        display: block;
+        padding: 0 20px 0 0px;
+        xmin-height: 25px;
+        line-height: 24px;
+        overflow: unset;
+        width: 100%;
+        margin-bottom: 0px;
+    }
+
+        .multi-dropdown dt dl span {
+            cursor: pointer;
+            display: inline-block;
+            font-weight: normal;
+            margin-right: 15px;
+        }
+
+    .multiSel span {
+        background: #34ba08;
+        color: #fff;
+        padding: 3px 15px;
+        border-radius: 20px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+    }
+
+    p.multiSel {
+        margin-bottom: 0px;
+    }
+
+    /* .multi-dropdown dd ul {
+        background-color: #fff;
+        color: #34ba08;
+        display: none;
+        left: -13px;
+        padding: 2px 15px 2px 5px;
+        position: absolute;
+        top: 0;
+        width: 253.7%;
+        list-style: none;
+        height: auto;
+        overflow: auto;
+        z-index: 9999999;
+        border: 1px solid #34ba08;
+    }*/
+
+    .multi-dropdown dd ul li {
+        display: list-item;
+    }
+
+    .multi-dropdown span.value {
+        display: none;
+    }
+
+    .multi-dropdown dd ul li a {
+        padding: 5px;
+        display: block;
+    }
+
+        .multi-dropdown dd ul li a:hover {
+            background-color: #fff;
+        }
+
+    option:disabled {
+        color: #34ba08;
+    }
+
+    .Xout {
+        position: absolute;
+        background: #fff !important;
+        color: teal !important;
+        border: 2px solid #34ba08;
+        width: 0px;
+        height: 24px;
+        margin-top: -10px !important;
+        padding: 0 16px 0 8px !important;
+    }
+</style>
+
+
+                                                
+<link href="https://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css" />
+
+<section class="vh-100" style="background-color: #34ba08; padding:50px;">
+    <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100" style="justify-content:center;">
+            <div class="col-xl-12 col-lg-12 col-sm-12">
+                <div class="card " style="border-radius: 1rem; background-color:white;">
+                    <div class="row bg-white">
+
+                        <div class="col-md-12 col-lg-12 align-items-center" style=" padding:50px;">
+                            <div class="card-body p-4 p-lg-5 text-black">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div style="float:left; padding-top:5px;">
+                                            @Html.Label("Register account!", new { title = "Register account here!" })
+                                        </div>
+                                        @*<div style="float:left">
+                                                @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+                                            </div>*@
+                                        <div style="clear:both"></div>
+                                    </div>
+                                </div>
+                                <div class="clear" style="height:5px"></div>
+                                @Html.Partial("_MessagePartial")
+
+                                @*@using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @id = "RegisterForm", @autocomplete = "off" }))
+                                    {*@
+                                @using (Html.BeginForm())
+                                {
+
+                                    <div class="clear" style="height:15px"></div>
+                                    <div id="divErrorBox">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <div id="divError"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <div class="form-group">
+                                                <input type="email" id="Username" name="Username" pattern="@email_pattern" placeholder="EMAIL FORMAT (user@example.com)" class="form-control" maxlength="50" required />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            @*<div class="form-group">
+                                                    <input type="text" id="Phone" name="Phone" placeholder="Mobile Number" class="form-control" maxlength="50" required />
+                                                </div>*@
+                                            <div class="form-group">
+
+
+                                                <input type="text" id="Mobile" name="Mobile" placeholder="MOBILE NUMBER" class="form-control" maxlength="50" required />
+
+                                            </div>
+
+                                            @*@Html.ValidationMessageFor(model => model.Mobile)*@
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6" style=" ">
+                                            <div class="form-group">
+                                                <input type="password" id="Password" name="Password" placeholder="PASSWORD MIN. 9 NUMBERS & LETTERS" title="Password Min. 9 numbers & letters" pattern="(?=.*\d)(?=.*[a-zA-Z]).{9,}" class="form-control" required />
+                                                <i id="togglePassword" class="fa fa-eye p-viewer"></i>
+                                            </div>
+                                        </div>
+                                        <style>
+                                            .p-viewer {
+                                                float: right;
+                                                margin-top: -23px;
+                                                padding-right: 8px;
+                                            }
+                                        </style>
+                                        <div class="col-lg-6 col-md-6" style="">
+                                            <div class="form-group">
+                                                <input type="password" id="ConfirmPassword" name="ConfirmPassword" placeholder="CONFIRM PASSWORD MIN. 9 NUMBERS & LETTERS" title="Confirm Password Min. 9 numbers & letters" pattern="(?=.*\d)(?=.*[a-zA-Z]).{9,}" class="form-control" required />
+                                                <i id="togglePassword2" class="fa fa-eye p-viewer"></i>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form-group">
+                                                <input type="text" id="FirstName" name="FirstName" placeholder="FIRSTNAME" title="NAME" pattern="[a-zA-Z\\s]+" class="form-control" maxlength=50 required />
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form-group">
+
+                                                <input id="LastName" name="LastName" class="form-control" placeholder="LASTNAME" title="LASTNAME" pattern="[a-zA-Z\\s]+" required data-value="" />
+                                                @*<textarea type="text" id="LastName" name="LastName" placeholder="Skills" title="Skills" pattern="[a-zA-Z\\s]+" class="form-control" maxlength=50 required></textarea>*@
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form-group">
+                                                <select id="CountryId" name="CountryId" class="form-control" title="COUNTRY" required oninvalid="setCustomValidity('Select country!')" oninput="setCustomValidity('')" autofocus></select>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form-group">
+
+                                                <select id="Category" name="Category" class="form-control" title="Category Name" required oninvalid="setCustomValidity('Select Category!')" oninput="setCustomValidity('')" autofocus></select>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6">
+                                            <div class="form-group">
+                                                @if (ViewBag.ReturnUrl != null && ViewBag.ReturnUrl.Contains("listjob"))
+                                                {
+                                                    @Html.DropDownListFor(model => model.AccountType, UIHelper.DropDown<SecurityRoles>(new List<int>() { 5, 17, 12, 4, 16, 14, 13, 18 }, 5), "SELECT ACCOUNT TYPE", new { @title = "ACCOUNT TYPE", @class = "form-control", @required = "required" })
+                                                }
+                                                else
+                                                {
+                                                    @Html.DropDownListFor(model => model.AccountType, UIHelper.DropDown<SecurityRoles>(new List<int>() { 5, 17, 12, 4, 16, 14, 13, 18 }), "SELECT ACCOUNT TYPE", new { @title = "ACCOUNT TYPE", @class = "form-control", @required = "required" })
+                                                }
+                                                @*@Html.ValidationMessageFor(model => model.AccountType)*@
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div id="divCompany">
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <input type="text" name="Company" id="Company" title="COMPANY NAME" placeholder="COMPANY NAME" class="form-control" maxlength="50" />
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6" style="top:-40px;">
+                                                <div class="form-group">
+                                                    <textarea type="text" name="AboutCompany" id="AboutCompany" style="height:113px;" title="ABOUT COMPANY" placeholder="ABOUT COMPANY" class="form-control" maxlength="50"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6" style="top:350px;position:absolute;width:505px;">
+                                                <div class="form-group">
+                                                      <button class="form-control" style="display:block;text-align:start;" onclick="document.getElementById('getFile').click()">UPLOAD COMAPANY LOGO</button>
+        <input type='file' id="getFile" style="display:none" class="form-control" maxlength="50" title="UPLOAD COMAPANY LOGO" placeholder="UPLOAD COMAPANY LOGO">
+                                                  
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div id="divRecruiter">
+
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <select id="CompanyName" name="CompanyName" class="form-control" title="Company Name"></select>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6 col-md-6 col-sm-6" style="top:-40px;">
+                                                <div class="form-group">
+                                                    <textarea type="text" name="AboutCompany" style="height:113px;" id="AboutCompany" title="About Company" placeholder="ABOUT RECRUIMENT AGENCY" class="form-control" maxlength="50"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6" style="top:350px;position:absolute;width:505px;">
+                                                <div class="form-group">
+                                                    @*<input type="file" name="AboutCompany" id="AboutCompany" title="About Company" placeholder="About Company" class="form-control" maxlength="50" />*@
+                                                    <button class="form-control" style="display: block; text-align: start;" onclick="document.getElementById('getFile').click()">UPLOAD COMAPANY LOGO</button>
+                                                    <input type='file' id="getFile" style="display:none" class="form-control" maxlength="50">
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+
+                                    </div>
+
+                                    <div id="divUniversity">
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    <input type="text" name="Company" id="Company" title="COMPANY NAME" placeholder="INSTITUTE NAME" class="form-control" maxlength="50" />
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6 col-md-6 col-sm-6" style="top:-40px;">
+                                                <div class="form-group">
+                                                    <textarea type="text" name="AboutCompany" id="AboutCompany" style="height:113px;" title="About Company" placeholder="ABOUT INSTITUTE" class="form-control" maxlength="50"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-sm-6" style="top:350px;position:absolute;width:505px;">
+                                                <div class="form-group">
+
+                                                    <button class="form-control" style="display: block; text-align: start;" onclick="document.getElementById('getFile').click()">UPLOAD COMAPANY LOGO</button>
+                                                    <input type='file' id="getFile" style="display:none" class="form-control" maxlength="50">
+                                                    @*<input type="file" name="AboutCompany" id="AboutCompany" title="About Company" placeholder="ABOUT UNIVERCITY" class="form-control"  />*@
+                                                </div>
+                                            </div>
+
+
+                                        </div>
+
+                                    </div>
+                                    <div id="divStudent">
+                                        <div class="row">
+
+                                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                                <div class="form-group">
+                                                    @*<select id="Universityname" name="Universityname" class="form-control" title="Universityname"></select>*@
+                                                    <input type="text" id="Universityname" name="Universityname" placeholder="UNIVERSITY NAME" class="form-control" required />
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-6 col-md-6 col-sm-6" style="top:-40px;">
+                                                <div class="form-group">
+                                                    @Html.DropDownListFor(model => model.CurrentEmployerToYear, new SelectList(SharedService.Instance.GetYearList(true, DateTime.Now.Year + 10)), "YEAR COMPLETION", new { @class = "form-control" })
+
+
+
+                                                </div>
+                                            </div>
+
+
+
+
+
+                                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                                <div class="form-group">
+
+                                                    <div class="input-group" style="width:100%;top:-40px;right:-505px;">
+
+                                                        <dl class="multi-dropdown">
+
+                                                            <dd>
+                                                                <div class="mutliSelect">
+                                                                    <select style="width: 475px; height: 31px; border: 1px solid #ccc;border-radius:4px; ">
+                                                                        <option value="" disabled selected>SELECT SKILLS</option>
+                                                                        <option value="Ajax">Ajax</option>
+                                                                        <option value="ASP">ASP</option>
+                                                                        <option value="Android">Android</option>
+                                                                        <option value="Azure">Azure</option>
+                                                                        <option value="Azure Devops">Azure Devops</option>
+                                                                        <option value="Big Data">Big Data</option>
+                                                                        <option value="C#">C#</option>
+                                                                        <option value="C++">C++</option>
+                                                                        <option value="CSS">CSS</option>
+                                                                        <option value="Dejango">Dejango</option>
+                                                                        <option value="Data Scienes">Data Scienes</option>
+                                                                        <option value="Dart">Dart</option>
+                                                                        <option value="Flutter">Flutter</option>
+                                                                        <option value=".net">.net</option>
+                                                                        <option value="SQL">SQL</option>
+                                                                        <option value="MS SQL">MS SQL</option>
+                                                                        <option value="Jquery">Jquery</option>
+                                                                        <option value="Java">Java</option>
+                                                                        <option value="JavaScript">JavaScript</option>
+                                                                        <option value="HTML">HTML</option>
+                                                                        <option value="TFS">TFS</option>
+                                                                        <option value="Python">Python</option>
+                                                                        <option value="Xamarin">Xamarin</option>
+                                                                        <option value="Software">Software</option>
+                                                                        <option value="VB++">VB++</option>
+                                                                        <option value="VBNet">VBNet</option>
+                                                                        <option value="MVC">MVC</option>
+
+                                                                    </select>
+                                                                </div>
+                                                            </dd>
+                                                            <br />
+                                                            <dt>
+                                                                <dl>
+
+                                                                    <p class="multiSel"></p>
+                                                                </dl>
+                                                            </dt>
+                                                        </dl>
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+
+
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                    <div id="divIndividual">
+
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-sm-6" style="right:-505px;top:-41px;">
+                                                <div class="form-group">
+
+                                                    <dl class="multi-dropdown">
+
+                                                        <dd>
+                                                            <div class="mutliSelect">
+                                                                <select style="width: 475px; height: 31px; border: 1px solid #ccc;border-radius:4px; ">
+                                                                    <option value="" disabled selected>SELECT SKILLS</option>
+                                                                    <option value="Ajax">Ajax</option>
+                                                                    <option value="ASP">ASP</option>
+                                                                    <option value="Android">Android</option>
+                                                                    <option value="Azure">Azure</option>
+                                                                    <option value="Azure Devops">Azure Devops</option>
+                                                                    <option value="Big Data">Big Data</option>
+                                                                    <option value="C#">C#</option>
+                                                                    <option value="C++">C++</option>
+                                                                    <option value="CSS">CSS</option>
+                                                                    <option value="Dejango">Dejango</option>
+                                                                    <option value="Data Scienes">Data Scienes</option>
+                                                                    <option value="Dart">Dart</option>
+                                                                    <option value="Flutter">Flutter</option>
+                                                                    <option value=".net">.net</option>
+                                                                    <option value="SQL">SQL</option>
+                                                                    <option value="MS SQL">MS SQL</option>
+                                                                    <option value="Jquery">Jquery</option>
+                                                                    <option value="Java">Java</option>
+                                                                    <option value="JavaScript">JavaScript</option>
+                                                                    <option value="HTML">HTML</option>
+                                                                    <option value="TFS">TFS</option>
+                                                                    <option value="Python">Python</option>
+                                                                    <option value="Xamarin">Xamarin</option>
+                                                                    <option value="Software">Software</option>
+                                                                    <option value="VB++">VB++</option>
+                                                                    <option value="VBNet">VBNet</option>
+                                                                    <option value="MVC">MVC</option>
+
+                                                                </select>
+                                                            </div>
+                                                        </dd>
+                                                        <br />
+                                                        <dt>
+                                                            <dl>
+
+                                                                <p class="multiSel"></p>
+                                                            </dl>
+                                                        </dt>
+                                                    </dl>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-10 col-md-10 col-sm-10" style="top:-15px;">
+                                            <div class="form-group">
+                                                @Html.CheckBoxFor(model => model.Agreed, new { @class = "_chekAgree", @required = "required" }) I agree with&nbsp;<a href="/terms" target="_blank">Terms&nbsp;Of&nbsp;Use</a>&nbsp;and&nbsp;<a href="/privacy" target="_blank">Privacy</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-1 col-md-1 col-sm-1" style="top:-12px;">
+                                            <input id="Register" type="submit" value="Register" class="btn btn-info" style="width:75px;" />
+                                        </div>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="text/javascript">
+    var togglePassword = document.querySelector('#togglePassword');
+    var password = document.querySelector('#Password');
+    togglePassword.addEventListener('click', function (e) {
+        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        this.classList.toggle('fa-eye-slash');
+    });
+</script>
+<script type="text/javascript">
+    var togglePassword2 = document.querySelector('#togglePassword2');
+    var password2 = document.querySelector('#ConfirmPassword');
+    togglePassword2.addEventListener('click', function (e) {
+        const type = password2.getAttribute('type') === 'password' ? 'text' : 'password';
+        password2.setAttribute('type', type);
+        this.classList.toggle('fa-eye-slash');
+    });
+</script>
+
+
+
+<script>
+    $(".mutliSelect select").on("change", function () {
+
+        /* Grabs the selected category */
+        var displayTitle = $(this).val() + "";
+
+        $('option[value="' + displayTitle + '"]').prop('disabled', true);
+
+        var p_elem = $("<span />")
+            .attr("class", "categoryBubble")
+            .attr("title", displayTitle)
+            .text(displayTitle);
+
+        var other_span = $("<span />")
+            .on("click", foo)
+            .addClass("Xout")
+            .text("x");
+
+        $(p_elem).append(other_span);
+        $(".multiSel").append(p_elem);
+
+        $(".hida").hide();
+
+        function foo() {
+            $(this).parent().remove();
+            $('option[value="' + displayTitle + '"]').prop('disabled', false);
+        }
+
+    });
+
+
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
+
+<script src="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/js/multi-select-tag.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/start/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+

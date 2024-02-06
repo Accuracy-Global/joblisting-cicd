@@ -1,0 +1,329 @@
+﻿@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Web
+@using JobPortal.Web.Models
+@using JobPortal.Models
+@{
+    string url = Request.Url.ToString();
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+    JobPortal.Services.JobService jobService = new JobPortal.Services.JobService();
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="S5zQVJ4IFMsjB4nON0ZAui2kVc1Z2thh4Vzzxc11gPo" />
+    <meta name="p:domain_verify" content="a628b3f5df5e37369ad1d6b1ad708e3f" />
+    <meta name="description" content="@ViewBag.Description" />
+    <meta name="keywords" content="@ViewBag.Keywords" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+    <meta property="og:title" content="@ViewBag.Title" />
+    <meta property="og:description" content="@ViewBag.Description" />
+    <meta property="og:url" content="@Request.Url.ToString()" />
+    <meta property="og:image" content="@Request.Url.Scheme://@Request.Url.Authority/images/facebook-post-400-300.png" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" rel="stylesheet">
+    <link rel="icon" href="~/favicon.png" type="image/png">
+    <style>
+        .navbar .collapse .navbar-nav .nav-item .nav-link {
+            color:black;/* #34bc08;*/
+            font-size:17px;
+        }
+        .navbar .collapse .navbar-nav .nav-item .nav-link:hover {
+            color: #34bc08;
+            font-size: 17px;
+        }
+        .navbar .collapse .navbar-nav  .active1,.active2 {
+            font-weight: 500;
+            font-size: 13px;
+            padding:0px;
+            /* font-weight: normal !important;
+                font-size: small !important;*/
+            background-color: #34ba08;
+            color: white;
+            
+            border-radius: 1px;
+            padding-left: 2px !important;
+            padding-right: 2px !important;
+            
+            font-family: Tahoma !important;
+        }
+        /*.navbar .collapse .navbar-nav  .active2 {
+            font-weight: 500;
+            font-size: 14px;*/
+            /* font-weight: normal !important;
+                font-size: small !important;*/
+            /*background-color: #34ba08;
+            color: #fff !important;
+            border-radius: 1px;
+            padding-left: 3px !important;
+            padding-right: 3px !important;
+            padding-top: 1px !important;
+            padding-bottom: 1px !important;
+            font-family: Tahoma !important;
+        }*/
+    </style>
+</head>
+
+<body style="font-family: Calibri;">
+
+    <nav class="navbar navbar-expand-lg bg-white navbar-dark fixed-top shadow-sm p-3 mb-5 bg-white rounded">
+        <!-- Brand/logo -->
+        <a class="navbar-brand" href="#" style="width:350px;height:80px;">
+            <img src="/Images/JobListing_Aldhabi_Font.PNG" alt="Joblisting" height="80" width="350"  class="img-fluid" />
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+            <span class="navbar-toggler-icon">
+                <i class="fas fa-bars" style="color:green; font-size:28px;"></i>
+            </span>
+        </button>
+
+        <!-- Links -->
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav ml-auto " style="font-weight: bold; font-size: 18px;">
+                @if (!Request.IsAuthenticated)
+                {
+                    <li class="nav-item"><a class="nav-link" href="/jobs/">SEARCH JOBS</a></li>
+                    <li class="nav-item">@Html.ActionLink("SEARCH PEOPLE", "SearchPeople", "Home", new { @class = "nav-link" })</li>
+                    <li class="nav-item"><a class="nav-link" href="/search-jobseekers">SEARCH JOBSEEKERS</a></li>
+                    @*<li class="nav-item">@Html.ActionLink("SEARCH JOBSEEKERS", "Search", "Jobseeker", new { @class = "nav-link" })</li>*@
+                    <li class="nav-item">@Html.ActionLink("SEARCH RESUMES", "SearchResumes", "Home", new { @class = "nav-link" })</li>
+                    <li class="nav-item"><a class="nav-link" href="/listjob">LIST NEW JOB</a></li>
+                    @*<li class="nav-item">@Html.ActionLink("LIST NEW JOB", "ListJob", "Employer", new { @class = "nav-link" })</li>*@
+                    <li class="nav-item">@Html.ActionLink("REGISTER", "Register", "Account", new { @class = "nav-link" }) </li>
+                    <li class="nav-item active1" style="padding-left: 2px; margin-right:2px; height:30px; align-content:center;margin-top:6px;">
+                        <a class="nav-link" style="color:white; font-size:14px; margin-top:-4px;" href='@Url.Action("Login", "Account")'>
+                            <i class="fa fa-lock">&nbsp;</i>LOGIN
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    int msg_counts = jobService.MessageCounts(user.Id);
+                    int apps = 0, interviews = 0;
+                    int bookmarks = jobService.BookmarkCounts(user.Id);
+                    int inboxItems = jobService.DashboardInboxItems(user.Id);
+
+                    if (user.Role == SecurityRoles.Employers)
+                    {
+                        apps = jobService.ApplicationCounts(user.Id, null);
+                        interviews = jobService.InterviewCounts(user.Id, null);
+                        <li class="nav-item">@Html.ActionLink("SEARCH PEOPLE", "SearchPeople", "Home", new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("SEARCH JOBSEEKERS", "Search", "Jobseeker", new { @class = "nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("SEARCH RESUMES", "SearchResumes", "Home", new { @class = "nav-link" })</li>
+                        if (msg_counts > 0)
+                        {
+                            <li class="nav-item"><a class="nav-link" href="/Message/Index">MESSAGES(<span style="color:red;">@msg_counts</span>)</a></li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">@Html.ActionLink("MESSAGES", "Index", "Message", new { @class = "nav-link" })</li>
+                        }
+
+
+                        if (inboxItems > 0)
+                        {
+                            <li class="nav-item"><a class="nav-link" href="/Inbox/Index">INBOX(<span style="color:red;">@inboxItems</span>)</a></li>
+                        }
+                        else
+                        {
+                            <li class="nav-item"><a class="nav-link" href="/Inbox/Index">INBOX</a></li>
+                        }
+                        if (!Request.Url.ToString().Contains("connections"))
+                        {
+                            <li class="nav-item">@Html.ActionLink("SETTINGS", "Index", "Network", new { @class = "nav-link" })</li>
+                        }
+                    }
+
+                    else if (user.Role == SecurityRoles.WebScraper)
+                    {
+
+                        <li class="nav-item"> @Html.ActionLink("WEB JEOBLIST", "Websites1", "Employer", new { @class = "nav-link" }) </li>
+                    }
+
+                    else if (user.Role == SecurityRoles.Jobseeker)
+                    {
+                        apps = jobService.ApplicationCounts(null, user.Id);
+                        interviews = jobService.InterviewCounts(null, user.Id);
+
+                        <li class="nav-item"><a class="nav-link" href="/jobs/">SEARCH JOBS</a></li>
+
+                        <li class="nav-item">@Html.ActionLink("SEARCH PEOPLE", "SearchPeople", "Home", new { @class = "nav-link" })</li>
+
+
+
+                        if (msg_counts > 0)
+                        {
+                            <li class="nav-item"><a class="nav-link" href="/Message/Index">MESSAGES(<span style="color:red;">@msg_counts</span>)</a></li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">@Html.ActionLink("MESSAGES", "Index", "Message", new { @class = "nav-link" })</li>
+                        }
+                        if (apps > 0)
+                        {
+                            <li class="nav-item"><a class="nav-link" href="/JobSeeker/Index">APPLICATIONS(<span style="color:red;">@apps</span>)</a></li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">@Html.ActionLink("APPLICATIONS", "Index", "JobSeeker", new { @class = "nav-link" })</li>
+                        }
+
+
+                        if (inboxItems > 0)
+                        {
+                            <li class="nav-item"><a class="nav-link" href="/Inbox/Index">INBOX(<span style="color:red;">@inboxItems</span>)</a></li>
+                        }
+                        else
+                        {
+                            <li class="nav-item"><a class="nav-link" href="/Inbox/Index">INBOX</a></li>
+                        }
+
+                        <li class="nav-item">@Html.ActionLink("SETTINGS", "Index", "Network", new { @class = "nav-link" })</li>
+                    }
+
+                    else if (user.Role == SecurityRoles.Student || user.Role == SecurityRoles.Interns)
+                    {
+                        apps = jobService.ApplicationCounts(null, user.Id);
+                        interviews = jobService.InterviewCounts(null, user.Id);
+
+                        <li class="nav-item"><a class="nav-link" href="/jobs/">SEARCH JOBS</a></li>
+
+                        <li class="nav-item">@Html.ActionLink("SEARCH PEOPLE", "SearchPeople", "Home", new { @class = "nav-link" })</li>
+
+
+
+                        if (msg_counts > 0)
+                        {
+                            <li class="nav-item"><a class="nav-link" href="/Message/Index">MESSAGES(<span style="color:red;">@msg_counts</span>)</a></li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">@Html.ActionLink("MESSAGES", "Index", "Message", new { @class = "nav-link" })</li>
+                        }
+                        if (apps > 0)
+                        {
+                            <li class="nav-item"><a class="nav-link" href="/JobSeeker/Index">APPLICATIONS(<span style="color:red;">@apps</span>)</a></li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">@Html.ActionLink("APPLICATIONS", "Index", "JobSeeker", new { @class = "nav-link" })</li>
+                        }
+
+
+                        if (inboxItems > 0)
+                        {
+                            <li class="nav-item"><a class="nav-link" href="/Inbox/Index">INBOX(<span style="color:red;">@inboxItems</span>)</a></li>
+                        }
+                        else
+                        {
+                            <li class="nav-item"><a class="nav-link" href="/Inbox/Index">INBOX</a></li>
+                        }
+
+                        <li class="nav-item">@Html.ActionLink("SETTINGS", "Index", "Network", new { @class = "nav-link" })</li>
+                    }
+                    else if (user.Role == SecurityRoles.Institute)
+                    {
+
+                        <li class="nav-item">@Html.ActionLink("SEARCH PEOPLE", "SearchPeople", "Home", new { @class = "nav-link" })</li>
+
+                        <li class="nav-item">@Html.ActionLink("SEARCH COMPANIES", "SearchCompany", "Job", new { @class = "nav-link" })</li>
+                        if (msg_counts > 0)
+                        {
+                            <li class="nav-item"><a class="nav-link" href="/Message/Index">MESSAGES(<span style="color:red;">@msg_counts</span>)</a></li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">@Html.ActionLink("MESSAGES", "Index", "Message", new { @class = "nav-link" })</li>
+                        }
+
+
+                        if (inboxItems > 0)
+                        {
+                            <li class="nav-item"><a class="nav-link" href="/Inbox/Index">INBOX(<span style="color:red;">@inboxItems</span>)</a></li>
+                        }
+                        else
+                        {
+                            <li class="nav-item"><a class="nav-link" href="/Inbox/Index">INBOX</a></li>
+                        }
+                        if (!Request.Url.ToString().Contains("connections"))
+                        {
+                            <li class="nav-item">@Html.ActionLink("SETTINGS", "Index", "Network", new { @class = "nav-link" })</li>
+                        }
+                    }
+                    if (user.Role == SecurityRoles.SuperUser)
+                    {
+                        @*<li> @Html.ActionLink("SETTINGS", "Index", "Admin")</li>*@
+                    }
+                    else if (user.Role == SecurityRoles.Administrator)
+                    {
+                        @*<li>
+                    @Html.ActionLink("SETTINGS", "Index", "Admin")
+                </li>*@
+                    }
+                    else if (user.Role == SecurityRoles.SuperUser || user.Role == SecurityRoles.Administrator)
+                    {
+                        @*<li>
+                    @Html.ActionLink("SETTINGS", "Index", "Admin")
+                </li>*@
+                    }
+                    <li class="nav-item">
+                        @if (user.Role == SecurityRoles.SuperUser || user.Role == SecurityRoles.Administrator)
+                        {
+                            @*@Html.ActionLink(user.FullName, "Index", "Admin", null, new { @style = "font-weight:700; text-transform: uppercase;" })*@
+                        }
+                        else
+                        {
+                            <a class="nav-link" href="@user.PermaLink" title="@user.FullName" style="display: inline-block; font-weight:700;">SOCIAL PAGE</a>
+                        }
+                    </li>
+                    if (user.Role == SecurityRoles.Employers)
+                    {
+                        <li class="nav-item active2">@Html.ActionLink("LIST NEW JOB", "ListJob", "Employer", new { @class = "nav-link" })</li>
+                    }
+                    <li class="nav-item">
+                        @if (user.Role == SecurityRoles.SuperUser || user.Role == SecurityRoles.Administrator)
+                        {
+                            @*<a href="/Admin/Dashboard" title="App Dashboard">APP DASHBOARD</a>*@
+                        }
+                    </li>
+
+                    if (User.Username == "RecruiterCom@joblisting.com" || user.Username == "tasnim@accuracy.com.sg" || user.Username == "deepti@accuracy.com.sg" || user.Username == "doli.chauhan123@accuracy.com.sg" || user.Username == "sandhya@accuracy.com.sg")
+                    {
+
+                        <li class="nav-item active2" style="font-weight: bold; padding-left: 2px; margin-right: 2px; height: 30px; align-content: center; margin-top: 6px;"><a class="nav-link" style=" color:white; font-size:14px; margin-top:-4px;" href='@Url.Action("AddJob", "Admin")'>LIST NEW JOB</a></li>
+                    }
+
+                    if (Request.IsAuthenticated)
+                    {
+                        <li class="nav-item active2" style="font-weight:bold; padding-left: 2px; margin-right: 2px; height: 30px; align-content: center; margin-top: 6px;"><a class="nav-link" style=" color:white; font-size:14px; margin-top:-4px;" href='@Url.Action("logoff", "account")'>LOGOUT</a></li>
+                    }
+                }
+
+                <li class="nav-item" style="float:right; margin-top:5px;">@Html.Partial("_LanguagePartial")</li>
+
+
+            </ul>
+        </div>
+    </nav>
+
+
+
+    <div class="container-fluid" style="margin-top:150px;">
+        @RenderBody()
+    </div>
+    @Html.Partial("_Footer1PartialPage")
+</body>
+</html>

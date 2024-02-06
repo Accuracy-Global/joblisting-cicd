@@ -1,0 +1,103 @@
+﻿@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+<div class="footer1">
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark sticky-bottom justify-content-center" style="height:100px;">
+    <style>
+
+        .footer1 .navbar .navbar-nav .nav-item .nav-link {
+            font-size: 14px;
+            color: white;
+        }
+    </style>
+    <ul class="navbar-nav">
+        @if (User != null && !User.Identity.IsAuthenticated)
+        {
+            <li class="nav-item"><a class="nav-link" href="/jobs/">Search Jobs</a></li>
+            <li class="nav-item">
+                @Html.ActionLink("Search People", "SearchPeople", "Home", new { @class = "nav-link" })
+            </li>
+            <li class="nav-item">
+                @Html.ActionLink("Search Jobseekers", "Search", "Jobseeker", new { @class = "nav-link" })
+            </li>
+            <li class="nav-item">
+                @Html.ActionLink("Search Resumes", "SearchResumes", "Jobseeker", new { @class = "nav-link" })
+            </li>
+            <li class="nav-item">
+                @Html.ActionLink("List New Job", "ListJob", "Employer", new { @class = "nav-link" })
+            </li>
+            <li class="nav-item">
+                @Html.ActionLink("Register now!", "Register", "Account", new { @class = "nav-link" })
+            </li>
+        }
+        else
+        {
+            if (User != null && User.Info.Role == SecurityRoles.SuperUser)
+            {
+
+
+                <li class="nav-item">@Html.ActionLink("Settings", "Index", "Admin", new { @class = "nav-link" })</li>
+            }
+            else if (User != null && User.Info.Role == SecurityRoles.Administrator)
+            {
+                <li class="nav-item">@Html.ActionLink("Settings", "Employer", "Admin", new { @class = "nav-link" })</li>
+            }
+            else if (User != null && User.Info.Role == SecurityRoles.Employers)
+            {
+                <li class="nav-item">@Html.ActionLink("Search People", "SearchPeople", "Home", new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Search Jobseekers", "Search", "Jobseeker", new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Search Resumes", "SearchResumes", "Home", new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("List New Job", "ListJob", "Employer", new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Settings", "Index", "Network", new { @class = "nav-link" })</li>
+            }
+            else if (User != null && User.Info.Role == SecurityRoles.Institute)
+            {
+                <li class="nav-item">@Html.ActionLink("Search People", "SearchPeople", "Home", new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Search Companies", "SearchCompany", "Job", new { @class = "nav-link" })</li>
+                @*<li>@Html.ActionLink("Search Jobseekers", "Search", "Jobseeker")</li>*@
+                <li class="nav-item">@Html.ActionLink("Settings", "Index", "Network", new { @class = "nav-link" })</li>
+            }
+            else if (User != null && User.Info.Role == SecurityRoles.Jobseeker)
+            {
+                @*<li>@Html.ActionLink("Search Jobs", "SearchJobs", "Job") </li>*@
+
+                <li class="nav-item"><a class="nav-link" href="/jobs/">Search Jobs</a></li>
+
+                <li class="nav-item">@Html.ActionLink("Search People", "SearchPeople", "Home", new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Settings", "Index", "Network", new { @class = "nav-link" })</li>
+            }
+            else if (User != null && User.Info.Role == SecurityRoles.Student)
+            {
+                @*<li>@Html.ActionLink("Search Jobs", "SearchJobs", "Job") </li>*@
+                <li class="nav-item"><a class="nav-link" href="/jobs/">Search jobs</a></li>
+                <li class="nav-item">@Html.ActionLink("Search People", "SearchPeople", "Home", new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Settings", "Index", "Network", new { @class = "nav-link" })</li>
+            }
+            else if (User != null && User.Info.Role == SecurityRoles.Interns)
+            {
+
+                <li class="nav-item"><a class="nav-link" href="/jobs/">Search Jobs</a></li>
+
+                <li class="nav-item">@Html.ActionLink("Search People", "SearchPeople", "Home", new { @class = "nav-link" })</li>
+                <li class="nav-item">@Html.ActionLink("Settings", "Index", "Network", new { @class = "nav-link" })</li>
+            }
+        }
+        @if (Request.IsAuthenticated)
+        {
+            <li class="nav-item">@Html.ActionLink("Logout", "logoff", "Account", new { @class = "nav-link" })</li>
+        }
+        else
+        {
+            <li class="nav-item"><a class="nav-link" href="/account/login" target="_blank">Login</a></li>
+        }
+        <li class="nav-item"> <a class = "nav-link" href="/home/contact" target="_blank">Contact&nbsp;us</a></li>
+        <li class="nav-item"> <a class = "nav-link" href="/home/AboutUs" target="_blank">About&nbsp;us</a></li>
+        <li class="nav-item"><a class = "nav-link" href="/terms" target="_blank">Terms&nbsp;Of&nbsp;Use</a></li>
+        <li class="nav-item"><a class = "nav-link" href="/privacy" target="_blank">Privacy</a></li>
+        <li class="nav-item"><a class = "nav-link" href="/copyright" target="_blank">Copyright</a></li>
+        <li class="nav-item"><a class = "nav-link" href="https://play.google.com/store/apps/details?id=com.accuracy.joblisting" target="_blank">Android App</a></li>
+        <li class="nav-item"><a class = "nav-link" href="https://apps.apple.com/in/app/job-listing/id1575724994" target="_blank">Ios App</a></li>
+
+    </ul>
+</nav>
+</div>

@@ -1,0 +1,36 @@
+﻿@using JobPortal.Data
+@using JobPortal.Domain
+<div class="invite-friend">
+    <div style="font-size:small; padding-bottom:5px;">
+        <span>Resumes</span>
+    </div>
+    <div class="iyf">
+        @using (Html.BeginForm())
+        {
+            @Html.TextBox("ResumeTitle", null, new { @class = "form-control", placeholder = "RESUME TITLE", maxlength = "10", @style = "height: 32px;" })
+            <div class="clear" style="height:5px"></div>
+            <div class="input-group">
+                <select id="ResumeCountry" name="ResumeCountry" class="form-control country" style="font-size:small">
+                    <option>SELECT</option>
+                </select>               
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" style="line-height: 19px;">Search</button>
+                </span>
+            </div>
+        }
+    </div>
+</div>
+<script>
+    $(function () {
+        $.getJSON("/help/countrylist", {}, function (list) {
+            $("#ResumeCountry").empty();
+            $("#ResumeCountry").append("<option value = ''>SELECT</option>");
+
+            if (list.length != 0) {
+                $(list).each(function () {
+                    $("#ResumeCountry").append("<option value =" + this.Id + ">" + this.Name + "</option>");
+                });
+            }
+        });
+    });
+</script>

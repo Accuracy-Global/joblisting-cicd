@@ -1,0 +1,325 @@
+﻿@using JobPortal.Domain
+@using JobPortal.Data
+@using JobPortal.Models
+@{
+    ViewBag.Title = "Buy Resume Download";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List country = new List();
+}
+<script src="~/Scripts/jquery.tmpl.min.js"></script>
+<script src="~/Scripts/jquery.tmplPlus.min.js"></script>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    .icolumns {
+        /*float: left;*/
+        /*width: 33.33%;*/
+        /*padding: 0px;*/
+        /*border-right:solid #fff 2px;*/
+        /*background-color: #eee;*/
+    }
+
+    .ecolumns {
+        float: left;
+        /*width: 25%;*/
+        width: 33.33%;
+        padding: 1px;
+        /*border:solid #bab9b9 1px;*/
+    }
+
+    .price {
+        list-style-type: none;
+        /*border: 1px solid #eee;*/
+        /*margin: 0;*/
+        padding: 15px;
+        -webkit-transition: 0.3s;
+        transition: 0.3s;
+        background-color: #eee;
+        min-height: 75px;
+    }
+
+        /*.price:hover {
+        box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2)
+    }*/
+
+        .price .header {
+            background-color: #aaa9ae;
+            color: white;
+            font-size: 16px;
+            padding: 2px;
+            text-align: center;
+        }
+
+        .price .footer {
+            /*padding-top: 20px;*/
+            /*padding-bottom: 20px;*/
+            /*text-align: center;*/
+            /*padding-left: 24%;
+            padding-right: 20%;*/
+            font-size: 16px;
+        }
+
+        .price li {
+            /*border-bottom: 1px solid #eee;*/
+            padding-top: 5px;
+            padding-bottom: 5px;
+            /*padding-right: 8px;*/
+            text-align: left;
+            /*padding-left: 5%;*/
+            font-size: 14px;
+        }
+
+            .price li:nth-child(3) {
+                /*border-bottom: 1px solid #eee;*/
+                padding-top: 15px;
+                padding-bottom: 5px;
+                /*padding-left: 8px;
+                padding-right: 8px;*/
+                text-align: left;
+                font-size: 14px;
+            }
+
+        .price .grey {
+            background-color: #00a0d9;
+            color: #fff;
+            font-size: 16px;
+            padding: 5px;
+            text-align: center;
+        }
+
+    .buttonfree {
+        background-color: #eee;
+        border: none;
+        color: white;
+        padding: 5px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 18px;
+        display: block;
+        width: 100px;
+        text-align: center;
+    }
+
+    .button {
+        background-color: #00a6e0;
+        border: none;
+        color: white;
+        padding: 5px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 18px;
+        display: block;
+        width: 100px;
+        text-align: center;
+    }
+
+        .button:hover {
+            text-decoration: none;
+            color: #fff;
+        }
+
+    @@media only screen and (max-width: 600px) {
+        .columns {
+            width: 100%;
+        }
+    }
+
+    .tooltip > .tooltip-inner {
+        background-color: #ffffff;
+        color: #000000;
+        border: 1px solid #000000;
+        padding: 10px;
+        font-size: 14px;
+        font-weight: bold;
+        opacity: 10;
+    }
+    /* Tooltip on top */
+    .tooltip.top > .tooltip-arrow {
+        border-top: 5px solid #000000;
+    }
+    /* Tooltip on bottom */
+    .tooltip.bottom > .tooltip-arrow {
+        border-bottom: 5px solid #000000;
+    }
+    /* Tooltip on left */
+    .tooltip.left > .tooltip-arrow {
+        border-left: 5px solid #000000;
+    }
+    /* Tooltip on right */
+    .tooltip.right > .tooltip-arrow {
+        border-right: 5px solid #000000;
+    }
+
+    .carousel-control {
+        font-size: 30px;
+        color: #0000ff;
+    }
+
+        .carousel-control:hover {
+            font-size: 30px;
+            color: #0000ff;
+        }
+</style>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1 style="margin-top:-15px;">Buy Resume Download</h1>
+            <span>Buy Resume download here</span>
+        </div>
+    </div>
+</div>
+
+@if (ViewBag.Type == "R")
+{
+    string jlink = string.Format("<a href=\"/{0}\" target=\"_blank\">{1}</a>", ViewBag.Entity.PermaLink, ViewBag.Entity.Title);
+    string nlink = string.Format("<a href=\"/{0}\" target=\"_blank\">{1}</a>", ViewBag.Entity.PermaLink, ViewBag.Entity.FullName);
+    country = SharedService.Instance.GetCountry(ViewBag.Entity.CountryId);
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="list-group">
+                <div class="list-group-item">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-4 col-sm-4">
+                            <i><b>Name:</b></i> @Html.Raw(nlink)
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <i><b>Gender:</b></i> @ViewBag.Entity.Gender  <i><b>Age:</b></i> @ViewBag.Entity.Age
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-4 col-sm-4">
+                            <i><b>Job Title:</b></i> @Html.Raw(jlink)
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <i><b>Country:</b></i> @country.Text
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="row" id="eArea">
+                <div class="col-lg-12 col-md-12" style="margin-bottom:15px;min-height:236px;">
+                    <div class="price">
+                        <form id="PromoteForm" method="post" action="/package/processdownload">
+                            <input type="hidden" id="ReturnUrl" name="ReturnUrl" value="@Request.QueryString["returnUrl"]" />
+                            <input type="hidden" id="Type" name="Type" value="@ViewBag.Type" />
+                            <input type="hidden" id="Id" name="Id" value="@ViewBag.Entity.Id" />
+                            <table class="table-bordered table-condensed" style="width:100%;">
+                                <thead class="header">
+                                    <tr>
+                                        <th style="font-weight:normal">Package Items</th>
+                                        <th style="font-weight:normal; width:85px; text-align:center">
+                                            Resumes
+                                        </th>
+                                    </tr>
+                                </thead>
+                                @if (ViewBag.BuyResume != null)
+                                    {
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-weight:normal; text-align:left" class="grey">
+                                                Resumes Download
+                                            </td>
+                                            <td style="font-weight:normal; width:125px; text-align:right" class="grey">
+                                                <select id="Days" name="Days" class="form-control" required data-resumes="@ViewBag.BuyResume.Resumes" data-rate="@ViewBag.BuyResume.Rate" data-pkgid="@ViewBag.BuyResume.PackageId">
+                                                    <option value="">Resumes</option>
+                                                    @for (int i = ViewBag.BuyResume.Resumes; i <= ViewBag.BuyResume.Resumes * 10; i = i + 10)
+                                                        {
+                                                        <option value="@i">@i</option>
+                                                        }
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                    }
+                                <tfoot class="footer">
+                                    <tr>
+                                        <td style="font-weight:normal; text-align:right; border:none">
+                                            Total Amount:
+                                        </td>
+                                        <td style="font-weight:normal; text-align:right; border:none">
+                                            <span id="amount"></span>
+                                            <input type="hidden" id="TotalAmount" name="TotalAmount" />
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <input type="hidden" id="PackageId" name="PackageId" value="@ViewBag.BuyResume.PackageId" />
+                            <div class="footer" style="text-align:center"><button type="submit" id="btnSubmit" class="btn btn-info" style="width:125px;">Buy&nbsp;Resumes&nbsp;Download&nbsp;Now</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div class="modal fade" id="exampleDialog" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                @*<h4 class="modal-title" id="uploadDialogLabel">
+
+                    </h4>*@
+            </div>
+            <div class="modal-body">
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img class="img-responsive" src="~/Images/job-promote-to-jobseekers.png" alt="...">
+                            @*<div class="carousel-caption">
+                                    One Image
+                                </div>*@
+                        </div>
+                        <div class="item">
+                            <img class="img-responsive" src="~/Images/job-promote-to-searches.png" alt="...">
+                            @*<div class="carousel-caption">
+                                    Another Image
+                                </div>*@
+                        </div>
+                    </div>
+                    <!-- Controls -->
+                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        @*<div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px;">Close</button>
+            </div>*@
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip({ placement: "bottom" });
+        $("#Days").val(@ViewBag.BuyResume.Resumes);
+        getTotal();
+
+        $("#Days").change(function () {
+            getTotal();
+        });
+    });
+    function getTotal() {
+        var total = 0;
+        var rpd = $("#Days").data("rate");
+        var res = $("#Days").data("resumes");
+        var rs = $("#Days").val();
+        total = (rpd * (rs / res));
+        $("#amount").text("$" + total.toFixed(0));
+        $("#TotalAmount").val(total.toFixed(0));
+    }
+
+</script>

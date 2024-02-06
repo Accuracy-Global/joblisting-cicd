@@ -1,0 +1,840 @@
+﻿@model JobPortal.Web.Models.SearchJobModel
+@using JobPortal.Library.Constants
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Domain
+@using JobPortal.Models
+@using System.Text;
+@using System.Collections
+@{
+    Layout = null;
+}
+<meta charset="utf-8">
+<title>Job Listing</title>
+<meta content="" name="description">
+<meta content="" name="keywords">
+<link rel="canonical" href="https://www.joblisting.com" />
+<!-- Favicons -->
+<link href="@Url.Content("~/Content/homed/assets/img/favicon.png")" rel="icon">
+<link href="@Url.Content("~/Content/homed/assets/img/apple-touch-icon.png")" rel="apple-touch-icon">
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+<!-- Vendor CSS Files -->
+<link href="@Url.Content("~/Content/homed/assets/vendor/animate.css/animate.min.css")" rel="stylesheet">
+<link href="@Url.Content("~/Content/homed/assets/vendor/aos/aos.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/homed/assets/vendor/bootstrap/css/bootstrap.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/homed/assets/vendor/bootstrap-icons/bootstrap-icons.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/homed/assets/vendor/boxicons/css/boxicons.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/homed/assets/vendor/glightbox/css/glightbox.min.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/homed/assets/vendor/remixicon/remixicon.css")" rel="stylesheet" />
+<link href="@Url.Content("~/Content/homed/assets/vendor/swiper/swiper-bundle.min.css")" rel="stylesheet" />
+@*<link href="@Url.Content("~/Content/homed/css/hamid.css")" rel="stylesheet" type="text/css" />*@
+<link href="@Url.Content("~/Content/homed/css/style.css")" rel="stylesheet" type="text/css" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+<!-- Template Main CSS File -->
+<link href="@Url.Content("~/Content/homed/assets/css/style.css")" rel="stylesheet">
+<link href="~/Content/chatbotnew/chatbotstyle.css" rel="stylesheet" />
+<style>
+    .goog-te-banner-frame {
+        height: 0px;
+    }
+
+    .skiptranslate {
+        height: 0px;
+    }
+</style>
+<!DOCTYPE html>
+<html lang="en">
+<body @*onload="getLocation()"*@ data-spy="scroll" data-target="#myScrollspy" data-offset="20">
+
+    <img class="conatiner2" src="~/Content/chatbotnew/ChatWithUS.png" onclick="openForm()" alt="cwt" height="70" width="90" />
+
+<script src="~/Content/chatbotnew/chatbotjquerry.js"></script>
+    @*<script>
+        if (navigator.geolocation)
+        {
+            navigator.geolocation.getCurrentPosition(getlatlong,eor,
+        {maximum age :10,
+        timeout:100,
+        enable high accuracy: false);
+        }
+        function getlatlong(data)
+        {
+         console.log(data);
+        console.log(data.coords.latitude),
+        console.log(data.coords.longitude),
+        }
+        function eor (data)
+        {
+            console.log(data);
+        }
+            
+    </script>*@
+    <div class="container1" id="myForm">
+        <div class="chat-header">
+            <div class="logo">
+                <!-- <img src="images/ChatWithUS.png" alt="cwt" /> -->
+            </div>
+            <div class="title" onclick="closeForm()">
+                <!-- Let's Chat -->
+                <img src="~/Content/chatbotnew/ChatWithUS.png" alt="cwt" />
+
+            </div>
+        </div>
+        <div class="chat-body">
+            <p class="chatbot-message">Hi I am Lovely </p>
+            <p class="chatbot-message">Select below options to serve better</p>
+            <p>
+                <button type="button" value="Student" class="btn bodybox1" id="bodybox1">Students</button>
+                <button type="button" value="Interns" class="btn bodybox1" id="bodybox2">Interns</button>
+                <button type="button" value="Jobseekers" class="btn bodybox1" id="bodybox3">Jobseekers</button>
+                <button type="button" value="Employers" class="btn bodybox1" id="bodybox4">Employers</button>
+                <button type="button" value="Recruitment Agency" class="btn bodybox1" id="bodybox5">Recruitment Agency</button>
+                <button type="button" value="Institutes" class="btn bodybox1" id="bodybox6">Institutes</button>
+                <button type="button" value="Freelancers" class="btn bodybox1" id="bodybox7">Freelancers</button>
+                <button type="button" value="Partners" class="btn bodybox1" id="bodybox8">Partners</button>
+            </p>
+            <div class="loading hide">
+                <div class="circle circle-1"></div>
+                <div class="circle circle-2"></div>
+                <div class="circle circle-3"></div>
+            </div>
+        </div>
+        <div class="chat-input" style="background-color: white;">
+            <div class="input-sec">
+                <input type="text" id="txtInput" placeholder="Type here..." autofocus />
+            </div>
+            <div class="send">
+                @*<img src="~/Content/chatbotnew/send.jpeg" style="width:59px; height: 53px;" alt="send" />*@
+                <button type="button" style="border: 1px solid #34ba08; border-radius:7px; width: 100px; height: 40px;">SEND</button>
+            </div>
+        </div>
+    </div>
+    <script src="~/Content/chatbotnew/app.js"></script>
+    <script src="~/Content/chatbotnew/response.js"></script>
+
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="fixed-top" style="max-width:1350px;">
+        <div class="container-fluid d-flex align-items-center" style="max-width:1350px; ">
+            <a class="navbar-brand" href="#" style="width:350px;height:80px;">
+                @*<img src="@Url.Content("/Images/JobListing_Aldhabi_Font.PNG")" alt="" width="350" height="70" class="img-fluid">*@
+                <img src="/Images/JobListing_Aldhabi_Font.PNG" alt="Joblisting" style="width:350px;height:80px;" />
+
+            </a>
+
+            <nav id="navbar" class="navbar order-last order-lg-0 " style="float: right; max-width: 650px; padding-left:30px;">
+
+                <ul class="justify-content-end" style="float: right; max-width: 650px; overflow-wrap: break-word; display: flex; flex-wrap:wrap;">
+
+                    <li><a href="/jobs/" class="active" style="font-size:medium;">JOBS</a></li>
+                    <li><a href="/search-people" style="font-size:medium;">PEOPLE</a></li>
+                    <li><a href="/search-jobseekers" style="font-size:medium;">JOBSEEKERS</a></li>
+                    <li><a href="/listjob" style="font-size:medium;">LIST NEW JOB</a></li>
+                    @*<li>@Html.ActionLink("About", "AboutUs", "Home")</li>*@
+
+                </ul>
+
+                <i class="bi bi-list mobile-nav-toggle"></i>
+
+            </nav><!-- .navbar -->
+            <div class="header-social-links d-flex" style="padding-top:0px; ">
+                <a href="https://twitter.com/JobListing4" class="twitter"><i class="bu bi-twitter"></i></a>
+                <a href="https://www.facebook.com/Joblisitng" class="facebook"><i class="bu bi-facebook"></i></a>
+                <a href="https://www.instagram.com/joblistingportal/" class="instagram"><i class="bu bi-instagram"></i></a>
+                <a href="https://www.linkedin.com/in/joblisting-01/" class="linkedin"><i class="bu bi-linkedin"></i></a>
+                @*<a href="https://www.whatsapp.com/Joblisitng" class="whatsapp"><i class="bu bi-whatsapp"></i></a>*@
+
+
+
+
+                @*<a style="padding-bottom:20px; ">@Html.Partial("_LanguagePartial")</a>*@
+            </div>
+            <div class="header-social-links d-flex" style="padding-top:0px; ">
+                <a style="padding-bottom:20px; ">@Html.Partial("_LanguagePartial")</a>
+            </div>
+            <style>
+                #google_translate_element select {
+                    width: 120px;
+                    height: 32px;
+                    margin-top: -2px;
+                    border-color: #34ba08;
+                }
+            </style>
+        </div>
+
+    </header><!-- End Header -->
+    <!-- ======= Hero Section ======= -->
+    <section id="hero">
+        <div id="heroCarousel" data-bs-interval="5000" class="carousel slide carousel-fade" data-bs-ride="carousel">
+
+            <div class="carousel-inner" role="listbox">
+
+                <!-- Slide 1 -->
+                <div class="carousel-item active" style="background-image: url('@Url.Content("~/Content/homed/assets/img/slide/images100.jpg")');">
+                    <div class="carousel-container">
+                        <div class="carousel-content animate__animated animate__fadeInUp">
+                            <h2> <span>Find Job, Employment and Career opportunities</span></h2>
+                            <p>The Easiest Way to Get Your Dream Job</p>
+                            <div class="text-center"><a href="/account/register" class="btn-get-started">Register</a></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="carousel-item" style="background-image: url('@Url.Content("~/Content/homed/assets/img/slide/images2.jpeg")');">
+                    <div class="carousel-container">
+                        <div class="carousel-content animate__animated animate__fadeInUp">
+                            <h2> <span>Find Job, Employment and Career opportunities</span></h2>
+                            <p>The Easiest Way to Get Your Dream Job</p>
+                            <div class="text-center"><a href="/account/login" class="btn-get-started">Login</a></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 3 -->
+                <div class="carousel-item " style="background-image: url('@Url.Content("~/Content/homed/assets/img/slide/images3.jpeg")');">
+                    <div class="carousel-container">
+                        <div class="carousel-content animate__animated animate__fadeInUp">
+                            <h2> <span>Find Job, Employment and Career opportunities</span></h2>
+                            <p>The Easiest Way to Get Your Dream Job</p>
+                            <div class="text-center"><a href="/account/register" class="btn-get-started">Register</a></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 4 -->
+                <div class="carousel-item" style="background-image: url('@Url.Content("~/Content/homed/assets/img/slide/images4.jpeg")');">
+                    <div class="carousel-container">
+                        <div class="carousel-content animate__animated animate__fadeInUp">
+                            <h2> <span>Find Job, Employment and Career opportunities</span></h2>
+                            <p>The Easiest Way to Get Your Dream Job</p>
+                            <div class="text-center"><a href="/account/login" class="btn-get-started">Login</a></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 5 -->
+                <div class="carousel-item" style="background-image: url('@Url.Content("~/Content/homed/assets/img/slide/images5.jpeg")');">
+                    <div class="carousel-container">
+                        <div class="carousel-content animate__animated animate__fadeInUp">
+                            <h2> <span>Find Job, Employment and Career opportunities</span></h2>
+                            <p>The Easiest Way to Get Your Dream Job</p>
+                            <div class="text-center"><a href="/account/register" class="btn-get-started">Register</a></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 6 -->
+                <!-- Slide 7 -->
+                <div class="carousel-item " style="background-image: url('@Url.Content("~/Content/homed/assets/img/slide/images7.jpeg")');">
+                    <div class="carousel-container">
+                        <div class="carousel-content animate__animated animate__fadeInUp">
+                            <h2> <span>Find Job, Employment and Career opportunities</span></h2>
+                            <p>The Easiest Way to Get Your Dream Job</p>
+                            <div class="text-center"><a href="/account/register" class="btn-get-started">Register</a></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 8 -->
+                <div class="carousel-item" style="background-image: url('@Url.Content("~/Content/homed/assets/img/slide/images8.jpeg")');">
+                    <div class="carousel-container">
+                        <div class="carousel-content animate__animated animate__fadeInUp">
+                            <h2> <span>Find Job, Employment and Career opportunities</span></h2>
+                            <p>The Easiest Way to Get Your Dream Job</p>
+                            <div class="text-center"><a href="/account/login" class="btn-get-started">Login</a></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item" style="background-image: url('@Url.Content("~/Content/homed/assets/img/slide/images6.jpeg")');">
+                    <div class="carousel-container">
+                        <div class="carousel-content animate__animated animate__fadeInUp">
+                            <h2> <span>Find Job, Employment and Career opportunities</span></h2>
+                            <p>The Easiest Way to Get Your Dream Job</p>
+                            <div class="text-center"><a href="/account/register" class="btn-get-started">Register</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon bi bi-chevron-left" aria-hidden="true"></span>
+            </a>
+
+            <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+                <span class="carousel-control-next-icon bi bi-chevron-right" aria-hidden="true"></span>
+            </a>
+
+            <ol class="carousel-indicators" id="hero-carousel-indicators"></ol>
+
+        </div>
+    </section><!-- End Hero -->
+
+    <main id="main">
+
+        <!-- ======= About Us Section ======= -->
+        <section id="about-us" class="about-us">
+            <div class="container" data-aos="fade-up">
+
+                <div class="row content">
+                    <div class="col-lg-6" data-aos="fade-right">
+                        <h2>Find Job, Employment and Career opportunities</h2>
+                        <h3>The Easiest Way to Get Your Dream Job</h3>
+                    </div>
+                    <div class="col-lg-6 pt-4 pt-lg-0" data-aos="fade-left">
+                        <p>
+                            JobListing is a global website that facilitates job hunting and range from small, medium to large scale as well as cross-sector categories such as green jobs, ethical jobs, freelance and seasonal jobs.
+                        </p>
+                        <p>
+                            JobListing is a global website that facilitates job hunting and range from small, medium to large scale as well as cross-sector categories such as green jobs, ethical jobs, freelance and seasonal jobs.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section><!-- End About Us Section -->
+        <!-- ======= Services Section ======= -->
+        <section id="services" class="services section-bg">
+            <div class="container" data-aos="fade-up">
+
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                        <div class="icon-box iconbox-blue">
+                            <div class="icon">
+                                <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,521.0016835830174C376.1290562159157,517.8887921683347,466.0731472004068,529.7835943286574,510.70327084640275,468.03025145048787C554.3714126377745,407.6079735673963,508.03601936045806,328.9844924480964,491.2728898941984,256.3432110539036C474.5976632858925,184.082847569629,479.9380746630129,96.60480741107993,416.23090153303,58.64404602377083C348.86323505073057,18.502131276798302,261.93793281208167,40.57373210992963,193.5410806939664,78.93577620505333C130.42746243093433,114.334589627462,98.30271207620316,179.96522072025542,76.75703585869454,249.04625023123273C51.97151888228291,328.5150500222984,13.704378332031375,421.85034740162234,66.52175969318436,486.19268352777647C119.04800174914682,550.1803526380478,217.28368757567262,524.383925680826,300,521.0016835830174"></path>
+                                </svg>
+                                <i class="fa fa-3x fa-user-graduate"></i>
+                            </div>
+                            <h4><a href="">Students</a></h4>
+                            @*<h6><a href="">1000</a></h6>*@
+                            <p>sign up for free, find a job today, get recommended jobs, receive job recommendations, apply for an internship.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4 mt-md-0" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="icon-box iconbox-orange ">
+                            <div class="icon">
+                                <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,582.0697525312426C382.5290701553225,586.8405444964366,449.9789794690241,525.3245884688669,502.5850820975895,461.55621195738473C556.606425686781,396.0723002908107,615.8543463187945,314.28637112970534,586.6730223649479,234.56875336149918C558.9533121215079,158.8439757836574,454.9685369536778,164.00468322053177,381.49747125262974,130.76875717737553C312.15926192815925,99.40240125094834,248.97055460311594,18.661163978235184,179.8680185752513,50.54337015887873C110.5421016452524,82.52863877960104,119.82277516462835,180.83849132639028,109.12597500060166,256.43424936330496C100.08760227029461,320.3096726198365,92.17705696193138,384.0621239912766,124.79988738764834,439.7174275375508C164.83382741302287,508.01625554203684,220.96474134820875,577.5009287672846,300,582.0697525312426"></path>
+                                </svg>
+                                <i class="fa fa-3x fa-building"></i>
+                            </div>
+                            <h4><a href="">Employers</a></h4>
+                            @*<h6><a href="">1000</a></h6>*@
+                            <p>
+                                register for free, list global jobs, search global profiles, find your next hire, match with potential candidates, download resumes.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="icon-box iconbox-pink">
+                            <div class="icon">
+                                <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,541.5067337569781C382.14930387511276,545.0595476570109,479.8736841581634,548.3450877840088,526.4010558755058,480.5488172755941C571.5218469581645,414.80211281144784,517.5187510058486,332.0715597781072,496.52539010469104,255.14436215662573C477.37192572678356,184.95920475031193,473.57363656557914,105.61284051026155,413.0603344069578,65.22779650032875C343.27470386102294,18.654635553484475,251.2091493199835,5.337323636656869,175.0934190732945,40.62881213300186C97.87086631185822,76.43348514350839,51.98124368387456,156.15599469081315,36.44837278890362,239.84606092416172C21.716077023791087,319.22268207091537,43.775223500013084,401.1760424656574,96.891909868211,461.97329694683043C147.22146801428983,519.5804099606455,223.5754009179313,538.201503339737,300,541.5067337569781"></path>
+                                </svg>
+                                <i class="fa fa-3x fa-user-tie"></i>
+                            </div>
+                            <h4><a href="">Job Seekers</a></h4>
+                            @*<h6><a href="">1000</a></h6>*@
+                            <p>
+                                sign up for free, land your dream job today, get recommended jobs, receive job recommendations, boost your career.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4 mt-lg-0" data-aos="zoom-in" data-aos-delay="300">
+                        <div class="icon-box iconbox-pink">
+                            <div class="icon">
+                                <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,541.5067337569781C382.14930387511276,545.0595476570109,479.8736841581634,548.3450877840088,526.4010558755058,480.5488172755941C571.5218469581645,414.80211281144784,517.5187510058486,332.0715597781072,496.52539010469104,255.14436215662573C477.37192572678356,184.95920475031193,473.57363656557914,105.61284051026155,413.0603344069578,65.22779650032875C343.27470386102294,18.654635553484475,251.2091493199835,5.337323636656869,175.0934190732945,40.62881213300186C97.87086631185822,76.43348514350839,51.98124368387456,156.15599469081315,36.44837278890362,239.84606092416172C21.716077023791087,319.22268207091537,43.775223500013084,401.1760424656574,96.891909868211,461.97329694683043C147.22146801428983,519.5804099606455,223.5754009179313,538.201503339737,300,541.5067337569781"></path>
+                                </svg>
+                                <i class="fa fa-3x fa-user-tie"></i>
+                            </div>
+                            <h4><a href=""> Partners </a></h4>
+                            @*<h6><a href="">1000</a></h6>*@
+                            <p>
+                                match your preferred brands with the best talent, access global profiles, view candidates and find relevant matches, easy recruitment process.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="icon-box iconbox-red">
+                            <div class="icon">
+                                <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,532.3542879108572C369.38199826031484,532.3153073249985,429.10787420159085,491.63046689027357,474.5244479745417,439.17860296908856C522.8885846962883,383.3225815378663,569.1668002868075,314.3205725914397,550.7432151929288,242.7694973846089C532.6665558377875,172.5657663291529,456.2379748765914,142.6223662098291,390.3689995646985,112.34683881706744C326.66090330228417,83.06452184765237,258.84405631176094,53.51806209861945,193.32584062364296,78.48882559362697C121.61183558270385,105.82097193414197,62.805066853699245,167.19869350419734,48.57481801355237,242.6138429142374C34.843463184063346,315.3850353017275,76.69343916112496,383.4422959591041,125.22947124332185,439.3748458443577C170.7312796277747,491.8107796887764,230.57421082200815,532.3932930995766,300,532.3542879108572"></path>
+                                </svg>
+                                <i class="fa fa-3x fa-brands fa-briefcase"></i>
+                            </div>
+                            <h4><a href="">Recruitment Agencies</a></h4>
+                            @*<h6><a href="">1000</a></h6>*@
+                            <p>list global jobs, search global profiles, view skills of the candidates and find matching candidates before posting jobs, download resumes.  </p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="icon-box iconbox-red">
+                            <div class="icon">
+                                <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,532.3542879108572C369.38199826031484,532.3153073249985,429.10787420159085,491.63046689027357,474.5244479745417,439.17860296908856C522.8885846962883,383.3225815378663,569.1668002868075,314.3205725914397,550.7432151929288,242.7694973846089C532.6665558377875,172.5657663291529,456.2379748765914,142.6223662098291,390.3689995646985,112.34683881706744C326.66090330228417,83.06452184765237,258.84405631176094,53.51806209861945,193.32584062364296,78.48882559362697C121.61183558270385,105.82097193414197,62.805066853699245,167.19869350419734,48.57481801355237,242.6138429142374C34.843463184063346,315.3850353017275,76.69343916112496,383.4422959591041,125.22947124332185,439.3748458443577C170.7312796277747,491.8107796887764,230.57421082200815,532.3932930995766,300,532.3542879108572"></path>
+                                </svg>
+                                <i class="fa fa-3x fa-landmark"></i>
+                            </div>
+                            <h4><a href="">Institutes</a></h4>
+                            @*<h6><a href="">1000</a></h6>*@
+                            <p>register for free, list & promote students, reach global companies, promote your university/college, manage campus recruitment.</p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="icon-box iconbox-red">
+                            <div class="icon">
+                                <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,532.3542879108572C369.38199826031484,532.3153073249985,429.10787420159085,491.63046689027357,474.5244479745417,439.17860296908856C522.8885846962883,383.3225815378663,569.1668002868075,314.3205725914397,550.7432151929288,242.7694973846089C532.6665558377875,172.5657663291529,456.2379748765914,142.6223662098291,390.3689995646985,112.34683881706744C326.66090330228417,83.06452184765237,258.84405631176094,53.51806209861945,193.32584062364296,78.48882559362697C121.61183558270385,105.82097193414197,62.805066853699245,167.19869350419734,48.57481801355237,242.6138429142374C34.843463184063346,315.3850353017275,76.69343916112496,383.4422959591041,125.22947124332185,439.3748458443577C170.7312796277747,491.8107796887764,230.57421082200815,532.3932930995766,300,532.3542879108572"></path>
+                                </svg>
+                                <i class="fa fa-3x fa-check"></i>
+                            </div>
+                            <h4><a href=""> Freelancers </a></h4>
+                            @*<h6><a href="">1000</a></h6>*@
+                            <p>find freelancing jobs, apply for freelancing gigs, browse the latest freelancing jobs on the market and find matching the right fit for you in no time.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 d-flex align-items-stretch mt-4" data-aos="zoom-in" data-aos-delay="200">
+                        <div class="icon-box iconbox-red">
+                            <div class="icon">
+                                <svg width="100" height="100" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke="none" stroke-width="0" fill="#f5f5f5" d="M300,532.3542879108572C369.38199826031484,532.3153073249985,429.10787420159085,491.63046689027357,474.5244479745417,439.17860296908856C522.8885846962883,383.3225815378663,569.1668002868075,314.3205725914397,550.7432151929288,242.7694973846089C532.6665558377875,172.5657663291529,456.2379748765914,142.6223662098291,390.3689995646985,112.34683881706744C326.66090330228417,83.06452184765237,258.84405631176094,53.51806209861945,193.32584062364296,78.48882559362697C121.61183558270385,105.82097193414197,62.805066853699245,167.19869350419734,48.57481801355237,242.6138429142374C34.843463184063346,315.3850353017275,76.69343916112496,383.4422959591041,125.22947124332185,439.3748458443577C170.7312796277747,491.8107796887764,230.57421082200815,532.3932930995766,300,532.3542879108572"></path>
+                                </svg>
+                                <i class="fa fa-3x fa-user-graduate"></i>
+                            </div>
+                            <h4><a href=""> Interns </a></h4>
+                            @*<h6><a href="">1000</a></h6>*@
+                            <p>sign up for free, find a job today, get recommended jobs, receive job recommendations, apply for an internship.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section><!-- End Services Section -->
+        <!-- ======= Portfolio Section ======= -->
+
+
+        <style>
+
+
+            /* Style the tab */
+            .tab {
+                overflow: hidden;
+                border: 1px solid #ccc;
+                background-color: #f1f1f1;
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+
+                /* Style the buttons inside the tab */
+                .tab button {
+                    background-color: #34ba08 inherit;
+                    float: left;
+                    border: none;
+                    outline: none;
+                    cursor: pointer;
+                    padding: 14px 16px;
+                    transition: 0.3s;
+                    font-size: 17px;
+                }
+
+            .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+                background-color: #34ba08 !important;
+                color: white;
+            }
+
+
+
+
+            /* Change background color of buttons on hover */
+
+
+            /* Style the tab content */
+            .tabcontent {
+                display: none;
+                padding: 6px 12px;
+                border: 1px solid #ccc;
+                border-top: none;
+                background: black;
+                color: white;
+            }
+        </style>
+
+
+        <div class="container" style="padding-top: 20px; background: #34ba08; border-bottom: 13px solid #34ba08;">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-center">
+                        <span style="color: #000;">Apply process</span>
+                        <h2 style="padding-bottom: 20px;color: white;"> How it works</h2>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav nav-pills nav-justified" style="background-color: #f1f1f1;">
+                <li class="nav-item tab">
+                    <button class="nav-link tablinks btn-primary" style="color: black; background-color: white; font-weight: bold;" onclick="openCity(event, 'London')" id="defaultOpen">Search a job</button>
+                </li>
+                <li class="nav-item links ">
+                    <a class="nav-link" style="padding-top: 18px; font-size: 25px; font-weight: bold;"><i class="bi bi-arrow-right " style="color: #34ba08;"></i></a>
+                </li>
+                <li class="nav-item tab">
+                    <button class="nav-link tablinks btn-primary" style="color: black; background-color: white; font-weight: bold;" onclick="openCity(event, 'Paris')">Apply for job</button>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" style="padding-top: 18px; font-size: 25px; font-weight: bold;"><i class="bi bi-arrow-right" style="color: #34ba08; font-weight: bold;"></i></a>
+                </li>
+                <li class="nav-item tablinks tab">
+                    <button class="nav-link tablinks btn-primary" style="color: black; background-color: white; font-weight:bold;" onclick="openCity(event, 'Tokyo')">Get your job</button>
+                </li>
+
+            </ul>
+
+            <div id="London" class="tabcontent">
+                <br />
+                <p>
+                    Click the  Search Jobs at the top of homepage.<br />
+                    Click the Search jobs field and enter keywords or a company name.<br />
+                    You can also select from the job roles suggested by Joblisting  based on your qualification and experience.
+                </p>
+            </div>
+
+            <div id="Paris" class="tabcontent">
+                <br />
+                <p>
+                    Easy Apply: This allows you to apply for the job on Joblisting.<br />
+                    Apply: You’ll be redirected to the company website where you can apply for the job externally.
+                </p>
+            </div>
+
+            <div id="Tokyo" class="tabcontent">
+                <br />
+                <p>Get your dream job in  Joblisting </p>
+            </div>
+        </div>
+        <script>
+            function openCity(evt, cityName) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(cityName).style.display = "block";
+                evt.currentTarget.className += " active";
+            }
+            document.getElementById("defaultOpen").click();
+        </script>
+
+
+
+        <br /><br />
+              <div class="container-fluid">
+                  <style>
+                      .process-cap {
+                          background-color: black;
+                          color: white;
+                      }
+
+
+                      .job-card-buttons {
+                          display: flex;
+                          align-items: center;
+                          justify-content: space-between;
+                          gap: 10px;
+                          width: 100%;
+                      }
+
+                      .search-buttons {
+                          border-color: #34ba08;
+                          color: black;
+                          /*//color: var(--button-color);
+                            //background-color: var(--active-color);*/
+                          background-color: #ffffff;
+                          padding: 8px 10px;
+                          border-radius: 6px;
+                          font-size: 11px;
+                          font-weight: 600;
+                          margin-top: 14px;
+                      }
+
+                      .bookmarkview {
+                          color: #FFFFFF;
+                          background-color: #34ba08;
+                          padding: 8px 10px;
+                          border-radius: 6px;
+                          font-size: 11px;
+                          font-weight: 600;
+                          margin-top: 14px;
+                          cursor: none;
+                      }
+
+                          .bookmarkview:hover {
+                              background-color: white;
+                              color: white;
+                          }
+
+                          .bookmarkview:focus {
+                              background-color: #34ba08;
+                              color: white;
+                          }
+
+                      .search-buttons {
+                          background-color: var(--inactive-color);
+                          font-size: 11px;
+                          padding: 6px 8px;
+                          margin-top: 0;
+                          font-weight: 500;
+                      }
+
+                      .card-buttons,
+                      .card-buttons-msg {
+                          padding: 5px;
+                          width: 100%;
+                          font-size: 12px;
+                          cursor: pointer;
+                      }
+
+
+                      .card-buttons-override {
+                          background-color: #34ba08 !important;
+                          text-align: center;
+                          color: white;
+                      }
+
+                      .title1 {
+                          height: 75px;
+                          font-weight: 600;
+                          font-size: 14px;
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                          padding-top: 10px;
+                      }
+
+                      .imgf {
+                          margin: 7px;
+                      }
+                  </style>
+                  <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">Latest Jobs</h1>
+                  <div class="row">
+                      @if (ViewBag.LatestJob1 != null)
+                      {
+                          foreach (LatestJob latestJob in ViewBag.LatestJob1)
+                          {
+                              <div class="col-lg-3 col-xl-3 col-md-4 col-sm-6 col- shadow" style="margin-bottom:25px;">
+                                  <div class="row">
+                                      <div class="col-lg-5 col-md-5 col-sm-4">
+                                          @Html.Raw(string.Format("<text><span><img  height='100' width='100' src=\"/Image/Avtar/" + latestJob.EmployerId + "\" /><span> </text>"))
+
+                                      </div>
+                                      <div class="col-lg-7 col-md-7 col-sm-8">
+                                          <p class="title1">@Html.Raw(latestJob.Title)</p>
+                                          <b>Location: </b> @Html.Raw(string.Format("{0} {1}", latestJob.Country, latestJob.City))<br />
+
+                                          <b>Status: </b>  &nbsp;&nbsp;&nbsp; @Html.Raw(latestJob.Status)
+                                      </div>
+                                  </div>
+                                  <div class="job-card-buttons">
+                                      <div class="search-buttons card-buttons detail-btn-override">
+                                          <button class="search-buttons card-buttons detail-btn-override">
+                                              @Html.Raw(latestJob.JobType)
+                                          </button>
+                                      </div>
+                                      <div class="search-buttons card-buttons detail-btn-override">
+                                          <button class="search-buttons card-buttons detail-btn-override">
+                                              @Html.Raw(latestJob.MinimumExperience)
+                                          </button>
+                                      </div>
+                                      <div class="search-buttons card-buttons detail-btn-override">
+                                          <button class="search-buttons card-buttons detail-btn-override">
+                                              @Html.Raw(latestJob.JobLevel)
+                                          </button>
+                                      </div>
+                                  </div>
+                                  <div class="job-card-buttons" style="padding-bottom:10px;">
+                                      @Html.ActionLink("View", "View", "job", new { Id = latestJob.JobID }, new { target = "_blank", @class = "card-buttons card-buttons-override bookmarkview" })
+                                      @Html.ActionLink("Share", "Email", "job", new { Id = latestJob.JobID }, new { target = "_blank", @class = "card-buttons card-buttons-override bookmarkview" })
+                                      @Html.ActionLink("Bookmark", "BookMarkedJobs", "JobSeeker", new { Id = latestJob.JobID }, new { target = "_blank", title = "Bookmark this job.", @class = "card-buttons card-buttons-override bookmarkview" })
+                                  </div>
+                              </div>
+                          }
+                      }
+                  </div>
+              </div>
+        <br />
+        @*@ViewBag.ss*@
+        <br />
+        <div class="container-fluid">
+            <div class="row" style="padding-right:15px; padding-left:15px;">
+                <h1 class="text-center"><b>Hour Customers</b></h1>
+                <div class="col-sm-12">
+                    <style>
+                        .imgf {
+                            padding: 15px;
+                        }
+                    </style>
+                    <marquee behavior="alternate">
+                        @foreach (var item in ViewBag.Model)
+                        {
+
+                            @Html.Raw(string.Format("<text ><img padding-left='25px' height='100' width='150' float='left' class='imgf'  src=\"data:image/jpg;base64," + (item["Logo"]) + " \" /> </text>"));
+
+                        }
+                    </marquee>
+                </div>
+            </div>
+        </div>
+        <br />
+        @*<i class="fa fa-map-marker" aria-hidden="true"></i> <span id="city"></span>, <span id="state"></span>, <span id="country"></span>*@
+        @*<script>
+                async function fetchText() {
+                    let url = 'https://ipinfo.io/json?token=18061b6ccf594f'
+                    let response = await fetch(url);
+                    let data = await response.json();
+                    document.getElementById('country').innerHTML = data.country; // for country
+                    document.getElementById('state').innerHTML = data.region; // for state
+                    document.getElementById('city').innerHTML = data.city; // for city
+                }
+                fetchText()
+            </script>*@
+        <br />
+        <br />
+
+    </main><!-- End #main -->
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-6 footer-contact">
+                        <h3>Job Listing</h3>
+                        <h4>C/O. Accuracy</h4>
+                        <p>
+                            35 Selegie Road, #09-22,<br /> Parklane Shopping Mall,<br /> Singapore 188307.
+                            <!-- <strong>Phone:</strong> +1 5589 55488 55<br> -->
+
+                            <br />
+                            <strong>Email:</strong> pratapchandran@joblisting.com<br>
+                        </p>
+                    </div>
+
+                    <div class="col-lg-2 col-md-6 footer-links">
+                        <h4>Useful Links</h4>
+                        <ul>                           
+                            <li><i class="bx bx-chevron-right"></i> <a href="/Home/aboutus">About</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="/terms">Terms of service</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="/privacy">Privacy policy</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="/home/contact">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4>Our Services</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="/jobs/">Search Jobs</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="/search-people">Search People</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="/search-jobseekers">Search Jobseeker</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="/listjob">List New Job</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-lg-4 col-md-6 footer-newsletter">
+                        <h4>Join Our Newsletter</h4>
+                        <p>JobListing is a global website that facilitates job hunting and range from small, medium to large scale as well as cross-sector categories such as green jobs, ethical jobs, freelance and seasonal jobs.</p>
+
+
+                        <form action="" method="post">
+                            <input type="email" name="email"><input type="submit" value="Subscribe">
+                        </form>
+
+                    </div>
+
+                </div>
+            </div>
+            <a href="#" style="float:right;  display:inline-block;"><button style="float: right; margin-top:-25px; width: 40px; height: 40px; background-color: #34ba08; border-radius: 5px;"><i class="bi bi-arrow-up-short text-white"></i></button></a>
+        </div>
+
+        <div class="container  py-4">
+            <div class="row">
+                <div class="col-sm-7">
+                    <div class="copyright">
+                        &copy; Copyright <a href="/help/Copyright">Job Listing</a>. All Rights Reserved
+
+                        <p style="float:right; padding-right:100px;">Powered by Accuracy</p>
+
+
+                    </div>
+
+                </div>
+                <div class="col-sm-5">
+                    <div class="social-links ">
+                        <a href="https://twitter.com/JobListing4" class="twitter"><i class="bu bi-twitter"></i></a>
+                        <a href="https://www.facebook.com/Joblisitng" class="facebook"><i class="bu bi-facebook"></i></a>
+                        <a href="https://www.instagram.com/joblistingportal/" class="instagram"><i class="bu bi-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/joblisting-com/about/" class="linkedin"><i class="bu bi-linkedin"></i></a>
+                        <a href="https://www.linkedin.com/in/joblisting-01/" class="linkedin"><i class="bu bi-google"></i></a>
+                        @*<a href="https://www.whatsapp.com/Joblisitng" class="whatsapp"><i class="bu bi-whatsapp"></i></a>*@
+                    </div>
+                </div>
+                @*<div class="col-sm-3">
+
+            </div>*@
+            </div>
+
+
+
+            @*<div class="me-md-auto text-center text-md-start">
+            <div class="copyright">
+                &copy; Copyright <a href="/help/Copyright">Job Listing</a>. All Rights Reserved
+            </div>
+        </div>
+
+        <div class="social-links text-center text-md-right pt-3 pt-md-0">
+            <a href="https://twitter.com/JobListing4" class="twitter"><i class="bu bi-twitter"></i></a>
+            <a href="https://www.facebook.com/Joblisitng" class="facebook"><i class="bu bi-facebook"></i></a>
+            <a href="https://www.instagram.com/joblistingportal/" class="instagram"><i class="bu bi-instagram"></i></a>
+            <a href="https://www.linkedin.com/company/joblisting-com/about/" class="linkedin"><i class="bu bi-linkedin"></i></a>
+            <a href="https://www.linkedin.com/in/joblisting-01/" class="linkedin"><i class="bu bi-google"></i></a>
+        <a href="https://www.whatsapp.com/Joblisitng" class="whatsapp"><i class="bu bi-whatsapp"></i></a>
+        </div>*@
+        </div>
+    </footer><!-- End Footer -->
+     @*<a href="#" style="bottom: 10px; right: 100px; margin-top: -100px;" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>*@
+
+    <!-- Vendor JS Files -->
+
+
+    <script src="@Url.Content("~/Content/homed/assets/vendor/aos/aos.js")"></script>
+    <script src="@Url.Content("~/Content/homed/assets/vendor/bootstrap/js/bootstrap.bundle.min.js")"></script>
+    <script src="@Url.Content("~/Content/homed/assets/vendor/glightbox/js/glightbox.min.js")"></script>
+    <script src="@Url.Content("~/Content/homed/assets/vendor/isotope-layout/isotope.pkgd.min.js")"></script>
+    <script src="@Url.Content("~/Content/homed/assets/vendor/swiper/swiper-bundle.min.js")"></script>
+    <script src="@Url.Content("~/Content/homed/assets/vendor/waypoints/noframework.waypoints.js")"></script>
+    <script src="@Url.Content("~/Content/homed/assets/vendor/php-email-form/validate.js")"></script>
+
+    <!-- Template Main JS File -->
+    <script src="@Url.Content("~/Content/homed/assets/js/main.js")"></script>
+
+
+
+</body>
+
+</html>
+

@@ -1,0 +1,87 @@
+﻿@model IEnumerable<JobPortal.Data.Job>
+@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Models
+@using JobPortal.Web.Models
+@{
+    UserProfile member = null;
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+    if(ViewBag.UserId !=null ){
+        MemberService.Instance.Get(ViewBag.UserId);        
+    }
+}
+<script>
+    $(function () {
+        RecentJobs();
+        setInterval("RecentJobs()", 10000);
+    });
+    var type = Number("@(User != null ? user.Type : 0)");
+    var jobs = Number("@(User != null ? JobService.Instance.CountJobsByCountry(user.CountryId.Value) : 0)");
+    var rows = 0;
+    var pages = 0;
+    var pagesize = 5;
+    var pageNumber = 1;
+    function RecentJobs() {
+        if(pages != 0 && pageNumber < pages){
+            pageNumber ++;
+        }else{
+            pageNumber = 1;
+        }
+        $.post('@Url.Action("RecentJobs", "JsonHelper")', { Id : @ViewBag.UserId, pageNumber: pageNumber},
+                   function (result) {
+                       if (result.length != 0) {
+                           rows = result[0].MaxRows;
+                           pages = Math.ceil(rows/pagesize);                           
+                           $("#RecentJobs").empty();
+                           $(result).each(function () {
+                               var html = "<div class=\"news\">";
+                               html += "<style>.c-" + this.EmployerId +"::after { background: url(\"/image/Avtar?Id=" + this.EmployerId +"\") no-repeat 0 0 / contain; background-position: center center;}</style>";
+                               if(this.EmployerUrl != null){
+                                   html += "<a href=\"" + this.EmployerUrl + "\" data-toggle=\"tooltip\" title=\"" + this.Company + "\" target=\"_blank\"><div class=\"news-img c-" + this.EmployerId +"\"></div></a>"
+                               }else{
+                                   html += "<div title=\"" + this.Company + "\" class=\"small\" style=\"padding-left:60px;\">" + this.Company +"</div>"
+                               }
+                               html += "<div class=\"news-content\">";
+                               if(this.EmployerUrl != null){
+                                   html += "<small style=\"font-size:80%\"><a href=\"/job/" + this.JobUrl + "\" title=\"" + this.Title + "\" target=\"_blank\" style=\"color:#00a6e0\">" + (this.Title.length > 25 ? this.Title.substring(0, 24) + "..." : this.Title) + "</a></small>";
+                               }else{
+                                   html += "<small style=\"font-size:80%\"><a href=\"" + this.JobUrl + "\" title=\"" + this.Title + "\" target=\"_blank\" style=\"color:#00a6e0\">" + (this.Title.length > 25 ? this.Title.substring(0, 24) + "..." : this.Title) + "</a></small>";
+                               }
+                               html += "<br/><small style=\"font-size:80%\"><a href=\"" + this.EmployerUrl + "\" target=\"_blank\" title=\"" + this.Company + "\">" + (this.Company.length > 25 ? this.Company.substring(0, 24) + ".." : this.Company) + "</a></small>";
+                               html += "<p><span title=\"" + this.Country + "\">" + (this.Country.length > 13 ? this.Country.substring(0, 12) : this.Country) + "</span> | <span title=\"Expiry: " + this.ExpiryDate + "\"> Ex: " + this.ExpiryDate + "</span></p>";
+                               html += "</div>";
+                               html += "</div>";
+
+                               $("#RecentJobs").append(html);
+                           });
+
+                           if(type != 0){
+                               if(jobs <= 0 && type == 4){
+                                   $("#rj").hide();
+                               }
+                           }
+                       } else if(result.length < 5) {
+                           $("#rj").hide();
+                       }
+                   });
+    }
+</script>
+<div class="connect">
+    <div class="sub-heading">
+        <h2>Suggested Jobs</h2>
+    </div>
+    <div id="RecentJobs">
+    </div>
+    @if (User != null && member!=null && member.Type == 5)
+    {
+        <div class="seemore"><a href="/Employer/Joblist?Id=@ViewBag.UserId" target="_blank">See more</a><i aria-hidden="true" class="fa fa-angle-right"></i></div>
+    }
+    else if (User != null && member != null && member.Type == 4)
+    {
+        <div class="seemore" id="rj"><a href="@Url.Action("SearchJobs", "Job", new { CountryId = member.CountryId })" target="_blank">See more</a><i aria-hidden="true" class="fa fa-angle-right"></i></div>
+    }
+</div>

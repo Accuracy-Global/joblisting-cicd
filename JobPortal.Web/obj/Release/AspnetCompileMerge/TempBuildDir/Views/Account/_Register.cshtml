@@ -1,0 +1,146 @@
+﻿@model JobPortal.Web.Models.RegisterModel
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Domain
+@{
+    string email_pattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,3}$";
+}
+<style>
+    .bday {
+        padding-left: 0px;
+        list-style-type: none;
+    }
+
+        .bday li {
+            display: inline-block;
+        }
+</style>
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1>Joblisting</h1>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div style="float:left; padding-top:5px;">
+            @Html.Label("Register account!", new { title = "Register account here!" })
+        </div>
+        <div style="float:right">
+            @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+        </div>
+        <div style="clear:both"></div>
+    </div>
+</div>
+<div class="clear" style="height:5px"></div>
+@Html.Partial("_MessagePartial")
+
+@using (Html.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @id = "RegisterForm", @autocomplete = "off" }))
+{
+    @*@Html.AntiForgeryToken()*@
+    <div class="clear" style="height:15px"></div>
+    <div id="divErrorBox">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div id="divError"></div>
+            </div>
+        </div>
+    </div>   
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+                <input type="email" id="Username" name="Username" pattern="@email_pattern" placeholder="Email Format (user@example.com)" class="form-control" maxlength="50" required />                
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <div class="form-group">
+                <input type="password" id="Password" name="Password" placeholder="PASSWORD MIN. 9 NUMBERS & LETTERS" title="Password Min. 9 numbers & letters" pattern="(?=.*\d)(?=.*[a-zA-Z]).{9,}" class="form-control" required />
+            </div>
+        </div> 
+        <div class="col-lg-6 col-md-6">
+            <div class="form-group">
+                <input type="password" id="ConfirmPassword" name="ConfirmPassword" placeholder="CONFIRM PASSWORD MIN. 9 NUMBERS & LETTERS" title="Confirm Password Min. 9 numbers & letters" pattern="(?=.*\d)(?=.*[a-zA-Z]).{9,}" class="form-control" required />
+            </div>
+        </div>      
+    </div>  
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">   
+                <input type="text" id="FirstName" name="FirstName" placeholder="FIRST NAME" title="FIRST NAME" pattern="[a-zA-Z\\s]+" class="form-control" maxlength=50 required />              
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
+                <input type="text" id="LastName" name="LastName" placeholder="LAST NAME" title="LAST NAME" pattern="[a-zA-Z\\s]+" class="form-control" maxlength=50 required />                
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
+                <select id="CountryId" name="CountryId" class="form-control" title="COUNTRY" required oninvalid="setCustomValidity('Select country!')" oninput="setCustomValidity('')" autofocus></select>               
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
+                @if (ViewBag.ReturnUrl != null && ViewBag.ReturnUrl.Contains("listjob"))
+                {
+                    @Html.DropDownListFor(model => model.AccountType, UIHelper.DropDown<SecurityRoles>(new List<int>() { 4, 5 }, 5), "SELECT ACCOUNT TYPE", new { @title = "ACCOUNT TYPE", @class = "form-control", @required = "required" })
+                }
+                else
+                {
+                    @Html.DropDownListFor(model => model.AccountType, UIHelper.DropDown<SecurityRoles>(new List<int>() { 4, 5 }), "SELECT ACCOUNT TYPE", new { @title = "ACCOUNT TYPE", @class = "form-control", @required = "required" })
+                }
+                @Html.ValidationMessageFor(model => model.AccountType)
+            </div>
+        </div>
+    </div>
+
+    <div id="divCompany">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                    <input type="text" name="Company" id="Company" title="COMPANY NAME" placeholder="COMPANY NAME" class="form-control" maxlength="50" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="divIndividual">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Gender)
+                    <select id="Gender" name="Gender" class="form-control" title="GENDER">
+                        <option value="">SELECT GENDER</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group">
+                    <label for="BDay">Birth Year</label>
+                    @Html.DropDownListFor(model => model.BYear, new SelectList(SharedService.Instance.GetYearList(true, DateTime.Now.Year)), "SELECT BIRTH YEAR", new { @class = "form-control", placeholder = "YEAR" })                   
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+                @Html.CheckBoxFor(model => model.Agreed, new { @class = "_chekAgree", @required = "required" }) I agree with&nbsp;<a href="/terms" target="_blank">Terms&nbsp;Of&nbsp;Use</a>&nbsp;and&nbsp;<a href="/privacy" target="_blank">Privacy</a>
+            </div>
+        </div>
+    </div>
+    <div class="clear" style="height:15px;"></div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <input id="Register" type="submit" value="Register" class="btn btn-info" style="width:75px;" />
+        </div>
+    </div>
+}

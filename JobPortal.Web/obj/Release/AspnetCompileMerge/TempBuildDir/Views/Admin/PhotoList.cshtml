@@ -1,0 +1,58 @@
+﻿@model IEnumerable<JobPortal.Data.UserProfile>
+@using JobPortal.Data
+@using JobPortal.Domain
+@{
+    ViewBag.Title = "Photos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">Photos</h1>
+            @Html.Raw("Manage photo approval here")
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:15px;"></div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <ul style="list-style-type:none; padding-left:0;">
+            @foreach (var item in Model)
+            {
+                UserProfile profile = MemberService.Instance.Get(item.UserId);
+                <li style="display:inline-block; position:relative; width:150px; padding:0px; margin-bottom:15px; margin-right:15px; border:1px solid #0094ff; text-align:center">
+                    <a href="/admin/photoapproval?Id=@item.UserId" target="_blank">
+                        <style>
+                            .apic_@item.UserId
+                            {
+                                background: url("/Image/Avtar?Id=@item.UserId&rnd=@((new Random()).Next(100)) ") no-repeat top left;
+                                -webkit-background-size: cover;
+                                -moz-background-size: cover;
+                                -o-background-size: cover;
+                                background-size: cover;
+                                height:135px;
+                                width:148px;
+                            }
+                        </style>
+                        <div class="apic_@item.UserId" title="@item.FirstName @item.LastName">
+
+                        </div>
+                        @*<img src="/Image/Avtar?Id=@item.UserId&height=110&width=110" alt="@item.FirstName @item.LastName" title="@item.FirstName @item.LastName" />*@
+                    </a>
+                    <div style="background-color:#d6effe; width:100%; padding:4px; text-align:center">
+                        @if (profile.Type == 5)
+                        {
+                            <div><a href="/admin/ManageCompany?Id=@item.UserId" target="_blank">@((item.Company == null ? item.FirstName + " " + item.LastName : item.Company))</a></div>
+                        }
+                        else if (profile.Type == 4)
+                        {
+                            <div><a href="/admin/ManageIndividual?Id=@item.UserId" target="_blank">@(item.FirstName + " " + item.LastName)</a></div>
+                        }
+
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

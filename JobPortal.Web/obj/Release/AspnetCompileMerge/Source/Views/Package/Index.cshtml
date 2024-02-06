@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">Packages</h1>
+            Mange Packages here
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+        @Html.ActionLink("New Package", "AddPackage", "Admin", null, new { @class = "btn btn-info" })
+    </div>
+</div>
+@Html.Partial("_MessagePartial")
+<div class="clear" style="height:15px;"></div>
+<div>
+    <table class="table-bordered table-condensed table-striped table-hover" style="width:100%">
+        <thead>
+            <tr>
+                <td>Country</td>
+                <td>Package</td>
+                <td>For</td>
+                <td>Rate</td>
+                <td>Jobs</td>
+                <td>Interviews</td>
+                <td>Messages</td>
+                <td>Profiles</td>
+                <td>Downloads</td>
+                <td>Actions</td>
+            </tr>
+        </thead>
+        <tbody id="tbody_package"></tbody>
+    </table>
+</div>
+<script src="~/Scripts/jquery.tmpl.min.js"></script>
+<script src="~/Scripts/jquery.tmplPlus.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $.post("/package/index", {}, function (result) {            
+            if (result.Id > 0) {
+                $.each(result.Data, function (idx, item) {
+                    $.get("/Scripts/templates/admin_package_item.html", function (tdata) {
+                        $.tmpl(tdata, item).appendTo("#tbody_package");
+                    });
+                });
+            }
+        });
+    })
+</script>

@@ -1,0 +1,311 @@
+﻿@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using PagedList.Mvc
+@using JobPortal.Models
+<style>
+    caption {
+        caption-side: top;
+        text-align: left;
+        padding: 5px;
+        background-color: #dedede;
+    }
+
+    .photo {
+        width: 50px;
+        height: 50px;
+    }
+
+    .namefield {
+        width: 200px;
+    }
+
+    .actonfield {
+        width: 200px;
+    }
+</style>
+@{
+    ViewBag.Title = "Companies";
+    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+    
+    var pagedModel = ViewBag.CompanyList as PagedList.IPagedList<UserProfile>;
+    int minRowSize = 0;
+    int maxRowSize = 0;
+    if (pagedModel != null)
+    {
+        minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+        int totalRecord = (int)ViewBag.Rows;
+        maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+        if (totalRecord <= pagedModel.PageSize)
+        {
+            maxRowSize = totalRecord;
+        }
+    }   
+}
+
+<div class="section">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="title-login">
+                <h1 style="margin-top:-15px;">Companies</h1>
+                Companies you may be interested
+            </div>
+        </div>
+    </div>
+    @using (Html.BeginForm())
+    {
+        <div class="row">
+            <div class="col-lg-10 col-md-10 col-sm-10">
+                <div class="form-group">
+                    @Html.Hidden("countryId", (long)ViewBag.Country.Id)
+                    @Html.TextBox("Name", "", new { placeholder = "SEARCH BY NAME", @class = "form-control" })
+                </div>
+            </div>        
+            <div class="col-lg-2 col-md-2 col-sm-2">
+                <div class=" form-group">
+                    <input id="SearchBasic" type="submit" value="Search" class="btn btn-info pull-right" style="width:105px" />
+                </div>
+            </div>
+        </div>
+    }
+    <div class="clear" style="height:15px;"></div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+           @if (ViewBag.CompanyList != null)
+           {
+               foreach (var item in ViewBag.CompanyList)
+               {
+                   UserProfile friend = MemberService.Instance.Get(item.UserId);
+                   UserProfile receiver = null;
+                   var cstatus = string.Empty;
+                   string username = string.Empty;
+                   if (user != null)
+                   {
+                       username = user.Username;
+                       receiver = MemberService.Instance.Get(username);
+                       cstatus = ConnectionHelper.Status(friend.Username, receiver.Username);
+                   }
+                   var nlink = string.Format("<a href=\"/{0}\" target=\"_blank\">{1}</a>", friend.PermaLink, (!string.IsNullOrEmpty(friend.Company) ? friend.Company : friend.FirstName + " " + friend.LastName));
+
+                   bool isConnected = false;
+                   bool isInvitedByMe = false;
+                   bool isInvitedBySomeone = false;
+                   bool isBlockedByMe = false;
+                   bool isBlockedBySomeone = false;
+                   Connection connection = null;
+
+                   string links = string.Empty;
+                   if (friend != null && user != null && !string.IsNullOrEmpty(username))
+                   {
+                       string bname = string.Empty;
+
+                       isConnected = DomainService.Instance.IsConnected(friend.UserId, user.Id);
+                       isInvitedByMe = DomainService.Instance.IsInvitedByMe(friend.UserId, user.Id);
+                       isInvitedBySomeone = DomainService.Instance.IsInvitedBySomeone(friend.UserId, user.Id);
+                       isBlockedByMe = DomainService.Instance.IsBlockedByMe(friend.UserId, user.Id);
+                       isBlockedBySomeone = DomainService.Instance.IsBlockedBySomeone(friend.UserId, user.Id);
+                       connection = ConnectionHelper.Get(item.Username, username);
+                       bname = (friend.Type == (int)SecurityRoles.Company ? friend.Company : string.Format("{0} {1}", friend.FirstName, friend.LastName));
+
+                       int total = ConnectionHelper.GetMessageCounts(friend.UserId, user.Id);
+                       int msg = ConnectionHelper.MessageCounts(friend.UserId, user.Id);
+
+                       string view_text = "Message";
+                       if (msg > 0)
+                       {
+                           view_text = string.Format("Message (<span style=\"color:red;\">{0}</span>)", msg);
+                       }
+                       links += "<b>" + string.Format("<a href=\"{0}\">{1}</a>", Url.Action("List", "Message", new { SenderId = item.UserId }), view_text) + "</b>";
+
+                       if (isConnected)
+                       {
+                           links += string.Format(" | <b><a href=\"#\" data-aurl=\"{0}\" role=\"button\" data-toggle=\"modal\" data-target=\"#discDialog\" class=\"disc\">Disconnect</a></b>", Url.Action("Disconnect", "Message", new { Id = connection.Id, SenderId = item.UserId }));
+                       }
+                       else
+                       {
+                           if (isInvitedByMe)
+                           {
+                               links += string.Format(" | <b><a href=\"#\" data-aurl=\"{0}\" role=\"button\" data-toggle=\"modal\" data-target=\"#discDialog\" class=\"disc\">Disconnect</a></b>", Url.Action("Disconnect", "Message", new { Id = connection.Id, SenderId = item.UserId }));
+                           }
+                           else if (isInvitedBySomeone)
+                           {
+                               links += " | " + "<b>" + Html.ActionLink("Accept", "Accept", "Message", new { ConnectionId = connection.Id, redirect = "/Message/Index" }, new { title = "Accept" }).ToString() + "</b>";
+                               links += string.Format(" | <b><a href=\"#\" data-aurl=\"{0}\" role=\"button\" data-toggle=\"modal\" data-target=\"#discDialog\" class=\"disc\">Disconnect</a></b>", Url.Action("Disconnect", "Message", new { Id = connection.Id, SenderId = item.UserId }));
+                           }
+                           else
+                           {
+                               links += " | " + "<b>" + Html.ActionLink("Connect", "Connect", "Home", new { id = friend.UserId, redirect = "/Message/Index" }, new { title = "Connect" }).ToString() + "</b>";
+                           }
+                       }
+
+                       if (isBlockedByMe)
+                       {
+                           links += " | " + "<b>" + Html.ActionLink("Unblock", "Unblock", "Home", new { id = friend.UserId, redirect = "/Message/Index" }, new { title = "Unblock", @target = "_blank" }).ToString() + "</b>";
+                       }
+
+                       if (isBlockedByMe == false && isBlockedBySomeone == false)
+                       {
+                           links += " | " + string.Format("<b><a href=\"#\"  data-href=\"/Home/Block?email={0}\" data-name=\"{1}\" role=\"button\" data-toggle=\"modal\" data-target=\"#cDialog\" class=\"aBlock\" data-role=\"{2}\" data-connected=\"{3}\">Block</a></b>", friend.Username, bname, ((SecurityRoles)friend.Type).GetDescription(), isConnected);
+                       }
+
+                       if (isBlockedByMe == false && isBlockedBySomeone == false)
+                       {
+                           if (User!= null && user.Role == SecurityRoles.Company)
+                           {
+                               if (friend != null && !string.IsNullOrEmpty(friend.Title) && friend.CategoryId != null && friend.SpecializationId != null)
+                               {
+                                   Interview interview = InterviewService.Instance.Get(friend.UserId, user.Id);
+                                   List<int> status_list = new List<int>() { (int)InterviewStatus.INTERVIEW_IN_PROGRESS, (int)InterviewStatus.INITIATED };
+                                   if (interview.Id > 0 && status_list.Contains(interview.Status))
+                                   {
+                                       links += string.Format(" | <b><a href=\"{0}\" title=\"View In-progress interview details\" target=\"_blank\"><span>Interview&nbsp;In-progress</span></a></b>", Url.Action("Update", "Interview", new { id = interview.Id }));
+                                   }
+                                   else
+                                   {
+                                       List<int> statuslist = new List<int>() { (int)InterviewStatus.SELECTED, (int)InterviewStatus.COMPLETED, (int)InterviewStatus.WITHDRAW, (int)InterviewStatus.REJECTED };
+                                       if (interview.Id > 0 && !statuslist.Contains(interview.Status))
+                                       {
+                                           links += " | " + "<b>" + Html.ActionLink("Interview", "Start", "Interview", new { id = friend.UserId }, new { title = "Start an Interview" }) + "</b>";
+                                           links += " | " + "<b>" + Html.ActionLink("Bookmark", "BookmarkJobseeker", "Employer", new { Id = friend.UserId, redirect = "/Employer/Bookmarks" }, new { title = "Bookmark", @target = "_blank" }).ToString() + "</b>";
+                                       }
+                                       else if (interview.Id == 0)
+                                       {
+                                           links += " | " + "<b>" + Html.ActionLink("Interview", "Start", "Interview", new { id = friend.UserId }, new { title = "Start an Interview" }) + "</b>";
+                                           links += " | " + "<b>" + Html.ActionLink("Bookmark", "BookmarkJobseeker", "Employer", new { Id = friend.UserId, redirect = "/Employer/Bookmarks" }, new { title = "Bookmark", @target = "_blank" }).ToString() + "</b>";
+                                       }
+                                   }
+
+                                   if (!string.IsNullOrEmpty(friend.Content))
+                                   {
+                                       links += " | " + "<b>" + Html.ActionLink("Download", "Download", "Jobseeker", new { id = friend.UserId,  redirect = Request.Url.ToString() }, new { title = "Download Resume", @target = "_blank" }).ToString() + "</b>";
+                                   }
+
+                               }
+                           }
+                       }
+                   }
+                   else
+                   {
+                       links += "<b>" + string.Format("<a href=\"{0}\">{1}</a>", Url.Action("List", "Message", new { SenderId = item.UserId }), "Message") + "</b>";
+                       links += " | " + "<b>" + Html.ActionLink("Connect", "Connect", "Home", new { id = friend.UserId, redirect = "/connections" }, new { title = "Connect" }).ToString() + "</b>";
+                       links += " | " + string.Format("<b><a href=\"/{0}\" title=\"View profile\" target=\"_blank\">View Profile</a></b>", item.PermaLink);
+                       cstatus = "Not Available";
+                   }
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <div class="row">
+                            <div class="col-lg-2 col-md-2 col-sm-2" style="width: 10%;">
+                                <a href="/@item.PermaLink" target="_blank">
+                                    <div style="width:60px; height:60px; background:url('/Image/Avtar?Id=@item.UserId') no-repeat; background-size:contain; background-position:top center">
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-lg-10 col-md-10 col-sm-10">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <i><b>Name:</b></i> @Html.Raw(nlink)
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <i><b>Status:</b></i> @Html.Raw(cstatus)
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        @Html.Raw(links)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               }
+           }
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+            @if (pagedModel.PageNumber == 1 && !Request.IsAuthenticated)
+            {
+                <div><a href="@Url.Action("register", "Account" , new { returnurl=Request.Url.ToString() })" class="btn btn-info" style="width:150px;">Join to See More</a></div>
+                if (pagedModel != null)
+                {
+                    @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Companies",
+                        new RouteValueDictionary()
+                        {
+                        {"pageNumber", PageNumber},
+                        {"name", Request["Name"]},
+                        {"countryId", (ViewBag.Country == null ? ViewBag.Country.Id : null)},
+                        {"city", Request["City"]}
+                        }),
+                        PagedListRenderOptions.ClassicPlusFirstAndLast)
+                }
+            }
+            else
+            {
+                if (pagedModel != null)
+                {
+                    @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Companies",
+                        new RouteValueDictionary()
+                        {
+                        {"pageNumber", PageNumber},
+                        {"name", Request["Name"]},
+                        {"countryId", (ViewBag.Country == null ? ViewBag.Country.Id : null)},
+                        {"city", Request["City"]}
+                        }),
+                        PagedListRenderOptions.ClassicPlusFirstAndLast)
+                }
+            }
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:50px;"></div>
+<div>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- Responsive-Ad -->
+    <ins class="adsbygoogle"
+         style="display:block"
+         data-ad-client="ca-pub-8925328521448849"
+         data-ad-slot="5008878215"
+         data-ad-format="auto"></ins>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+</div>
+
+@if (pagedModel.PageNumber == 1 && !Request.IsAuthenticated)
+{
+    <style>
+        .pagination {
+            color: #FFFFFF;
+            position: relative;
+            background-color: #000000;
+            opacity: 0.5;
+            filter: alpha(opacity=50);
+            -moz-opacity: 0.5;
+            padding: 0px;
+        }
+    </style>
+}
+
+@if (pagedModel.PageNumber == 1 && !Request.IsAuthenticated)
+{
+    <script>
+        $(document).ready(function () {
+            $(".pagination").click(function () {
+                return false;
+            })
+        })
+    </script>
+}

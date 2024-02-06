@@ -1,0 +1,214 @@
+﻿@using JobPortal.Domain
+@using JobPortal.Data
+@using JobPortal.Library.Enumerators;
+@using JobPortal.Library.Helpers;
+@using System.Collections
+@using PagedList.Mvc
+@using JobPortal.Models
+@{
+    ViewBag.Title = "Announcements";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<JobPortal.Data.Announcement>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+}
+<style>
+    .seemore {
+        text-align: right;
+    }
+
+        .seemore > a {
+            color: #000000;
+            font-family: "Roboto", sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .seemore i {
+            font-size: 16px;
+            padding: 0 0 0 5px;
+            vertical-align: middle;
+        }
+
+    .sponsored {
+        background: #ffffff;
+    }
+
+    .sponsored {
+        background: #fff none repeat scroll 0 0;
+        padding: 0px 15px 0;
+        margin-top: -6px;
+    }
+
+    .abcdesign {
+        margin: 0 0 18px 0;
+    }
+
+        .abcdesign > h3 {
+            color: #333;
+            font-size: 14px;
+            margin: 0 0 11px 0;
+        }
+
+    .sub-heading h2 {
+        color: #000;
+        font-size: 14px;
+        margin: 0 0 20px;
+        padding-bottom: 6px;
+        position: relative;
+        font-weight: bold;
+    }
+
+        .sub-heading h2::after {
+            border-bottom: 2px solid #e93100;
+            bottom: 0;
+            content: "";
+            display: block;
+            left: 0;
+            position: absolute;
+            width: 100%;
+        }
+</style>
+<div class="row">
+    <div class="col-lg-6 col-md-6">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">Announcements</h1>
+            Announcements list here
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-2">
+        <div class="form-group">
+            @if (user != null && user.Type == 4)
+            {
+                if (user.PromoteDate != null)
+                {
+                    if (user.PromoteDate.Value.Date < DateTime.Now.Date)
+                    {
+                        <a href="/package/promote?id=@user.Id&type=P&returnUrl=@Request.Url.ToString()" class="btn btn-info promote" style="width:165px;">Promote Profile</a>
+                    }
+                }
+                else
+                {
+                    <a href="/package/promote?id=@user.Id&type=P&returnUrl=@Request.Url.ToString()" class="btn btn-info promote" style="width:165px;">Promote Profile</a>
+                }
+            }
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-2">
+        <div class="form-group"></div>
+    </div>
+    <div class="col-lg-2 col-md-2">
+        <div class="form-group">
+            <div style="background-color:#b3cb39;width:100px;padding: 4px;height: 34px;border-radius:4px; display:block">
+                <a href="https://play.google.com/store/apps/details?id=com.joblisting.joblisting" style="background-color: #b3cb39; color:#ffffff; text-decoration:none" target="_blank">
+                    <table cellpadding="0" style="margin-bottom: 0px;">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <i class="fa fa-android" aria-hidden="true" style="font-size:20px; color:#ffffff"></i>
+                                </td>
+                                <td>
+                                    <div style="font-size: 10px;padding-left:5px;line-height: 8px;">
+                                        Download for
+                                    </div>
+                                    <div style="font-size:18px;padding-left:5px;">
+                                        Android
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:30px"></div>
+<div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-12">
+        @Html.Partial("_MessagePartial")
+        <div>
+            @if (ViewBag.Model != null)
+            {
+                foreach (var item in ViewBag.Model)
+                {
+                    string subject = string.Empty;
+                    subject = string.Format("<b>{0}</b>", Html.ActionLink((string)item.Subject, "Show", new { id = item.Id }, new { title = item.Subject, @target = "_blank" }).ToString());
+                    string action = string.Empty;
+                    action = string.Format("<b>{0}</b>", Html.ActionLink("View", "Show", new { id = item.Id }, new { title = "View", @target = "_blank" }).ToString());
+
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <i><b>Subject:</b></i> @Html.Raw(subject)
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <i><b>Action:</b></i> @Html.Raw(action)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-12"></div>
+    <div class="col-lg-3 col-md-3 col-sm-12" style="background-color:#fff; padding-bottom:15px; min-height:590px">
+        <div class="sponsored">
+            <div class="sub-heading">
+                <h2>Sponsored Ads</h2>
+            </div>
+            <div class="abcdesign">
+                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- Right-column-Ad-1 -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-8925328521448849"
+                     data-ad-slot="8709143016"
+                     data-ad-format="rectangle"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+        <div class="sponsored">
+            @if ((User != null && user.Role == SecurityRoles.Individual))
+            {
+                @Html.Action("RecentJobsWithoutLogo", "Home", new { Id = user.Id })
+            }
+            else if (User != null && user.Role == SecurityRoles.Company)
+            {
+                @Html.Partial("_SearchPromotedJobSeekers")
+            }
+            else if (User == null)
+            {
+                @Html.Action("RecentJobsWithoutLogo", "Home", new { Id = 0 })
+            }
+        </div>
+
+    </div>
+</div>
+<div style="text-align:center; margin-top: -15px;">
+
+    @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Index",
+            new RouteValueDictionary()
+            {
+                { "PageNumber" , PageNumber},
+                { "StartDate" , Request["StartDate"]},
+                { "EndDate" , Request["EndDate"]},
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+</div>

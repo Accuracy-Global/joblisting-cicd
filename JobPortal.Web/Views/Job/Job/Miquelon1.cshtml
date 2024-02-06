@@ -1,0 +1,855 @@
+﻿
+@model JobPortal.Web.Models.SearchJobModel
+@using JobPortal.Library.Constants
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Domain
+@using JobPortal.Models
+@using System.Text;
+@using System.Collections
+@using system.web.mvc
+
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Jobs in St.pierre and miquelon | Search St.pierre and miquelon Jobs, Employment -JobLisiting</title>
+    <meta content="Job Listing St.pierre and miquelon is your one-stop destination for the top job vacancies in St.pierre and miquelon. Browse through hundreds of the latest job postings and apply for the perfect job today. With our user-friendly interface and tailored job search, we make it easy for job seekers to find the right job in St.pierre and miquelon." name="description">
+    <meta content="St.pierre and miquelon Jobs, Employment in St.pierre and miquelon,  careers,  employment,  job listings,  St.pierre and miquelon job search,  job search engine St.pierre and miquelon, work in St.pierre and miquelon , jobs in St.pierre and miquelon" name="keywords">
+
+    <!-- Facebook Opengraph integration: https://developers.facebook.com/docs/sharing/opengraph -->
+    <meta property="og:title" content="">
+    <meta property="og:image" content="">
+    <meta property="og:url" content="">
+    <meta property="og:site_name" content="">
+    <meta property="og:description" content="">
+
+    <!-- Twitter Cards integration: https://dev.twitter.com/cards/  -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="">
+    <meta name="twitter:title" content="">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image" content="">
+
+    <!-- Favicons -->
+    <link href="~/Content/Homesinga/assetsmalsya/img/favicon.png" rel="icon">
+    <!-- <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon"> -->
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,700|Roboto:400,900" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/Content/Homesinga/assetsmalsya/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/Homesinga/assetsmalsya/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/Content/Homesinga/assetsmalsya/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="~/Content/Homesinga/assetsmalsya/css/style.css" rel="stylesheet">
+
+    <!-- =======================================================
+    * Template Name: Bell - v4.6.0
+    * Template URL: https://bootstrapmade.com/bell-free-bootstrap-4-template/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+
+<body>
+    <img class="conatiner2" src="~/Content/chatbotnew/ChatWithUS.png" onclick="openForm()" alt="cwt" height="70" width="90" />
+    <link href="~/Content/chatbotnew/chatbotstyle.css" rel="stylesheet" />
+    <script src="~/Content/chatbotnew/chatbotjquerry.js"></script>
+    <div class="container1" id="myForm">
+        <div class="chat-header">
+            <div class="logo">
+                <!-- <img src="images/ChatWithUS.png" alt="cwt" /> -->
+            </div>
+            <div class="title" onclick="closeForm()">
+                <!-- Let's Chat -->
+                <img src="~/Content/chatbotnew/ChatWithUS.png" alt="cwt" />
+
+            </div>
+        </div>
+        <div class="chat-body">
+            <p class="chatbot-message">Hi I am Lovely </p>
+            <p class="chatbot-message">Select below options to serve better</p>
+            <p>
+                <button type="button" value="Student" class="btn bodybox1" id="bodybox1">Students</button>
+                <button type="button" value="Interns" class="btn bodybox1" id="bodybox2">Interns</button>
+                <button type="button" value="Jobseekers" class="btn bodybox1" id="bodybox3">Jobseekers</button>
+                <button type="button" value="Employers" class="btn bodybox1" id="bodybox4">Employers</button>
+                <button type="button" value="Recruitment Agency" class="btn bodybox1" id="bodybox5">Recruitment Agency</button>
+                <button type="button" value="Institutes" class="btn bodybox1" id="bodybox6">Institutes</button>
+                <button type="button" value="Freelancers" class="btn bodybox1" id="bodybox7">Freelancers</button>
+                <button type="button" value="Partners" class="btn bodybox1" id="bodybox8">Partners</button>
+            </p>
+            <div class="loading hide">
+                <div class="circle circle-1"></div>
+                <div class="circle circle-2"></div>
+                <div class="circle circle-3"></div>
+            </div>
+        </div>
+        <div class="chat-input" style="background-color: white;">
+            <div class="input-sec">
+                <input type="text" id="txtInput" placeholder="Type here..." autofocus />
+            </div>
+            <div class="send">
+                @*<img src="~/Content/chatbotnew/send.jpeg" style="width:59px; height: 53px;" alt="send" />*@
+                <button type="button" style="border: 1px solid #34ba08; border-radius:7px; width: 100px; height: 40px;">SEND</button>
+            </div>
+        </div>
+    </div>
+    <script src="~/Content/chatbotnew/app.js"></script>
+    <script src="~/Content/chatbotnew/response.js"></script>
+
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="hero" style="background-image: url(/images/St.pierreandmiquelon23.jpg);">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-md-12">
+                    <a class="hero-brand" href="/St.pierre and miquelon" title="Home">
+                        <img alt="Bell Logo" src="~/Content/Homesinga/assetsmalsya/img/PNG/logo_tool.png" width="250" height="65" class="m-0">
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <h1 style="font-size: 52px;">
+                    Find Latest Jobs in St.pierre and miquelon, Recruitment, Job Search & Employment Opportunities St.pierre and miquelon
+                </h1>
+
+                <p class="tagline">
+                    Job search made easy with St.pierre and miquelon's top job listings, all in one place!
+                </p>
+                <div class="row">
+                    <div class="col" style="text-align: right;">
+
+                        <a href="/account/login" class="btn btn-full scrollto">Login</a>
+                    </div>
+
+                    <div class="col" style="text-align: left;">
+
+                        <a href="/account/register" class="btn btn-full scrollto">Register</a>
+                    </div>
+
+                </div>
+                <!-- <a class="btn btn-full scrollto" href="#about">Get Started Now</a> -->
+            </div>
+        </div>
+
+    </section><!-- End Hero -->
+    <!-- ======= Header ======= -->
+    <header id="header" class="d-flex align-items-center">
+        <div class="container d-flex align-items-center">
+
+            <div id="logo" class="me-auto">
+                <!-- <a href="index.html"><img src="assets/img/logo.png" alt=""></a> -->
+                <!-- Uncomment below if you prefer to use a text image -->
+                <!-- <h1><a href="#hero">Job Listing</a></h1> -->
+            </div>
+
+            <nav id="navbar" class="navbar order-last order-lg-0">
+                <ul>
+                    <li><a class="nav-link scrollto active" href="/St.pierre and miquelon/jobs">Jobs</a></li>
+                    <li><a class="nav-link scrollto" href="/search-people">People</a></li>
+                    <li><a class="nav-link scrollto" href="/search-jobseekers">Jobseekers</a></li>
+                    <li><a class="nav-link scrollto" href="/listjob">List New Job</a></li>
+                    <!-- <li><a class="nav-link scrollto" href="#team">Team</a></li>
+            <li><a class="nav-link scrollto" href="#contact">Contact</a></li> -->
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+
+            <div class="header-social-links d-flex align-items-center">
+                <a href="https://twitter.com/JobListing4" class="twitter"><i class="bi bi-twitter twitter-color"></i></a>
+                <a href="https://www.facebook.com/Joblisitng" class="facebook"><i class="bi bi-facebook facebook-color"></i></a>
+                <a href="https://www.instagram.com/joblistingportal/" class="instagram"><i class="bi bi-instagram instagram-color"></i></a>
+                @*<a href="https://www.linkedin.com/company/joblisting-com/about/" class="google"><i class="bi bi-google"></i></a>*@
+                <a href="https://www.linkedin.com/in/joblisting-01/" class="linkedin"><i class="bi bi-linkedin linkedin-color"></i></a>
+                @*<a href="https://www.whatsapp.com/Joblisitng" class="whatsapp"><i class="bu bi-whatsapp"></i></a>*@
+            </div>
+            <style>
+                .twitter-color {
+                    color: #1DA1F2; /* Twitter's official blue color */
+                }
+
+                .facebook-color {
+                    color: #1877F2; /* Facebook's official blue color */
+                }
+
+                .instagram-color {
+                    color: #E4405F; /* Instagram's official gradient color */
+                }
+
+                .linkedin-color {
+                    color: #0077B5; /* LinkedIn's official blue color */
+                }
+            </style>
+            <div class="header-social-links d-flex" style="padding-top:20px; ">
+                <a>@Html.Partial("_LanguagePartial")</a>
+            </div>
+            <style>
+                #google_translate_element select {
+                    width: 120px;
+                    height: 32px;
+                    margin-top: -2px;
+                    border-color: #34ba08;
+                }
+            </style>
+        </div>
+    </header><!-- End Header -->
+
+    <main id="main">
+        <div style="height:15px;"></div>
+        <div class="container">
+            <p style="text-align:justify;">
+                Joblisting St.pierre and miquelon is the ultimate job search destination for job seekers in St.pierre and miquelon. We are dedicated to providing a comprehensive job portal that is easy to use and helps you find the latest job vacancies and career news across the country. With our extensive database of job listings, you can search for the perfect job that meets your skills and experience.<br /><br />
+                Whether you're a fresh graduate, experienced professional, or a seasoned executive, we have a wide range of job opportunities available to suit your career aspirations. Our job listings cover various industries such as IT, finance, healthcare, marketing, engineering, and more, ensuring that we have something for everyone. Our user-friendly interface makes it easy to browse through job postings, apply for your desired job, and keep track of your applications.<br /><br />
+                We understand the importance of staying up-to-date with the latest career news, which is why we regularly update our blog with articles and insights on job search tips, resume building, interview preparation, and other career-related topics. Our aim is to provide you with all the necessary resources you need to take the next step in your career.<br /><br />
+                At Joblisting St.pierre and miquelon, we value the privacy of our users and ensure that your personal information is secure. Our state-of-the-art security systems protect your data, ensuring that your job search is confidential and hassle-free. With our commitment to delivering the best job search experience, you can be confident that Joblisting St.pierre and miquelon is the perfect platform for you to find your dream job.<br /><br />
+                So why wait? Start your job search today with Joblisting St.pierre and miquelon. Whether you're looking for a new job or just exploring new career opportunities, our job portal is the right place for you. With a wealth of job listings, career advice, and helpful resources, you're sure to find what you're looking for. So start your job search journey today and join the thousands of satisfied job seekers who have found their dream job through Joblisting St.pierre and miquelon.
+            </p>
+        </div>
+
+        <!-- ======= Features Section ======= -->
+        <section class="features" id="features">
+
+            <div class="container">
+                <!-- <h2 class="text-center">
+                    Categories
+                </h2> -->
+
+                <div class="row">
+                    <div class="feature-col col-lg-4 col-xs-12">
+                        <div class="card card-block text-center">
+                            <div>
+                                <div class="feature-icon">
+                                    <i class="bi bi-mortarboard"></i>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3>
+                                    Freshers
+                                </h3>
+
+                                <p style="text-align:justify">
+                                    Unlock your career potential with Job Listing St.pierre and miquelon, the go-to destination for fresh talent in St.pierre and miquelon. Discover a wealth of job opportunities and stay up-to-date on industry news. Effortlessly search, apply and receive job offers through our user-friendly portal. Gain valuable career insights and make informed decisions with our expert-led tips and advice.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="feature-col col-lg-4 col-xs-12">
+                        <div class="card card-block text-center">
+                            <div>
+                                <div class="feature-icon">
+                                    <i class="bi bi-person-workspace"></i>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3>
+                                    Interns
+                                </h3>
+
+                                <p style="text-align:justify">
+                                    Launch your career with JobListing, one of the premier platforms for interns in St.pierre and miquelon seeking job opportunities. Explore a diverse range of job vacancies and stay informed on the latest industry news. Submit your resume with ease and take control of your career journey. Start building your future today with the convenience of JobListing St.pierre and miquelon.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="feature-col col-lg-4 col-xs-12">
+                        <div class="card card-block text-center">
+                            <div>
+                                <div class="feature-icon">
+                                    <i class="bi bi-building"></i>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3>
+                                    Employers
+                                </h3>
+
+                                <p style="text-align:justify">
+                                    Streamline your hiring process with JobListing, the go-to job recruitment platform for employers in St.pierre and miquelon seeking top talent. Effortlessly search and filter resumes of interested candidates, and directly connect with the best fit for your organization. Say goodbye to time-consuming and resource-intensive hiring practices and embrace the efficiency of JobListing's efficient candidate search and selection tools.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- <div class="feature-col col-lg-2 col-xs-0"></div> -->
+
+                    <div class="feature-col col-lg-4 col-xs-12">
+                        <div class="card card-block text-center">
+                            <div>
+                                <div class="feature-icon">
+                                    <i class="bi bi-people"></i>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3>
+                                    Job Seekers
+                                </h3>
+
+                                <p style="text-align:justify">
+                                    Job seekers in St.pierre and miquelon can find their ideal job on JobListing St.pierre and miquelon. Our website offers a comprehensive list of job vacancies across various industries and locations in St.pierre and miquelon. Job seekers can easily create an account, upload their resume, and directly apply for the job openings they are interested in.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="feature-col col-lg-4 col-xs-12">
+                        <div class="card card-block text-center">
+                            <div>
+                                <div class="feature-icon">
+                                    <i class="bi bi-bank"></i>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3>
+                                    Institutes
+                                </h3>
+
+                                <p style="text-align:justify">
+                                    Educational institutes and universities in St.pierre and miquelon can leverage JobListing.com to secure employment for their students, promote their institution, and streamline campus recruitment processes. Our platform connects students with job opportunities and provides valuable career advice to help them succeed in their careers.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="feature-col col-lg-4 col-xs-12">
+                        <div class="card card-block text-center">
+                            <div>
+                                <div class="feature-icon">
+                                    <i class="bi bi-ui-checks-grid"></i>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3>
+                                    Partners
+                                </h3>
+
+                                <p style="text-align:justify">
+                                    Recruitment partners in St.pierre and miquelon can turn to JobListing St.pierre and miquelon for their candidate placement needs. Our website offers a user-friendly platform to search for a wide range of job vacancies across industries and locations, providing a convenient solution for finding the perfect match for your candidates. With direct access to potential employers, placement processes can be streamlined, helping your candidates secure their desired job. Partner with JobListing St.pierre and miquelon and let us assist you in finding the right fit for your candidates.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+                <div class="row">
+                    <div class="feature-col col-lg-2 col-xs-0"></div>
+
+                    <div class="feature-col col-lg-4 col-xs-12">
+                        <div class="card card-block text-center">
+                            <div>
+                                <div class="feature-icon">
+                                    <i class="bi bi-pc-display-horizontal"></i>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3>
+                                    Freelancers
+                                </h3>
+
+                                <p style="text-align:justify">
+                                    Freelancers and part-time job seekers in St.pierre and miquelon can utilize JobListing St.pierre and miquelon to discover suitable job prospects. Our website offers a platform to search for part-time and freelance job vacancies that align with their skills and preferences. Through our portal, freelancers can broaden their network and uncover new opportunities to grow their careers.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="feature-col col-lg-4 col-xs-12">
+                        <div class="card card-block text-center">
+                            <div>
+                                <div class="feature-icon">
+                                    <i class="bi bi-briefcase"></i>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3>
+                                    Recruitment Agencies
+                                </h3>
+
+                                <p style="text-align:justify">
+                                    Recruitment agencies in St.pierre and miquelon can rely on JobListing St.pierre and miquelon as a trusted source for finding the right job opportunities for their candidates. Our platform offers a wealth of job listings across various industries, making it easier for agencies to search for positions that match their candidates' skills and experience. The ability to directly connect with potential employers streamlines the placement process, allowing agencies to quickly and efficiently place their candidates in the right job. So why wait? Partner with JobListing St.pierre and miquelon today and help your candidates reach their career aspirations.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="feature-col col-lg-2 col-xs-0"></div>
+
+
+                </div>
+            </div>
+
+        </section><!-- End Features Section -->
+        <style>
+
+
+            /* Style the tab */
+            .tab {
+                overflow: hidden;
+                border: 1px solid #ccc;
+                background-color: #f1f1f1;
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+
+                /* Style the buttons inside the tab */
+                .tab button {
+                    background-color: #34ba08 inherit;
+                    float: left;
+                    border: none;
+                    outline: none;
+                    cursor: pointer;
+                    padding: 14px 16px;
+                    transition: 0.3s;
+                    font-size: 17px;
+                }
+
+            .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+                background-color: #34ba08 !important;
+                color: white;
+            }
+
+
+
+
+            /* Change background color of buttons on hover */
+
+
+            /* Style the tab content */
+            .tabcontent {
+                display: none;
+                padding: 6px 12px;
+                border: 1px solid #ccc;
+                border-top: none;
+                background: black;
+                color: white;
+            }
+
+                .tabcontent p {
+                    color: white;
+                }
+        </style>
+
+
+        <div class="container" style="padding-top: 20px; background: #34ba08; border-bottom: 13px solid #34ba08;">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-center">
+                        <span style="color: #000;">Apply process</span>
+                        <h2 style="padding-bottom: 20px;color: white;"> How it works</h2>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav nav-pills nav-justified" style="background-color: #f1f1f1;">
+                <li class="nav-item tab">
+                    <button class="nav-link tablinks btn-primary" style="color: black; background-color: white; font-weight: bold;" onclick="openCity(event, 'London')" id="defaultOpen">Search a job</button>
+                </li>
+                <li class="nav-item links ">
+                    <a class="nav-link" style="padding-top: 18px; font-size: 25px; font-weight: bold;"><i class="bi bi-arrow-right " style="color: #34ba08;"></i></a>
+                </li>
+                <li class="nav-item tab">
+                    <button class="nav-link tablinks btn-primary" style="color: black; background-color: white; font-weight: bold;" onclick="openCity(event, 'Paris')">Apply for job</button>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" style="padding-top: 18px; font-size: 25px; font-weight: bold;"><i class="bi bi-arrow-right" style="color: #34ba08; font-weight: bold;"></i></a>
+                </li>
+                <li class="nav-item tablinks tab">
+                    <button class="nav-link tablinks btn-primary" style="color: black; background-color: white; font-weight:bold;" onclick="openCity(event, 'Tokyo')">Get your job</button>
+                </li>
+
+            </ul>
+
+            <div id="London" class="tabcontent">
+                <br />
+                <p>
+                    Click the  Search Jobs at the top of homepage.<br />
+                    Click the Search jobs field and enter keywords or a company name.<br />
+                    You can also select from the job roles suggested by Joblisting  based on your qualification and experience.
+                </p>
+            </div>
+
+            <div id="Paris" class="tabcontent">
+                <br />
+                <p>
+                    Easy Apply: This allows you to apply for the job on Joblisting.<br />
+                    Apply: You’ll be redirected to the company website where you can apply for the job externally.
+                </p>
+            </div>
+
+            <div id="Tokyo" class="tabcontent">
+                <br />
+                <p>Get your dream job in  Joblisting </p>
+            </div>
+        </div>
+        <script>
+            function openCity(evt, cityName) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(cityName).style.display = "block";
+                evt.currentTarget.className += " active";
+            }
+            document.getElementById("defaultOpen").click();
+        </script>
+
+        <br /><br />
+        <div class="container-fluid">
+            <style>
+                .process-cap {
+                    background-color: black;
+                    color: white;
+                }
+
+
+                .job-card-buttons {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 10px;
+                    width: 100%;
+                }
+
+                .search-buttons {
+                    border-color: #34ba08;
+                    color: black;
+                    /*//color: var(--button-color);
+                            //background-color: var(--active-color);*/
+                    background-color: #ffffff;
+                    padding: 8px 10px;
+                    border-radius: 6px;
+                    font-size: 11px;
+                    font-weight: 600;
+                    margin-top: 14px;
+                }
+
+                .bookmarkview {
+                    color: #FFFFFF;
+                    background-color: #34ba08;
+                    padding: 8px 10px;
+                    border-radius: 6px;
+                    font-size: 11px;
+                    font-weight: 600;
+                    margin-top: 14px;
+                    cursor: none;
+                }
+
+                    .bookmarkview:hover {
+                        background-color: white;
+                        color: white;
+                    }
+
+                    .bookmarkview:focus {
+                        background-color: #34ba08;
+                        color: white;
+                    }
+
+                .search-buttons {
+                    background-color: var(--inactive-color);
+                    font-size: 11px;
+                    padding: 6px 8px;
+                    margin-top: 0;
+                    font-weight: 500;
+                }
+
+                .card-buttons,
+                .card-buttons-msg {
+                    padding: 5px;
+                    width: 100%;
+                    font-size: 12px;
+                    cursor: pointer;
+                }
+
+
+                .card-buttons-override {
+                    background-color: #34ba08 !important;
+                    text-align: center;
+                    color: white;
+                }
+
+                .title1 {
+                    height: 75px;
+                    font-weight: 600;
+                    font-size: 14px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    padding-top: 10px;
+                }
+
+                .imgf {
+                    margin: 7px;
+                }
+            </style>
+            <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">Latest Jobs</h1>
+            <div class="row">
+                @if (ViewBag.LatestJob1 != null)
+                {
+                    foreach (LatestJob latestJob in ViewBag.LatestJob1)
+                    {
+                        <div class="col-lg-3 col-xl-3 col-md-4 col-sm-6 col- shadow" style="margin-bottom:25px;">
+                            <div class="row">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-5">
+                                    @Html.Raw(string.Format("<text><span><img class='img-fluid' height='100' width='100' src=\"/Image/Avtar/" + latestJob.EmployerId + "\" /><span> </text>"))
+
+                                </div>
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-7">
+                                    <p class="title1">@Html.Raw(latestJob.Title)</p>
+                                    <b>Location: </b> @Html.Raw(string.Format("{0} {1}", latestJob.Country, latestJob.City))<br />
+
+                                    <b>Status: </b>  &nbsp;&nbsp;&nbsp; @Html.Raw(latestJob.Status)
+                                </div>
+                            </div>
+                            <div class="job-card-buttons">
+                                <div class="search-buttons card-buttons detail-btn-override">
+                                    <button class="search-buttons card-buttons detail-btn-override">
+                                        @Html.Raw(latestJob.JobType)
+                                    </button>
+                                </div>
+                                <div class="search-buttons card-buttons detail-btn-override">
+                                    <button class="search-buttons card-buttons detail-btn-override">
+                                        @Html.Raw(latestJob.MinimumExperience)
+                                    </button>
+                                </div>
+                                <div class="search-buttons card-buttons detail-btn-override">
+                                    <button class="search-buttons card-buttons detail-btn-override">
+                                        @Html.Raw(latestJob.JobLevel)
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="job-card-buttons" style="padding-bottom:10px;">
+                                @Html.ActionLink("View", "View", "job", new { Id = latestJob.JobID }, new { target = "_blank", @class = "card-buttons card-buttons-override bookmarkview" })
+                                @Html.ActionLink("Share", "Email", "job", new { Id = latestJob.JobID }, new { target = "_blank", @class = "card-buttons card-buttons-override bookmarkview" })
+                                @Html.ActionLink("Bookmark", "BookMarkedJobs", "JobSeeker", new { Id = latestJob.JobID }, new { target = "_blank", title = "Bookmark this job.", @class = "card-buttons card-buttons-override bookmarkview" })
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+        <br />
+        <br />
+
+        <div class="container-fluid">
+            <div class="row" style="padding-right:15px; padding-left:15px;">
+                <h1 class="text-center"><b>Hour Customers</b></h1>
+                <div class="col-sm-12">
+                    <style>
+                        .imgf {
+                            padding: 15px;
+                        }
+                    </style>
+                    <marquee behavior="alternate">
+                        @foreach (var item in ViewBag.Model)
+                        {
+
+                            @Html.Raw(string.Format("<text ><img padding-left='25px' height='100' width='150' float='left' class='imgf'  src=\"data:image/jpg;base64," + (item["Logo"]) + " \" /> </text>"));
+
+                        }
+                    </marquee>
+                </div>
+            </div>
+        </div>
+        <br />
+        <section id="contact">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h2 class="section-title">Contact Us</h2>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 col-md-4">
+
+
+
+                        <h3>About</h3>
+                        <p>JobListing is a global website that facilitates job hunting and range from small, medium to large scale as well as cross-sector categories such as green jobs, ethical jobs, freelance and seasonal jobs.</p>
+
+                        <h5>Webinars</h5>
+                        <div class="parent">
+                            <div class="child">
+                                <img width="40" src="https://www.joblisting.com/images/img1.jpeg">
+                                <p style="font-size: 14px;margin-top: 10px;">HR Webinar</p>
+                            </div>
+                            <div class="child">
+                                <img width="40" src="https://www.joblisting.com/images/img1.jpeg">
+                                <p style="font-size: 14px;margin-top: 10px;">HR Webinar</p>
+                            </div>
+                            <div class="child">
+                                <img width="40" src="https://www.joblisting.com/images/img1.jpeg">
+                                <p style="font-size: 14px;margin-top: 10px;">HR Webinar</p>
+                            </div>
+                            <!-- <div class="child">
+                                <img width="40" src="https://www.joblisting.com/images/img1.jpeg">
+                                <p style="font-size: 14px;margin-top: 10px;">HR Webinar</p>
+                            </div>
+                            <div class="child">
+                                <img width="40" src="https://www.joblisting.com/images/img1.jpeg">
+                                <p style="font-size: 14px;margin-top: 10px;">HR Webinar</p>
+                            </div>
+                            <div class="child">
+                                <img width="40" src="https://www.joblisting.com/images/img1.jpeg">
+                                <p style="font-size: 14px;margin-top: 10px;">HR Webinar</p>
+                            </div> -->
+                        </div>
+
+
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <div class="info">
+                            <div>
+                                <div class="boxside">
+                                    <h3>Job Listing</h3>
+                                    <h4>C/O. Accuracy</h4>
+                                </div>
+
+                                <i class="bi bi-geo-alt"></i>
+                                <p>35 Selegie Road, #09-22, Parklane Shopping Mall, Singapore 188307.</p>
+                            </div>
+
+                            <div>
+                                <i class="bi bi-envelope"></i>
+                                <p>pratapchandran@joblisting.com</p>
+                            </div>
+
+                            <h5>Useful Links</h5>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-12">
+                                    @*<h5>Useful Links</h5>*@
+                                    <a href="/St.pierre and miquelon/jobs">Search Jobs</a><br>
+                                    <a href="/search-people">Search People</a><br>
+                                    <a href="/search-jobseekers">Search Jobseeker</a><br>
+                                    <a href="/listjob">List Jobs</a><br />
+                                    <a href="/St.pierre and miquelon">St.pierre and miquelon</a><br />
+                                    <a href="/suriname">Suriname</a><br />
+                                    <a href="/Singapore">Singapore</a><br />
+                                    <a href="/Malaysia">Malaysia</a>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <a href="/srilanka">Sri Lanka</a><br />
+                                    <a href="/fiji">Fiji</a><br />
+                                    <a href="/Nepal">Nepal</a><br />
+                                    <a href="/Australia">Australia</a><br />
+                                    <a href="/Cambodia">Cambodia</a><br />
+                                    <a href="/Myanmar">Myanmar</a><br />
+                                    <a href="/Maldives">Maldives</a><br />
+                                    <a href="/Ecuador">Ecuador</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-8">
+                        <div class="form">
+                            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                                <div class="form-group">
+                                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                                </div>
+                                <div class="my-3">
+                                    <div class="loading">Loading</div>
+                                    <div class="error-message"></div>
+                                    <div class="sent-message">Your message has been sent. Thank you!</div>
+                                </div>
+                                <div class="text-center"><button type="submit">Send Message</button></div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section><!-- End Contact Section -->
+
+    </main><!-- End #main -->
+    <!-- ======= Footer ======= -->
+    <footer class="site-footer">
+        <div class="bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-xs-12 text-lg-start text-center">
+                        <p class="copyright-text">
+                            &copy; Copyright <strong>Job Listing</strong>. All Rights Reserved
+                        </p>
+
+                    </div>
+                    <div class="col-lg-3 col-xs-12 text-lg-right text-center">
+                        <p>Powered by Accuracy</p>
+                    </div>
+                    <div class="col-lg-5 col-xs-12 text-lg-right text-center">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <a href="/home/aboutus">About</a>
+                            </li>
+
+                            <li class="list-inline-item">
+                                <a href="/home/contact">Contact Us</a>
+                            </li>
+
+                            <li class="list-inline-item">
+                                <a href="/privacy">Privacy Policy</a>
+                            </li>
+
+                            <li class="list-inline-item">
+                                <a href="/terms">Terms of Use</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End Footer -->
+    @*<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>*@
+
+    <!-- Vendor JS Files -->
+    <script src="~/Content/Homesinga/assetsmalsya/vendor/purecounter/purecounter.js"></script>
+    <script src="~/Content/Homesinga/assetsmalsya/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/Homesinga/assetsmalsya/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="~/Content/Homesinga/assetsmalsya/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="~/Content/Homesinga/assetsmalsya/js/main.js"></script>
+
+</body>
+
+</html>

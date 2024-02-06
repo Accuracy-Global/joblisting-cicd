@@ -1,0 +1,45 @@
+﻿@model JobPortal.Web.Models.SearchJobModel
+@using JobPortal.Library.Constants
+@using JobPortal.Library.Helpers
+@using JobPortal.Domain
+<div class="invite-friend">
+    <div style="font-size:small; padding-bottom:5px;">
+        <span>Search Jobs</span>
+    </div>
+    <div class="iyf">
+        @using (Html.BeginForm("SearchJobs", "Job", method: FormMethod.Post))
+        {
+            @Html.TextBoxFor(model => model.JobTitle, new { placeholder = "SEARCH BY JOB TITLE", @class = "form-control", @maxlength = 50 })
+            <div class="clear" style="height:5px"></div>
+            <div class="input-group">
+                <select name="CountryId" class="form-control country" style="font-size:small">
+                    <option>SELECT</option>
+                </select>                  
+                <span class="input-group-btn">
+                    <input type="submit" id="basic_search_job" value="Search" class="btn btn-default" formtarget="_blank" />
+                </span>
+            </div>
+        }
+    </div>
+</div>
+<script>
+    $(function () {
+        $.getJSON("/help/countrylist", {}, function (list) {
+            $(".country").empty();
+            $(".country").append("<option value = ''>SELECT</option>");
+
+            if (list.length != 0) {
+                $(list).each(function () {
+                    $(".country").append("<option value =" + this.Id + ">" + this.Name + "</option>");
+                });
+            }
+        });
+
+        $("#basic_search_job").click(function () {
+            var nm = $(this).closest("form").serializeObject();
+            url = "/search-people?JobTitle=" + nm.JobTitle + "&CountryId=" + nm.CountryId;
+            window.location.href = url;
+            return false;
+        });
+    });
+</script>

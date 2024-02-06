@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "ProfilesList";
+    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+}
+<style type="text/css">
+    table {
+        font-family: Calibri;
+        font-size: 1.2em;
+        width: 100%;
+        display: table;
+        border-collapse: separate;
+        border: solid 1px #98BF21;
+        background-color: white;
+    }
+
+    td, th {
+        border: 1px solid #d4dbbf;
+        padding: 3px 7px 2px;
+    }
+    /*Here we will add css for style webgrid*/
+    .webgrid-table {
+        font-family: Calibri;
+        font-size: 1.2em;
+        width: 100%;
+        display: table;
+        border-collapse: separate;
+        border: solid 1px #98BF21;
+        background-color: white;
+    }
+
+    table td, th {
+        border: 1px solid #98BF21;
+        padding: 3px 7px 2px;
+    }
+
+    table-header {
+        background-color: #A7C942;
+        color: #FFFFFF;
+        padding-bottom: 4px;
+        padding-top: 5px;
+        text-align: left;
+    }
+
+    table-footer {
+    }
+
+    .webgrid-row-style {
+        padding: 3px 7px 2px;
+    }
+
+    .webgrid-alternating-row {
+        background-color: #EAF2D3;
+        padding: 3px 7px 2px;
+    }
+
+    .text {
+        word-wrap: break-word;
+        width: 350px;
+        overflow-wrap: break-word;
+        overflow: hidden;
+        word-break: break-word;
+    }
+</style>
+@*<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>*@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<h2>ProfilesList</h2>
+@{
+    ViewBag.profiles = TempData["profiles"];
+}
+<div id="container-grid" class="table-responsive" style="table-layout:fixed;  width: 100%;">
+    <table cellpadding="0" cellspacing="0">
+        <tr>
+
+            <th>Name</th>
+            <th>Skills</th>
+            <th>Emails</th>
+            <th>Phone</th>
+            <th>Actions</th>
+        </tr>
+        @foreach (var itemss in ViewBag.profiles)
+        {
+            <tr>
+                <td>@itemss.FirstName  @itemss.LastName </td>
+                <td>@itemss.Title </td>
+                <td>@itemss.Username </td>
+                <td>@itemss.Mobile </td>
+                <td>
+                    <a href="#"><i class='fa fa-phone'></i></a> | <a href="#"><i class='fa fa-envelope'></i></a> | <a href="#"><i class='fa fa-comment'></i></a>
+                </td>
+</tr>
+}
+    </table>
+</div>

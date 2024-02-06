@@ -1,0 +1,294 @@
+﻿@using PagedList.Mvc
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Models
+
+@{
+    ViewBag.Title = "Applications";
+    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<ApplicationEntity>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+
+    UserProfile profile = MemberService.Instance.Get(ViewBag.UserId);
+    int inboxItems = DomainService.Instance.DashboardInboxItems(User.Id, ViewBag.UserId);
+    int appCounts = MemberService.Instance.GetApplicationCount(profile.Username);
+    int intCounts = MemberService.Instance.GetInterviewCount(profile.Username);
+    WebGrid grid = new WebGrid(ViewBag.Model, ajaxUpdateContainerId: "grid");
+}
+<style>
+    .datefield {
+        width: 90px;
+    }
+
+    .cstatus {
+        width: 85px;
+    }
+
+    .astatus {
+        width: 90px;
+    }
+
+    .actionLinks {
+        width: 200px;
+    }
+
+    .jtitle {
+        width: 175px;
+    }
+</style>
+<div class="section">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                <li class="active"><a href="#">QUICK LINKS</a></li>
+                <li>@Html.ActionLink("Connections", "Connections", "Admin", new { UserId = ViewBag.UserId }, new { target = "_blank" })</li>
+                <li>@Html.ActionLink("Messages", "Messages", "Admin", new { Id = ViewBag.UserId }, new { target = "_blank" })</li>
+                @if (profile != null && profile.Type == (int)SecurityRoles.Company)
+                {
+                    <li>@Html.ActionLink("Jobs", "JobsByCompany", "Admin", new { Id = ViewBag.UserId }, new { target = "_blank" })</li>
+                }
+                @if (appCounts > 0)
+                {
+                    <li>@Html.ActionLink(string.Format("Applications ({0})", appCounts), "Applications", "Admin", new { UserId = ViewBag.UserId }, new { target = "_blank" })</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Applications", "Applications", "Admin", new { UserId = ViewBag.UserId }, new { target = "_blank" })</li>
+                }
+                @if (intCounts > 0)
+                {
+                    <li>@Html.ActionLink(string.Format("Interviews ({0})", intCounts), "Interviews", "Admin", new { UserId = ViewBag.UserId }, new { target = "_blank" })</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Interviews", "Interviews", "Admin", new { UserId = ViewBag.UserId }, new { target = "_blank" })</li>
+                }
+                @if (profile!= null &&  profile.Type == (int)SecurityRoles.Company)
+                {
+                    <li>@Html.ActionLink("Downloads", "DownloadHistory", "Admin", new { Id = ViewBag.UserId }, new { target = "_blank" })</li>
+                }
+                @if (inboxItems > 0)
+                {
+                    <li><a href="/Admin/Inbox?Id=@ViewBag.UserId" target="_blank">Inbox (<span style="color:red; font-weight:bold">@inboxItems</span>)</a></li>
+                }
+                else
+                {
+                    <li><a href="/Admin/Inbox?Id=@ViewBag.UserId" target="_blank">Inbox</a></li>
+                }
+                <li>@Html.ActionLink("Profile", "ManageCompany", "Admin", new { Id = ViewBag.UserId }, new { })</li>
+                <li>@Html.ActionLink("Billing & Invoices", "billing", "Payment", new { userId = ViewBag.UserId }, new { })</li>
+                <li>@Html.ActionLink("Reset Password", "ResetPassword", "Admin", new { Id = ViewBag.UserId }, new { target = "_blank" })</li>
+                <li>@Html.ActionLink("Login History", "LoginHistory", "Admin", new { Id = ViewBag.UserId }, new { target = "_blank" })</li>
+                <li>@Html.ActionLink("Alert Settings", "Alerts", "Admin", new { Id = ViewBag.UserId }, new { target = "_blank" })</li>
+            </ul>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-9">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="title-login">
+                        <h1 style="line-height:0;">Applications</h1>
+                        <div style="padding-top:15px;">
+                            @if (profile != null) { 
+                                <text>Manage applications of <b>@profile.Company</b> @*for <b>@ViewBag.Job.Title</b>*@ here</text>
+                            }
+                            else
+                            {
+                                <text>Manage applications</text>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-md-12">
+                    <div id="container-grid" class="table-responsive">
+                        @grid.GetHtml(htmlAttributes: new { id = "grid", @style = "width:100%" }, tableStyle: "table table-bordered table-hover",
+                        columns: new[]
+                        {
+                            grid.Column("Job Title",canSort:false,  format: (item) =>
+                            {
+                                string link = string.Empty;
+                                if(item.Id!=null){
+                                    link = string.Format("<a href=\"{0}\" target=\"_blank\">{1}</a>", item.JobUrl, item.Title);
+                                }
+                                return @Html.Raw(link);
+                            }),
+                            grid.Column(columnName: "JobseekerName", header: "Name", canSort: false, format: item =>
+                            {
+                                string link = string.Empty;
+                                if (item.JobseekerId != null)
+                                {
+                                    link = string.Format("<a href=\"/Admin/ManageIndividual?Id={0}\" target=\"_blank\">{1}</a>", item.JobseekerId, item.JobseekerName);
+                                }
+                                return Html.Raw(link);
+                            } ),
+                            grid.Column("Country", header: "Country", canSort:false, format: (item) =>
+                            {
+                                string countryName = string.Empty;
+                                if (!string.IsNullOrEmpty(item.CountryName))
+                                {
+                                    //UserProfile jobSeeker = MemberService.Instance.Get(item.JobseekerId);
+                                    //if (jobSeeker.CountryId != null)
+                                    //{
+                                    //    List country = SharedService.Instance.GetCountry(Convert.ToInt64(jobSeeker.CountryId));
+
+                                    //    countryName = country.Text;
+                                    //}
+                                    countryName = item.CountryName;
+                                }
+                                return @Html.Raw(countryName.Replace(" ", "&nbsp;"));
+                            }),
+                            grid.Column(columnName: "Date", header: "Date", canSort:false, style:"datefield", format: p=>p.DateUpdated.ToString("MMM-dd-yyyy")),
+                            grid.Column(columnName: "Status", style:"astatus", header: "Status", canSort: false, format:
+                            (item) =>
+                            {
+                                if ((TrackingTypes)item.Type == TrackingTypes.WITHDRAWN)
+                                {
+                                    return Html.Raw(string.Format("<span style=\"color:red\">{0}</span>", ((TrackingTypes)item.Type).GetDescription()));
+                                }
+                                else
+                                {
+                                    return ((TrackingTypes)item.Type).GetDescription();
+                                }
+                            }),
+                            grid.Column(columnName: "Actions", header: "Actions", canSort: false, format: item =>
+                            {
+                                string links = string.Empty;
+                                if (item.JobseekerId != null)
+                                {
+                                    if ((TrackingTypes)item.Type != TrackingTypes.DELETED)
+                                    {
+                                        if ((TrackingTypes)item.Type != TrackingTypes.WITHDRAWN)
+                                        {
+                                            if (item.Downloadable)
+                                            {
+                                                if (!string.IsNullOrEmpty(links))
+                                                {
+                                                    links += " | " + "<b>" + Html.ActionLink("Download", "download", "Jobseeker", new { id = item.JobseekerId, redirect = Request.Url.ToString() }, new { title = "Download Resume" }) + "</b>";
+                                                }
+                                                else
+                                                {
+                                                    links += "<b>" + Html.ActionLink("Download", "download", "Jobseeker", new { id = item.JobseekerId, redirect = Request.Url.ToString() }, new { title = "Download Resume" }) + "</b>";
+                                                }
+                                            }
+
+                                            if (!string.IsNullOrEmpty(links))
+                                            {
+                                                links += " | " + "<b><a href=\"#withdrawDialog\" data-id='" + item.Id + "' role='button' data-toggle='modal' class=\"jwithdraw\">Withdraw</a></b>";
+                                            }
+                                            else
+                                            {
+                                                links += "<b><a href=\"#withdrawDialog\" data-id='" + item.Id + "' role='button' data-toggle='modal' class=\"jwithdraw\">Withdraw</a></b>";
+                                            }
+                                        }
+                                    }
+                                }
+                                return Html.Raw(links);
+                            }),
+                        })
+</div>
+                    <div style="text-align:center; margin-top: -15px;">
+
+                        @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Applications",
+                        new RouteValueDictionary()
+                        {
+                            { "PageNumber" , PageNumber},
+                            { "UserId", ViewBag.UserId },
+                            { "CountryId" , Request["CountryId"]},
+                            { "Title" , Request["Title"]},
+                            { "StartDate" , Request["StartDate"]},
+                            { "EndDate" , Request["EndDate"]}
+                        }),
+                        PagedListRenderOptions.ClassicPlusFirstAndLast)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="deleteDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Html.BeginForm("DeleteApplication", "Admin", FormMethod.Post))
+            {
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Delete Application
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        @Html.Hidden("Id")
+@Html.Hidden("Redirect", Request.Url.ToString())
+@Html.Label("Write reason for deletion")
+@Html.TextArea("Reason", new { @class = "form-control", @style = "height:100px", @maxlength = "400" })
+</div>
+</div>
+<div class="clear"></div>
+</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px">Close</button>
+                <button type="submit" class="btn btn-primary" style="width:75px">Submit</button>
+            </div>
+            }
+</div>
+</div>
+</div>
+
+<div class="modal fade" id="withdrawDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Html.BeginForm("WithdrawnApplication", "Admin", FormMethod.Post))
+            {
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Withdrawn Application
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        @Html.Hidden("Id")
+@Html.Hidden("Redirect", Request.Url.ToString())
+@Html.Label("Write reason for withdrawal")
+@Html.TextArea("Reason", new { @class = "form-control", @style = "height:100px", @maxlength = "400" })
+</div>
+</div>
+<div class="clear"></div>
+</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px">Close</button>
+                <button type="submit" class="btn btn-primary" style="width:75px">Submit</button>
+            </div>
+            }
+</div>
+</div>
+</div>
+
+<script>
+    $(document).ready(function () {
+
+        $(".jdelete").click(function () {
+            var appid = $(this).data('id');
+            $(".modal-body #Id").val(appid);
+        });
+
+        $(".jwithdraw").click(function () {
+            var appid = $(this).data('id');
+            $(".modal-body #Id").val(appid);
+        });
+    });
+</script>

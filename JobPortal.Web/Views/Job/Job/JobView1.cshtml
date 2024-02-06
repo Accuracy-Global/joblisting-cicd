@@ -1,0 +1,748 @@
+﻿
+@model JobPortal.Models.ViewJobModel
+@using JobPortal.Library.Constants
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Domain
+@using JobPortal.Models
+@{
+    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+    ViewBag.Title = "JOBVIEW";
+    var data = ViewBag.LatestJob2();
+    string region = string.Empty;
+    string username = string.Empty;
+
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+        username = user.Username;
+
+    }
+    long counter = 0;
+    string Applystatus = "";
+}
+<style>
+
+    .square135::after {
+        background: url('/image/avtar?Id=@Model.EmployerId') no-repeat 0 0 / contain;
+        background-position: center center;
+    }
+
+    .square135 {
+        font-size: 75px;
+        font-weight: 700;
+        height: 135px;
+        width: 135px;
+
+        }
+
+        .square135::after {
+
+            content: "";
+            display: block;
+            height: 0;
+            padding-bottom: 100%;
+            width: 100%;
+        }
+    .bs-callout
+    {
+        padding-top: 0px;
+        padding-bottom: 0px;
+        margin-right: -15px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .bs-callout p
+    {
+        word-wrap: break-word;
+    }
+    .safety{
+        min-height: 155px;
+        height: 100%;
+        padding: 10px;
+        font-size: 12px;
+        background-color: #f5f5f5;
+        margin-bottom: 5px;
+    }
+    .safety p{
+        height:5px;
+        word-wrap: break-word;
+    }
+    .safety ul{
+        margin-bottom:5px;
+    }
+</style>
+<div class="section" style="padding-left: 15px; padding-right: 15px;">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            @Html.Partial("_MessagePartial")
+        </div>
+    </div>
+</div>
+@if (Model != null)
+{
+    <div class="clear" style="height:15px;"></div>
+    <div class="row alert alert-info" style="padding: 10px; background-color: white; margin: 5px 10px;  border:1px solid black;">
+        @if (data.CompanySummary != null)
+        {
+            <div class="col-lg-1 col-md-1 col-sm-1"> </div>
+            <div class="col-lg-8 col-md-8 col-sm-8" style="padding:4px; text-align:justify;">
+                <div class="form-group">
+                    <b>@string.Format("{0} Overview", HttpUtility.HtmlEncode(data.companyname))</b>
+                    <div class="clear" style="height:5px;  color:black;">
+                        @Html.Raw(data.CompanySummary)
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2" style="text-align:right">
+                <a href="/@Model.EmployerLink" target="_blank"><div class="square135"></div></a>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+        }
+        else
+        {
+            @Html.Raw("<h3 style=\"text-align:center\">" + Model.CompanyName + "</h3>")
+        }
+
+    </div>
+
+    if (Model != null)
+    {
+        UserInfoEntity employer = (new JobPortal.Services.UserService()).Get(Model.EmployerId);
+        <div class="row">
+            <div class="col-lg-2 col-md-2 col-sm-12"></div>
+            <div class="col-lg-8 col-md-8 col-sm-12">
+                <div style="text-align:center;">
+                    <div class="title-login alert" style="margin-top: -5px;">
+                        <h1 class="page-title">@Model.Title</h1>
+                        @if (Model.IsExpired == false)
+                        {
+                            <small> <i class="fa fa-clock-o"></i> @Html.Raw(string.Format("Job Listed on {0}. Closing on {1}", Model.PublishedDate.ToString("MMM-dd-yyyy"), Model.ClosingDate.ToString("MMM-dd-yyyy")))  <time></time></small>
+                        }
+                        else
+                        {
+                            <small> <i class="fa fa-clock-o"></i> @Html.Raw(string.Format("Job Listed on {0}. Closing on <span style=\"color:red\">{1}</span>", Model.PublishedDate.ToString("MMM-dd-yyyy"), Model.ClosingDate.ToString("MMM-dd-yyyy")))  <time></time></small>
+                        }
+                        @if (user != null && user.Role != SecurityRoles.Jobseeker)
+                        {
+                            long inboxId = DomainService.Instance.GetInboxId(Model.EmployerId, Model.Id, 1);
+                            if (Model.IsActive == true && Model.IsDeleted == false && Model.IsRejected == false && Model.IsPublished == false && Model.IsExpired == false)
+                            {
+                                <h3 style="color:orangered">In Approval Process</h3>
+                            }
+                            else if (Model.IsRejected == true && Model.IsActive == true && Model.IsDeleted == false && Model.IsExpired == false)
+                            {
+                                <h3 style="color:red">Rejected - See reason of rejection <a href="/inbox/show?Id=@inboxId" style="color:red">HERE</a></h3>
+                            }
+                            else if (Model.IsActive == false && Model.IsDeleted == false && Model.IsRejected == false && Model.IsExpired == false)
+                            {
+                                <h3 style="color:red">Deactivated - See reason of deactivation <a href="/inbox/show?Id=@inboxId" style="color:red">HERE</a></h3>
+                            }
+                            else if (Model.IsActive == true && Model.IsDeleted == false && Model.IsExpired == true)
+                            {
+                                <h3 style="color:red">Expired</h3>
+                            }
+                            else if (Model.IsDeleted)
+                            {
+                                <h3 style="color:red">Deleted - See reason of deletion <a href="/inbox/show?Id=@inboxId" style="color:red">HERE</a></h3>
+                            }
+
+                            if (Model.IsPaid == true)
+                            {
+                                if (Model.PackageId != null)
+                                {
+                                    Package pkg = (new JobPortal.Services.HelperService()).GetPackage(Model.PackageId.Value);
+                                    if (DateTime.Now.Date <= Model.PromoteDate.Value.Date && Model.PromoteDate.Value.Date <= Model.ClosingDate.Date)
+                                    {
+                                        <label class="label label-success" style="padding: 5px;">PROMOTED</label>
+                                    }
+                                    else
+                                    {
+                                        if (pkg != null)
+                                        {
+                                            <div class="clear" style="height:15px;"></div>
+                                            <label class="label label-success" style="padding: 5px; display: inline-block;">PAID - @pkg.Name.ToUpper()</label>
+                                        }
+                                    }
+                                }
+
+                            }
+                            else
+                            {
+                                if (Model.PromoteDate != null && DateTime.Now.Date <= Model.PromoteDate.Value.Date && Model.PromoteDate.Value.Date <= Model.ClosingDate.Date)
+                                {
+                                    <div class="clear" style="height:15px;"></div>
+                                    <label class="label label-success" style="padding: 5px;">PROMOTED</label>
+                                }
+                                else
+                                {
+                                    <div class="clear" style="height:15px;"></div>
+                                    <label class="label label-danger" style="padding: 5px; width: 58px; display: inline-block;">UN-PAID</label>
+                                }
+                            }
+                            string pl = string.Empty;
+                            if (Model.IsActive == true && Model.IsPublished == true)
+                            {
+                                if (Model.IsPaid == true)
+                                {
+                                    if (DateTime.Now.Date > Model.PromoteDate.Value.Date && Model.PromoteDate.Value.Date <= Model.ClosingDate.Date)
+                                    {
+                                        pl += "&nbsp;&nbsp;" + Html.ActionLink("Promote", "Promote", "Employer", new { id = Model.Id }, new { title = "Promote", @class = "label label-success Promote", @style = "padding:5px; background-color: #34ba08; display: inline-block; " }).ToString();
+                                    }
+
+                                }
+                                else if (Model.IsPaid == false)
+                                {
+                                    if (Model.PromoteDate != null && DateTime.Now.Date > Model.PromoteDate.Value.Date && Model.PromoteDate.Value.Date <= Model.ClosingDate.Date)
+                                    {
+                                        pl += "&nbsp;&nbsp;" + Html.ActionLink("PROMOTE", "Promote", "Employer", new { id = Model.Id }, new { title = "Promote", @class = "label label-success Promote", @style = "padding:5px; background-color: #34ba08; display: inline-block; " }).ToString();
+                                    }
+                                    else if (Model.PromoteDate == null)
+                                    {
+                                        pl += "&nbsp;&nbsp;" + Html.ActionLink("PROMOTE", "Promote", "Employer", new { id = Model.Id }, new { title = "Promote", @class = "label label-success Promote", @style = "padding:5px; background-color: #34ba08; display: inline-block; " }).ToString();
+                                    }
+                                }
+                                @Html.Raw(pl)
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2">
+                <div class="form-group pull-right">
+                    <label>&nbsp;</label>
+                    @if (user != null && user.Type == 4)
+                    {
+                        <div>
+                            <a href="https://apps.apple.com/in/app/job-listing/id1575724994">
+                                <img src="~/Images/ios.png" style="height:40px;width:40px;" border="0" />
+
+                            </a>
+
+
+                            <a href="https://play.google.com/store/apps/details?id=com.accuracy.joblisting">
+                                <img src="~/Images/android-icon.png" style="height:40px;width:40px;" border="0" />
+
+                            </a>
+                        </div>
+                    }
+                </div>
+            </div>
+            @*<div class="col-lg-1 col-md-1 col-sm-1"></div>*@
+        </div>
+
+        if (Model.ShowActionBar)
+        {
+            <div class="clear" style="height:20px;"></div>
+            <div class="row">
+                @*<div class="col-lg-1 col-md-1 col-sm-1"></div>*@
+                <div class="col-md-8" style="text-align:right; margin-left:32px; padding-top:3px;">
+
+                    @if (user != null && user.Role == SecurityRoles.Jobseeker)
+                    {
+                        string lnk = string.Empty;
+                        if (Model.IsConnected)
+                        {
+                            if (Model.Messages == 0)
+                            {
+                                @Html.ActionLink("Message", "List", "Message", new { SenderId = employer.Id, redirect = Request.Url.ToString() }, new { @class = "btn btn-info" });
+                            }
+                            else
+                            {
+                                string link = string.Empty;
+                                if (Model.Messages > 0)
+                                {
+                                    link = string.Format("Message ({0})", Model.Messages);
+                                }
+                                else
+                                {
+                                    link = "Message";
+                                }
+                                @Html.ActionLink(link, "List", "Message", new { SenderId = employer.Id, redirect = Request.Url.ToString() }, new { @class = "btn btn-info" });
+                            }
+
+                            if ((Model.ClosingDate.Date >= DateTime.Now.Date) && (Model.IsDeleted == false) && counter < 1)
+                            {
+                                if (!Roles.IsUserInRole(username, "Administrator") && !Roles.IsUserInRole(username, "SuperUser"))
+                                {
+                                    if (user.Role == SecurityRoles.Employers)
+                                    {
+                                        @Html.Raw("&nbsp;")
+                                        @Html.ActionLink("Apply", "Apply", "job", new { JobId = @Model.Id, redirect = "/Jobseeker/Index" }, new { @class = "btn btn-info", id = "ApplyJobs", @style = "width:75px;", onclick = "alert('Please Login or Register account as Jobseeker to apply on this job!'); return false;" })
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw("&nbsp;")
+                                        @Html.ActionLink("Apply", "Apply", "job", new { JobId = @Model.Id, redirect = "/Jobseeker/Index" }, new { @class = "btn btn-info", id = "ApplyJobs", @style = "width:75px;" })
+                                    }
+                                }
+                            }
+
+                            @Html.Raw("&nbsp;")
+                            @Html.ActionLink("Bookmark", "Bookmark", "job", new { Id = Model.Id, redirect = string.Format("~/{0}-{1}", Model.JobLink, Model.Id) }, new { title = "Bookmark this job.", @class = "btn btn-info" })
+
+                            @Html.Raw("&nbsp;")
+                            @Html.ActionLink("Share Link with Friend", "Email", "job", new { Id = Model.Id }, new { target = "_blank", @class = "btn btn-info" })
+
+                            @Html.Raw("&nbsp;")
+                            <a href="/Employer/Joblist?Id=@employer.Id" target="_blank" class="btn btn-info">All Jobs of this Company</a>
+                        }
+                        else
+                        {
+                            if (Model.InvitedByMe > 0 || Model.InvitedBySomeone > 0)
+                            {
+                                if (Model.Connected > 0)
+                                {
+                                    if (Model.InvitedBySomeone > 0)
+                                    {
+                                        @Html.ActionLink("Accept", "Accept", "Network", new { Id = Model.Connected, redirect = Request.Url.ToString() }, new { @class = "btn btn-info" });
+                                    }
+
+                                    if ((Model.ClosingDate.Date >= DateTime.Now.Date) && (Model.IsDeleted == false) && counter < 1)
+                                    {
+                                        @Html.Raw("&nbsp;")
+                                        @Html.ActionLink("Apply", "Apply", "job", new { JobId = @Model.Id, redirect = "/Jobseeker/Index" }, new { @class = "btn btn-info", id = "ApplyJobs", @style = "width:75px;" })
+                                    }
+
+                                    @Html.Raw("&nbsp;")
+                                    @Html.ActionLink("Bookmark", "Bookmark", "job", new { Id = Model.Id, redirect = string.Format("~/{0}-{1}", Model.JobLink, Model.Id) }, new { title = "Bookmark this job.", @class = "btn btn-info" })
+
+                                    @Html.Raw("&nbsp;")
+                                    @Html.ActionLink("Share Link with Friend", "Email", "job", new { Id = Model.Id }, new { target = "_blank", @class = "btn btn-info" })
+
+                                    @Html.Raw("&nbsp;")
+                                    <a href="/Employer/Joblist?Id=@employer.Id" target="_blank" class="btn btn-info">All Jobs of this Company</a>
+                                }
+                            }
+                            else
+                            {
+                                if (Model.IsBlockedByMe > 0)
+                                {
+                                    @Html.ActionLink("Unblock", "Unblock", "Home", new { id = employer.Id, redirect = "/Jobseeker/Index" }, new { @class = "btn btn-info", title = "Unblock" });
+                                }
+
+                                if (Model.IsBlockedByMe == 0 && Model.IsBlockedBySomeone == 0)
+                                {
+                                    if ((Model.ClosingDate.Date >= DateTime.Now.Date) && (Model.IsDeleted == false) && counter < 1)
+                                    {
+                                        @Html.ActionLink("Apply", "Apply", "job", new { JobId = @Model.Id, redirect = "/Jobseeker/Index" }, new { @class = "btn btn-info", id = "ApplyJobs", @style = "width:75px;" })
+                                    }
+                                    @Html.Raw("&nbsp;")
+                                    @Html.ActionLink("Connect", "Connect", "Home", new { id = employer.Id, redirect = "/Network/Index" }, new { @class = "btn btn-info" });
+
+                                    @Html.Raw("&nbsp;")
+                                    @Html.ActionLink("Message", "List", "Message", new { SenderId = employer.Id, redirect = Request.Url.ToString() }, new { @class = "btn btn-info" });
+
+                                    @Html.Raw("&nbsp;")
+                                    @Html.ActionLink("Bookmark", "Bookmark", "job", new { Id = Model.Id, redirect = string.Format("~/{0}-{1}", Model.JobLink, Model.Id) }, new { title = "Bookmark this job.", @class = "btn btn-info" })
+
+                                    @Html.Raw("&nbsp;")
+                                    @Html.ActionLink("Share Link with Friend", "Email", "job", new { Id = Model.Id }, new { target = "_blank", @class = "btn btn-info" })
+
+                                    @Html.Raw("&nbsp;")
+                                    <a href="/Employer/Joblist?Id=@employer.Id" target="_blank" class="btn btn-info">All Jobs of this Company</a>
+                                }
+                            }
+                        }
+
+                    }
+                    else if (user != null && user.Role == SecurityRoles.Employers)
+                    {
+                        @Html.ActionLink("Share Link with Friend", "Email", "job", new { Id = Model.Id }, new { target = "_blank", @class = "btn btn-info" })
+                        @Html.Raw("&nbsp;")
+                        <a href="/Employer/Joblist?Id=@employer.Id" target="_blank" class="btn btn-info">All Jobs of this Company</a>
+                    }
+                    else if (user == null)
+                    {
+                        if ((Model.ClosingDate.Date >= DateTime.Now.Date) && (Model.IsDeleted == false) && counter < 1)
+                        {
+                            @Html.ActionLink("Apply", "Apply", "job", new { JobId = @Model.Id, redirect = "/Jobseeker/Index" }, new { @class = "btn btn-info", id = "ApplyJobs", @style = "width:75px;" })
+                        }
+                        @Html.Raw("&nbsp;")
+                        @Html.ActionLink("Connect", "Connect", "Home", new { id = employer.Id, redirect = Request.Url.ToString() }, new { @class = "btn btn-info" });
+
+                        @Html.Raw("&nbsp;")
+                        @Html.ActionLink("Message", "List", "Message", new { SenderId = employer.Id, redirect = Request.Url.ToString() }, new { @class = "btn btn-info" });
+
+                        @Html.Raw("&nbsp;")
+                        @Html.ActionLink("Bookmark", "Bookmark", "job", new { Id = Model.Id, redirect = string.Format("~/{0}-{1}", Model.JobLink, Model.Id) }, new { title = "Bookmark this job.", @class = "btn btn-info" })
+
+
+                        @Html.Raw("&nbsp;")
+                        @Html.ActionLink("Share Link with Friend", "Email", "job", new { Id = Model.Id }, new { target = "_blank", @class = "btn btn-info" })
+                        @Html.Raw("&nbsp;")
+                        <a href="/Employer/Joblist?Id=@employer.Id" target="_blank" class="btn btn-info">All Jobs of this Company</a>
+                    }
+
+
+                </div>
+                <div class="col-md-3 col-sm-3" id="mydiv" style="text-align:right; padding-left:0px;">
+                    @*<script>
+                            $('#mydiv').share({
+                                networks: ['facebook', 'googleplus', 'twitter', 'linkedin'],
+                                theme: 'square',
+                                urlToShare: '@Request.Url.ToString()'
+                            });
+                        </script>*@
+
+                    <ul class="soc" style="padding:0px;">
+                        <li><a href="https://www.facebook.com/sharer.php?u=@Request.Url.ToString()&title=@ViewBag.Title" target="_blank" class="icon-26 facebook" id="Facebook" name="provider" value="Facebook" title="Log in using your Facebook account"><svg viewBox="0 0 512 512"><path d="M211.9 197.4h-36.7v59.9h36.7V433.1h70.5V256.5h49.2l5.2-59.1h-54.4c0 0 0-22.1 0-33.7 0-13.9 2.8-19.5 16.3-19.5 10.9 0 38.2 0 38.2 0V82.9c0 0-40.2 0-48.8 0 -52.5 0-76.1 23.1-76.1 67.3C211.9 188.8 211.9 197.4 211.9 197.4z"></path></svg><!--[if lt IE 9]><em>Facebook</em><![endif]--></a></li>
+                        <li><a href="https://plus.google.com/share?url=@Request.Url.ToString()" target="_blank" class="icon-14 googleplus" id="GooglePlus" name="provider" value="GooglePlus" title="Log in using your GooglePlus account"><svg viewBox="0 0 512 512"><path d="M179.7 237.6L179.7 284.2 256.7 284.2C253.6 304.2 233.4 342.9 179.7 342.9 133.4 342.9 95.6 304.4 95.6 257 95.6 209.6 133.4 171.1 179.7 171.1 206.1 171.1 223.7 182.4 233.8 192.1L270.6 156.6C247 134.4 216.4 121 179.7 121 104.7 121 44 181.8 44 257 44 332.2 104.7 393 179.7 393 258 393 310 337.8 310 260.1 310 251.2 309 244.4 307.9 237.6L179.7 237.6 179.7 237.6ZM468 236.7L429.3 236.7 429.3 198 390.7 198 390.7 236.7 352 236.7 352 275.3 390.7 275.3 390.7 314 429.3 314 429.3 275.3 468 275.3"></path></svg><!--[if lt IE 9]><em>GooglePlus</em><![endif]--></a></li>
+                        <li><a href="https://twitter.com/intent/tweet?url=@Request.Url.ToString()&text=@ViewBag.Title" target="_blank" class="icon-10 twitter" id="Twitter" name="provider" value="Twitter" title="Log in using your Twitter account"><svg viewBox="0 0 512 512"><path d="M419.6 168.6c-11.7 5.2-24.2 8.7-37.4 10.2 13.4-8.1 23.8-20.8 28.6-36 -12.6 7.5-26.5 12.9-41.3 15.8 -11.9-12.6-28.8-20.6-47.5-20.6 -42 0-72.9 39.2-63.4 79.9 -54.1-2.7-102.1-28.6-134.2-68 -17 29.2-8.8 67.5 20.1 86.9 -10.7-0.3-20.7-3.3-29.5-8.1 -0.7 30.2 20.9 58.4 52.2 64.6 -9.2 2.5-19.2 3.1-29.4 1.1 8.3 25.9 32.3 44.7 60.8 45.2 -27.4 21.4-61.8 31-96.4 27 28.8 18.5 63 29.2 99.8 29.2 120.8 0 189.1-102.1 185-193.6C399.9 193.1 410.9 181.7 419.6 168.6z"></path></svg><!--[if lt IE 9]><em>Twitter</em><![endif]--></a></li>
+                        <li><a href="https://www.linkedin.com/shareArticle?url=@Request.Url.ToString()&title=@ViewBag.Title" target="_blank" class="icon-17 linkedin" id="LinkedIn" name="provider" value="LinkedIn" title="Log in using your LinkedIn account"><svg viewBox="0 0 512 512"><path d="M186.4 142.4c0 19-15.3 34.5-34.2 34.5 -18.9 0-34.2-15.4-34.2-34.5 0-19 15.3-34.5 34.2-34.5C171.1 107.9 186.4 123.4 186.4 142.4zM181.4 201.3h-57.8V388.1h57.8V201.3zM273.8 201.3h-55.4V388.1h55.4c0 0 0-69.3 0-98 0-26.3 12.1-41.9 35.2-41.9 21.3 0 31.5 15 31.5 41.9 0 26.9 0 98 0 98h57.5c0 0 0-68.2 0-118.3 0-50-28.3-74.2-68-74.2 -39.6 0-56.3 30.9-56.3 30.9v-25.2H273.8z"></path></svg><!--[if lt IE 9]><em>LinkedIn</em><![endif]--></a></li>
+                        <li><a href="https://www.instagram.com/?url=@Request.Url.ToString()&title=@ViewBag.Title" target="_blank" class="icon-18 Instagram" id="Instagram" name="provider" value="Instagram" title="Log in using your Instagram account"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.829 6.302c-.738-.034-.96-.04-2.829-.04s-2.09.007-2.828.04c-1.899.087-2.783.986-2.87 2.87-.033.738-.041.959-.041 2.828s.008 2.09.041 2.829c.087 1.879.967 2.783 2.87 2.87.737.033.959.041 2.828.041 1.87 0 2.091-.007 2.829-.041 1.899-.086 2.782-.988 2.87-2.87.033-.738.04-.96.04-2.829s-.007-2.09-.04-2.828c-.088-1.883-.973-2.783-2.87-2.87zm-2.829 9.293c-1.985 0-3.595-1.609-3.595-3.595 0-1.985 1.61-3.594 3.595-3.594s3.595 1.609 3.595 3.594c0 1.985-1.61 3.595-3.595 3.595zm3.737-6.491c-.464 0-.84-.376-.84-.84 0-.464.376-.84.84-.84.464 0 .84.376.84.84 0 .463-.376.84-.84.84zm-1.404 2.896c0 1.289-1.045 2.333-2.333 2.333s-2.333-1.044-2.333-2.333c0-1.289 1.045-2.333 2.333-2.333s2.333 1.044 2.333 2.333zm-2.333-12c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6.958 14.886c-.115 2.545-1.532 3.955-4.071 4.072-.747.034-.986.042-2.887.042s-2.139-.008-2.886-.042c-2.544-.117-3.955-1.529-4.072-4.072-.034-.746-.042-.985-.042-2.886 0-1.901.008-2.139.042-2.886.117-2.544 1.529-3.955 4.072-4.071.747-.035.985-.043 2.886-.043s2.14.008 2.887.043c2.545.117 3.957 1.532 4.071 4.071.034.747.042.985.042 2.886 0 1.901-.008 2.14-.042 2.886z" /></svg><!--[if lt IE 9]><em>LinkedIn</em><![endif]--></a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1"></div>
+            </div>
+        }
+        <div class="clear" style="height:10px;"></div>
+        <div class="resume">
+            <div id="ResumeArea"></div>
+            <div class="row">
+                <div class="col-lg-1 col-md-1 col-sm-1"></div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                    <div>
+                        @if (!string.IsNullOrEmpty(Applystatus))
+                        {
+                            <div class="message-error">
+                                @Applystatus
+                            </div>
+                        }
+                    </div>
+                    <div class="clear" style="height:5px;"></div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading resume-heading" style="padding-left: 25px; padding-right: 25px;">
+                            <h3 class="title-login" style="text-align:center;">Summary</h3>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                    <strong>Category: </strong> @Model.CategoryName
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                    <strong>Specialization: </strong> @Model.SpecializationName
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                    <strong>Company: </strong> @Model.CompanyName
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                    <strong>Job Country: </strong>@Model.CountryName
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                    <strong>Job State: </strong> @(!string.IsNullOrEmpty(Model.StateName) ? Model.StateName : "Not Available")
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                    <strong>Job City: </strong>@(!string.IsNullOrEmpty(Model.City) ? Model.City.TitleCase() : "Not Available")
+                                </div>
+                            </div>
+                            @if (user != null && (user.Role == SecurityRoles.SuperUser || Model.EmployerId == user.Id) && Model.InEditMode)
+                            {
+
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                        <strong>Qualification: </strong> @(!string.IsNullOrEmpty(Model.QualificationName) ? Model.QualificationName : "Not Available")
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                        <strong>Job Type: </strong> @Model.JobType
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                        <strong>Minimum Experience: </strong> @Model.NewMinimumExperience Years
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                        <strong>Maximum Experience: </strong> @Model.NewMaximumExperience Years
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                        <strong>Minimum Salary: </strong> @Model.NewCurrency @Model.NewMinimumSalary
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                        <strong>Maximum Salary: </strong> @Model.NewCurrency @Model.NewMaximumSalary
+                                    </div>
+                                </div>
+                                <div class="bs-callout bs-callout-danger" style="padding-top: 0px; padding-bottom: 0px;">
+                                    <h4>Job Description</h4>
+                                    <p>
+                                        @Html.Raw(Model.NewDescription)
+                                    </p>
+                                </div>
+                                <div class="bs-callout bs-callout-danger" style="padding-top: 0px; padding-bottom: 45px;">
+                                    <h4>Responsibilities</h4>
+                                    <p>
+                                        @Html.Raw(Model.NewResponsibilities)
+                                    </p>
+                                </div>
+                                <div class="bs-callout bs-callout-danger" style="padding-top: 0px; padding-bottom: 45px;">
+                                    <h4>Job Requirements</h4>
+                                    <p>
+                                        @Html.Raw(Model.NewRequirements)
+                                    </p>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                        <strong>Qualification: </strong> @Model.QualificationName
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                        <strong>Job Type: </strong> @Model.JobType
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                        <strong>Minimum Experience: </strong> @Model.MinimumExperience Years
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                        <strong>Maximum Experience: </strong> @Model.MaximumExperience Years
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                        <strong>Minimum Salary: </strong> @Model.Currency @Model.MinimumSalary
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                        <strong>Maximum Salary: </strong> @Model.Currency @Model.MaximumSalary
+                                    </div>
+                                </div>
+
+                                <div class="bs-callout bs-callout-danger" style="padding-top: 0px; padding-bottom: 0px;">
+                                    <h4>Job Description</h4>
+                                    <p>
+                                        @Html.Raw(Model.Description)
+                                    </p>
+                                </div>
+                                <div class="bs-callout bs-callout-danger" style="padding-top: 0px; padding-bottom: 45px;">
+                                    <h4>Responsibilities</h4>
+                                    <p>
+                                        @Html.Raw(Model.Responsibilities)
+                                    </p>
+                                </div>
+                                <div class="bs-callout bs-callout-danger" style="padding-top: 0px; padding-bottom: 45px;">
+                                    <h4>Job Requirements</h4>
+                                    <p>
+                                        @Html.Raw(Model.Requirements)
+                                    </p>
+                                </div>
+                            }
+
+                            @if (!string.IsNullOrEmpty(Applystatus))
+                            {
+                                <div class="bs-callout bs-callout-danger">
+                                    <div class="message-error">
+                                        @Applystatus
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+
+                    </div>
+                    <div class="col-lg-1 col-md-1 col-sm-1"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-1 col-md-1 col-sm-1"></div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                    <div class="safety">
+                        <span style="font-size:15px; font-weight:bold; color:black">Safety Advice:</span>
+                        @Html.Raw(ConfigService.Instance.GetConfigValue("SafetyAdvice").Replace("Disclaimer:", "<span style='color:red'>Disclaimer:</span>"))
+                    </div>
+                </div>
+
+                <div class="col-lg-1 col-md-1 col-sm-1"></div>
+            </div>
+
+        </div>
+        if (Model.ShowActionBar)
+        {
+            <div class="clear" style="height:20px;"></div>
+            <div class="row">
+                @*<div class="col-lg-1 col-md-1 col-sm-1"></div>*@
+                <div class="col-md-8" style="text-align:right; margin-left:32px; padding-top:3px;">
+
+                    @if (user != null && user.Role == SecurityRoles.Jobseeker)
+                    {
+                        string lnk = string.Empty;
+                        if (Model.IsConnected)
+                        {
+                            if (Model.Messages == 0)
+                            {
+                                @Html.ActionLink("Message", "List", "Message", new { SenderId = employer.Id, redirect = Request.Url.ToString() }, new { @class = "btn btn-info" });
+                            }
+                            else
+                            {
+                                string link = string.Empty;
+                                if (Model.Messages > 0)
+                                {
+                                    link = string.Format("Message ({0})", Model.Messages);
+                                }
+                                else
+                                {
+                                    link = "Message";
+                                }
+                                @Html.ActionLink(link, "List", "Message", new { SenderId = employer.Id, redirect = Request.Url.ToString() }, new { @class = "btn btn-info" });
+
+                            }
+
+                            if ((Model.ClosingDate.Date >= DateTime.Now.Date) && (Model.IsDeleted == false) && counter < 1)
+                            {
+                                if (!Roles.IsUserInRole(username, "Administrator") && !Roles.IsUserInRole(username, "SuperUser"))
+                                {
+                                    if (user.Role == SecurityRoles.Employers)
+                                    {
+                                        @Html.Raw("&nbsp;")
+                                        @Html.ActionLink("Apply", "Apply", "job", new { JobId = @Model.Id, redirect = "/Jobseeker/Index" }, new { @class = "btn btn-info", id = "ApplyJobs", @style = "width:75px;", onclick = "alert('Please Login or Register account as Jobseeker to apply on this job!'); return false;" })
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw("&nbsp;")
+                                        @Html.ActionLink("Apply", "Apply", "job", new { JobId = @Model.Id, redirect = "/Jobseeker/Index" }, new { @class = "btn btn-info", id = "ApplyJobs", @style = "width:75px;" })
+                                    }
+                                }
+                            }
+
+                            @Html.Raw("&nbsp;")
+                            @Html.ActionLink("Bookmark", "Bookmark", "job", new { Id = Model.Id, redirect = string.Format("~/{0}-{1}", Model.JobLink, Model.Id) }, new { title = "Bookmark this job.", @class = "btn btn-info" })
+
+                            @Html.Raw("&nbsp;")
+                            @Html.ActionLink("Share Link with Friend", "Email", "job", new { Id = Model.Id }, new { target = "_blank", @class = "btn btn-info" })
+
+                            @Html.Raw("&nbsp;")
+                            <a href="/Employer/Joblist?Id=@employer.Id" target="_blank" class="btn btn-info">All Jobs of this Company</a>
+                        }
+                        else
+                        {
+                            if (Model.InvitedByMe > 0 || Model.InvitedBySomeone > 0)
+                            {
+                                //Connection connection = ConnectionHelper.Get(employer.Username, user.Username);
+                                if (Model.Connected > 0)
+                                {
+                                    if (Model.InvitedBySomeone > 0)
+                                    {
+                                        @Html.ActionLink("Accept", "Accept", "Network", new { Id = Model.Connected, redirect = Request.Url.ToString() }, new { @class = "btn btn-info" });
+                                    }
+
+                                    if ((Model.ClosingDate.Date >= DateTime.Now.Date) && (Model.IsDeleted == false) && counter < 1)
+                                    {
+                                        @Html.Raw("&nbsp;")
+                                        @Html.ActionLink("Apply", "Apply", "job", new { JobId = @Model.Id, redirect = "/Jobseeker/Index" }, new { @class = "btn btn-info", id = "ApplyJobs", @style = "width:75px;" })
+                                    }
+
+                                    @Html.Raw("&nbsp;")
+                                    @Html.ActionLink("Bookmark", "Bookmark", "job", new { Id = Model.Id, redirect = string.Format("~/{0}-{1}", Model.JobLink, Model.Id) }, new { title = "Bookmark this job.", @class = "btn btn-info" })
+
+                                    @Html.Raw("&nbsp;")
+                                    @Html.ActionLink("Share Link with Friend", "Email", "job", new { Id = Model.Id }, new { target = "_blank", @class = "btn btn-info" })
+
+                                    @Html.Raw("&nbsp;")
+                                    <a href="/Employer/Joblist?Id=@employer.Id" target="_blank" class="btn btn-info">All Jobs of this Company</a>
+                                }
+                            }
+                            else
+                            {
+                                if (Model.IsBlockedByMe > 0)
+                                {
+                                    @Html.ActionLink("Unblock", "Unblock", "Home", new { id = employer.Id, redirect = "/Jobseeker/Index" }, new { @class = "btn btn-info", title = "Unblock" });
+                                }
+
+                                if (Model.IsBlockedByMe == 0 && Model.IsBlockedBySomeone == 0)
+                                {
+                                    if ((Model.ClosingDate.Date >= DateTime.Now.Date) && (Model.IsDeleted == false) && counter < 1)
+                                    {
+                                        @Html.ActionLink("Apply", "Apply", "job", new { JobId = @Model.Id, redirect = "/Jobseeker/Index" }, new { @class = "btn btn-info", id = "ApplyJobs", @style = "width:75px;" })
+                                    }
+                                    @Html.Raw("&nbsp;")
+                                    @Html.ActionLink("Connect", "Connect", "Home", new { id = employer.Id, redirect = "/Network/Index" }, new { @class = "btn btn-info" });
+
+                                    @Html.Raw("&nbsp;")
+                                    @Html.ActionLink("Message", "List", "Message", new { SenderId = employer.Id, redirect = Request.Url.ToString() }, new { @class = "btn btn-info" });
+
+                                    @Html.Raw("&nbsp;")
+                                    @Html.ActionLink("Bookmark", "Bookmark", "job", new { Id = Model.Id, redirect = string.Format("~/{0}-{1}", Model.JobLink, Model.Id) }, new { title = "Bookmark this job.", @class = "btn btn-info" })
+
+                                    @Html.Raw("&nbsp;")
+                                    @Html.ActionLink("Share Link with Friend", "Email", "job", new { Id = Model.Id }, new { target = "_blank", @class = "btn btn-info" })
+
+                                    @Html.Raw("&nbsp;")
+                                    <a href="/Employer/Joblist?Id=@employer.Id" target="_blank" class="btn btn-info">All Jobs of this Company</a>
+                                }
+                            }
+                        }
+                    }
+                    else if (user != null && user.Role == SecurityRoles.Employers)
+                    {
+                        @Html.ActionLink("Share Link with Friend", "Email", "job", new { Id = Model.Id }, new { target = "_blank", @class = "btn btn-info" })
+                        @Html.Raw("&nbsp;")
+                        <a href="/Employer/Joblist?Id=@employer.Id" target="_blank" class="btn btn-info">All Jobs of this Company</a>
+                    }
+                    else if (user == null)
+                    {
+                        if ((Model.ClosingDate.Date >= DateTime.Now.Date) && (Model.IsDeleted == false) && counter < 1)
+                        {
+                            @Html.ActionLink("Apply", "Apply", "job", new { JobId = @Model.Id, redirect = "/Jobseeker/Index" }, new { @class = "btn btn-info", id = "ApplyJobs", @style = "width:75px;" })
+                        }
+                        @Html.Raw("&nbsp;")
+                        @Html.ActionLink("Connect", "Connect", "Home", new { id = employer.Id, redirect = Request.Url.ToString() }, new { @class = "btn btn-info" });
+
+                        @Html.Raw("&nbsp;")
+                        @Html.ActionLink("Message", "List", "Message", new { SenderId = employer.Id, redirect = Request.Url.ToString() }, new { @class = "btn btn-info" });
+
+                        @Html.Raw("&nbsp;")
+                        @Html.ActionLink("Bookmark", "Bookmark", "job", new { Id = Model.Id, redirect = string.Format("~/{0}-{1}", Model.JobLink, Model.Id) }, new { title = "Bookmark this job.", @class = "btn btn-info" })
+
+
+                        @Html.Raw("&nbsp;")
+                        @Html.ActionLink("Share Link with Friend", "Email", "job", new { Id = Model.Id }, new { target = "_blank", @class = "btn btn-info" })
+                        @Html.Raw("&nbsp;")
+                        <a href="/Employer/Joblist?Id=@employer.Id" target="_blank" class="btn btn-info">All Jobs of this Company</a>
+                    }
+                </div>
+                <div class="col-md-3 col-sm-3" id="mydiv1" style="text-align:right; padding-left:0px;">
+                    <ul class="soc" style="padding:0px;">
+                        <li><a href="https://www.facebook.com/sharer.php?u=@Request.Url.ToString()&title=@ViewBag.Title" target="_blank" class="icon-26 facebook" id="Facebook" name="provider" value="Facebook" title="Log in using your Facebook account"><svg viewBox="0 0 512 512"><path d="M211.9 197.4h-36.7v59.9h36.7V433.1h70.5V256.5h49.2l5.2-59.1h-54.4c0 0 0-22.1 0-33.7 0-13.9 2.8-19.5 16.3-19.5 10.9 0 38.2 0 38.2 0V82.9c0 0-40.2 0-48.8 0 -52.5 0-76.1 23.1-76.1 67.3C211.9 188.8 211.9 197.4 211.9 197.4z"></path></svg><!--[if lt IE 9]><em>Facebook</em><![endif]--></a></li>
+                        <li><a href="https://plus.google.com/share?url=@Request.Url.ToString()" target="_blank" class="icon-14 googleplus" id="GooglePlus" name="provider" value="GooglePlus" title="Log in using your GooglePlus account"><svg viewBox="0 0 512 512"><path d="M179.7 237.6L179.7 284.2 256.7 284.2C253.6 304.2 233.4 342.9 179.7 342.9 133.4 342.9 95.6 304.4 95.6 257 95.6 209.6 133.4 171.1 179.7 171.1 206.1 171.1 223.7 182.4 233.8 192.1L270.6 156.6C247 134.4 216.4 121 179.7 121 104.7 121 44 181.8 44 257 44 332.2 104.7 393 179.7 393 258 393 310 337.8 310 260.1 310 251.2 309 244.4 307.9 237.6L179.7 237.6 179.7 237.6ZM468 236.7L429.3 236.7 429.3 198 390.7 198 390.7 236.7 352 236.7 352 275.3 390.7 275.3 390.7 314 429.3 314 429.3 275.3 468 275.3"></path></svg><!--[if lt IE 9]><em>GooglePlus</em><![endif]--></a></li>
+                        <li><a href="https://twitter.com/intent/tweet?url=@Request.Url.ToString()&text=@ViewBag.Title" target="_blank" class="icon-10 twitter" id="Twitter" name="provider" value="Twitter" title="Log in using your Twitter account"><svg viewBox="0 0 512 512"><path d="M419.6 168.6c-11.7 5.2-24.2 8.7-37.4 10.2 13.4-8.1 23.8-20.8 28.6-36 -12.6 7.5-26.5 12.9-41.3 15.8 -11.9-12.6-28.8-20.6-47.5-20.6 -42 0-72.9 39.2-63.4 79.9 -54.1-2.7-102.1-28.6-134.2-68 -17 29.2-8.8 67.5 20.1 86.9 -10.7-0.3-20.7-3.3-29.5-8.1 -0.7 30.2 20.9 58.4 52.2 64.6 -9.2 2.5-19.2 3.1-29.4 1.1 8.3 25.9 32.3 44.7 60.8 45.2 -27.4 21.4-61.8 31-96.4 27 28.8 18.5 63 29.2 99.8 29.2 120.8 0 189.1-102.1 185-193.6C399.9 193.1 410.9 181.7 419.6 168.6z"></path></svg><!--[if lt IE 9]><em>Twitter</em><![endif]--></a></li>
+                        <li><a href="https://www.linkedin.com/shareArticle?url=@Request.Url.ToString()&title=@ViewBag.Title" target="_blank" class="icon-17 linkedin" id="LinkedIn" name="provider" value="LinkedIn" title="Log in using your LinkedIn account"><svg viewBox="0 0 512 512"><path d="M186.4 142.4c0 19-15.3 34.5-34.2 34.5 -18.9 0-34.2-15.4-34.2-34.5 0-19 15.3-34.5 34.2-34.5C171.1 107.9 186.4 123.4 186.4 142.4zM181.4 201.3h-57.8V388.1h57.8V201.3zM273.8 201.3h-55.4V388.1h55.4c0 0 0-69.3 0-98 0-26.3 12.1-41.9 35.2-41.9 21.3 0 31.5 15 31.5 41.9 0 26.9 0 98 0 98h57.5c0 0 0-68.2 0-118.3 0-50-28.3-74.2-68-74.2 -39.6 0-56.3 30.9-56.3 30.9v-25.2H273.8z"></path></svg><!--[if lt IE 9]><em>LinkedIn</em><![endif]--></a></li>
+                        <li><a href="https://www.instagram.com/?url=@Request.Url.ToString()&title=@ViewBag.Title" target="_blank" class="icon-18 Instagram" id="Instagram" name="provider" value="Instagram" title="Log in using your Instagram account"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.829 6.302c-.738-.034-.96-.04-2.829-.04s-2.09.007-2.828.04c-1.899.087-2.783.986-2.87 2.87-.033.738-.041.959-.041 2.828s.008 2.09.041 2.829c.087 1.879.967 2.783 2.87 2.87.737.033.959.041 2.828.041 1.87 0 2.091-.007 2.829-.041 1.899-.086 2.782-.988 2.87-2.87.033-.738.04-.96.04-2.829s-.007-2.09-.04-2.828c-.088-1.883-.973-2.783-2.87-2.87zm-2.829 9.293c-1.985 0-3.595-1.609-3.595-3.595 0-1.985 1.61-3.594 3.595-3.594s3.595 1.609 3.595 3.594c0 1.985-1.61 3.595-3.595 3.595zm3.737-6.491c-.464 0-.84-.376-.84-.84 0-.464.376-.84.84-.84.464 0 .84.376.84.84 0 .463-.376.84-.84.84zm-1.404 2.896c0 1.289-1.045 2.333-2.333 2.333s-2.333-1.044-2.333-2.333c0-1.289 1.045-2.333 2.333-2.333s2.333 1.044 2.333 2.333zm-2.333-12c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6.958 14.886c-.115 2.545-1.532 3.955-4.071 4.072-.747.034-.986.042-2.887.042s-2.139-.008-2.886-.042c-2.544-.117-3.955-1.529-4.072-4.072-.034-.746-.042-.985-.042-2.886 0-1.901.008-2.139.042-2.886.117-2.544 1.529-3.955 4.072-4.071.747-.035.985-.043 2.886-.043s2.14.008 2.887.043c2.545.117 3.957 1.532 4.071 4.071.034.747.042.985.042 2.886 0 1.901-.008 2.14-.042 2.886z" /></svg><!--[if lt IE 9]><em>LinkedIn</em><![endif]--></a></li>
+                    </ul>
+                    @*<script>
+                            $('#mydiv1').share({
+                                networks: ['facebook', 'googleplus', 'twitter', 'linkedin'],
+                                theme: 'square',
+                                urlToShare: '@Request.Url.ToString()'
+                            });
+                        </script>*@
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1"></div>
+            </div>
+        }
+        <div class="clear" style="height:50px;"></div>
+        <div>
+            @*<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>*@
+            <!-- Responsive-Ad -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-8925328521448849"
+                 data-ad-slot="5008878215"
+                 data-ad-format="auto"></ins>
+            @*<script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>*@
+        </div>
+    }
+}
+
+</div>
+    }
+

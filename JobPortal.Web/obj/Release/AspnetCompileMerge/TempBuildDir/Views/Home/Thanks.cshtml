@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Thanks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="section">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="clear" style="height:15px;"></div>
+            <div class="Well">
+                @if (Request["Email"] != null)
+                {
+                    <div class="info_message">
+                        <p>
+                            <h3 style="color:green">We've sent link to email @ViewBag.Email to change password!</h3>
+                        </p>
+
+                        <p>Check the message sent at @ViewBag.Email  to find out what to do next.</p>
+                    </div>
+                }
+                else
+                {
+                    <div class="info_message">
+                        Your email has been verified!
+                    </div>
+                }
+            </div>
+            <div class="clear" style="height:15px;"></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,79 @@
+﻿@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+
+<footer>
+
+    <div class="footer_bar_bg " id="divfooter">
+        <ul style="list-style-type:none;padding-left:10px;padding-right:10px;">
+            @if (User != null && !User.Identity.IsAuthenticated)
+                    {
+                    <li>@Html.ActionLink("Search jobs", "SearchJobs", "Job") </li>
+                    <li>@Html.ActionLink("Search People", "SearchPeople", "Home")</li>
+                    <li>@Html.ActionLink("Search Jobseekers", "Search", "Jobseeker")</li>
+                    <li>@Html.ActionLink("Search Resumes", "SearchResumes", "Jobseeker")</li>
+                    <li>@Html.ActionLink("List Job", "ListJob", "Employer")</li>
+                    <li>@Html.ActionLink("Register now!", "Register", "Account")</li>
+                    }
+                    else
+                    {
+                        if (User != null && User.Info.Role == SecurityRoles.SuperUser)
+                        {
+                    <li>@Html.ActionLink("Settings", "Index", "Admin")</li>
+                        }
+                        else if (User != null && User.Info.Role == SecurityRoles.Administrator)
+                        {
+                    <li>@Html.ActionLink("Settings", "Employer", "Admin")</li>
+                        }
+                        else if (User != null && User.Info.Role == SecurityRoles.Company)
+                        {
+                    <li>@Html.ActionLink("Search People", "SearchPeople", "Home")</li>
+                    <li>@Html.ActionLink("Search Jobseekers", "Search", "Jobseeker")</li>
+                    <li>@Html.ActionLink("Search Resumes", "SearchResumes", "Home")</li>
+                    <li>@Html.ActionLink("List Job", "ListJob", "Employer")</li>
+                    <li>@Html.ActionLink("Settings", "Index", "Network")</li>
+                        }
+                        else if (User != null && User.Info.Role == SecurityRoles.Individual)
+                        {
+                    <li>@Html.ActionLink("Search Jobs", "SearchJobs", "Job") </li>
+                    <li>@Html.ActionLink("Search People", "SearchPeople", "Home")</li>
+                    <li>@Html.ActionLink("Settings", "Index", "Network")</li>
+                        }
+                    }
+
+            @if (Request.IsAuthenticated)
+                    {
+                    <li>@Html.ActionLink("Logout", "logoff", "Account")</li>
+                    }
+                    else
+                    {
+                    <li>@Html.ActionLink("Login", "Login", "Account")</li>
+                    }
+            <li> <a href="/home/contact" target="_blank">Contact&nbsp;us</a></li>
+            <li><a href="/terms" target="_blank">Terms&nbsp;Of&nbsp;Use</a></li>
+            <li><a href="/privacy" target="_blank">Privacy</a></li>
+            <li><a href="/copyright" target="_blank">Copyright</a></li>
+            <li><a href="https://play.google.com/store/apps/details?id=com.joblisting.joblisting" target="_blank">Android App</a></li>
+        </ul>
+        <div style="height:5px;"></div>
+        <ul style="list-style-type:none; padding-left:0; font-size:small">
+            <li>U.S. Patent Pending</li>
+        </ul>
+        <ul style="list-style-type:none; padding-left:0;">
+            <li>
+                @if (!Request.Url.ToString().ToLower().Contains("login") && !Request.Url.ToString().ToLower().Contains("registernow") && !Request.Url.ToString().ToLower().Contains("listyourjob"))
+                {
+                    if (Request.Url.Authority.ToLower().Contains("joblisting.com"))
+                    {
+                        <script type="text/javascript" src="https://seal.websecurity.norton.com/getseal?host_name=www.joblisting.com&amp;size=S&amp;use_flash=YES&amp;use_transparent=YES&amp;lang=en"></script>
+                    }
+                }
+                @if (Request.Url.ToString().ToLower().Contains("login-history"))
+                {
+                    <script type="text/javascript" src="https://seal.websecurity.norton.com/getseal?host_name=www.joblisting.com&amp;size=S&amp;use_flash=YES&amp;use_transparent=YES&amp;lang=en"></script>
+                }
+            </li>
+        </ul>
+        <div style="height:16px;"></div>
+    </div>
+</footer>

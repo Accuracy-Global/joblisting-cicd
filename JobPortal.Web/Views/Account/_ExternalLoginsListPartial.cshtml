@@ -1,0 +1,24 @@
+﻿<head>
+
+
+    <!-- Icon Font Stylesheet -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+
+
+
+
+</head>
+@using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }))
+{
+    <div id="socialLoginList" style="text-align:right">
+        <ul class="soc" style="padding:0px; margin-left:50px;">
+
+
+            <li><a href="/Account/Facebook" target="_blank" class="icon-26 facebook" id="Facebook" name="provider" value="Facebook" title="Log in using your Facebook account"><svg viewBox="0 0 512 512"><path d="M211.9 197.4h-36.7v59.9h36.7V433.1h70.5V256.5h49.2l5.2-59.1h-54.4c0 0 0-22.1 0-33.7 0-13.9 2.8-19.5 16.3-19.5 10.9 0 38.2 0 38.2 0V82.9c0 0-40.2 0-48.8 0 -52.5 0-76.1 23.1-76.1 67.3C211.9 188.8 211.9 197.4 211.9 197.4z"></path></svg><!--[if lt IE 9]><em>Facebook</em><![endif]--></a></li>
+            <li><a href="https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=550800549831-okauf188df8j6qjj8gdtbt33jnmt9l6l.apps.googleusercontent.com&redirect_uri=http://localhost:1518/Account/GoogleLoginCallback&scope=https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email" target="_blank" class="icon-14 googleplus" id="GooglePlus" name="provider" value="GooglePlus" title="Log in using your GooglePlus account"><svg viewBox="0 0 512 512"><path d="M179.7 237.6L179.7 284.2 256.7 284.2C253.6 304.2 233.4 342.9 179.7 342.9 133.4 342.9 95.6 304.4 95.6 257 95.6 209.6 133.4 171.1 179.7 171.1 206.1 171.1 223.7 182.4 233.8 192.1L270.6 156.6C247 134.4 216.4 121 179.7 121 104.7 121 44 181.8 44 257 44 332.2 104.7 393 179.7 393 258 393 310 337.8 310 260.1 310 251.2 309 244.4 307.9 237.6L179.7 237.6 179.7 237.6ZM468 236.7L429.3 236.7 429.3 198 390.7 198 390.7 236.7 352 236.7 352 275.3 390.7 275.3 390.7 314 429.3 314 429.3 275.3 468 275.3"></path></svg><!--[if lt IE 9]><em>GooglePlus</em><![endif]--></a></li>
+            <!--<li><a href="https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=255991447078-cks91bjg79kgv0sbdrjj7u1k56tlbsq5.apps.googleusercontent.com&redirect_uri=https://www.joblisting.com/Account/GoogleLoginCallback&scope=https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email" target="_blank" class="icon-14 googleplus" id="GooglePlus" name="provider" value="GooglePlus" title="Log in using your GooglePlus account"><svg viewBox="0 0 512 512"><path d="M179.7 237.6L179.7 284.2 256.7 284.2C253.6 304.2 233.4 342.9 179.7 342.9 133.4 342.9 95.6 304.4 95.6 257 95.6 209.6 133.4 171.1 179.7 171.1 206.1 171.1 223.7 182.4 233.8 192.1L270.6 156.6C247 134.4 216.4 121 179.7 121 104.7 121 44 181.8 44 257 44 332.2 104.7 393 179.7 393 258 393 310 337.8 310 260.1 310 251.2 309 244.4 307.9 237.6L179.7 237.6 179.7 237.6ZM468 236.7L429.3 236.7 429.3 198 390.7 198 390.7 236.7 352 236.7 352 275.3 390.7 275.3 390.7 314 429.3 314 429.3 275.3 468 275.3"></path></svg>--><!--[if lt IE 9]><em>GooglePlus</em><![endif]--><!--</a></li>-->
+            <li><a href="https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=867wz1tc9q7hv1&redirect_uri=https://www.joblisting.com/account/linkedINAuth&state=987654321&scope=r_liteprofile,r_emailaddress" target="_blank" class="icon-17 linkedin" id="LinkedIn" name="provider" value="LinkedIn" title="Log in using your LinkedIn account"><svg viewBox="0 0 512 512"><path d="M186.4 142.4c0 19-15.3 34.5-34.2 34.5 -18.9 0-34.2-15.4-34.2-34.5 0-19 15.3-34.5 34.2-34.5C171.1 107.9 186.4 123.4 186.4 142.4zM181.4 201.3h-57.8V388.1h57.8V201.3zM273.8 201.3h-55.4V388.1h55.4c0 0 0-69.3 0-98 0-26.3 12.1-41.9 35.2-41.9 21.3 0 31.5 15 31.5 41.9 0 26.9 0 98 0 98h57.5c0 0 0-68.2 0-118.3 0-50-28.3-74.2-68-74.2 -39.6 0-56.3 30.9-56.3 30.9v-25.2H273.8z"></path></svg><!--[if lt IE 9]><em>LinkedIn</em><![endif]--></a></li>
+        </ul>
+    </div>
+}

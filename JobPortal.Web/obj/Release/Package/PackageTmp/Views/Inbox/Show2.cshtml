@@ -1,0 +1,82 @@
+﻿@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Models
+@model Inbox
+
+<link href="~/Content/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet" />
+<script src="~/Scripts/fileinput.min.js"></script>
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    List<Inboxv1> list1 = DomainService.Instance.vList1(ViewBag.uname.ToString().ToLower());
+}
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1>Inbox</h1>
+            Manage inbox here
+        </div>
+    </div>
+</div>
+@if (list1.Count != 0)
+{
+    for (int i = 0; i < list1.Count; i++)
+    {
+        UserProfile profile1 = MemberService.Instance.Get(list1[i].ParentId.Value);
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="list-group-item" style="padding: 5px;background-color:#efeeee;">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <b>Date:</b>&nbsp;&nbsp;@list1[i].DateUpdated.ToString("MMM-dd-yyyy hh:mm")
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="list-group-item" style="padding: 5px;background-color:#efeeee;">
+                    <b>Subject:</b>&nbsp;&nbsp;@list1[i].Subject
+                </div>
+                <div class="list-group-item" style="padding: 5px; background-color:#efeeee;">
+                    <b>From:</b><text>&nbsp;&nbsp;</text>   @profile1.FirstName
+                </div>
+                <div class="list-group-item" style="padding: 5px;background-color:#efeeee;">
+                    <b>Message:</b>
+                </div>
+                <div class="list-group-item" style="padding:5px;background-color:#efeeee;">
+                    <p style="text-align:justify">
+                        @Html.Raw(list1[i].Body.Replace("@person", "").Replace("[", "<").Replace("]", ">").Replace("'", "\"").Replace("andnbsp", "&nbsp;"))
+
+
+
+                        <br />
+                        @Html.Raw(string.Format("<a href='https://www.joblisting.com/{0}/{1}?UserId={2}&&emailv={3}&&edv={4}&&scv={5}&&ftv={6}&&ttv={7}'>CLICK HERE</a> to Verify", "JobSeeker", "InviteViaEmailVerEd", list1[i].ReferenceId, list1[i].ReceiverName, list1[i].Unread, list1[i].SenderName, list1[i].Messages, list1[i].ReceiverName1));
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+<style>
+    .ered {
+        color: red;
+    }
+</style>
+<script>
+    function createListItem(e, file) {
+        var binaryString = e.target.result.toString();
+        binaryString = binaryString.substr(binaryString.lastIndexOf("base64,") + 7);
+        localStorage.setItem(file.name, binaryString);
+    }
+
+    $(document).ready(function () {
+       
+       
+
+      
+    });
+</script>

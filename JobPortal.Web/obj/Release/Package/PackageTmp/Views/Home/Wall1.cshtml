@@ -1,0 +1,1554 @@
+﻿@using JobPortal.Web.Models
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Models
+@{
+    UserInfo defaultUser = null;
+    string links = string.Empty;
+    string username = string.Empty;
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        username = User.Username;
+        user = User.Info;
+    }
+    defaultUser = new UserInfo(ViewBag.Id);
+    if (!Request.IsAuthenticated)
+    {
+        links += "<a href=\"javascript:void(0)\"  style=\"color:#aaaaaa\">Connect</a> | ";
+        links += "<a href=\"javascript:void(0)\"  style=\"color:#aaaaaa\">Message</a> | ";
+        links += "<a href=\"javascript:void(0)\"  style=\"color:#aaaaaa\">Share</a> | ";
+        links += "<a href=\"javascript:void(0)\"  style=\"color:#aaaaaa\">Download</a> | ";
+    }
+    else
+    {
+        if (!string.IsNullOrEmpty(username))
+        {
+            if (username != defaultUser.Username)
+            {
+                if (!defaultUser.IsConnected)
+                {
+                    links += string.Format("<a href=\"{0}\" target=\"_blank\">Connect</a> | ", defaultUser.ConnectUrl);
+                }
+                links += string.Format("<a href=\"{0}\" target=\"_blank\">Message</a> | ", defaultUser.MessageUrl);
+            }
+        }
+        else
+        {
+            links += string.Format("<a href=\"{0}\" target=\"_blank\">Connect</a> | ", defaultUser.ConnectUrl);
+            links += string.Format("<a href=\"{0}\" target=\"_blank\">Message</a> | ", defaultUser.MessageUrl);
+        }
+        links += string.Format("<a href=\"{0}\" target=\"_blank\">Share</a>", defaultUser.ShareUrl);
+        if (!string.IsNullOrEmpty(defaultUser.Content) && defaultUser.CategoryId != null && defaultUser.SpecializationId != null)
+        {
+            links += string.Format(" | <a href=\"{0}\" target=\"_blank\">Download</a>", defaultUser.DownloadUrl);
+        }
+        if (username != defaultUser.Username)
+        {
+            if (!defaultUser.IsBlockedByMe)
+            {
+                links += string.Format("{0}", defaultUser.BlockLink);
+            }
+            else
+            {
+                links += string.Format(" | <a href=\"{0}\" target=\"_blank\">Unblock</a>", defaultUser.UnblockUrl);
+            }
+        }
+    }
+    //}
+}
+<style>
+    .lam {
+        margin-top: 6px;
+    }
+
+        .lam a {
+            /*color: #333;*/
+            color: #34ba08;
+        }
+
+            .lam a:hover {
+                color: #34ba08;
+            }
+
+    .lamenu .navbar-default .navbar-toggle {
+        position: relative;
+        float: right;
+        width: 40px;
+        padding: 0 10px 8px;
+        margin-top: 15px;
+        margin-right: 15px;
+        margin-bottom: 8px;
+        background-color: #00BEE9;
+        background-image: none;
+        border-radius: 0;
+        border: 1px solid #fff !important;
+    }
+
+        .lamenu .navbar-default .navbar-toggle .collapsed {
+            background-color: #00BEE9 !important;
+        }
+
+        .lamenu .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+            background-color: #00BEE9;
+        }
+
+        .lamenu .navbar-default .navbar-toggle .icon-bar {
+            background-color: #000;
+            height: 2px;
+        }
+
+        .lamenu .navbar-default .navbar-toggle button {
+            border: 1px solid #fff;
+        }
+
+    #triangle-topright {
+        width: 100%;
+        height: 0;
+        border-top: 25px solid #34ba08;
+        border-left: 25px solid transparent;
+    }
+
+        #triangle-topright > div > a {
+            color: #333;
+        }
+
+            #triangle-topright > div > a:hover {
+                color: #fff;
+            }
+
+    .custom_navbar {
+        min-height: 0px;
+        background-color: #fff;
+        border: none;
+        margin-top: -10px;
+    }
+
+        .custom_navbar a {
+            color: #34ba08 !important;
+            height: 22px !important;
+            padding: 0px !important;
+            background-color: transparent !important;
+            padding-left: 15px;
+            padding-right: 15px;
+            border: none;
+        }
+
+        .custom_navbar li {
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+        }
+
+        .custom_navbar button {
+            height: 20px;
+            border: 1px solid #00BEE9;
+        }
+    .defaultAvtar {
+        /*background: url("/image/Avtar?Id=@defaultUser.Id") no-repeat scroll;
+        background-position: top left;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;*/
+
+        background: url("/image/Avtar?Id=@defaultUser.Id") no-repeat 0 0 / contain;
+        background-position: center center;
+        overflow:hidden;
+    }
+
+    .bd1
+    {
+        background: url("/images/right-side-top-1.png") no-repeat top left scroll;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        @if (!Request.IsAuthenticated)
+        {
+            <text>
+                -webkit-filter: blur(1px);
+            -moz-filter: blur(1px);
+            -o-filter: blur(1px);
+            -ms-filter: blur(1px);
+            filter: blur(1px);
+            opacity: 0.30;
+            background-color: #000;
+            </text>
+        }
+    }
+
+    .bd2
+    {
+        background: url("/images/right-side-top-2.png") no-repeat top left scroll;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        @if (!Request.IsAuthenticated)
+        {
+            <text>
+                -webkit-filter: blur(1px);
+            -moz-filter: blur(1px);
+            -o-filter: blur(1px);
+            -ms-filter: blur(1px);
+            filter: blur(1px);
+            opacity: 0.30;
+            background-color: #000;
+            </text>
+        }
+    }
+
+    .bd3
+    {
+        background: url("/images/right-side-bottom-1.png") no-repeat top left scroll;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        @if (!Request.IsAuthenticated)
+        {
+            <text>
+                -webkit-filter: blur(1px);
+            -moz-filter: blur(1px);
+            -o-filter: blur(1px);
+            -ms-filter: blur(1px);
+            filter: blur(1px);
+            opacity: 0.30;
+            background-color: #000;
+            </text>
+        }
+    }
+
+
+    .bd4
+    {
+        background: url("/images/right-side-bottom-2.png") no-repeat top left scroll;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        @if (!Request.IsAuthenticated)
+        {
+            <text>
+                -webkit-filter: blur(1px);
+            -moz-filter: blur(1px);
+            -o-filter: blur(1px);
+            -ms-filter: blur(1px);
+            filter: blur(1px);
+            opacity: 0.30;
+            background-color: #000;
+            </text>
+        }
+    }
+    .bgimg
+    {
+        background: url("/images/slider-img.png") no-repeat top left scroll;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        @if (!Request.IsAuthenticated)
+        {
+            <text>
+                -webkit-filter: blur(1px);
+            -moz-filter: blur(1px);
+            -o-filter: blur(1px);
+            -ms-filter: blur(1px);
+            filter: blur(1px);
+            opacity: 0.30;
+            background-color: #000;
+            </text>
+        }
+    }
+    .list-group-item ul {
+        padding-left:15px;
+    }
+    .list-group-item li {
+        list-style-type:initial;
+    }
+</style>
+
+<script id="itemplate" type="text/html">
+    <style>
+        .c-${UserId}::after {
+            background: url("/image/avtar?Id=${UserId}") no-repeat 0 0 / contain;
+            background-position: center center;
+        }
+
+        .b-${Reference}
+        {
+            background: url("/image/Load?Id=${ImageId}") no-repeat top left scroll;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            border: 1px solid lightgray;
+            @if (!Request.IsAuthenticated)
+            {
+                <text>
+                 -webkit-filter: blur(1px);
+                -moz-filter: blur(1px);
+                -o-filter: blur(1px);
+                -ms-filter: blur(1px);
+                filter: blur(1px);
+                opacity: 0.30;
+                background-color: #000;
+                </text>
+            }
+        }
+    </style>
+    <div class="business-sec">
+        <a href="${ProfileUrl}" target="_blank" style="color:#34ba08">
+            <div class="business b-${Reference}">
+
+            </div>
+        </a>
+        <div class="b-comm">
+            <a href="${ProfileUrl}" target="_blank"><div class="comment-img c-${UserId}"></div></a>
+            <div class="comment-content">
+                <small>
+                    @if (!Request.IsAuthenticated)
+                    {
+                        <a href="javascript:void(0)" target="_blank" style="color:#aaaaaa">${FullName}</a>
+                    }
+                    else
+                    {
+                        <a href="${ProfileUrl}" target="_blank">${FullName}</a>
+                    }
+                </small>
+                <br />
+                <span>
+                    ${Area}
+                </span>
+                <div class="actionlinks">
+                    <small id="ql${Id}">
+                        @if (!Request.IsAuthenticated)
+                        {
+                            <a href="javascript:void(0)" target="_blank" style="color:#aaaaaa">Connect</a> <text> | </text>
+                            <a href="javascript:void(0)" target="_blank" style="color:#aaaaaa">Message</a><text> | </text>
+                            <a href="javascript:void(0)" target="_blank" style="color:#aaaaaa">Share</a><text> | </text>
+                            <a href="javascript:void(0)" target="_blank" style="color:#aaaaaa">Download</a>
+                        }
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+@if (defaultUser != null)
+{
+    string profilelink = string.Empty;
+    if (User != null && defaultUser.Id != user.Id)
+    {
+        profilelink = string.Format("/{0}", defaultUser.ProfileUrl);
+    }
+    else
+    {
+        profilelink = "javascript:void(0)";
+    }
+
+
+    <script id="tmplTopRightFirst" type="text/html">
+        <div class="business-sec @(!Request.IsAuthenticated ? "business-sec-overlay" : "")">
+            <a href="@profilelink" target="_blank">
+                <div class="business bd1"></div>
+            </a>
+            <div class="b-comm">
+                <a href="@profilelink" target="_blank"><div class="comment-img defaultAvtar"></div></a>
+                <div class="comment-content">
+                    <small>
+                        @if (!Request.IsAuthenticated)
+                        {
+                            <a href="javascript:void()" style="color:#aaaaaa">@defaultUser.Name</a>
+                        }
+                        else
+                        {
+                            <a href="@profilelink" target="_blank">@defaultUser.Name</a>
+                        }
+                    </small>
+                    <br />
+
+                    <span>
+                        @if (defaultUser.Type == 4 && defaultUser.Age != null)
+                        {
+                            @defaultUser.Area <text>, @(defaultUser.Gender != null ? defaultUser.Gender + ", " : "")@defaultUser.Age@(defaultUser.RelationshipStatus != null ? ", " + ((Relationships)defaultUser.RelationshipStatus).GetDescription().TitleCase() : "")</text>
+                        }
+                        else
+                        {
+                            <text>@defaultUser.Area</text>
+                        }
+                    </span>
+
+                    <div class="actionlinks" style="text-align:right;margin-right:7px;">
+                        <small>@Html.Raw(links)</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="tmplTopRightSecond" type="text/html">
+        <div class="business-sec @(!Request.IsAuthenticated ? "business-sec-overlay" : "")">
+            <a href="@profilelink" target="_blank">
+                <div class="business bd2"></div>
+            </a>
+            <div class="b-comm">
+                <a href="@profilelink" target="_blank"><div class="comment-img defaultAvtar"></div></a>
+                <div class="comment-content">
+                    <small>
+                        @if (!Request.IsAuthenticated)
+                        {
+                            <a href="javascript:void()" style="color:#aaaaaa">@defaultUser.Name</a>
+                        }
+                        else
+                        {
+                            <a href="@profilelink" target="_blank">@defaultUser.Name</a>
+                        }
+                    </small>
+                    <br />
+
+                    <span>
+                        @if (defaultUser.Type == 4 && defaultUser.Age != null)
+                        {
+                            @defaultUser.Area <text>, @(defaultUser.Gender != null ? defaultUser.Gender + ", " : "")@defaultUser.Age@(defaultUser.RelationshipStatus != null ? ", " + ((Relationships)defaultUser.RelationshipStatus).GetDescription().TitleCase() : "")</text>
+                        }
+                        else
+                        {
+                            <text>@defaultUser.Area</text>
+                        }
+                    </span>
+
+                    <div class="actionlinks" style="text-align:right;margin-right:7px;">
+                        <small>@Html.Raw(links)</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="tmplBottomRightFirst" type="text/html">
+        <div class="business-sec @(!Request.IsAuthenticated ? "business-sec-overlay" : "")">
+            <a href="@profilelink" target="_blank">
+                <div class="business bd3"></div>
+            </a>
+            <div class="b-comm">
+                <a href="@profilelink" target="_blank"><div class="comment-img defaultAvtar"></div></a>
+                <div class="comment-content">
+                    <small>
+                        @if (!Request.IsAuthenticated)
+                        {
+                            <a href="javascript:void()" style="color:#aaaaaa">@defaultUser.Name</a>
+                        }
+                        else
+                        {
+                            <a href="@profilelink" target="_blank">@defaultUser.Name</a>
+                        }
+                    </small>
+                    <br />
+
+                    <span>
+                        @if (defaultUser.Type == 4 && defaultUser.Age != null)
+                        {
+                            @defaultUser.Area <text>, @(defaultUser.Gender != null ? defaultUser.Gender + ", " : "")@defaultUser.Age@(defaultUser.RelationshipStatus != null ? ", " + ((Relationships)defaultUser.RelationshipStatus).GetDescription().TitleCase() : "")</text>
+                        }
+                        else
+                        {
+                            <text>@defaultUser.Area</text>
+                        }
+                    </span>
+
+                    <div class="actionlinks" style="text-align:right;margin-right:7px;">
+                        <small>@Html.Raw(links)</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="tmplBottomRightSecond" type="text/html">
+        <div class="business-sec @(!Request.IsAuthenticated ? "business-sec-overlay" : "")">
+            <a href="@profilelink" target="_blank">
+                <div class="business bd4"></div>
+            </a>
+            <div class="b-comm">
+                <a href="@profilelink" target="_blank"><div class="comment-img defaultAvtar"></div></a>
+                <div class="comment-content">
+                    <small>
+                        @if (!Request.IsAuthenticated)
+                        {
+                            <a href="javascript:void()" style="color:#aaaaaa">@defaultUser.Name</a>
+                        }
+                        else
+                        {
+                            <a href="@profilelink" target="_blank">@defaultUser.Name</a>
+                        }
+                    </small>
+                    <br />
+
+                    <span>
+                        @if (defaultUser.Type == 4 && defaultUser.Age != null)
+                        {
+                            @defaultUser.Area <text>, @(defaultUser.Gender != null ? defaultUser.Gender + ", " : "")@defaultUser.Age@(defaultUser.RelationshipStatus != null ? ", " + ((Relationships)defaultUser.RelationshipStatus).GetDescription().TitleCase() : "")</text>
+                        }
+                        else
+                        {
+                            <text>@defaultUser.Area</text>
+                        }
+                    </span>
+
+                    <div class="actionlinks" style="text-align:right;margin-right:7px;">
+                        <small>@Html.Raw(links)</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="tmplBackground" type="text/html">
+        <div class="business-sec @(!Request.IsAuthenticated ? "business-sec-overlay" : "")">
+            <a href="@profilelink" target="_blank">
+                <div class="business bgimg"></div>
+            </a>
+            <div class="b-comm">
+                <a href="@profilelink" target="_blank"><div class="comment-img defaultAvtar"></div></a>
+                <div class="comment-content">
+                    <small>
+                        @if (!Request.IsAuthenticated)
+                        {
+                            <a href="javascript:void()" style="color:#aaaaaa">@defaultUser.Name</a>
+                        }
+                        else
+                        {
+                            <a href="@profilelink" target="_blank">@defaultUser.Name</a>
+                        }
+                    </small>
+                    <br />
+
+                    <span>
+                        @if (defaultUser.Type == 4 && defaultUser.Age != null)
+                        {
+                            @defaultUser.Area <text>, @(defaultUser.Gender != null ? defaultUser.Gender + ", " : "")@defaultUser.Age@(defaultUser.RelationshipStatus != null ? ", " + ((Relationships)defaultUser.RelationshipStatus).GetDescription().TitleCase() : "")</text>
+                        }
+                        else
+                        {
+                            <text>@defaultUser.Area</text>
+                        }
+                    </span>
+                    <div class="actionlinks" style="text-align:right;margin-right:7px;">
+                        <small>@Html.Raw(links)</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+}
+<script id="jtemplate" type="text/html">
+    <div class="business-sec @(!Request.IsAuthenticated ? "business-sec-overlay" : "")">
+        <div class="jbusiness b-${Reference}" style="padding:10px;font-family: Calibri;border: 1px solid lightgray;">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div style="font-size:13pt;"><a href="${JobUrl}" title="${JobTitle}" target="_blank" style="font-weight:normal;color:#34ba08">${JobTitle}</a></div>
+                    <div style="font-size:10pt; font-weight:normal; color:#000; padding-top:2px">${JobDescription}</div>
+                    <div style="font-size:10pt; font-weight:normal; color:#000; padding-top:2px">${JobLocation}</div>
+                    <div style="font-size:10pt; font-weight:normal; color:#000; padding-top:2px">Job Listed: ${PublishedDate}, Job Expiry: ${ClosingDate}</div>
+                    <div style="font-size:10pt; font-weight:normal; color:#000; padding-top:2px" id="joblinks${Id}">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="b-comm">
+            <a href="${ProfileUrl}" target="_blank">
+                <div class="comment-img" style="background: url('/image/avtar?Id=${UserId}') no-repeat 0 0 / contain; background-position: center center;"></div>
+            </a>
+            <div class="comment-content">
+                <small>
+                    @if (!Request.IsAuthenticated)
+                    {
+                        <a href="javascript:void(0)" style="color:#aaaaaa">${FullName}</a>
+                    }
+                    else
+                    {
+                        <a href="${ProfileUrl}" target="_blank">${FullName}</a>
+                    }
+                </small>
+                <br />
+                <span>
+                    ${Area}
+                </span>
+                <div class="actionlinks">
+                    <small id="ql${Id}">
+                        @if (!Request.IsAuthenticated)
+                        {
+                            <a href="javascript:void(0)" style="color:#aaaaaa">Connect</a> <text> | </text>
+                            <a href="javascript:void(0)" style="color:#aaaaaa">Message</a><text> | </text>
+                            <a href="javascript:void(0)" style="color:#aaaaaa">Share</a><text> | </text>
+                            <a href="javascript:void(0)" style="color:#aaaaaa">Download</a>
+                        }
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<style>
+    #content {
+        height: 100%;
+    }
+
+    #left {
+        float: left;
+        width: 60%;
+        background: white;
+        height: 100%;
+        overflow: auto;
+        box-sizing: border-box;
+        padding: 0.4em;
+    }
+
+    .card-buttons {
+        margin-right: 12px;
+    }
+
+    .card-buttons-msg {
+        background-color: var(--inactive-color);
+        color: var(--subtitle-color);
+    }
+
+    .card-buttons,
+    .card-buttons-msg {
+        padding: 5px;
+        width: 100%;
+        font-size: 12px;
+        cursor: pointer;
+    }
+
+    .job-detail-buttons {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 4px;
+    }
+
+    .search-buttons {
+        width: 94px;
+        min-height: 35px;
+        color: black;
+        border-color: #34ba08;
+        background-color: white;
+        padding: 8px;
+        border-radius: 5px;
+        font-size: 0.9vw;
+        font-weight: 400;
+        margin-top: 14px;
+        line-height: 18px;
+        text-align: center;
+        display: inline-block;
+        border: 2px solid green;
+    }
+
+    .bookviewshare {
+        display: block;
+        width: 90px;
+        min-height: 35px;
+        background: #34ba08;
+        padding: 10px;
+        text-align: center;
+        border-radius: 5px;
+        color: white;
+        font-weight: bold;
+        line-height: 18px;
+        background-color: #34ba08 !important;
+        // border-block-color:#34ba08;
+    }
+
+        .bookviewshare:hover {
+            background-color: white;
+            color: white;
+        }
+
+        .bookviewshare:focus {
+            background-color: #34ba08;
+            color: white;
+        }
+
+    .job-overview-buttons .search-buttons {
+        background-color: var(--inactive-color);
+        font-size: 0.9vw;
+        padding: 6px 8px;
+        margin-top: 0;
+        font-weight: 500;
+    }
+
+    .overview-card:hover .job-overview-buttons .search-buttons.time-button,
+    .overview-card:hover .job-overview-buttons .search-buttons.level-button {
+        background-color: #575ad8;
+        color: #fff;
+    }
+
+    .job-overview-buttons .search-buttons.time-button {
+        color: var(--time-button);
+        margin-right: 8px;
+    }
+
+    .job-overview-buttons .search-buttons.level-button {
+        color: var(--level-button);
+    }
+
+    .job-card-buttons {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 4px;
+    }
+
+    .job-card-title {
+        font-weight: 600;
+        /*margin-top: 16px;*/
+        font-size: 14px;
+    }
+
+    .overview-card:hover .job-card-title,
+    .overview-card:hover .job-stat {
+        color: #fff;
+    }
+
+    .job-title-wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+        .job-title-wrapper .job-card-title {
+            font-size: 20px;
+            margin-top: 0;
+            font-weight: 600;
+        }
+
+
+    .overview-detail .job-card-title,
+    .overview-detail .job-card-subtitle {
+        margin-top: 4px;
+    }
+
+    .overview-detail .job-card-subtitle {
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    .overview-card:hover .job-card-subtitle,
+    .overview-card:hover .job-day {
+        color: #dedede;
+    }
+
+    .job-card-subtitle {
+        color: var(--subtitle-color);
+        font-size: 13px;
+        margin-top: 14px;
+        line-height: 1.6em;
+    }
+
+
+    #right {
+        float: left;
+        width: 40%;
+        background: white;
+        height: 100%;
+        overflow: hidden;
+        box-sizing: border-box;
+        padding: 0.4em;
+    }
+
+    .job-card-subtitle1 {
+        color: var(--subtitle-color);
+        font-size: 13px;
+        max-height: 14px;
+        overflow-wrap: break-word;
+        /*overflow: hidden;*/
+        line-height: 1.6em;
+    }
+</style>
+<div id="content">
+    <div id="left">
+        <div class="middle-block">
+            <div class="latest-activity">
+                <div class="row">
+                    <div class="col-sm-12 la-col">
+                        <div class="la-heading lam">
+                            <a href="javascript:void(0);" id="lnkLatestActivity">Latest&nbsp;Activity</a>
+                        </div>
+                        <br />
+                        <style>
+                            ol.a {
+                                list-style-type: decimal;
+                            }
+                        </style>
+                        <ul class="list-group">
+
+                            <li class="list-group-item">
+                                Make sure your elevator pitch is perfect.
+                            </li>
+                            <li class="list-group-item">
+                                Updates resume regularly, and they are uploaded to multiple platforms.
+                            </li>
+                            <li class="list-group-item">
+                                Stay active on job-hunting platforms.
+                            </li>
+                            <li class="list-group-item">
+                                Keep Your Network Up-to-Date on Your Job Search
+                            </li>
+                            <li class="list-group-item">
+                                Building your personal brand
+                            </li>
+                            <li class="list-group-item">
+                                Audit yourself online.
+                            </li>
+                            <li class="list-group-item">
+                                Reach out to recruiters.
+                            </li>
+                            <li class="list-group-item">
+                                earch for a Trusted Mentor
+                            </li>
+                            <li class="list-group-item">
+                                Earn a Professional Certification
+                            </li>
+                            <li class="list-group-item">
+                                Prepare for remote work
+                            </li>
+                            <li class="list-group-item">
+                                Enroll in career-related workshops.
+                            </li>
+                            <li class="list-group-item">
+                                Focus on Quality Over Quantity
+                            </li>
+                            <li class="list-group-item">
+                                Figure out what makes you stand out.
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+                <div style="height:11px;"></div>
+                <div id="la" class="la-sec">
+                    @{
+                        UserProfile member = MemberService.Instance.Get(defaultUser.Id);
+                        List country = new List();
+                        if (member.CountryId != null)
+                        {
+                            country = SharedService.Instance.GetCountry(member.CountryId.Value);
+                        }
+                        JobPortal.Data.Specialization category = new JobPortal.Data.Specialization();
+                        if (member.CategoryId != null)
+                        {
+                            category = SharedService.Instance.GetCategory(member.CategoryId.Value);
+                        }
+
+                        string PermaLink = member.PermaLink;
+                        string address = string.Empty;
+                        if (!string.IsNullOrEmpty(member.Address))
+                        {
+                            address = member.Address;
+                        }
+
+                        if (!string.IsNullOrEmpty(member.City))
+                        {
+                            List oCountry = SharedService.Instance.GetCountry(member.CountryId.Value);
+                            if (!string.IsNullOrEmpty(address))
+                            {
+                                address = string.Format("{0}, {1}", address, member.City);
+                            }
+                            else
+                            {
+                                address = string.Format("{0}", member.City);
+                            }
+                        }
+
+                        if (member.StateId != null)
+                        {
+                            List oState = SharedService.Instance.GetState(member.StateId.Value);
+                            if (!string.IsNullOrEmpty(address))
+                            {
+                                address = string.Format("{0}, {1}", address, oState.Text);
+                            }
+                            else
+                            {
+                                address = string.Format("{0}", oState.Text);
+                            }
+                        }
+
+                        if (!string.IsNullOrEmpty(member.Zip))
+                        {
+                            if (!string.IsNullOrEmpty(address))
+                            {
+                                address = string.Format("{0} - {1}", address, member.Zip);
+                            }
+                            else
+                            {
+                                address = string.Format("{0}", member.Zip);
+                            }
+                        }
+
+                        if (Request.IsAuthenticated)
+                        {
+                            if (user.Id != member.UserId)
+                            {
+                                if (member.Type == 4 && DomainService.Instance.IsPaidProfile(user.Id, member.UserId) || member.Type == 13 && DomainService.Instance.IsPaidProfile(user.Id, member.UserId))
+                                {
+                                    if (country != null)
+                                    {
+                                        //if (!string.IsNullOrEmpty(address))
+                                        //{
+                                        //    address = string.Format("{0}  {1}", address, country.Text);
+                                        //}
+                                        //else
+                                        //{
+                                        address = string.Format("{0}", country.Text);
+                                        //}
+                                    }
+                                }
+                                else if (member.Type == 5)
+                                {
+                                    if (country != null)
+                                    {
+                                        if (!string.IsNullOrEmpty(address))
+                                        {
+                                            address = string.Format("{0}  {1}", address, country.Text);
+                                        }
+                                        else
+                                        {
+                                            address = string.Format("{0}", country.Text);
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    address = string.Format("{0}", country.Text);
+                                }
+                            }
+                            else
+                            {
+                                if (country != null)
+                                {
+                                    if (!string.IsNullOrEmpty(address))
+                                    {
+                                        address = string.Format("{0}  {1}", address, country.Text);
+                                    }
+                                    else
+                                    {
+                                        address = string.Format("{0}", country.Text);
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (country != null)
+                            {
+                                address = string.Format("{0}", country.Text);
+                            }
+                        }
+
+                    }
+                    <div id="wall">
+
+                    </div>
+                    <div id="defaultWall">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="right">
+
+
+        <div class="clear" style="height:15px;"></div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="job">
+                    <div class="wrapper">
+                        <div class="main-container">
+                            <div class="searched-jobs">
+                                @*<div class="searched-bar">
+                                        <div class="searched-show">Recommended Jobs</div>
+                                    </div>*@ <br />
+                                @if (user.Type == 4 || user.Type == 13 || user.Type == 18)
+                                {
+                                    <div class="row" style="margin-left:40px;">
+                                        <div class="col-sm-12 la-col">
+                                            <div class="la-heading lam">
+                                                <a href="javascript:void(0);" id="lnkLatestActivity">Recommended&nbsp;Jobs</a>
+                                            </div>
+                                        </div>
+                                        &nbsp;
+                                        <br />
+
+                                    </div>
+                                }
+
+                                else if (user.Type == 5)
+                                {
+                                    <div class="row">
+                                        <div class="col-sm-12 la-col">
+                                            <div class="la-heading lam">
+                                                <a href="javascript:void(0);" id="lnkLatestActivity">Recommended&nbsp;Profiles</a>
+                                            </div>
+                                        </div>
+                                        &nbsp;
+                                        <br />
+                                    </div>
+                                }
+                                <div class="job-cards" style="max-width:320px; margin-left:50px;">
+                                    @if (ViewBag.result < 1)
+                                    {
+                                        <h4>For Recommended Jobs Create a Resume</h4>
+                                        <br />
+                                        <button><a href="JobSeeker/UpdateProfile1">Click Here to Create Resume</a></button>
+
+                                    }
+                                    else if (ViewBag.RecommendedJobs1 != null)
+                                    {
+                                        foreach (LatestJob recommendedJob in ViewBag.RecommendedJobs1)
+                                        {
+                                            <!-- card start -->
+                                            <div class="job-card" style=" padding:5px; border-radius:5px;">
+                                                <div class="row">
+                                                    <div class="col-md-5">
+                                                      
+
+                                                        @Html.Raw(string.Format("<text><span><img  height='100' width='100' src=\"/Image/Avtar/" + recommendedJob.EmployerId + "\" /><span> </text>"))
+
+                                                    
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <div class="job-card-title">
+                                                            @Html.Raw(recommendedJob.Title)
+                                                        </div>
+                                                        <div class="job-card-subtitle">
+                                                            <b>Location: </b>@Html.Raw(string.Format("{0} {1}", recommendedJob.Country, recommendedJob.City))
+                                                        </div>
+                                                        <div class="job-card-subtitle1">
+                                                            <div class="row" style="padding-top: 0px;width: 100%;margin-top: 6px;">
+                                                                <div class="col-md-12">
+                                                                    <b>Status: </b> @Html.Raw(recommendedJob.Status)
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="job-detail-buttons">
+                                                    <button class="search-buttons detail-button">@Html.Raw(recommendedJob.JobType)</button>
+                                                    &nbsp;<button class="search-buttons detail-button">@Html.Raw(string.Format("Min.{0}", recommendedJob.MinimumExperience))</button>
+                                                    &nbsp; <button class="search-buttons detail-button">@Html.Raw(recommendedJob.JobLevel)</button>
+                                                </div>
+                                                <div class="job-card-buttons">
+                                                    @Html.ActionLink("View", "View", "job", new { Id = recommendedJob.JobID }, new { target = "_blank", @class = "bookviewshare" })
+                                                    <a class="bookviewshare" href="/job/email?Id=@recommendedJob.JobID&redirect=@Request.Url.ToString()">Share</a>
+                                                    <a class="bookviewshare" href="/JobSeeker/BookMarkedJobs?Id=@recommendedJob.JobID&redirect=@Request.Url.ToString()">Bookmark</a>
+                                                </div>
+                                            </div>
+                                            <br />
+                                            <br />
+                                            <!-- card end -->
+                                        }
+                                    }
+
+                                    <br />
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="uploadResumeDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Upload Your Resume
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        <label for="Resume"><b>Upload Resume</b> (DOC, DOCX or PDF file with maximum size of 300 KB)</label>
+                        (DOC, DOCX or PDF file with maximum size of 300 KB)
+
+                        <input id="Resume" name="Resume" type="file" title="Upload DOC, DOCX  or PDF file with maximum size of 300 KB" />
+                        <div id="divFileError" style="color: red; font-weight: bold;"></div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            @*<div class="modal-footer">
+                    @Html.HiddenFor(model => member.UserId)
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px;">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="resumeUpload" style="width:75px;" formnovalidate="formnovalidate">Submit</button>
+                </div>*@
+        </div>
+    </div>
+</div>
+<script>
+    var last = 0;
+    var current = 0;
+    var screenWidth = screen.width;
+    var window_height = $(window).height() - ($("#divfooter").height() + $("#landingHeader").height());
+    var l;
+    l=($("#left-sidebar").height() - (($(window).height() - ($("#divfooter").height() + $("#landingHeader").height())-372)));
+
+    if(window_height < $("#left-sidebar").height()){
+        l = (($("#left-sidebar").height() * 60) / 100);
+    }
+    else if(window_height > $("#left-sidebar").height()){
+        l = (($("#left-sidebar").height() * 10) / 100);
+    }
+    var r=(($(window).height() - $("#right-sidebar").height()));
+
+    if(window_height < $("#right-sidebar").height()){
+        r = (($("#right-sidebar").height() * 80) / 100);
+    }
+    else if(window_height > $("#right-sidebar").height()){
+        r =172;
+    }
+
+    var browser = "@Request.Browser.Browser";
+    var flagDown=false;
+    var flagUp=false;
+    var visibleY = function (el) {
+        var rect = el.getBoundingClientRect();
+        //console.log("height:" + ($(document).height() - $(window).height()) - $(window).scrollTop());
+        current = $(window).scrollTop();
+        if (current > last) {
+            if ( current > rect.bottom ) {
+                $("#left-sidebar").removeClass("left_up_fixed");
+                $("#left-sidebar").addClass("left_down_fixed");
+
+                $("#right-sidebar").removeClass("right_up_fixed");
+                $("#right-sidebar").addClass("right_down_fixed");
+
+                $("#left-sidebar").css("top", (l>0?-l:l));
+                $("#right-sidebar").css("top", (r>0?-r:r));
+
+            }
+        } else if (current < last){
+            if (current > rect.top && (($(document).height() - $(window).height()) - $(window).scrollTop()) >= 180 ) {
+                $("#left-sidebar").addClass("left_up_fixed");
+                $("#left-sidebar").removeClass("left_down_fixed");
+
+                $("#right-sidebar").addClass("right_up_fixed");
+                $("#right-sidebar").removeClass("right_down_fixed");
+
+                $("#left-sidebar").css("top","12.6%");
+                $("#right-sidebar").css("top","12.6%");
+            }
+        }
+        last = current;
+        if (current <= 500) {
+            $("#left-sidebar").removeClass("left_up_fixed");
+            $("#left-sidebar").removeClass("left_down_fixed");
+
+            $("#right-sidebar").removeClass("right_up_fixed");
+            $("#right-sidebar").removeClass("right_down_fixed");
+
+            $("#left-sidebar").css("top",0);
+            $("#right-sidebar").css("top",0);
+        }
+
+        if(current == ($(document).height() - $(window).height())){
+
+            $("#left-sidebar").removeClass("left_up_fixed");
+            $("#left-sidebar").addClass("left_down_fixed");
+
+            $("#right-sidebar").removeClass("right_up_fixed");
+            $("#right-sidebar").addClass("right_down_fixed");
+        }
+    };
+
+</script>
+<script>
+    var isJobseeker = "@(defaultUser.Content != null && defaultUser.CategoryId != null && defaultUser.SpecializationId != null)";
+    $(document).ready(function () {
+        var rows = 0;
+        var pages = 0;
+        var pagesize = 5;
+        var pageNumber = 1;
+        var baseUrl = "@Request.Url.Scheme://@Request.Url.Authority/";
+
+
+
+
+        $("#body").css("min-height", 200);
+
+
+        if (isJobseeker == "True") {
+            $("#la").show();
+            $("#la").css('visibility', 'visible');
+
+            $(".latest-activity").css("border-bottom:", "none");
+            $("#body").css("min-height", 200);
+        } else {
+            $("#la").show();
+            $("#la").css('visibility', 'visible');
+
+            $(".latest-activity").css("border-bottom:", "none");
+            $("#body").css("min-height", 200);
+        }
+
+        $("#lnkLatestActivity").click(function () {
+            $("#la").show();
+            $("#la").css('visibility', 'visible');
+
+            $(".latest-activity").css("border-bottom:", "none");
+            $("#body").css("min-height", 200);
+        });
+
+
+
+
+
+        $.post('@Url.Action("ReadStreams", "JsonHelper")', { id : @ViewBag.Id, pageNumber: pageNumber},
+                function (result) {
+                    var imgs="";
+                    if (result.length != 0) {
+                        $("#wall").empty();
+                        rows = result[0].MaxRows;
+                        pages = Math.ceil(rows/pagesize);
+
+                        var isAuthenticated = new Boolean("@Request.IsAuthenticated");
+                        var userId = @(User != null ? user.Id : 0);
+                        var pid = @(defaultUser != null ? defaultUser.Id : 0);
+                        $(result).each(function () {
+                            var connected = this.Connected;
+                            var links ="";
+                            if(userId != 0){
+                                if(userId != this.UserId && connected == 0)
+                                {
+                                    links  += "<a href=\"/Network/Connect?EmailAddress=" + this.Username +"\" target=\"_blank\">Connect</a> | ";
+                                }
+                            }
+                            else{
+                                links  += "<a href=\"javascript:void(0)\" style=\"color:#aaaaaa\">Connect</a> | ";
+                            }
+
+                            if(userId != 0){
+                                if(userId != this.UserId){
+                                    links += "<a href=\"/Message/List?SenderId=" + this.UserId +"\" target=\"_blank\">Message</a> | ";
+                                }
+                            }
+                            else{
+                                links += "<a href=\"javascript:void(0)\" style=\"color:#aaaaaa\">Message</a> | ";
+                            }
+
+                            if(userId != 0){
+                                links += "<a href=\"/share-profile?url=@Request.Url.Scheme://@Request.Url.Authority/" + this.ProfileUrl +"\" target=\"_blank\">Share</a>";
+                            }else{
+                                links += "<a href=\"javascript:void(0)\" style=\"color:#aaaaaa\">Share</a>";
+                            }
+                            if(userId == this.UserId || pid == this.UserId){
+                                if(this.ImageId != null){
+                                    imgs+=this.ImageArea + ",";
+                                }
+                            }
+                            if(userId != this.UserId){
+                                this.ProfileUrl =  "/" + this.ProfileUrl;
+                            }else{
+                                this.ProfileUrl="javascript:void(0)";
+                            }
+                            if(this.ImageId == null)
+                            {
+                                $("#jtemplate").tmpl(this).appendTo("#wall");
+                                var jlinks ="";
+                                if(userId != this.UserId){
+                                    jlinks +="<a href=\"/job/bookmark?Id=" + this.JobId +"\" target=\"_blank\" style=\"color:#34ba08\">Bookmark</a> | ";
+                                }
+                                jlinks +="<a href=\"/job/email?Id=" + this.JobId +"\" target=\"_blank\" style=\"color:#34ba08\">Email Job</a> | ";
+                                jlinks +="<a href=\"/employer/Joblist?Id=" +  this.UserId +"\" target=\"_blank\" style=\"color:#34ba08\">All jobs of this company</a>";
+                                $("#joblinks" + this.Id).html(jlinks);
+                            }else{
+                                $("#itemplate").tmpl(this).appendTo("#wall");
+                            }
+                            if(this.Content != null &&  this.CategoryId != null  && this.SpecializationId != null)
+                            {
+                                if(links.length>0){
+                                    if(userId != 0){
+                                        links += " | <a href=\"/Jobseeker/Download?id="+ this.UserId +"&type=0&redirect=/Employer/DownloadHistory" + this.UserId +"\" target=\"_blank\">Download</a>";
+                                    }else{
+                                        links += " | <a href=\"javascript:void(0)\" style=\"color:#aaaaaa\">Download</a>";
+                                    }
+                                }else{
+                                    if(userId!=0){
+                                        links += "<a href=\"/Jobseeker/Download?id="+ this.UserId +"&type=0&redirect=/Employer/DownloadHistory" + this.UserId +"\" target=\"_blank\">Download</a>";
+                                    }else{
+                                        links += "<a href=\"javascript:void(0)\" style=\"color:#aaaaaa\">Download</a>";
+                                    }
+
+                                }
+                            }
+
+                            if (isAuthenticated==true)
+                            {
+                                if(this.BlockedByMe <=0 ){
+                                    if(userId != 0){
+                                        if(userId != this.UserId){
+                                            links += " | <a href=\"#\" data-href=\"/Home/Block?email=" + this.Username +"\" data-name=\"" + this.FullName +"\" role=\"button\" data-toggle=\"modal\" data-target=\"#cDialog\" class=\"aBlock\" data-role=\"" + this.UserRole +"\" data-connected=\"true\">Block</a>";
+                                        }
+                                    }
+                                    else{
+                                        links +=" | <a href=\"javascript:void(0)\" style=\"color:#aaaaaa\">Block</a>";
+                                    }
+                                }
+                                else
+                                {
+                                    if(userId!=0){
+                                        links +=" | <a href=\"/Home/Unblock?id=" + this.UserId +"&redirect=/" + this.ProfileUrl +"\" target=\"_blank\">Unblock</a>";
+                                    }else{
+                                        links +=" | <a href=\"javascript:void(0)\" style=\"color:#aaaaaa\">Unblock</a>";
+                                    }
+                                }
+
+                                $("#ql" + this.Id).html(links);
+
+                            }
+                        });
+
+
+                    }
+
+                    if(imgs.indexOf("BottomRightSecond") == -1){
+                        var tmp1 = "#tmplBottomRightSecond";
+                        $(tmp1).tmpl(this).appendTo("#defaultWall");
+                    }
+                    if(imgs.indexOf("TopRightFirst") == -1){
+                        var tmp2 = "#tmplTopRightFirst";
+                        $(tmp2).tmpl(this).appendTo("#defaultWall");
+                    }
+                    if(imgs.indexOf("TopRightSecond") == -1){
+                        var tmp3 = "#tmplTopRightSecond";
+                        $(tmp3).tmpl(this).appendTo("#defaultWall");
+                    }
+                    if(imgs.indexOf("BottomRightFirst") == -1){
+                        var tmp4 = "#tmplBottomRightFirst";
+                        $(tmp4).tmpl(this).appendTo("#defaultWall");
+                    }
+                    if(imgs.indexOf("Background") == -1){
+                        var tmp5 = "#tmplBackground";
+                        $(tmp5).tmpl(this).appendTo("#defaultWall");
+                    }
+
+                });
+
+
+        var pgn = pageNumber;
+        $(window).scroll(function ()
+        {
+            //console.log("Pages: " + pages);
+            //console.log("Current Page Number: " + pgn);
+            if( pages >= pgn){
+                pgn++;
+            }
+
+            if(pages > 0 && pages >= pgn)
+            {
+                $.post('@Url.Action("ReadStreams", "JsonHelper")', { id : @ViewBag.Id, pageNumber: pgn},
+                function (result) {
+                    if (result.length != 0) {
+                        var isAuthenticated = new Boolean("@Request.IsAuthenticated");
+                        var userId = @(User != null ? user.Id : 0);
+
+                        $(result).each(function () {
+                            var connected = this.Connected;
+                            var links ="";
+                            if(userId != 0){
+                                if(userId != this.UserId && connected == 0)
+                                {
+                                    links  += "<a href=\"/Network/Connect?EmailAddress=" + this.Username +"\" target=\"_blank\">Connect</a> | ";
+                                }
+                            }
+                            else{
+                                links  += "<a href=\"javascript:void(0)\" style=\"color:#aaaaaa\">Connect</a> | ";
+                            }
+
+                            if(userId != 0){
+                                if(userId != this.UserId){
+                                    links += "<a href=\"/Message/List?SenderId=" + this.UserId +"\" target=\"_blank\">Message</a> | ";
+                                }
+                            }
+                            else{
+                                links += "<a href=\"javascript:void(0)\" style=\"color:#aaaaaa\">Message</a> | ";
+                            }
+
+                            if(userId != 0){
+                                links += "<a href=\"/share-profile?url=@Request.Url.Scheme://@Request.Url.Authority/" + this.ProfileUrl +"\" target=\"_blank\">Share</a>";
+                            }else{
+                                links += "<a href=\"javascript:void(0)\" style=\"color:#aaaaaa\">Share</a>";
+                            }
+
+                            if(userId != this.UserId){
+                                this.ProfileUrl =  "/" + this.ProfileUrl;
+                            }else{
+                                this.ProfileUrl="javascript:void(0)";
+                            }
+                            if(this.ImageId == null)
+                            {
+                                $("#jtemplate").tmpl(this).appendTo("#wall");
+                                var jlinks ="";
+                                if(userId != this.UserId){
+                                    jlinks +="<a href=\"/job/bookmark?Id=" + this.JobId +"\" target=\"_blank\" style=\"color:#34ba08\">Bookmark</a> | ";
+                                }
+                                jlinks +="<a href=\"/job/email?Id=" + this.JobId +"\" target=\"_blank\" style=\"color:#34ba08\">Email Job</a> | ";
+                                jlinks +="<a href=\"/employer/Joblist?Id=" +  this.UserId +"\" target=\"_blank\" style=\"color:#34ba08\">All jobs of this company</a>";
+                                $("#joblinks" + this.Id).html(jlinks);
+                            }else{
+                                $("#itemplate").tmpl(this).appendTo("#wall");
+                            }
+                            if(this.Content != null &&  this.CategoryId != null  && this.SpecializationId != null)
+                            {
+                                if(links.length>0){
+                                    if(userId != 0){
+                                        links += " | <a href=\"/Jobseeker/Download?id="+ this.UserId +"&type=0&redirect=/Employer/DownloadHistory" + this.UserId +"\" target=\"_blank\">Download</a>";
+                                    }else{
+                                        links += " | <a href=\"javascript:void(0)\" style=\"color:#aaaaaa\">Download</a>";
+                                    }
+                                }else{
+                                    if(userId!=0){
+                                        links += "<a href=\"/Jobseeker/Download?id="+ this.UserId +"&type=0&redirect=/Employer/DownloadHistory" + this.UserId +"\" target=\"_blank\">Download</a>";
+                                    }else{
+                                        links += "<a href=\"javascript:void(0)\" style=\"color:#aaaaaa\">Download</a>";
+                                    }
+                                }
+                            }
+
+                            if (isAuthenticated==true)
+                            {
+                                if(this.BlockedByMe <=0 ){
+                                    if(userId != 0){
+                                        if(userId != this.UserId){
+                                            links += " | <a href=\"#\" data-href=\"/Home/Block?email=" + this.Username + "\" data-name=\"" + this.FullName +"\" role=\"button\" data-toggle=\"modal\" data-target=\"#cDialog\" class=\"aBlock\" data-role=\"" + this.UserRole +"\" data-connected=\"true\">Block</a>";
+                                        }
+                                    }
+                                    else{
+                                        links +=" | <a href=\"javascript:void(0)\" style=\"color:#aaaaaa\">Block</a>";
+                                    }
+                                }
+                                else
+                                {
+                                    if(userId!=0){
+                                        links +=" | <a href=\"/Home/Unblock?id=" + this.UserId +"&redirect=/" + this.ProfileUrl +"\" target=\"_blank\">Unblock</a>";
+                                    }else{
+                                        links +=" | <a href=\"javascript:void(0)\" style=\"color:#aaaaaa\">Unblock</a>";
+                                    }
+                                }
+
+                                $("#ql" + this.Id).html(links);
+
+                            }
+                        });
+
+
+                    }
+                });
+            }
+
+            if ($(window).width() > 800) {
+                if($(".latest-activity").height() > $("#left-sidebar").height()){
+                    visibleY(document.getElementById("left-sidebar"));
+                }
+            }
+        });
+
+
+        $("#Resume").change(function () {
+            var file = document.getElementById('Resume').files[0];
+            var defineSize = 300 * 1024;
+            var fileSize = file.size;
+            var name = file.name;
+            var ext = name.substr(name.lastIndexOf(".") + 1, 4).toLowerCase();
+            var allowed = "doc, docx, pdf, rtf";
+            $("#divFileError").html("");
+            if (name.length > 0) {
+                if (allowed.indexOf(ext) < 0) {
+                    $("#divFileError").html("Only DOC, DOCX, PDF, RTF files are allowed!");
+                    $("#resumeUpload").attr('disabled', true);
+                } else {
+                    if (fileSize > defineSize) {
+                        $("#divFileError").html("File upload failed - Exceeded max file size (300 KB)!");
+                        $("#resumeUpload").attr('disabled', true);
+                    } else {
+                        $("#divFileError").html("");
+                        $("#resumeUpload").attr('disabled', false);
+                    }
+                }
+            } else {
+                $("#divFileError").html("Please select file!");
+                $("#resumeUpload").attr('disabled', true);
+            }
+        });
+
+        $("#resumeUpload").click(function () {
+            var file = document.getElementById('Resume').files[0];
+            var name = file.name;
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function (e) {
+                var binaryString = e.target.result.toString();
+                binaryString = binaryString.replace("data:application/pdf;base64,", "");
+                binaryString = binaryString.replace("data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,", "");
+                binaryString = binaryString.replace("data:application/msword;base64,", "");
+
+                $.post('@Url.Action("ResumeUpload", "JsonHelper")', { Username: "@(User != null ? username : "")", fileName: name, data: binaryString },
+                   function (result) {
+                       $("#divMsgBox").html(result);
+                       $("#divMsgBox").removeClass("message-instruction");
+                       $("#divMsgBox").addClass("message-info");
+                       $("#divMsgBox").show();
+                   });
+            }
+        });
+
+    });
+
+   function loadBlockScript(){
+        $(".aBlock").off('click');
+        $(".aBlock").click(function () {
+            var bname = $(this).data('name');
+            var actionUrl = $(this).data('href');
+            var msgText = "";
+            var loggedInUserRole = "@(User != null ? user.Role.GetDescription() : "")";
+            var isConfirmed = "@(Request.IsAuthenticated ? user.IsConfirmed : false)";
+            if (isConfirmed == "True") {
+                var role = $(this).data('role');
+                if ((role == "Company" && loggedInUserRole == "Individual") || (loggedInUserRole == "Company" && role == "Individual")) {
+                    msgText = "<b>Following may be withdrawn with <span id=\"bname\" style=\"font-weight:bold\">" + bname + "</span>:</b><br/>";
+                    msgText += "<ul>";
+                    msgText += "<li>Application(s)!</li>";
+                    msgText += "<li>Matching!</li>";
+                    msgText += "<li>Bookmark(s)!</li>";
+                    msgText += "<li>Interview(s)!</li>";
+                    msgText += "<li>Connection!</li>";
+                    msgText += "</ul>";
+                }
+                //else {
+                //    if ($(this).data('connected') == "True") {
+                //        msgText = "<b>Block</b> action will disconnect you with <span id=\"bname\" style=\"font-weight:bold\"><b>" + bname + "</span></b><br/>";
+                //    } else {
+                //        msgText = "<b>Block</b> <span id=\"bname\" style=\"font-weight:bold\"><b>" + bname + "</span></b><br/>";
+                //    }
+                //}
+                msgText += "<div style=\"text-align:right; color:red; font-size:1.5em;\">Are you sure?</div>";
+                $(".modal-body #divMsg").html(msgText);
+
+                actionUrl = $(this).data('href');
+                $("#dialogOk").click(function () {
+                    window.location.href = actionUrl;
+                });
+            } else {
+                window.location.href = actionUrl;
+            }
+        });
+    }
+</script>

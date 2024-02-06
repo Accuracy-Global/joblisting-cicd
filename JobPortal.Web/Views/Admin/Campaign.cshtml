@@ -1,0 +1,123 @@
+﻿@using JobPortal.Domain
+@using JobPortal.Data
+@using JobPortal.Library.Enumerators;
+@using JobPortal.Library.Helpers;
+@using System.Collections
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Manage Campaign";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<JobPortal.Data.Campaign>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+}
+
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="title-login">
+            <h1 style="margin-top:-15px"></h1>
+            
+        </div>
+
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+        @Html.ActionLink("New Campaign", "AddCampaign", "Admin", null, new { @class = "btn btn-info" })
+    </div>
+</div>
+@*@Html.Partial("_MessagePartial")*@
+<div class="clear" style="height:15px;"></div>
+
+@*<p> @ViewBag.exception2 </p>*@
+
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="form-group">
+                @Html.DropDownList("Type", new SelectList(new SortedDictionary<int, string>() { { 4, "Jobseeker" }, { 5, "Employers" }, { 12, "University" }, { 13, "Student" }, { 18, "Interns" }, { 0, "All" },{ 19,"Test"} }, "key", "value"), "SELECT TYPE", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        <div class='input-group date'>
+                            @Html.TextBox("StartDate", null, new { @class = "form-control", placeholder = "FROM DATE", @title = "FROM DATE", @readonly = "readonly" })
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <div class='input-group date'>
+                                @Html.TextBox("EndDate", null, new { @class = "form-control", placeholder = "TO DATE", @title = "TO DATE", @readonly = "readonly" })
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 text-right">
+            <input type="submit" value="Search" class="btn btn-info btn-block" />
+        </div>
+    </div>
+}
+<div class="clear" style="height:15px;"></div>
+@{
+    WebGrid grid = new WebGrid(@ViewBag.Model, ajaxUpdateContainerId: "grid");
+}
+<div id="container-grid" class="table-responsive">
+    @grid.GetHtml(htmlAttributes: new { id = "grid", @style = "width:100%" }, tableStyle: "table table-bordered table-hover",
+        columns: new[]
+        {
+            grid.Column(columnName: "Type", header: "Type", canSort:false, format: (p) =>
+            {
+                string type= string.Empty;
+                if(p.Type==0){
+                    type="All";
+                }else if (p.Type==19)
+                {
+                     type="Test";
+                }
+                
+                else {
+                    type = ((SecurityRoles)p.Type).ToString().TitleCase();
+                }
+                return type;
+            }),
+            grid.Column(columnName: "Subject", header: "Subject", canSort:false, format: p => p.Subject),
+            grid.Column(columnName: "DateCreated", header: "Date", canSort:false, format: p => p.DateCreated.ToString("MMM-dd-yyyy")),
+            grid.Column("Actions", canSort:false, format: (item) =>
+            {
+                string links = string.Empty;
+                links = string.Format("<b>{0}</b>", Html.ActionLink("Edit", "EditCampaign", new { Id = item.Id }, new { title = "Edit Announcement" }).ToString());
+                links += string.Format(" | <b>{0}</b>", Html.ActionLink("Delete", "DeleteCampaign", new { Id = item.Id }, new { title = "Delete Campaign", onclick="return confirm('Are you sure to delete?');" }).ToString());
+                return Html.Raw(links);
+            })
+        })
+    <div style="text-align:center; margin-top: -15px;">
+
+        @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Campaign",
+            new RouteValueDictionary()
+            {
+                { "PageNumber" , PageNumber},
+                { "Type" , Request["Type"]},
+                { "StartDate" , Request["StartDate"]},
+                { "EndDate" , Request["EndDate"]},
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+    </div>
+</div>

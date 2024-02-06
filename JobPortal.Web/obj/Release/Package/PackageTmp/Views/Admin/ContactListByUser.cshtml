@@ -1,0 +1,229 @@
+﻿@using JobPortal.Domain
+@{
+    ViewBag.Title = "Phone Contacts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/jquery.tmpl.min.js"></script>
+<script src="~/Scripts/jquery.tmplPlus.min.js"></script>
+<style>
+    .cdate {
+        padding-left: 0px;
+        list-style-type: none;
+    }
+
+        .cdate li {
+            display: inline-block;
+            width: auto;
+        }
+
+    .fcountry {
+    }
+
+    .nfield {
+        min-width: 75px;
+        text-align: center;
+    }
+
+    #fy {
+        width: 85px;
+    }
+
+    #ty {
+        width: 85px;
+    }
+</style>
+<div class="title-login">
+    <h1 style="margin-top:-15px;">Phone Contacts</h1>
+</div>
+<form id="SearchForm">
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="form-group">
+                @Html.Label("Search By Name")
+                <input type="text" id="Name" name="Name" placeholder="Search By Name" class="form-control input-sm" />
+            </div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            @Html.Label("From Date")
+            <div class="input-group">
+                @Html.DropDownList("fd", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control" })
+                <span class="input-group-btn" style="width:0px;"></span>
+                @Html.DropDownList("fm", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control" })
+                <span class="input-group-btn" style="width:0px;"></span>
+                @Html.DropDownList("fy", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 1)), "YEAR", new { @class = "form-control" })
+            </div>
+            <div id="fromDateError" style="color:red;"></div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            @Html.Label("To Date")
+            <div class="input-group">
+                @Html.DropDownList("td", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control" })
+                <span class="input-group-btn" style="width:0px;"></span>
+                @Html.DropDownList("tm", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control" })
+                <span class="input-group-btn" style="width:0px;"></span>
+                @Html.DropDownList("ty", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 1)), "YEAR", new { @class = "form-control" })
+            </div>
+            <div id="toDateError" style="color:red;"></div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <div class="form-group">
+                <button id="Search" type="submit" class="btn btn-info btn-block pull-right">Search</button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">&nbsp;</div>
+    </div>
+</form>
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div style="font-size:1.2em; background-color:#ede9e9; padding:4px;">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    @ViewBag.UserName
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered table-hover" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th class="nfield">Phone</th>
+                    <th class="nfield">Date</th>
+                    <th class="nfield">Action</th>
+                </tr>
+            </thead>
+            <tbody id="ContactArea"></tbody>
+        </table>
+        <div class="row hide" id="ViewMore">
+            <div class="col-lg-12 col-md-12">
+                <button role="button" class="btn btn-info btn-sm btn-block" style="width:100%;">View More</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script id="itemplate" type="text/html">
+    <tr>
+        <td>${Name}</td>
+        <td class="nfield">${Phone}</td>
+        <td class="nfield">${CreatedOn}</td>
+        <td class="nfield"><a href="/admin/ViewStatus?id=${Id}&name=${Name}" role="button">View Status</a></td>
+    </tr>
+</script>
+<script>
+    var url = "/admin/ContactListByUser";
+    var pages=0;
+    var idx=1;
+    var rows=0;
+    $(function () {
+        $.post(url, {userId : @Request.QueryString["userId"] }, function (data) {
+            $("#ContactArea").empty();
+            if(data.length>0){
+                pages = Math.ceil(data[0].MaxRows/10);
+
+                if(pages > idx){
+                    $("#ViewMore").removeClass("hide");
+                    $("#ViewMore").addClass("show");
+                }else{
+                    $("#ViewMore").addClass("hide");
+                    $("#ViewMore").removeClass("show");
+                }
+
+                $.each(data, function (i, item) {
+                    $("#itemplate").tmpl(item).appendTo("#ContactArea");
+                });
+            }
+        });
+
+        $("#ViewMore").click(function () {
+            var jsonForm = $(this).closest("form").serializeObject();
+            jsonForm.userId = @Request.QueryString["userId"];
+
+            var isValidStartDate = isValidDate($("#fd").val(), $("#fm").val(), $("#fy").val());
+            var isValidEndDate = isValidDate($("#td").val(), $("#tm").val(), $("#ty").val());
+
+            if (isValidStartDate) {
+                $("#fromDateError").html("");
+                $("#fromDateError").show();
+                $("#Search").enabled = true;
+            } else {
+                $("#fromDateError").html("Provide correct from date!");
+                $("#fromDateError").show();
+                $("#Search").enabled = false;
+            }
+
+            if (isValidEndDate) {
+                $("#toDateError").html("");
+                $("#toDateError").show();
+                $("#Search").enabled = true;
+            } else {
+                $("#toDateError").html("Provide correct to date!");
+                $("#toDateError").show();
+                $("#Search").enabled = false;
+            }
+
+            if (isValidStartDate == true && isValidEndDate == true) {
+                idx++;
+                if(idx <= pages){
+                    jsonForm.pageNumber = idx;
+                    $.post(url, jsonForm, function (data) {
+                        $.each(data, function (i, item) {
+                            $("#itemplate").tmpl(item).appendTo("#ContactArea");
+                        });
+                    });
+                    if(pages > idx){
+                        $("#ViewMore").removeClass("hide");
+                        $("#ViewMore").addClass("show");
+                    }else{
+                        $("#ViewMore").addClass("hide");
+                        $("#ViewMore").removeClass("show");
+                    }
+                }
+            }
+            return false;
+        });
+
+        $("#Search").click(function () {
+            var jsonForm = $(this).closest("form").serializeObject();
+            jsonForm.userId = @Request.QueryString["userId"];
+
+            var isValidStartDate = isValidDate($("#fd").val(), $("#fm").val(), $("#fy").val());
+            var isValidEndDate = isValidDate($("#td").val(), $("#tm").val(), $("#ty").val());
+
+            if (isValidStartDate) {
+                $("#fromDateError").html("");
+                $("#fromDateError").show();
+                $("#Search").enabled = true;
+            } else {
+                $("#fromDateError").html("Provide correct from date!");
+                $("#fromDateError").show();
+                $("#Search").enabled = false;
+            }
+
+            if (isValidEndDate) {
+                $("#toDateError").html("");
+                $("#toDateError").show();
+                $("#Search").enabled = true;
+            } else {
+                $("#toDateError").html("Provide correct to date!");
+                $("#toDateError").show();
+                $("#Search").enabled = false;
+            }
+
+            if (isValidStartDate == true && isValidEndDate == true) {
+                console.log(jsonForm);
+                $.post(url, jsonForm, function (data) {
+                    $("#ContactArea").empty();
+                    $.each(data, function (i, item) {
+                        $("#itemplate").tmpl(item).appendTo("#ContactArea");
+                    });
+                });
+            }
+            return false;
+        });
+    });
+</script>

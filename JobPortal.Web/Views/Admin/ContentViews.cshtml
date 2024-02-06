@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-10 col-md-10 col-sm-10">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">Contents Management</h1>
+            Manage contents here
+        </div>
+    </div>
+    <div class="clear" style="height:15px;"></div>
+    <div class="col-lg-2 col-md-2 col-sm-2">
+        <div class="clear" style="height:20px;"></div>
+        @*@Html.ActionLink("Home", "Index", null, new { title = "List Job", @class = "btn btn-info btn-block" })*@
+    </div>
+    <div class="clear"></div>
+    @Html.Partial("_MessagePartial")
+
+</div>
+<div class="clear" style="height:5px;"></div>
+<div id="grd" class="table-responsive">
+    @{
+        WebGrid grid = new WebGrid(ViewBag.Model, ajaxUpdateContainerId: "grid");
+    }
+    @grid.GetHtml(htmlAttributes: new { id = "grid", @style="width:100%" }, tableStyle: "table table-bordered table-hover",
+    columns: new[] {
+
+   //grid.Column(columnName:"PageTitle", header: "Page Title", format: p=>p.PageTitle),
+   //grid.Column(columnName:"PageKeywords", header: "Page Keywords", format: p=>p.PageKeywords),
+
+   // grid.Column(columnName:"PageDescription",header:"Page Description", format: p=>p.PageDescription),
+     grid.Column(columnName:"PageText",header:"Page Text", format: p=>p.PageText),
+    grid.Column("Actions", format: (item) =>
+ new HtmlString(
+    Html.ActionLink("Edit ", "UpdateContentViews", new { id = item.Id}, new {title="Edit", @class="edit"}).ToString()
+   )
+      )},
+    mode: WebGridPagerModes.All, firstText: "<< First",
+    previousText: "< Previous", nextText: "Next >", lastText: "Last >>")
+
+
+</div>

@@ -1,0 +1,728 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title></title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="//socialinviter.com/assets/js/src/socialinviter.js"></script>
+    <style type="text/css">
+        .hiddenBtn{width:0;height:0;position:absolute;left:-2000px}
+        .rowHeader{background-color:#eee;color:#000;font-weight:700;line-height:30px;padding-left:10px;font-size:16px;margin-top:40px;margin-bottom:20px}
+        body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;padding-bottom:10px;color:#5a5a5a;font-size:14px}
+        .label{width:120px}.text{width:300px;border-radius:4px;border:1px solid #DDD;padding:5px}
+        .text-lg,textarea{width:400px;border-radius:4px}
+        .text-lg{border:1px solid #DDD;padding:5px}
+        table tr td{padding-top:3px;padding-bottom:3px;padding-right:10px}
+        .btn{background-color:#2154B0;cursor:pointer;color:#fff;border:0;padding:5px 10px;border-radius:4px;line-height:21px}
+        textarea{height:200px;border:1px solid #D0CDCD}
+        .select{width:200px;border-radius:4px;border:1px solid #DDD;padding:5px}
+        .fr{float:right}
+        .fl{float:left}
+        .posrel{position:relative}
+        .posabs{position:absolute}
+        .text-primary{color:Orange}
+        .center{margin:0 auto;text-align:center}
+        .backholder{width:200px;right:0;top:-30px}
+        .backholder a{color:Red}.facebook{display:none}
+        .loading{background-image:url(blueloading.gif);position:fixed;width:100%;height:100%;background-repeat:no-repeat;background-position:center;display:none;}
+    </style>
+</head>
+<body>  
+            <div class="loading"></div>
+            <h1 class="text-primary center">
+                Check out our demo</h1>
+            <div class="fr posrel">
+                <div class="posabs backholder">
+                    <a href="index.html">Back to products</a></div>
+            </div>
+            <div class="enguser center">
+                <h2>Promote Your website with the Best Social Tools on the Web.</h2>
+            </div>
+            <hr />
+            <h2 class="text-primary">Friends Inviter REST API example</h2>
+            <div class="rowHeader nonfacebook">
+                Step1 : Getting Authentication Url
+            </div>
+            <div class="rowHeader facebook">
+                Step1 : Send message on Facebook
+            </div>
+            <table>
+                <tr>
+                    <td class="label">
+                        Service
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                        <select class="select" onchange="changeService()" id="ddnservice">
+                            <option value="twitter">Twitter</option>
+                            <option value="google">Google</option>
+                            <option value="xing">Xing</option>
+                            <option value="facebook">Facebook</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr class="nonfacebook">
+                    <td>
+                        Consumer key
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                        <input type="text" class="text" runat="server" id="authConsumerKey" />
+                    </td>
+                </tr>
+                <tr class="nonfacebook">
+                    <td>
+                        Consumer secret
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                        <input type="text" class="text" runat="server" id="authConsumerSecret" />
+                    </td>
+                </tr>
+                <tr class="nonfacebook">
+                    <td>
+                        Redirect Url
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                        <input type="text" class="text" runat="server" id="authRedirectUrl" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Formatted key
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                        <input type="text" class="text" runat="server" id="formattedKey" />
+                    </td>
+                </tr>
+                <tr class="nonfacebook">
+                    <td colspan="2">
+                    </td>
+                    <td>
+                        <input type="button" class="btn" value="Get authentication url" onclick="getAuthUrl()" />
+                    </td>
+                </tr>
+                <tr class="facebook">
+                    <td>
+                        Facebook App id
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                        <input type="text" class="text" runat="server" id="txtfbappid" value=""/>
+                    </td>
+                </tr>
+                <tr class="facebook">
+                    <td>
+                        Link to share
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                        <input type="text" class="text" runat="server" id="txtfblink" value="https://socialinviter.com/"/>
+                    </td>
+                </tr>
+                <tr class="facebook">
+                    <td colspan="3">
+                        <div id="fb-root"></div>
+                    </td>
+                </tr>
+                <tr class="facebook">
+                    <td colspan="2">
+                    </td>
+                    <td>
+                        <input type="button" class="btn" value="Send message" onclick="loadFacebook()"/>
+                    </td>
+                </tr>
+                <tr class="nonfacebook">
+                    <td colspan="3">
+                        <table>
+                            <tr>
+                                <td>
+                                    API Request
+                                </td>
+                                <td>
+                                    API Response
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <textarea runat="server" id="authRequest"></textarea>
+                                </td>
+                                <td>
+                                    <textarea runat="server" id="authResponse"></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="facebook">
+                    <td colspan="3">
+                        <table>
+                            <tr>
+                                <td>
+                                    API Request
+                                </td>
+                                <td>
+                                    API Response
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <textarea runat="server" id="csvRequest"></textarea>
+                                </td>
+                                <td>
+                                    <textarea runat="server" id="csvResponse"></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <div class="rowHeader nonfacebook step2">
+                Step2 : Authenticating User
+            </div>
+            <table class="nonfacebook">
+                <tr>
+                    <td class="label">
+                        Authentication Url
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                        <input type="text" class="text-lg" id="txtAuthUrl" runat="server" disabled="disabled" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                    </td>
+                    <td>
+                        <input type="button" class="btn" value="Authentication user" onclick="authUser()" />
+                    </td>
+                </tr>
+            </table>
+            <div class="rowHeader nonfacebook step3">
+                Step3 : Getting Access Token
+            </div>
+            <table class="nonfacebook">
+                <tr>
+                    <td class="label">
+                        Token
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                        <input type="text" class="text" id="accToken" runat="server" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Token secret
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                        <input type="text" class="text" id="accTokenSecret" runat="server" />  (Optional)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Token Verifier
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                        <input type="text" class="text" id="accTokenVerifier" runat="server" />  (Optional)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                    </td>
+                    <td>
+                        <input type="button" class="btn" value="Get access token" onclick="getAccTok()" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <table>
+                            <tr>
+                                <td>
+                                    API Request
+                                </td>
+                                <td>
+                                    API Response
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <textarea runat="server" id="accessRequest"></textarea>
+                                </td>
+                                <td>
+                                    <textarea runat="server" id="accessResponse"></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <div class="rowHeader nonfacebook step4">
+                Step4 : Getting Contacts
+            </div>
+            <table class="nonfacebook">
+    <tr>
+        <td class="label">Token</td>
+        <td>:</td>
+        <td><input type="text" class="text" id="conToken" runat="server" /></td>
+    </tr>
+    <tr>
+        <td>Token secret</td>
+        <td>:</td>
+        <td><input type="text" class="text" id="conTokenSecret" runat="server" />  (Optional)</td>
+    </tr>
+    <tr>
+        <td>Token Verifier</td>
+        <td>:</td>
+        <td><input type="text" class="text" id="conTokenVerifier" runat="server" />  (Optional)</td>
+    </tr>
+    <tr>
+        <td>User Id</td>
+        <td>:</td>
+        <td><input type="text" class="text" id="conUserId" runat="server" />  (Optional)</td>
+    </tr>
+    <tr>
+        <td colspan="2"></td>
+        <td>
+            <input type="button" class="btn" value="Get friends" onclick="getContacts()"/>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <table>
+                <tr>
+                    <td>
+                        API Request
+                    </td>
+                    <td>
+                        API Response
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <textarea runat="server" id="conRequest"></textarea>
+                    </td>
+                    <td>
+                        <textarea runat="server" id="conResponse"></textarea>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+            
+            <div class="rowHeader nonfacebook step5">
+                Step5 : Send Message
+            </div>
+            <table class="nonfacebook">
+    <tr>
+        <td class="label">Token</td>
+        <td>:</td>
+        <td><input type="text" class="text" id="messToken" runat="server" /></td>
+    </tr>
+    <tr>
+        <td>Token secret</td>
+        <td>:</td>
+        <td><input type="text" class="text" id="messTokenSecret" runat="server" />  (Optional)</td>
+    </tr>
+    <tr>
+        <td>Token Verifier</td>
+        <td>:</td>
+        <td><input type="text" class="text" id="messTokenVerifier" runat="server" />  (Optional)</td>
+    </tr>
+    <tr>
+        <td>Friends Id</td>
+        <td>:</td>
+        <td><input type="text" class="text" id="messFriendsId" runat="server" /></td>
+    </tr>
+    <tr>
+        <td>Subject</td>
+        <td>:</td>
+        <td><input type="text" class="text" id="messSubject" runat="server" value="this is a test subject"/></td>
+    </tr>
+    <tr>
+        <td>Message</td>
+        <td>:</td>
+        <td><input type="text" class="text" id="messMessage" runat="server" value="this is a test message"/></td>
+    </tr>
+    <tr>
+        <td colspan="2"></td>
+        <td>
+            <input type="button" class="btn" value="Send Message" onclick="sendMessage()"/>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <table>
+                <tr>
+                    <td>
+                        API Request
+                    </td>
+                    <td>
+                        API Response
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <textarea runat="server" id="messRequest"></textarea>
+                    </td>
+                    <td>
+                        <textarea runat="server" id="messResponse"></textarea>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+
+    <script type="text/javascript">
+        var getQueryString = function (name, target) {
+            name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+            var regexS = "[\\?&]" + name + "=([^&#]*)";
+            var regex = new RegExp(regexS);
+            var results = regex.exec(target);
+            if (results == null)
+                return "";
+            else
+                return decodeURIComponent(results[1].replace(/\+/g, " "));
+        };
+        var putInToStore = function (name, value) {
+            var c_name = name;
+            var exdays = 300;
+            var exdate = new Date();
+            exdate.setDate(exdate.getDate() + exdays);
+            var c_value = escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
+            //document.cookie = c_name + "=" + c_value + ";path=/;";
+            if (document.domain === 'localhost') {
+                document.cookie = c_name + "=" + c_value + ";path=/;";
+            } else {
+                document.cookie = c_name + "=" + c_value + ';domain=.' + document.domain + ';path=/;';
+            }
+        }
+        var getFromStore = function (name) {
+            var c_name = name;
+            var i, x, y, ARRcookies = document.cookie.split(";").reverse();
+            for (i = 0; i < ARRcookies.length; i++) {
+                x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+                y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+                x = x.replace(/^\s+|\s+$/g, "");
+                if (x == c_name) {
+                    return unescape(y);
+                }
+            }
+        }
+        var removeFromStore = function (name, path, domain) {
+            if (path)
+                document.cookie = name + "=" + ((path) ? ";path=" + path : "") + ((domain) ? ";domain=" + domain : "") + ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
+            else
+                document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        }
+        var focusStep = function (dom) {
+            $('body,html').animate({
+                scrollTop: $("." + dom).offset().top - 30
+            }, 600);
+            $(".loading").hide();
+        }
+        var changeService = function () {
+            if (document.getElementById("ddnservice").value == "facebook") {
+                $(".facebook").show();
+                $(".nonfacebook").hide();
+            }
+            else {
+                $(".facebook").hide();
+                $(".nonfacebook").show();
+            }
+        }
+        var setService = function (service) {
+            document.getElementById("ddnservice").value = service;
+            $("#ddnservice").change();
+            $(".loading").hide();
+        }
+    </script>
+    <script type="text/javascript">
+        var loadFacebook = function () {
+            window.fbAsyncInit = function () {
+                FB.init({
+                    appId: $("#txtfbappid").val(),
+                    status: true,
+                    cookie: true,
+                    xfbml: true
+                });
+            };
+            (function () {
+                var ef = document.createElement('script'); ef.async = true;
+                ef.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
+                document.getElementById('fb-root').appendChild(ef);
+            } ());
+            window.setTimeout(function () {
+                if (typeof FB != "undefined") {
+                    loginfbuser();
+                }
+                else {
+                    window.setTimeout(function () {
+                        if (typeof FB != "undefined") {
+                            loginfbuser();
+                        }
+                        else {
+                            window.setTimeout(function () {
+                                loginfbuser();
+                            }, 1000);
+                        }
+                    }, 1000);
+                }
+            }, 1000);
+        }
+        var loginfbuser = function () {
+            var fblink = $("#txtfblink").val();
+            FB.ui({
+                method: 'send',
+                link: fblink
+            },
+            function (response) {
+                if (response) {
+
+                }
+                $("#ddnservice").val("twitter");
+                $("#ddnservice").change();
+            });
+        }
+    </script>
+    <script type="text/javascript">
+        /*
+        *
+        *   PREREQUESITE STEP 1: Formatting the license key
+        *
+        */
+
+        //Code to Format the license key
+        var licenses = "lic_c4d729e9-4561-455f-8dd0-88364"; //comma seperated
+        SI.initialize({
+            //Your original license key here
+            license: licenses,
+            callback: function (sigData) {
+                //Get your formatted signature key here
+                document.getElementById("formattedKey").value = sigData[licenses];
+            }
+        });
+
+
+
+
+        /* 
+        *
+        *   PREREQUESITE STEP 2: Declaration
+        *
+        */
+
+        var APIKey = "Your API key here";
+        var APISecretKey = "Your API Secret key here";
+        var RedirectUrl = "http://localhost:6168/socialinviter/friendsinviter.html";
+
+        $("#authConsumerKey").val(APIKey);
+        $("#authConsumerSecret").val(APISecretKey);
+        $("#authRedirectUrl").val(RedirectUrl);
+
+
+        /* 
+        *
+        *   STEP 1: Getting authentication url
+        *
+        */
+        var getAuthUrl = function () {
+            var authRequestUrl = "http://socialinviter.com/api/friends.aspx?";
+            authRequestUrl += "service=" + $("#ddnservice").val();
+            authRequestUrl += "&type=authenticationurl";
+            authRequestUrl += "&consumerkey=" + $("#authConsumerKey").val();
+            authRequestUrl += "&consumersecret=" + $("#authConsumerSecret").val();
+            authRequestUrl += "&returnurl=" + ($("#authRedirectUrl").val());
+            authRequestUrl += "&signaturekey=" + $("#formattedKey").val();
+            putInToStore("authrequest", authRequestUrl);
+            putInToStore("service", $("#ddnservice").val());
+            $("#authRequest").val(authRequestUrl);
+            $.get(authRequestUrl, function (response) {
+                $("#authResponse").val(response);
+                var respObj = $.parseJSON(response).data;
+                $("#txtAuthUrl").val(respObj.authurl);
+                $("#accToken").val(respObj.token);
+                $("#accTokenSecret").val(respObj.tokensecret);
+                $("#accTokenVerifier").val(respObj.tokenverifier);
+                putInToStore("authresponse", response);
+                focusStep('step2');
+            });
+            $(".loading").show();
+        }
+
+        /* 
+        *
+        *   STEP 2: Redirecting user for authentication
+        *
+        */
+        var authUser = function () {
+            window.location.href = $("#txtAuthUrl").val();
+        }
+
+
+        /* 
+        *
+        *   STEP 3: Page load function to extract the token/code and verifier values
+        *
+        */
+        var pageLoad = function () {
+            if (getQueryString("code", window.location.href) != "" || getQueryString("oauth_token", window.location.href) != "") {
+                var service = getFromStore("service");
+                $("#ddnservice").val(service);
+                var response = getFromStore("authresponse");
+                $("#authResponse").val(response);
+                $("#authRequest").val(getFromStore("authrequest"));
+                var respObj = $.parseJSON(response).data;
+                $("#txtAuthUrl").val(respObj.authurl);
+                $("#accToken").val(respObj.token);
+                $("#accTokenSecret").val(respObj.tokensecret);
+                $("#accTokenVerifier").val(respObj.tokenverifier);
+
+                if (getQueryString("code", window.location.href) != "") {
+                    $("#accToken").val(getQueryString("code", window.location.href));
+                }
+                else if (getQueryString("oauth_token", window.location.href) != "") {
+                    $("#accToken").val(getQueryString("oauth_token", window.location.href));
+                    $("#accTokenVerifier").val(getQueryString("oauth_verifier", window.location.href));
+                }
+                focusStep('step3');
+            }
+            else {
+                removeFromStore("authrequest");
+                removeFromStore("authresponse");
+                removeFromStore("accessrequest");
+                removeFromStore("accessresponse");
+            }
+        }
+
+        /* 
+        *
+        *   STEP 4: Getting access token using the authentication token/code
+        *
+        */
+        var getAccTok = function () {
+            var accessRequestUrl = "http://socialinviter.com/api/friends.aspx?";
+            accessRequestUrl += "service=" + $("#ddnservice").val();
+            accessRequestUrl += "&type=accesstoken";
+            accessRequestUrl += "&consumerkey=" + $("#authConsumerKey").val();
+            accessRequestUrl += "&consumersecret=" + $("#authConsumerSecret").val();
+            accessRequestUrl += "&returnurl=" + $("#authRedirectUrl").val();
+            accessRequestUrl += "&token=" + $("#accToken").val();
+            accessRequestUrl += "&tokensecret=" + $("#accTokenSecret").val();
+            accessRequestUrl += "&tokenverifier=" + $("#accTokenVerifier").val();
+            accessRequestUrl += "&signaturekey=" + $("#formattedKey").val();
+            putInToStore("accessrequest", accessRequestUrl);
+            $("#accessRequest").val(accessRequestUrl);
+            $.get(accessRequestUrl, function (response) {
+                $("#accessResponse").val(response);
+                var accessObj = $.parseJSON(response).data;
+                $("#conToken").val(unescape(accessObj.token));
+                $("#conTokenSecret").val(accessObj.tokensecret);
+                $("#conTokenVerifier").val(accessObj.tokenverifier);
+                $("#conUserId").val(accessObj.userid);
+
+                $("#messToken").val(unescape(accessObj.token));
+                $("#messTokenSecret").val(accessObj.tokensecret);
+                $("#messTokenVerifier").val(accessObj.tokenverifier);
+
+                putInToStore("accessresponse", response);
+                focusStep('step4');
+            });
+            $(".loading").show();
+        }
+
+        /* 
+        *
+        *   STEP 5: Importing contacts
+        *
+        */
+        var getContacts = function () {
+            var conRequestUrl = "http://socialinviter.com/api/friends.aspx?";
+            conRequestUrl += "service=" + $("#ddnservice").val();
+            conRequestUrl += "&type=friends";
+            conRequestUrl += "&consumerkey=" + $("#authConsumerKey").val();
+            conRequestUrl += "&consumersecret=" + $("#authConsumerSecret").val();
+            conRequestUrl += "&returnurl=" + encodeURIComponent($("#authRedirectUrl").val());
+            conRequestUrl += "&token=" + encodeURIComponent($("#conToken").val());
+            conRequestUrl += "&tokensecret=" + $("#conTokenSecret").val();
+            conRequestUrl += "&tokenverifier=" + $("#conTokenVerifier").val();
+            conRequestUrl += "&userid=" + $("#conUserId").val();
+            conRequestUrl += "&signaturekey=" + $("#formattedKey").val();
+
+            $("#conRequest").val(conRequestUrl);
+            $.get(conRequestUrl, function (response) {
+                $("#conResponse").val(unescape(response));
+                var contactsObj = $.parseJSON(response).data.friends;
+                $("#messFriendsId").val(contactsObj[0].id);
+                $(".loading").hide();
+                focusStep('step5');
+            });
+            $(".loading").show();
+        }
+
+        /* 
+        *
+        *   STEP 6: Sending message
+        *
+        */
+        var sendMessage = function () {
+            var conRequestUrl = "http://socialinviter.com/api/friends.aspx";
+            var formData = "service=" + $("#ddnservice").val();
+            formData += "&type=message";
+            formData += "&consumerkey=" + $("#authConsumerKey").val();
+            formData += "&consumersecret=" + $("#authConsumerSecret").val();
+            formData += "&returnurl=" + $("#authRedirectUrl").val();
+            formData += "&token=" + $("#messToken").val();
+            formData += "&tokensecret=" + $("#messTokenSecret").val();
+            formData += "&tokenverifier=" + $("#messTokenVerifier").val();
+            formData += "&friendsids=" + $("#messFriendsId").val();
+            formData += "&subject=" + $("#messSubject").val();
+            formData += "&message=" + $("#messMessage").val();
+            formData += "&signaturekey=" + $("#formattedKey").val();
+
+            $("#messRequest").val(conRequestUrl + "\n\nForm Data: \n\n" + formData);
+            $.post(conRequestUrl,formData, function (response) {
+                $("#messResponse").val(unescape(response));
+                $(".loading").hide();
+            });
+            $(".loading").show();
+        }
+
+        pageLoad();
+        
+
+    </script>
+
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+</body>
+</html>
+

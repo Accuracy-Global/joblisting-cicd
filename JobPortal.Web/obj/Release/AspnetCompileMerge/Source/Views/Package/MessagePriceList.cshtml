@@ -1,0 +1,246 @@
+﻿@using JobPortal.Domain
+@using JobPortal.Data
+@using JobPortal.Models
+@{
+    ViewBag.Title = "Buy Message";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List country = new List();
+}
+<script src="~/Scripts/jquery.tmpl.min.js"></script>
+<script src="~/Scripts/jquery.tmplPlus.min.js"></script>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    .icolumns {
+        /*float: left;*/
+        /*width: 33.33%;*/
+        /*padding: 0px;*/
+        /*border-right:solid #fff 2px;*/
+        /*background-color: #eee;*/
+    }
+
+    .ecolumns {
+        float: left;
+        /*width: 25%;*/
+        width: 33.33%;
+        padding: 1px;
+        /*border:solid #bab9b9 1px;*/
+    }
+
+    .price {
+        list-style-type: none;
+        /*border: 1px solid #eee;*/
+        /*margin: 0;*/
+        padding: 15px;
+        -webkit-transition: 0.3s;
+        transition: 0.3s;
+        background-color: #eee;
+        min-height: 75px;
+    }
+
+        /*.price:hover {
+        box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2)
+    }*/
+
+        .price .header {
+            background-color: #aaa9ae;
+            color: white;
+            font-size: 16px;
+            padding: 2px;
+            text-align: center;
+        }
+
+        .price .footer {
+            /*padding-top: 20px;*/
+            /*padding-bottom: 20px;*/
+            /*text-align: center;*/
+            /*padding-left: 24%;
+            padding-right: 20%;*/
+            font-size: 16px;
+        }
+
+        .price li {
+            /*border-bottom: 1px solid #eee;*/
+            padding-top: 5px;
+            padding-bottom: 5px;
+            /*padding-right: 8px;*/
+            text-align: left;
+            /*padding-left: 5%;*/
+            font-size: 14px;
+        }
+
+            .price li:nth-child(3) {
+                /*border-bottom: 1px solid #eee;*/
+                padding-top: 15px;
+                padding-bottom: 5px;
+                /*padding-left: 8px;
+                padding-right: 8px;*/
+                text-align: left;
+                font-size: 14px;
+            }
+
+        .price .grey {
+            background-color: #00a0d9;
+            color: #fff;
+            font-size: 16px;
+            padding: 5px;
+            text-align: center;
+        }
+
+    .buttonfree {
+        background-color: #eee;
+        border: none;
+        color: white;
+        padding: 5px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 18px;
+        display: block;
+        width: 100px;
+        text-align: center;
+    }
+
+    .button {
+        background-color: #00a6e0;
+        border: none;
+        color: white;
+        padding: 5px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 18px;
+        display: block;
+        width: 100px;
+        text-align: center;
+    }
+
+        .button:hover {
+            text-decoration: none;
+            color: #fff;
+        }
+
+    @@media only screen and (max-width: 600px) {
+        .columns {
+            width: 100%;
+        }
+    }
+
+    .tooltip > .tooltip-inner {
+        background-color: #ffffff;
+        color: #000000;
+        border: 1px solid #000000;
+        padding: 10px;
+        font-size: 14px;
+        font-weight: bold;
+        opacity: 10;
+    }
+    /* Tooltip on top */
+    .tooltip.top > .tooltip-arrow {
+        border-top: 5px solid #000000;
+    }
+    /* Tooltip on bottom */
+    .tooltip.bottom > .tooltip-arrow {
+        border-bottom: 5px solid #000000;
+    }
+    /* Tooltip on left */
+    .tooltip.left > .tooltip-arrow {
+        border-left: 5px solid #000000;
+    }
+    /* Tooltip on right */
+    .tooltip.right > .tooltip-arrow {
+        border-right: 5px solid #000000;
+    }
+
+    .carousel-control {
+        font-size: 30px;
+        color: #0000ff;
+    }
+
+        .carousel-control:hover {
+            font-size: 30px;
+            color: #0000ff;
+        }
+</style>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1 style="margin-top:-15px;">Buy Message</h1>
+            <span>Buy Message here</span>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12" style="margin-bottom:15px;min-height:236px;">
+        <div class="price">
+            <form id="PromoteForm" method="post" action="/package/processmessage">
+                <input type="hidden" id="ReturnUrl" name="ReturnUrl" value="@Request.QueryString["returnUrl"]" />
+                <input type="hidden" id="Type" name="Type" value="@ViewBag.Type" />
+                <input type="hidden" id="SessionId" name="SessionId" value="@ViewBag.SessionId" />
+                <table class="table-bordered table-condensed" style="width:100%;">
+                    <thead class="header">
+                        <tr>
+                            <th style="font-weight:normal">Package Items</th>
+                            <th style="font-weight:normal; width:85px; text-align:center">
+                                Messages
+                            </th>
+                        </tr>
+                    </thead>
+                    @if (ViewBag.BuyMessage != null)
+                    {
+                        <tbody>
+                            <tr>
+                                <td style="font-weight:normal; text-align:left" class="grey">
+                                    Messages to Other Users
+                                </td>
+                                <td style="font-weight:normal; width:125px; text-align:right" class="grey">
+                                    <select id="Days" name="Days" class="form-control" required data-messages="@ViewBag.BuyMessage.Messages" data-rate="@ViewBag.BuyMessage.Rate" data-pkgid="@ViewBag.BuyMessage.PackageId">
+                                        <option value="">Messages</option>
+                                        @for (int i = ViewBag.BuyMessage.Messages; i <= ViewBag.BuyMessage.Messages * 10; i = i + 10)
+                                        {
+                                            <option value="@i">@i</option>
+                                        }
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    }
+                    <tfoot class="footer">
+                        <tr>
+                            <td style="font-weight:normal; text-align:right; border:none">
+                                Total Amount:
+                            </td>
+                            <td style="font-weight:normal; text-align:right; border:none">
+                                <span id="amount"></span>
+                                <input type="hidden" id="TotalAmount" name="TotalAmount" />
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <input type="hidden" id="PackageId" name="PackageId" value="@ViewBag.BuyMessage.PackageId" />
+                <div class="footer" style="text-align:center"><button type="submit" id="btnSubmit" class="btn btn-info" style="width:150px;">Buy&nbsp;Messages&nbsp;Now</button></div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip({ placement: "bottom" });
+        $("#Days").val(@ViewBag.BuyMessage.Messages);
+        getTotal();
+
+        $("#Days").change(function () {
+            getTotal();
+        });
+    });
+    function getTotal() {
+        var total = 0;
+        var rpd = $("#Days").data("rate");
+        var res = $("#Days").data("messages");
+        var rs = $("#Days").val();
+        total = (rpd * (rs / res));
+        $("#amount").text("$" + total.toFixed(0));
+        $("#TotalAmount").val(total.toFixed(0));
+    }
+</script>

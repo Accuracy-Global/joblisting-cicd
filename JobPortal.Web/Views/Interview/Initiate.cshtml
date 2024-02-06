@@ -1,0 +1,261 @@
+﻿@model JobPortal.Web.Models.InterviewModel
+@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@{
+    ViewBag.Title = "Interview";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    Tracking record = new Tracking();
+    Job job = new Job();
+    UserProfile employer = new UserProfile();
+    UserProfile jobSeeker = new UserProfile();
+    Specialization category = new Specialization();
+    SubSpecialization specialization = new SubSpecialization();
+    Specialization jcategory = new Specialization();
+    SubSpecialization jspecialization = new SubSpecialization();
+
+    List jcountry = new List();
+    List jstate = new List();
+
+    List country = new List();
+    List state = new List();
+
+    if (Model.TrackingId != null)
+    {
+        record = TrackingService.Instance.Get(Model.TrackingId.Value);
+    }
+    if (record != null)
+    {
+        if (record.JobId != null)
+        {
+            job = JobService.Instance.Get(record.JobId.Value);
+            employer = MemberService.Instance.Get(job.EmployerId.Value);
+            jcategory = SharedService.Instance.GetCategory(job.CategoryId.Value);
+            jspecialization = SharedService.Instance.GetSpecialization(job.SpecializationId.Value);
+            jcountry = SharedService.Instance.GetCountry(job.CountryId.Value);
+            if (job.StateId != null)
+            {
+                jstate = SharedService.Instance.GetCountry(job.StateId.Value);
+            }
+        }
+
+        if (record.JobseekerId != null)
+        {
+            jobSeeker = MemberService.Instance.Get(record.JobseekerId.Value);
+            //category = SharedService.Instance.GetCategory(jobSeeker.CategoryId.Value);
+           // specialization = SharedService.Instance.GetSpecialization(jobSeeker.SpecializationId.Value);
+            country = SharedService.Instance.GetCountry(jobSeeker.CountryId.Value);
+            if (jobSeeker.StateId != null)
+            {
+                state = SharedService.Instance.GetCountry(jobSeeker.StateId.Value);
+            }
+        }
+    }
+    Interview interview = InterviewService.Instance.Get(Model.TrackingId.Value, 1);
+    FollowUp followUp = null;
+    if (interview != null)
+    {
+        followUp = InterviewService.Instance.GetFollowUp(interview.Id);
+    }
+}
+
+<div class="title-login">
+    <h1 style="margin-top:-15px">
+        Interview
+    </h1>
+    Start interview here
+</div>
+<div class="clear" style="height:5px"></div>
+@Html.Partial("_MessagePartial")
+<div class="clear" style="height:5px"></div>
+<div class="row" style="padding-left:15px;padding-right:15px;">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                @if (record.JobId != null)
+                {
+                    <strong>Job Title:&nbsp;&nbsp;</strong><a href="@(string.Format("/job/{0}-{1}", job.PermaLink, job.Id))" target="_blank">@job.Title</a>
+                }
+                else
+                {
+                    <strong>Job Title:&nbsp;&nbsp;</strong><span>Not Applicable</span>
+                }
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                <strong>Jobseeker:&nbsp;&nbsp;</strong><a href="@(string.Format("/{0}", jobSeeker.PermaLink))" target="_blank">@jobSeeker.FirstName @jobSeeker.LastName</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                @if (record.JobId != null)
+                {
+                    <strong>Country:&nbsp;&nbsp;</strong>@jcountry.Text
+                }
+                else
+                {
+                    <strong>Country:&nbsp;&nbsp;</strong>@country.Text
+
+                }
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                @{
+                    string label = string.Empty;
+
+                    DateTime? trackingDate = null;
+                    string dateTitle = string.Empty;
+                    if (record.JobseekerId != null)
+                    {
+                        TrackingDates dates = new TrackingDates(record.JobId, record.JobseekerId.Value);
+                        if (dates.IsAutomatched)
+                        {
+                            label = "Matched Date";
+                            trackingDate = dates.Automatched;
+                            <text><strong>@label:&nbsp;&nbsp;</strong>@trackingDate.Value.ToString("MMM-dd-yyyy")</text>
+                        }
+                        else if (dates.IsBookmarked)
+                        {
+                            label = "Bookmarked Date";
+                            trackingDate = dates.Bookmarked;
+                            <text><strong>@label:&nbsp;&nbsp;</strong>@trackingDate.Value.ToString("MMM-dd-yyyy")</text>
+                        }
+                        else if (dates.IsApplied)
+                        {
+                            label = "Application Date";
+                            trackingDate = dates.Applied;
+                            <text><strong>@label:&nbsp;&nbsp;</strong>@trackingDate.Value.ToString("MMM-dd-yyyy")</text>
+                        }
+                        else if (dates.IsShortlisted)
+                        {
+                            label = "Shortlisted Date";
+                            trackingDate = dates.Shortlisted;
+                            <text><strong>@label:&nbsp;&nbsp;</strong>@trackingDate.Value.ToString("MMM-dd-yyyy")</text>
+                        }
+                        else
+                        {
+                            switch ((InterviewStatus)interview.Status)
+                            {
+                                case InterviewStatus.INTERVIEW_IN_PROGRESS:
+                                    label = ((InterviewRounds)interview.Round).GetDescription() + " Start Date";
+                                    string date = interview.DateCreated.ToString("MMM-dd-yyyy");
+                                    <text><strong>@label:&nbsp;&nbsp;</strong>@date</text>
+                                    break;
+                            }
+                        }
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:25px;"></div>
+
+<div class="well">
+    @using (Html.BeginForm("Initiate", "Interview", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="errorSummary">
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.TrackingId)
+            @Html.HiddenFor(model => model.Round)
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label><span class="requiredleft">*</span>Interviewer Name:</label>
+                            @Html.TextBoxFor(model => model.Interviewer, new { @class = "form-control", placeholder = "INTERVIEWER NAME" })
+                            @Html.ValidationMessageFor(model => model.Interviewer)
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <label>Interview&nbsp;Date&nbsp;&&nbsp;(PST Time)</label>
+                        <div class='input-group datetime' style="margin-bottom:0;">
+                            @Html.TextBoxFor(model => model.InterviewDate, new { @class = "form-control", placeholder = "INTERVIEW DATE & TIME", @title = "Interview Date & Time" })
+                            <div id="divstartdate" class="_startdate" style="color:red;"></div>
+
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-time"></span>
+                            </span>
+                        </div>
+                        @Html.ValidationMessageFor(model => model.InterviewDate)
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <label>Details (Details will be sent to the Jobseeker)</label>
+
+                            @Html.TextAreaFor(model => model.Description, new { @class = "form-control", placeholder = "INTERVIEW DETAILS", @style = "height:95px;" })
+                            @Html.ValidationMessageFor(model => model.Description)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <input type="submit" value="Start" name="savenemail" class="btn btn-info" style="width:100px;" />
+            </div>
+        </div>
+    }
+</div>
+@if (followUp != null)
+{
+    <script type="text/javascript">
+        $(function () {
+            var y = "@followUp.NewDate.Value.Year";
+            var m = "@(followUp.NewDate.Value.Month-1)";
+            var d = "@followUp.NewDate.Value.Day";
+            var h = "@(followUp.NewDate.Value.Hour + 16)";
+            $('#InterviewDate').datetimepicker({
+                format: "mm/dd/yyyy HH:ii P",
+                pickDate: true,
+                pickTime: true,
+                autoclose: true,
+                minView: 0,
+                maxView: 4,
+                pickerPosition: "bottom-left",
+                startDate: new Date(Number(y), Number(m), Number(d), Number(h)),
+                icons: {
+                    up: 'glyphicon-chevron-up',
+                    down: 'glyphicon-chevron-down'
+                }
+            });
+        });
+    </script>
+}
+else
+{
+    <script type="text/javascript">
+        $(function () {
+            var y = Number("@DateTime.Now.Year");
+            var m = Number("@(DateTime.Now.Month-1)");
+            var d = Number("@DateTime.Now.Day");
+            var h = Number("@DateTime.Now.Hour");
+            var i = Number("@(DateTime.Now.Minute + 15)");
+            var s = Number("@DateTime.Now.Second")
+            $('#InterviewDate').datetimepicker({
+                format: "mm/dd/yyyy HH:ii P",
+                pickDate: true,
+                pickTime: true,
+                autoclose: true,
+                minView: 0,
+                maxView: 4,
+                pickerPosition: "bottom-left",
+                startDate: new Date(y, m, d, h, i, s),
+                icons: {
+                    up: 'glyphicon-chevron-up',
+                    down: 'glyphicon-chevron-down'
+                }
+            });
+        });
+    </script>
+}

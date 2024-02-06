@@ -1,0 +1,463 @@
+﻿@model JobPortal.Data.Communication
+@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Models
+@{
+    ViewBag.Title = "View Messages";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    UserProfile sender = new UserProfile();
+    UserProfile receiver = new UserProfile();
+
+    UserProfile msgSender = new UserProfile();
+    UserProfile msgReceiver = new UserProfile();
+    string username = string.Empty;
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+        username = user.Username;
+    }
+    if (!string.IsNullOrEmpty(username))
+    {
+        sender = MemberService.Instance.Get(username);
+    }
+    if (ViewBag.ReceiverId != null)
+    {
+        receiver = MemberService.Instance.Get(ViewBag.ReceiverId);
+    }
+    List<Communication> msglist = new List<Communication>();
+    if (ViewBag.MessageList != null)
+    {
+        msglist = ViewBag.MessageList as List<Communication>;
+    }
+    List<Communication> msglistnew = new List<Communication>();
+    if (ViewBag.MessageList_New != null)
+    {
+        msglistnew = ViewBag.MessageList_New as List<Communication>;
+    }
+
+    int idx = 0;
+    int rows = msglist.Count;
+    string color = "";
+
+    Connection connection = ConnectionHelper.Get(receiver.Username, sender.Username);
+    string msgtext = Convert.ToString(ViewBag.MsgText);
+}
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1 style="margin-top:-15px;">Message</h1>
+            View and reply to message here
+        </div>
+    </div>
+</div>
+@Html.Partial("_MessagePartial")
+<div class="clear" style="height:15px;"></div>
+<div>
+    <ul class="nav nav-tabs">
+        <li class="active" style="width:110px; text-align:center; font-weight:bold"><a data-toggle="tab" href="#Messages">Messages</a></li>
+        <li style="width:110px; text-align:center; font-weight:bold"><a data-toggle="tab" href="#History">History</a></li>
+    </ul>
+    <div class="tab-content">
+        <div id="Messages" class="tab-pane fade in active list-group-item">
+            <div class="clear" style="height:15px"></div>
+            @{idx = 0;}
+            @{rows = msglistnew.Count;}
+            @foreach (Communication msg in msglistnew)
+            {
+                msgSender = MemberService.Instance.Get(msg.SenderId);
+                msgReceiver = MemberService.Instance.Get(msg.ReceiverId);
+                idx++;
+                if (idx != rows)
+                {
+                    color = "#F9F9F9";
+                }
+                else
+                {
+                    color = "#efeeee";
+                }
+
+                if (msg.IsInitial == true && msg.IsDeleted == false)
+                {
+                    if (msg.CreatedBy.Equals(username))
+                    {
+                        <div style="background-color:@color; border-radius:5px; padding-bottom:5px; padding-top:20px;" class="list-group-item">
+                            <div class="row">
+                                <div class="col-lg-1 col-md-1 col-md-1">
+                                    <a href="/@msgSender.PermaLink" target="_blank">
+                                        <div style="width:48px; height:48px; background:url(/Image/Avtar?Id=@msgSender.UserId); background-repeat:no-repeat; background-size:contain; background-position:center top;">
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-9">
+                                    @msg.Message
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2 text-right">
+                                    @Html.ActionLink("Delete", "Delete", new { Id = msg.Id, SenderId = ViewBag.ReceiverId }, new { @style = "color:red; font-weight:bold" })
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-7 col-md-7 col-md-7">
+                                    <small>
+                                        <a href="/@msgSender.PermaLink" target="_blank">@(string.Format("{0} {1}", msgSender.FirstName, msgSender.LastName))</a>
+                                    </small>
+                                </div>
+                                <div class="col-lg-5 col-md-5 col-sm-5">
+                                    <div class="text-right">
+                                        <small>
+                                            <i class="fa fa-clock-o"></i>&nbsp; @Html.Raw(msg.DateCreated.ToString("MMM-dd-yyyy hh:mm:ss").Replace(" ", ",&nbsp;&nbsp;") + "&nbsp;(PST Time)")
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        if (connection != null && connection.IsConnected == true && connection.IsAccepted == true)
+                        {
+                            <div style="background-color:@color; border-radius:5px; padding-bottom:5px; padding-top:20px;" class="list-group-item">
+                                <div class="row">
+                                    <div class="col-lg-1 col-md-1 col-md-1">
+                                        <a href="/@msgSender.PermaLink" target="_blank">
+                                            <div style="width:48px; height:48px; background:url(/Image/Avtar?Id=@msgSender.UserId); background-repeat:no-repeat; background-size:contain; background-position:center top;">
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9">
+                                        @msg.Message
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-2 text-right">
+                                        @Html.ActionLink("Delete", "Delete", new { Id = msg.Id, SenderId = ViewBag.ReceiverId }, new { @style = "color:red; font-weight:bold" })
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-7 col-md-7 col-md-7">
+                                        <small>
+                                            <a href="/@msgSender.PermaLink" target="_blank">@(string.Format("{0} {1}", msgSender.FirstName, msgSender.LastName))</a>
+                                        </small>
+                                    </div>
+                                    <div class="col-lg-5 col-md-5 col-sm-5">
+                                        <div class="text-right">
+                                            <small>
+                                                <i class="fa fa-clock-o"></i>&nbsp; @Html.Raw(msg.DateCreated.ToString("MMM-dd-yyyy hh:mm:ss").Replace(" ", ",&nbsp;&nbsp;") + "&nbsp;(PST Time)")
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+                else
+                {
+                    <div style="background-color:@color; border-radius:5px; padding-bottom:5px; padding-top:20px;" class="list-group-item">
+                        <div class="row">
+                            <div class="col-lg-1 col-md-1 col-md-1">
+                                <a href="/@msgSender.PermaLink" target="_blank">
+                                    <div style="width:48px; height:48px; background:url(/Image/Avtar?Id=@msgSender.UserId); background-repeat:no-repeat; background-size:contain; background-position:center top;">
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-9">
+                                @msg.Message
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 text-right">
+                                @Html.ActionLink("Delete", "Delete", new { Id = msg.Id, SenderId = ViewBag.ReceiverId }, new { @style = "color:red; font-weight:bold" })
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-7 col-md-7 col-md-7">
+                                <small>
+                                    <a href="/@msgSender.PermaLink" target="_blank">@(string.Format("{0} {1}", msgSender.FirstName, msgSender.LastName))</a>
+                                </small>
+                            </div>
+                            <div class="col-lg-5 col-md-5 col-sm-5">
+                                <div class="text-right">
+                                    <small>
+                                        <i class="fa fa-clock-o"></i>&nbsp; @Html.Raw(msg.DateCreated.ToString("MMM-dd-yyyy hh:mm:ss").Replace(" ", ",&nbsp;&nbsp;") + "&nbsp;(PST Time)")
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+            @if (Model != null)
+            {
+                if (!string.IsNullOrEmpty(username))
+                {
+                    sender = MemberService.Instance.Get(username);
+                }
+                if (ViewBag.ReceiverId != null)
+                {
+                    receiver = MemberService.Instance.Get(ViewBag.ReceiverId);
+                }
+
+                if (connection != null && connection.IsDeleted == false && !connection.CreatedBy.Equals(user.Username))
+                {
+                    if (MessageService.Instance.Count(sender.UserId, receiver.UserId) == 1)
+                    {
+                        <div class="clear" style="height:15px;"></div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12" style="padding-left:0;">
+                                <span style="color:red">Connection invitation already sent, waiting for acceptance!</span>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        if (connection.IsAccepted == false && connection.IsConnected == false)
+                        {
+                            //if (MessageService.Instance.Count(sender.UserId, receiver.UserId) == 1)
+                            //{
+                            @Html.ActionLink("Accept & Reply", "Accept", "Message", new { ConnectionId = connection.Id, redirect = Request.Url.ToString() }, new { title = "Accept & Reply", @class = "btn btn-info", @style = "width:150px" }); <text>&nbsp;&nbsp;</text>
+                            @Html.ActionLink("Reject", "Reject", "Message", new { ConnectionId = connection.Id, redirect = "/Message/Index" }, new { title = "Reject", @class = "btn btn-info", @style = "width:75px" });
+                @*}
+                    else
+                    {
+                        using (Html.BeginForm("Send", "Message", FormMethod.Post))
+                        {
+                            <div style="background-color:#fff; border-radius:5px;" class="list-group-item">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        @Html.Hidden("ReceiverEmail", receiver.Username)
+                                        @Html.Hidden("redirect", (string)ViewBag.Redirect)
+
+                                        @Html.Label("Write message")
+                                        @Html.TextArea("Message", msgtext, new { @class = "form-control", @title = "Send Message", placeholder = "Write message here", maxlength = "150", @required = "required", @style = "resize:vertical" })
+                                        <div id="msgError" style="color:red;"></div>
+                                    </div>
+                                </div>
+                                <div class="clear" style="height:15px;"></div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <input id="SendMsg" type="submit" value="Send" style="width:75px;" class="btn btn-info" />
+                                        <input type="button" value="Cancel" style="width:75px;" class="btn btn-info" onclick="window.history.back();" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }*@
+                        }
+                        else
+                        {
+                            using (Html.BeginForm("Send", "Message", FormMethod.Post))
+                            {
+                                <div style="background-color:#fff; border-radius:5px;" class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            @Html.Hidden("ReceiverEmail", receiver.Username)
+                                            @Html.Hidden("redirect", (string)ViewBag.Redirect)
+
+                                            @Html.Label("Write message")
+                                            @Html.TextArea("Message", msgtext, new { @class = "form-control", @title = "Send Message", placeholder = "Write message here", maxlength = "150", @required = "required", @style = "resize:vertical" })
+                                            <div id="msgError" style="color:red;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="clear" style="height:15px;"></div>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <input id="SendMsg" type="submit" value="Send" style="width:75px;" class="btn btn-info" />
+                                            <input type="button" id="btncancel" value="Cancel" style="width:75px;" class="btn btn-info" />
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (ViewBag.Blocked)
+                    {
+                        if (ConnectionHelper.IsBlockedByMe(receiver.Username, sender.UserId))
+                        {
+                            <div class="clear" style="height:15px;"></div>
+                            using (Html.BeginForm("Send", "Message", FormMethod.Post))
+                            {
+                                <div style="background-color:#fff; border-radius:5px;" class="list-group-item">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            @Html.Hidden("ReceiverEmail", receiver.Username)
+                                            @Html.Hidden("redirect", (string)ViewBag.Redirect)
+
+                                            @Html.Label("Write message")
+                                            @Html.TextArea("Message", msgtext, new { @class = "form-control", @title = "Send Message", placeholder = "Write message here", maxlength = "150", @required = "required", @style = "resize:vertical" })
+                                            <div id="msgError" style="color:red;"></div>
+                                        </div>
+                                    </div>
+                                    <div class="clear" style="height:15px;"></div>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <input id="SendMsg" type="submit" value="Send" style="width:75px;" class="btn btn-info" />
+                                            <input type="button" id="btncancel" value="Cancel" style="width:75px;" class="btn btn-info" />
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            if (sender != null)
+                            {
+                                <div class="clear" style="height:15px;"></div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <span style="color:red">This profile is in private mode!</span>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+                    else
+                    {
+                        using (Html.BeginForm("Send", "Message", FormMethod.Post))
+                        {
+                            <div style="background-color:#fff; border-radius:5px;" class="list-group-item">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        @Html.Hidden("ReceiverEmail", receiver.Username)
+                                        @Html.Hidden("redirect", (string)ViewBag.Redirect)
+
+                                        @Html.Label("Write message")
+                                        @Html.TextArea("Message", msgtext, new { @class = "form-control", @title = "Send Message", placeholder = "Write message here", maxlength = "150", @required = "required", @style = "resize:vertical" })
+                                        <div id="msgError" style="color:red;"></div>
+                                    </div>
+                                </div>
+                                <div class="clear" style="height:15px;"></div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <input id="SendMsg" type="submit" value="Send" style="width:75px;" class="btn btn-info" />
+                                        <input type="button" id="btncancel" value="Cancel" style="width:75px;" class="btn btn-info" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+            }
+            <div class="clear" style="height:15px;"></div>
+        </div>
+        <div id="History" class="tab-pane fade list-group-item">
+            <div class="clear" style="height:15px"></div>
+            @foreach (Communication msg in msglist)
+            {
+                idx++;
+                msgSender = MemberService.Instance.Get(msg.SenderId);
+                bool isBlockedByMe = false;
+                bool isBlockedBySomeone = false;
+                if (msgSender.UserId != user.Id)
+                {
+                    isBlockedByMe = DomainService.Instance.IsBlockedByMe(msgSender.UserId, user.Id);
+                    isBlockedBySomeone = DomainService.Instance.IsBlockedBySomeone(msgSender.UserId, user.Id);
+                }
+                
+                if (idx != rows)
+                {
+                    color = "#F9F9F9";
+                }
+                else
+                {
+                    color = "#efeeee";
+                }
+
+                <div style="background-color:@color; border-radius:5px; padding-bottom:5px; padding-top:20px;" class="list-group-item">
+                    <div class="row">
+                        <div class="col-lg-1 col-md-1 col-md-1">
+                            @if (isBlockedByMe)
+                            {
+                                <a href="/@msgSender.PermaLink" target="_blank">
+                                    <div style="width:48px; height:48px; background:url(/Image/Avtar?Id=@msgSender.UserId); background-repeat:no-repeat; background-size:contain; background-position:center top;">
+                                    </div>
+                                </a>
+                            }
+                            else if (isBlockedBySomeone)
+                            {
+                                <div style="width:48px; height:48px; background:url(/Image/Avtar?Id=@msgSender.UserId); background-repeat:no-repeat; background-size:contain; background-position:center top;">
+                                </div>
+                            }
+                            else
+                            {
+                                <a href="/@msgSender.PermaLink" target="_blank">
+                                    <div style="width:48px; height:48px; background:url(/Image/Avtar?Id=@msgSender.UserId); background-repeat:no-repeat; background-size:contain; background-position:center top;">
+                                    </div>
+                                </a>
+                            }
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-9">
+                            @msg.Message
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 text-right">
+                            @Html.ActionLink("Delete", "Delete", new { Id = msg.Id, SenderId = ViewBag.ReceiverId }, new { @style = "color:red; font-weight:bold" })
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-7 col-md-7 col-md-7">
+
+                            @if (isBlockedByMe)
+                            {
+                                <small>
+                                    <a href="/@msgSender.PermaLink" target="_blank">@(string.Format("{0} {1}", msgSender.FirstName, msgSender.LastName))</a>
+                                </small>
+                            }
+                            else if (isBlockedBySomeone)
+                            {
+                                <small>
+                                    @(string.Format("{0} {1}", msgSender.FirstName, msgSender.LastName))
+                                </small>
+                            }
+                            else
+                            {
+                                <small>
+                                    <a href="/@msgSender.PermaLink" target="_blank">@(string.Format("{0} {1}", msgSender.FirstName, msgSender.LastName))</a>
+                                </small>
+                            }
+                        </div>
+                        <div class="col-lg-5 col-md-5 col-sm-5">
+                            <div class="text-right">
+                                <small>
+                                    <i class="fa fa-clock-o"></i>&nbsp; @Html.Raw(msg.DateCreated.ToString("MMM-dd-yyyy hh:mm:ss").Replace(" ", ",&nbsp;&nbsp;") + "&nbsp;(PST Time)")
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+            <div class="clear" style="height:15px"></div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#SendMsg").click(function () {
+            if ($("#Message").val() !== "") {
+                $("#msgError").html("");
+                $("#msgError").hide();
+                return true;
+            } else {
+                $("#msgError").html("Write your message");
+                $("#msgError").show();
+                return false;
+            }
+        });
+        $("#btncancel").click(function () {
+            var refurl = "@(Request.UrlReferrer !=null ? Request.UrlReferrer.ToString() : "")";
+            var requrl = "@Request.Url.ToString()";
+
+            if (refurl == requrl) {
+                window.location.href = "/Message/Index";
+            } else {
+                window.location.href = refurl;
+            }
+        });
+    });
+</script>

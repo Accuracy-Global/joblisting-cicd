@@ -1,0 +1,308 @@
+﻿@model JobPortal.Web.Models.RegisterExternalLoginModel
+@using JobPortal.Domain
+@using JobPortal.Library.Helpers
+@using JobPortal.Library.Enumerators
+@{
+    ViewBag.Title = "Register";
+}
+<style>
+    .bday {
+        padding-left: 0px;
+        list-style-type: none;
+    }
+
+        .bday li {
+            display: inline-block;
+        }
+</style>
+<div class="section">
+    <hgroup class="title-login">
+        <h1>Proceed Registration</h1>
+    </hgroup>
+    @Html.Partial("_MessagePartial")
+    <div class="clear" style="height:15px"></div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            @using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }))
+            {
+                @Html.ValidationSummary(true)
+
+                @Html.HiddenFor(m => m.Provider)
+                @Html.HiddenFor(m => m.ProviderId)
+                @Html.HiddenFor(m => m.ProviderUsername)
+                @Html.HiddenFor(m => m.ProviderAccessToken)
+                @*@Html.AntiForgeryToken()*@
+                <div class="clear" style="height:15px"></div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12" id="divError">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12" style="margin-top: -10px;">
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.UserName, new { @type = "email", pattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,3}$", placeholder = "Email Format (user@example.com)", @class = "form-control", @maxlength = 50, @autocomplete = "off", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.UserName)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.PasswordFor(m => m.NewPassword, new { placeholder = "PASSWORD", pattern = "(?=.*\\d)(?=.*[a-zA-Z]).{9,}", @class = "form-control", @required = "required", @autofocus = "autofocus", data_error = "Password length is min. 5 numbers or letters or mixed!" })
+                            @Html.ValidationMessageFor(model => model.NewPassword)
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.PasswordFor(m => m.ConfirmPassword, new { placeholder = "CONFIRM PASSWORD", pattern = "(?=.*\\d)(?=.*[a-zA-Z]).{9,}", title = "Password length is min. 5 numbers or letters or mixed!", @class = "form-control", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.ConfirmPassword)
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.FirstName, new { @title = "FIRST NAME", @type = "text", pattern = "[a-zA-Z\\s]+", placeholder = "FIRST NAME", @class = "form-control", @maxlength = 50, @required = "required" })
+                            @Html.ValidationMessageFor(model => model.FirstName)
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.TextBoxFor(m => m.LastName, new { @title = "LAST NAME", @type = "text", pattern = "[a-zA-Z\\s]+", placeholder = "LAST NAME", @class = "form-control", @maxlength = 50, @required = "required" })
+                            @Html.ValidationMessageFor(model => model.LastName)
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.DropDownListFor(model => model.CountryId, new SelectList(SharedService.Instance.GetCountryList(), "Id", "Text"), "SELECT COUNTRY", new { @title = "COUNTRY", @class = "form-control", @required = "required" })
+                            @Html.ValidationMessageFor(model => model.CountryId)
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @if (ViewBag.ReturnUrl != null && ViewBag.ReturnUrl.Contains("listjob"))
+                            {
+                                @Html.DropDownListFor(model => model.AccountType, UIHelper.DropDown<SecurityRoles>(new List<int>() { 4, 5 }, 5), "SELECT ACCOUNT TYPE", new { @title = "ACCOUNT TYPE", @class = "form-control", @required = "required" })
+                            }
+                            else
+                            {
+                                @Html.DropDownListFor(model => model.AccountType, UIHelper.DropDown<SecurityRoles>(new List<int>() { 4, 5 }), "SELECT ACCOUNT TYPE", new { @title = "ACCOUNT TYPE", @class = "form-control", @required = "required" })
+                            }
+                            @Html.ValidationMessageFor(model => model.AccountType)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row" id="divCompany">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <input type="text" name="Company" id="Company" title="COMPANY NAME" placeholder="COMPANY NAME" class="form-control" maxlength="50" pattern="[a-zA-Z0-9\\s\\.\\-\\_]+" />
+                        </div>
+                    </div>
+                </div>
+                <div id="divIndividual">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Gender)
+                                <select id="Gender" name="Gender" class="form-control" title="GENDER">
+                                    <option value="">SELECT GENDER</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label>Birth Date</label>                                
+                                @Html.DropDownListFor(model => model.BYear, new SelectList(SharedService.Instance.GetYearList(true, DateTime.Now.Year)), "YEAR", new { @class = "form-control", placeholder = "YEAR" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            @Html.CheckBoxFor(model => model.Agreed, new { @class = "_chekAgree", @required = "required" }) I agree with&nbsp;<a href="/terms" target="_blank">Terms&nbsp;Of&nbsp;Use</a>&nbsp;and&nbsp;<a href="/privacy" target="_blank">Privacy</a>
+                        </div>
+                    </div>
+                </div>
+
+                @Html.HiddenFor(m => m.ExternalLoginData)
+                <input type="submit" id="Register" value="Register" class="btn btn-info" style="width:75px;" />
+            }
+        </div>
+    </div>
+    <div class="clear" style="height:15px;"></div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#UserName").focus();
+        $("#divIndividual").hide();
+        $("#divCompany").hide();
+        $("#divError").hide();
+        $("#Register").attr("disabled", true);
+        if ($("#AccountType").val() == 5) {
+            //$("#BDay").attr("required", false);
+            //$("#BMonth").attr("required", false);
+            $("#BYear").attr("required", false);
+            $("#Gender").attr("required", false);
+
+            $("#Company").attr("required", true);
+            $("#divCompany").show();
+            $("#divIndividual").hide();
+        } else {
+            $("#Company").attr("required", false);
+        }
+
+        $("#AccountType").change(function () {
+            var type = $(this).val();
+            if (type == 4) {
+
+                //$("#BDay").attr("required", true);
+                //$("#BMonth").attr("required", true);
+                $("#BYear").attr("required", true);
+                $("#Gender").attr("required", true);
+
+                $("#Company").attr("required", false);
+
+                $("#divIndividual").show();
+                $("#divCompany").hide();
+            } else if (type == 5) {
+
+                //$("#BDay").attr("required", false);
+                //$("#BMonth").attr("required", false);
+                $("#BYear").attr("required", false);
+                $("#Gender").attr("required", false);
+
+                $("#Company").attr("required", true);
+                $("#divCompany").show();
+                $("#divIndividual").hide();
+            } else {
+                $("#divIndividual").hide();
+                $("#divCompany").hide();
+            }
+        });
+
+        $("#Agreed").change(function () {            
+            $("#Register").attr("disabled", !$(this).prop("checked"));
+        });
+        $("#Register").click(function () {
+            return validate();
+        })
+
+        $("#UserName").change(function () {
+            $("#UserName").val($("#UserName").val().trim());
+        });
+
+        $("#FirstName").change(function () {
+            $("#FirstName").val($("#FirstName").val().trim());
+        });
+
+        $("#LastName").change(function () {
+            $("#LastName").val($("#LastName").val().trim());
+        });
+
+        $("#Company").change(function () {
+            $("#Company").val($("#Company").val().trim());
+        });
+
+        $("#NewPassword").change(function () {
+            $("#NewPassword").val($("#NewPassword").val().trim());
+        });
+
+        $("#ConfirmPassword").change(function () {
+            $("#ConfirmPassword").val($("#ConfirmPassword").val().trim());
+        });
+    });
+
+    function validate() {
+        var flag = false;
+        var uname = $("#UserName").val().trim();
+        var fname = $("#FirstName").val().trim();
+        var lname = $("#LastName").val().trim();
+        var pwd = $("#NewPassword").val().trim();
+        var cpwd = $("#ConfirmPassword").val().trim();
+        var cname = $("#Company").val().trim();
+        var gender = $("#Gender").val().trim();
+        //var bd = $("#BDay").val().trim();
+        //var bm = $("#BMonth").val().trim();
+        var by = $("#BYear").val().trim();
+     
+        var msg = "";
+
+        if (uname == "") {
+            msg += "Email Address should not be empty!<br/>";
+            $("#UserName").val("");
+        }
+
+        if (fname == "") {
+            msg += "First Name should not be empty!<br/>";
+            $("#FirstName").val("");
+        }
+
+        if (lname == "") {
+            msg += "Last Name should not be empty!<br/>";
+            $("#LastName").val("")
+        }
+
+        if ($("#AccountType").val() == 5) {
+            if (cname == "") {
+                msg += "Company should not be empty!<br/>";
+                $("#cname").val("")
+            } else {
+                if (cname.length < 5) {
+                    msg += "Company Minimum 5 characters!<br/>";
+                }
+            }
+        }
+
+        if ($("#AccountType").val() == 4) {
+            if (gender == "") {
+                msg += "Select gender!<br/>";                
+            }
+
+            if (by == "") {
+                msg += "Select birth date!<br/>";
+            }
+        }
+
+        if (pwd == "") {
+            msg += "Empty password or speace in password not allowed!<br/>";
+            $("#NewPassword").val("");
+
+            if (cpwd == "") {
+                $("#ConfirmPassword").val("");
+            }
+        } else if (!vepwd(pwd)) {
+            msg += "Password Min. 9 numbers & letters mixed!<br/>";
+        }
+
+        if (pwd.length < 9) {
+            msg += "Password Min. 9 numbers & letters mixed!<br/>";
+        }
+
+        if (pwd != cpwd) {
+            msg += "Password must match with Confirm Password!<br/>";
+        }
+
+        if (msg.trim() != "") {
+            $("#divError").hide();
+            $("#divError").html("<div class=\"message-error\" style=\"font-size:1em; font-weight:normal\">" + msg + "</div><div class=\"clear\" style=\"height:15px\"></div>");
+            $("#divError").show();
+            flag = false;
+        } else {
+            $("#divError").hide();
+            flag = true;
+        }
+        return flag;
+    }
+    function vepwd(e) {
+        var t = /(?=.*\d)(?=.*[a-zA-Z]).{9,}/;
+        return t.test(e);
+    }
+</script>

@@ -1,0 +1,263 @@
+================================================================================================================
+27-10-2023 12:19:05 AM
+Initial Url => http://localhost:1514/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":34.013019561767578,"longitude":-117.85394287109375}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/Home
+================================================================================================================
+27-10-2023 12:20:18 AM
+Initial Url => http://localhost:1514/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":34.013019561767578,"longitude":-117.85394287109375}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41844
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41747
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41745
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41742
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41736
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41730
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41821
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41835
+================================================================================================================
+27-10-2023 12:22:37 AM
+Initial Url => http://localhost:1514/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":34.013019561767578,"longitude":-117.85394287109375}
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":34.013019561767578,"longitude":-117.85394287109375}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41835
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41747
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41745
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41844
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41730
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41821
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41736
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41742
+================================================================================================================
+27-10-2023 12:24:57 AM
+Initial Url => http://localhost:1514/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/10.0.0.0?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"10.0.0.0","type":"ipv4","continent_code":null,"continent_name":null,"country_code":null,"country_name":null,"region_code":null,"region_name":null,"city":null,"zip":null,"latitude":0.0,"longitude":0.0}
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":34.013019561767578,"longitude":-117.85394287109375}
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":34.013019561767578,"longitude":-117.85394287109375}
+================================================================================================================
+27-10-2023 12:26:17 AM
+Initial Url => http://localhost:1514/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"success":false,"error":{"code":103,"type":"invalid_api_function","info":"This API Function does not exist."}}
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIpFree() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":34.013019561767578,"longitude":-117.85394287109375}
+================================================================================================================
+27-10-2023 12:27:41 AM
+Initial Url => http://localhost:1514/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":34.013019561767578,"longitude":-117.85394287109375}
+GeoLocation Api => https://api.ipapi.com/api/?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"success":false,"error":{"code":103,"type":"invalid_api_function","info":"This API Function does not exist."}}
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIpFree() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":34.013019561767578,"longitude":-117.85394287109375}
+================================================================================================================
+27-10-2023 12:33:09 AM
+Initial Url => http://localhost:1514/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"success":false,"error":{"code":103,"type":"invalid_api_function","info":"This API Function does not exist."}}
+GeoLocation Api => https://geolocation-db.com/json/975d73a0-5723-11ee-abeb-bbf96f1cb178/108.181.97.217
+GetUserCountryByIpFree() => {"ip":null,"type":null,"continent_code":null,"continent_name":null,"country_code":"CA","country_name":"Canada","region_code":null,"region_name":null,"city":"Sherwood Park","zip":null,"latitude":53.556,"longitude":-113.2952}
+================================================================================================================
+27-10-2023 12:36:46 AM
+Initial Url => http://localhost:1514/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"success":false,"error":{"code":103,"type":"invalid_api_function","info":"This API Function does not exist."}}
+GeoLocation Api => https://geolocation-db.com/json/975d73a0-5723-11ee-abeb-bbf96f1cb178/108.181.97.217
+GetUserCountryByIpFree() => {"ip":null,"type":null,"continent_code":null,"continent_name":null,"country_code":"CA","country_name":"Canada","region_code":null,"region_name":null,"city":"Sherwood Park","zip":null,"latitude":53.556,"longitude":-113.2952}
+================================================================================================================
+27-10-2023 12:38:06 AM
+Initial Url => http://localhost:1514/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=fdeb72971ba77357e19b731e9757549a
+GetUserCountryByIp() => {"success":false,"error":{"code":104,"type":"usage_limit_reached","info":"Your monthly usage limit has been reached. Please upgrade your Subscription Plan."}}
+GeoLocation Api => https://geolocation-db.com/json/975d73a0-5723-11ee-abeb-bbf96f1cb178/108.181.97.217
+GetUserCountryByIpFree() => {"ip":null,"type":null,"continent_code":null,"continent_name":null,"country_code":"CA","country_name":"Canada","region_code":null,"region_name":null,"city":"Sherwood Park","zip":null,"latitude":53.556,"longitude":-113.2952}
+================================================================================================================
+27-10-2023 12:39:25 AM
+Initial Url => http://localhost:1514/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=fdeb72971ba77357e19b731e9757549a
+GetUserCountryByIp() => {"success":false,"error":{"code":104,"type":"usage_limit_reached","info":"Your monthly usage limit has been reached. Please upgrade your Subscription Plan."}}
+GeoLocation Api => https://geolocation-db.com/json/975d73a0-5723-11ee-abeb-bbf96f1cb178/85.208.96.208
+================================================================================================================
+27-10-2023 12:43:48 AM
+Initial Url => http://localhost:1514/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+================================================================================================================
+27-10-2023 12:44:27 AM
+Initial Url => http://localhost:1514/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=fdeb72971ba77357e19b731e9757549a
+GetUserCountryByIp() => {"success":false,"error":{"code":104,"type":"usage_limit_reached","info":"Your monthly usage limit has been reached. Please upgrade your Subscription Plan."}}
+GeoLocation Api => https://geolocation-db.com/json/975d73a0-5723-11ee-abeb-bbf96f1cb178/85.208.96.208
+GetUserCountryByIpFree() => {"ip":null,"type":null,"continent_code":null,"continent_name":null,"country_code":"Not found","country_name":"Not found","region_code":null,"region_name":null,"city":"Not found","zip":null,"latitude":"Not found","longitude":"Not found"}
+================================================================================================================
+27-10-2023 01:44:37 AM
+Initial Url => http://localhost:1514/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+================================================================================================================
+27-10-2023 01:46:14 AM
+Initial Url => http://localhost:1514/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=fdeb72971ba77357e19b731e9757549a
+GetUserCountryByIp() => {"success":false,"error":{"code":104,"type":"usage_limit_reached","info":"Your monthly usage limit has been reached. Please upgrade your Subscription Plan."}}
+GeoLocation Free Api => https://geolocation-db.com/json/975d73a0-5723-11ee-abeb-bbf96f1cb178/108.181.97.217
+GetUserCountryByIpFree() => {"ip":null,"type":null,"continent_code":null,"continent_name":null,"country_code":"CA","country_name":"Canada","region_code":null,"region_name":null,"city":"Sherwood Park","zip":null,"latitude":"53.556","longitude":"-113.2952"}
+================================================================================================================
+27-10-2023 01:48:06 AM
+Initial Url => http://localhost:1514/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=fdeb72971ba77357e19b731e9757549a
+GetUserCountryByIp() => {"success":false,"error":{"code":104,"type":"usage_limit_reached","info":"Your monthly usage limit has been reached. Please upgrade your Subscription Plan."}}
+GeoLocation Free Api => https://geolocation-db.com/json/975d73a0-5723-11ee-abeb-bbf96f1cb178/85.208.96.208
+GetUserCountryByIpFree() => {"ip":null,"type":null,"continent_code":null,"continent_name":null,"country_code":"Not found","country_name":"Not found","region_code":null,"region_name":null,"city":"Not found","zip":null,"latitude":"Not found","longitude":"Not found"}
+================================================================================================================
+27-10-2023 01:59:30 AM
+Initial Url => http://localhost:1514/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41844
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41736
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41730
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41747
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41745
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41835
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41821
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41742
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41835
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41747
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41745
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41844
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41736
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41730
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41742
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41821
+================================================================================================================
+27-10-2023 02:11:03 AM
+Initial Url => http://localhost:1514/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41844
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41736
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41730
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41742
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41821
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41835
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41745
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41747

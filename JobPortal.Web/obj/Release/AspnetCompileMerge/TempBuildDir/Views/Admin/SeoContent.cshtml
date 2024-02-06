@@ -1,0 +1,340 @@
+﻿@model JobPortal.Web.Models.SeoMainModel
+@{
+    ViewBag.Title = "Seo";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-lg-10 col-md-10 col-sm-10">
+        <div class="title-login">
+            <h1 style="margin-top: -15px">Seo Content Management</h1>
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-2">
+        <div class="clear" style="height: 20px;"></div>
+
+    </div>
+</div>
+<div class="clear"></div>
+<div id="divmsg" style="display:none;" class="message-info">Data Updated Successfully!</div>
+<div class="clear" style="height:5px;"></div>
+
+<div id="grd" class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <td align="center">Main Page</td>
+
+                <td align="center">Other Pages</td>
+            </tr>
+
+        </thead>
+        <tbody>
+            <tr>
+                <td align="center">
+                    <a href="javascript:return void(0);" id="anchMain">Edit</a>
+                </td>
+                <td align="center">
+                    <a href="javascript:return void(0);" id="anchOther">Edit</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="clear"></div>
+<div id="divmainPage" style="display:none;">
+    <div class="well_table">
+        <form role="form">
+
+            @*@using (Html.BeginForm("AddEventAnnouncement", "EventAnnouncementsController", FormMethod.Post))
+                {*@
+            @Html.ValidationSummary(true)
+
+
+            <div class="form-group">
+                @Html.Label("PageTitle")
+                @Html.TextAreaFor(model => model.PageTitle, new { @class = "form-control", id = "txttitle", style = "resize:none;" })
+                @Html.ValidationMessageFor(model => model.PageTitle)
+            </div>
+            <div class="form-group">
+                @Html.Label("PageMetaKeyword")
+                @Html.TextAreaFor(model => model.PageMetaKeyword, new { @class = "form-control", id = "txtkey", style = "resize:none;" })
+                @Html.ValidationMessageFor(model => model.PageMetaKeyword)
+            </div>
+            <div class="form-group">
+                @Html.Label("PageMetaDescription")
+                @Html.TextAreaFor(model => model.PageMetaDescription, new { @class = "form-control", id = "txtarMsg", style = "resize:none;" })
+                @Html.ValidationMessageFor(model => model.PageMetaDescription)
+            </div>
+
+            <div class="clear_height"></div>
+
+            <div>
+                <input type="button" id="btnCancel" class="btn btn-info _cancel" value="Cancel" />
+                <button type="button" id="btnSubmit" class="btn btn-info">Update</button>
+            </div>
+            <div class="clear_height"></div>
+            @* } *@
+        </form>
+    </div>
+</div>
+<div class="clear"></div>
+<div id="divotherPage" style="display: none">
+    <div class="well_table">
+        <form role="form">
+            @*@using (Html.BeginForm("AddEventAnnouncement", "EventAnnouncementsController", FormMethod.Post))
+                {*@
+            @Html.ValidationSummary(true)
+
+            @*@foreach (var item in Model)
+                {*@
+            <div class="form-group">
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        @Html.LabelFor(model => model.CategoryId)
+
+
+                        @Html.DropDownListFor(model => model.CategoryId, new SelectList(Model.Categories, "Id", "Name", Model.CategoryId), new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.CategoryId)
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        @Html.LabelFor(model => model.SpecializationId)
+
+                        @Html.DropDownListFor(model => model.SpecializationId, new SelectList(Model.Specialisations, "Id", "Name", Model.SpecializationId), Model.SELECT, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.SpecializationId)
+                    </div>
+                </div>
+
+
+            </div>
+
+            @*<div class="form-group">
+                    @Html.Label("Description")
+                    @Html.TextAreaFor(model => Model.getcontent, new { @class = "form-control", id = "txtarMessage" })
+                    @Html.ValidationMessageFor(model => model.PageDescription)
+
+                </div>*@
+            <div class="form-group">
+                @Html.Label("PageTitle")
+                @Html.TextAreaFor(model => model.PageTitle, new { @class = "form-control", id = "txtartitle", style = "resize:none;" })
+                @Html.ValidationMessageFor(model => model.PageTitle)
+            </div>
+            <div class="form-group">
+                @Html.Label("PageMetaKeyword")
+                @Html.TextAreaFor(model => model.PageMetaKeyword, new { @class = "form-control", id = "txtarKey", style = "resize:none;" })
+                @Html.ValidationMessageFor(model => model.PageMetaKeyword)
+            </div>
+            <div class="form-group">
+                @Html.Label("PageMetaDescription")
+                @Html.TextAreaFor(model => model.PageMetaDescription, new { @class = "form-control", id = "txtarMessage", style = "resize:none;" })
+                @Html.ValidationMessageFor(model => model.PageMetaDescription)
+            </div>
+            @*}*@
+            <div class="clear_height"></div>
+
+            <div>
+                <input type="button" id="btnCancel2" class="btn btn-info _cancel" value="Cancel" />
+                <button type="button" id="btnSeoSubmit" class="btn btn-info">Update</button>
+            </div>
+            <div class="clear_height"></div>
+            @* } *@
+        </form>
+    </div>
+</div>
+<script>
+    tinymce.init({ selector: '#txtarMessage txtarMsg', menubar: false });
+</script>
+
+<script type="text/javascript">
+    function fundivact(stractval) {
+        //alert(stractval);
+        if (stractval == "mainPage") {
+            document.getElementById("divmainPage").style.display = "block";
+            document.getElementById("divotherPage").style.display = "none";
+        }
+        else if (stractval == "othPage") {
+            document.getElementById("divmainPage").style.display = "none";
+            document.getElementById("divotherPage").style.display = "block";
+        }
+        return false;
+    }
+</script>
+
+<script type="text/javascript">
+    $("#divmsg").hide();
+    $("#CategoryId").change(function () {
+        $("#divmsg").hide();
+        $("#SpecializationId").empty();
+        if ($("#CategoryId option:selected").text() == "--- Select ---") {
+            return;
+        }
+        $.post('@Url.Action("GetSpecializations", "JsonHelper")', { categoryid: $('option:selected', $(this)).val() },
+        function (result) {
+
+            if (result.length != 0) {
+                $("#SpecializationId").empty();
+                $("#SpecializationId").append("<option value=''>--- Select ---</option>");
+                $(result).each(function () {
+                    $("#SpecializationId").append("<option value=" + this.Value + ">" + this.Text + "</option>");
+                });
+            }
+        });
+        $.post('@Url.Action("GetSpecializationMultiContent", "JsonHelper")', { categoryid: $('option:selected', $(this)).val() },
+        function (result) {
+            //alert(result);
+            if (result.length != 0) {
+                var strcontent = new Array();
+                strcontent = result.split('~');
+
+                $("#txtartitle").val("");
+                $("#txtarMessage").val("");
+                $("#txtarKey").val("");
+
+                $("#txtartitle").val(strcontent[0]);
+                $("#txtarKey").val(strcontent[1]);
+                $("#txtarMessage").val(strcontent[2]);
+
+            }
+        });
+    });
+
+    $("#SpecializationId").change(function () {
+        $("#divmsg").hide();
+        $("#txtarMessage").empty();
+        if ($("#SpecializationId option:selected").text() == "--- Select ---") {
+            return;
+        }
+        $.post('@Url.Action("GetSubSpecialisationContents", "JsonHelper")', { SpecializationId: $('option:selected', $(this)).val() },
+        function (result) {
+            if (result.length != 0) {
+                $("#txtarMessage").empty();
+
+                $(result).each(function () {
+                    $("#txtarMessage").append("<option value=" + this.Value + ">" + this.Text + "</option>");
+                });
+            }
+        });
+        var catids = $("#CategoryId").val();
+        $.post('@Url.Action("GetSubSpecializationMultiContent", "JsonHelper")', { catid: catids, SpecializationId: $('option:selected', $(this)).val() },
+      function (result) {
+          if (result.length != 0) {
+              var strcontent = new Array();
+              strcontent = result.split('~');
+              $("#txtartitle").val("");
+              $("#txtarMessage").val("");
+              $("#txtarKey").val("");
+              $("#txtartitle").val(strcontent[0]);
+              $("#txtarKey").val(strcontent[1]);
+              $("#txtarMessage").val(strcontent[2]);
+
+          }
+      });
+    });
+
+    $("#anchOther").click(function () {
+        $("#divmsg").hide();
+        $("#divmainPage").hide();
+        $("#divotherPage").show();
+        $("#SpecializationId").val('');
+        var catid = $("#CategoryId").val();
+        $.post('@Url.Action("GetSpecializationMultiContent", "JsonHelper")', { categoryid: catid },
+        function (result) {
+            //alert(result);
+            if (result.length != 0) {
+                var strcontent = new Array();
+                strcontent = result.split('~');
+
+                $("#txtartitle").val("");
+                $("#txtarMessage").val("");
+                $("#txtarKey").val("");
+
+                $("#txtartitle").val(strcontent[0]);
+                $("#txtarKey").val(strcontent[1]);
+                $("#txtarMessage").val(strcontent[2]);
+
+            }
+        });
+    })
+
+    $("#anchMain").click(function () {
+        $("#divmsg").hide();
+        $("#divmainPage").show();
+        $("#divotherPage").hide();
+
+
+        $.post('@Url.Action("GetMainMultiContent", "JsonHelper")', { pageid: 'main' },
+         function (result) {
+             if (result.length != 0) {
+                 // alert(result);
+                 $("#txtarMsg").val("");
+                 var strcontent = new Array();
+                 strcontent = result.split('~');
+                 $("#txttitle").val("");
+                 $("#txtarMsg").val("");
+                 $("#txtkey").val("");
+
+                 $("#txttitle").val(strcontent[0]);
+                 $("#txtkey").val(strcontent[1]);
+                 $("#txtarMsg").val(strcontent[2]);
+
+             }
+         });
+    })
+    $("._cancel").click(function () {
+
+        $("#divmainPage").hide();
+        $("#divotherPage").hide();
+        $("#divmsg").hide();
+    });
+
+    /********************************************************/
+    $("#btnSubmit").click(function () {
+
+        $("#divmainPage").show();
+        $("#divotherPage").hide();
+        $("#divmsg").hide();
+
+        $.post('@Url.Action("updateSEOcontent", "Admin")', { id: 1, strTitle: $("#txttitle").val(), strKey: $("#txtkey").val(), strDescs: $("#txtarMsg").val(), strval: 'Main', seplz: -1 },
+     function (result) {
+         $("#divmainPage").hide();
+         $("#divotherPage").hide();
+         $("#divmsg").show();
+         if (result.length != 0) {
+             $("#txttitle").val("");
+             $("#txtarMsg").val("");
+             $("#txtkey").val("");
+
+         }
+
+     });
+
+    })
+    /**********************************************/
+    $("#btnSeoSubmit").click(function () {
+
+        $("#divmainPage").hide();
+        $("#divotherPage").show();
+        $("#divmsg").hide();
+
+        var strcatid = $("#CategoryId").val();
+        var strseplz = $("#SpecializationId").val();
+
+        if (strseplz == "") { strseplz = 0; }
+        // alert(strcatid + ":::" + strseplz);
+        $.post('@Url.Action("updateSEOcontent", "Admin")', { id: strcatid, strTitle: $("#txtartitle").val(), strKey: $("#txtarKey").val(), strDescs: $("#txtarMessage").val(), strval: 'Cate', seplz: strseplz },
+     function (result) {
+         $("#divmainPage").hide();
+         $("#divotherPage").hide();
+         $("#divmsg").show();
+         if (result.length != 0) {
+             $("#txtartitle").val("");
+             $("#txtarMessage").val("");
+             $("#txtarKey").val("");
+
+         }
+     });
+    })
+
+</script>

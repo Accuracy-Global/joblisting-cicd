@@ -1,0 +1,29 @@
+﻿@model JobPortal.Web.Models.LocalPasswordModel
+@{
+    ViewBag.Title = "Manage Account";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="title-login">
+    <h1 style="margin-top:-15px">
+        Change Password
+    </h1>
+    Manage password here
+</div>
+<div class="clear" style="height:15px;"></div>
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        @Html.Partial("_MessagePartial")<br />
+    </div>
+</div>
+<div>You're logged in as <strong>@User.Username</strong></div>
+<div class="clear" style="height:10px;"></div>
+@if (ViewBag.HasLocalPassword)
+{
+    @Html.Partial("_ChangePasswordPartial")
+}
+else
+{
+    @Html.Partial("_SetPasswordPartial")
+}

@@ -1,0 +1,168 @@
+﻿@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Uploaded Resumes";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<JobPortal.Data.Resume>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+}
+<div class="row">
+    <div class="col-lg-9 col-md-9 col-sm-9">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">Resumes</h1>
+            Manage uploaded resumes here
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-3 text-right" style="margin-top: 7px;">
+        @Html.ActionLink("Upload", "UploadResume", null, new { @class = "btn btn-info", @style = "width:120px" })
+    </div>
+</div>
+<div class="clear" style="height:15px"></div>
+@using (Html.BeginForm("ResumeList", "Admin", method: FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
+                @Html.DropDownList("CategoryId", new SelectList(SharedService.Instance.GetSpecialisations(), "Id", "Name"), "SELECT CATEGORY", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
+                @Html.DropDownList("SpecializationId", new SelectList(SharedService.Instance.GetSubSpecialisations(SharedService.Instance.GetDefaultSpecialization().Id), "Id", "Name"), "SELECT SPECIALIZATION", new { @class = "form-control" })
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
+                @Html.DropDownList("CountryId", new SelectList(SharedService.Instance.GetCountryList(), "Id", "Text"), "SELECT COUNTRY", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        <div class='input-group date'>
+                            @Html.TextBox("StartDate", null, new { @class = "form-control", placeholder = "FROM DATE", @title = "FROM DATE", @readonly = "readonly" })
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <div class='input-group date'>
+                                @Html.TextBox("EndDate", null, new { @class = "form-control", placeholder = "TO DATE", @title = "TO DATE", @readonly = "readonly" })
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear" style="height:15px;"></div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 text-right">
+            <input id="SearchBasic" type="submit" value="Search" class="btn btn-info" style="width:100px;" />
+        </div>
+    </div>
+}
+<div class="clear" style="height:35px"></div>
+@{
+    WebGrid grid = new WebGrid(ViewBag.Model, ajaxUpdateContainerId: "grid");
+}
+<div id="container-grid" class="table-responsive">
+    @grid.GetHtml(htmlAttributes: new { id = "grid", @style = "width:100%" }, tableStyle: "table table-bordered table-hover",
+    columns: new[] {
+
+   grid.Column(columnName:"Title", header: "Title", canSort:false, format: p=>p.Title),
+   grid.Column(columnName:"Category", header: "Category", canSort:false, format: (item) =>
+   {
+       string name = string.Empty;
+       Specialization category = SharedService.Instance.GetCategory(item.CategoryId);
+       if (category != null)
+       {
+           name = category.Name;
+       }
+       return name;
+   }),
+   grid.Column(columnName:"Specialization", header: "Specialization", canSort:false, format: (item) =>
+   {
+       string name = string.Empty;
+       SubSpecialization specialization = SharedService.Instance.GetSpecialization(item.SpecializationId);
+       if (specialization != null)
+       {
+           name = specialization.Name;
+       }
+       return name;
+   }),
+   grid.Column(columnName:"Country", header: "Country", canSort:false, format: (item) =>
+   {
+       string name = string.Empty;
+       List country = SharedService.Instance.GetCountry(item.CountryId);
+       if (country != null)
+       {
+           name = country.Text;
+       }
+       return name;
+   }),
+   grid.Column(columnName:"City", header: "City", canSort:false, format: p=>p.City),
+   grid.Column(columnName:"DateCreated",header:"Date", canSort:false, format: p=>p.DateCreated.ToString("MMM-dd-yyyy")),
+
+    grid.Column("Actions", canSort:false, format: (item) =>
+        {
+             var links3 = "";
+             if(item.IsDeleted){
+                 links3 = "Deleted";
+             }else{
+                 links3 += Html.ActionLink("Download", "Download", "Admin", new { id = item.Id, type = DownloadTypes.RESUME, redirect = Request.Url.ToString() }, new { title = "Download Resume" }).ToString();
+                 links3 +=" | " + Html.ActionLink("Delete", "DeleteResume", new { id = item.Id}, new {title="Delete", @class="delete" , onclick="return confirm('Are you sure, want to delete resume?');"}).ToString();
+             }
+            return Html.Raw(links3);
+        })}
+    )
+</div>
+<div style="text-align:center;">
+
+    @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Index",
+            new RouteValueDictionary()
+            {
+                { "PageNumber" , PageNumber},
+                { "Type" , Request["Type"]},
+                { "CountryId" , Request["CountryId"]},
+                { "StartDate" , Request["StartDate"]},
+                { "EndDate" , Request["EndDate"]}
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+</div>
+<script>
+    $(function () {
+        $("#CategoryId").change(function () {
+            $("#SpecializationId").empty();
+            $("#SpecializationId").append("<option value =\"\">SELECT SPECIALIZATION</option>");
+            $.post('@Url.Action("GetSpecializations", "JsonHelper")', { categoryId: $('option:selected', $(this)).val() },
+                    function (result) {
+                        if (result.length != 0) {
+                            $(result).each(function () {
+                                $("#SpecializationId").append("<option value =" + this.Value + ">" + this.Text + "</option>");
+                            });
+                        }
+                    });
+        });
+    });
+</script>

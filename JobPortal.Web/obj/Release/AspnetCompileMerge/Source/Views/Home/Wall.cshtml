@@ -1,0 +1,2267 @@
+﻿@using JobPortal.Web.Models
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Models
+@{
+    UserInfo defaultUser = null;
+    string links = string.Empty;
+    string username = string.Empty;
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        username = User.Username;
+        user = User.Info;
+    }
+    defaultUser = new UserInfo(ViewBag.Id);
+    if (!Request.IsAuthenticated)
+    {
+        links += "<a href=\"javascript:void(0)\"  style=\"color:#aaaaaa\">Connect</a> | ";
+        links += "<a href=\"javascript:void(0)\"  style=\"color:#aaaaaa\">Message</a> | ";
+        links += "<a href=\"javascript:void(0)\"  style=\"color:#aaaaaa\">Share</a> | ";
+        links += "<a href=\"javascript:void(0)\"  style=\"color:#aaaaaa\">Download</a> | ";
+    }
+    else
+    {
+        if (!string.IsNullOrEmpty(username))
+        {
+            if (username != defaultUser.Username)
+            {
+                if (!defaultUser.IsConnected)
+                {
+                    links += string.Format("<a href=\"{0}\" target=\"_blank\">Connect</a> | ", defaultUser.ConnectUrl);
+                }
+                links += string.Format("<a href=\"{0}\" target=\"_blank\">Message</a> | ", defaultUser.MessageUrl);
+            }
+        }
+        else
+        {
+            links += string.Format("<a href=\"{0}\" target=\"_blank\">Connect</a> | ", defaultUser.ConnectUrl);
+            links += string.Format("<a href=\"{0}\" target=\"_blank\">Message</a> | ", defaultUser.MessageUrl);
+        }
+        links += string.Format("<a href=\"{0}\" target=\"_blank\">Share</a>", defaultUser.ShareUrl);
+        if (!string.IsNullOrEmpty(defaultUser.Content) && defaultUser.CategoryId != null && defaultUser.SpecializationId != null)
+        {
+            links += string.Format(" | <a href=\"{0}\" target=\"_blank\">Download</a>", defaultUser.DownloadUrl);
+        }
+        if (username != defaultUser.Username)
+        {
+            if (!defaultUser.IsBlockedByMe)
+            {
+                links += string.Format("{0}", defaultUser.BlockLink);
+            }
+            else
+            {
+                links += string.Format(" | <a href=\"{0}\" target=\"_blank\">Unblock</a>", defaultUser.UnblockUrl);
+            }
+        }
+    }
+    //}
+}
+<style>
+    .lam {
+        margin-top: 6px;
+    }
+
+        .lam a {
+            /*color: #333;*/
+            color: #00a6e0;
+        }
+
+            .lam a:hover {
+                color: #00a6e0;
+            }
+
+    .lamenu .navbar-default .navbar-toggle {
+        position: relative;
+        float: right;
+        width: 40px;
+        padding: 0 10px 8px;
+        margin-top: 15px;
+        margin-right: 15px;
+        margin-bottom: 8px;
+        background-color: #00BEE9;
+        background-image: none;
+        border-radius: 0;
+        border: 1px solid #fff !important;
+    }
+
+        .lamenu .navbar-default .navbar-toggle .collapsed {
+            background-color: #00BEE9 !important;
+        }
+
+        .lamenu .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+            background-color: #00BEE9;
+        }
+
+        .lamenu .navbar-default .navbar-toggle .icon-bar {
+            background-color: #000;
+            height: 2px;
+        }
+
+        .lamenu .navbar-default .navbar-toggle button {
+            border: 1px solid #fff;
+        }
+
+    #triangle-topright {
+        width: 100%;
+        height: 0;
+        border-top: 25px solid #01a7e1;
+        border-left: 25px solid transparent;
+    }
+
+        #triangle-topright > div > a {
+            color: #333;
+        }
+
+            #triangle-topright > div > a:hover {
+                color: #fff;
+            }
+
+    .custom_navbar {
+        min-height: 0px;
+        background-color: #fff;
+        border: none;
+        margin-top: -10px;
+    }
+
+        .custom_navbar a {
+            color: #01a7e1 !important;
+            height: 22px !important;
+            padding: 0px !important;
+            background-color: transparent !important;
+            padding-left: 15px;
+            padding-right: 15px;
+            border: none;
+        }
+
+        .custom_navbar li {
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+        }
+
+        .custom_navbar button {
+            height: 20px;
+            border: 1px solid #00BEE9;
+        }
+    .defaultAvtar {
+        /*background: url("/image/Avtar?Id=@defaultUser.Id") no-repeat scroll;
+        background-position: top left;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;*/
+
+        background: url("/image/Avtar?Id=@defaultUser.Id") no-repeat 0 0 / contain;
+        background-position: center center;
+        overflow:hidden;
+    }
+
+    .bd1
+    {
+        background: url("/images/right-side-top-1.png") no-repeat top left scroll;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        @if (!Request.IsAuthenticated)
+        {
+            <text>
+                -webkit-filter: blur(1px);
+            -moz-filter: blur(1px);
+            -o-filter: blur(1px);
+            -ms-filter: blur(1px);
+            filter: blur(1px);
+            opacity: 0.30;
+            background-color: #000;
+            </text>
+        }
+    }
+
+    .bd2
+    {
+        background: url("/images/right-side-top-2.png") no-repeat top left scroll;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        @if (!Request.IsAuthenticated)
+        {
+            <text>
+                -webkit-filter: blur(1px);
+            -moz-filter: blur(1px);
+            -o-filter: blur(1px);
+            -ms-filter: blur(1px);
+            filter: blur(1px);
+            opacity: 0.30;
+            background-color: #000;
+            </text>
+        }
+    }
+
+    .bd3
+    {
+        background: url("/images/right-side-bottom-1.png") no-repeat top left scroll;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        @if (!Request.IsAuthenticated)
+        {
+            <text>
+                -webkit-filter: blur(1px);
+            -moz-filter: blur(1px);
+            -o-filter: blur(1px);
+            -ms-filter: blur(1px);
+            filter: blur(1px);
+            opacity: 0.30;
+            background-color: #000;
+            </text>
+        }
+    }
+
+
+    .bd4
+    {
+        background: url("/images/right-side-bottom-2.png") no-repeat top left scroll;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        @if (!Request.IsAuthenticated)
+        {
+            <text>
+                -webkit-filter: blur(1px);
+            -moz-filter: blur(1px);
+            -o-filter: blur(1px);
+            -ms-filter: blur(1px);
+            filter: blur(1px);
+            opacity: 0.30;
+            background-color: #000;
+            </text>
+        }
+    }
+    .bgimg
+    {
+        background: url("/images/slider-img.png") no-repeat top left scroll;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        @if (!Request.IsAuthenticated)
+        {
+            <text>
+                -webkit-filter: blur(1px);
+            -moz-filter: blur(1px);
+            -o-filter: blur(1px);
+            -ms-filter: blur(1px);
+            filter: blur(1px);
+            opacity: 0.30;
+            background-color: #000;
+            </text>
+        }
+    }
+    .list-group-item ul {
+        padding-left:15px;
+    }
+    .list-group-item li {
+        list-style-type:initial;
+    }
+</style>
+
+<script id="itemplate" type="text/html">
+    <style>
+        .c-${UserId}::after {
+            background: url("/image/avtar?Id=${UserId}") no-repeat 0 0 / contain;
+            background-position: center center;
+        }
+
+        .b-${Reference}
+        {
+            background: url("/image/Load?Id=${ImageId}") no-repeat top left scroll;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            border: 1px solid lightgray;
+            @if (!Request.IsAuthenticated)
+            {
+                <text>
+                 -webkit-filter: blur(1px);
+                -moz-filter: blur(1px);
+                -o-filter: blur(1px);
+                -ms-filter: blur(1px);
+                filter: blur(1px);
+                opacity: 0.30;
+                background-color: #000;
+                </text>
+            }
+        }
+    </style>
+    <div class="business-sec">
+        <a href="${ProfileUrl}" target="_blank" style="color:#428bca">
+            <div class="business b-${Reference}">
+
+            </div>
+        </a>
+        <div class="b-comm">
+            <a href="${ProfileUrl}" target="_blank"><div class="comment-img c-${UserId}"></div></a>
+            <div class="comment-content">
+                <small>
+                    @if (!Request.IsAuthenticated)
+                    {
+                        <a href="javascript:void(0)" target="_blank" style="color:#aaaaaa">${FullName}</a>
+                    }
+                    else
+                    {
+                        <a href="${ProfileUrl}" target="_blank">${FullName}</a>
+                    }
+                </small>
+                <br />
+                <span>
+                    ${Area}
+                </span>
+                <div class="actionlinks">
+                    <small id="ql${Id}">
+                        @if (!Request.IsAuthenticated)
+                        {
+                            <a href="javascript:void(0)" target="_blank" style="color:#aaaaaa">Connect</a> <text> | </text>
+                            <a href="javascript:void(0)" target="_blank" style="color:#aaaaaa">Message</a><text> | </text>
+                            <a href="javascript:void(0)" target="_blank" style="color:#aaaaaa">Share</a><text> | </text>
+                            <a href="javascript:void(0)" target="_blank" style="color:#aaaaaa">Download</a>
+                        }
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+@if (defaultUser != null)
+{
+    string profilelink = string.Empty;
+    if (User != null && defaultUser.Id != user.Id)
+    {
+        profilelink = string.Format("/{0}", defaultUser.ProfileUrl);
+    }
+    else
+    {
+        profilelink = "javascript:void(0)";
+    }
+
+
+    <script id="tmplTopRightFirst" type="text/html">
+        <div class="business-sec @(!Request.IsAuthenticated ? "business-sec-overlay" : "")">
+            <a href="@profilelink" target="_blank">
+                <div class="business bd1"></div>
+            </a>
+            <div class="b-comm">
+                <a href="@profilelink" target="_blank"><div class="comment-img defaultAvtar"></div></a>
+                <div class="comment-content">
+                    <small>
+                        @if (!Request.IsAuthenticated)
+                        {
+                            <a href="javascript:void()" style="color:#aaaaaa">@defaultUser.Name</a>
+                        }
+                        else
+                        {
+                            <a href="@profilelink" target="_blank">@defaultUser.Name</a>
+                        }
+                    </small>
+                    <br />
+
+                    <span>
+                        @if (defaultUser.Type == 4 && defaultUser.Age != null)
+                        {
+                            @defaultUser.Area <text>, @(defaultUser.Gender != null ? defaultUser.Gender + ", " : "")@defaultUser.Age@(defaultUser.RelationshipStatus != null ? ", " + ((Relationships)defaultUser.RelationshipStatus).GetDescription().TitleCase() : "")</text>
+                        }
+                        else
+                        {
+                            <text>@defaultUser.Area</text>
+                        }
+                    </span>
+
+                    <div class="actionlinks" style="text-align:right;margin-right:7px;">
+                        <small>@Html.Raw(links)</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="tmplTopRightSecond" type="text/html">
+        <div class="business-sec @(!Request.IsAuthenticated ? "business-sec-overlay" : "")">
+            <a href="@profilelink" target="_blank">
+                <div class="business bd2"></div>
+            </a>
+            <div class="b-comm">
+                <a href="@profilelink" target="_blank"><div class="comment-img defaultAvtar"></div></a>
+                <div class="comment-content">
+                    <small>
+                        @if (!Request.IsAuthenticated)
+                        {
+                            <a href="javascript:void()" style="color:#aaaaaa">@defaultUser.Name</a>
+                        }
+                        else
+                        {
+                            <a href="@profilelink" target="_blank">@defaultUser.Name</a>
+                        }
+                    </small>
+                    <br />
+
+                    <span>
+                        @if (defaultUser.Type == 4 && defaultUser.Age != null)
+                        {
+                            @defaultUser.Area <text>, @(defaultUser.Gender != null ? defaultUser.Gender + ", " : "")@defaultUser.Age@(defaultUser.RelationshipStatus != null ? ", " + ((Relationships)defaultUser.RelationshipStatus).GetDescription().TitleCase() : "")</text>
+                        }
+                        else
+                        {
+                            <text>@defaultUser.Area</text>
+                        }
+                    </span>
+
+                    <div class="actionlinks" style="text-align:right;margin-right:7px;">
+                        <small>@Html.Raw(links)</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="tmplBottomRightFirst" type="text/html">
+        <div class="business-sec @(!Request.IsAuthenticated ? "business-sec-overlay" : "")">
+            <a href="@profilelink" target="_blank">
+                <div class="business bd3"></div>
+            </a>
+            <div class="b-comm">
+                <a href="@profilelink" target="_blank"><div class="comment-img defaultAvtar"></div></a>
+                <div class="comment-content">
+                    <small>
+                        @if (!Request.IsAuthenticated)
+                        {
+                            <a href="javascript:void()" style="color:#aaaaaa">@defaultUser.Name</a>
+                        }
+                        else
+                        {
+                            <a href="@profilelink" target="_blank">@defaultUser.Name</a>
+                        }
+                    </small>
+                    <br />
+
+                    <span>
+                        @if (defaultUser.Type == 4 && defaultUser.Age != null)
+                        {
+                            @defaultUser.Area <text>, @(defaultUser.Gender != null ? defaultUser.Gender + ", " : "")@defaultUser.Age@(defaultUser.RelationshipStatus != null ? ", " + ((Relationships)defaultUser.RelationshipStatus).GetDescription().TitleCase() : "")</text>
+                        }
+                        else
+                        {
+                            <text>@defaultUser.Area</text>
+                        }
+                    </span>
+
+                    <div class="actionlinks" style="text-align:right;margin-right:7px;">
+                        <small>@Html.Raw(links)</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="tmplBottomRightSecond" type="text/html">
+        <div class="business-sec @(!Request.IsAuthenticated ? "business-sec-overlay" : "")">
+            <a href="@profilelink" target="_blank">
+                <div class="business bd4"></div>
+            </a>
+            <div class="b-comm">
+                <a href="@profilelink" target="_blank"><div class="comment-img defaultAvtar"></div></a>
+                <div class="comment-content">
+                    <small>
+                        @if (!Request.IsAuthenticated)
+                        {
+                            <a href="javascript:void()" style="color:#aaaaaa">@defaultUser.Name</a>
+                        }
+                        else
+                        {
+                            <a href="@profilelink" target="_blank">@defaultUser.Name</a>
+                        }
+                    </small>
+                    <br />
+
+                    <span>
+                        @if (defaultUser.Type == 4 && defaultUser.Age != null)
+                        {
+                            @defaultUser.Area <text>, @(defaultUser.Gender != null ? defaultUser.Gender + ", " : "")@defaultUser.Age@(defaultUser.RelationshipStatus != null ? ", " + ((Relationships)defaultUser.RelationshipStatus).GetDescription().TitleCase() : "")</text>
+                        }
+                        else
+                        {
+                            <text>@defaultUser.Area</text>
+                        }
+                    </span>
+
+                    <div class="actionlinks" style="text-align:right;margin-right:7px;">
+                        <small>@Html.Raw(links)</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="tmplBackground" type="text/html">
+        <div class="business-sec @(!Request.IsAuthenticated ? "business-sec-overlay" : "")">
+            <a href="@profilelink" target="_blank">
+                <div class="business bgimg"></div>
+            </a>
+            <div class="b-comm">
+                <a href="@profilelink" target="_blank"><div class="comment-img defaultAvtar"></div></a>
+                <div class="comment-content">
+                    <small>
+                        @if (!Request.IsAuthenticated)
+                        {
+                            <a href="javascript:void()" style="color:#aaaaaa">@defaultUser.Name</a>
+                        }
+                        else
+                        {
+                            <a href="@profilelink" target="_blank">@defaultUser.Name</a>
+                        }
+                    </small>
+                    <br />
+
+                    <span>
+                        @if (defaultUser.Type == 4 && defaultUser.Age != null)
+                        {
+                            @defaultUser.Area <text>, @(defaultUser.Gender != null ? defaultUser.Gender + ", " : "")@defaultUser.Age@(defaultUser.RelationshipStatus != null ? ", " + ((Relationships)defaultUser.RelationshipStatus).GetDescription().TitleCase() : "")</text>
+                        }
+                        else
+                        {
+                            <text>@defaultUser.Area</text>
+                        }
+                    </span>
+                    <div class="actionlinks" style="text-align:right;margin-right:7px;">
+                        <small>@Html.Raw(links)</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+}
+<script id="jtemplate" type="text/html">
+    <div class="business-sec @(!Request.IsAuthenticated ? "business-sec-overlay" : "")">
+        <div class="jbusiness b-${Reference}" style="padding:10px;font-family: Calibri;border: 1px solid lightgray;">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div style="font-size:13pt;"><a href="${JobUrl}" title="${JobTitle}" target="_blank" style="font-weight:normal;color:#428bca">${JobTitle}</a></div>
+                    <div style="font-size:10pt; font-weight:normal; color:#000; padding-top:2px">${JobDescription}</div>
+                    <div style="font-size:10pt; font-weight:normal; color:#000; padding-top:2px">${JobLocation}</div>
+                    <div style="font-size:10pt; font-weight:normal; color:#000; padding-top:2px">Job Listed: ${PublishedDate}, Job Expiry: ${ClosingDate}</div>
+                    <div style="font-size:10pt; font-weight:normal; color:#000; padding-top:2px" id="joblinks${Id}">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="b-comm">
+            <a href="${ProfileUrl}" target="_blank">
+                <div class="comment-img" style="background: url('/image/avtar?Id=${UserId}') no-repeat 0 0 / contain; background-position: center center;"></div>
+            </a>
+            <div class="comment-content">
+                <small>
+                    @if (!Request.IsAuthenticated)
+                    {
+                        <a href="javascript:void(0)" style="color:#aaaaaa">${FullName}</a>
+                    }
+                    else
+                    {
+                        <a href="${ProfileUrl}" target="_blank">${FullName}</a>
+                    }
+                </small>
+                <br />
+                <span>
+                    ${Area}
+                </span>
+                <div class="actionlinks">
+                    <small id="ql${Id}">
+                        @if (!Request.IsAuthenticated)
+                        {
+                            <a href="javascript:void(0)" style="color:#aaaaaa">Connect</a> <text> | </text>
+                            <a href="javascript:void(0)" style="color:#aaaaaa">Message</a><text> | </text>
+                            <a href="javascript:void(0)" style="color:#aaaaaa">Share</a><text> | </text>
+                            <a href="javascript:void(0)" style="color:#aaaaaa">Download</a>
+                        }
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<div class="middle-block">
+    <div class="latest-activity">
+        <div class="row">
+            <div class="col-sm-3 la-col">
+                <div class="la-heading lam">
+                    <a href="javascript:void(0);" id="lnkLatestActivity">Latest&nbsp;Activity</a>
+                </div>
+            </div>
+            <div class="col-sm-9 lal-col">
+                <div class="lamenu">
+                    <div class="navigation-main" style="min-height:28px">
+                        <nav class="navbar navbar-default">
+                            <!-- Brand and toggle get grouped for better mobile display -->
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+                                    <span class="icon-bar" style="color:black"></span>
+                                    <span class="icon-bar" style="color:black"></span>
+                                    <span class="icon-bar" style="color:black"></span>
+                                </button>
+                                @*<button type="button" class="navbar-toggle collapsed bottom" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>*@
+                            </div>
+
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                                <ul class="nav navbar-nav custom-navmenu">
+                                    <li id="lnkProfile" style="font-size: 17px; padding-left:0px;"><a href="javascript:void(0);">Profile</a></li>
+                                    @if (Request.IsAuthenticated && @defaultUser.Username == username)
+                                    {
+                                        <li id="lnkEditPageAddress" style="font-size: 17px;"><a href="javascript:void(0);">Edit Page Address</a></li>
+                                    }
+                                </ul>
+                            </div>
+                            <!-- /.navbar-collapse -->
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="height:11px;"></div>
+        <div id="la" class="la-sec">
+            <div id="wall">
+
+            </div>
+            <div id="defaultWall">
+
+            </div>
+        </div>
+        <div id="up" class="up-sec" style="display:none; min-height:100px; padding-bottom:15px;">
+            @{
+                UserProfile member = MemberService.Instance.Get(defaultUser.Id);
+                List country = new List();
+                if (member.CountryId != null)
+                {
+                    country = SharedService.Instance.GetCountry(member.CountryId.Value);
+                }
+                JobPortal.Data.Specialization category = new JobPortal.Data.Specialization();
+                if (member.CategoryId != null)
+                {
+                    category = SharedService.Instance.GetCategory(member.CategoryId.Value);
+                }
+
+                string PermaLink = member.PermaLink;
+                string address = string.Empty;
+                if (!string.IsNullOrEmpty(member.Address))
+                {
+                    address = member.Address;
+                }
+
+                if (!string.IsNullOrEmpty(member.City))
+                {
+                    List oCountry = SharedService.Instance.GetCountry(member.CountryId.Value);
+                    if (!string.IsNullOrEmpty(address))
+                    {
+                        address = string.Format("{0}, {1}", address, member.City);
+                    }
+                    else
+                    {
+                        address = string.Format("{0}", member.City);
+                    }
+                }
+
+                if (member.StateId != null)
+                {
+                    List oState = SharedService.Instance.GetState(member.StateId.Value);
+                    if (!string.IsNullOrEmpty(address))
+                    {
+                        address = string.Format("{0}, {1}", address, oState.Text);
+                    }
+                    else
+                    {
+                        address = string.Format("{0}", oState.Text);
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(member.Zip))
+                {
+                    if (!string.IsNullOrEmpty(address))
+                    {
+                        address = string.Format("{0} - {1}", address, member.Zip);
+                    }
+                    else
+                    {
+                        address = string.Format("{0}", member.Zip);
+                    }
+                }
+
+                if (Request.IsAuthenticated)
+                {
+                    if (user.Id != member.UserId)
+                    {
+                        if (member.Type == 4 && DomainService.Instance.IsPaidProfile(user.Id, member.UserId))
+                        {
+                            if (country != null)
+                            {
+                                //if (!string.IsNullOrEmpty(address))
+                                //{
+                                //    address = string.Format("{0}  {1}", address, country.Text);
+                                //}
+                                //else
+                                //{
+                                    address = string.Format("{0}", country.Text);
+                                //}
+                            }
+                        }
+                        else if (member.Type == 5)
+                        {
+                            if (country != null)
+                            {
+                                if (!string.IsNullOrEmpty(address))
+                                {
+                                    address = string.Format("{0}  {1}", address, country.Text);
+                                }
+                                else
+                                {
+                                    address = string.Format("{0}", country.Text);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            address = string.Format("{0}", country.Text);
+                        }
+                    }
+                    else
+                    {
+                        if (country != null)
+                        {
+                            if (!string.IsNullOrEmpty(address))
+                            {
+                                address = string.Format("{0}  {1}", address, country.Text);
+                            }
+                            else
+                            {
+                                address = string.Format("{0}", country.Text);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (country != null)
+                    {
+                        address = string.Format("{0}", country.Text);
+                    }
+                }
+
+            }
+            @*@if (member.Type == 4)
+                {*@
+            <div class="list-group-item" style="min-height:130px;">
+                @if (member.Type == 4)
+                {
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div><small><b>Name:</b>&nbsp;&nbsp;&nbsp;@member.FirstName&nbsp;@member.LastName</small></div>
+                        </div>
+                    </div>
+                }
+                else if (member.Type == 5)
+                {
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div><small><b>Name:</b>&nbsp;&nbsp;&nbsp;@member.Company</small></div>
+                        </div>
+                    </div>
+                }
+                @if (member.Type == 4)
+                {
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <small><b>Age:</b>&nbsp;&nbsp;&nbsp;@member.Age</small>
+                        </div>
+                    </div>
+                }
+                <!--Address-->
+                @if (!Request.IsAuthenticated)
+                {
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <small><b>Address: </b>@((!string.IsNullOrEmpty(address) ? address : "Not Available")) </small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <small><b>Email:</b>&nbsp;&nbsp;&nbsp;<label for="" title="Login to see the Email.">****************</label></small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <small><b>Phone:</b>&nbsp;&nbsp;&nbsp;<label for="" title="Login to see the Phone.">****************</label></small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <small><b>Mobile:</b>&nbsp;&nbsp;&nbsp;<label for="" title="Login to see the Mobile.">****************</label></small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <small><b>Website:</b>&nbsp;&nbsp;&nbsp;<label for="" title="Login to see the Website.">****************</label></small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <small><b>Facebook Page:</b>&nbsp;&nbsp;&nbsp;<label for="" title="Login to see the Facebook Page Url.">****************</label></small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <small><b>Twitter Page:</b>&nbsp;&nbsp;&nbsp;<label for="" title="Login to see the Twitter Page Url.">****************</label></small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <small><b>LinkedIn Page:</b>&nbsp;&nbsp;&nbsp;<label for="" title="Login to see the LinkedIn Page Url.">****************</label></small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <small><b>Google+ Page:</b>&nbsp;&nbsp;&nbsp;<label for="" title="Login to see the Google+ Page Url.">****************</label></small>
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    if (user.Id != member.UserId)
+                    {
+                        if (member.Type == 4 && DomainService.Instance.IsPaidProfile(user.Id, member.UserId))
+                        {
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <small><b>Address: </b>@((!string.IsNullOrEmpty(address) ? address : "Not Available")) </small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <small><b>Email: </b>@member.Username</small>
+                                </div>
+                            </div>
+                            @*<div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    @if (!string.IsNullOrEmpty(member.Phone))
+                                    {
+                                        <small><b>Phone: </b>@(member.PhoneCountryCode != null ? member.PhoneCountryCode + " " : "")@(member.Phone != null ? member.Phone : "Not Available")</small>
+                                    }
+                                    else
+                                    {
+                                        <small><b>Phone: </b>Not Available</small>
+                                    }
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    @if (!string.IsNullOrEmpty(member.Mobile))
+                                    {
+                                        <small><b>Mobile: </b>@(member.MobileCountryCode != null ? member.MobileCountryCode + " " : "")@(member.Mobile != null ? member.Mobile : "Not Available")</small>
+                                    }
+                                    else
+                                    {
+                                        <small><b>Mobile: </b>Not Available</small>
+                                    }
+                                </div>
+                            </div>*@
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <small><b>Website: </b>@Html.Raw((!string.IsNullOrEmpty(member.Website) ? string.Format("<a href=\"{0}\" style=\"color:#00a6e0\" target=\"_blank\">{1}</a>", member.Website, member.Website) : "Not Available"))</small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <small><b>Facebook Page: </b>@Html.Raw((!string.IsNullOrEmpty(member.Facebook) ? string.Format("<a href=\"{0}\" style=\"color:#00a6e0\" target=\"_blank\">{1}</a>", member.Facebook, member.Facebook) : "Not Available"))</small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <small><b>Twitter Page: </b>@Html.Raw((!string.IsNullOrEmpty(member.Twitter) ? string.Format("<a href=\"{0}\" style=\"color:#00a6e0\" target=\"_blank\">{1}</a>", member.Twitter, member.Twitter) : "Not Available"))</small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <small><b>LinkedIn Page: </b>@Html.Raw((!string.IsNullOrEmpty(member.LinkedIn) ? string.Format("<a href=\"{0}\" style=\"color:#00a6e0\" target=\"_blank\">{1}</a>", member.LinkedIn, member.LinkedIn) : "Not Available"))</small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <small><b>Google+ Page: </b>@Html.Raw((!string.IsNullOrEmpty(member.LinkedIn) ? string.Format("<a href=\"{0}\" style=\"color:#00a6e0\" target=\"_blank\">{1}</a>", member.GooglePlus, member.GooglePlus) : "Not Available"))</small>
+                                </div>
+                            </div>
+                        }
+                        else if (member.Type == 4)
+                        {
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <small><b>Address: </b>@((!string.IsNullOrEmpty(address) ? address : "Not Available")) </small>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <small><label class="col-sm-4 text-left">Email:</label></small>
+                                        <div class="col-sm-8">***************************</div>
+                                    </div>
+                                    <div class="row">
+                                        <small><label class="col-sm-4 text-left">Phone:</label></small>
+                                        <div class="col-sm-8">***************************</div>
+                                    </div>
+                                    <div class="row">
+                                        <small><label class="col-sm-4 text-left">Mobile:</label></small>
+                                        <div class="col-sm-8">***************************</div>
+                                    </div>
+                                    <div class="row">
+                                        <small><label class="col-sm-4 text-left">Website:</label></small>
+                                        <div class="col-sm-8">***************************</div>
+                                    </div>
+                                    <div class="row">
+                                        <small><label class="col-sm-4 text-left">Facebook&nbsp;Page:</label></small>
+                                        <div class="col-sm-8">***************************</div>
+                                    </div>
+                                    <div class="row">
+                                        <small><label class="col-sm-4 text-left">Twitter&nbsp;Page:</label></small>
+                                        <div class="col-sm-8">***************************</div>
+                                    </div>
+                                    <div class="row">
+                                        <small><label class="col-sm-4 text-left">LinkedIn&nbsp;Page:</label></small>
+                                        <div class="col-sm-8">***************************</div>
+                                    </div>
+                                    <div class="row">
+                                        <small><label class="col-sm-4 text-left">Google+&nbsp;Page:</label></small>
+                                        <div class="col-sm-8">***************************</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 hidden-sm hidden-xs">
+                                    <div style="height:180px; display:table-cell; vertical-align:middle;">
+                                        <small><a role="button" style="color:#ffffff; font-size:10px;width:125px; cursor:pointer" class="btn btn-info viewprofile" data-rurl="@Request.Url.ToString()">View this Profile</a></small>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <small><b>Address: </b>@((!string.IsNullOrEmpty(address) ? address : "Not Available")) </small>
+                                </div>
+                            </div>
+                            if (member.Type == 5 && user.Role == SecurityRoles.Individual)
+                            {
+                                if (DomainService.Instance.IsPaidProfile(member.UserId, user.Id))
+                                {
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <small><b>Email: </b>@member.Username</small>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+
+                                            @if (!string.IsNullOrEmpty(member.Phone))
+                                            {
+                                                <small><b>Phone: </b>@(member.PhoneCountryCode != null ? member.PhoneCountryCode + " " : "")@(member.Phone != null ? member.Phone : "Not Available")</small>
+                                            }
+                                            else
+                                            {
+                                                <small><b>Phone: </b>Not Available</small>
+                                            }
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            @if (!string.IsNullOrEmpty(member.Mobile))
+                                            {
+                                                <small><b>Mobile: </b>@(member.MobileCountryCode != null ? member.MobileCountryCode + " " : "")@(member.Mobile != null ? member.Mobile : "Not Available")</small>
+                                            }
+                                            else
+                                            {
+                                                <small><b>Mobile: </b>Not Available</small>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <small><b>Email: </b>**************</small>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <small><b>Phone: </b>**************</small>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <small><b>Mobile: </b>**************</small>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else if (member.Type == 5 && user.Role == SecurityRoles.Company)
+                            {
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <small><b>Email: </b>**************</small>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <small><b>Phone: </b>**************</small>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <small><b>Mobile: </b>**************</small>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <small><b>Email: </b>@member.Username</small>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+
+                                        @if (!string.IsNullOrEmpty(member.Phone))
+                                        {
+                                            <small><b>Phone: </b>@(member.PhoneCountryCode != null ? member.PhoneCountryCode + " " : "")@(member.Phone != null ? member.Phone : "Not Available")</small>
+                                        }
+                                        else
+                                        {
+                                            <small><b>Phone: </b>Not Available</small>
+                                        }
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        @if (!string.IsNullOrEmpty(member.Mobile))
+                                        {
+                                            <small><b>Mobile: </b>@(member.MobileCountryCode != null ? member.MobileCountryCode + " " : "")@(member.Mobile != null ? member.Mobile : "Not Available")</small>
+                                        }
+                                        else
+                                        {
+                                            <small><b>Mobile: </b>Not Available</small>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <small><b>Website: </b>@Html.Raw((!string.IsNullOrEmpty(member.Website) ? string.Format("<a href=\"{0}\" style=\"color:#00a6e0\" target=\"_blank\">{1}</a>", member.Website, member.Website) : "Not Available"))</small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <small><b>Facebook Page: </b>@Html.Raw((!string.IsNullOrEmpty(member.Facebook) ? string.Format("<a href=\"{0}\" style=\"color:#00a6e0\" target=\"_blank\">{1}</a>", member.Facebook, member.Facebook) : "Not Available"))</small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <small><b>Twitter Page: </b>@Html.Raw((!string.IsNullOrEmpty(member.Twitter) ? string.Format("<a href=\"{0}\" style=\"color:#00a6e0\" target=\"_blank\">{1}</a>", member.Twitter, member.Twitter) : "Not Available"))</small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <small><b>LinkedIn Page: </b>@Html.Raw((!string.IsNullOrEmpty(member.LinkedIn) ? string.Format("<a href=\"{0}\" style=\"color:#00a6e0\" target=\"_blank\">{1}</a>", member.LinkedIn, member.LinkedIn) : "Not Available"))</small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <small><b>Google+ Page: </b>@Html.Raw((!string.IsNullOrEmpty(member.LinkedIn) ? string.Format("<a href=\"{0}\" style=\"color:#00a6e0\" target=\"_blank\">{1}</a>", member.GooglePlus, member.GooglePlus) : "Not Available"))</small>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <small><b>Address: </b>@((!string.IsNullOrEmpty(address) ? address : "Not Available")) </small>
+                            </div>
+                        </div>
+                        if (member.Type == 5 && user.Role == SecurityRoles.Individual)
+                        {
+                            if (DomainService.Instance.IsPaidProfile(member.UserId, user.Id))
+                            {
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <small><b>Email: </b>@member.Username</small>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+
+                                        @if (!string.IsNullOrEmpty(member.Phone))
+                                        {
+                                            <small><b>Phone: </b>@(member.PhoneCountryCode != null ? member.PhoneCountryCode + " " : "")@(member.Phone != null ? member.Phone : "Not Available")</small>
+                                        }
+                                        else
+                                        {
+                                            <small><b>Phone: </b>Not Available</small>
+                                        }
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        @if (!string.IsNullOrEmpty(member.Mobile))
+                                        {
+                                            <small><b>Mobile: </b>@(member.MobileCountryCode != null ? member.MobileCountryCode + " " : "")@(member.Mobile != null ? member.Mobile : "Not Available")</small>
+                                        }
+                                        else
+                                        {
+                                            <small><b>Mobile: </b>Not Available</small>
+                                        }
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <small><b>Email: </b>**************</small>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <small><b>Phone: </b>**************</small>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <small><b>Mobile: </b>**************</small>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <small><b>Email: </b>@member.Username</small>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+
+                                    @if (!string.IsNullOrEmpty(member.Phone))
+                                    {
+                                        <small><b>Phone: </b>@(member.PhoneCountryCode != null ? member.PhoneCountryCode + " " : "")@(member.Phone != null ? member.Phone : "Not Available")</small>
+                                    }
+                                    else
+                                    {
+                                        <small><b>Phone: </b>Not Available</small>
+                                    }
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    @if (!string.IsNullOrEmpty(member.Mobile))
+                                    {
+                                        <small><b>Mobile: </b>@(member.MobileCountryCode != null ? member.MobileCountryCode + " " : "")@(member.Mobile != null ? member.Mobile : "Not Available")</small>
+                                    }
+                                    else
+                                    {
+                                        <small><b>Mobile: </b>Not Available</small>
+                                    }
+                                </div>
+                            </div>
+                        }
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <small><b>Website: </b>@Html.Raw((!string.IsNullOrEmpty(member.Website) ? string.Format("<a href=\"{0}\" style=\"color:#00a6e0\" target=\"_blank\">{1}</a>", member.Website, member.Website) : "Not Available"))</small>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <small><b>Facebook Page: </b>@Html.Raw((!string.IsNullOrEmpty(member.Facebook) ? string.Format("<a href=\"{0}\" style=\"color:#00a6e0\" target=\"_blank\">{1}</a>", member.Facebook, member.Facebook) : "Not Available"))</small>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <small><b>Twitter Page: </b>@Html.Raw((!string.IsNullOrEmpty(member.Twitter) ? string.Format("<a href=\"{0}\" style=\"color:#00a6e0\" target=\"_blank\">{1}</a>", member.Twitter, member.Twitter) : "Not Available"))</small>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <small><b>LinkedIn Page: </b>@Html.Raw((!string.IsNullOrEmpty(member.LinkedIn) ? string.Format("<a href=\"{0}\" style=\"color:#00a6e0\" target=\"_blank\">{1}</a>", member.LinkedIn, member.LinkedIn) : "Not Available"))</small>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <small><b>Google+ Page: </b>@Html.Raw((!string.IsNullOrEmpty(member.LinkedIn) ? string.Format("<a href=\"{0}\" style=\"color:#00a6e0\" target=\"_blank\">{1}</a>", member.GooglePlus, member.GooglePlus) : "Not Available"))</small>
+                            </div>
+                        </div>
+                    }
+                }
+                <div id="divWebAddressDisplay" class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <small><b>Page Address: </b><a href="/@member.PermaLink" style="color:#00a6e0" target="_blank">@Request.Url.Scheme://@Request.Url.Authority/@member.PermaLink</a></small>
+                    </div>
+                </div>
+                @if (Request.IsAuthenticated && member.Username == username)
+                {
+                    <div style="height:10px"></div>
+                    <div id="divEditWebAddress" class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <span style="font-size:12px;">(Max. 40 Alphanumeric)</span>
+                            <div class="form-inline">
+                                @Html.Label("lblUrl", string.Format("{0}://{1}/", Request.Url.Scheme, @Request.Url.Authority), new { @class = "col-md-2 control-label", @style = "padding: 8px 0px 0px 0px;font-size:12px;" })
+                                <div class="col-md-offset-3" style="padding-left: 40px;">
+                                    @Html.TextBox("PremaLink", PermaLink, new { @class = "form-control", placeholder = "PAGE ADDRESS", title = "PAGE ADDRESS", @maxlength = 40, @style = "font-size:12px;" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <small>
+                                    <a href="javascript:void(0)" id="btnEditWebAddress" title="Edit Page Address" style="color:#00a6e0; font-size:13px">Edit Page Address</a>
+                                    <span id="btnCancel" style="display:none">&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:void(0)" style="color:#00a6e0; font-size:13px">Cancel</a></span>
+                                </small>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+                            <div class="form-group">
+                                @if (member.Type == 4)
+                                {
+                                    if (!string.IsNullOrEmpty(member.Content) && member.CategoryId != null && member.SpecializationId != null)
+                                    {
+                                        <a href="@defaultUser.DownloadUrl" target="_blank" style="color:#00a6e0; font-size:13px">Download</a> <text> | </text>
+                                    }
+                                    else if (string.IsNullOrEmpty(member.Content) && member.CategoryId != null && member.SpecializationId != null)
+                                    {
+                                        <a href="#" role="button" data-toggle='modal' data-target='#uploadResumeDialog' style="color:#00a6e0; font-size:13px">Upload Resume</a><text> | </text>
+                                    }
+                                    <a href="/profile-resume" target="_blank" style="color:#00a6e0; font-size:13px">Edit&nbsp;Profile</a>
+                                }
+                                else if (member.Type == 5)
+                                {
+                                    <a href="/company/profile" target="_blank" style="color:#00a6e0; font-size:13px">Edit&nbsp;Profile</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12" style="padding-top:5px;" id="divWebAddressMsg">
+
+                        </div>
+                    </div>
+                }
+                else if (Request.IsAuthenticated && member.Username != username)
+                {
+                    <div style="height:10px"></div>
+                    if (member.Type == 4 && DomainService.Instance.IsPaidProfile(user.Id, member.UserId))
+                    {
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                @if (!string.IsNullOrEmpty(member.Content) && member.CategoryId != null && member.SpecializationId != null)
+                                {
+                                    <a href="@defaultUser.DownloadUrl" target="_blank" style="color:#00a6e0; font-size:13px">Download</a>
+                                }
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col-lg-8 col-md-8 col-sm-8">
+                                @if (!string.IsNullOrEmpty(member.Content) && member.CategoryId != null && member.SpecializationId != null)
+                                {
+                                    <a href="@defaultUser.DownloadUrl" target="_blank" style="color:#00a6e0; font-size:13px">Download</a>
+                                }
+                            </div>
+                            <div class="col-sm-4 hidden-lg hidden-md">
+                                <small><a role="button" style="color:#ffffff; font-size:10px;width:125px; cursor:pointer" class="btn btn-info viewprofile" data-country="no" data-type="P" data-rurl="@Request.Url.ToString()" data-redirect="package/process">View this Profile</a></small>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+            @if (Request.IsAuthenticated)
+            {
+                <div style="height:10px"></div>
+                <div class="list-group-item" style="min-height:55px;">
+                    @if (user.Id != member.UserId)
+                    {
+                        if (member.Type == 4 && DomainService.Instance.IsPaidProfile(user.Id, member.UserId))
+                        {
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div style="color: #00a6e0; font-size:1em">Summary</div>
+                                    <div style="text-align:left; font-size:small;">@Html.Raw(member.Summary != null ? member.Summary : "Not Available")</div>
+                                </div>
+                            </div>
+                        }
+                        else if (member.Type == 4)
+                        {
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                    <div style="color: #00a6e0; font-size:1em">Summary</div>
+                                    <div style="text-align:left; font-size:small;">************************************<br />************************************</div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-4">
+                                    <div style="color: #00a6e0; height:10px;">&nbsp;</div>
+                                    <small><a role="button" style="color:#ffffff; font-size:10px;width:125px; cursor:pointer" class="btn btn-info viewprofile" data-country="no" data-type="P" data-rurl="@Request.Url.ToString()" data-redirect="package/process">View this Profile</a></small>
+
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div style="color: #00a6e0; font-size:1em">Summary</div>
+                                    <div style="text-align:left; font-size:small;">@Html.Raw(member.Summary != null ? member.Summary : "Not Available")</div>
+                                </div>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div style="color: #00a6e0; font-size:1em">Summary</div>
+                                <div style="text-align:left; font-size:small;">@Html.Raw(member.Summary != null ? member.Summary : "Not Available")</div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                if (member.Type == 4)
+                {
+                    <div style="height:10px"></div>
+                    <div class="list-group-item" style="min-height:55px;">
+                        @if (user.Id != member.UserId)
+                        {
+                            if (member.Type == 4 && DomainService.Instance.IsPaidProfile(user.Id, member.UserId))
+                            {
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div style="color: #00a6e0; font-size:1em">Area of Expertise</div>
+                                        <div style="text-align:left; font-size:small;">@Html.Raw(member.AreaOfExpertise != null ? member.AreaOfExpertise : "Not Available")</div>
+                                    </div>
+                                </div>
+                            }
+                            else if (member.Type == 4)
+                            {
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-8 col-sm-8">
+                                        <div style="color: #00a6e0; font-size:1em">Area of Expertise</div>
+                                        <div style="text-align:left; font-size:small;">************************************<br />************************************</div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <div style="color: #00a6e0; height:10px;">&nbsp;</div>
+                                        <small><a role="button" style="color:#ffffff; font-size:10px;width:125px; cursor:pointer" class="btn btn-info viewprofile" data-country="no" data-type="P" data-rurl="@Request.Url.ToString()" data-redirect="package/process">View this Profile</a></small>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div style="color: #00a6e0; font-size:1em">Area of Expertise</div>
+                                        <div style="text-align:left; font-size:small;">@Html.Raw(member.AreaOfExpertise != null ? member.AreaOfExpertise : "Not Available")</div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div style="color: #00a6e0; font-size:1em">Area of Expertise</div>
+                                    <div style="text-align:left; font-size:small;">@Html.Raw(member.AreaOfExpertise != null ? member.AreaOfExpertise : "Not Available")</div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div style="height:10px"></div>
+                    <div class="list-group-item" style="min-height:55px;">
+                        @if (user.Id != member.UserId)
+                        {
+                            if (member.Type == 4 && DomainService.Instance.IsPaidProfile(user.Id, member.UserId))
+                            {
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div style="color: #00a6e0; font-size:1em">Skills</div>
+                                        <div style="text-align:left; font-size:small;">@Html.Raw(member.TechnicalSkills != null ? member.TechnicalSkills : "Not Available")</div>
+                                    </div>
+                                </div>
+                            }
+                            else if (member.Type == 4)
+                            {
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-8 col-sm-8">
+                                        <div style="color: #00a6e0; font-size:1em">Skills</div>
+                                        <div style="text-align:left; font-size:small;">************************************<br />************************************</div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <div style="color: #00a6e0; height:10px;">&nbsp;</div>
+                                        <small><a role="button" style="color:#ffffff; font-size:10px;width:125px; cursor:pointer" class="btn btn-info viewprofile" data-country="no" data-type="P" data-rurl="@Request.Url.ToString()" data-redirect="package/process">View this Profile</a></small>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div style="color: #00a6e0; font-size:1em">Skills</div>
+                                        <div style="text-align:left; font-size:small;">@Html.Raw(member.TechnicalSkills != null ? member.TechnicalSkills : "Not Available")</div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div style="color: #00a6e0; font-size:1em">Skills</div>
+                                    <div style="text-align:left; font-size:small;">@Html.Raw(member.TechnicalSkills != null ? member.TechnicalSkills : "Not Available")</div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div style="height:10px"></div>
+                    <div class="list-group-item" style="min-height:55px;">
+                        @if (user.Id != member.UserId)
+                        {
+                            if (member.Type == 4 && DomainService.Instance.IsPaidProfile(user.Id, member.UserId))
+                            {
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div style="color: #00a6e0; font-size:1em">Management Skills</div>
+                                        <div style="text-align:left; font-size:small;">@Html.Raw(member.ManagementSkills != null ? member.ManagementSkills : "Not Available")</div>
+                                    </div>
+                                </div>
+                            }
+                            else if (member.Type == 4)
+                            {
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-8 col-sm-8">
+                                        <div style="color: #00a6e0; font-size:1em">Management Skills</div>
+                                        <div style="text-align:left; font-size:small;">************************************<br />************************************</div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <div style="color: #00a6e0; height:10px;">&nbsp;</div>
+                                        <small><a role="button" style="color:#ffffff; font-size:10px;width:125px; cursor:pointer" class="btn btn-info viewprofile" data-country="no" data-type="P" data-rurl="@Request.Url.ToString()" data-redirect="package/process">View this Profile</a></small>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div style="color: #00a6e0; font-size:1em">Management Skills</div>
+                                        <div style="text-align:left; font-size:small;">@Html.Raw(member.ManagementSkills != null ? member.ManagementSkills : "Not Available")</div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div style="color: #00a6e0; font-size:1em">Management Skills</div>
+                                    <div style="text-align:left; font-size:small;">@Html.Raw(member.ManagementSkills != null ? member.ManagementSkills : "Not Available")</div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div style="height:10px"></div>
+                    <div class="list-group-item" style="min-height:55px;">
+                        @if (user.Id != member.UserId)
+                        {
+                            if (member.Type == 4 && DomainService.Instance.IsPaidProfile(user.Id, member.UserId))
+                            {
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div style="color: #00a6e0; font-size:1em">Professional Experience</div>
+                                        <div style="text-align:left; font-size:small;">@Html.Raw(member.ProfessionalExperience != null ? member.ProfessionalExperience : "Not Available")</div>
+                                    </div>
+                                </div>
+                            }
+                            else if (member.Type == 4)
+                            {
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-8 col-sm-8">
+                                        <div style="color: #00a6e0; font-size:1em">Professional Experience</div>
+                                        <div style="text-align:left; font-size:small;">************************************<br />************************************</div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <div style="color: #00a6e0; height:10px;">&nbsp;</div>
+                                        <small><a role="button" style="color:#ffffff; font-size:10px;width:125px; cursor:pointer" class="btn btn-info viewprofile" data-country="no" data-type="P" data-rurl="@Request.Url.ToString()" data-redirect="package/process">View this Profile</a></small>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div style="color: #00a6e0; font-size:1em">Professional Experience</div>
+                                        <div style="text-align:left; font-size:small;">@Html.Raw(member.ProfessionalExperience != null ? member.ProfessionalExperience : "Not Available")</div>
+                                    </div>
+                                </div>
+
+                            }
+                        }
+                        else
+                        {
+
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div style="color: #00a6e0; font-size:1em">Professional Experience</div>
+                                    <div style="text-align:left; font-size:small;">@Html.Raw(member.ProfessionalExperience != null ? member.ProfessionalExperience : "Not Available")</div>
+                                </div>
+                            </div>
+
+                        }
+                    </div>
+                    <div style="height:10px"></div>
+                    <div class="list-group-item" style="min-height:55px;">
+                        @if (user.Id != member.UserId)
+                        {
+                            if (member.Type == 4 && DomainService.Instance.IsPaidProfile(user.Id, member.UserId))
+                            {
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div style="color: #00a6e0; font-size:1em">Education & Qualification</div>
+                                        <div style="text-align:left; font-size:small;">@Html.Raw(member.Education != null ? member.Education : "Not Available")</div>
+                                    </div>
+                                </div>
+                            }
+                            else if (member.Type == 4)
+                            {
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-8 col-sm-8">
+                                        <div style="color: #00a6e0; font-size:1em">Education & Qualification</div>
+                                        <div style="text-align:left; font-size:small;">************************************<br />************************************</div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <div style="color: #00a6e0; height:10px;">&nbsp;</div>
+                                        <small><a role="button" style="color:#ffffff; font-size:10px;width:125px; cursor:pointer" class="btn btn-info viewprofile" data-country="no" data-type="P" data-rurl="@Request.Url.ToString()" data-redirect="package/process">View this Profile</a></small>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div style="color: #00a6e0; font-size:1em">Education & Qualification</div>
+                                        <div style="text-align:left; font-size:small;">@Html.Raw(member.Education != null ? member.Education : "Not Available")</div>
+                                    </div>
+                                </div>
+
+                            }
+                        }
+                        else
+                        {
+
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div style="color: #00a6e0; font-size:1em">Education & Qualification</div>
+                                    <div style="text-align:left; font-size:small;">@Html.Raw(member.Education != null ? member.Education : "Not Available")</div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div style="height:10px"></div>
+                    <div class="list-group-item" style="min-height:55px;">
+                        @if (user.Id != member.UserId)
+                        {
+                            if (member.Type == 4 && DomainService.Instance.IsPaidProfile(user.Id, member.UserId))
+                            {
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div style="color: #00a6e0; font-size:1em">Professional Certification</div>
+                                        <div style="text-align:left; font-size:small;">@Html.Raw(member.Certifications != null ? member.Certifications : "Not Available")</div>
+                                    </div>
+                                </div>
+                            }
+                            else if (member.Type == 4)
+                            {
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-8 col-sm-8">
+                                        <div style="color: #00a6e0; font-size:1em">Professional Certification</div>
+                                        <div style="text-align:left; font-size:small;">************************************<br />************************************</div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <div style="color: #00a6e0; height:10px;">&nbsp;</div>
+                                        <small><a role="button" style="color:#ffffff; font-size:10px;width:125px; cursor:pointer" class="btn btn-info viewprofile" data-country="no" data-type="P" data-rurl="@Request.Url.ToString()" data-redirect="package/process">View this Profile</a></small>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div style="color: #00a6e0; font-size:1em">Professional Certification</div>
+                                        <div style="text-align:left; font-size:small;">@Html.Raw(member.Certifications != null ? member.Certifications : "Not Available")</div>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div style="color: #00a6e0; font-size:1em">Professional Certification</div>
+                                    <div style="text-align:left; font-size:small;">@Html.Raw(member.Certifications != null ? member.Certifications : "Not Available")</div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div style="height:10px"></div>
+                    <div class="list-group-item" style="min-height:55px;">
+                        @if (user.Id != member.UserId)
+                        {
+                            if (member.Type == 4 && DomainService.Instance.IsPaidProfile(user.Id, member.UserId))
+                            {
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div style="color: #00a6e0; font-size:1em">Professional Bodies Affiliation</div>
+                                        <div style="text-align:left; font-size:small;">@Html.Raw(member.Affiliations != null ? member.Affiliations : "Not Available")</div>
+                                    </div>
+                                </div>
+                            }
+                            else if (member.Type == 4)
+                            {
+                                <div class="row">
+                                    <div class="col-lg-8 col-md-8 col-sm-8">
+                                        <div style="color: #00a6e0; font-size:1em">Professional Bodies Affiliation</div>
+                                        <div style="text-align:left; font-size:small;">************************************<br />************************************</div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-4">
+                                        <div style="color: #00a6e0; height:10px;">&nbsp;</div>
+                                        <small><a role="button" style="color:#ffffff; font-size:10px;width:125px; cursor:pointer" class="btn btn-info viewprofile" data-country="no" data-type="P" data-rurl="@Request.Url.ToString()" data-redirect="package/process">View this Profile</a></small>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div style="color: #00a6e0; font-size:1em">Professional Bodies Affiliation</div>
+                                        <div style="text-align:left; font-size:small;">@Html.Raw(member.Affiliations != null ? member.Affiliations : "Not Available")</div>
+                                    </div>
+                                </div>
+
+                            }
+                        }
+                        else
+                        {
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div style="color: #00a6e0; font-size:1em">Professional Bodies Affiliation</div>
+                                    <div style="text-align:left; font-size:small;">@Html.Raw(member.Affiliations != null ? member.Affiliations : "Not Available")</div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="uploadResumeDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Upload Your Resume
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        <label for="Resume"><b>Upload Resume</b> (DOC, DOCX or PDF file with maximum size of 300 KB)</label>
+                        (DOC, DOCX or PDF file with maximum size of 300 KB)
+
+                        <input id="Resume" name="Resume" type="file" title="Upload DOC, DOCX  or PDF file with maximum size of 300 KB" />
+                        <div id="divFileError" style="color: red; font-weight: bold;"></div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="modal-footer">
+                @Html.HiddenFor(model => member.UserId)
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px;">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="resumeUpload" style="width:75px;" formnovalidate="formnovalidate">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var last = 0;
+    var current = 0;
+    var screenWidth = screen.width;
+    var window_height = $(window).height() - ($("#divfooter").height() + $("#landingHeader").height());
+    var l;
+    l=($("#left-sidebar").height() - (($(window).height() - ($("#divfooter").height() + $("#landingHeader").height())-372)));
+
+    if(window_height < $("#left-sidebar").height()){
+        l = (($("#left-sidebar").height() * 60) / 100);
+    }
+    else if(window_height > $("#left-sidebar").height()){
+        l = (($("#left-sidebar").height() * 10) / 100);
+    }
+    var r=(($(window).height() - $("#right-sidebar").height()));
+
+    if(window_height < $("#right-sidebar").height()){
+        r = (($("#right-sidebar").height() * 80) / 100);
+    }
+    else if(window_height > $("#right-sidebar").height()){
+        r =172;
+    }
+
+    var browser = "@Request.Browser.Browser";
+    var flagDown=false;
+    var flagUp=false;
+    var visibleY = function (el) {
+        var rect = el.getBoundingClientRect();
+        //console.log("height:" + ($(document).height() - $(window).height()) - $(window).scrollTop());
+        current = $(window).scrollTop();
+        if (current > last) {
+            if ( current > rect.bottom ) {
+                $("#left-sidebar").removeClass("left_up_fixed");
+                $("#left-sidebar").addClass("left_down_fixed");
+
+                $("#right-sidebar").removeClass("right_up_fixed");
+                $("#right-sidebar").addClass("right_down_fixed");
+
+                $("#left-sidebar").css("top", (l>0?-l:l));
+                $("#right-sidebar").css("top", (r>0?-r:r));
+
+            }
+        } else if (current < last){
+            if (current > rect.top && (($(document).height() - $(window).height()) - $(window).scrollTop()) >= 180 ) {
+                $("#left-sidebar").addClass("left_up_fixed");
+                $("#left-sidebar").removeClass("left_down_fixed");
+
+                $("#right-sidebar").addClass("right_up_fixed");
+                $("#right-sidebar").removeClass("right_down_fixed");
+
+                $("#left-sidebar").css("top","12.6%");
+                $("#right-sidebar").css("top","12.6%");
+            }
+        }
+        last = current;
+        if (current <= 500) {
+            $("#left-sidebar").removeClass("left_up_fixed");
+            $("#left-sidebar").removeClass("left_down_fixed");
+
+            $("#right-sidebar").removeClass("right_up_fixed");
+            $("#right-sidebar").removeClass("right_down_fixed");
+
+            $("#left-sidebar").css("top",0);
+            $("#right-sidebar").css("top",0);
+        }
+
+        if(current == ($(document).height() - $(window).height())){
+
+            $("#left-sidebar").removeClass("left_up_fixed");
+            $("#left-sidebar").addClass("left_down_fixed");
+
+            $("#right-sidebar").removeClass("right_up_fixed");
+            $("#right-sidebar").addClass("right_down_fixed");
+        }
+    };
+
+</script>
+<script>
+    var isJobseeker = "@(defaultUser.Content != null && defaultUser.CategoryId != null && defaultUser.SpecializationId != null)";
+    $(document).ready(function () {
+        var rows = 0;
+        var pages = 0;
+        var pagesize = 5;
+        var pageNumber = 1;
+        var baseUrl = "@Request.Url.Scheme://@Request.Url.Authority/";
+
+
+        $(".viewprofile").click(function(){                        
+            var rurl= $(this).data("rurl");
+            var redirect= $(this).data("redirect");
+            var url = "/package/profilePriceList?returnurl=" + rurl + "&type=P";
+            window.location.href = url;
+            return false;
+        });
+
+        $("#body").css("min-height", 200);
+        $("#divEditWebAddress").hide();
+
+        if (isJobseeker == "True") {
+            $("#la").hide();
+            $("#la").css('visibility', 'hidden');
+            $("#up").show();
+            $("#up").css('visibility', 'visible');
+            $(".latest-activity").css("border-bottom:", "1px solid #DDD;");
+            $("#body").css("min-height", 200);
+        } else {
+            $("#la").show();
+            $("#la").css('visibility', 'visible');
+            $("#up").hide();
+            $("#up").css('visibility', 'hidden');
+            $(".latest-activity").css("border-bottom:", "none");
+            $("#body").css("min-height", 200);
+        }
+
+        $("#lnkLatestActivity").click(function () {
+            $("#la").show();
+            $("#la").css('visibility', 'visible');
+            $("#up").hide();
+            $("#up").css('visibility', 'hidden');
+            $(".latest-activity").css("border-bottom:", "none");
+            $("#body").css("min-height", 200);
+        });
+
+        $("#lnkProfile").click(function () {
+            $("#la").hide();
+            $("#la").css('visibility', 'hidden');
+            $("#up").show();
+            $("#up").css('visibility', 'visible');
+            $(".latest-activity").css("border-bottom:", "1px solid #DDD;");
+            $("#body").css("min-height", 200);
+        });
+        $("#lnkEditPageAddress").click(function () {
+            $("#la").hide();
+            $("#up").show();
+            $("#up").css('visibility', 'visible');
+            $("#body").css("min-height", 200);
+            if ($("#btnEditWebAddress").text() == "Edit Page Address") {
+                $("#btnEditWebAddress").text("Save Page Address");
+                $("#divWebAddressDisplay").hide();
+                $("#divEditWebAddress").show();
+                $("#btnCancel").show();
+
+                $("#PremaLink").focus();
+                $("#PremaLink").attr("required", true);
+            } else {
+                if ($("#PremaLink").val() != "" && $("#PremaLink").val() != null) {
+                    var regex = /^[a-zA-Z0-9-_]+$/;
+                    var flag = regex.test($("#PremaLink").val());
+                    var nanFlag = isNaN(Number($("#PremaLink").val()));
+                    if (flag == true && nanFlag == true) {
+                        $.post('@Url.Action("UpdateWebAddress", "JsonHelper")', { address: $("#PremaLink").val() },
+                          function (result) {
+                              if (result != "NA") {
+                                  window.location.replace((baseUrl + result).toLowerCase());
+                              } else {
+                                  $("#divWebAddressMsg").html("<div style=\"color:red;\">" + $("#PremaLink").val() + " web address not available!</div>");
+                              }
+                          });
+                    } else {
+                        $("#divWebAddressMsg").html("<div style=\"color:red;\">Only alphanumeric and underscore, period and dash is allowed!</div>");
+                    }
+                } else {
+                    $("#divWebAddressMsg").html("<div style=\"color:red;\">Web address must not be empty!</div>");
+                }
+            }
+        });
+
+        $("#btnEditWebAddress").click(function () {
+            $("#la").hide();
+            $("#up").show();
+            $("#body").css("min-height", 200);
+            if ($("#btnEditWebAddress").text() == "Edit Page Address") {
+                $("#btnEditWebAddress").text("Save Page Address");
+                $("#divWebAddressDisplay").hide();
+                $("#divEditWebAddress").show();
+                $("#btnCancel").show();
+
+                $("#PremaLink").attr("required", true);
+            } else {
+                if ($("#PremaLink").val() != "" && $("#PremaLink").val() != null) {
+                    var regex = /^[a-zA-Z0-9-_]+$/;
+                    var flag = regex.test($("#PremaLink").val());
+                    var nanFlag = isNaN(Number($("#PremaLink").val()));
+                    if (flag == true && nanFlag == true) {
+                        $.post('@Url.Action("UpdateWebAddress", "JsonHelper")', { address: $("#PremaLink").val() },
+                          function (result) {
+                              if (result != "NA") {
+                                  window.location.replace(baseUrl + result);
+                              } else {
+                                  $("#divWebAddressMsg").html("<div style=\"color:red;\">" + $("#PremaLink").val() + " web address not available!</div>");
+                              }
+                          });
+                    } else {
+                        $("#divWebAddressMsg").html("<div style=\"color:red;\">Only alphanumeric and underscore, period and dash is allowed!</div>");
+                    }
+                } else {
+                    $("#divWebAddressMsg").html("<div style=\"color:red;\">Web address must not be empty!</div>");
+                }
+            }
+        });
+        $("#btnCancel").click(function () {
+            $("#btnEditWebAddress").text("Edit Page Address");
+            $("#divWebAddressDisplay").show();
+            $("#divEditWebAddress").hide();
+            $("#PremaLink").attr("required", false);
+            $("#btnCancel").hide();
+        });
+
+        $.post('@Url.Action("ReadStreams", "JsonHelper")', { id : @ViewBag.Id, pageNumber: pageNumber},
+                function (result) {
+                    var imgs="";
+                    if (result.length != 0) {
+                        $("#wall").empty();
+                        rows = result[0].MaxRows;
+                        pages = Math.ceil(rows/pagesize);
+
+                        var isAuthenticated = new Boolean("@Request.IsAuthenticated");
+                        var userId = @(User != null ? user.Id : 0);
+                        var pid = @(defaultUser != null ? defaultUser.Id : 0);
+                        $(result).each(function () {
+                            var connected = this.Connected;
+                            var links ="";
+                            if(userId != 0){
+                                if(userId != this.UserId && connected == 0)
+                                {
+                                    links  += "<a href=\"/Network/Connect?EmailAddress=" + this.Username +"\" target=\"_blank\">Connect</a> | ";
+                                }
+                            }
+                            else{
+                                links  += "<a href=\"javascript:void(0)\" style=\"color:#aaaaaa\">Connect</a> | ";
+                            }
+
+                            if(userId != 0){
+                                if(userId != this.UserId){
+                                    links += "<a href=\"/Message/List?SenderId=" + this.UserId +"\" target=\"_blank\">Message</a> | ";
+                                }
+                            }
+                            else{
+                                links += "<a href=\"javascript:void(0)\" style=\"color:#aaaaaa\">Message</a> | ";
+                            }
+
+                            if(userId != 0){
+                                links += "<a href=\"/share-profile?url=@Request.Url.Scheme://@Request.Url.Authority/" + this.ProfileUrl +"\" target=\"_blank\">Share</a>";
+                            }else{
+                                links += "<a href=\"javascript:void(0)\" style=\"color:#aaaaaa\">Share</a>";
+                            }
+                            if(userId == this.UserId || pid == this.UserId){
+                                if(this.ImageId != null){
+                                    imgs+=this.ImageArea + ",";
+                                }
+                            }
+                            if(userId != this.UserId){
+                                this.ProfileUrl =  "/" + this.ProfileUrl;
+                            }else{
+                                this.ProfileUrl="javascript:void(0)";
+                            }
+                            if(this.ImageId == null)
+                            {
+                                $("#jtemplate").tmpl(this).appendTo("#wall");
+                                var jlinks ="";
+                                if(userId != this.UserId){
+                                    jlinks +="<a href=\"/job/bookmark?Id=" + this.JobId +"\" target=\"_blank\" style=\"color:#428bca\">Bookmark</a> | ";
+                                }
+                                jlinks +="<a href=\"/job/email?Id=" + this.JobId +"\" target=\"_blank\" style=\"color:#428bca\">Email Job</a> | ";
+                                jlinks +="<a href=\"/employer/Joblist?Id=" +  this.UserId +"\" target=\"_blank\" style=\"color:#428bca\">All jobs of this company</a>";
+                                $("#joblinks" + this.Id).html(jlinks);
+                            }else{
+                                $("#itemplate").tmpl(this).appendTo("#wall");
+                            }
+                            if(this.Content != null &&  this.CategoryId != null  && this.SpecializationId != null)
+                            {
+                                if(links.length>0){
+                                    if(userId != 0){
+                                        links += " | <a href=\"/Jobseeker/Download?id="+ this.UserId +"&type=0&redirect=/Employer/DownloadHistory" + this.UserId +"\" target=\"_blank\">Download</a>";
+                                    }else{
+                                        links += " | <a href=\"javascript:void(0)\" style=\"color:#aaaaaa\">Download</a>";
+                                    }
+                                }else{
+                                    if(userId!=0){
+                                        links += "<a href=\"/Jobseeker/Download?id="+ this.UserId +"&type=0&redirect=/Employer/DownloadHistory" + this.UserId +"\" target=\"_blank\">Download</a>";
+                                    }else{
+                                        links += "<a href=\"javascript:void(0)\" style=\"color:#aaaaaa\">Download</a>";
+                                    }
+
+                                }
+                            }
+
+                            if (isAuthenticated==true)
+                            {
+                                if(this.BlockedByMe <=0 ){
+                                    if(userId != 0){
+                                        if(userId != this.UserId){
+                                            links += " | <a href=\"#\" data-href=\"/Home/Block?email=" + this.Username +"\" data-name=\"" + this.FullName +"\" role=\"button\" data-toggle=\"modal\" data-target=\"#cDialog\" class=\"aBlock\" data-role=\"" + this.UserRole +"\" data-connected=\"true\">Block</a>";
+                                        }
+                                    }
+                                    else{
+                                        links +=" | <a href=\"javascript:void(0)\" style=\"color:#aaaaaa\">Block</a>";
+                                    }
+                                }
+                                else
+                                {
+                                    if(userId!=0){
+                                        links +=" | <a href=\"/Home/Unblock?id=" + this.UserId +"&redirect=/" + this.ProfileUrl +"\" target=\"_blank\">Unblock</a>";
+                                    }else{
+                                        links +=" | <a href=\"javascript:void(0)\" style=\"color:#aaaaaa\">Unblock</a>";
+                                    }
+                                }
+
+                                $("#ql" + this.Id).html(links);
+
+                            }
+                        });
+                        //loadBlockScript();
+
+                    }
+
+                    if(imgs.indexOf("BottomRightSecond") == -1){
+                        var tmp1 = "#tmplBottomRightSecond";
+                        $(tmp1).tmpl(this).appendTo("#defaultWall");
+                    }
+                    if(imgs.indexOf("TopRightFirst") == -1){
+                        var tmp2 = "#tmplTopRightFirst";
+                        $(tmp2).tmpl(this).appendTo("#defaultWall");
+                    }
+                    if(imgs.indexOf("TopRightSecond") == -1){
+                        var tmp3 = "#tmplTopRightSecond";
+                        $(tmp3).tmpl(this).appendTo("#defaultWall");
+                    }
+                    if(imgs.indexOf("BottomRightFirst") == -1){
+                        var tmp4 = "#tmplBottomRightFirst";
+                        $(tmp4).tmpl(this).appendTo("#defaultWall");
+                    }
+                    if(imgs.indexOf("Background") == -1){
+                        var tmp5 = "#tmplBackground";
+                        $(tmp5).tmpl(this).appendTo("#defaultWall");
+                    }
+
+                });
+
+
+        var pgn = pageNumber;
+        $(window).scroll(function ()
+        {
+            //console.log("Pages: " + pages);
+            //console.log("Current Page Number: " + pgn);
+            if( pages >= pgn){
+                pgn++;
+            }
+
+            if(pages > 0 && pages >= pgn)
+            {
+                $.post('@Url.Action("ReadStreams", "JsonHelper")', { id : @ViewBag.Id, pageNumber: pgn},
+                function (result) {
+                    if (result.length != 0) {
+                        var isAuthenticated = new Boolean("@Request.IsAuthenticated");
+                        var userId = @(User != null ? user.Id : 0);
+
+                        $(result).each(function () {
+                            var connected = this.Connected;
+                            var links ="";
+                            if(userId != 0){
+                                if(userId != this.UserId && connected == 0)
+                                {
+                                    links  += "<a href=\"/Network/Connect?EmailAddress=" + this.Username +"\" target=\"_blank\">Connect</a> | ";
+                                }
+                            }
+                            else{
+                                links  += "<a href=\"javascript:void(0)\" style=\"color:#aaaaaa\">Connect</a> | ";
+                            }
+
+                            if(userId != 0){
+                                if(userId != this.UserId){
+                                    links += "<a href=\"/Message/List?SenderId=" + this.UserId +"\" target=\"_blank\">Message</a> | ";
+                                }
+                            }
+                            else{
+                                links += "<a href=\"javascript:void(0)\" style=\"color:#aaaaaa\">Message</a> | ";
+                            }
+
+                            if(userId != 0){
+                                links += "<a href=\"/share-profile?url=@Request.Url.Scheme://@Request.Url.Authority/" + this.ProfileUrl +"\" target=\"_blank\">Share</a>";
+                            }else{
+                                links += "<a href=\"javascript:void(0)\" style=\"color:#aaaaaa\">Share</a>";
+                            }
+
+                            if(userId != this.UserId){
+                                this.ProfileUrl =  "/" + this.ProfileUrl;
+                            }else{
+                                this.ProfileUrl="javascript:void(0)";
+                            }
+                            if(this.ImageId == null)
+                            {
+                                $("#jtemplate").tmpl(this).appendTo("#wall");
+                                var jlinks ="";
+                                if(userId != this.UserId){
+                                    jlinks +="<a href=\"/job/bookmark?Id=" + this.JobId +"\" target=\"_blank\" style=\"color:#428bca\">Bookmark</a> | ";
+                                }
+                                jlinks +="<a href=\"/job/email?Id=" + this.JobId +"\" target=\"_blank\" style=\"color:#428bca\">Email Job</a> | ";
+                                jlinks +="<a href=\"/employer/Joblist?Id=" +  this.UserId +"\" target=\"_blank\" style=\"color:#428bca\">All jobs of this company</a>";
+                                $("#joblinks" + this.Id).html(jlinks);
+                            }else{
+                                $("#itemplate").tmpl(this).appendTo("#wall");
+                            }
+                            if(this.Content != null &&  this.CategoryId != null  && this.SpecializationId != null)
+                            {
+                                if(links.length>0){
+                                    if(userId != 0){
+                                        links += " | <a href=\"/Jobseeker/Download?id="+ this.UserId +"&type=0&redirect=/Employer/DownloadHistory" + this.UserId +"\" target=\"_blank\">Download</a>";
+                                    }else{
+                                        links += " | <a href=\"javascript:void(0)\" style=\"color:#aaaaaa\">Download</a>";
+                                    }
+                                }else{
+                                    if(userId!=0){
+                                        links += "<a href=\"/Jobseeker/Download?id="+ this.UserId +"&type=0&redirect=/Employer/DownloadHistory" + this.UserId +"\" target=\"_blank\">Download</a>";
+                                    }else{
+                                        links += "<a href=\"javascript:void(0)\" style=\"color:#aaaaaa\">Download</a>";
+                                    }
+                                }
+                            }
+
+                            if (isAuthenticated==true)
+                            {
+                                if(this.BlockedByMe <=0 ){
+                                    if(userId != 0){
+                                        if(userId != this.UserId){
+                                            links += " | <a href=\"#\" data-href=\"/Home/Block?email=" + this.Username + "\" data-name=\"" + this.FullName +"\" role=\"button\" data-toggle=\"modal\" data-target=\"#cDialog\" class=\"aBlock\" data-role=\"" + this.UserRole +"\" data-connected=\"true\">Block</a>";
+                                        }
+                                    }
+                                    else{
+                                        links +=" | <a href=\"javascript:void(0)\" style=\"color:#aaaaaa\">Block</a>";
+                                    }
+                                }
+                                else
+                                {
+                                    if(userId!=0){
+                                        links +=" | <a href=\"/Home/Unblock?id=" + this.UserId +"&redirect=/" + this.ProfileUrl +"\" target=\"_blank\">Unblock</a>";
+                                    }else{
+                                        links +=" | <a href=\"javascript:void(0)\" style=\"color:#aaaaaa\">Unblock</a>";
+                                    }
+                                }
+
+                                $("#ql" + this.Id).html(links);
+
+                            }
+                        });
+
+                        //loadBlockScript();
+                    }
+                });
+            }
+
+            if ($(window).width() > 800) {
+                if($(".latest-activity").height() > $("#left-sidebar").height()){
+                    visibleY(document.getElementById("left-sidebar"));
+                }
+            }
+        });
+        loadBlockScript();
+
+        $("#Resume").change(function () {
+            var file = document.getElementById('Resume').files[0];
+            var defineSize = 300 * 1024;
+            var fileSize = file.size;
+            var name = file.name;
+            var ext = name.substr(name.lastIndexOf(".") + 1, 4).toLowerCase();
+            var allowed = "doc, docx, pdf, rtf";
+            $("#divFileError").html("");
+            if (name.length > 0) {
+                if (allowed.indexOf(ext) < 0) {
+                    $("#divFileError").html("Only DOC, DOCX, PDF, RTF files are allowed!");
+                    $("#resumeUpload").attr('disabled', true);
+                } else {
+                    if (fileSize > defineSize) {
+                        $("#divFileError").html("File upload failed - Exceeded max file size (300 KB)!");
+                        $("#resumeUpload").attr('disabled', true);
+                    } else {
+                        $("#divFileError").html("");
+                        $("#resumeUpload").attr('disabled', false);
+                    }
+                }
+            } else {
+                $("#divFileError").html("Please select file!");
+                $("#resumeUpload").attr('disabled', true);
+            }
+        });
+
+        $("#resumeUpload").click(function () {
+            var file = document.getElementById('Resume').files[0];
+            var name = file.name;
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function (e) {
+                var binaryString = e.target.result.toString();
+                binaryString = binaryString.replace("data:application/pdf;base64,", "");
+                binaryString = binaryString.replace("data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,", "");
+                binaryString = binaryString.replace("data:application/msword;base64,", "");
+
+                $.post('@Url.Action("ResumeUpload", "JsonHelper")', { Username: "@(User != null ? username : "")", fileName: name, data: binaryString },
+                   function (result) {
+                       $("#divMsgBox").html(result);
+                       $("#divMsgBox").removeClass("message-instruction");
+                       $("#divMsgBox").addClass("message-info");
+                       $("#divMsgBox").show();
+                   });
+            }
+        });
+
+    });
+
+    @*function loadBlockScript(){
+        $(".aBlock").off('click');
+        $(".aBlock").click(function () {
+            var bname = $(this).data('name');
+            var actionUrl = $(this).data('href');
+            var msgText = "";
+            var loggedInUserRole = "@(User != null ? user.Role.GetDescription() : "")";
+            var isConfirmed = "@(Request.IsAuthenticated ? user.IsConfirmed : false)";
+            if (isConfirmed == "True") {
+                var role = $(this).data('role');
+                if ((role == "Company" && loggedInUserRole == "Individual") || (loggedInUserRole == "Company" && role == "Individual")) {
+                    msgText = "<b>Following may be withdrawn with <span id=\"bname\" style=\"font-weight:bold\">" + bname + "</span>:</b><br/>";
+                    msgText += "<ul>";
+                    msgText += "<li>Application(s)!</li>";
+                    msgText += "<li>Matching!</li>";
+                    msgText += "<li>Bookmark(s)!</li>";
+                    msgText += "<li>Interview(s)!</li>";
+                    msgText += "<li>Connection!</li>";
+                    msgText += "</ul>";
+                }
+                //else {
+                //    if ($(this).data('connected') == "True") {
+                //        msgText = "<b>Block</b> action will disconnect you with <span id=\"bname\" style=\"font-weight:bold\"><b>" + bname + "</span></b><br/>";
+                //    } else {
+                //        msgText = "<b>Block</b> <span id=\"bname\" style=\"font-weight:bold\"><b>" + bname + "</span></b><br/>";
+                //    }
+                //}
+                msgText += "<div style=\"text-align:right; color:red; font-size:1.5em;\">Are you sure?</div>";
+                debugger;
+                $(".modal-body #divMsg").html(msgText);
+
+                actionUrl = $(this).data('href');
+                $("#dialogOk").click(function () {
+                    window.location.href = actionUrl;
+                });
+            } else {
+                window.location.href = actionUrl;
+            }
+        });
+    }*@
+</script>

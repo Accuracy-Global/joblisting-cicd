@@ -1,0 +1,239 @@
+================================================================================================================
+06-12-2023 08:57:02 PM
+Initial Url => http://localhost:1514/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Diamond Bar","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/54602
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/54599
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/54600
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/54607
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/54601
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/54605
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/44399
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/44401
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/account/login
+UrlPrivilegeFilter => Contoller: account, Action: login, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/account/login
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/account/login
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/profile/mouni-ch-180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/singapore/JsonHelper/GetDialingCode
+================================================================================================================
+06-12-2023 10:27:04 PM
+Initial Url => http://localhost:1514/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Diamond Bar","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/38172
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/38086
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/38174
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/account/login
+UrlPrivilegeFilter => Contoller: account, Action: login, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/38123
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/38124
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/account/login
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/38085
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/38125
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/38173
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/Home
+================================================================================================================
+06-12-2023 10:37:27 PM
+Initial Url => http://localhost:1514/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Diamond Bar","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/38170
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/38085
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/38173
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/38172
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/38122
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/38123
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/account/login
+UrlPrivilegeFilter => Contoller: account, Action: login, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/account/login
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/profile/mouni-ch-180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/profile-resume
+--------------------------------------
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/38171
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/38124
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/singapore/JsonHelper/GetDialingCode
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/singapore/Image/Avtar/180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/singapore/JsonHelper/GetDialingCode

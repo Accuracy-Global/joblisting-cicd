@@ -1,0 +1,303 @@
+﻿@using JobPortal.Domain
+@using JobPortal.Data
+@using PagedList.Mvc
+@using JobPortal.Models
+@model JobPortal.Web.Models.EmailJobModel
+@{
+    ViewBag.Title = "SMS";
+    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+    //long id = model.Id;
+    JobPortal.Services.JobService jobService = new JobPortal.Services.JobService();
+
+    var x = ViewBag.x;
+    var c = ViewBag.c;
+    var c1 = ViewBag.t;
+    long b=0;
+    string b1 = string.Empty;
+    WebGrid grid = new WebGrid();
+    if (x != null)
+    {
+        b = x.Id;
+        b1 = x.Title;
+        List<MemberService.sentE> list = MemberService.Instance.sentE1(user.Id, x.Id);
+        grid = new WebGrid(list, ajaxUpdateContainerId: "grid");
+    }
+    else if (c != null)
+    {
+        b = Convert.ToInt32(c);
+        b1 = c1;
+        List<MemberService.sentE> list = MemberService.Instance.sentE1(user.Id, Convert.ToInt32(c));
+        grid = new WebGrid(list, ajaxUpdateContainerId: "grid");
+    }
+
+
+
+
+}
+
+<div class="section">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="title-login">
+                <h1>Share Job</h1>
+                @if (user.Type == 5)
+                {
+                    <legend>Share job to joobseeker via SMS.</legend>
+                }
+                else
+                {
+                    <legend>Share job to your friend via SMS.</legend>
+                }
+
+            </div>
+        </div>
+    </div>
+    @Html.Partial("_MessagePartial")
+    <div id="ErrorBox" class="message-error">
+
+    </div>
+    <div class="clear" style="height:15px"></div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+
+
+
+            @using (Html.BeginForm("InviteFriendJ", "Network", FormMethod.Post))
+            {
+              
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+
+                        @Html.TextBox("jurl", b1.ToString() + '-' + b.ToString(), new { @class = "form-control", @readonly = "readonly" })
+
+
+                    </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            @Html.DropDownList("Country", new SelectList(SharedService.Instance.CountryWithCodes, "Value", "Key"), "SELECT COUNTRY", new { @class = "form-control", @title = "Country", @required = "required" })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            @Html.TextBox("Mobile", "", new { @class = "form-control", @placeholder = "PROVIDE MOBILE NO", @title = "Mobile Number (not start with zero)", @required = "required", maxlength = "15", pattern = "^[1-9][0-9]*$" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-lg-offset-8 col-md-offset-8">
+                        <div class="form-group">
+                            <input type="submit" value="Invite via SMS" class="btn btn-info btn-block" style="height:28px;background-color:#34ba08" title="Invite your friend via Mobile" default />
+                        </div>
+                    </div>
+                </div>
+
+
+                }
+            </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6">
+
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        <input class="form-control" id="n1" maxlength="50" name="Name" placeholder="SEARCH BY NAME" type="text" value="" />
+
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        <input class="form-control" id="m1" maxlength="50" name="EmailId" placeholder="SEARCH BY EMAIL ID" type="text" value="" />
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        <label>From Date</label>
+                        <div class="input-group" style="width:100%;">
+                            @Html.DropDownList("fd", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control input-sm" })
+                            <span class="input-group-btn" style="width:0px"></span>
+                            @Html.DropDownList("fm", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control input-sm" })
+                            <span class="input-group-btn" style="width:0px"></span>
+                            @Html.DropDownList("fy", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 1)), "YEAR", new { @class = "form-control input-sm" })
+                        </div>
+                        <div id="fromDateError" style="color:red;"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        <label>To Date</label>
+                        <div class="input-group" style="width:100%;">
+                            @Html.DropDownList("td", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control input-sm" })
+                            <span class="input-group-btn" style="width:0px"></span>
+                            @Html.DropDownList("tm", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control input-sm" })
+                            <span class="input-group-btn" style="width:0px"></span>
+                            @Html.DropDownList("ty", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 1)), "YEAR", new { @class = "form-control input-sm" })
+                        </div>
+                        <div id="toDateError" style="color:red;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-lg-offset-8 col-md-offset-8">
+                    <div class="form-group">
+                        <input id="Search" type="submit" value="Search" class="btn btn-info btn-block" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+    </div>
+
+
+
+
+
+    <div class="clear" style="height:15px"></div>
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+            <ul class="nav nav-pills nav-stacked well_new">
+                <li class="active"><a href="#">CONTACT MANAGEMENT</a></li>
+                @{int apps = jobService.ApplicationCounts(null, user.Id);}
+                @{if (Request.IsAuthenticated && user.Type == 4)
+                    {
+
+
+                        if (apps > 0)
+                        {
+                            <li><a href="/JobSeeker/Index">Applications (<span style="color:red;">@apps</span>)</a></li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Applications", "Index", "JobSeeker")</li>
+                        }
+
+                    }
+
+                    else if (Request.IsAuthenticated && user.Type == 5)
+                    {
+
+
+                        if (apps > 0)
+                        {
+                            <li><a href="Employer/Applications">Applications (<span style="color:red;">@apps</span>)</a></li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Applications", "Applications", "Employer")</li>
+                        }
+
+                    }
+                }
+            </ul>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-9">
+
+
+            <div id="container-grid" class="table-responsive">
+
+                @grid.GetHtml(htmlAttributes: new { id = "grid", @style = "width:100%" }, tableStyle: "table table-bordered table-hover",
+columns: new[]
+{
+            grid.Column("Email ID",canSort:false,   format :(m) =>
+            {
+
+
+                    return Html.Raw(m.EmailID);
+            }),
+             grid.Column("Name",canSort:false,   format :(m) =>
+            {
+
+
+                    return Html.Raw(m.EName);
+            }),
+              grid.Column("Contact",canSort:false,   format :(m) =>
+            {
+
+
+                    return Html.Raw(m.Contact);
+            }),
+               grid.Column("Registered",canSort:false,   format :(m) =>
+            {
+
+
+                    return Html.Raw(m.RStatus);
+            }),
+                grid.Column("Profile Strength",canSort:false,   format :(m) =>
+            {
+
+
+                    return Html.Raw(m.Update_profile);
+            }),
+                 grid.Column("Apply",canSort:false,   format :(m) =>
+            {
+
+
+                    return Html.Raw(m.Apply_job);
+            })
+})
+
+            </div>
+
+
+
+
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+
+        $("#ErrorBox").hide();
+
+        $("#SubmitButton").click(function () {
+
+            var flag = false;
+            var message = "";
+
+            $("#ErrorBox").hide();
+            if ($.trim($("#FriendEmails").val()) != "") {
+                var emails = $("#FriendEmails").val();
+                if (emails.indexOf(",") > 0) {
+                    var email = emails.split(',');
+                    if (email.length <= 10) {
+                        for (var idx = 0; idx < email.length; idx++) {
+                            var re = /[a-zA-Z0-9._%+-]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/igm;
+                            if (!re.test(email[idx].trim())) {
+                                message += "Remove invalid email address (" + email[idx] + ") and try again!<br/>";
+                            }
+                        }
+                    } else {
+                        message = "Maximum 10 emails are allowed!";
+                    }
+                }
+            } else {
+                message = "Provide email address(es) in a comma seperated format!";
+            }
+
+            if (message.trim().length > 0) {
+                $("#ErrorBox").html(message);
+                $("#ErrorBox").show();
+                flag = false;
+            } else {
+                flag = true;
+            }
+            return flag;
+        });
+
+    });
+</script>

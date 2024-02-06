@@ -1,0 +1,632 @@
+﻿@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Domain
+@using JobPortal.Data
+@using JobPortal.Models
+@model Inbox
+
+<link href="~/Content/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet" />
+<script src="~/Scripts/fileinput.min.js"></script>
+@{
+
+    ViewBag.Title = string.Format("Inbox - {0}", Model.SenderName);
+
+    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+    int inboxItems = DomainService.Instance.DashboardInboxItems(User.Id, ViewBag.UserInfo.UserId);
+    int appCounts = MemberService.Instance.GetApplicationCount(ViewBag.UserInfo.Username);
+    int intCounts = MemberService.Instance.GetInterviewCount(ViewBag.UserInfo.Username);
+
+    Job job = null;
+    Photo photo = null;
+    long photoId = 0;
+    UserProfile profile = MemberService.Instance.Get(Model.ReceiverId.Value);
+
+    if (Model.ReferenceType != null)
+    {
+        switch (Model.ReferenceType.Value)
+        {
+            case 0:
+                photoId = Model.ReferenceId.Value;
+                photo = MemberService.Instance.GetPhoto(Model.ReferenceId.Value);
+                break;
+            case 1:
+                job = JobService.Instance.Get(Model.ReferenceId.Value);
+                break;
+        }
+
+    }
+    UserProfile sender = MemberService.Instance.Get(Model.SenderId.Value);
+    bool showMsg = ((photoId > 0 && (photo != null && photo.IsApproved == false && photo.IsRejected == false && photo.IsDeleted == false)) || (job != null && job.IsPublished == false && job.IsRejected == false && job.IsDeleted == false && job.IsActive == true));
+}
+<div class="section">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                <li class="active"><a href="#">QUICK LINKS</a></li>
+                <li>@Html.ActionLink("Connections", "Connections", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                <li>@Html.ActionLink("Messages", "Messages", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                @if (ViewBag.UserInfo.Type == (int)SecurityRoles.Company)
+                {
+                    <li>@Html.ActionLink("Jobs", "JobsByCompany", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                @if (appCounts > 0)
+                {
+                    <li>@Html.ActionLink(string.Format("Applications ({0})", appCounts), "Applications", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Applications", "Applications", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                @if (intCounts > 0)
+                {
+                    <li>@Html.ActionLink(string.Format("Interviews ({0})", intCounts), "Interviews", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Interviews", "Interviews", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                @if (ViewBag.UserInfo.Type == (int)SecurityRoles.Company)
+                {
+                    <li>@Html.ActionLink("Downloads", "DownloadHistory", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                @if (inboxItems > 0)
+                {
+                    <li><a href="/Admin/Inbox?Id=@ViewBag.UserInfo.UserId" target="_blank">Inbox (<span style="color:red; font-weight:bold">@inboxItems</span>)</a></li>
+                }
+                else
+                {
+                    <li><a href="/Admin/Inbox?Id=@ViewBag.UserInfo.UserId" target="_blank">Inbox</a></li>
+                }
+
+                @if (ViewBag.UserInfo.Type == (int)SecurityRoles.Company)
+                {
+                    <li>@Html.ActionLink("Profile", "ManageCompany", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                else if (ViewBag.UserInfo.Type == (int)SecurityRoles.Individual)
+                {
+                    <li>@Html.ActionLink("Profile", "ManageIndividual", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                <li>@Html.ActionLink("Purchased Profiles", "PaidProfiles", "Payment", new { userId = ViewBag.UserInfo.UserId }, null)</li>
+                <li>@Html.ActionLink("Billing & Invoices", "billing", "Payment", new { userId = ViewBag.UserInfo.UserId }, new { })</li>
+                <li>@Html.ActionLink("Reset Password", "ResetPassword", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                <li>@Html.ActionLink("Login History", "LoginHistory", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { @class = "active" })</li>
+                <li>@Html.ActionLink("Alert Settings", "Alerts", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+            </ul>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-9">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="title-login">
+                        <h1>Inbox</h1>
+                        @if (ViewBag.UserInfo.Type == (int)SecurityRoles.Company)
+                        {
+                            <text>Manage inbox  of <b>@ViewBag.UserInfo.Company</b> here</text>
+                        }
+                        else if (ViewBag.UserInfo.Type == (int)SecurityRoles.Individual)
+                        {
+                            <text> Manage inbox  of <b>@ViewBag.UserInfo.FirstName  @ViewBag.UserInfo.LastName</b> here</text>
+                        }
+                    </div>
+                </div>
+            </div>
+            @*@Html.Partial("_MessagePartial")*@
+            <div class="clear" style="height:15px;"></div>
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="list-group-item" style="padding: 5px;background-color:#efeeee;">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <b>Date:</b>&nbsp;&nbsp;@Model.DateUpdated.ToString("MMM-dd-yyyy hh:mm")
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                @if (job != null)
+                                {
+                                    <b>Job Title:</b><text>&nbsp; &nbsp;</text><a href="/job/@job.PermaLink-@job.Id">@job.Title</a>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    @if (sender.Type == (int)(SecurityRoles.SuperUser) || sender.Type == (int)(SecurityRoles.Administrator))
+                    {
+                        <div class="list-group-item" style="padding: 5px; background-color:#efeeee;">
+                            <b>Form:</b><text>&nbsp;&nbsp;</text>Support Team
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="list-group-item" style="padding: 5px; background-color:#efeeee;">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <b>Form:</b><text>&nbsp;&nbsp;</text>@Model.SenderName
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    @if (Model.Unread)
+                                    {
+                                        <a href="@Url.Action("Mark", "Inbox", new { Id = Model.Id })" class="pull-right text-danger">Mark as Read</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="@Url.Action("Mark", "Inbox", new { Id = Model.Id })" class="pull-right text-danger">Mark as Unread</a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="list-group-item" style="padding: 5px;background-color:#efeeee;">
+                        <b>Subject:</b>&nbsp;&nbsp;@Model.Subject
+                    </div>
+                    <div class="list-group-item" style="padding: 5px;background-color:#efeeee;">
+                        <b>Message</b>
+                    </div>
+                    <div class="list-group-item" style="padding: 5px;background-color:#efeeee;">
+                        @Html.Raw(Model.Body)
+                    </div>
+                </div>
+            </div>
+            @if (Model.ChildInbox.Count > 0)
+            {
+                long first = Model.ChildInbox.LastOrDefault().Id.Value;
+                string color = "";
+                foreach (var item in Model.ChildInbox)
+                {
+                    sender = MemberService.Instance.Get(item.SenderId.Value);
+                    var jitem = JobService.Instance.Get(item.ReferenceId.Value);
+                    if (first == item.Id)
+                    {
+                        color = "background-color:#F9F5E1";
+                    }
+                    else
+                    {
+                        color = "";
+                    }
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            &nbsp;
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            &nbsp;
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="list-group-item" style="padding: 5px; @color">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <b>Date:</b>&nbsp;&nbsp;@item.DateUpdated.ToString("MMM-dd-yyyy hh:mm")
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        @if (jitem != null)
+                                        {
+                                            <b>Job Title:</b><text>&nbsp; &nbsp;</text><a href="/job/@jitem.PermaLink-@jitem.Id">@jitem.Title</a>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            @if (sender.Type == (int)(SecurityRoles.SuperUser) || sender.Type == (int)(SecurityRoles.Administrator))
+                            {
+                                <div class="list-group-item" style="padding: 5px;  @color">
+                                    <b>Form:</b><text>&nbsp;&nbsp;</text>Support Team
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="list-group-item" style="padding: 5px;  @color">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <b>Form:</b><text>&nbsp;&nbsp;</text>@item.SenderName
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            @if (item.Unread)
+                                            {
+                                                <a href="@Url.Action("Mark", "Inbox", new { Id = item.Id })" class="pull-right text-danger">Mark as Read</a>
+                                            }
+                                            else
+                                            {
+                                                <a href="@Url.Action("Mark", "Inbox", new { Id = item.Id })" class="pull-right text-danger">Mark as Unread</a>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            <div class="list-group-item" style="padding: 5px; @color">
+                                <b>Subject:</b>&nbsp;&nbsp;@item.Subject
+                            </div>
+
+                            <div class="list-group-item" style="padding: 5px; @color">
+                                <b>Message</b>
+                            </div>
+                            <div class="list-group-item" style="padding: 5px; @color">
+                                @Html.Raw(item.Body)
+                            </div>
+                            @if (DomainService.Instance.InboxItemFileCounts(item.Id.Value) > 0)
+                            {
+                                List<InboxFile> item_list = DomainService.Instance.ListInboxItem(item.Id.Value);
+                                <div class="list-group-item" style="padding: 5px; @color">
+                                    <b>Documents</b>
+                                </div>
+                                <div class="list-group-item" style="padding:5px; @color">
+                                    <table class="table-bordered" style="padding:5px; width:100%; ">
+                                        <tbody>
+                                            @foreach (InboxFile entity in item_list)
+                                            {
+                                                <tr>
+                                                    <td style="padding:2px;">@entity.Name</td>
+                                                    <td style="padding:2px;">@entity.Size KB</td>
+                                                    <td style="padding:2px; width:60px; text-align:center"><a href="@Url.Action("Download","Inbox",new{ Id = entity.Id })">Download</a></td>
+                                                    <td style="padding:2px; width:60px; text-align:center"><a href="#" data-fileid="@entity.Id" class="dfile">Delete</a></td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+
+            }
+            <div>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    &nbsp;
+                </div>
+            </div>
+            <div>
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    @if (showMsg)
+                    {
+                        @Html.Partial("_MessagePartial")
+                        using (Html.BeginForm("Send", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+
+                            <div class="list-group-item">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+
+                                        @Html.Hidden("id", Model.Id)
+                                        <div class="form-group">
+                                            @Html.Label("Write message") <div id="msgError"></div>
+                                            @Html.TextArea("Message", "", new { @class = "form-control", @style = "height:100px; resize:vertical", @maxlength = "400", @required = "required" })
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div id="UploadMsg" class="list-group-item" style="color:red; height:50px;margin-bottom: 5px;">Upload File(s) (Optional)</div>
+                                        <table id="grid" class="table-bordered" style="width:100%; display:none; ">
+                                            <tbody>
+                                                <tr style="height:26px;">
+                                                    <td style="padding:2px;"><span id="F1"></span></td>
+                                                    <td style="padding:2px;"><span id="FS1"></span></td>
+                                                    <td style="padding:2px; width:60px; text-align:center"><input type="hidden" id="H1" /><a href="#" id="Delete1" data-id="1" data-filename="" class="dfl">Delete</a></td>
+                                                </tr>
+                                                <tr style="height:26px;">
+                                                    <td style="padding:2px;"><span id="F2"></span></td>
+                                                    <td style="padding:2px;"><span id="FS2"></span></td>
+                                                    <td style="padding:2px; width:60px; text-align:center"><input type="hidden" id="H2" /><a href="#" id="Delete2" data-id="2" data-filename="" class="dfl">Delete</a></td>
+                                                </tr>
+                                                <tr style="height:26px;">
+                                                    <td style="padding:2px;"><span id="F3"></span></td>
+                                                    <td style="padding:2px;"><span id="FS3"></span></td>
+                                                    <td style="padding:2px; width:60px; text-align:center"><input type="hidden" id="H3" /><a href="#" id="Delete3" data-id="3" data-filename="" class="dfl">Delete</a></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div style="color:red">Max 3 file(s) allowed.</div>
+                                        <div style="color:red">Max 200 KB for each file allowed</div>
+                                        <div style="color:red">TXT, RTF, DOC, DOCX, PDF, JPG, PNG, XLS, XLSX, PPT, PPTX file extensions allowed only</div>
+                                        <div style="height:10px;"></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="form-group">
+                                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                <span class="btn btn-default btn-file" style="width:80px;"><span style="font-family:Calibri;">Browse</span><input type="file" name="Attachments" id="Attachments" multiple></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="form-group text-right">
+                                            <input type="button" id="Send" value="Send" class="btn btn-info" style="width: 75px;" />
+                                            <input type="button" id="Cancel" value="Cancel" class="btn btn-info" style="width: 75px;" />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade in out" id="deleteDialog" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="title">Confirmation</h4>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="DeleteFileId" />
+                <div id="divMsg">
+                    Are you sure to delete?
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="width:57px">No</button>
+                <a id="dialogOk" class="btn btn-primary btn-ok" style="width:57px">Yes</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .ered {
+        color: red;
+    }
+</style>
+<script>
+    function createListItem(e, file) {
+        var binaryString = e.target.result.toString();
+        binaryString = binaryString.substr(binaryString.lastIndexOf("base64,") + 7);
+        localStorage.setItem(file.name, binaryString);
+    }
+
+    $(document).ready(function () {
+        $("#Message").focus();
+        $("#UploadMsg").show();
+        $("#grid").hide();
+        var extensions="txt, rtf, doc, docx, pdf, jpg, png, xls, xlsx, ppt, pptx";
+        var defineSize = 200;
+
+        $(".dfile").click(function(){
+            $("#DeleteFileId").val($(this).data("fileid"));
+            $("#deleteDialog").modal("show");
+        });
+        $("#dialogOk").click(function () {            
+            window.location.href = "/Inbox/DeleteFile?Id=" + $("#DeleteFileId").val();
+        });
+
+        $("#Attachments").change(function () {
+            $("#UploadMsg").hide();
+            $("#grid").show();
+
+
+            var fileList = $('#Attachments').prop("files");
+            var files = new Array();
+            var fileNames = $("#grid tr:nth-child(1)").children('td:first').text();
+            fileNames += $("#grid tr:nth-child(2)").children('td:first').text();
+            fileNames += $("#grid tr:nth-child(3)").children('td:first').text();
+
+
+
+            if(fileList.length>3){
+                $(fileList).each(function(){
+                    var size = Math.ceil(this.size / 1024);
+                    if(size<=200){
+                        if (fileNames.indexOf(this.name)==-1){
+                            console.log("File Name: " + this.name);
+                            if (files.length<3){
+                                files.push(this);
+                            }
+                        }
+                    }
+                });
+            }else{
+                $(fileList).each(function(){
+                    var size = Math.ceil(this.size / 1024);
+                    if (fileNames.indexOf(this.name)==-1){
+                        files.push(this);
+                    }
+                });
+            }
+
+            if(files.length > 0 ){
+                $(".ered").text("");
+            }
+
+            var novalue=0;
+            var invalid_files=0;
+
+            if (files.length> 0 && files.length <= 3) {
+                var hasEmpty=0;
+                for(var k = 1; k <= 3; k++){
+                    if($("#F" + k).text() == "")
+                        hasEmpty++;
+                }
+                if(hasEmpty == 0){
+                    if(files.length>0){
+                        for(var k = 1; k <= files.length; k++){
+                            $("#F" + k).text("");
+                            $("#FS" + k).text("");
+                            $("#H" + k).val("");
+                            $("#Delete" + k).hide();
+                        }
+                    }
+                }
+
+                for (var i=0; i<3; i++) {
+                    var f = files[i];
+                    if(!f){
+                        break;
+                    }else{
+                        if(f!=null){
+                            var fname = f.name;
+                            var size = Math.ceil((f.size / 1024));
+
+                            var reader = new FileReader();
+                            reader.readAsDataURL(f);
+                            reader.onloadend = (function(file) {
+                                return function(evt) {
+                                    createListItem(evt, file)
+                                };
+                            })(files[i]);
+
+                            for(j=1; j<=3; j++){
+                                var vcell = $("#F" + j).text().trim();
+                                if(vcell == ""){
+                                    if(size <= defineSize)
+                                    {
+                                        var ext =  fname.substr(fname.lastIndexOf(".") + 1).toLowerCase();
+                                        var extIndex = extensions.indexOf(ext);
+                                        if(extIndex == -1){
+                                            $("#F" + j).html(fname);
+                                            $("#F" + j).addClass("ered");
+                                            $("#FS" + j).html("This file type not allowed!");
+                                            $("#FS" + j).addClass("ered")
+                                            $("#H" + j).val(size);
+                                            $("#Delete" + j).hide();
+                                        }
+                                        else{
+                                            $("#F" + j).text(fname);
+                                            $("#F" + j).removeClass("ered");
+                                            $("#FS" + j).text(size + " KB");
+                                            $("#FS" + j).removeClass("ered");
+                                            $("#H" + j).val(size);
+                                            $("#Delete" + j).data("filename", fname);
+                                            $("#Delete" + j).show();
+                                        }
+
+                                    }else{
+                                        var ext =  fname.substr(fname.lastIndexOf(".") + 1).toLowerCase();
+                                        var extIndex = extensions.indexOf(ext);
+                                        if(extIndex == -1){
+                                            $("#F" + j).text(fname);
+                                            $("#F" + j).addClass("ered");
+                                            $("#FS" + j).text("This file type not allowed!");
+                                            $("#FS" + j).addClass("ered");
+                                            $("#H" + j).val(size);
+                                            $("#Delete" + j).hide();
+                                        }else{
+
+                                            $("#F" + j).text(fname);
+                                            $("#F" + j).addClass("ered");
+                                            $("#FS" + j).text("File size " + size + " KB not allowed!");
+                                            $("#FS" + j).addClass("ered");
+                                            $("#H" + j).val(size);
+                                            $("#Delete" + j).data("filename", fname);
+                                            $("#Delete" + j).hide();
+                                        }
+                                        invalid_files++;
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                for(var a=1; a<=3; a++){
+                    var vcell = $("#F" + a).text().trim();
+                    if(vcell == ""){
+                        $("#Delete" + a).hide();
+                    }
+                }
+
+                $(".dfl").click(function(){
+                    var fileName = $(this).data('filename');
+                    var id = $(this).data('id');
+
+                    $("#F" + id).html("");
+                    $("#FS" + id).html("");
+                    $("#Delete" + id).data("filename", "");
+                    if($("#F1").text() == ""  && $("#F2").text() == "" && $("#F3").text() == ""){
+                        $("#UploadMsg").show();
+                        $("#grid").hide();
+                        $("#Attachments").val("");
+                    }
+
+                    localStorage.removeItem(fileName);
+                    var invalid_items = 0;
+                    for(var v=1; v<=3; v++){
+                        var size =  $("#FS" + id).text().replace(" KB","");
+                        if(size!= ""){
+                            var nsize =  Number(size);
+                            if(nsize > defineSize){
+                                invalid_items++;
+                            }
+                        }
+                    }
+                    $("#Delete" + id).hide();
+                    return false;
+                });
+            }
+        });
+
+        $("#UploadMsg").show();
+        $("#grid").hide();
+
+        $("#Cancel").click(function () {
+            window.location.href = "/Admin/Inbox?Id=@ViewBag.UserInfo.UserId";
+        });
+
+        $("#Send").click(function () {
+            if ($("#Message").val() != "") {
+                $("#msgError").html("");
+
+                var msg = { "id": @Model.Id, "message": $("#Message").val() };
+                $.post("/Admin/Send", msg, function(result){
+                    if(result != null && result > 0){
+
+                        for(var j=1; j<=3; j++){
+                            var vcell = $("#F" + j).text().trim();
+                            var size = Number($("#H" + j).val());
+                            var ext =  vcell.substr(vcell.lastIndexOf(".") + 1).toLowerCase();
+                            var extIndex = extensions.indexOf(ext);
+
+                            if(size<=200 && extIndex > -1){
+                                var binaryString = localStorage.getItem(vcell);
+                                var data = { "inboxId": result, "name": $("#F" + j).text().trim(), "data": binaryString, "size": size };
+                                $.ajax({
+                                    type: 'POST',
+                                    url: "/Inbox/AttachFile",
+                                    data: JSON.stringify(data),
+                                    success: function(result) {
+                                        i++;
+                                    },
+                                    contentType: "application/json",
+                                    dataType: "json",
+                                    async:false
+                                });
+                            }
+                        }
+                        $("#Message").val("");
+                        for(var i=1; i<=3; i++){
+                            $("#F" + i).html("");
+                            $("#FS" + i).html("");
+                            $("#Delete" + i).data("filename", "");
+                        }
+                        $("#UploadMsg").show();
+                        $("#grid").hide();
+                        window.location.reload();
+                        return false;
+                    }
+                });
+            } else {
+                $("#msgError").html("<span style='color:red'>Message text is required</span>");
+                return false;
+            }
+        });
+    });
+</script>

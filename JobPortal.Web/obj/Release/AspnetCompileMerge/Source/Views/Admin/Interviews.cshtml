@@ -1,0 +1,334 @@
+﻿@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Interviews";
+    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<Interview>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+    maxRowSize = totalRecord;
+    }
+
+    UserProfile profile = MemberService.Instance.Get(ViewBag.UserInfo.UserId);
+    int inboxItems = DomainService.Instance.DashboardInboxItems(User.Id, ViewBag.UserInfo.UserId);
+    int appCounts = MemberService.Instance.GetApplicationCount(profile.Username);
+    int intCounts = MemberService.Instance.GetInterviewCount(profile.Username);
+
+    WebGrid grid = new WebGrid(ViewBag.Model, ajaxUpdateContainerId: "grid");
+    }
+    <div class="section">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                    <li class="active"><a href="#">QUICK LINKS</a></li>
+                    <li>@Html.ActionLink("Connections", "Connections", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                    <li>@Html.ActionLink("Messages", "Messages", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                    @if (ViewBag.UserInfo.Type == (int)SecurityRoles.Company)
+                    {
+                    <li>@Html.ActionLink("Jobs", "JobsByCompany", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                    }
+                    @if (appCounts > 0)
+                    {
+                    <li>@Html.ActionLink(string.Format("Applications ({0})", appCounts), "Applications", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                    }
+                    else
+                    {
+                    <li>@Html.ActionLink("Applications", "Applications", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                    }
+                    @if (intCounts > 0)
+                    {
+                    <li>@Html.ActionLink(string.Format("Interviews ({0})", intCounts), "Interviews", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                    }
+                    else
+                    {
+                    <li>@Html.ActionLink("Interviews", "Interviews", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                    }
+                    @if (ViewBag.UserInfo.Type == (int)SecurityRoles.Company)
+                    {
+                    <li>@Html.ActionLink("Downloads", "DownloadHistory", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                    }
+                    @if (inboxItems > 0)
+                    {
+                    <li><a href="/Admin/Inbox?Id=@ViewBag.UserInfo.UserId" target="_blank">Inbox (<span style="color:red; font-weight:bold">@inboxItems</span>)</a></li>
+                    }
+                    else
+                    {
+                    <li><a href="/Admin/Inbox?Id=@ViewBag.UserInfo.UserId" target="_blank">Inbox</a></li>
+                    }
+                    <li>@Html.ActionLink("Profile", "ManageCompany", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { })</li>
+                    <li>@Html.ActionLink("Billing & Invoices", "billing", "Payment", new { userId = ViewBag.UserInfo.UserId }, new { })</li>
+                    <li>@Html.ActionLink("Reset Password", "ResetPassword", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                    <li>@Html.ActionLink("Login History", "LoginHistory", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                    <li>@Html.ActionLink("Alert Settings", "Alerts", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                </ul>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="title-login">
+                            <h1 style="margin-top:-15px">Interviews</h1>
+                            Manage interviews here
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8">
+
+                    </div>
+                </div>
+                <div class="clear" style="height:15px;"></div>
+                @Html.Partial("_MessagePartial")
+                @using (Html.BeginForm())
+                {
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.Label("Job Title")
+                            @Html.DropDownList("JobTitle", (SelectList)ViewBag.JobList, "--SELECT--", new { @class = "form-control", @id = "JobTitle" })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.Label("Country")
+                            @Html.DropDownList("CountryId", ViewBag.CountryList as SelectList, "--SELECT--", new { @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.Label("Interview Status")
+                            @Html.DropDownList("Status", UIHelper.DropDown<InterviewStatus>(), "All", new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                @Html.Label("From Date")
+                                <div class='input-group date' style="margin-bottom:0;">
+                                    @Html.TextBox("StartDate", null, new { @class = "form-control", @title = "FROM DATE", @readonly = "readonly" })
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                @Html.Label("To Date")
+                                <div class='input-group date' style="margin-bottom:0;">
+                                    @Html.TextBox("EndDate", null, new { @class = "form-control", placeholder = "TO DATE", @title = "TO DATE", @readonly = "readonly" })
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear" style="height:5px;"></div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 text-right">
+                        <input type="submit" value="Search" class="btn btn-info" style="padding: 4px 12px;" />
+                    </div>
+                </div>
+                <div class="clear" style="height:15px;"></div>
+                }
+                <div class="clear" style="height:15px"></div>
+                <div class="table-responsive">
+                    @grid.GetHtml(htmlAttributes: new { id = "grid", @style = "width:100%" }, tableStyle: "table table-bordered table-hover",
+                    columns: new[]
+                    {
+                    grid.Column(columnName:"Job Title", header:"Job Title", canSort:false, format: (item)=>
+                    {
+                    Tracking record = TrackingService.Instance.Get(item.TrackingId);
+                    string link = string.Empty;
+                    if (record.JobId != null)
+                    {
+                    Job job = JobService.Instance.Get(record.JobId.Value);
+                    link = string.Format("<a href=\"/job/{0}-{1}\" target=\"_blank\">{2}</a>", job.PermaLink, job.Id, job.Title);
+                    }
+                    else
+                    {
+                    link = "Not Applicable";
+                    }
+                    return Html.Raw(link);
+                    }),
+                    grid.Column(columnName:"Jobseeker", header:"Jobseeker", canSort:false,format: (item)=>
+                    {
+                    string link = string.Empty;
+                    if (profile.Type == (int)SecurityRoles.Company)
+                    {
+                    Tracking record = TrackingService.Instance.Get(item.TrackingId);
+                    UserProfile jobSeeker = MemberService.Instance.Get(record.JobseekerId.Value);
+                    link = Html.Raw(string.Format("<a href=\"/{0}\" target=\"_blank\">{1} {2}</a>", jobSeeker.PermaLink, jobSeeker.FirstName, jobSeeker.LastName)).ToString();
+                    }
+                    else
+                    {
+                    Tracking record = TrackingService.Instance.Get(item.TrackingId);
+                    if (record.JobId != null)
+                    {
+                    Job job = JobService.Instance.Get(record.JobId.Value);
+                    UserProfile employer = MemberService.Instance.Get(job.EmployerId.Value);
+                    link = string.Format("<a href=\"/{0}\" target=\"_blank\">{1}</a>", employer.PermaLink, employer.Company);
+                    }
+                    else
+                    {
+                    UserProfile employer = MemberService.Instance.Get(item.CreatedBy);
+                    link = string.Format("<a href=\"/{0}\" target=\"_blank\">{1}</a>", employer.PermaLink, employer.Company);
+                    }
+                    }
+                    return Html.Raw(link);
+                    }),
+                    grid.Column(columnName:"Date",header:"Date",canSort:false,format: (item)=>
+                    {
+                    return Html.Raw(item.DateCreated.ToString("MMM-dd-yyyy"));
+                    }),
+                    grid.Column(columnName:"Status",header:"Status",canSort:false,format: (item)=>
+                    {
+                    string status = string.Empty;
+                    if (item.Status == (int)InterviewStatus.INTERVIEW_IN_PROGRESS)
+                    {
+                    status = "<b>" + Html.ActionLink(((InterviewStatus)item.Status).GetDescription(), "Update", "Interview", new { id = item.Id }, new { title = "View In-progress interview details", target = "_blank" }).ToString() + "</b>";
+                    }
+                    else
+                    {
+                    if ((InterviewStatus)item.Status == InterviewStatus.WITHDRAW)
+                    {
+                    status = string.Format("<span style=\"color:red\">{0}</span>", ((InterviewStatus)item.Status).GetDescription());
+                    }
+                    else
+                    {
+                    status = ((InterviewStatus)item.Status).GetDescription();
+
+                    }
+                    }
+                    return Html.Raw(status);
+                    }),
+                    grid.Column(columnName: "Actions", header: "Actions", canSort: false, format: item =>
+                    {
+                    string links = string.Empty;
+
+                    links = "<b>" + Html.ActionLink("View", "Interview", "Admin", new { Id = item.Id }, new { title = "View interview details", @target = "_blank" }).ToString() + "</b>";
+
+                    if ((InterviewStatus)item.Status != InterviewStatus.WITHDRAW)
+                    {
+                    if (!string.IsNullOrEmpty(links))
+                    {
+                    links += " | " + "<b><a href=\"#withdrawDialog\" data-id='" + item.Id + "' role='button' data-toggle='modal' class=\"jwithdraw\">Withdraw</a></b>";
+                    }
+                    else
+                    {
+                    links += "<b><a href=\"#withdrawDialog\" data-id='" + item.Id + "' role='button' data-toggle='modal' class=\"jwithdraw\">Withdraw</a></b>";
+                    }
+                    }
+                    return Html.Raw(links);
+                    }),
+                    })
+                </div>
+                <div class="modal fade in out" id="rejectDialog" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            @using (Html.BeginForm("Reject", "Interview", FormMethod.Post))
+                            {
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title" id="title">Rejecting</h4>
+                            </div>
+                            <div class="modal-body">
+                                <input type="hidden" id="Id" name="Id" />
+                                <input type="hidden" id="Redirect" name="Redirect" />
+                                <div class="form-group">
+                                    @Html.Label("Write reason for rejection")
+                                    @Html.TextArea("Reason", new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="form-group">
+                                    <input type="submit" value="Submit" class="btn btn-info" style="width:75px;" />
+                                    <input id="btnCancelReject" type="button" value="Cancel" data-dismiss="modal" class="btn btn-info" style="width:75px;" />
+                                </div>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align:center; margin-top: -15px;">
+
+                    @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Applications",
+                    new RouteValueDictionary()
+                    {
+                    { "PageNumber" , PageNumber},
+                    { "JobTitle" , Request["JobTitle"]},
+                    { "Status" , Request["Status"]},
+                    { "CountryId" , Request["CountryId"]},
+                    { "StartDate" , Request["StartDate"]},
+                    { "EndDate" , Request["EndDate"]}
+                    }),
+                    PagedListRenderOptions.ClassicPlusFirstAndLast)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="withdrawDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                @using (Html.BeginForm("WithdrawnInterview", "Admin", FormMethod.Post))
+                {
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        Withdrawn Interview
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            @Html.Hidden("Id")
+                            @Html.Hidden("Redirect", Request.Url.ToString())
+                            @Html.Label("Write reason for withdrawal")
+                            @Html.TextArea("Reason", new { @class = "form-control", @style = "height:100px", @maxlength = "400" })
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px">Close</button>
+                    <button type="submit" class="btn btn-primary" style="width:75px">Submit</button>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+
+            $(".jwithdraw").click(function () {
+                var appid = $(this).data('id');
+                $(".modal-body #Id").val(appid);
+            });
+
+            $(".aReject").click(function () {
+                $(".modal-body #Id").val($(this).data('ref'));
+                $(".modal-body #Redirect").val($(this).data('url'));
+                //alert($(this).data('ref'));
+            });
+
+            $('#Status').change(function () {
+                this.form.submit();
+            });
+            $('#JobTitle').change(function () {
+                this.form.submit();
+            });
+            $('#CountryId').change(function () {
+                this.form.submit();
+            });
+
+        });
+    </script>

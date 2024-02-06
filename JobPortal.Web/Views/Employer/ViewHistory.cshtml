@@ -1,0 +1,232 @@
+﻿@using PagedList.Mvc
+@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Helpers
+@{
+    ViewBag.Title = "Job View History";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<JobPortal.Web.Models.JobViewModel>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+
+    Job job = JobService.Instance.Get(Convert.ToInt32(ViewBag.Id));
+    UserProfile employer = MemberService.Instance.Get(job.EmployerId.Value);
+    List country = SharedService.Instance.GetCountry(job.CountryId.Value);
+    List state = null;
+    if (job.StateId != null) { 
+        state = SharedService.Instance.GetState(job.StateId.Value);
+    }
+}
+<style>
+    .viewed{
+        width:50px;
+        text-align:center;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1>Job View History</h1>
+            Job View history details
+        </div>
+    </div>
+</div>
+@Html.Partial("_MessagePartial")
+<div class="clear" style="height:15px"></div>
+<div class="row" style="padding-left:15px;padding-right:15px;">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                @if (job != null)
+                {
+                    <strong>Job Title:&nbsp;&nbsp;</strong><a href="@(string.Format("/job/{0}-{1}", job.PermaLink, job.Id))" target="_blank">@job.Title</a>
+                }
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                <strong>Company:&nbsp;&nbsp;</strong><a href="@(string.Format("/{0}", employer.PermaLink))" target="_blank">@employer.Company</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                @if (job != null)
+                {
+                    <strong>Country:&nbsp;&nbsp;</strong>@country.Text
+
+                }
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                @if (job != null)
+                {
+                    <strong>State:&nbsp;&nbsp;</strong>@(state!=null ? state.Text :"")
+
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:30px"></div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        @{
+            WebGrid grid = new WebGrid(ViewBag.Model, ajaxUpdateContainerId: "grid");
+
+        }
+
+        <div id="container-grid" class="table-responsive">
+            @grid.GetHtml(htmlAttributes: new { id = "grid", @style = "width:100%" }, tableStyle: "table table-bordered table-hover",
+                       columns: new[] {
+                grid.Column("Name",canSort:false, format: (item) =>
+                {
+                    var links="";
+                    if (item.JobseekerId != null)
+                        {
+                            UserProfile profile = MemberService.Instance.Get(item.JobseekerId);
+                            links = string.Format("<a href=\"/{0}\" target=\"_blank\">{1} {2}</a>", profile.PermaLink, profile.FirstName, profile.LastName);
+                        }
+                    return Html.Raw(links);
+                 }
+                ),
+                grid.Column("Country", header: "Country",canSort:false, format: (item) =>
+                {
+                    string countryName = string.Empty;
+                    if (item.JobseekerId != null)
+                    {
+                        UserProfile profile = MemberService.Instance.Get(item.JobseekerId);
+
+                        country = SharedService.Instance.GetCountry(profile.CountryId.Value);
+                        countryName = country.Text;
+                    }
+                    return countryName;
+                }),
+                grid.Column("State", header: "State",canSort:false, format: (item) =>
+                {
+                    string stateName = string.Empty;
+                    if (item.JobseekerId != null)
+                    {
+                        UserProfile profile = MemberService.Instance.Get(item.JobseekerId);
+                        if (profile.StateId != null) { 
+                            state = SharedService.Instance.GetState(profile.StateId.Value);
+                            if (state != null) { 
+                                stateName = state.Text;
+                            }
+                        }
+                    }
+                    return stateName;
+                }),
+                grid.Column("City", header: "City",canSort:false, format: (item) =>
+                {
+                    string city = string.Empty;
+                    if (item.JobseekerId != null)
+                    {
+                        UserProfile profile = MemberService.Instance.Get(item.JobseekerId);
+                        city = profile.City;
+                    }
+                    return city;
+                }),
+
+                grid.Column(columnName:"Viewed",header:"Viewed",canSort:false, style:"viewed", format: (p) => 
+                {
+                    string link = string.Empty;
+                    long Id = Convert.ToInt64(ViewBag.Id);
+                    string views = Convert.ToString(p.Times);
+                    link = Html.ActionLink(views, "ViewHistoryDetails", "Employer", new { Id = Id, JobseekerId = p.JobseekerId }, new { @target="_blank" }).ToString();
+                    
+                    return Html.Raw(link);
+                }),
+                grid.Column(columnName: "Connection Status", style: "cstatus", header: "Connection Status", canSort: false, format: (item) =>
+                        {
+                         var links3 = string.Empty;
+                         if (item.JobseekerId != null)
+                         {
+                             UserProfile jobSeeker = MemberService.Instance.Get(item.JobseekerId);
+                             bool connected = ConnectionHelper.IsConnected(jobSeeker.Username, employer.UserId);
+                             bool blockedByMe = ConnectionHelper.IsBlockedByMe(jobSeeker.Username, employer.UserId);
+                             bool blocked = ConnectionHelper.IsBlocked(jobSeeker.Username, employer.UserId);
+                             bool accepted = ConnectionHelper.IsAccepted(jobSeeker.Username, employer.UserId);
+
+                             links3 = ConnectionHelper.Status(jobSeeker.Username, employer.Username);
+                         }
+                         else
+                         {
+                             links3 = "Not Applicable";
+                         }
+                         return Html.Raw(links3);
+                     }),
+               grid.Column("Actions",canSort:false, format: (item) =>
+                    {
+                        var links = string.Empty;
+                        if (item.JobseekerId != null)
+                        {
+                            UserProfile jobSeeker = MemberService.Instance.Get(item.JobseekerId);
+                            string username = User.Username;
+                            if (!string.IsNullOrEmpty(username))
+                        {
+                            UserProfile profile = MemberService.Instance.Get(username);
+                            bool connected = ConnectionHelper.IsConnected(jobSeeker.Username, profile.UserId);
+                            bool blockedByMe = ConnectionHelper.IsBlockedByMe(jobSeeker.Username, profile.UserId);
+                            bool blocked = ConnectionHelper.IsBlocked(jobSeeker.Username, profile.UserId);
+                            bool accepted = ConnectionHelper.IsAccepted(jobSeeker.Username, profile.UserId);
+                            string lnk = string.Empty;
+                            if (!connected)
+                            {
+                                if (!accepted)
+                                {
+                                    Connection connection = ConnectionHelper.Get(jobSeeker.Username, profile.Username);
+                                    if (connection != null)
+                                    {
+                                        if (!string.IsNullOrEmpty(connection.CreatedBy) && !connection.CreatedBy.Equals(profile.Username))
+                                        {
+                                            links += "<b>" + Html.ActionLink("Accept", "Accept", "Network", new { Id = connection.Id, redirect = Request.Url.ToString() }, new { }).ToString() + "</b>";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        links += "<b>" + Html.ActionLink("Connect", "Connect", "Home", new { id = jobSeeker.UserId, redirect = Request.Url.ToString() }, new { }).ToString() + "</b>";
+                                        links += " | " + "<b>" + Html.ActionLink("Message", "List", "Message", new { SenderId = jobSeeker.UserId, redirect = Request.Url.ToString() }, new { }).ToString() + "</b>";
+                                        links += " | " + "<b>" + Html.ActionLink("Bookmark", "BookmarkJobseeker", "Employer", new { Id = jobSeeker.UserId, redirect = "/Employer/Bookmarks" }, new { title = "Bookmark", @target = "_blank" }).ToString() + "</b>";
+                                    }
+                                }
+                                else
+                                {
+                                    links += "<b>" + Html.ActionLink("Connect", "Connect", "Home", new { id = jobSeeker.UserId, redirect = Request.Url.ToString() }, new { }).ToString() + "</b>";
+                                    links += " | " + "<b>" + Html.ActionLink("Message", "List", "Message", new { SenderId = jobSeeker.UserId, redirect = Request.Url.ToString() }, new { }).ToString() + "</b>";
+                                    links += " | " + "<b>" + Html.ActionLink("Bookmark", "BookmarkJobseeker", "Employer", new { Id = jobSeeker.UserId, redirect = "/Employer/Bookmarks" }, new { title = "Bookmark", @target = "_blank" }).ToString() + "</b>";
+                                }
+                            }
+                            else
+                            {
+                                links += "<b>" + Html.ActionLink("Message", "List", "Message", new { SenderId = jobSeeker.UserId, redirect = Request.Url.ToString() }, new { }).ToString() + "</b>";
+                                links += " | " + "<b>" + Html.ActionLink("Bookmark", "BookmarkJobseeker", "Employer", new { Id = jobSeeker.UserId, redirect = "/Employer/Bookmarks" }, new { title = "Bookmark", @target = "_blank" }).ToString() + "</b>";
+                            }
+                        }
+                    }
+                  
+                    return Html.Raw(links);
+                    }
+                )
+
+                })
+        </div>
+
+        <div style="text-align:center; margin-top: -15px;">
+
+            @Html.PagedListPager(pagedModel, PageNumber => Url.Action("ViewHistory",
+            new RouteValueDictionary()
+            {
+                { "pageNumber" , PageNumber},
+                { "Id" , Request["Id"]}
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    </div>
+</div>

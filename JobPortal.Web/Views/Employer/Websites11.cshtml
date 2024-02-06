@@ -1,0 +1,169 @@
+﻿@model IEnumerable<JobPortal.Web.Models.WebScrapModel>
+@using PagedList.Mvc
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<JobPortal.Web.Models.WebScrapModel>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Websites11</title>
+</head>
+<body>
+    <style type="text/css">
+        /*Here we will add css for style webgrid*/
+        .webgrid-table {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            font-size: 1.2em;
+            width: 100%;
+            display: table;
+            border-collapse: separate;
+            border: solid 1px #98BF21;
+            background-color: white;
+        }
+
+            .webgrid-table td, th {
+                border: 1px solid #98BF21;
+                padding: 3px 7px 2px;
+            }
+
+        .webgrid-header {
+            background-color: #A7C942;
+            color: #FFFFFF;
+            padding-bottom: 4px;
+            padding-top: 5px;
+            text-align: left;
+        }
+
+        .webgrid-footer {
+        }
+
+        .webgrid-row-style {
+            padding: 3px 7px 2px;
+        }
+
+        .webgrid-alternating-row {
+            background-color: #EAF2D3;
+            padding: 3px 7px 2px;
+        }
+
+        .text {
+            word-wrap: break-word;
+            width: 350px;
+            overflow-wrap: break-word;
+            overflow: hidden;
+            word-break: break-word;
+        }
+    </style>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="title-login">
+                <h1 style="margin-top:-15px">WebJobList</h1>
+                Manage WebJobList here
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+            @Html.ActionLink("New WebJobList", "AddWebsites1", "Employer", null, new { @class = "btn btn-info" })
+        </div>
+    </div>
+    @Html.Partial("_MessagePartial")
+    <div class="clear" style="height:15px;"></div>
+    @using (Html.BeginForm())
+    {
+        <div class="row">
+
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            <div class='input-group date'>
+                                @Html.TextBox("StartDate", null, new { @class = "form-control", placeholder = "FROM DATE", @title = "FROM DATE", @readonly = "readonly" })
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <div class='input-group date'>
+                                    @Html.TextBox("EndDate", null, new { @class = "form-control", placeholder = "TO DATE", @title = "TO DATE", @readonly = "readonly" })
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 text-right">
+                <input type="submit" value="Search" class="btn btn-info btn-block" />
+            </div>
+        </div>
+    }
+
+    @{
+        WebGrid grid = new WebGrid(ViewBag.Model, ajaxUpdateContainerId: "grid");
+    }
+    <div id="container-grid" class="table-responsive" style="table-layout:fixed;  width: 100%;">
+        @grid.GetHtml(htmlAttributes: new { id = "grid", @style = "word-wrap:break-word;" }, tableStyle: "table table-bordered table-hover",
+            columns: new[]
+            {
+                grid.Column(columnName: "CountryName", header: "Company", canSort:true, format: p => p.CountryName),
+                grid.Column(columnName: "Website", header: "Website", canSort:true, style:"text", format: p => p.Website),
+                grid.Column(columnName: "CompanyName", header: "CompanyName", canSort:true, format: p => p.CompanyName),
+                grid.Column(columnName: "DateCreated", header: "Date", canSort:true, format: p => p.DateCreated.ToString("MMM-dd-yyyy")),
+                grid.Column(columnName: "Name", header: "Name", canSort:true, format: p => p.Name),
+                grid.Column(columnName: "companylogolink", header: "Logo Link", canSort:true, format: p => p.companylogolink),
+                grid.Column(columnName: "Logo", header: "Logo",format: (p) =>
+            {
+                if (p.Logo!=null)
+                {
+                    return Html.Raw(string.Format("<text><img height='25' width='25' src=\"data:image/jpg;base64,"+(p.Logo)+" \"/> </text>"));
+    }
+    else
+    {
+    return Html.Raw(string.Format("<text><img height='25' width='25' src=\"data:image/png;base64,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\" alt=\"Image\" /></text>", Url.Content("~/Content/images/non-preview-photo.gif")));
+    }
+    }, style: "firstColumn",canSort:true),
+
+
+
+                grid.Column("Actions", canSort:true, format: (item) =>
+                {
+                    string links = string.Empty;
+                    links = string.Format("<b>{0}</b>", Html.ActionLink("Edit", "EditWebsites", new { Id = item.Id }, new { title = "Edit Websites" }).ToString());
+                    links += string.Format(" | <b>{0}</b>", Html.ActionLink("Delete", "DeleteWebsites", new { Id = item.Id }, new { title = "Delete Websites" }).ToString());
+                    return Html.Raw(links);
+                })
+            })
+        <div style="text-align:center; margin-top: -15px;">
+
+            @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Websites11",
+                new RouteValueDictionary()
+                {
+                    { "PageNumber" , PageNumber},
+
+                    { "StartDate" , Request["StartDate"]},
+                    { "EndDate" , Request["EndDate"]},
+                }),
+                PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+
+    </div>
+</body>
+</html>

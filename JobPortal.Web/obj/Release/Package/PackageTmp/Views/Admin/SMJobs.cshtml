@@ -1,0 +1,106 @@
+﻿@using JobPortal.Domain
+@using JobPortal.Data
+@using JobPortal.Library.Enumerators;
+@using JobPortal.Library.Helpers;
+@using System.Collections
+@using PagedList.Mvc
+@{
+
+
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<JobPortal.Data.SMJobList>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+}
+
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">Social Media Job List</h1>
+            Manage Social Media Job here
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+        @Html.ActionLink("New Social Media Job", "AddSMJobs", "Admin", null, new { @class = "btn btn-info" })
+    </div>
+</div>
+@Html.Partial("_MessagePartial")
+<div class="clear" style="height:15px;"></div>
+@using (Html.BeginForm())
+{
+    <div class="row">
+
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        <div class='input-group date'>
+                            @Html.TextBox("StartDate", null, new { @class = "form-control", placeholder = "FROM DATE", @title = "FROM DATE", @readonly = "readonly" })
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <div class='input-group date'>
+                                @Html.TextBox("EndDate", null, new { @class = "form-control", placeholder = "TO DATE", @title = "TO DATE", @readonly = "readonly" })
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 text-right">
+            <input type="submit" value="Search" class="btn btn-info btn-block" />
+        </div>
+    </div>
+}
+<div class="clear" style="height:15px;"></div>
+@{
+    WebGrid grid = new WebGrid(@ViewBag.Model, ajaxUpdateContainerId: "grid");
+}
+<div id="container-grid" class="table-responsive">
+    @grid.GetHtml(htmlAttributes: new { id = "grid", @style = "width:100%" }, tableStyle: "table table-bordered table-hover",
+        columns: new[]
+        {
+            grid.Column(columnName: "Country", header: "Country", canSort:true, format: p => p.CountryName),
+            grid.Column(columnName: "CompanyName", header: "CompanyName", canSort:true, format: p => p.CompanyName),
+            //grid.Column(columnName: "ContactNo", header: "ContactNo", canSort:true, format: p => p.ContactNo),
+            grid.Column(columnName: "Email", header: "Email", canSort:true, format: p => p.Email),
+            //grid.Column(columnName: "JobTitle", header: "JobTitle", canSort:true, format: p => p.JobTitle),
+            grid.Column(columnName: "EmailSent", header: "EmailSent", canSort:true, format: p =>  @Html.Raw(p.EmailSent)),
+            grid.Column(columnName: "Accepted", header: "Accepted", canSort:true, format: p =>  @Html.Raw(p.Accepted)),
+            grid.Column(columnName: "DateCreated", header: "Date", canSort:true, format: p => p.DateCreated.ToString("MMM-dd-yyyy")),
+
+            grid.Column("Actions", canSort:true, format: (item) =>
+            {
+                string links = string.Empty;
+                links = string.Format("<b>{0}</b>", Html.ActionLink("Edit", "EditSMJobs", new { Id = item.Id }, new { title = "Edit SMJobs" }).ToString());
+                //links += string.Format(" | <b>{0}</b>", Html.ActionLink("Delete", "DeleteAnnouncement", new { Id = item.Id }, new { title = "Delete Announcement", onclick="return confirm('Are you sure to delete?');" }).ToString());
+                return Html.Raw(links);
+            })
+        })
+    <div style="text-align:center; margin-top: -15px;">
+
+        @Html.PagedListPager(pagedModel, PageNumber => Url.Action("SMJobs",
+            new RouteValueDictionary()
+            {
+                { "PageNumber" , PageNumber},
+
+                { "StartDate" , Request["StartDate"]},
+                { "EndDate" , Request["EndDate"]},
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+    </div>
+</div>

@@ -1,0 +1,257 @@
+﻿@using PagedList.Mvc
+@using JobPortal.Domain
+@using JobPortal.Data
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Models
+@{
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<PeopleEntity>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+}
+@if (ViewBag.Model != null)
+{
+    foreach (var item in ViewBag.Model)
+    {
+        var nlink = string.Format("<a href='/{0}' title='View Profile' target='_blank' style='line-height:25px;'>{1}</a> ", item.PermaLink, item.FullName);
+        var tlink = string.Format("<a href='/{0}' title='View Profile' target='_blank' style='line-height:25px;'>{1}</a> ", item.PermaLink, item.Title);
+        string links = string.Empty;
+        if (user != null)
+        {
+            bool isConnected = DomainService.Instance.IsConnected(item.UserId, user.Id);
+            bool isBlockedByMe = DomainService.Instance.IsBlockedByMe(item.UserId, user.Id);
+            bool isBlockedBySomeone = DomainService.Instance.IsBlockedBySomeone(item.UserId, user.Id);
+            bool isInvitedByMe = DomainService.Instance.IsInvitedByMe(item.UserId, user.Id);
+            bool isInvitedBySomeone = DomainService.Instance.IsInvitedBySomeone(item.UserId, user.Id);
+
+            Connection connection = ConnectionHelper.Get(item.Username, user.Username);
+
+            int msg_counts = ConnectionHelper.MessageCounts(item.UserId, user.Id);
+            string view_text = "Message";
+            if (msg_counts > 0)
+            {
+                view_text = string.Format("Message (<span style=\"color:red;\">{0}</span>)", msg_counts);
+            }
+            links += "<b>" + string.Format("<a href=\"{0}\" target=\"_blank\">{1}</a>", Url.Action("List", "Message", new { SenderId = item.UserId }), view_text) + "</b>";
+
+            if (isConnected)
+            {
+                links += string.Format(" | <b><a href=\"#\" data-aurl=\"{0}\" role=\"button\" data-toggle=\"modal\" data-target=\"#discDialog\" class=\"disc\">Disconnect</a></b>", Url.Action("Disconnect", "Network", new { Id = connection.Id, redirect = Request.Url.ToString() }));
+            }
+            else
+            {
+                if (isInvitedByMe)
+                {
+                    links += string.Format(" | <b><a href=\"#\" data-aurl=\"{0}\" role=\"button\" data-toggle=\"modal\" data-target=\"#discDialog\" class=\"disc\">Disconnect</a></b>", Url.Action("Disconnect", "Network", new { Id = connection.Id, redirect = Request.Url.ToString() }));
+                }
+                else if (isInvitedBySomeone)
+                {
+                    links += " | " + "<b>" + Html.ActionLink("Accept", "Accept", "Network", new { Id = connection.Id, redirect = Request.Url.ToString() }, new { title = "Accept" }).ToString() + "</b>";
+                    links += string.Format(" | <b><a href=\"#\" data-aurl=\"{0}\" role=\"button\" data-toggle=\"modal\" data-target=\"#discDialog\" class=\"disc\">Disconnect</a></b>", Url.Action("Disconnect", "Network", new { Id = connection.Id, redirect = Request.Url.ToString() }));
+                }
+                else
+                {
+                    if (!isConnected)
+                    {
+                        links += " | " + "<b>" + Html.ActionLink("Connect", "Connect", "Home", new { id = item.UserId, redirect = Request.Url.ToString() }, new { title = "Connect" }).ToString() + "</b>";
+                    }
+                }
+            }
+
+            if (User.IsInRole("Employers"))
+            {
+                if (isBlockedByMe != true && isBlockedBySomeone != true)
+                {
+                    if (!string.IsNullOrEmpty(item.Title) && item.CategoryId != null && item.SpecializationId != null)
+                    {
+                        Interview interview = InterviewService.Instance.Get(item.UserId, user.Id);
+                        List<int> status_list = new List<int>() { (int)InterviewStatus.INTERVIEW_IN_PROGRESS, (int)InterviewStatus.INITIATED };
+                        if (interview.Id > 0 && status_list.Contains(interview.Status))
+                        {
+                            links += string.Format(" | <b><a href=\"{0}\" title=\"View In-progress interview details\" target=\"_blank\"><span>Interview&nbsp;In-progress</span></a></b>", Url.Action("Update", "Interview", new { id = interview.Id }));
+                        }
+                        else
+                        {
+                            List<int> statuslist = new List<int>() { (int)InterviewStatus.SELECTED, (int)InterviewStatus.COMPLETED, (int)InterviewStatus.WITHDRAW, (int)InterviewStatus.REJECTED };
+                            if (interview.Id > 0 && !statuslist.Contains(interview.Status))
+                            {
+                                links += " | " + "<b>" + Html.ActionLink("Interview", "Start", "Interview", new { id = item.UserId }, new { title = "Start an Interview", @target="_blank" }) + "</b>";
+                                links += " | " + "<b>" + Html.ActionLink("Bookmark", "BookmarkJobseeker", "Employer", new { Id = item.UserId, redirect = "/Employer/Bookmarks" }, new { title = "Bookmark", @target = "_blank" }).ToString() + "</b>";
+                            }
+                            else if (interview.Id == 0)
+                            {
+                                links += " | " + "<b>" + Html.ActionLink("Interview", "Start", "Interview", new { id = item.UserId }, new { title = "Start an Interview", @target = "_blank" }) + "</b>";
+                                links += " | " + "<b>" + Html.ActionLink("Bookmark", "BookmarkJobseeker", "Employer", new { Id = item.UserId, redirect = "/Employer/Bookmarks" }, new { title = "Bookmark", @target = "_blank" }).ToString() + "</b>";
+                            }
+                        }
+                    }
+                    if (item.Downloadable)
+                    {
+                        links += " | " + "<b>" + Html.ActionLink("Download", "Download", "Jobseeker", new { id = item.UserId,  redirect = Request.Url.ToString() }, new { title = "Download Resume", @target = "_blank" }).ToString() + "</b>";
+                    }
+                }
+            }
+
+            if (isBlockedByMe)
+            {
+                links += " | " + "<b>" + Html.ActionLink("Unblock", "Unblock", "Home", new { id = item.UserId, redirect = Request.Url.ToString() }, new { @target = "_blank" }).ToString() + "</b>";
+            }
+            else if (isBlockedByMe == false && isBlockedBySomeone == false)
+            {
+                links += " | " + string.Format("<b><a href=\"#\"  data-href=\"/Home/Block?email={0}\" data-name=\"{1}\" role=\"button\" data-toggle=\"modal\" data-target=\"#cDialog\" class=\"aBlock\" data-role=\"{2}\"  data-connected=\"{3}\">Block</a></b>", item.Username, item.FullName, ((SecurityRoles)item.Type).GetDescription(), isConnected);
+            }
+        }
+        else
+        {
+            links += "<b>" + Html.ActionLink("Connect", "Connect", "Home", new { id = item.UserId }, new { title = "Connect", @target = "_blank" }).ToString() + "</b>";
+            links += " | " + "<b>" + Html.ActionLink("Message", "List", "Message", new { SenderId = item.UserId, redirect = Request.Url.ToString() }, new { title = "Send Message", @target = "_blank" }).ToString() + "</b>";
+            links += " | " + "<b>" + "<a href='/" + item.PermaLink + "' title=\"View Profile\" style='line-height:25px;' target=\"_blank\">View Profile</a>" + "</b>";
+        }
+        <div class="list-group">
+            <div class="list-group-item">
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2" style="width: 10%;">
+                        <a href="/@item.PermaLink">
+                            <div style="width:68px; height:68px; background:url('/Image/Avtar?Id=@item.UserId') no-repeat; background-size:contain; background-position:top center">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 hidden-lg hidden-md" style="height:5px;">
+                                &nbsp;
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                @*<i><b>Title:</b></i>*@ @Html.Raw(nlink)
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-5 col-md-5 col-sm-5">
+                                @*<i><b>Name:</b></i>*@ @Html.Raw(tlink)
+                            </div>
+                            <div class="col-lg-7 col-md-7 col-sm-7">
+                                <div class="form-group">
+                                    <i><b>Location: </b></i>@Html.Raw(item.City)@Html.Raw(item.City != null ? ", " + item.State : item.State)@Html.Raw(item.State != null ? ", " + item.Country : item.Country)
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+
+                                </div>
+                                <div class="col-lg-7 col-md-7 col-sm-7">
+                                    <div class="form-group">
+                                        <i><b>State/City: </b></i>@Html.Raw(item.State)@Html.Raw(item.State != null ? ", " + item.City : item.City)
+                                    </div>
+                                </div>
+                            </div>*@
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                @Html.Raw(links)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+@if (pagedModel.PageNumber == 1 && !Request.IsAuthenticated)
+{
+    <style>
+        .titlefield {
+            width: 225px;
+        }
+
+        .namefield {
+            width: 200px;
+        }
+
+        .pagination {
+            color: #FFFFFF;
+            position: relative;
+            background-color: #000000;
+            opacity: 0.5;
+            filter: alpha(opacity=50);
+            -moz-opacity: 0.5;
+            padding: 0px;
+        }
+    </style>
+}
+
+<div style="text-align:center;">
+
+    @if (pagedModel.PageNumber == 1 && !Request.IsAuthenticated)
+    {
+        <div><a href="@Url.Action("Register", "Account", new { returnUrl = Request.Url.ToString() })" class="btn btn-info" style="width:150px;">Join to See More</a></div>
+        <div>
+            @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Search",
+            new RouteValueDictionary()
+            {
+                { "pageNumber" , PageNumber},
+                {"Name",Request["Name"]},
+                {"Title",Request["Title"]},
+                { "CategoryId" , Request["CategoryId"]},
+                { "SpecializationId" , Request["SpecializationId"]},
+                { "CountryId" , Request["CountryId"]},
+                { "Where" , Request["Where"]},
+                { "StateId" , Request["StateId"]},
+                { "City" , Request["City"]},
+                { "AgeMin" , Request["AgeMin"]},
+                { "AgeMax" , Request["AgeMax"]},
+                { "Experience" , Request["Experience"]},
+                { "QualificationId" , Request["QualificationId"]},
+                { "SalaryMin" , Request["SalaryMin"]},
+                { "SalaryMax" , Request["SalaryMax"]}
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    }
+    else
+    {
+        @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Search",
+            new RouteValueDictionary()
+            {
+                { "pageNumber" , PageNumber},
+                {"Name",Request["Name"]},
+                {"Title",Request["Title"]},
+                { "CategoryId" , Request["CategoryId"]},
+                { "SpecializationId" , Request["SpecializationId"]},
+                { "CountryId" , Request["CountryId"]},
+                { "Where" , Request["Where"]},
+                { "StateId" , Request["StateId"]},
+                { "City" , Request["City"]},
+                { "AgeMin" , Request["AgeMin"]},
+                { "AgeMax" , Request["AgeMax"]},
+                { "Experience" , Request["Experience"]},
+                { "QualificationId" , Request["QualificationId"]},
+                { "SalaryMin" , Request["SalaryMin"]},
+                { "SalaryMax" , Request["SalaryMax"]}
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+    }
+</div>
+@if (pagedModel.PageNumber == 1 && !Request.IsAuthenticated)
+{
+    <script>
+        $(document).ready(function () {
+            $(".pagination").click(function () {
+                return false;
+            })
+        });
+    </script>
+}

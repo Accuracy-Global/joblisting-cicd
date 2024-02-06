@@ -1,0 +1,24 @@
+﻿@{
+    ViewBag.Title = "Unsubscribe";
+    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+}
+<div class="section">
+    @if (string.IsNullOrEmpty(Convert.ToString(TempData["Status"])))
+    {
+        <div class="list-group-item text-center">
+            @using (Html.BeginForm("Unsubscribe"))
+            {
+                <input type="hidden" name="Id" id="Id" value="@ViewBag.UserId" />
+                <input type="hidden" name="email" id="email" value="@ViewBag.Email" />
+                <h3>@ViewBag.Email</h3>
+                <input type="submit" value="Unsubscribe" class="btn btn-info" style="width:150px; text-transform:none; font-size:1.2em; letter-spacing:2px;" />
+            }
+        </div>
+    }
+    else
+    {
+        <div class="list-group-item text-center">
+            @Html.Partial("_MessagePartial")
+        </div>
+    }
+</div>

@@ -1,0 +1,267 @@
+﻿
+
+@using JobPortal.Domain
+@using JobPortal.Data
+@using JobPortal.Library.Enumerators;
+@using JobPortal.Library.Helpers;
+@using System.Collections
+@using PagedList.Mvc
+@{
+
+    //var pagedModel = ViewBag.Model as PagedList.IPagedList<JobPortal.Data.WebsiteList>;
+
+    //int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    //int totalRecord = (int)ViewBag.Rows;
+    //int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    //if (totalRecord <= pagedModel.PageSize)
+    //{
+    //    maxRowSize = totalRecord;
+    //}
+}
+@Scripts.Render("~/bundles/jScripts")
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">WebJobList Summary</h1>
+            Manage WebJobList here
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+        @Html.ActionLink("Add WebJob", "AddWebsites1", "Employer", null, new { @class = "btn btn-info" })
+    </div>
+</div>
+@Html.Partial("_MessagePartial")
+<div class="clear" style="height:15px;"></div>
+@using (Html.BeginForm())
+{
+    <div class="row">
+
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        <div class='input-group date'>
+                            @Html.TextBox("StartDate", null, new { @class = "form-control", placeholder = "FROM DATE", @title = "FROM DATE", @readonly = "readonly" })
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <div class='input-group date'>
+                                @Html.TextBox("EndDate", null, new { @class = "form-control", placeholder = "TO DATE", @title = "TO DATE", @readonly = "readonly" })
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg col-md-6 col-sm-6">
+            <div class="row">
+                <div class="col-lg-8 col-md-8 col-sm-8">
+                    <div class="form-group">
+                        @Html.DropDownList("Name", new SelectList(new SortedDictionary<string, string>() { { "Kavyav", "Kavyav" },  { "Manisha", "Manisha" }, { "Chetanmore", "Chetanmore" }, { "surekha", "surekha" }, { "Sarikas", "Sarikas" },  { "Vinay", "Vinay" },  { "Anusha", "Anusha" }, { "Yugandhar", "Yugandhar" }, { "Prapurna", "Prapurna" }, { "Nirmal", "Nirmal" } }, "key", "value"), "SELECT Name", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 text-right">
+                    <input type="submit" value="Search" class="btn btn-info btn-block" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+<style type="text/css">
+    table {
+        font-family: Calibri;
+        font-size: 1.2em;
+        width: 100%;
+        display: table;
+        border-collapse: separate;
+        border: solid 1px #98BF21;
+        background-color: white;
+    }
+
+    td, th {
+        border: 1px solid #d4dbbf;
+        padding: 3px 7px 2px;
+    }
+    /*Here we will add css for style webgrid*/
+    .webgrid-table {
+        font-family: Calibri;
+        font-size: 1.2em;
+        width: 100%;
+        display: table;
+        border-collapse: separate;
+        border: solid 1px #98BF21;
+        background-color: white;
+    }
+
+    table td, th {
+        border: 1px solid #98BF21;
+        padding: 3px 7px 2px;
+    }
+
+    table-header {
+        background-color: #A7C942;
+        color: #FFFFFF;
+        padding-bottom: 4px;
+        padding-top: 5px;
+        text-align: left;
+    }
+
+    table-footer {
+    }
+
+    .webgrid-row-style {
+        padding: 3px 7px 2px;
+    }
+
+    .webgrid-alternating-row {
+        background-color: #EAF2D3;
+        padding: 3px 7px 2px;
+    }
+
+    .text {
+        word-wrap: break-word;
+        width: 350px;
+        overflow-wrap: break-word;
+        overflow: hidden;
+        word-break: break-word;
+    }
+</style>
+
+<div class="clear" style="height:15px;"></div>
+
+
+<div id="container-grid" class="table-responsive" style="table-layout:fixed;  width: 100%;">
+    <table cellpadding="0" cellspacing="0">
+        <tr>
+
+            <th>Name</th>
+            <th>Date</th>
+            <th>Total</th>
+        </tr>
+        @foreach (WebsiteList customer in (List<WebsiteList>)ViewBag.Customers)
+        {
+            <tr>
+                <td>@customer.CreatedBy</td>
+                <td>@customer.DateCreated.ToString("MMM-dd-yyyy")</td>
+                <td>@customer.Email</td>
+            </tr>
+        }
+    </table>
+    @*<table>
+           <tr>
+               <td style="color:forestgreen">Name</td>
+               <td style="color: forestgreen">Summary    </td>
+        <td>krishna veni</td>
+            <td>PRASANNA     </td>
+            <td>prudhvi      </td>
+        </tr>
+            <tr>
+                <td>Poojitha     </td>
+                <td>
+                    <div class='task-count' id="companyCount"></div>
+                </td>
+
+            </tr>
+            <tr>
+                <td>krishna veni</td>
+                <td>
+                    <div class='task-count' id="CountriesCount"></div>
+                </td>
+
+            </tr>
+            <tr>
+                <td>PRASANNA</td>
+                <td>
+                    <div class='task-count' id="InstitutesCount"></div>
+
+                </td>
+
+            </tr>
+            <tr>
+                <td>prudhvi</td>
+                <td>
+                    <div class='task-count' id="JobSeekersCount"></div>
+
+                </td>
+
+            </tr>
+            <tr>
+                <td>HARSHASREE   </td>
+                <td>
+                    <div class='task-count' id="RecruitCount"></div>
+                </td>
+
+            </tr>
+        </table>*@
+    @*<div style="text-align:center; margin-top: -15px;">
+
+            @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Summary",
+                new RouteValueDictionary()
+                {
+                    { "PageNumber" , PageNumber},
+
+                    { "StartDate" , Request["StartDate"]},
+                    { "EndDate" , Request["EndDate"]},
+                }),
+                PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>*@
+</div>
+
+<script src="Content/homed/js/main.js"></script>
+<script type="text/javascript">
+    window.onload = function () {
+
+        var GetCountWebListPoojithaCountHtml = "/JsonHelper/GetCountWebListPoojithaCountHtml";
+        var GetCountWebListkrishnaCountHtml = "/JsonHelper/GetCountWebListkrishnaCountHtml";
+        var GetCountWebListPRASANNACountHtml = "/JsonHelper/GetCountWebListPRASANNACountHtml";
+        var GetCountWebListprudhviCountHtml = "/JsonHelper/GetCountWebListprudhviCountHtml";
+        var GetCountWebListHARSHASREECountHtml = "/JsonHelper/GetCountWebListHARSHASREECountHtml";
+        $.getJSON(GetCountWebListPoojithaCountHtml, function (data) {
+
+            document.getElementById("companyCount").innerHTML = data;
+            $("#companyCount").val(data);
+
+        }
+        );
+        $.getJSON(GetCountWebListkrishnaCountHtml, function (data) {
+
+            document.getElementById("CountriesCount").innerHTML = data;
+            $("#CountriesCount").val(data);
+
+        }
+        );
+        $.getJSON(GetCountWebListPRASANNACountHtml, function (data) {
+
+            document.getElementById("InstitutesCount").innerHTML = data;
+            $("#InstitutesCount").val(data);
+
+        }
+        );
+        $.getJSON(GetCountWebListprudhviCountHtml, function (data) {
+
+            document.getElementById("JobSeekersCount").innerHTML = data;
+            $("#JobSeekersCount").val(data);
+
+        }
+        );
+        $.getJSON(GetCountWebListHARSHASREECountHtml, function (data) {
+
+            document.getElementById("RecruitCount").innerHTML = data;
+            $("#RecruitCount").val(data);
+
+        }
+        );
+    }
+</script>

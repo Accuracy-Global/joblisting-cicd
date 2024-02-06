@@ -1,0 +1,92 @@
+﻿@model JobPortal.Web.Models.ChangeEmailAddressModel
+@using JobPortal.Models
+
+@{
+    ViewBag.Title = "Change Email Address";
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+        if (user.IsConfirmed)
+        {
+            Layout = "~/Views/Shared/_Layout.cshtml";
+        }
+        else
+        {
+            Layout = "~/Views/Shared/_Layout.cshtml";
+        }
+    }   
+}
+<div class="section">   
+    <div class="row">
+        <div class="col-lg-10 col-md-10">
+            <div class="title-login">
+                <h1 style="margin-top:-15px">Change Login Email</h1>
+                Manage login email here
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2">
+            <div class="form-group pull-right">
+                @if (user != null && user.Type == 4)
+                {
+                    <div style="">
+
+                        <a href="https://apps.apple.com/in/app/job-listing/id1575724994">
+                            <img src="~/Images/ios.png" style="height:40px;width:40px;" border="0" />
+
+                        </a>
+
+
+                        <a href="https://play.google.com/store/apps/details?id=com.accuracy.joblisting">
+                            <img src="~/Images/android-icon.png" style="height:40px;width:40px;" border="0" />
+
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    @Html.Partial("_MessagePartial")
+    <div class="clear" style="height:15px;"></div>
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-lg-offset-9 col-md-offset-9">
+            @if (user.Type == 4 && user.PromoteDate == null)
+            {
+                <a href="/package/promote?id=@user.Id&type=P&returnUrl=@Request.Url.ToString()" class="btn btn-info promote pull-right" style="width:165px;">Promote Profile</a>
+            }
+            @if (user.PromoteDate != null && (user.PromoteDate.Value.Date < DateTime.Now.Date))
+            {
+                <a href="/package/promote?id=@user.Id&type=P&returnUrl=@Request.Url.ToString()" class="btn btn-info promote pull-right" style="width:165px;">Promote Profile</a>
+            }
+        </div>
+    </div>
+    <div class="clear" style="height:15px;"></div>
+    @using (Html.BeginForm())
+    {
+        @*@Html.AntiForgeryToken()*@
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ReturnUrl)
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                @Html.Label("Current Login Email")
+
+                @Html.EditorFor(model => model.OldEmailAddress, new { htmlAttributes = new { @class = "form-control", @placeholder = "OLD LOGIN EMAIL", @readonly = "readonly" } })
+                @Html.ValidationMessageFor(model => model.OldEmailAddress, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="clear" style="height:10px;"></div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                @Html.Label("New Login Email")
+                @Html.EditorFor(model => model.NewEmailAddress, new { htmlAttributes = new { @class = "form-control", @placeholder = "NEW LOGIN EMAIL", @required = "required", oninvalid = "setCustomValidity('Provide email address in correct format!')", oninput = "setCustomValidity('')" } })
+                @Html.ValidationMessageFor(model => model.NewEmailAddress, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="clear" style="height:10px;"></div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <input type="submit" value="Change Login Email" class="btn btn-info" />
+            </div>
+        </div>
+    }
+</div>

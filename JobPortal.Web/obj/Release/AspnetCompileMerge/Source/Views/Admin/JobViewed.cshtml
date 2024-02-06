@@ -1,0 +1,166 @@
+﻿@using PagedList.Mvc
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Data
+@using JobPortal.Domain
+@{
+    ViewBag.Title = "Job Viewed";
+    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<Tracking>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+
+    UserProfile profile = MemberService.Instance.Get(ViewBag.UserInfo.UserId);
+    int inboxItems = DomainService.Instance.DashboardInboxItems(User.Id, ViewBag.UserInfo.UserId);
+    int appCounts = MemberService.Instance.GetApplicationCount(profile.Username);
+    int intCounts = MemberService.Instance.GetInterviewCount(profile.Username);
+    
+    WebGrid grid = new WebGrid(ViewBag.Model, ajaxUpdateContainerId: "grid");
+}
+<style>
+    .datefield {
+        width: 90px;
+    }
+
+    .cstatus {
+        width: 85px;
+    }
+
+    .astatus {
+        width: 90px;
+    }
+
+    .actionLinks {
+        width: 200px;
+    }
+
+    .jtitle {
+        width: 175px;
+    }
+</style>
+<div class="section">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                <li class="active"><a href="#">QUICK LINKS</a></li>
+                <li>@Html.ActionLink("Connections", "Connections", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                <li>@Html.ActionLink("Jobs", "JobsByCompany", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                @if (appCounts > 0)
+                {
+                    <li>@Html.ActionLink(string.Format("Applications ({0})", appCounts), "Applications", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Applications", "Applications", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                @if (intCounts > 0)
+                {
+                    <li>@Html.ActionLink(string.Format("Interviews ({0})", intCounts), "Interviews", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Interviews", "Interviews", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                @if (ViewBag.UserInfo.Type == (int)SecurityRoles.Company)
+                {
+                    <li>@Html.ActionLink("Downloads", "DownloadHistory", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                @if (inboxItems > 0)
+                {
+                    <li><a href="/Admin/Inbox?Id=@ViewBag.UserInfo.UserId" target="_blank">Inbox (<span style="color:#0094ff;">@inboxItems</span>)</a></li>
+                }
+                else
+                {
+                    <li><a href="/Admin/Inbox?Id=@ViewBag.UserInfo.UserId" target="_blank">Inbox</a></li>
+                }
+                <li>@Html.ActionLink("Profile", "ManageCompany", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { })</li>
+                <li>@Html.ActionLink("Billing & Invoices", "billing", "Payment", new { userId = ViewBag.UserInfo.UserId }, new { })</li>
+                <li>@Html.ActionLink("Reset Password", "ResetPassword", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                <li>@Html.ActionLink("Login History", "LoginHistory", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                <li>@Html.ActionLink("Alert Settings", "Alerts", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+            </ul>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-9">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="title-login">
+                        <h1 style="line-height:0;">Job Viewed</h1>
+                        <div style="padding-top:15px;">
+                            <text>Manage <b>@ViewBag.Job.Title</b> job of <b>@ViewBag.UserInfo.Company</b> viewed here</text>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-md-12">
+
+                    <div id="container-grid" class="table-responsive">
+                        @grid.GetHtml(htmlAttributes: new { id = "grid", @style = "width:100%" }, tableStyle: "table table-bordered table-hover",
+    columns: new[]
+    {
+        grid.Column("Job Title",canSort:false,  format: (item) =>
+        {
+            string link = string.Empty;
+            if(item.JobId!=null){
+                Job job = JobService.Instance.Get(item.JobId);
+                link = string.Format("<a href=\"/job/{0}-{1}\" target=\"_blank\">{2}</a>", job.PermaLink, job.Id, job.Title);
+            }
+            return @Html.Raw(link);
+        }),
+        grid.Column(columnName: "Name", header: "Name", canSort: false, format: item =>
+        {
+            string link = string.Empty;
+            if (item.JobseekerId != null)
+            {
+                UserProfile jobSeeker = MemberService.Instance.Get(item.JobseekerId);
+                link = string.Format("<a href=\"/{0}\" target=\"_blank\">{1} {2}</a>",jobSeeker.PermaLink, jobSeeker.FirstName, jobSeeker.LastName);
+            }
+            else
+            {
+                link = "Not Applicable";
+            }
+
+            return Html.Raw(link);
+        } ),
+        grid.Column("Country", header: "Country", canSort:false, format: (item) =>
+                                        {
+                                            string countryName = string.Empty;
+                                            if (item.JobseekerId != null)
+                                            {
+                                                UserProfile jobSeeker = MemberService.Instance.Get(item.JobseekerId);
+                                                if (jobSeeker.CountryId != null) {
+                                                List country = SharedService.Instance.GetCountry(Convert.ToInt64(jobSeeker.CountryId));
+
+                                                countryName = country.Text;
+                                                }
+                                            }
+                                            return @Html.Raw(countryName.Replace(" ", "&nbsp;"));
+                                        }),
+                                         grid.Column(columnName: "Date", header: "Date", canSort:false, style:"datefield", format: p=>p.DateUpdated.ToString("MMM-dd-yyyy"))
+                     })
+                    </div>
+                    <div style="text-align:center; margin-top: -15px;">
+
+                        @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Applications",
+            new RouteValueDictionary()
+            {
+                { "PageNumber" , PageNumber},
+                { "CountryId" , Request["CountryId"]},
+                { "Title" , Request["Title"]},
+                { "StartDate" , Request["StartDate"]},
+                { "EndDate" , Request["EndDate"]}
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,399 @@
+﻿@using JobPortal.Domain
+@using JobPortal.Data
+@using JobPortal.Web.Models
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using System.Collections
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "MessageList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<MessagesByCountryModel>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+}
+<script src="~/Scripts/highcharts.js"></script>
+<script src="~/Scripts/map.js"></script>
+<script src="~/Scripts/world.js"></script>
+<style>
+    .cdate {
+        padding-left: 0px;
+        list-style-type: none;
+    }
+
+        .cdate li {
+            display: inline-block;
+            width: auto;
+        }
+</style>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">Messages</h1>
+            Manage messages here
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:15px;"></div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <span style="font-size:1em; font-weight:bold">Messages By Country</span>
+        <div id="container" class="list-group-item">
+
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:15px;"></div>
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <span style="font-size:1em; font-weight:bold">Last 7 days Messages</span>
+        <div id="container1" class="list-group-item" style="height:240px;">
+
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-12 col-sm-6">
+        <span style="font-size:1em; font-weight:bold">Total Messages</span>
+        <div id="container2" class="list-group-item" style="height:240px;">
+
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:15px;"></div>
+@using (Html.BeginForm("MessageList", "Admin", method: FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="form-group">
+                @Html.Label("Search By Name")
+                <input type="text" id="Name" name="Name" placeholder="SEARCH BY NAME" class="form-control" />
+                @*<input type="hidden" name="CountryId" id="CountryId" value="@ViewBag.Country.Id" />*@
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-8">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        @Html.Label("From Date")
+                        <ul class="cdate" title="From Date">
+                            <li>
+                                @Html.DropDownList("fd", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control", @style = "padding:5px;width:64px;" })
+                            </li>
+                            <li>
+                                @Html.DropDownList("fm", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control", @style = "padding:5px;" })
+                            </li>
+                            <li>
+                                @Html.DropDownList("fy", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 5)), "YEAR", new { @class = "form-control", @style = "padding:5px;width:70px;" })
+                            </li>
+                        </ul>
+                        <div id="fromDateError" style="color:red;"></div>
+                    </div>
+
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        @Html.Label("To Date")
+                        <ul class="cdate" title="To Date">
+                            <li>
+                                @Html.DropDownList("td", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control", @style = "padding:5px;width:64px;" })
+                            </li>
+                            <li>
+                                @Html.DropDownList("tm", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control", @style = "padding:5px;" })
+                            </li>
+                            <li>
+                                @Html.DropDownList("ty", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 5)), "YEAR", new { @class = "form-control", @style = "padding:5px;width:70px;" })
+                            </li>
+                        </ul>
+                        <div id="toDateError" style="color:red;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-sm-offset-10 col-xs-8">
+            <div class="form-group">
+                <input id="Search" type="submit" value="Search" class="btn btn-info" style="width:105px;" />
+            </div>
+        </div>
+    </div>
+    <div class="clear" style="height:15px;"></div>
+}
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div id="container-grid" class="table-responsive">
+            <table class="table table-bordered table-hover" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Country</th>
+                        <th>Individuals</th>
+                        <th>Companies</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.Model)
+                    {
+                        <tr>
+                            <td>
+                                <a href="/Admin/CountryMessageList?countryId=@item.CountryId" target="_blank">@item.Country</a>
+                            </td>
+                            <td>
+                                @if (item.Individuals > 0)
+                                {
+                                    <a href="/Admin/CountryMessageList?countryId=@item.CountryId&type=4" target="_blank">@item.Individuals</a>
+                                }
+                                else
+                                {
+                                    @item.Individuals
+                                }
+                            </td>
+                            <td>
+                                @if (item.Companies > 0)
+                                {
+                                    <a href="/Admin/CountryMessageList?countryId=@item.CountryId&type=5" target="_blank">@item.Companies</a>
+                                }
+                                else
+                                {
+                                    @item.Companies
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Total</th>
+                        <th>@ViewBag.Individuals</th>
+                        <th>@ViewBag.Companies</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div style="text-align:center; margin-top: -15px;">
+
+            @Html.PagedListPager(pagedModel, PageNumber => Url.Action("MessageList",
+            new RouteValueDictionary()
+            {
+                { "PageNumber" , PageNumber},
+                { "name" , Request["name"]},
+                { "fd" , Request["fd"]},
+                { "fm" , Request["fm"]},
+                { "fy" , Request["fy"]},
+                { "td" , Request["td"]},
+                { "tm" , Request["tm"]},
+                { "ty" , Request["ty"]},
+                { "UserType" , Request["UserType"]},
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $.getJSON("/JsonHelper/GetMessageCounts?CountryId=@Request["CountryId"]", function (data) {
+
+            var dataPoints = [];
+            var total = 0;
+            $.each(data, function (key, value) {
+                dataPoints.push({ name: key, y: value });
+                total += value;
+            });
+
+            $('#container1').highcharts({
+
+                colors: ['#FFB61C', '#87D42E', '#475d8f'],
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                events: {
+                    click: function () {
+                        alert('chart clicked');
+                    }
+                },
+                title: {
+                    text: ''
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.y}</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        depth: 10,
+                        dataLabels: {
+                            enabled: true,
+                            distance: -30,
+                            format: '{point.y}',
+                            shadow: false,
+                            style: {
+                                textShadow: "0 0 0px contrast, 0 0 0px contrast",
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Messages',
+                    data: dataPoints,
+                    showInLegend: true,
+                    dataLabels: {
+                        enabled: true,
+                        distance: -30,
+                        format: '{point.y}',
+                        shadow: false
+                    }
+                }]
+            });
+            if (total == 0) {
+                $('#container1').html("<div style=\"padding-top:100px; color:red\"><b>No Messages</b></div>");
+                $('#container1').addClass("text-center");
+            }
+        });
+
+        var url = "/JsonHelper/GetMessageCountsByCountry?CountryId=@Request["CountryId"]";
+
+        $.getJSON(url, function (data) {
+            var companies = 0;
+            var individuals = 0;
+            var dataPoints = []
+
+            $.each(data, function (i, item) {
+                companies += item.Companies;
+                individuals += item.Individuals;
+                dataPoints.push({ code: "" + item.Code, value: (item.Individuals + item.Companies), name: item.Country, countryId: item.CountryId });
+
+            });
+
+            var mapChart = $('#container').highcharts('Map', {
+                title: {
+                    text: ''
+                },
+
+                mapNavigation: {
+                    enabled: true,
+                    buttonOptions: {
+                        verticalAlign: 'bottom'
+                    }
+                },
+
+                colorAxis: {
+                    min: 1,
+                    max: 1000,
+                    type: 'logarithmic'
+                },
+                plotOptions: {
+                    series: {
+                        cursor: 'pointer'
+                    }
+                },
+                series: [{
+                    data: dataPoints,
+                    mapData: Highcharts.maps['custom/world'],
+                    joinBy: ['iso-a2', 'code'],
+                    name: 'Registrations',
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    states: {
+                        hover: {
+                            color: '#8CEBF7'
+                        }
+                    },
+                    tooltip: {
+                        valueSuffix: ''
+                    }
+                }]
+            });
+
+        });
+
+
+        dataPoints = [];
+        dataPoints.push({ name: "Individuals", y: @ViewBag.Individuals });
+        dataPoints.push({ name: "Companies", y: @ViewBag.Companies });
+        dataPoints.push({ name: "Total", y: (@ViewBag.Individuals + @ViewBag.Companies) });
+        $('#container2').highcharts({
+            colors: ['#FFB61C', '#87D42E', '#475d8f'],
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            events: {
+                click: function () {
+                    alert('chart clicked');
+                }
+            },
+            title: {
+                text: ''
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.y}</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    depth: 10,
+                    dataLabels: {
+                        enabled: true,
+                        distance: -30,
+                        format: '{point.y}',
+                        shadow: false,
+                        style: {
+                            textShadow: "0 0 0px contrast, 0 0 0px contrast",
+                        }
+                    }
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Messages',
+                data: dataPoints,
+                showInLegend: true,
+                dataLabels: {
+                    enabled: true,
+                    distance: -30,
+                    format: '{point.y}',
+                    shadow: false
+                }
+            }]
+        });
+
+        $("#Search").click(function () {
+            var isValidStartDate = isValidDate($("#fd").val(), $("#fm").val(), $("#fy").val());
+            var isValidEndDate = isValidDate($("#td").val(), $("#tm").val(), $("#ty").val());
+
+            if (isValidStartDate) {
+                $("#fromDateError").html("");
+                $("#fromDateError").show();
+                $("#Search").enabled = true;
+            } else {
+                $("#fromDateError").html("Provide correct from date!");
+                $("#fromDateError").show();
+                $("#Search").enabled = false;
+            }
+
+            if (isValidEndDate) {
+                $("#toDateError").html("");
+                $("#toDateError").show();
+                $("#Search").enabled = true;
+            } else {
+                $("#toDateError").html("Provide correct to date!");
+                $("#toDateError").show();
+                $("#Search").enabled = false;
+            }
+            return (isValidStartDate == true && isValidEndDate == true);
+        });
+    });
+</script>

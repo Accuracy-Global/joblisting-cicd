@@ -1,0 +1,463 @@
+﻿@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Models
+@using JobPortal.Web
+@using JobPortal.Web.Models
+@{
+    string url = Request.Url.ToString();
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }    
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8" />
+    @*<meta name="google-site-verification" content="gLBvu4VbMCPVV7qjMkEibKUpERJGFPxaWN7udQg8Ztc" />*@
+    <meta name="description" content="@ViewBag.Description" />
+    <meta name="keywords" content="@ViewBag.Keywords" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" href="~/favicon.png" type="image/png">
+    @*@Html.InlineStyles("~/Content/css")*@
+    @*@Html.InlineScripts("~/bundles/spg")*@
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    @Styles.Render("~/bundles/spgcss")
+    @Scripts.Render("~/bundles/spg")
+
+    <style>
+        body{
+            overflow-x:hidden;
+        }
+        .navbar-inverse .navbar-nav > li > a {
+            font-weight: normal;
+            font-size: smaller;
+            padding: 5px 5px;
+            font-family: Tahoma;
+        }
+
+        .active2 {
+            padding: 5px 5px;
+        }
+
+            .active2 a {
+                font-weight: normal !important;
+                font-size: small !important;
+                background-color: #00a6e0;
+                color: #fff !important;
+                border-radius: 1px;
+                padding-left: 3px !important;
+                padding-right: 3px !important;
+                padding-top: 1px !important;
+                padding-bottom: 1px !important;
+                font-family: Tahoma !important;
+            }
+
+                .active2 a:hover {
+                    background-color: #00a6e0 !important;
+                    color: #fff !important;
+                }
+
+        .soc {
+            display: block;
+            font-size: 0;
+            list-style: none;
+            margin: 0;
+        }
+
+            .soc, .soc em {
+                text-align: center;
+            }
+
+                .mstyle, .soc em {
+                    bottom: 0;
+                    left: 0;
+                }
+
+                .soc li {
+                    display: inline-block;
+                    margin-left: 3px;
+                    /*margin-right: 3px;*/
+                }
+
+                .soc button, .soc svg {
+                    display: block;
+                }
+
+                .soc button {
+                    position: relative;
+                    height: 34px;
+                    width: 34px;
+                    padding: 5px;
+                    border-radius: 100%;
+                    border: 2px solid #fff;
+                    cursor: pointer;
+                    font-weight: bold;
+                }
+
+                .soc svg {
+                    height: 100%;
+                    width: 100%;
+                }
+
+                .soc em {
+                    font-size: 14px;
+                    line-height: 1.5;
+                    margin-top: -.75em;
+                    position: absolute;
+                    top: 50%;
+                    right: 0;
+                }
+
+        .icon-10 {
+            color: #fff;
+            fill: #fff;
+            background: #4060a5;
+            border: 2px solid #4060a5;
+        }
+
+            .icon-10:hover {
+                background-color: #fff;
+                color: #4060a5;
+                fill: #4060a5;
+                border: 2px solid #4060a5;
+            }
+
+        .icon-14 {
+            color: #fff;
+            fill: #fff;
+            background: #e64522;
+            border: 2px solid #e64522;
+        }
+
+            .icon-14:hover {
+                background-color: #fff;
+                color: #e64522;
+                fill: #e64522;
+                border-color: #e64522;
+            }
+
+        .icon-17 {
+            color: #fff;
+            fill: #fff;
+            background-color: #0094bc;
+            border: 2px solid #0094bc;
+        }
+
+            .icon-17:hover {
+                background-color: #fff;
+                color: #0094bc;
+                fill: #0094bc;
+                border-color: #0094bc;
+            }
+
+        .icon-26 {
+            color: #fff;
+            fill: #fff;
+            background-color: #00abe3;
+            border: 2px solid #00abe3;
+        }
+
+            .icon-26:hover {
+                background-color: #fff;
+                color: #00abe3;
+                fill: #00abe3;
+                border-color: #00abe3;
+            }
+    </style>
+
+</head>
+<body data-spy="scroll" data-offset="20">
+    <header>
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" id="landingHeader">
+            <div class="container">
+                <div class="row" style="padding-top:15px; padding-bottom:10px;">
+                    <div class="col-lg-2 col-md-2 col-sm-2" style="padding-left: 10px;">
+                        <div class="navbar-header">
+                            <img src="~/images/logo.png" alt="Joblisting" border="0" />
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10" style="padding-right: 20px;">
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse navbar-ex1-collapse">
+                            <div class="toggle_nav"></div>
+                            <ul class="nav navbar-nav top-right">
+                                @if (!Request.IsAuthenticated)
+                                {
+                                    <li>@Html.ActionLink("Search Jobs", "SearchJobs", "Job") </li>
+                                    <li>@Html.ActionLink("Search People", "SearchPeople", "Home")</li>
+                                    <li>@Html.ActionLink("Search Jobseekers", "Search", "Jobseeker")</li>
+                                    <li>@Html.ActionLink("Search Resumes", "SearchResumes", "Home")</li>
+                                    <li>@Html.ActionLink("List Job", "ListJob", "Employer")</li>
+                                    <li>@Html.ActionLink("Register Now!", "Register", "Account") </li>
+                                    <li class="active1" style="padding-left: 10px;">
+                                        <a href='@Url.Action("Login", "Account")'>
+                                            <i class="fa fa-lock"></i>Login
+                                        </a>
+                                    </li>
+                                }
+                                else
+                                {
+                                    //UserInfoEntity user = User.Info;
+                                    string username = user.Username;
+                                    int msg_counts = ConnectionHelper.MessageCounts(user.Id);
+                                    int apps = EmployerService.Instance.GetApplicationCount(username);
+                                    int bookmarks = EmployerService.Instance.GetBookmarkCount(username);
+                                    int interviews = EmployerService.Instance.GetInterviewCount(username);
+                                    int inboxItems = DomainService.Instance.DashboardInboxItems(user.Id);
+
+                                    if (user.Role == SecurityRoles.Company)
+                                    {                                        
+                                        <li>@Html.ActionLink("Search People", "SearchPeople", "Home")</li>
+                                        <li>@Html.ActionLink("Search Jobseekers", "Search", "Jobseeker")</li>
+                                        <li>@Html.ActionLink("Search Resumes", "SearchResumes", "Home")</li>
+                                        if (msg_counts > 0)
+                                        {
+                                            <li><a href="/Message/Index">Messages(<span style="color:red;">@msg_counts</span>)</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li>@Html.ActionLink("Messages", "Index", "Message")</li>
+                                        }
+                                        <li>
+                                            @Html.ActionLink("Price", "PriceList", "Package", new { returnurl = "/Payment/Billing?userId=" + User.Id }, new { })
+                                        </li>
+                                        if (inboxItems > 0)
+                                        {
+                                            <li><a href="/Inbox/Index">Inbox(<span style="color:red;">@inboxItems</span>)</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a href="/Inbox/Index">Inbox</a></li>
+                                        }
+                                        if (!Request.Url.ToString().Contains("connections"))
+                                        {
+                                            <li>@Html.ActionLink("Settings", "Index", "Network")</li>
+                                        }
+                                        
+                                    }
+                                    else if (user.Role == SecurityRoles.Individual)
+                                    {
+                                        <li>@Html.ActionLink("Search Jobs", "SearchJobs", "Job") </li>
+                                        <li>@Html.ActionLink("Search People", "SearchPeople", "Home")</li>                                        
+
+                                        if (msg_counts > 0)
+                                        {
+                                            <li><a href="/Message/Index">Messages(<span style="color:red;">@msg_counts</span>)</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li>@Html.ActionLink("Messages", "Index", "Message")</li>
+                                        }
+                                        if (apps > 0)
+                                        {
+                                            <li><a href="/JobSeeker/Index">Applications(<span style="color:red;">@apps</span>)</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li>@Html.ActionLink("Applications", "Index", "JobSeeker")</li>
+                                        }
+                                        <li>
+                                            @Html.ActionLink("Price", "PriceList", "Package", new { returnurl = "/Payment/Billing?userId=" + User.Id }, new { })
+                                        </li>                                      
+                                        if (inboxItems > 0)
+                                        {
+                                            <li><a href="/Inbox/Index">Inbox(<span style="color:red;">@inboxItems</span>)</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a href="/Inbox/Index">Inbox</a></li>
+                                        }
+
+                                        <li>@Html.ActionLink("Settings", "Index", "Network")</li>
+                                    }
+
+                                    if (user.Role == SecurityRoles.SuperUser)
+                                    {
+                                        <li> @Html.ActionLink("Settings", "Index", "Admin")</li>
+                                    }
+                                    else if (user.Role == SecurityRoles.Administrator)
+                                    {
+                                        <li>
+                                            @Html.ActionLink("Settings", "Index", "Admin")
+                                        </li>
+                                    }
+                                    else if (user.Role == SecurityRoles.SuperUser || user.Role == SecurityRoles.Administrator)
+                                    {
+                                        <li>
+                                            @Html.ActionLink("Settings", "Index", "Admin")
+                                        </li>
+                                    }
+                                    <li>
+                                        @if (user.Role == SecurityRoles.SuperUser || user.Role == SecurityRoles.Administrator)
+                                        {
+                                            @Html.ActionLink(User.Info.FullName, "Index", "Admin", null, new { @style = "font-weight:normal" })
+                                        }
+                                        else
+                                        {
+                                            <a href="/@User.Info.PermaLink" title="@User.Info.FullName" style="display: inline-block;">Social Page</a>
+                                        }                                        
+                                    </li>
+                                    if (user.Role == SecurityRoles.Company)
+                                    {
+                                        <li class="active2">@Html.ActionLink("List Job", "ListJob", "Employer")</li>
+                                    }
+                                    if (Request.IsAuthenticated)
+                                    {
+                                        <li class="active2"><a href='@Url.Action("logoff", "account")'>Logout</a></li>
+                                    }
+                                }
+                            </ul>
+                        </div>
+                        <!-- /.navbar-collapse -->
+                    </div>
+                </div>
+            </div>
+            <!-- /.container -->
+        </nav>
+    </header>
+    <div id="body">
+        <div class="container">
+            @RenderBody()
+            <div class="clear" style="height:20px;"></div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="cDialog" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="title">Confirmation</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="divMsg">
+                        Are you sure to delete?
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="width:57px">No</button>
+                    <a id="dialogOk" class="btn btn-primary btn-ok" style="width:57px">Yes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (Request.IsAuthenticated)
+    {
+        <script>
+            var timer;
+            $(document).ready(function () {
+                timer = setInterval("logout()", 1000 * 60 * 60);
+            });
+        </script>
+    }
+    <!-- /.section -->
+    @Html.Partial("_FooterPartial")
+
+    @RenderSection("scripts", required: false)
+    <script>
+        var actionUrl;
+        $(document).ready(function () {
+            $("#body").css("min-height", $(document).height() - 200);
+
+            $(document).on("click", ".disc", function () {
+                discUrl = $(this).data('aurl');
+                $("#discDialog #dialogOk").click(function () {
+                    $.post(discUrl, {}, function (result) {
+                        $("#discDialog").modal("hide");
+                        toastr.info(result);
+                        window.location.reload();
+                    });
+                });
+            });
+            $(document).on("click", ".aDelete", function () {
+                $("#cDialog #divMsg").html("All messages will be removed!<br/>Are you sure?");
+                actionUrl = $(this).data('href');
+
+                $("#cDialog #dialogOk").click(function () {
+                    window.location.href = actionUrl;
+                });
+            });
+            $(document).on("click", ".aBlock", function () {
+                var bname = $(this).data('name');
+                var actionUrl = $(this).data('href');
+                var loggedInUserRole = "@(Request.IsAuthenticated ? user.Role.GetDescription() : "")";
+                var msgText = "";
+                var role = $(this).data('role');
+                var isConfirmed = "@(Request.IsAuthenticated ? user.IsConfirmed : false)";
+                if (isConfirmed == "True") {
+                    if ((role == "Company" && loggedInUserRole == "Individual") || (loggedInUserRole == "Company" && role == "Individual")) {
+                        var msgText = "<b>Following may be withdrawn with <span id=\"bname\" style=\"font-weight:bold\">" + bname + "</span>:</b><br/>";
+                        msgText += "<ul>";
+                        msgText += "<li>Application(s)!</li>";
+                        msgText += "<li>Matching!</li>";
+                        msgText += "<li>Bookmark(s)!</li>";
+                        msgText += "<li>Interview(s)!</li>";
+                        msgText += "<li>Connection!</li>";
+                        msgText += "</ul>";
+                    } else {
+                        if ($(this).data('connected') == "True") {
+                            msgText = "<b>Block</b> action will disconnect you with <span id=\"bname\" style=\"font-weight:bold\"><b>" + bname + "</span></b><br/>";
+                        } else {
+                            msgText = "<b>Block</b> <span id=\"bname\" style=\"font-weight:bold\"><b>" + bname + "</span></b><br/>";
+                        }
+                    }
+                    msgText += "<div style=\"text-align:right; color:red; font-size:1.5em;\">Are you sure?</div>";
+                    $("#cDialog #divMsg").html(msgText);
+
+                    actionUrl = $(this).data('href');
+                    $("#cDialog #dialogOk").click(function () {
+                        window.location.href = actionUrl;
+                    });
+                } else {
+                    msgText = "<b>Block</b> <span id=\"bname\" style=\"font-weight:bold\"><b>" + bname + "</span></b><br/>";
+                    msgText += "<div style=\"text-align:right; color:red; font-size:1.5em;\">Are you sure?</div>";
+                    $("#cDialog #divMsg").html(msgText);
+
+                    actionUrl = $(this).data('href');
+                    $("#cDialog #dialogOk").click(function () {
+                        window.location.href = actionUrl;
+                    });
+                }
+            });
+
+            $(document).on("click", ".aSelect", function () {
+                var bname = $(this).data('name');
+                var actionUrl = $(this).data('href');
+
+                var msgText = "You are selecting <b><span id=\"bname\" style=\"font-weight:bold\">" + bname + "</span></b> for this interview!<br/>";
+                msgText += "<div style=\"text-align:right; color:red; font-size:1.5em;\">Are you sure?</div>";
+                $("#cDialog #divMsg").html(msgText);
+
+                $("#cDialog #dialogOk").click(function () {
+                    $.post(actionUrl, {}, function (result) {
+                        toastr.info(result);
+                        window.location.reload();
+                    });
+                });
+            });
+        });     
+     
+    </script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-58556403-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+    @Scripts.Render("~/bundles/jqueryval")
+</body>
+</html>

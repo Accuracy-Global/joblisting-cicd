@@ -1,0 +1,358 @@
+﻿@using JobPortal.Data
+@using JobPortal.Domain
+@using PagedList.Mvc
+@using JobPortal.Models
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@{
+    ViewBag.Title = "Posted Jobs";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<JobEntity>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+
+    WebGrid grid = new WebGrid(ViewBag.Model, ajaxUpdateContainerId: "grid");
+    string pl = string.Empty;
+    string jlink = string.Empty;
+    var alinks = "";
+    var status = string.Empty;
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+}
+<style>
+    .seemore {
+        text-align: right;
+    }
+
+        .seemore > a {
+            color: #000000;
+            font-family: "Roboto", sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .seemore i {
+            font-size: 16px;
+            padding: 0 0 0 5px;
+            vertical-align: middle;
+        }
+
+    .sponsored {
+        background: #ffffff;
+    }
+
+    .sponsored {
+        background: #fff none repeat scroll 0 0;
+        padding: 0px 15px 0;
+        margin-top: -6px;
+    }
+
+    .abcdesign {
+        margin: 0 0 18px 0;
+    }
+
+        .abcdesign > h3 {
+            color: #333;
+            font-size: 14px;
+            margin: 0 0 11px 0;
+        }
+
+    .sub-heading h2 {
+        color: #000;
+        font-size: 14px;
+        margin: 0 0 20px;
+        padding-bottom: 6px;
+        position: relative;
+        font-weight: bold;
+    }
+
+        .sub-heading h2::after {
+            border-bottom: 2px solid #e93100;
+            bottom: 0;
+            content: "";
+            display: block;
+            left: 0;
+            position: absolute;
+            width: 100%;
+        }
+</style>
+<div class="row">
+    <div class="col-lg-10 col-md-10 col-sm-10">
+        <div class="title-login">
+            <h1 style="margin-top:-15px;">Posted Jobs</h1>
+            Manage Posted jobs here
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-2" style="text-align:right">
+        @Html.ActionLink("List New Job", "ListJob1", null, new { title = "List Job", @class = "btn btn-info", @style = "width:75px; margin-top:10px;" })
+    </div>
+</div>
+@Html.Partial("_MessagePartial")
+<div class="clear" style="height:15px"></div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                @using (Html.BeginForm())
+                {
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label>Country</label>
+                                @Html.DropDownList("CountryId", ViewBag.CountryList as SelectList, "SELECT", new { @class = "form-control input-sm" })
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label>Status</label>
+                                @Html.DropDownList("Status", ViewBag.StatusList as SelectList, "SELECT", new { @class = "form-control input-sm" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label>From Date</label>
+                                <div class="input-group" style="width:100%;">
+                                    @Html.DropDownList("fd", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control input-sm" })
+                                    <span class="input-group-btn" style="width:0px"></span>
+                                    @Html.DropDownList("fm", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control input-sm" })
+                                    <span class="input-group-btn" style="width:0px"></span>
+                                    @Html.DropDownList("fy", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 1)), "YEAR", new { @class = "form-control input-sm" })
+                                </div>
+                                <div id="fromDateError" style="color:red;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label>To Date</label>
+                                <div class="input-group" style="width:100%;">
+                                    @Html.DropDownList("td", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control input-sm" })
+                                    <span class="input-group-btn" style="width:0px"></span>
+                                    @Html.DropDownList("tm", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control input-sm" })
+                                    <span class="input-group-btn" style="width:0px"></span>
+                                    @Html.DropDownList("ty", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 1)), "YEAR", new { @class = "form-control input-sm" })
+                                </div>
+                                <div id="toDateError" style="color:red;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-lg-offset-8 col-md-offset-8">
+                            <div class="form-group">
+                                <input id="Search" type="submit" value="Search" class="btn btn-info btn-block" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear" style="height: 10px"></div>
+                }
+            </div>
+        </div>
+        <div class="clear" style="height:15px"></div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                @if (ViewBag.Model != null)
+                {
+
+                    <div id="container-grid" class="table-responsive">
+
+                        @grid.GetHtml(htmlAttributes: new { id = "grid1", @style = "width:100%" }, tableStyle: "table table-bordered table-hover",
+                columns: new[]
+                {
+                    grid.Column("Job Title",canSort:false,   format :(m) =>
+                    {
+                         if (m.Deleted > 0)
+                    {
+                        jlink = m.Title;
+                    }
+                    else
+                    {
+                        jlink = string.Format("<a href=\"{0}\" target=\"_blank\">{1}</a>", m.PermaLink, m.Title);
+                    }
+
+                            return Html.Raw(jlink);
+                    }),
+                    grid.Column("Location",canSort:false,  format: (m) =>
+                    {
+
+
+
+                            return Html.Raw(m.Country + (m.State != null ? ", " + m.State : "") + (m.City != null ? ", " + m.City : ""));
+                    }),
+
+                     grid.Column("Status",canSort:false,  format: (m) =>
+                    {
+
+                        if (m.Live > 0)
+                    {
+                        status = "Live";
+                    }
+                    else if (m.Deactivated > 0)
+                    {
+                        status = "Deactivated";
+                    }
+                    else if (m.Deleted > 0)
+                    {
+                        status = "<span style=\"color:red\">Deleted</span>";
+                    }
+                    else if (m.Waiting > 0)
+                    {
+                        status = "In Approval Process";
+                    }
+                    else if (m.Rejected > 0)
+                    {
+                        status = "<span style=\"color:red\">Rejected</span>";
+                    }
+                    else if (m.Expired > 0)
+                    {
+                        status = "<b style='color:red;'>Expired</b>";
+                    }
+
+
+                        return Html.Raw(status);
+                    }),
+                     grid.Column("Job Viewed",canSort:false,  format: (m) =>
+                    {
+
+                        return Html.Raw(string.Format("<a href=\"/Employer/ViewHistory/{0}\" target=\"_blank\">{1}</a>", m.Id, EmployerService.Instance.GetViewCounts(m.Id)));
+                    }),
+
+                                grid.Column("Actions",canSort:false, style:"actionLinks", format: (m) =>
+                        {
+                             if (m.Expired == 0)
+                        {
+                            if (m.Deactivated == 0 && m.Deleted == 0)
+                            {
+                                alinks = Html.ActionLink("Edit", "UpdateJob", new { id = m.Id }, new { title = "Edit", @class = "edit" }).ToString();
+                                ////alinks + = Html.ActionLink("Edit", "UpdateJob", new { id = m.Id }, new { title = "Edit", @class = "edit" }).ToString();
+                                alinks += "              |  <a href=\"/job/Email/" + m.Id + "\" target=\"_blank\">Email</a>";
+                                    alinks += "              |  <a href=\"/job/SMS/" + m.Id + "\" target=\"_blank\">SMS</a>";
+
+                                    alinks += "              |  <a  target=\"_blank\">WhatsApp</a>";
+
+                          //alinks += "    <input type=\"button\" name=\"ClickMe\" value=\"ClickMe\" onclick='\"javascript:window.open('/Job/Email/"+ m.Id +"', 'Customer Search', 'height=' + (window.screen.height - 100) + ',width=200,left=' + (window.screen.width - 250) + ',top=10,status=no,toolbar=no,resizable=yes,scrollbars=yes');"/'/"+"/>";
+
+                            }
+
+                                    }
+                        else if (m.Expired > 0)
+                        {
+                            if (m.Deleted == 0)
+                            {
+                                alinks = Html.ActionLink("Repost", "Repost", "Employer", new { id = m.Id }, new { title = "Repost" }).ToString();
+                            alinks += "              |  <a href=\"/job/Email/" + m.Id + "\" target=\"_blank\">Email</a>";
+                            alinks += "              |  <a data-toggle=\"modal\" data-target=\"#exampleModal\">SMS</a>";
+                            alinks += "              |  <a  target=\"_blank\">WhatsApp</a>";
+                            }
+                        }
+                        if (m.Rejected > 0 || m.Deleted > 0)
+                            {
+                                Inbox inboxItem = DomainService.Instance.GetInboxItem(m.EmployerId, m.Id, 1);
+                                if (inboxItem != null && inboxItem.Unread == true)
+                                {
+                                    if (!string.IsNullOrEmpty(alinks))
+                                    {
+                                        alinks += " | " + "<a href=\"/inbox/show?Id=" + inboxItem.Id + "\" target=\"_blank\">View Reason (<span style=\"color:red; font-weight:bold\">1</span>)</a>";
+                                    }
+                                    else
+                                    {
+                                        alinks += "<a href=\"/inbox/show?Id=" + inboxItem.Id + "\" target=\"_blank\">View Reason (<span style=\"color:red; font-weight:bold\">1</span>)</a>";
+                                    }
+                                }
+                                else
+                                {
+                                    if (!string.IsNullOrEmpty(alinks))
+                                    {
+                                        alinks += " | " + "<a href=\"/inbox/show?Id=" + inboxItem.Id + "\" target=\"_blank\">View Reason</a>";
+                                    }
+                                    else
+                                    {
+                                        alinks += "<a href=\"/inbox/show?Id=" + inboxItem.Id + "\" target=\"_blank\">View Reason</a>";
+                                    }
+                                }
+                            }
+                            DateTime? pd = null;
+                            if (m.PromoteDate == DateTime.MinValue)
+                            {
+                                pd = null;
+                            }
+                            else
+                            {
+                                pd = m.PromoteDate;
+                            }
+                            return Html.Raw(alinks);
+                        })
+                    })
+                    </div>
+
+
+                }
+                <div style="text-align:center; margin-top: -15px;">
+
+                    @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Index", "Employer",
+            new RouteValueDictionary()
+            {
+                { "PageNumber" , PageNumber},
+                { "Id" , ViewBag.User.Id},
+                { "CountryId" , Request["CountryId"]},
+                { "Type" , Request["Type"]},
+                { "Status" , Request["Status"]},
+                { "fm" , Request["fm"]},
+                { "fd" , Request["fd"]},
+                { "fy" , Request["fy"]},
+                { "tm" , Request["tm"]},
+                { "td" , Request["td"]},
+                { "ty" , Request["ty"]},
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+                </div>
+            </div>
+        </div>
+
+
+
+    </div>
+
+</div>
+<script>
+        $(document).ready(function () {
+
+            $("#Search").click(function () {
+                var isValidStartDate = isValidDate($("#fd").val(), $("#fm").val(), $("#fy").val());
+                var isValidEndDate = isValidDate($("#td").val(), $("#tm").val(), $("#ty").val());
+
+                if (isValidStartDate) {
+                    $("#fromDateError").html("");
+                    $("#fromDateError").show();
+                    $("#Search").enabled = true;
+                } else {
+                    $("#fromDateError").html("Provide correct from date!");
+                    $("#fromDateError").show();
+                    $("#Search").enabled = false;
+                }
+
+                if (isValidEndDate) {
+                    $("#toDateError").html("");
+                    $("#toDateError").show();
+                    $("#Search").enabled = true;
+                } else {
+                    $("#toDateError").html("Provide correct to date!");
+                    $("#toDateError").show();
+                    $("#Search").enabled = false;
+                }
+                return (isValidStartDate == true && isValidEndDate == true);
+            });
+        })
+</script>

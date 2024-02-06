@@ -1,0 +1,136 @@
+﻿@*@{
+        ViewBag.Title = "AddWebsites1";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <h2>AddWebsites1</h2>*@
+
+
+
+@model JobPortal.Web.Models.WebScrapModel
+@using JobPortal.Domain
+@using System.Collections
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@{
+    ViewBag.Title = "Campaign";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<script src="~/Scripts/tinymce/tinymce.min.js"></script>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">Add WebJoblist</h1>
+            Add WebJoblist here
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:15px;"></div>
+@using (Html.BeginForm("AddWebsites1", "Employer", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        @Html.ValidationSummary(true)
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group">
+                    @Html.Label("Select the Country")
+                    @Html.DropDownList("CountryName", new SelectList(SharedService.Instance.GetCountryList(), "Text", "Text"), "SELECT COUNTRY", new { @class = "form-control" })
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CompanyName)
+
+                    @Html.TextBoxFor(model => model.CompanyName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CompanyName)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Website)
+
+                    @Html.TextBoxFor(model => model.Website, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Website)
+                </div>
+            </div>
+
+        </div>
+        @*<div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        @Html.Label("Search By Category")
+                        @Html.DropDownListFor(m => m.Category, new SelectList(Enum.GetValues(typeof(Category1))), new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>*@
+        @*<div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name)
+
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+
+                    </div>
+                </div>
+            </div>*@
+
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.companylogoslink)
+
+                    @Html.TextBoxFor(model => model.companylogoslink, new { @class = "form-control" })
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group">
+
+                    @*@Html.LabelFor(model => model.CompanyLogo)*@
+
+                    <input type="file" name="FileUpload" />
+                    @*@Html.TextBoxFor(model => model.Logo, new { @class = "form-control" ,Type="file" })
+                        @Html.ValidationMessageFor(model => model.Logo, "", new { @class = "text-danger" })*@
+                </div>
+            </div>
+        </div>
+
+
+        @if (ViewData["error"] != null)
+        {
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        <h4 class="text-danger">@ViewData["error"]</h4>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+                <div class="form-group">
+                    <input type="submit" value="Submit" class="btn btn-info" style="width:75px;" />
+                </div>
+            </div>
+        </div>
+
+    </div>
+}
+
+<script>
+
+    tinymce.init({ selector: '#Body', plugins: "link", toolbar: "bold | italic | underline | strikethrough | alignleft | aligncenter | alignright | alignjustify | styleselect | formatselect | fontselect | fontsizeselect | bullist | numlist | outdent | indent | blockquote | undo | redo | removeformat | subscript | superscript | link", menubar: false, height: "285px" });
+
+
+</script>

@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "ValidateEmail";
+    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+}
+
+<div class="section">
+    <div class="title-login">
+        <h1>Email Address Validator</h1>
+    </div>
+    @Html.Partial("_MessagePartial")
+    <div class="clear" style="height:15px"></div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            @using (Html.BeginForm())
+            {
+                <div class="well">
+                    <div class="errorSummary">
+                        @Html.ValidationSummary(true)
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Provide your email address here")
+                        @Html.TextBox("Email", null, new { placeholder = "Validate Email Address", title = "Provide email address to be validated", @class = "form-control", @maxlength = 250 })
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-2">
+                            <input name="Submit" id="Proceed" type="button" value="Proceed" class="btn btn-info" />
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-10">
+                            <div id="divMsg">
+                                <i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom" style="font-size: 24px; color: #34ba08;"></i>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="clear" style="height:50px;"></div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#divMsg").hide();
+        $("#Proceed").click(function () {
+            $("#divMsg").html("<i class=\"fa fa-spinner fa-spin fa-3x fa-fw margin-bottom\" style=\"font-size: 24px; color: #34ba08;\"></i>")
+            $("#divMsg").show();
+            VerifySendEmail();
+            setTimeout("ValidateEmail()", 1000 * 60); // 10 seconds
+
+            return false;
+        });
+    });
+    function VerifySendEmail() {
+        $.post('@Url.Action("VerifySendEmail", "JsonHelper")', { email: $("#Email").val() }, function (data) {
+            //alert("Email: " + data);
+        });
+    }
+
+    function ValidateEmail() {
+        $.post('@Url.Action("ValidateEmail", "JsonHelper")', { email: $("#Email").val() }, function (data) {
+            //alert(data);
+            $("#divMsg").html(data);
+        });
+    }
+</script>

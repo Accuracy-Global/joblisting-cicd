@@ -1,0 +1,471 @@
+﻿@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Models
+@{
+    string username = string.Empty;
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+    JobPortal.Services.JobService jobService = new JobPortal.Services.JobService();
+    JobPortal.Services.UserService userService = new JobPortal.Services.UserService();
+}
+<div class="col-md-3">
+    <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+
+        @if (Request.IsAuthenticated && (user.Role == SecurityRoles.Company || user.Role == SecurityRoles.Individual))
+        {
+            username = user.Username;
+            int msg_counts = jobService.MessageCounts(user.Id);
+            int con_counts = ConnectionHelper.Counts(user.Id);
+            int blocks = EmployerService.Instance.GetBlockCount(username);
+            int peopleYouMayKnowCounts = userService.PeopleMatchCounts(user.Id);
+            int profileviews = userService.ProfileViews(user.Id);
+
+            <li class="active"><a href="#">SOCIAL NETWORK</a></li>
+            if (con_counts > 0)
+            {
+                <li><a href="/connections" class="active">Connections (<span style="color:red;">@con_counts</span>)</a></li>
+            }
+            else
+            {
+                <li><a href="/connections" class="active">Connections</a></li>
+            }
+            if (peopleYouMayKnowCounts > 0)
+            {
+                <li><a href="/Network/PeopleYouMayKnow">People You May Know (<span style="color:red;">@peopleYouMayKnowCounts</span>)</a></li>
+            }
+            else
+            {
+                <li>@Html.ActionLink("People You May Know", "PeopleYouMayKnow", "Network")</li>
+            }
+            if (profileviews > 0)
+            {
+                <li><a href="/Network/ProfileViewed">Viewed Your Profile (<span style="color:red;">@profileviews</span>)</a></li>
+            }
+            else
+            {
+                <li>@Html.ActionLink("Viewed Your Profile", "ProfileViewed", "Network")</li>
+            }
+            if (msg_counts > 0)
+            {
+                <li><a href="/Message/Index">Messages (<span style="color:red;">@msg_counts</span>)</a></li>
+            }
+            else
+            {
+                <li>@Html.ActionLink("Messages", "Index", "Message")</li>
+            }
+            if (blocks > 0)
+            {
+                <li><a href="/Network/BlockedList">Block List (<span style="color:red;">@blocks</span>)</a></li>
+            }
+            else
+            {
+                <li>@Html.ActionLink("Block List", "BlockedList", "Network")</li>
+            }
+        }
+
+        @if (Request.IsAuthenticated && user.Role == SecurityRoles.Individual)
+        {
+            username = user.Username;
+            int announcements = MemberService.Instance.GetAnnouncements(username);
+            int apps = jobService.ApplicationCounts(null, user.Id);
+            int bookmarks = jobService.BookmarkCounts(user.Id);
+            int interviews = jobService.InterviewCounts(null, user.Id);
+
+            <li class="active"><a href="#">APPLICATIONS</a></li>
+            if (apps > 0)
+            {
+                <li><a href="/JobSeeker/Index">Applications (<span style="color:red;">@apps</span>)</a></li>
+            }
+            else
+            {
+                <li>@Html.ActionLink("Applications", "Index", "JobSeeker")</li>
+            }
+
+            if (bookmarks > 0)
+            {
+                <li><a href="/JobSeeker/BookMarkedJobs">Bookmarks (<span style="color:red;">@bookmarks</span>)</a></li>
+            }
+            else
+            {
+                <li>@Html.ActionLink("Bookmarks", "BookMarkedJobs", "JobSeeker")</li>
+            }
+
+            if (interviews > 0)
+            {
+                <li><a href="/Interview/Index">Interviews (<span style="color:red;">@interviews</span>)</a></li>
+            }
+            else
+            {
+                <li>@Html.ActionLink("Interviews", "Index", "Interview")</li>
+            }
+
+            <li class="active"><a href="#">MY ACCOUNT</a></li>
+            int inboxItems = DomainService.Instance.DashboardInboxItems(user.Id);
+            if (inboxItems > 0)
+            {
+                <li><a href="/Inbox/Index">Inbox (<span style="color:red;">@inboxItems</span>)</a></li>
+            }
+            else
+            {
+                <li><a href="/Inbox/Index">Inbox</a></li>
+            }
+            <li>@Html.ActionLink("My Profile & Resume", "UpdateProfile", "JobSeeker")</li>
+            <li>@Html.ActionLink("Purchased Profiles", "PaidProfiles", "Payment", new { userId = user.Id }, null)</li>
+            <li>@Html.ActionLink("Build Resume Online", "BuildResume", "JobSeeker")</li>
+            <li>@Html.ActionLink("Billing & Invoices", "billing", "Payment", new { userId = user.Id }, null)</li>
+            @*<li>@Html.ActionLink("Change Password", "Manage", "Account")</li>*@
+            <li><a role="button" data-toggle="modal" data-target="#ChangePasswordDialog" style="cursor:pointer">Change Password</a></li>
+            <li>@Html.ActionLink("Change Login Email", "ChangeEmailAddress", "Account")</li>
+            <li>@Html.ActionLink("Confirm Email", "ConfirmRegistration", "Account")</li>
+            <li>@Html.ActionLink("Login History", "LoginHistory", "account")</li>
+            if (announcements > 0)
+            {
+                <li><a href="/announcements">Announcements (<span style="color:red;">@announcements</span>)</a></li>
+            }
+            else
+            {
+                <li><a href="/announcements">Announcements</a></li>
+            }
+            <li>@Html.ActionLink("Career Tips", "CareerTips", "JobSeeker", new { }, new { })</li>
+        }
+        else if (Request.IsAuthenticated && user.Role == SecurityRoles.Company)
+        {
+            username = user.Username;
+            int announcements = MemberService.Instance.GetAnnouncements(username);
+
+            int apps = jobService.ApplicationCounts(user.Id);
+            int bookmarks = jobService.BookmarkCounts(user.Id);
+            int interviews = jobService.InterviewCounts(user.Id);
+
+            int downloads = EmployerService.Instance.GetDownloadCount(username);
+            int listedJobs = userService.JobCounts(user.Id);
+
+            <li class="active"><a href="#">JOB MANAGEMENT</a></li>
+            <li>@Html.ActionLink("List Job", "ListJob", "Employer")</li>
+            if (listedJobs > 0)
+            {
+                <li><a href="/Employer/Index">Listed Jobs (<span style="color:red;">@listedJobs</span>)</a></li>
+            }
+            else
+            {
+                <li>@Html.ActionLink("Listed Jobs", "Index", "Employer")</li>
+            }
+            if (apps > 0)
+            {
+                <li><a href="/Employer/Applications">Applications (<span style="color:red;">@apps</span>)</a></li>
+            }
+            else
+            {
+                <li>@Html.ActionLink("Applications", "Applications", "Employer")</li>
+            }
+
+            if (bookmarks > 0)
+            {
+                <li><a href="/Employer/Bookmarks">Bookmarks (<span style="color:red;">@bookmarks</span>)</a></li>
+            }
+            else
+            {
+                <li>@Html.ActionLink("Bookmarks", "Bookmarks", "Employer")</li>
+            }
+
+            if (interviews > 0)
+            {
+                <li><a href="/Interview/Index">Interviews (<span style="color:red;">@interviews</span>)</a></li>
+            }
+            else
+            {
+                <li>@Html.ActionLink("Interviews", "Index", "Interview")</li>
+            }
+
+            if (downloads > 0)
+            {
+                @*<li><a href="/Employer/DownloadHistory">Resume Downloads (<span style="color:red;">@downloads</span>)</a></li>*@
+                <li><a href="/Employer/DownloadHistory">Resume Downloads</a></li>
+            }
+            else
+            {
+                <li>@Html.ActionLink("Resume Downloads", "DownloadHistory", "Employer")</li>
+            }
+            <li>@Html.ActionLink("Purchased Profiles", "PaidProfiles", "Payment", new { userId = user.Id }, null)</li>
+            <li class="active"><a href="#">MY ACCOUNT</a></li>
+            int inboxItems = DomainService.Instance.DashboardInboxItems(user.Id);
+            if (inboxItems > 0)
+            {
+                <li><a href="/Inbox/Index">Inbox (<span style="color:red">@inboxItems</span>)</a></li>
+            }
+            else
+            {
+                <li><a href="/Inbox/Index">Inbox</a></li>
+            }
+            <li>@Html.ActionLink("Billing & Invoices", "billing", "Payment", new { userId = user.Id }, null)</li>
+            <li>@Html.ActionLink("My Profile", "UpdateProfile", "Employer")</li>
+            <li><a role="button" data-toggle="modal" data-target="#ChangePasswordDialog" style="cursor:pointer">Change Password</a></li>
+            @*<li>@Html.ActionLink("Change Password", "Manage", "Account")</li>*@
+            <li>@Html.ActionLink("Change Login Email", "ChangeEmailAddress", "Account")</li>
+            <li>@Html.ActionLink("Confirm Email", "ConfirmRegistration", "Account")</li>
+            <li>@Html.ActionLink("Login History", "LoginHistory", "account")</li>
+            if (announcements > 0)
+            {
+                <li><a href="/announcements">Announcements (<span style="color:red;">@announcements</span>)</a></li>
+            }
+            else
+            {
+                <li><a href="/announcements">Announcements</a></li>
+            }
+        }
+        else if (Request.IsAuthenticated && user.Role == SecurityRoles.SuperUser)
+        {
+            int jobCounts = DomainService.Instance.GetJobCount(JobStatus.IN_APPROVAL);
+            int photo_counts = DomainService.Instance.GetPhotoCount(SecurityRoles.Individual);
+            int logo_counts = DomainService.Instance.GetPhotoCount(SecurityRoles.Company);
+
+
+            <li class="active"><a href="#">USERS &amp; RESUMES</a></li>
+            <li>@Html.ActionLink("Overall Status", "Dashboard", "Admin")</li>
+            <li>@Html.ActionLink("User Accounts", "Index", "Admin")</li>
+            <li>@Html.ActionLink("Connections", "Contacts", "Admin")</li>
+            <li>@Html.ActionLink("Phone Contacts", "ContactList", "Admin")</li>
+            <li>@Html.ActionLink("Messages", "MessageList", "Admin")</li>
+            int inboxItems = DomainService.Instance.DashboardInboxItems(user.Id);
+            if (inboxItems > 0)
+            {
+                <li><a href="/admin/globalinbox">Inbox (<span style="color:red;">@inboxItems</span>)</a></li>
+            }
+            else
+            {
+                <li><a href="/admin/globalinbox">Inbox</a></li>
+            }
+            <li class="active"><a href="#">APPROVALS</a></li>
+            if (jobCounts > 0)
+            {
+                <li><a href="/admin/jobs">Jobs (<span style="color:red; font-weight:bold">@jobCounts</span>)</a></li>
+            }
+            else
+            {
+                <li><a href="/admin/jobs">Jobs</a></li>
+            }
+
+            if (logo_counts > 0)
+            {
+                <li><a href="@Url.Action("PhotoList", "Admin", new { type = 5 })">Company Photos (<span style="color:red; font-weight:bold">@logo_counts</span>)</a></li>
+            }
+            else
+            {
+                <li><a href="@Url.Action("PhotoList", "Admin", new { type = 5 })">Company Photos</a></li>
+            }
+
+            if (photo_counts > 0)
+            {
+                <li><a href="@Url.Action("PhotoList", "Admin", new { type = 4 })">Individual Photos (<span style="color:red; font-weight:bold">@photo_counts</span>)</a></li>
+            }
+            else
+            {
+                <li><a href="@Url.Action("PhotoList", "Admin", new { type = 4 })">Individual Photos</a></li>
+            }
+            <li class="active"><a href="#">CONTENT&nbsp;MANAGEMENT</a></li>
+            <li>@Html.ActionLink("Categories", "CategoryList", "Admin")</li>
+            <li>@Html.ActionLink("Contents Management", "ContentViews", "Admin")</li>
+            <li>@Html.ActionLink("Safety Advice", "SafetyAdvice", "Admin")</li>
+
+            <li class="active"><a href="#">PAYMENT&nbsp;MANAGEMENT</a></li>
+            <li>@Html.ActionLink("Payments", "Sales", "Admin")</li>
+            <li><a href="#">@Html.ActionLink("Packages", "Index", "Package")</a></li>
+            <li><a href="#">Payment Gateway</a></li>
+
+            <li class="active"><a href="#">MY ACCOUNT</a></li>
+            <li>@Html.ActionLink("My Profile", "MyProfile", "Admin")</li>
+            <li><a role="button" data-toggle="modal" data-target="#ChangePasswordDialog">Change Password</a></li>
+            @*<li>@Html.ActionLink("Change Password", "Manage", "Account")</li>*@
+            <li>@Html.ActionLink("Change Login Email", "ChangeEmailAddress", "Account")</li>
+            <li>@Html.ActionLink("Login History", "LoginHistory", "account")</li>
+            <li>@Html.ActionLink("Announcements", "Announcements", "Admin")</li>
+            <li>@Html.ActionLink("Tips", "Tips", "Admin")</li>
+        }
+        else if (Request.IsAuthenticated && user.Role == SecurityRoles.Administrator)
+        {
+            int jobCounts = DomainService.Instance.GetJobCount(JobStatus.IN_APPROVAL);
+            int photo_counts = DomainService.Instance.GetPhotoCount(SecurityRoles.Individual);
+            int logo_counts = DomainService.Instance.GetPhotoCount(SecurityRoles.Company);
+
+            <li class="active"><a href="#">USERS &amp; RESUMES</a></li>
+            <li>@Html.ActionLink("Overall Status", "Dashboard", "Admin")</li>
+            <li>@Html.ActionLink("User Accounts", "Index", "Admin")</li>
+            <li>@Html.ActionLink("Connections", "Contacts", "Admin")</li>
+            <li>@Html.ActionLink("Phone Contacts", "ContactList", "Admin")</li>
+            <li>@Html.ActionLink("Messages", "MessageList", "Admin")</li>
+            int inboxItems = DomainService.Instance.DashboardInboxItems(user.Id);
+            if (inboxItems > 0)
+            {
+                <li><a href="/admin/globalinbox">Inbox (<span style="color:red;">@inboxItems</span>)</a></li>
+            }
+            else
+            {
+                <li><a href="/admin/globalinbox">Inbox</a></li>
+            }
+
+            <li class="active"><a href="#">APPROVALS</a></li>
+            if (jobCounts > 0)
+            {
+                <li><a href="/admin/jobs">Jobs (<span style="color:red; font-weight:bold">@jobCounts</span>)</a></li>
+            }
+            else
+            {
+                <li><a href="/admin/jobs">Jobs</a></li>
+            }
+
+            if (logo_counts > 0)
+            {
+                <li><a href="@Url.Action("PhotoList", "Admin", new { type = 5 })">Company Photos (<span style="color:red; font-weight:bold">@logo_counts</span>)</a></li>
+            }
+            else
+            {
+                <li><a href="@Url.Action("PhotoList", "Admin", new { type = 5 })">Company Photos</a></li>
+            }
+
+            if (photo_counts > 0)
+            {
+                <li><a href="@Url.Action("PhotoList", "Admin", new { type = 4 })">Individual Photos (<span style="color:red; font-weight:bold">@photo_counts</span>)</a></li>
+            }
+            else
+            {
+                <li><a href="@Url.Action("PhotoList", "Admin", new { type = 4 })">Individual Photos</a></li>
+            }
+
+            <li class="active"><a href="#">CONTENT&nbsp;MANAGEMENT</a></li>
+            <li>@Html.ActionLink("Categories", "CategoryList", "Admin")</li>
+            <li>@Html.ActionLink("Contents Management", "ContentViews", "Admin")</li>
+            <li>@Html.ActionLink("Safety Advice", "SafetyAdvice", "Admin")</li>
+            <li class="active"><a href="#">PAYMENT&nbsp;MANAGEMENT</a></li>
+            <li>@Html.ActionLink("Payments", "Sales", "Admin")</li>
+            <li><a href="#">@Html.ActionLink("Packages", "Index", "Package")</a></li>
+            <li><a href="#">Payment Gateway</a></li>
+
+
+            <li class="active"><a href="#">MY ACCOUNT</a></li>
+            <li>@Html.ActionLink("My Profile", "MyProfile", "Admin")</li>
+            <li><a role="button" data-toggle="modal" data-target="#ChangePasswordDialog" style="cursor:pointer">Change Password</a></li>
+            @*<li>@Html.ActionLink("Change Password", "Manage", "Account")</li>*@
+            <li>@Html.ActionLink("Change Login Email", "ChangeEmailAddress", "Account")</li>
+            <li>@Html.ActionLink("Login History", "LoginHistory", "account")</li>
+            <li>@Html.ActionLink("Announcements", "Announcements", "Admin")</li>
+            <li>@Html.ActionLink("Tips", "Tips", "Admin")</li>
+        }
+    </ul>
+</div>
+
+<div class="modal fade chp" id="ChangePasswordDialog" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="title">Change Password</h4>
+            </div>
+            <div class="modal-body">
+                <form id="ChangePasswordForm">
+                    <div id="ErrorBox" class="alert alert-danger hide"></div>
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label for="OldPassword">Old Password</label>
+                                <input type="password" id="OldPassword" name="OldPassword" class="form-control input-sm" placeholder="Old Password" title="Old Password" required oninvalid="this.setCustomValidity('You can\t leave Old Password empty!');" oninput="this.setCustomValidity('');" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label for="NewPassword">New Password</label>
+                                <input type="password" id="NewPassword" name="NewPassword" class="form-control input-sm" placeholder="New Password" title="New Password" pattern="(?=.*\d)(?=.*[a-zA-Z]).{9,}" required oninvalid="this.setCustomValidity('You can\t leave New Password empty!');" oninput="this.setCustomValidity('');" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label for="ConfirmPassword">Confirm Password</label>
+                                <input type="password" id="ConfirmPassword" name="ConfirmPassword" class="form-control input-sm" placeholder="Confirm Password" title="Confirm Password" pattern="(?=.*\d)(?=.*[a-zA-Z]).{9,}" required oninvalid="this.setCustomValidity('You can\t leave Confirm Password empty!');" oninput="this.setCustomValidity('');" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" id="ChangePassword" class="btn btn-primary" value="Change Password" />
+                <a id="btnCancel" class="btn btn-default btn-ok" data-dismiss="modal" style="width:57px">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('.nav-pills a').filter(function () { return this.href == location.href }).parent().addClass('highlight').siblings().removeClass('highlight');
+        $('.nav-pills a').click(function () {
+            $(this).parent().addClass('highlight').siblings().removeClass('highlight');
+        });
+
+        $("#btnCancel").click(function () {
+            $("#ErrorBox").removeClass("show");
+            $("#ErrorBox").addClass("hide");
+            $("#OldPassword").val("");
+            $("#NewPassword").val("");
+            $("#ConfirmPassword").val("");
+        });
+
+        $("#ChangePassword").click(function () {
+            $("#ErrorBox").removeClass("show");
+            $("#ErrorBox").addClass("hide");
+            var input = $("#ChangePasswordForm").serializeObject();
+            if ($("#ChangePasswordForm")[0].checkValidity()) {
+                $.post("/account/changepass", input, function (result) {
+                    if (result.Id == 1) {
+                        toastr.info(result.Message);
+                        $("#ChangePasswordDialog").modal("hide");
+                    } else {
+                        $("#ErrorBox").html(result.Message);
+                        $("#ErrorBox").removeClass("hide");
+                        $("#ErrorBox").addClass("show");
+                    }
+                });
+                return false;
+            } else {
+                var err = "";
+                if (input.OldPassword == "") {
+                    err += "You can't leave Old Password empty!" + "<br/>"
+                }
+                if (input.NewPassword == "") {
+                    err += "You can't leave New Password empty!" + " Password Min. 9 numbers & letters mixed.<br/>";
+                }
+
+                if (input.ConfirmPassword == "") {
+                    err += "You can't leave Confirm Password empty!" + " Password Min. 9 numbers & letters mixed.<br/>";
+                }
+
+                if (input.NewPassword != input.ConfirmPassword) {
+                    err += "New Password and Confirm Password does not match!" + "<br/>";
+                }
+
+                if (input.NewPassword.length < 9) {
+                    err += "New Password Min. 9 numbers & letters mixed.<br/>";
+                }
+
+                if (input.ConfirmPassword.length < 9) {
+                    err += "Confirm Password Min. 9 numbers & letters mixed.<br/>";
+                }
+
+                err = err.substr(0, err.length - 5);
+                $("#ErrorBox").removeClass("hide");
+                $("#ErrorBox").addClass("show");
+                $("#ErrorBox").html(err);
+                return true;
+            }
+        });
+    })
+</script>

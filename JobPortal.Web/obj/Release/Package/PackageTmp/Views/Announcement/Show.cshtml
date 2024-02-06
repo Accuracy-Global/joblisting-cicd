@@ -1,0 +1,31 @@
+﻿@model JobPortal.Data.Announcement
+@using JobPortal.Models
+@{
+    ViewBag.Title = "Announcement";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+}
+@if (Model != null)
+{
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="title-login">
+                <h1 style="margin-top:-15px">@Model.Subject</h1>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("_MessagePartial")
+    <div class="clear" style="height:15px;"></div>
+    <div class="list-group-item">
+        @Html.Raw(Model.Body)
+    </div>
+}
+else
+{
+    @Html.Partial("_MessagePartial")
+}

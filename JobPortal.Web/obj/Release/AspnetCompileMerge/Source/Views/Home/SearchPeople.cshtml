@@ -1,0 +1,1236 @@
+﻿@model JobPortal.Web.Models.SearchJobSeekerModel
+@using JobPortal.Data
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers;
+@using JobPortal.Models
+@{
+    ViewBag.Title = "Search People";
+    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+
+    ViewBag.Title = "Joblisting People - Job Listing People";
+    ViewBag.Description = "Search People at Joblisting. Search People at Job listing. Search People at Joblistings.";
+    ViewBag.Keywords = "people search, search People, message to people, connect with people, find people";
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+}
+@*<link href="~/Content/style.css" rel="stylesheet" />*@
+<style>
+    #body {
+        background: #f5f5f5 none repeat scroll 0 0 !important;
+    }
+
+    .right-side-bar {
+        background: #fff none repeat scroll 0 0;
+        border-bottom: 1px solid #e4e4e4;
+    }
+
+    .sponsored {
+        background: #ffffff;
+    }
+
+    .sponsored {
+        background: #fff none repeat scroll 0 0;
+        padding: 15px 15px 0;
+    }
+
+    .abcdesign {
+        margin: 0 0 18px 0;
+    }
+
+        .abcdesign > h3 {
+            color: #333;
+            font-size: 14px;
+            margin: 0 0 11px 0;
+        }
+
+    .sub-heading h2 {
+        color: #000;
+        font-size: 14px;
+        margin: 0 0 20px;
+        padding-bottom: 6px;
+        position: relative;
+        font-weight: bold;
+    }
+
+        .sub-heading h2::after {
+            border-bottom: 2px solid #e93100;
+            bottom: 0;
+            content: "";
+            display: block;
+            left: 0;
+            position: absolute;
+            width: 100%;
+        }
+
+    .news {
+        border-bottom: 2px solid #f5f5f5;
+        margin-bottom: 20px;
+        min-height: 54px;
+        /*padding-bottom: 18px;*/
+        /*padding-left: 63px;*/
+        position: relative;
+    }
+
+    /*.news-img {
+        left: 0;
+        margin-bottom: 10px;
+        position: absolute;
+        top: 0;
+        width: 54px;
+    }*/
+    .news-img {
+        /*border: 1px solid lightgray;*/
+        position: absolute;
+        margin-bottom: 10px;
+        /*left: 0;
+        top: 0;*/
+        font-size: 75px;
+        font-weight: 700;
+        height: 54px;
+        width: 54px;
+        background-color: #fff;
+    }
+
+        .news-img::after {
+            content: "";
+            display: block;
+            height: 0;
+            padding-bottom: 100%;
+            width: 100%;
+        }
+
+    .news-content {
+        margin-left: 63px;
+    }
+
+        .news-content > h3 {
+            font-size: 13px;
+            margin: 0;
+            color: #222222;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .news-content a {
+            color: #333;
+        }
+
+            .news-content a:hover {
+                color: #00a6e0;
+            }
+
+        .news-content > h4 {
+            color: #999898;
+            font-size: 10px;
+            margin: 7px 0 0 0;
+        }
+
+        .news-content > p {
+            color: #222222;
+            font-family: 'Roboto', sans-serif;
+            font-size: 11px;
+            line-height: 16px;
+            padding: 4px 0 0;
+        }
+
+            .news-content > p:last-child {
+                margin: 0;
+            }
+
+    .left-col {
+        padding-right: 6px;
+        width: 81.25%;
+    }
+
+    .right-col {
+        padding-left: 6px;
+        width: 202px;
+    }
+
+    @@media (max-width: 320px) {
+        .right-col {
+            padding-left: 15px !important;
+            width: 100% !important;
+        }
+
+        .left-col {
+            padding-right: 15px !important;
+            width: 100% !important;
+        }
+    }
+
+    @@media only screen and (max-width:360px) {
+        .right-col {
+            padding-left: 15px !important;
+            width: 100% !important;
+        }
+
+        .left-col {
+            padding-right: 15px !important;
+            width: 100% !important;
+        }
+    }
+
+    @@media only screen and (max-width:384px) {
+        .right-col {
+            padding-left: 15px !important;
+            width: 100% !important;
+        }
+
+        .left-col {
+            padding-right: 15px !important;
+            width: 100% !important;
+        }
+    }
+
+    @@media only screen and (max-width:600px) {
+        .right-col {
+            padding-left: 15px !important;
+            width: 100% !important;
+        }
+
+        .left-col {
+            padding-right: 15px !important;
+            width: 100% !important;
+        }
+    }
+
+    @@media screen and (max-width:800px) {
+        .right-col {
+            padding-left: 6px;
+            width: 202px;
+        }
+
+        .left-col {
+            padding-right: 6px !important;
+            width: 73%;
+        }
+    }
+
+    .seemore {
+        text-align: right;
+    }
+
+        .seemore > a {
+            color: #000000;
+            font-family: "Roboto", sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .seemore i {
+            font-size: 16px;
+            padding: 0 0 0 5px;
+            vertical-align: middle;
+        }
+
+    .actionlinks {
+        list-style: none;
+        padding-left: 0;
+    }
+
+        .actionlinks li {
+            float: left;
+            list-style-type: none;
+        }
+
+            .actionlinks li a {
+                font-size: 14px;
+                font-weight: normal;
+            }
+
+    #PaidResultArea .actionlinks li a {
+        font-size: 14px;
+        color: #000000;
+        font-weight: normal;
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div style="background-color:#fff; padding:20px;">
+            <div class="row">
+                <div class="col-lg-7 col-md-7">
+                    <div class="title-login">
+                        <h1>Search People</h1>
+                        Search people here
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <div class="form-group" style="padding-top: 12px;">
+                        @if (user != null && user.Type == 4)
+                        {
+                            if (user.PromoteDate != null)
+                            {
+                                if (user.PromoteDate.Value.Date < DateTime.Now.Date)
+                                {
+                                    <a href="/package/promote?id=@user.Id&type=P&returnUrl=@Request.Url.ToString()" class="btn btn-info promote" style="width:165px;">Promote Profile</a>
+                                }
+                            }
+                            else
+                            {
+                                <a href="/package/promote?id=@user.Id&type=P&returnUrl=@Request.Url.ToString()" class="btn btn-info promote" style="width:165px;">Promote Profile</a>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="col-lg-1 col-md-1">
+                    <div class="form-group"></div>
+                </div>
+                <div class="col-lg-2 col-md-2">
+                    <div class="form-group" style="padding-top: 12px;">
+                        <div class="pull-right" style="background-color:#b3cb39;width:100px;padding: 4px;height: 34px;border-radius:4px; display:block">
+                            <a href="https://play.google.com/store/apps/details?id=com.joblisting.joblisting" style="background-color: #b3cb39; color:#ffffff; text-decoration:none" target="_blank">
+                                <table cellpadding="0" style="margin-bottom: 0px;">
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <i class="fa fa-android" aria-hidden="true" style="font-size:20px; color:#ffffff"></i>
+                                            </td>
+                                            <td>
+                                                <div style="font-size: 10px;padding-left:5px;line-height: 8px;">
+                                                    Download for
+                                                </div>
+                                                <div style="font-size:18px;padding-left:5px;">
+                                                    Android
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear" style="height:30px;"></div>
+            @Html.Partial("_MessagePartial")
+
+            <div class="list-group-item">
+                <div class="row" id="BasicSearch">
+                    @using (Html.BeginForm("SearchPeople", "Home", FormMethod.Post, new { id = "BasicSearchForm" }))
+                    {
+                        <input type="hidden" id="PageNumber" name="PageNumber" value="1" />
+                        <div class="col-lg-8 col-md-8 col-sm-8">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        @*@Html.LabelFor(model => model.Who)*@
+
+                                        @Html.TextBoxFor(model => model.Name, new { placeholder = "NAME", @class = "form-control _basic", @maxlength = 50 })
+                                        @Html.ValidationMessageFor(model => model.Name)
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="form-group">
+                                        @*@Html.Label("where")*@
+
+                                        @Html.TextBoxFor(model => model.Where, new { placeholder = "WHERE (For example, United States)", @class = "form-control _basic", @maxlength = 50 })
+                                        @Html.ValidationMessageFor(model => model.Where)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 ">
+                            <div class="form-group">
+                                <input id="AdvanceSearchButton" type="button" value="Advance Search" class="btn btn-default btn-block" style="color: #01a7e1;" />
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 ">
+                            <div class=" form-group">
+                                <input id="SearchBasic" type="submit" value="Search" class="btn btn-info btn-block" /> @Html.HiddenFor(model => model.serachType, new { id = "serachType" })
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <div class="controlhide" id="AdvanceSearch">
+                    @using (Html.BeginForm("SearchPeople", "Home", FormMethod.Post, new { id = "AdvanceSearchForm" }))
+                    {
+                        <input type="hidden" id="PageNumber" name="PageNumber" value="1" />
+                        if (!Request.IsAuthenticated)
+                        {
+                            <div class="row ">
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Name)
+
+                                        @Html.TextBoxFor(model => model.Name, new { placeholder = "NAME", @class = "form-control _advance", @maxlength = 50 })
+                                        @Html.ValidationMessageFor(model => model.Name)
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Gender)
+                                        @Html.DropDownListFor(model => model.Gender, new SelectList(new List<string>() { "Male", "Female" }), "--SELECT--", new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CountryId)
+                                        <select id="CountryId" name="CountryId" class="form-control _advanceddl">
+                                            <option>SELECT</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2">
+
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.StateId)
+                                        <select id="StateId" name="StateId" class="form-control _advanceddl">
+                                            <option>SELECT</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.City)
+
+                                        @Html.TextBoxFor(model => model.City, new { placeholder = "CITY (For example, New York)", @class = "form-control _advance", @maxlength = 50 })
+                                        @Html.ValidationMessageFor(model => model.City)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clear" style="height:15px;"></div>
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2">
+                                    <div class=" form-group">
+                                        <input id="BasicSearchButton" type="button" value="Basic Search" class="btn btn-default btn-block" style="color: #01a7e1;" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2">
+                                    <div class=" form-group">
+                                        <input id="SearchAdvance" type="submit" value="Search" class="btn btn-info btn-block" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="row ">
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Name)
+
+                                        @Html.TextBoxFor(model => model.Name, new { placeholder = "NAME", @class = "form-control _advance", @maxlength = 50 })
+                                        @Html.ValidationMessageFor(model => model.Name)
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <div class="row ">
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <div class="form-group">
+                                                @Html.Label("Age From")
+                                                @Html.TextBoxFor(model => model.AgeFrom, new { placeholder = "AGE FROM", @class = "form-control _advance", @maxlength = 3 })
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            <div class="form-group">
+                                                @Html.Label("Age To")
+                                                @Html.TextBoxFor(model => model.AgeTo, new { placeholder = "AGE TO", @class = "form-control _advance", @maxlength = 3 })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.Gender)
+                                        @Html.DropDownListFor(model => model.Gender, new SelectList(new List<string>() { "Male", "Female" }), Model.SELECT, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2">
+                                    <div class="form-group">
+                                        @Html.Label("Relationship")
+                                        @Html.DropDownListFor(model => model.Relationship, UIHelper.DropDown<Relationships>(), Model.SELECT, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CountryId)
+                                        <select id="CountryId" name="CountryId" class="form-control _advanceddl">
+                                            <option>SELECT</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clear" style="height:15px;"></div>
+                            <div class="row">
+                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2">
+                                    <div class=" form-group">
+                                        <input id="BasicSearchButton" type="button" value="Basic Search" class="btn btn-default btn-block" style="color: #01a7e1;" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2">
+                                    <div class=" form-group">
+                                        <input id="SearchAdvance" type="submit" value="Search" class="btn btn-info btn-block" />
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:15px;"></div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="row">
+            <div class="col-sm-9 left-col">
+                <div style="background-color:#fff; padding:20px; min-height:806px">
+                    <div id="noresult" class="noresult">
+                        <div class="nodata">Your search did not match any people.</div>
+                        <b>Suggestions:</b>
+                        <ul>
+                            <li>Make sure all words are spelled correctly.</li>
+                            <li>Try different keywords.</li>
+                            <li>Try more general keywords.</li>
+                            <li>Try fewer keywords.</li>
+                            <li>Try entire words and avoid abbreviations.</li>
+                        </ul>
+                    </div>
+                    <div id="PaidArea">
+                        <div id="PaidResultArea"></div>
+                    </div>
+                    <div class="clear" style="height:15px;"></div>
+                    <div id="SearchResultArea"></div>
+                    <a id="ViewMore" class="btn btn-primary btn-block hide" style="width:100%;">View More</a>
+                    <a id="JoinSeeMore" class="btn btn-info hide" style="width:100%;">Join to See More</a>
+                </div>
+            </div>
+            <div class="col-sm-3 right-col">
+                <div style="background-color:#fff; padding-bottom:15px; min-height:806px">
+                    <div class="sponsored">
+                        <div class="sub-heading">
+                            <h2>Sponsored Ads</h2>
+                        </div>
+
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-8925328521448849"
+                             data-ad-slot="8709143016"
+                             data-ad-format="rectangle"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+
+                    </div>
+                    <div class="sponsored">
+                        @if ((User != null && user.Role == SecurityRoles.Individual))
+                        {
+                            @Html.Action("RecentJobsWithoutLogo", "Home", new { Id = user.Id })
+                        }
+                        else if (User != null && user.Role == SecurityRoles.Company)
+                        {
+                            @Html.Partial("_SearchPromotedJobSeekers")
+                        }
+                        else if (User == null)
+                        {
+                            @Html.Action("RecentJobsWithoutLogo", "Home", new { Id = 0 })
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/x-jquery-tmpl" id="ResultItem">
+    <div class="list-group">
+        <div class="list-group-item">
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-2" style="width: 12%;">
+                    <a href="/${PermaLink}">
+                        <div style="width:80px; height:80px; background:url('/Image/Avtar?Id=${UserId}') no-repeat; background-size:contain; background-position:top center">
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <a href="${PermaLink}" title="View profile" target="_blank">${FullName}</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            {{if Type == 4}}
+                            {{if Age != null }}${Age} years{{/if}} {{if Gender != null }}, ${Gender} {{/if}}{{if RelationshipStatus != null }}, ${relation(RelationshipStatus)} {{/if}}
+                            {{/if}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <i><b>Location:</b></i> ${Country}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <ul class="actionlinks">
+                                    <li>
+                                        {{if Messages > 0 }}
+                                        <b><a href="/Message/List?SenderId=${UserId}" target="_blank">Message (<span style="color:red;">${Messages}</span>)</a></b>
+                                        {{else}}
+                                        <b><a href="/Message/List?SenderId=${UserId}" target="_blank">Message</a></b>
+                                        {{/if}}
+                                    </li>
+                                    {{if authenticated == "False"}}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/Home/Connect?id=${UserId}" target="_blank" title="Connect">Connect</a></b>
+                                    </li>
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/${PermaLink}" title="View profile" target="_blank">View Profile</a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{if authenticated == "True" }}
+                                    {{if Connected == null }}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/Home/Connect?id=${UserId}&redirect=@Request.Url.ToString()" title="Connect" target="_blank">Connect</a></b>
+                                    </li>
+                                    {{/if}}
+
+                                    {{if Connected != null }}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a data-aurl="/Network/Disconnect?Id=${Connected}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
+                                    </li>
+                                    {{/if}}
+
+                                    {{if Connected == null }}
+                                    {{if InvitedByMe > 0}}
+                                    <li>
+                                        &nbsp;|&nbsp; <b><a data-aurl="/Network/Disconnect?Id=${Connected}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{if InvitedBySomeone > 0}}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/Network/Accept?Id=${Connected}&redirect=@Request.Url.ToString()" title="Accept" target="_blank">Accept</a></b>;
+                                        &nbsp;|&nbsp;<b><a data-aurl="/Network/Disconnect?Id=${Connected}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{/if}}
+                                    {{if BlockedByMe > 0 }}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/Home/Unblock?id=${UserId}&redirect=@Request.Url.ToString()" title="Unblock" target="_blank">Unblock</a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{if BlockedByMe <= 0 && Blocked <= 0 }}
+                                    {{if role == "Company" && Content != null}}
+                                    {{if Title != null && CategoryId!= null && SpecializationId!=null}}
+
+                                    {{if InterviewStatus == 0 || InterviewStatus == 1}}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/Interview/Update?id=${InterviewId}" title="View in-progress interview details" target="_blank"><span>Interview&nbsp;In-progress</span></a></b>
+                                    </li>
+                                    {{/if}}
+
+
+                                    {{/if}}
+                                    {{/if}}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a data-href="/Home/Block?email=${Username}" data-name="${FullName}" role="button" data-toggle="modal" data-target="#cDialog" class="aBlock" data-role="${TypeName}" data-connected="${(Connected != null)}" style="cursor:pointer;" title="Block">Block</a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{/if}}
+                                    {{if Downloadable == true}}
+                                    <li>
+                                        @if (Request.IsAuthenticated)
+                                        {
+                                            <text>&nbsp;|&nbsp;<a href="/jobseeker/download?id=${UserId}&redirect=@Request.Url.ToString()" title="Download Resume" target="_blank">Download</a></text>
+                                        }
+                                        else
+                                        {
+                                            <text>&nbsp;|&nbsp;<a href="/jobseeker/DownloadResume?id=${UserId}&redirect=@Request.Url.ToString()" title="Download Resume" target="_blank">Download</a></text>
+                                        }
+                                    </li>
+                                    {{/if}}
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+<script src="~/Scripts/Search.js"></script>
+<script type="text/javascript">
+
+    var pjOffset = 0;
+    var pjPages = 1;
+    var formId;
+    var authenticated = "@Request.IsAuthenticated";
+
+    function DisplayPromotedProfiles() {
+        var jsonForm = $(".search").closest("form").serializeObject();
+        if (pjOffset < pjPages) {
+            pjOffset = pjOffset + 1;
+        } else {
+            pjOffset = 1;
+        }
+
+        jsonForm.PageNumber = pjOffset;
+
+        $.post("/jobseeker/PromotedJobseekers", jsonForm, function (result) {
+            $("#PaidResultArea").empty();
+            if (result.Data.length > 0) {
+                var rows = result.Data[0].MaxRows;
+                pjPages = Math.ceil(rows / 2);
+                $(result.Data).each(function () {
+                    this.authflag = "@Request.IsAuthenticated";
+                    this.role = "@(user!= null?user.Role.GetDescription():"")";
+                    $("#PaidResultItem").tmpl(this).appendTo("#PaidResultArea");
+                });
+            }
+        });
+    }
+
+    var search_url = "/home/searchedpeople";
+    function deparam(query) {
+        var pairs, i, keyValuePair, key, value, map = {};
+        // remove leading question mark if its there
+        if (query.slice(0, 1) === '?') {
+            query = query.slice(1);
+        }
+        if (query !== '') {
+            pairs = query.split('&');
+            for (i = 0; i < pairs.length; i += 1) {
+                keyValuePair = pairs[i].split('=');
+                key = decodeURIComponent(keyValuePair[0]);
+                value = (keyValuePair.length > 1) ? decodeURIComponent(keyValuePair[1]) : undefined;
+                map[key] = value;
+            }
+        }
+        return map;
+    }
+
+    function relation(rship) {
+        var rstr = "";
+        switch (rship) {
+            case 1:
+                rstr = "Single";
+                break;
+            case 2:
+                rstr = "Married";
+                break;
+            case 3:
+                rstr = "Engaged";
+                break;
+            case 4:
+                rstr = "In Relationship";
+                break;
+            case 5:
+                rstr = "Separated";
+                break;
+            case 6:
+                rstr = "Divorced";
+                break;
+            case 7:
+                rstr = "Widowed";
+                break;
+            case 8:
+                rstr = "Can't Say";
+                break;
+        }
+        return rstr;
+    }
+    var authenticated = "@Request.IsAuthenticated";
+    var role = "@(User != null ? user.Role.GetDescription() : "")";
+    $(document).ready(function () {
+        var sender = "@(Request.UrlReferrer != null ? Request.UrlReferrer.GetLeftPart(UriPartial.Path) : string.Empty)";
+        var current = "@Request.Url.GetLeftPart(UriPartial.Path)";
+        if (current == sender) {
+            var flag = $.cookie('searchpeople');
+            if (flag == 'advance') {
+
+                $('#AdvanceSearch').show();
+                $('#BasicSearch').hide();
+                $("#Name").val("");
+                $("#Where").val("");
+
+            } else if (flag == 'basic') {
+
+                $('#AdvanceSearch').hide();
+                $('#BasicSearch').show();
+
+                $("#Name").val("");
+                $("#Gender").val("");
+                $("#CountryId").val("");
+                $("#StateId").val("");
+                $("#City").val("");
+            }
+        }
+        $("#AdvanceSearchButton").click(function () {
+            $.cookie('searchpeople', 'advance');
+            $('#AdvanceSearch').show();
+            $('#BasicSearch').hide();
+            $("#Name").val("");
+            $("#Where").val("");
+            return false;
+        });
+
+        $("#BasicSearchButton").click(function () {
+            $.cookie('searchpeople', 'basic');
+            $('#AdvanceSearch').hide();
+            $('#BasicSearch').show();
+            $("#Name").val("");
+            $("#Gender").val("");
+            $("#CountryId").val("");
+            $("#StateId").val("");
+            $("#City").val("");
+            return false;
+        });
+
+        $("#found").hide();
+        $("#noresult").show();
+
+        var rows = 0;
+        var pages = 0;
+        var formId = "";
+
+        var qstr = window.location.href;
+        var jform = "";
+        if (qstr.indexOf("?") > -1) {
+            qstr = qstr.substr(qstr.indexOf("?") + 1, qstr.length);
+            if (qstr.indexOf("Where") > -1) {
+                formId = "#BasicSearchForm";
+            } else {
+                formId = "#AdvanceSearchForm";
+            }
+        } else {
+            qstr = "";
+        }
+
+        jform = deparam(qstr);
+        if (jform != "") {
+            jform.PageNumber = 1;
+            $("#SearchResultArea").empty();
+            $.post(search_url, jform, function (result) {
+                if (result.length > 0) {
+                    rows = result[0].MaxRows;
+                    pages = Math.ceil(rows / 10);
+                    $("#found").show();
+                    $("#found").html("Total <b>" + rows + "</b> people searched");
+                    $("#noresult").hide();
+                    $(result).each(function (idx, item) {
+                        this.authflag = "@Request.IsAuthenticated";
+                        this.Role = "@(User!= null ? user.Role.GetDescription():"")";
+                        $("#ResultItem").tmpl(this).appendTo("#SearchResultArea");
+                    });
+                    if (rows > 10) {
+                        if (authenticated == "True") {
+                            $("#JoinSeeMore").removeClass("show");
+                            $("#JoinSeeMore").addClass("hide");
+
+                            $("#ViewMore").removeClass("hide");
+                            $("#ViewMore").addClass("show");
+                        } else {
+                            $("#JoinSeeMore").removeClass("hide");
+                            $("#JoinSeeMore").addClass("show");
+                            $("#ViewMore").removeClass("show");
+                            $("#ViewMore").addClass("hide");
+                        }
+                    }
+                } else {
+                    $("#found").hide();
+                    $("#JoinSeeMore").removeClass("show");
+                    $("#JoinSeeMore").addClass("hide");
+                    $("#ViewMore").removeClass("show");
+                    $("#ViewMore").addClass("hide");
+                    $("#noresult").show();
+                }
+            });
+        }
+
+        $("#SearchBasic").click(function () {
+            formId = "#BasicSearchForm";
+            var jsonForm = $(formId).serializeObject();
+            jsonForm.PageNumber = 1;
+            $("#PromotedProfilesArea").show();
+            DisplayPromotedProfiles();
+            setInterval("DisplayPromotedProfiles()", 10000);
+            $.post(search_url, jsonForm, function (result) {
+                if (result.length > 0) {
+                    $("#SearchResultArea").empty();
+                    rows = result[0].MaxRows;
+                    pages = Math.ceil(rows / 10);
+                    $("#found").show();
+                    $("#found").html("Total <b>" + rows + "</b> people searched");
+                    $("#noresult").hide();
+                    $(result).each(function (idx, item) {
+                        this.authenticated = "@Request.IsAuthenticated";
+                        $("#ResultItem").tmpl(this).appendTo("#SearchResultArea");
+                    });
+                    if (rows > 10) {
+                        if (authenticated == "True") {
+                            $("#JoinSeeMore").removeClass("show");
+                            $("#JoinSeeMore").addClass("hide");
+
+                            $("#ViewMore").removeClass("hide");
+                            $("#ViewMore").addClass("show");
+                        } else {
+
+                            $("#JoinSeeMore").removeClass("hide");
+                            $("#JoinSeeMore").addClass("show");
+
+                            $("#ViewMore").removeClass("show");
+                            $("#ViewMore").addClass("hide");
+
+                        }
+                    } else {
+                        if (authenticated == "True") {
+                            $("#JoinSeeMore").removeClass("show");
+                            $("#JoinSeeMore").addClass("hide");
+
+                            $("#ViewMore").removeClass("show");
+                            $("#ViewMore").addClass("hide");
+
+                        } else {
+
+                            $("#JoinSeeMore").removeClass("hide");
+                            $("#JoinSeeMore").addClass("show");
+
+                            $("#ViewMore").removeClass("show");
+                            $("#ViewMore").addClass("hide");
+                        }
+                    }
+                } else {
+                    $("#SearchResultArea").empty();
+                    $("#found").hide();
+                    $("#JoinSeeMore").removeClass("show");
+                    $("#JoinSeeMore").addClass("hide");
+
+                    $("#ViewMore").removeClass("show");
+                    $("#ViewMore").addClass("hide");
+                    $("#noresult").show();
+                }
+            });
+            return false;
+        });
+
+        $("#ViewMore").click(function () {
+            var jsonForm = $(formId).serializeObject();
+            if (jsonForm.PageNumber < pages) {
+                jsonForm.PageNumber = Number(jsonForm.PageNumber) + 1;
+                $(formId + " #PageNumber").val(jsonForm.PageNumber);
+            }
+            $.post(search_url, jsonForm, function (result) {
+                if (result.length > 0) {
+                    $("#noresult").hide();
+                    if ((jsonForm.PageNumber < pages)) {
+                        if (authenticated == "True") {
+                            $("#JoinSeeMore").removeClass("show");
+                            $("#JoinSeeMore").addClass("hide");
+
+                            $("#ViewMore").removeClass("hide");
+                            $("#ViewMore").addClass("show");
+                        } else {
+                            $("#JoinSeeMore").removeClass("hide");
+                            $("#JoinSeeMore").addClass("show");
+
+                            $("#ViewMore").removeClass("show");
+                            $("#ViewMore").addClass("hide");
+                        }
+                    } else {
+
+                        $("#JoinSeeMore").removeClass("show");
+                        $("#JoinSeeMore").addClass("hide");
+
+                        $("#ViewMore").removeClass("show");
+                        $("#ViewMore").addClass("hide");
+
+                    }
+                    $(result).each(function (idx, item) {
+                        this.authenticated = "@Request.IsAuthenticated";
+                        $("#ResultItem").tmpl(this).appendTo("#SearchResultArea");
+                    });
+                } else {
+                    $("#ViewMore").removeClass("show");
+                    $("#ViewMore").addClass("hide");
+                    $("#noresult").hide();
+                }
+            });
+            return false;
+        });
+
+        $("#SearchAdvance").click(function () {
+            formId = "#AdvanceSearchForm";
+            var jsonForm = $(formId).serializeObject();
+            jsonForm.PageNumber = 1;
+            $("#PromotedProfilesArea").show();
+            DisplayPromotedProfiles();
+            setInterval("DisplayPromotedProfiles()", 10000);
+            $.post(search_url, jsonForm, function (result) {
+                if (result.length > 0) {
+                    $("#SearchResultArea").empty();
+                    rows = result[0].MaxRows;
+                    pages = Math.ceil(rows / 10);
+                    $("#found").show();
+                    $("#found").html("Total <b>" + rows + "</b> people searched");
+                    $("#noresult").hide();
+                    if (rows > 10) {
+                        if (authenticated == "True") {
+                            $("#JoinSeeMore").removeClass("show");
+                            $("#JoinSeeMore").addClass("hide");
+
+                            $("#ViewMore").removeClass("hide");
+                            $("#ViewMore").addClass("show");
+
+                        } else {
+                            $("#JoinSeeMore").removeClass("hide");
+                            $("#JoinSeeMore").addClass("show");
+
+                            $("#ViewMore").removeClass("show");
+                            $("#ViewMore").addClass("hide");
+                        }
+                    }
+                    $(result).each(function (idx, item) {
+                        this.authenticated = "@Request.IsAuthenticated";
+                        $("#ResultItem").tmpl(this).appendTo("#SearchResultArea");
+                    });
+                } else {
+                    $("#SearchResultArea").empty();
+                    $("#found").hide();
+                    $("#JoinSeeMore").removeClass("show");
+                    $("#JoinSeeMore").addClass("hide");
+                    $("#ViewMore").removeClass("show");
+                    $("#ViewMore").addClass("hide");
+                    $("#noresult").show();
+                }
+            });
+            return false;
+        });
+
+        $("#JoinSeeMore").click(function () {
+            var jsonForm = $(formId).serializeObject();
+            var qs = "@Request.Url.ToString()?" + $.param(jsonForm);
+            var url = "/account/register?returnurl=" + encodeURIComponent(qs);
+            window.location.href = url;
+        });
+
+        @*$("#ResultArea").on("click", ".disc", function () {
+            discUrl = $(this).data('aurl');
+            $("#discDialog #dialogOk").click(function () {
+                window.location.href = discUrl;
+            });
+        });
+
+        $("#SearchResultArea").on("click", ".aBlock", function () {
+            var bname = $(this).data('name');
+            var actionUrl = $(this).data('href');
+            var msgText = "";
+            var loggedInUserRole = "@(user!=null ? user.Role.GetDescription() :"")";
+            var isConfirmed = "@(user!=null ? user.IsConfirmed : false)";
+            if (isConfirmed == "True") {
+                var role = $(this).data('role');
+                if ((role == "Company" && loggedInUserRole == "Individual") || (loggedInUserRole == "Company" && role == "Individual")) {
+                    msgText = "<b>Following may be withdrawn with <span id=\"bname\" style=\"font-weight:bold\">" + bname + "</span>:</b><br/>";
+                    msgText += "<ul>";
+                    msgText += "<li>Application(s)!</li>";
+                    msgText += "<li>Matching!</li>";
+                    msgText += "<li>Bookmark(s)!</li>";
+                    msgText += "<li>Interview(s)!</li>";
+                    msgText += "<li>Connection!</li>";
+                    msgText += "</ul>";
+                } else {
+                    if ($(this).data('connected') == "True") {
+                        msgText = "<b>Block</b> action will disconnect you with <span id=\"bname\" style=\"font-weight:bold\"><b>" + bname + "</span></b><br/>";
+                    } else {
+                        msgText = "<b>Block</b> <span id=\"bname\" style=\"font-weight:bold\"><b>" + bname + "</span></b><br/>";
+                    }
+                }
+                msgText += "<div style=\"text-align:right; color:red; font-size:1.5em;\">Are you sure?</div>";
+                $(".modal-body #divMsg").html(msgText);
+
+                actionUrl = $(this).data('href');
+                $("#dialogOk").click(function () {
+                    window.location.href = actionUrl;
+                });
+            } else {
+                window.location.href = actionUrl;
+            }
+        });
+
+        $("#PaidResultArea").on("click", ".aBlock", function () {
+            var bname = $(this).data('name');
+            var actionUrl = $(this).data('href');
+            var msgText = "";
+            var loggedInUserRole = "@(user!=null ? user.Role.GetDescription() :"")";
+            var isConfirmed = "@(user!=null ? user.IsConfirmed : false)";
+            if (isConfirmed == "True") {
+                var role = $(this).data('role');
+                if ((role == "Company" && loggedInUserRole == "Individual") || (loggedInUserRole == "Company" && role == "Individual")) {
+                    msgText = "<b>Following may be withdrawn with <span id=\"bname\" style=\"font-weight:bold\">" + bname + "</span>:</b><br/>";
+                    msgText += "<ul>";
+                    msgText += "<li>Application(s)!</li>";
+                    msgText += "<li>Matching!</li>";
+                    msgText += "<li>Bookmark(s)!</li>";
+                    msgText += "<li>Interview(s)!</li>";
+                    msgText += "<li>Connection!</li>";
+                    msgText += "</ul>";
+                } else {
+                    if ($(this).data('connected') == "True") {
+                        msgText = "<b>Block</b> action will disconnect you with <span id=\"bname\" style=\"font-weight:bold\"><b>" + bname + "</span></b><br/>";
+                    } else {
+                        msgText = "<b>Block</b> <span id=\"bname\" style=\"font-weight:bold\"><b>" + bname + "</span></b><br/>";
+                    }
+                }
+                msgText += "<div style=\"text-align:right; color:red; font-size:1.5em;\">Are you sure?</div>";
+                $(".modal-body #divMsg").html(msgText);
+
+                actionUrl = $(this).data('href');
+                $("#dialogOk").click(function () {
+                    window.location.href = actionUrl;
+                });
+            } else {
+                window.location.href = actionUrl;
+            }
+        });*@
+    });
+</script>
+
+<script type="text/x-jquery-tmpl" id="PaidResultItem">
+    <div class="list-group-item" style="background-color:#f7eedc">
+        <div class="row listing_text">
+            <div class="col-lg-12 col-md-12">
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2" style="width: 10%;">
+                        <a href="/${PermaLink}">
+                            <div style="width:68px; height:68px; background:url('/Image/Avtar?Id=${UserId}') no-repeat; background-size:contain; background-position:top center">
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-10 col-md-10 col-sm-10">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 hidden-lg hidden-md" style="height:5px;">
+                                &nbsp;
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <a href='/${PermaLink}' title='View Profile' target='_blank' style='line-height:25px;'><span style='line-height:25px;'>${FullName}</span></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                ${Title}
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    <i><b>Location: </b></i>
+                                    {{if City != null}}
+                                    ${City},
+                                    {{/if}}
+                                    {{if State != null}}
+                                    ${State},
+                                    {{/if}}
+                                    {{if Country != null}}
+                                    ${Country}
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 hidden-lg hidden-md" style="height:3px;">
+                                &nbsp;
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <ul class="actionlinks">
+                                    <li>
+                                        {{if Messages > 0 }}
+                                        <b><a href="/Message/List?SenderId=${UserId}" target="_blank">Message (<span style="color:red;">${Messages}</span>)</a></b>
+                                        {{else}}
+                                        <b><a href="/Message/List?SenderId=${UserId}" target="_blank">Message</a></b>
+                                        {{/if}}
+                                    </li>
+                                    {{if authenticated == "False"}}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/Home/Connect?id=${UserId}" target="_blank" title="Connect">Connect</a></b>
+                                    </li>
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/${PermaLink}" title="View profile" target="_blank">View Profile</a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{if authenticated == "True" }}
+                                    {{if Connected == null }}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/Home/Connect?id=${UserId}&redirect=@Request.Url.ToString()" title="Connect" target="_blank">Connect</a></b>
+                                    </li>
+                                    {{/if}}
+
+                                    {{if Connected != null }}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a data-aurl="/Network/Disconnect?Id=${Connected}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
+                                    </li>
+                                    {{/if}}
+
+                                    {{if Connected == null }}
+                                    {{if InvitedByMe > 0}}
+                                    <li>
+                                        &nbsp;|&nbsp; <b><a data-aurl="/Network/Disconnect?Id=${Connected}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{if InvitedBySomeone > 0}}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/Network/Accept?Id=${Connected}&redirect=@Request.Url.ToString()" title="Accept" target="_blank">Accept</a></b>;
+                                        &nbsp;|&nbsp;<b><a data-aurl="/Network/Disconnect?Id=${Connected}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{/if}}
+                                    {{if BlockedByMe > 0 }}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/Home/Unblock?id=${UserId}&redirect=@Request.Url.ToString()" title="Unblock" target="_blank">Unblock</a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{if BlockedByMe <= 0 && Blocked <= 0 }}
+                                    {{if role == "Company" && Content != null}}
+                                    {{if Title != null && CategoryId!= null && SpecializationId!=null}}
+
+                                    {{if InterviewStatus == 0 || InterviewStatus == 1}}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/Interview/Update?id=${InterviewId}" title="View in-progress interview details" target="_blank"><span>Interview&nbsp;In-progress</span></a></b>
+                                    </li>
+                                    {{/if}}
+
+
+                                    {{/if}}
+                                    {{/if}}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a data-href="/Home/Block?email=${Username}" data-name="${FullName}" role="button" data-toggle="modal" data-target="#cDialog" class="aBlock" data-role="${TypeName}" data-connected="${(Connected != null)}" style="cursor:pointer;" title="Block">Block</a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{/if}}
+                                    {{if Downloadable == true}}
+                                    <li>
+                                        @if (Request.IsAuthenticated)
+                                        {
+                                            <text>&nbsp;|&nbsp;<a href="/jobseeker/download?id=${UserId}&redirect=@Request.Url.ToString()" title="Download Resume" target="_blank">Download</a></text>
+                                        }
+                                        else
+                                        {
+                                            <text>&nbsp;|&nbsp;<a href="/jobseeker/DownloadResume?id=${UserId}&redirect=@Request.Url.ToString()" title="Download Resume" target="_blank">Download</a></text>
+                                        }
+                                    </li>
+                                    {{/if}}
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

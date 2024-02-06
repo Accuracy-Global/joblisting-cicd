@@ -1,0 +1,266 @@
+﻿@using PagedList.Mvc
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Models
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<Inbox>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+    WebGrid grid = new WebGrid(source: ViewBag.Model, ajaxUpdateContainerId: "grid", canPage: false, rowsPerPage: 15);
+
+    int inboxItems = DomainService.Instance.DashboardInboxItems(ViewBag.UserInfo.UserId);
+    int appCounts = MemberService.Instance.GetApplicationCount(ViewBag.UserInfo.Username);
+    int intCounts = MemberService.Instance.GetInterviewCount(ViewBag.UserInfo.Username);
+}
+<style>
+    .idate {
+        /*width:125px;*/
+    }
+
+    .isubject {
+        /*width:200px;*/
+    }
+
+    .iaction {
+        width: 10%;
+    }
+</style>
+
+<div class="section">
+    <div class="row">
+        @if (User.Username == "RecruiterCom@joblisting.com" || User.Username == "vani123@accuracy.com.sg" || User.Username == "tasnim@accuracy.com.sg" || User.Username == "ganeshr@joblisting.com" || User.Username == "deepti@accuracy.com.sg" || User.Username == "doli.chauhan123@accuracy.com.sg" || User.Username == "sandhya@accuracy.com.sg" || User.Username == "shreyag1234@accuracy.com.sg" || User.Username == "pallavi123@accuracy.com.sg" || User.Username == "druthi@accuracy.com.sg" || User.Username == "baba@accuracy.com.sg" || User.Username == "anshikagupta@accuracy.com.sg" || User.Username == "dianna@accuracy.com.sg" || User.Username == "haris@joblisting.com" || User.Username == "anilkumar@joblisting.com" || User.Username == "denise@accuracy.com.sg" || User.Username == "lakshmip@accuracy.com.sg" || User.Username == "vanshika@accuracy.com.sg" || User.Username == "sarika123@accuracy.com.sg" || User.Username == "naveena@accuracy.com.sg" || User.Username == "gowthami@accuracy.com.sg" || User.Username == "recruiter@joblisting.com")
+        { }
+        else
+        {
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                    <li class="active"><a href="#">QUICK LINKS</a></li>
+                    <li>@Html.ActionLink("Connections", "Connections", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                    <li>@Html.ActionLink("Messages", "Messages", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                    @if (ViewBag.UserInfo.Type == (int)SecurityRoles.Employers)
+                    {
+                        <li>@Html.ActionLink("Jobs", "JobsByCompany", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                    }
+                    @if (appCounts > 0)
+                    {
+                        <li>@Html.ActionLink(string.Format("Applications ({0})", appCounts), "Applications", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Applications", "Applications", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                    }
+                    @if (intCounts > 0)
+                    {
+                        <li>@Html.ActionLink(string.Format("Interviews ({0})", intCounts), "Interviews", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Interviews", "Interviews", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                    }
+                    @if (ViewBag.UserInfo.Type == (int)SecurityRoles.Employers)
+                    {
+                        <li>@Html.ActionLink("Downloads", "DownloadHistory", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                    }
+                    @if (inboxItems > 0)
+                    {
+                        <li><a href="/Admin/Inbox?Id=@ViewBag.UserInfo.UserId" target="_blank">Inbox (<span style="color:red; font-weight:bold">@inboxItems</span>)</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="/Admin/Inbox?Id=@ViewBag.UserInfo.UserId" target="_blank">Inbox</a></li>
+                    }
+                    @if (ViewBag.UserInfo.Type == (int)SecurityRoles.Employers)
+                    {
+                        <li>@Html.ActionLink("Profile", "ManageCompany", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                    }
+                    else if (ViewBag.UserInfo.Type == (int)SecurityRoles.Jobseeker)
+                    {
+                        <li>@Html.ActionLink("Profile", "ManageIndividual", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                    }
+                    <li>@Html.ActionLink("Billing & Invoices", "billing", "Payment", new { userId = ViewBag.UserInfo.UserId }, new { })</li>
+                    <li>@Html.ActionLink("Reset Password", "ResetPassword", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                    <li>@Html.ActionLink("Login History", "LoginHistory", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { @class = "active" })</li>
+                    <li>@Html.ActionLink("Alert Settings", "Alerts", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                </ul>
+            </div>
+        }
+        @if (User.Username == "RecruiterCom@joblisting.com" || User.Username == "recruiter@joblisting.com" || User.Username == "vani123@accuracy.com.sg" || User.Username == "tasnim@accuracy.com.sg" || User.Username == "ganeshr@joblisting.com" || User.Username == "deepti@accuracy.com.sg" || User.Username == "doli.chauhan123@accuracy.com.sg" || User.Username == "sandhya@accuracy.com.sg" || User.Username == "shreyag1234@accuracy.com.sg" || User.Username == "pallavi123@accuracy.com.sg" || User.Username == "druthi@accuracy.com.sg" || User.Username == "baba@accuracy.com.sg" || User.Username == "anshikagupta@accuracy.com.sg" || User.Username == "dianna@accuracy.com.sg" || User.Username == "haris@joblisting.com" || User.Username == "anilkumar@joblisting.com" || User.Username == "denise@accuracy.com.sg" || User.Username == "lakshmip@accuracy.com.sg" || User.Username == "vanshika@accuracy.com.sg" || User.Username == "sarika123@accuracy.com.sg" || User.Username == "naveena@accuracy.com.sg" || User.Username == "gowthami@accuracy.com.sg"|| User.Username == "recruiter@joblisting.com")
+        {
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+
+                        <div class="title-login">
+                            <h1>Inbox</h1>
+                            @if (ViewBag.UserInfo.Type == (int)SecurityRoles.Employers)
+                            {
+                                <text>Manage inbox  of <b>@ViewBag.UserInfo.Company</b> here</text>
+                            }
+                            else if (ViewBag.UserInfo.Type == (int)SecurityRoles.Jobseeker)
+                            {
+                                <text> Manage inbox  of <b>@ViewBag.UserInfo.FirstName  @ViewBag.UserInfo.LastName</b> here</text>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-md-12">
+                        <div id="container-grid" class="table-responsive">
+                            @grid.GetHtml(htmlAttributes: new { id = "grid", @style = "width:100%" },
+        tableStyle: "table table-bordered",
+        fillEmptyRows: false,
+        alternatingRowStyle: "alt",
+        columns: new[]
+        {
+                grid.Column("Activity", header: "Subject", style:"isubject", canSort:false, format: (item) =>
+                {
+                    string link = string.Empty;
+                    link = Html.ActionLink((string)(item.Subject), "Show", "Admin", new { Id = ViewBag.UserInfo.UserId, ItemId = item.Id }, new { @target = "_blank" }).ToString();
+                    return Html.Raw(link);
+                }),
+                grid.Column("Date", header: "Date", canSort:false, style:"idate", format: (item) => { return item.DateUpdated.ToString("MMM-dd-yyyy hh:mm tt"); }),
+                grid.Column("Actions", style:"iaction", canSort:false, format: (item) =>
+                {
+                    var links = string.Empty;
+                    int ibItems = 0;
+                    if (item.Unread)
+                    {
+                        ibItems = 1;
+                    }
+                    else
+                    {
+                        ibItems = DomainService.Instance.InboxItemCounts(ViewBag.UserInfo.UserId, item.ReferenceId, item.Id);
+                    }
+
+                    if (ibItems > 0)
+                    {
+                        links += "<a href=\"/Admin/Show?Id=" + ViewBag.UserInfo.UserId + "&ItemId=" + item.Id + "\" target = \"_blank\">View (<span style=\"color:red; font-weight:bolder\">" + Convert.ToString(ibItems) + "</span>)</a>";
+                    }
+                    else
+                    {
+
+                        links += "<a href=\"/Admin/Show?Id=" + ViewBag.UserInfo.UserId + "&ItemId=" + item.Id + "\" target = \"_blank\">View</a>";
+                    }
+                    return Html.Raw(links);
+                })
+        }
+        )
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-md-12">
+                        <div style="text-align:center; margin-top: -15px;">
+                            @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Inbox",
+                 new RouteValueDictionary()
+                 {
+                                { "pageNumber" , PageNumber},
+                                { "Id" , ViewBag.UserInfo.UserId}
+                 }),
+                 PagedListRenderOptions.ClassicPlusFirstAndLast)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="col-lg-9 col-md-9 col-sm-9">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+
+                        <div class="title-login">
+                            <h1>Inbox</h1>
+                            @if (ViewBag.UserInfo.Type == (int)SecurityRoles.Employers)
+                            {
+                                <text>Manage inbox  of <b>@ViewBag.UserInfo.Company</b> here</text>
+                            }
+                            else if (ViewBag.UserInfo.Type == (int)SecurityRoles.Jobseeker)
+                            {
+                                <text> Manage inbox  of <b>@ViewBag.UserInfo.FirstName  @ViewBag.UserInfo.LastName</b> here</text>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-md-12">
+                        <div id="container-grid" class="table-responsive">
+                            @grid.GetHtml(htmlAttributes: new { id = "grid", @style = "width:100%" },
+ tableStyle: "table table-bordered",
+ fillEmptyRows: false,
+ alternatingRowStyle: "alt",
+ columns: new[]
+ {
+                grid.Column("Activity", header: "Subject", style:"isubject", canSort:false, format: (item) =>
+                {
+                    string link = string.Empty;
+                    link = Html.ActionLink((string)(item.Subject), "Show", "Admin", new { Id = ViewBag.UserInfo.UserId, ItemId = item.Id }, new { @target = "_blank" }).ToString();
+                    return Html.Raw(link);
+                }),
+                grid.Column("Date", header: "Date", canSort:false, style:"idate", format: (item) => { return item.DateUpdated.ToString("MMM-dd-yyyy hh:mm tt"); }),
+                grid.Column("Actions", style:"iaction", canSort:false, format: (item) =>
+                {
+                    var links = string.Empty;
+                    int ibItems = 0;
+                    if (item.Unread)
+                    {
+                        ibItems = 1;
+                    }
+                    else
+                    {
+                        ibItems = DomainService.Instance.InboxItemCounts(ViewBag.UserInfo.UserId, item.ReferenceId, item.Id);
+                    }
+
+                    if (ibItems > 0)
+                    {
+                        links += "<a href=\"/Admin/Show?Id=" + ViewBag.UserInfo.UserId + "&ItemId=" + item.Id + "\" target = \"_blank\">View (<span style=\"color:red; font-weight:bolder\">" + Convert.ToString(ibItems) + "</span>)</a>";
+                    }
+                    else
+                    {
+
+                        links += "<a href=\"/Admin/Show?Id=" + ViewBag.UserInfo.UserId + "&ItemId=" + item.Id + "\" target = \"_blank\">View</a>";
+                    }
+                    return Html.Raw(links);
+                })
+ }
+ )
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-md-12">
+                        <div style="text-align:center; margin-top: -15px;">
+                            @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Inbox",
+                 new RouteValueDictionary()
+                 {
+                                { "pageNumber" , PageNumber},
+                                { "Id" , ViewBag.UserInfo.UserId}
+                 }),
+                 PagedListRenderOptions.ClassicPlusFirstAndLast)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,1727 @@
+﻿@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Models
+@using JobPortal.Web.Models
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@{
+    UserInfoEntity member = ViewBag.Profile;
+    UserInfoEntity uinfo = null;
+
+    string username = string.Empty;
+    if (User != null)
+    {
+        username = User.Username;
+        uinfo = User.Info;
+    }
+    string profileName = string.Format("{0}", member.FullName);
+
+    var eye = "<svg class='lnr lnr-eye' viewBox='0 0 18 18'><path d='M10,6.978c-1.666,0-3.022,1.356-3.022,3.022S8.334,13.022,10,13.022s3.022-1.356,3.022-3.022S11.666,6.978,10,6.978M10,12.267c-1.25,0-2.267-1.017-2.267-2.267c0-1.25,1.016-2.267,2.267-2.267c1.251,0,2.267,1.016,2.267,2.267C12.267,11.25,11.251,12.267,10,12.267 M18.391,9.733l-1.624-1.639C14.966,6.279,12.563,5.278,10,5.278S5.034,6.279,3.234,8.094L1.609,9.733c-0.146,0.147-0.146,0.386,0,0.533l1.625,1.639c1.8,1.815,4.203,2.816,6.766,2.816s4.966-1.001,6.767-2.816l1.624-1.639C18.536,10.119,18.536,9.881,18.391,9.733 M16.229,11.373c-1.656,1.672-3.868,2.594-6.229,2.594s-4.573-0.922-6.23-2.594L2.41,10l1.36-1.374C5.427,6.955,7.639,6.033,10,6.033s4.573,0.922,6.229,2.593L17.59,10L16.229,11.373z'></path></svg>";
+    var shr = "<svg class='lnr lnr-share' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none' /><path d='M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z' /></svg>";
+    var msg = "<svg class='lnr lnr-bubble' viewBox='0 0 1024 1024'><path d='M25.6 972.8c-11.507 0-21.6-7.677-24.67-18.766s1.634-22.864 11.501-28.784c86.57-51.942 122.485-127.414 135.218-162.755-94.088-72.048-147.648-171.746-147.648-276.094 0-52.704 13.23-103.755 39.323-151.736 24.902-45.794 60.406-86.806 105.526-121.899 91.504-71.17 212.802-110.365 341.55-110.365s250.046 39.195 341.552 110.366c45.118 35.093 80.624 76.104 105.526 121.899 26.091 47.979 39.322 99.030 39.322 151.734 0 52.702-13.23 103.755-39.322 151.736-24.902 45.794-60.408 86.806-105.526 121.899-91.506 71.17-212.803 110.365-341.552 110.365-52.907 0-104.8-6.627-154.437-19.707-21.974 14.637-63.040 40.605-112.086 65.005-76.163 37.89-141.528 57.102-194.277 57.102zM486.4 153.6c-239.97 0-435.2 149.294-435.2 332.8 0 92.946 51.432 182.379 141.107 245.368 8.797 6.178 12.795 17.194 10.013 27.576-5.984 22.325-26.363 83.597-80.878 142.734 66.659-23.341 138.424-63.832 191.434-100.286 6.296-4.328 14.197-5.621 21.544-3.52 48.558 13.888 99.691 20.928 151.981 20.928 239.97 0 435.2-149.294 435.2-332.8s-195.23-332.8-435.2-332.8z'></path></svg>";
+    var blk = "<svg class='lnr lnr-block' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none' /><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z' /></svg>";
+    var camara = "<svg class='lnr-camera' viewBox='0 0 32 32'><path d='M9.5 19c0 3.59 2.91 6.5 6.5 6.5s6.5-2.91 6.5-6.5-2.91-6.5-6.5-6.5-6.5 2.91-6.5 6.5zM30 8h-7c-0.5-2-1-4-3-4h-8c-2 0-2.5 2-3 4h-7c-1.1 0-2 0.9-2 2v18c0 1.1 0.9 2 2 2h28c1.1 0 2-0.9 2-2v-18c0-1.1-0.9-2-2-2zM16 27.875c-4.902 0-8.875-3.973-8.875-8.875s3.973-8.875 8.875-8.875c4.902 0 8.875 3.973 8.875 8.875s-3.973 8.875-8.875 8.875zM30 14h-4v-2h4v2z'></path></svg>";
+    if (string.IsNullOrEmpty(profileName))
+    {
+        profileName = "Profile";
+    }
+
+    bool allowUpload = true;
+
+    if (member.Type == 5)
+    {
+        allowUpload = (!string.IsNullOrEmpty(member.Summary) && member.CategoryId != null && (!string.IsNullOrEmpty(member.Mobile) || !string.IsNullOrEmpty(member.Phone)));
+    }
+    else if (member.Type == 4)
+    {
+        allowUpload = member.IsConfirmed;
+    }
+
+    ViewBag.Title = string.Format("{0} - Joblisting", profileName);
+    Layout = "~/Views/Shared/_LandingLayout.cshtml";
+
+    long? background = MemberService.Instance.GetAlbumPhotoId(member.Id, "Background");
+    byte[] bg_pic = MemberService.Instance.GetAlbumPhoto(null, member.Id, "Background");
+
+    long? avtar = MemberService.Instance.GetPhotoId("Profile", member.Username);
+    byte[] profilePic = MemberService.Instance.GetAlbumPhoto(null, member.Id, "Profile"); // MemberService.Instance.GetPhoto("Profile", member.Username);
+
+    long? trf = MemberService.Instance.GetAlbumPhotoId(member.Id, "TopRightFirst");
+    byte[] trfPic = MemberService.Instance.GetAlbumPhoto(null, member.Id, "TopRightFirst"); // MemberService.Instance.GetPhoto("TopRightFirst", member.Username);
+
+    long? trs = MemberService.Instance.GetAlbumPhotoId(member.Id, "TopRightSecond");
+    byte[] trsPic = MemberService.Instance.GetAlbumPhoto(null, member.Id, "TopRightSecond"); //MemberService.Instance.GetPhoto("TopRightSecond", member.Username);
+
+    long? brf = MemberService.Instance.GetAlbumPhotoId(member.Id, "BottomRightFirst");
+    byte[] brfPic = MemberService.Instance.GetAlbumPhoto(null, member.Id, "BottomRightFirst"); // MemberService.Instance.GetPhoto("BottomRightFirst", member.Username);
+
+    long? brs = MemberService.Instance.GetAlbumPhotoId(member.Id, "BottomRightSecond");
+    byte[] brsPic = MemberService.Instance.GetAlbumPhoto(null, member.Id, "BottomRightSecond"); // MemberService.Instance.GetPhoto("BottomRightSecond", member.Username);
+
+    string message = string.Empty;
+    string msgtype = "alert-success";
+    if (TempData["SaveData"] != null)
+    {
+        message = Convert.ToString(TempData["SaveData"]);
+        msgtype = "alert-success";
+    }
+    else if (TempData["UpdateData"] != null)
+    {
+        message = Convert.ToString(TempData["UpdateData"]);
+        msgtype = "alert-success";
+    }
+    else if (TempData["DeleteData"] != null)
+    {
+        message = Convert.ToString(TempData["DeleteData"]);
+        msgtype = "alert-success";
+    }
+    else if (TempData["Error"] != null)
+    {
+        message = Convert.ToString(TempData["Error"]);
+        msgtype = "alert-danger";
+    }
+    else if (TempData["Instruction"] != null)
+    {
+        message = Convert.ToString(TempData["Instruction"]);
+        msgtype = "alert-info";
+    }
+    string imageUrl = string.Empty;  
+    if (profilePic != null)
+    {
+        imageUrl = "data:image/jpeg;base64," + Convert.ToBase64String(profilePic);
+    }
+    else
+    {
+        if (member.Type == 5)
+        {
+            imageUrl = "/images/pro-img1.png";
+        }
+        else
+        {
+            if (member.Type == 4)
+            {
+                if (!string.IsNullOrEmpty(member.Gender) && member.Gender.Equals("Male"))
+                {
+                    imageUrl = "/images/pro-male.png";
+                }
+                else if (!string.IsNullOrEmpty(member.Gender) && member.Gender.Equals("Female"))
+                {
+                    imageUrl = "/images/pro-female.png";
+                }
+            }
+        }
+    }
+    
+    string itema_1_Url = string.Empty;
+    if (trfPic != null)
+    {
+        itema_1_Url = string.Format("data:image/jpeg;base64,{0}", Convert.ToBase64String(UIHelper.ScaleImage(trfPic, 379, 236)));
+    }
+    else
+    {
+        itema_1_Url = "/images/right-side-top-1.png";
+    }
+
+    string itema_2_Url = string.Empty;
+    if (trsPic != null)
+    {
+        itema_2_Url = string.Format("data:image/jpeg;base64,{0}", Convert.ToBase64String(UIHelper.ScaleImage(trsPic, 379, 236)));
+    }
+    else
+    {
+        itema_2_Url = "/images/right-side-top-2.png";
+    }
+
+    string item_1_Url = string.Empty;
+    if (brfPic != null)
+    {
+        item_1_Url = string.Format("data:image/jpeg;base64,{0}", Convert.ToBase64String(UIHelper.ScaleImage(brfPic, 379, 236)));
+    }
+    else
+    {
+        item_1_Url = "/images/right-side-bottom-1.png";
+    }
+
+    string item_2_Url = string.Empty;
+    if (brsPic != null)
+    {
+        item_2_Url = string.Format("data:image/jpeg;base64,{0}", Convert.ToBase64String(UIHelper.ScaleImage(brsPic, 379, 236)));
+    }
+    else
+    {
+        item_2_Url = "/images/right-side-bottom-2.png";
+    }
+    string profile_image_url = string.Empty;
+
+
+    if (bg_pic != null)
+    {
+        profile_image_url = string.Format("data:image/jpeg;base64,{0}", Convert.ToBase64String(UIHelper.ScaleImage(bg_pic, 758, 472)));
+    }
+    else
+    {
+        profile_image_url = string.Format("{0}://{1}/images/slider-img.png", Request.Url.Scheme, Request.Url.Authority);
+    }
+}
+<style>
+    .responsive-circle::after {
+        background: url("@imageUrl") no-repeat 0 0 / contain;
+        background-position: center center;
+        overflow:hidden;
+    }
+
+    .carousel-inner>.item>img{
+        display:initial  !important;
+    }
+
+    .carousel-inner > .item > img, .carousel-inner > .item > a > img{
+        display:initial  !important;
+    }
+    .left_down_fixed
+    {
+      position: fixed;
+      width:255px;
+      /*top: -79%;*/
+      /*margin-left: -100px;*/ /*half the width*/
+    }
+    .left_up_fixed
+    {
+      position: fixed;
+      width:255px;
+      /*top: 0%;*/
+      /*margin-left: -100px;*/ /*half the width*/
+    }
+
+    .right_down_fixed
+    {
+      position: fixed;
+      /*width:255px;*/
+      top: -10%;
+    }
+
+    .right_up_fixed
+    {
+      position: fixed;
+      /*width:255px;*/
+      top:0%;
+    }
+
+     .first::after {
+        background: url("/images/c1.jpg") no-repeat 0 0 / contain;
+        background-position: center center;
+    }
+
+    .second::after {
+        background: url("/images/c2.jpg") no-repeat 0 0 / contain;
+        background-position: center center;
+    }
+
+    .third::after {
+        background: url("/images/c3.jpg") no-repeat 0 0 / contain;
+        background-position: center center;
+    }
+
+    .lnr {
+        fill: currentColor;
+        width: 1em;
+        height: 1em;
+        vertical-align: -0.05em;
+    }
+
+    .lnr-eye {
+        color: #0F52BA;
+        font-size: 18px;
+    }
+
+    .lnr-share {
+        color: #0F52BA;
+        font-size: 15px;
+    }
+
+    .lnr-bubble {
+        color: #0F52BA;
+        font-size: 15px;
+    }
+
+    .lnr-block {
+        color: red;
+        font-size: 15px;
+    }
+
+    .lnr-block-disabled {
+        color: #A9ABA2;
+        font-size: 15px;
+    }
+
+    .lnr-camera {
+        fill:red;
+        color: red;
+        font-size: 32px;
+          width: 1em;
+        height: 1em;
+    }
+
+
+    .post-content-section {
+        padding-top:5px;
+        min-height: 58px;
+    }
+
+        .post-content-section h3 {
+            font-size: 12px;
+            margin: 0;
+            color: #999;
+            text-align: left;
+            text-transform: uppercase;
+        }
+
+            .post-content-section h3 a {
+                color: #999;
+                font-weight: bold;
+            }
+
+        .post-content-section > p {
+            color: #333;
+            font-family: 'Roboto', sans-serif;
+            font-size: 12px;
+            line-height: 16px;
+            margin: 0 0 6px;
+            padding: 2px 0 0;
+            text-align: justify;
+            font-weight: 400;
+        }
+    #verifyDialog {
+        background-color:rgba(85, 85, 85, 0.70);
+    }
+    #joinDialog {
+        background-color:rgba(85, 85, 85, 0.70);
+    }
+</style>
+
+<link href="~/Content/style.css" rel="stylesheet" />
+<link href="~/Content/member.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.finger.min.js"></script>
+
+<section class="slider-wrapper">
+    <div class="slider ">
+        <div class="row">
+            <div class="col-sm-8 custom-lsb">
+                <div class="row">
+                    <div class="overcls">
+                        <style>
+                            .pro-file-sec{
+                                background: url("@profile_image_url") no-repeat top left scroll;
+                                -webkit-background-size: cover;
+                                -moz-background-size: cover;
+                                -o-background-size: cover;
+                                background-size: cover;
+                            }
+                        </style>
+                        <div class="pro-file-sec">
+                            @*<img src="@profile_image_url" align="middle" />*@
+                            @if (Request.IsAuthenticated)
+                            {
+                                if (member.Username == username)
+                                {
+                                    <div id="AddPhotoBackground" data-type="Background" role="button" data-toggle='modal' data-target='#uploadDialog' data-size="758px x 472px" data-maxsize="6656" data-maxsizetext="6.5 MB" class="pic"><a data-toggle="tooltip" title="Add&nbsp;a&nbsp;background&nbsp;photo Dimension:&nbsp;758px&nbsp;x&nbsp;472px" style="color:red">@Html.Raw(camara)</a></div>
+                                }
+                            }
+                            @{
+                                string name = string.Empty;
+                                if (member != null)
+                                {
+                                    if (!string.IsNullOrEmpty(member.FullName))
+                                    {
+                                        string cname = (member.FullName.Length > 30 ? member.FullName.Substring(0, 30) : member.FullName);
+                                        cname = cname.Replace(" ", "&nbsp;");
+                                        name = string.Format("<span title=\"{1}\">{0}</span>", cname, member.FullName);
+                                    }
+                                }
+                            }
+                            <div id="ProfileName">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 grad1">
+                                        @Html.Raw(name)
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 text-right grad2">
+                                        @{
+                                            UserInfo userInfo = null;
+                                            if (member != null)
+                                            {
+                                                userInfo = new UserInfo(member.Id);
+                                            }
+                                            var loggedIn = (member != null);
+                                            string links = string.Empty;
+                                            links = "<a href=\"https://play.google.com/store/apps/details?id=com.joblisting.joblisting\" style=\"color:#ffffff; text-decoration:none\" target=\"_blank\">Android App</a> | ";
+                                        }
+                                        <div style="margin-bottom:10px; padding-right:15px;">
+                                            @if (User != null)
+                                            {
+                                                if (member.Id == uinfo.Id)
+                                                {
+                                                    links += "<a href='#' id='InviteContacts'>Invite contacts</a> | ";
+                                                    //links += Html.ActionLink("Price", "Index", "Payment", new { returnurl = "/Payment/Billing?userId=" + User.Id }, new { }).ToString() + " | ";
+                                                }
+
+                                                if (member.Id != uinfo.Id)
+                                                {
+                                                    if (!userInfo.IsConnected)
+                                                    {
+                                                        links += string.Format("<a href=\"{0}\" target=\"_blank\">Connect</a> | ", userInfo.ConnectUrl);
+                                                    }
+                                                    links += string.Format("<a href=\"{0}\" target=\"_blank\">Message</a> | ", userInfo.MessageUrl);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                links += string.Format("<a href=\"{0}\" target=\"_blank\">Connect</a> | ", userInfo.ConnectUrl);
+                                                links += string.Format("<a href=\"{0}\" target=\"_blank\">Message</a> | ", userInfo.MessageUrl);
+
+                                            }
+                                            @{
+                                                links += string.Format("<a href=\"{0}\" target=\"_blank\">Share</a>", userInfo.ShareUrl);
+                                            }
+
+                                            @if (!string.IsNullOrEmpty(userInfo.Content) && userInfo.CategoryId != null && userInfo.SpecializationId != null)
+                                            {
+                                                links += string.Format(" | <a href=\"{0}\" target=\"_blank\">Download</a>", userInfo.DownloadUrl);
+                                            }
+                                            @if (uinfo != null && uinfo.Type != 5)
+                                            {
+                                                if ( uinfo.Id == member.Id && uinfo.Type == 4 && uinfo.PromoteDate == null || (uinfo.PromoteDate.Value.Date < DateTime.Now.Date))
+                                                {
+                                                    links += " | <a href='/package/promote?id=" + member.Id + "&type=P&returnUrl=" + Request.Url.ToString() + "' class='promote' style='cursor:pointer'>Promote</a>";
+                                                }
+                                            }
+                                            @if (Request.IsAuthenticated && member.Id != uinfo.Id)
+                                            {
+                                                if (userInfo.IsBlockedByMe)
+                                                {
+                                                    links += string.Format(" | <a href=\"{0}\" target=\"_blank\">Unblock</a>", userInfo.UnblockUrl);
+                                                }
+                                                else
+                                                {
+                                                    links += userInfo.BlockLink.Replace("aBlock", "mBlock");
+                                                }
+                                            }
+                                            @Html.Raw(links)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="covercls">
+                            <div class="responsive-circle" data-toggle="popover" data-placement="top" title="Models' Pictures " data-content="Models' pictures below are for idea only. Will change accordingly!">
+                                @if (Request.IsAuthenticated)
+                                {
+                                    if (member.Username == username)
+                                    {
+                                        <div id="AddPhoto" data-type="Profile" role="button" data-toggle='modal' data-size="135px x 135px" data-maxsize="1024" data-maxsizetext="1 MB" data-target='#uploadDialog' class="pic"><a data-toggle="tooltip" title='Add&nbsp;Logo/Photo Dimension:&nbsp;135px&nbsp;x&nbsp;135px'>@Html.Raw(camara)</a></div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 custom-rsb">
+                <div class="row">
+                    <div class="right-side-bar">
+                        <div class="top-sec">
+                            <div class="rsbanner">
+                                @if (Request.IsAuthenticated)
+                                {
+                                    if (member.Username == username)
+                                    {
+                                        <div id="AddPhotoTopRight" class="pic" data-type="TopRight" role="button" data-toggle='modal' data-size="758px x 472px" data-maxsize="6656" data-maxsizetext="6.5 MB" data-target='#uploadDialog'><a data-toggle="tooltip" title="Add&nbsp;photo Dimension:&nbsp;758px&nbsp;x&nbsp;472px">@Html.Raw(camara)</a></div>
+                                    }
+                                }
+                                <div data-ride="carousel" class="carousel slide" id="carousel-example-generic" data-interval="false">
+                                    <!-- Indicators -->
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#carousel-example-generic" data-slide-to="0" class=""></li>
+                                        <li class="active" data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                        <li data-slide-to="2" data-target="#carousel-example-generic"></li>
+                                    </ol>
+                                    <style>
+                                        #TopFirst{
+                                            background: url("@itema_1_Url") no-repeat top left scroll;
+                                          -webkit-background-size: cover;
+                                          -moz-background-size: cover;
+                                          -o-background-size: cover;
+                                          background-size: cover;
+
+                                        }
+                                        #TopSecond{
+                                            background: url("@itema_2_Url") no-repeat top left scroll;
+                                          -webkit-background-size: cover;
+                                          -moz-background-size: cover;
+                                          -o-background-size: cover;
+                                          background-size: cover;
+
+                                        }
+                                        #BottomFirst{
+                                            background: url("@item_1_Url") no-repeat top left scroll;
+                                          -webkit-background-size: cover;
+                                          -moz-background-size: cover;
+                                          -o-background-size: cover;
+                                          background-size: cover;
+
+                                        }
+                                        #BottomSecond{
+                                            background: url("@item_2_Url") no-repeat top left scroll;
+                                          -webkit-background-size: cover;
+                                          -moz-background-size: cover;
+                                          -o-background-size: cover;
+                                          background-size: cover;
+
+                                        }
+                                    </style>
+                                    <!-- Wrapper for slides -->
+                                    <div role="listbox" class="carousel-inner" id="TopSliderItemList">
+                                        <div class="top_slider_item item active" id="TopFirst">
+                                            @*<img src="@itema_1_Url" align="middle" />*@
+                                        </div>
+                                        <div class="top_slider_item item" id="TopSecond">
+                                            @*<img src="@itema_2_Url" align="middle" />*@
+                                        </div>
+                                    </div>
+
+                                    <!-- Controls -->
+                                    <a data-slide="prev" role="button" href="#carousel-example-generic" class="left carousel-control"> <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span> <span class="sr-only">Previous</span> </a> <a data-slide="next" role="button" href="#carousel-example-generic" class="right carousel-control"> <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span> <span class="sr-only">Next</span> </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottom-sec">
+                            <div class="rsbbom">
+                                @if (Request.IsAuthenticated)
+                                {
+                                    if (member.Username == username)
+                                    {
+                                        <div id="AddPhotoTopBottom" data-type="BottomRight" role="button" data-toggle='modal' data-size="758px x 472px" data-maxsize="6656" data-maxsizetext="6.5 MB" data-target='#uploadDialog' class="pic"><a data-toggle="tooltip" title="Add&nbsp;photo Dimension:&nbsp;758px&nbsp;x&nbsp;472px">@Html.Raw(camara)</a></div>
+                                    }
+                                }
+                                <div data-ride="carousel" class="carousel slide" id="carousel-example-generic2" data-interval="7000">
+                                    <!-- Indicators -->
+                                    <ol class="carousel-indicators">
+                                        <li class="" data-slide-to="0" data-target="#carousel-example-generic2"></li>
+                                        <li data-slide-to="1" data-target="#carousel-example-generic2" class="active"></li>
+                                        <li data-slide-to="2" data-target="#carousel-example-generic2"></li>
+                                    </ol>
+
+                                    <!-- Wrapper for slides -->
+                                    <div role="listbox" class="carousel-inner bottom" data-interval="false" id="BottomSliderItemList">
+                                        <div class=" bottom_slider_item item active" id="BottomFirst">
+                                            @*<img src="@item_1_Url" align="middle" />*@
+                                        </div>
+                                        <div class="bottom_slider_item item" id="BottomSecond">
+                                            @*<img src="@item_2_Url" align="middle" />*@
+                                        </div>
+                                    </div>
+
+                                    <!-- Controls -->
+                                    <a data-slide="prev" role="button" href="#carousel-example-generic2" class="left carousel-control"> <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span> <span class="sr-only">Previous</span> </a>
+                                    <a data-slide="next" role="button" href="#carousel-example-generic2" class="right carousel-control"> <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span> <span class="sr-only">Next</span> </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="row">
+    <div class="col-sm-3 left-col">
+        <div class="left-side-bar" id="left-sidebar">
+            @if (Request.IsAuthenticated)
+            {
+                <div class="connections" style="height:440px;">
+                    <div class="sub-heading">
+                        @{
+                int counts = MemberService.Instance.CountWaitingForAcceptance(uinfo.Id);
+                        }
+                        @if (counts > 0)
+                        {
+                            <h2>Connections (<span><a href="@Url.Action("Index", "Network")" target="_blank" style="color:red; font-weight:bold">Waiting @counts</a></span>)</h2>
+                        }
+                        else
+                        {
+                            <h2>Connections</h2>
+                        }
+                    </div>
+                    <div id="ConnectionList" class="webpart" data-url="/home/connections?address=@member.PermaLink" style="height:350px;">
+                        <div class="post1">
+                            <div class="post-img"><img alt="..." src="/images/c1.jpg" data-toggle="tooltip" title="John Doe"></div>
+                            <div class="post-content">
+                                <section class="post-content-section">
+                                    <h3>John Doe</h3>
+                                    <p>United States</p>
+                                </section>
+                                <ul class="review">
+                                    <li><a href="javascript:void();" data-toggle="tooltip" title="Profile Viewed">@Html.Raw(eye)</a></li>
+                                    <li><a href="javascript:void();" target="_blank" data-toggle="tooltip" title="Share">@Html.Raw(shr)</a></li>
+                                    <li><a href="javascript:void();" data-toggle="tooltip" title="Message">@Html.Raw(msg)</a></li>
+                                    <li><a href="javascript:void();" data-toggle="tooltip" title="Block">@Html.Raw(blk)</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="post1">
+                            <div class="post-img"><img alt="..." src="/images/c2.jpg" data-toggle="tooltip" title="Anna Imari"></div>
+                            <div class="post-content">
+                                <section class="post-content-section">
+                                    <h3>Anna Imari</h3>
+                                    <p>United Kingdom</p>
+                                </section>
+                                <ul class="review">
+                                    <li><a href="javascript:void();" data-toggle="tooltip" title="Profile Viewed">@Html.Raw(eye)</a></li>
+                                    <li><a href="javascript:void();" target="_blank" data-toggle="tooltip" title="Share">@Html.Raw(shr)</a></li>
+                                    <li><a href="javascript:void();" data-toggle="tooltip" title="Message">@Html.Raw(msg)</a></li>
+                                    <li><a href="javascript:void();" data-toggle="tooltip" title="Block">@Html.Raw(blk)</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="post1">
+                            <div class="post-img"><img alt="..." src="/images/c3.jpg" data-toggle="tooltip" title="Yang Chen"></div>
+                            <div class="post-content">
+                                <section class="post-content-section">
+                                    <h3>Yang Chen</h3>
+                                    <p>Singapore</p>
+                                </section>
+                                <ul class="review">
+                                    <li><a href="javascript:void();" data-toggle="tooltip" title="Profile Viewed">@Html.Raw(eye)</a></li>
+                                    <li><a href="javascript:void();" target="_blank" data-toggle="tooltip" title="Share">@Html.Raw(shr)</a></li>
+                                    <li><a href="javascript:void();" data-toggle="tooltip" title="Message">@Html.Raw(msg)</a></li>
+                                    <li><a href="javascript:void();" data-toggle="tooltip" title="Block">@Html.Raw(blk)</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="height:15px;"></div>
+                    <div class="seemore"><a href="@Url.Action("Index", "Network")" target="_blank">See more connections</a><i aria-hidden="true" class="fa fa-angle-right"></i></div>
+                </div>                
+                <div class="peopleyou" style="height:208px;">
+                    <div class="sub-heading">
+                        <h2>People You May Know</h2>
+                    </div>
+                    <div>
+                        <ul id="PeopleList" class="peopleyou-img webpart" data-url="/home/peoplelist">
+                            <li><img src="~/Images/ajax-loader.gif" style="height:32px; width:32px" /></li>
+                        </ul>
+                    </div>
+                    <div class="seemore"><a href="@Url.Action("PeopleYouMayKnow", "Network")" target="_blank">See more people</a><i aria-hidden="true" class="fa fa-angle-right"></i></div>
+                </div>
+                
+                <div class="peopleyou" style="height:208px;">
+                    <div class="sub-heading">
+                        <h2>People Viewed Your Profile</h2>
+                    </div>
+                    <div>
+                        <ul id="PeopleViewedList" class="peopleyou-img webpart" data-url="/home/profileviews">
+                            <li><img src="~/Images/ajax-loader.gif" style="height:32px; width:32px" /></li>
+                        </ul>
+                    </div>
+                    <div class="seemore"><a href="@Url.Action("ProfileViewed", "Network")" target="_blank">See more people</a><i aria-hidden="true" class="fa fa-angle-right"></i></div>
+                </div>
+                
+                <div class="connect-with">
+                    <div class="sub-heading">
+                        <h2>Connect With</h2>
+                    </div>
+                    <div class="social-icons">
+                        <ul class="soc" style="width:32px;">
+                            <li><button type="submit" class="icon-14 googleplus" id="GooglePlus" name="provider" value="GooglePlus" title="Log in using your GooglePlus account" onclick="socialinviter.friendsinviter.auth('google')"><svg viewBox="0 0 512 512"><path d="M179.7 237.6L179.7 284.2 256.7 284.2C253.6 304.2 233.4 342.9 179.7 342.9 133.4 342.9 95.6 304.4 95.6 257 95.6 209.6 133.4 171.1 179.7 171.1 206.1 171.1 223.7 182.4 233.8 192.1L270.6 156.6C247 134.4 216.4 121 179.7 121 104.7 121 44 181.8 44 257 44 332.2 104.7 393 179.7 393 258 393 310 337.8 310 260.1 310 251.2 309 244.4 307.9 237.6L179.7 237.6 179.7 237.6ZM468 236.7L429.3 236.7 429.3 198 390.7 198 390.7 236.7 352 236.7 352 275.3 390.7 275.3 390.7 314 429.3 314 429.3 275.3 468 275.3" /></svg><!--[if lt IE 9]><em>GooglePlus</em><![endif]--></button></li>
+                        </ul>
+                    </div>
+                </div>
+                @Html.Partial("ImportContacts")
+                @Html.Partial("InviteFriend")
+            }
+            else
+            {
+                @Html.Partial("BasicPeopleSearch", new SearchJobSeekerModel())
+                @Html.Partial("BasicJobseekerSearch", new SearchJobSeekerModel())
+                @Html.Partial("BasicJobSearch", new SearchJobModel())
+            }
+        </div>
+    </div>
+    <div class="col-sm-6 center-col">
+        @Html.Action("Wall", "Home", new { id = member.Id })
+    </div>
+    <div class="col-sm-3 right-col sidebar">
+        <div class="right-side-bar" id="right-sidebar">
+            <div class="sponsored">
+                <div class="sub-heading">
+                    <h2>Sponsored Ads</h2>
+                </div>
+                <div class="abcdesign">
+                    @*<h3>ABC Design</h3>*@
+                    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                    <!-- Right-column-Ad-1 -->
+                    <ins class="adsbygoogle"
+                         style="display:block"
+                         data-ad-client="ca-pub-8925328521448849"
+                         data-ad-slot="8709143016"
+                         data-ad-format="rectangle"></ins>
+                    <script>
+                        (adsbygoogle = window.adsbygoogle || []).push({});
+                    </script>
+                </div>
+            </div>
+            @if ((User != null && uinfo.Role == SecurityRoles.Individual && uinfo.Id == member.Id))
+            {
+                @Html.Action("RecentJobs", "Home", new { Id = member.Id })
+            }
+            @if ((User != null && uinfo.Role == SecurityRoles.Company && uinfo.Id == member.Id))
+            {
+                @Html.Partial("_SearchPromotedJobSeekersLogo")
+            }
+            else if (User == null)
+            {
+                @Html.Action("RecentJobs", "Home", new { Id = member.Id })
+            }            
+        </div>
+    </div>
+</div>
+
+@if (uinfo != null && uinfo.IsConfirmed == true && (member.Id == uinfo.Id && allowUpload == true))
+{
+    <div class="modal fade" id="uploadDialog" tabindex="-1" role="dialog" aria-labelledby="uploadDialogLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="uploadDialogLabel">
+                        Upload Picture
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        @Html.Label("Upload Picture") (Current picture will be replaced)<br />
+                        <span style="color:red">(Allowed only JPG, JPEG or PNG up to size of <label id="uploadsize"></label> Max. - <span id="imageSize"></span> pixels.)</span>
+                        <input type="hidden" id="PictureType" />
+                        <input type="hidden" id="ActivePicture" />
+                        <input id="Photo" name="Photo" type="file" title="JPEG, JPG or PNG up to size of 6.5 MB Max." placeholder="UPLOAD PHOTO" class="form-control" />
+                        <div id="divPhotoError" style="color: red; font-weight: bold;"></div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px;">Close</button>
+                    <button type="button" id="photoUpload" data-dismiss="modal" class="btn btn-primary" style="width:75px;">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else if (User != null && member.Type == 5 && member.IsConfirmed == true && member.Id == uinfo.Id)
+{
+    <div class="modal fade" id="uploadDialog" tabindex="-1" role="dialog" aria-labelledby="uploadDialogLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="uploadDialogLabel">
+                        Upload Picture
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group" style="color:red">
+                        <h3 style="margin-top:5px;">Few more details are required;</h3>
+                        <ol>
+                            <li>Overview</li>
+                            <li>Category</li>
+                            <li>Mobile Number</li>
+                            <li>Phone Number</li>
+                        </ol>
+                    </div>
+                    <span style="color:#0110ed; font-size:18px;">Click <b><a href="/company/profile" style="color:#0110ed;font-size:18px;">HERE</a></b> to update now.</span>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px;">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@if (!Request.IsAuthenticated)
+{
+    <div class="modal fade" id="joinDialog" tabindex="-1" role="dialog" aria-labelledby="uploadDialogLabel" aria-hidden="true" data-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content" style="background-color:#fff; padding-top:25px; bottom:100px; padding-bottom:25px; bottom:0; margin:0 auto; text-align:center; width:85%; border-radius:5px;">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            <h3>Join joblisting.com and see more</h3>
+                        </div>
+                    </div>
+                </div>
+                <div style="height:5px;"></div>
+                <div class="row" style="text-align:center">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="form-group">
+                            @Html.ActionLink("Register", "Register", "Account", new { returnUrl = string.Format("/{0}", Request.Url.AbsolutePath.Replace("/", "")) }, new { @class = "btn btn-default btn-block", @style = " padding:5px; font-weight:bold;" })
+                            @Html.ActionLink("Login", "Login", "Account", new { returnUrl = string.Format("/{0}", Request.Url.AbsolutePath.Replace("/", "")) }, new { @class = "btn btn-primary  btn-block", @style = "padding:5px; font-weight:bold;" })
+                        </div>
+                    </div>
+                </div>
+                <div style="height:35px;"></div>
+                <div style="text-align:center">
+                    <div class="btn" style="background-color:#b3cb39;width: 92px;padding: 4px;height: 34px; border-color:#b3cb39; box-shadow:none">
+                        <a href="https://play.google.com/store/apps/details?id=com.joblisting.joblisting" style="background-color: #b3cb39; color:#ffffff;" target="_blank">
+                            <table cellpadding="0" style="margin-bottom: 0px;">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <i class="fa fa-android" aria-hidden="true" style="font-size:20px; color:#ffffff"></i>
+                                        </td>
+                                        <td>
+                                            <div style="font-size: 10px;padding-left:2px;line-height: 8px;">
+                                                Download for
+                                            </div>
+                                            <div style="font-size:18px">
+                                                Android
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    @*<div class="overlay" id="divFixed" style="background-color:#fff; height:250px;">
+        <div style=" background-color:#fff; padding-top:25px; padding-bottom:15px; bottom:0; margin:0 auto; text-align:center; width:85%; border-radius:5px;">
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        <h3>Join joblisting.com and see more</h3>
+                    </div>
+                </div>
+            </div>
+            <div style="height:5px;"></div>
+            <div class="row" style="text-align:center">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-group">
+                        @Html.ActionLink("Register", "Register", "Account", new { returnUrl = string.Format("/{0}", Request.Url.AbsolutePath.Replace("/", "")) }, new { @class = "btn btn-default btn-block", @style = " padding:5px; font-weight:bold;" })
+                        @Html.ActionLink("Login", "Login", "Account", new { returnUrl = string.Format("/{0}", Request.Url.AbsolutePath.Replace("/", "")) }, new { @class = "btn btn-primary  btn-block", @style = "padding:5px; font-weight:bold;" })
+                    </div>
+                </div>
+            </div>
+            <div style="height:35px;"></div>
+            <div style="text-align:center">
+                <div class="btn" style="background-color:#b3cb39;width: 92px;padding: 4px;height: 34px; border-color:#b3cb39; box-shadow:none">
+                    <a href="https://play.google.com/store/apps/details?id=com.joblisting.joblisting" style="background-color: #b3cb39; color:#ffffff;" target="_blank">
+                        <table cellpadding="0" style="margin-bottom: 0px;">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <i class="fa fa-android" aria-hidden="true" style="font-size:20px; color:#ffffff"></i>
+                                    </td>
+                                    <td>
+                                        <div style="font-size: 10px;padding-left:2px;line-height: 8px;">
+                                            Download for
+                                        </div>
+                                        <div style="font-size:18px">
+                                            Android
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </a>
+                </div>                
+            </div>
+        </div>
+    </div>*@
+}
+<div class="alert @msgtype alertmsg" role="alert" id="Success">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <div id="alertMessage" style="padding-left:5px; padding-right:5px; font-weight:bold; width:100%; margin-right:20px;">@Html.Raw(message)</div>
+</div>
+@if (Request.IsAuthenticated)
+{
+    <div class="modal fade" id="photoGallery" tabindex="-1" role="dialog" aria-labelledby="uploadDialogLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-body" style="padding-bottom:0px;overflow:hidden;text-align:center;">
+                    <div data-ride="carousel" class="carousel slide" id="carousel-example-generic3" data-interval="false">
+                        <!-- Indicators -->
+                        <ol class="carousel-indicators hide">
+                            <li class="active" data-target="#carousel-example-generic3" data-slide-to="0"></li>
+                            <li data-target="#carousel-example-generic3" data-slide-to="1"></li>
+                            <li data-slide-to="2" data-target="#carousel-example-generic3"></li>
+                            <li data-slide-to="3" data-target="#carousel-example-generic3"></li>
+                            <li data-slide-to="4" data-target="#carousel-example-generic3"></li>
+                            <li data-slide-to="5" data-target="#carousel-example-generic3"></li>
+                        </ol>
+
+                        <!-- Wrapper for slides -->
+                        <div role="listbox" class="carousel-inner photolist" style="text-align:center">
+
+                            <div id="imgBackground" class="item imgr" style="text-align:center">
+                                @if (background != null && bg_pic != null)
+                                {
+                                    <img alt="..." src="@Url.Action("Load", "Image", new { Id = background })" align="middle">
+                                }
+                                else
+                                {
+                                    <img alt="..." src="/images/slider-img.png" align="middle" width="870">
+                                }
+                                <div class="carousel-caption"> </div>
+                            </div>
+
+                            <div id="imgTopFirst" class="item" style="text-align:center">
+                                @if (trf != null)
+                                {
+                                    <img alt="..." class="imgr" src="@Url.Action("Load", "Image" , new { Id=trf })" align="middle">
+                                }
+                                else
+                                {
+                                    <img alt="..." class="imgr" src="/images/right-side-top-1.png" align="middle" width="870">
+                                }
+                                <div class="carousel-caption"> </div>
+                            </div>
+                            <div id="imgTopSecond" class="item " style="text-align:center">
+                                @if (trs != null)
+                                {
+                                    <img alt="..." class="imgr" src="@Url.Action("Load", "Image" , new { Id=trs })" align="middle">
+                                }
+                                else
+                                {
+                                    <img alt="..." class="imgr" src="/images/right-side-top-2.png" align="middle" width="870">
+                                }
+
+                                <div class="carousel-caption"> </div>
+                            </div>
+                            <div id="imgBottomFirst" class="item" style="text-align:center">
+                                @if (brf != null)
+                                {
+                                    <img alt="..." class="imgr" src="@Url.Action("Load", "Image" , new { Id=brf })" align="middle">
+                                }
+                                else
+                                {
+                                    <img alt="..." class="imgr" src="/images/right-side-bottom-1.png" align="middle" width="870">
+                                }
+                                <div class="carousel-caption hide">
+                                </div>
+                            </div>
+                            <div id="imgBottomSecond" class="item" style="text-align:center">
+                                @if (brs != null)
+                                {
+                                    <img alt="..." class="imgr" src="@Url.Action("Load", "Image" , new { Id=brs })" align="middle">
+                                }
+                                else
+                                {
+                                    <img alt="..." class="imgr" src="/images/right-side-bottom-2.png" align="middle" width="870">
+                                }
+                                <div class="carousel-caption hide">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Controls -->
+                        <a data-slide="prev" role="button" href="#carousel-example-generic3" class="left carousel-control"> <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span> <span class="sr-only">Previous</span> </a> <a data-slide="next" role="button" href="#carousel-example-generic3" class="right carousel-control"> <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span> <span class="sr-only">Next</span> </a>
+                    </div>
+
+                </div>
+                <div style="padding:10px; text-align:right">
+                    <button type="button" class="btn btn-default btn-xs" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div class="modal fade" id="uploadCSVDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" style="z-index: 1060">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Import contacts from CSV File
+                </h4>
+            </div>
+            @using (Html.BeginForm("UploadPst", "Network", FormMethod.Post, new { enctype = "multipart/form-data", @autocomplete = "off" }))
+            {
+                <div class="modal-body">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            @Html.Label("Select CSV File")
+                            <input id="postedFile" name="postedFile" type="file" title="Upload CSV File" class="form-control" placeholder="UPLOAD CSV FILE" onchange="return validate();" />
+                            <div id="divvalidFile" style="color: red; font-weight: bold;"></div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" id="SubmitCSV" class="btn btn-primary">Submit</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@{
+    decimal weightage = 0;
+    decimal width = 0;
+    if (User != null)
+    {
+        weightage = MemberService.Instance.GetProfileWeightage(uinfo.Id);
+        if (weightage < 25)
+        {
+            width = 25;
+        }
+        else
+        {
+            width = weightage;
+        }
+    }
+}
+@if (uinfo != null && (uinfo.Type == 4 || uinfo.Type == 5) && uinfo.IsConfirmed == false)
+{
+    <div class="modal fade" id="verifyDialog" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    @using (Html.BeginForm("Confirm", "Account", new { returnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @id = "VerifyForm", @autocomplete = "off" }))
+                    {
+                        <input type="hidden" id="id" name="id" value="@uinfo.Id" />
+                        <div class="text-center">
+                            @if (TempData["Error"] != null)
+                            {
+                                <div style="font-size:16px; color:red">@Convert.ToString(TempData["Error"])</div>
+                            }
+                            else
+                            {
+                                <span style="font-size:18px; font-weight:bold;">Verify Your Email!</span>
+                                <div style="font-size:16px;">We have sent an email with verification code and link to your email address: <b id="eplace">@uinfo.Username</b></div>
+                            }
+                            <div style="font-size:16px; padding-top:15px;">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3"></div>
+                                    <div class="col-lg-4 col-md-4">
+                                        <div class="form-group">
+                                            <input id="Token" name="Token" type="text" placeholder="Verification Code" maxlength="6" style="text-align:center" class="form-control" required oninvalid="this.setCustomValidity('Please enter verification code!')" oninput="this.setCustomValidity('')" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2">
+                                        <div class="form-group">
+                                            <button type="submit" id="bVerify" class="btn btn-primary btn-block" style="background-color:#00a6e0; width:100px;">Verify</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3"></div>
+                                </div>
+                                <div class="row" style="padding-top: 15px;">
+                                    <div class="col-lg-12 col-md-12">
+                                        <p>
+                                            If you did not get email, <a style="color:#00a6e0; cursor:pointer" role="button" class="resend">CLICK HERE</a> to resend verification email.<br />
+                                            If you want to change your email, <a style="color:#00a6e0; cursor:pointer" role="button" data-toggle="modal" data-target="#changeEmailDialog">CLICK HERE</a> now.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="font-size:16px; padding-top:15px;">
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3"></div>
+                                    <div class="col-lg-6 col-md-6">
+                                        <a role="button" class="btn btn-primary resend" style="background-color:#00a6e0; color:white; width:120px; ">Resend Email</a>
+                                        @*<a href="/account/changeemailaddress?email=@ViewBag.Email&returnUrl=@Request.Url.ToString()" class="btn btn-primary" style="background-color:#00a6e0; color:white; width:120px;">Change Email</a>*@
+                                        <a role="button" class="btn btn-primary" style="background-color:#00a6e0; color:white; width:120px;" data-toggle="modal" data-target="#changeEmailDialog">Change Email</a>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3"></div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div style="height:15px;"></div>
+                    <hr />
+                    <div>
+                        <p>
+                            <h4>Invite contacts and build network now!</h4>
+                        </p>
+                    </div>
+                    <div>
+                        <a href="/network/yahoo" target="_blank" style="width:48px; height:32px; padding:5px; display:inline-block; cursor:pointer" title="Import contact from Yahoo Mail">
+                            <img src="~/images/yahoo.png" alt="" height="32" width="32">
+                        </a>
+                        <a href="/network/google" target="_blank" style="width:48px; height:32px; padding:5px; display:inline-block; cursor:pointer" title="Import contacts from Gmail">
+                            <img src="~/images/gmail.png" alt="Gmail" height="32" width="32">
+                        </a>
+                        <a href="/network/live" target="_blank" style="width:48px; height:32px; padding:5px; display:inline-block; cursor:pointer" title="Import contacts from Outlook">
+                            <img src="~/images/outlook.png" alt="outlook" height="32" width="32" />
+                        </a>
+
+                        <a role="button" class="vucsv" data-toggle='modal' data-target='#uploadCSVDialog' style="width:48px; height:32px; padding:5px; display:inline-block; cursor:pointer" title="Import contacts by Uploading .csv file">
+                            <img src="~/images/File-CSV-icon.png" alt="CSV File Upload" height="32" width="32" />
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@if (uinfo != null && uinfo.Type == 4 && uinfo.IsConfirmed == true && uinfo.IsJobseeker == true && weightage < 100)
+{
+    <div class="modal fade" id="completeDialog" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div style="text-align:center">
+                        <p>
+                            <h4>If your profile is 100% complete, you may get job quickly!</h4>
+                        </p>
+                    </div>
+                    <div style="height:15px;"></div>
+                    <div class="progress" style="height: 38px;">
+                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="@width"
+                             aria-valuemin="0" aria-valuemax="100" style="width:@width%; height: 38px; padding: 10px; font-size: 17px;">
+                            @Math.Round(weightage)% Profile Completed
+                        </div>
+                    </div>
+                    <div style="height:15px;"></div>
+                    <div class="text-center">
+                        <a href="/jobseeker/updateprofile" class="btn btn-primary" style="width:200px; font-size:17px">Complete Profile Now</a>&nbsp;&nbsp;
+                    </div>
+                    <div style="height:15px;"></div>
+                    <hr />
+                    <div>
+                        <p>
+                            <h4>Invite contacts and build network now!</h4>
+                        </p>
+                    </div>
+                    <div>
+                        <a href="/network/yahoo" target="_blank" style="width:48px; height:32px; padding:5px; display:inline-block; cursor:pointer" title="Import contact from Yahoo Mail">
+                            <img src="~/images/yahoo.png" alt="" height="32" width="32">
+                        </a>
+                        <a href="/network/google" target="_blank" style="width:48px; height:32px; padding:5px; display:inline-block; cursor:pointer" title="Import contacts from Gmail">
+                            <img src="~/images/gmail.png" alt="Gmail" height="32" width="32">
+                        </a>
+                        <a href="/network/live" target="_blank" style="width:48px; height:32px; padding:5px; display:inline-block; cursor:pointer" title="Import contacts from Outlook">
+                            <img src="~/images/outlook.png" alt="outlook" height="32" width="32" />
+                        </a>
+
+                        <a role="button" data-toggle='modal' data-target='#uploadDialog' style="width:48px; height:32px; padding:5px; display:inline-block; cursor:pointer" title="Import contacts by Uploading .csv file">
+                            <img src="~/images/File-CSV-icon.png" alt="CSV File Upload" height="32" width="32" />
+                        </a>
+                    </div>
+                    <div class="text-right">
+                        <a href="#" style="color:#0F52BA" data-dismiss="modal" role="button">Not Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div class="modal fade" id="inviteDialog" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class=" modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div>
+                    <p>
+                        <h4>Invite contacts and build network now!</h4>
+                    </p>
+                </div>
+                <div style="height:15px;"></div>
+                <div>
+                    <a href="/network/yahoo" target="_blank" style="width:48px; height:32px; padding:5px; display:inline-block; cursor:pointer" title="Import contact from Yahoo Mail">
+                        <img src="~/images/yahoo.png" alt="" height="32" width="32">
+                    </a>
+                    <a href="/network/google" target="_blank" style="width:48px; height:32px; padding:5px; display:inline-block; cursor:pointer" title="Import contacts from Gmail">
+                        <img src="~/images/gmail.png" alt="Gmail" height="32" width="32">
+                    </a>
+                    <a href="/network/live" target="_blank" style="width:48px; height:32px; padding:5px; display:inline-block; cursor:pointer" title="Import contacts from Outlook">
+                        <img src="~/images/outlook.png" alt="outlook" height="32" width="32" />
+                    </a>
+
+                    <a role="button" data-toggle='modal' class="csvupload" data-target='#uploadCSVDialog' style="width:48px; height:32px; padding:5px; display:inline-block; cursor:pointer" title="Import contacts by Uploading .csv file">
+                        <img src="~/images/File-CSV-icon.png" alt="CSV File Upload" height="32" width="32" />
+                    </a>
+                </div>
+                <div style="height:15px;"></div>
+                <div class="text-right">
+                    <a href="#" style="color:#0F52BA" data-dismiss="modal" role="button">Not Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@{
+    string email_pattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,3}$";
+}
+<div class="modal fade" id="changeEmailDialog" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class=" modal-dialog" style="width:280px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">
+                    Change Login Email
+                </h4>
+            </div>
+            <div class="modal-body">
+                <form id="ChangeEmailForm">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <label for="OldEmailAddress">Current Login Email</label>
+                                <input type="text" id="OldEmailAddress" name="OldEmailAddress" value="@userInfo.Username" class="form-control" placeholder="OLD LOGIN EMAIL" readonly="readonly" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear" style="height:10px;"></div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <label for="NewEmailAddress">New Login Email</label>
+                                <input type="text" id="NewEmailAddress" name="NewEmailAddress" class="form-control" placeholder="NEW LOGIN EMAIL" required pattern="@email_pattern" oninvalid="setCustomValidity('Provide email address in correct format!')" , oninput="setCustomValidity('')" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear" style="height:10px;"></div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <button type="submit" id="bChangeEmail" class="btn btn-info" style="text-transform:capitalize">Change Login Email</button>
+                            <button class="btn btn-default pull-right" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@{
+    string redirect = string.Empty;
+    if (uinfo != null && uinfo.IsJobseeker)
+    {
+        redirect = Request.QueryString["returnUrl"];
+    }
+    else
+    {
+        redirect = Request.QueryString["returnUrl"];
+        if (uinfo != null && uinfo.Role != JobPortal.Library.Enumerators.SecurityRoles.Company)
+        {
+            redirect = string.Format("/job/preview?returnUrl={0}", Request.QueryString["returnUrl"]);
+            if (!string.IsNullOrEmpty(redirect) && !redirect.Contains("indeed"))
+            {
+                redirect = Request.QueryString["returnUrl"];
+            }
+        }
+    }
+}
+<script>
+    var loggedIn = "@(TempData["LoginStatus"]!=null ? Convert.ToString(TempData["LoginStatus"]) : "")";
+    $("#InviteContacts").click(function () {
+        $("#inviteDialog").modal("show");
+    });
+
+    var authflag = "@Request.IsAuthenticated";
+
+    function loadVerifyDialog() {
+        $("#verifyDialog").modal("show");
+    }
+    function loadCompleteDialog() {
+        $("#completeDialog").modal("show");
+    }
+    $(document).ready(function () {
+        if (authflag == "False") {
+            $("#joinDialog").modal("show");
+        }
+
+        $("#bVerify").click(function () {
+            var json = { id: $("#verifyDialog #id").val(), token: $("#verifyDialog #Token").val() };
+            var flag = $("#VerifyForm")[0].checkValidity();
+            if (flag) {                
+                $.post("/jsonhelper/confirm", json, function (result) {
+                    if (result.Id > 0) {
+                        toastr.info(result.Message);                       
+                        $("#verifyDialog").modal("hide");
+                        window.location.href = "@redirect";
+                    } else {
+                        toastr.error(result.Message);
+                    }
+                });
+                return false;
+            }
+        });
+
+        $("#bChangeEmail").click(function () {
+            var json = $("#ChangeEmailForm").serializeObject();
+            var flag = $("#ChangeEmailForm")[0].checkValidity();
+            if (flag) {
+                $.post("/account/changeemail", json, function (result) {
+                    if (result.Id > 0) {
+                        toastr.info(result.Message);
+                        $("#changeEmailDialog #OldEmailAddress").val(json.NewEmailAddress);
+                        $("#verifyDialog #eplace").text(json.NewEmailAddress);
+                    } else {
+                        toastr.error(result.Message);
+                    }
+                    $("#changeEmailDialog").modal("hide");
+                });
+                return false;
+            }
+        });
+
+        $("#verifyDialog .resend").click(function () {
+            $.post("/jsonhelper/resend", {}, function (result) {
+                toastr.info(result);
+            });
+        });
+
+        $(".vucsv").click(function () {
+            $("#postedFile").val("")
+            $("#divvalidFile").html("");
+        });
+
+        $(".csvupload").click(function () {
+            $("#inviteDialog").modal("hide");
+            $("#divvalidFile").html("");
+            $("#postedFile").val("");
+        });
+
+        $("#photoUpload").click(function () {
+            var flag = true;
+            if ($("#Photo").val() == null || $("#Photo").val() == "") {
+                $("#divPhotoError").html("Please select file!");
+                flag = false;
+            } else {
+                $("#divPhotoError").html("");
+            }
+            return flag;
+        });
+        $("#SubmitCSV").click(function () {
+            var flag = true;
+            if ($("#postedFile").val() == null || $("#postedFile").val() == "") {
+                $("#divvalidFile").html("Please select file!");
+                flag = false;
+            } else {
+                $("#divvalidFile").html("");
+            }
+            return flag;
+        });
+        $('[data-toggle="tooltip"]').tooltip();
+        var cpflag = "@(uinfo != null && uinfo.Type == 4 && uinfo.IsJobseeker == true && weightage < 90)";
+        if (cpflag == "True") {
+            setTimeout("loadCompleteDialog()", 8000);
+        }
+
+        var vdflag = "@(uinfo != null && uinfo.IsConfirmed == false)";
+        if (vdflag == "True") {
+            loadVerifyDialog();
+        }
+
+        var defineSize = 6656;
+        var defineSizeText = "";
+        var durl = "@ViewBag.DownloadUrl"
+        if (durl != "") {
+            durl = durl.replace("amp;", "");
+            durl = durl.replace("amp;", "");
+            window.location.href = "@Request.Url.Scheme://@Request.Url.Authority" + durl;
+        }
+        var msg = "@message";
+        if (msg != null && msg != "") {
+            $(".alert").removeClass("in").show();
+            $(".alert").delay(10000).addClass("in").fadeOut(10000);
+        }
+        $("#AddPhotoTopRight").hide();
+        $("#AddPhotoTopBottom").hide();
+        $("#AddPhotoBackground").hide();
+        $("#AddPhoto").hide();
+
+        $("#AddPhoto").click(function () {
+            $("#divPhotoError").html("");
+            $("#Photo").val("");
+            var confirmed = "@member.IsConfirmed";
+            defineSize = $(this).data('maxsize');
+            defineSizeText = $(this).data('maxsizetext');
+            $("#uploadsize").text(defineSizeText);
+            if (confirmed == "False") {
+                window.location.href = "@Url.Action("ConfirmRegistration","Account")";
+            }
+
+            $("#PictureType").val($(this).data('type'));
+            var dimension = $(this).data('size');
+            $("#imageSize").text(dimension);
+        });
+
+        $(".rsbanner").mouseover(function () {
+            $("#AddPhotoTopRight").show();
+        });
+
+        $(".rsbanner").mouseout(function () {
+            $("#AddPhotoTopRight").hide();
+        });
+
+        $("#AddPhotoTopRight").click(function () {
+            $("#divPhotoError").html("");
+            $("#Photo").val("");
+            var confirmed = "@member.IsConfirmed";
+            defineSize = $(this).data('maxsize');
+            defineSizeText = $(this).data('maxsizetext');
+            $("#uploadsize").text(defineSizeText);
+            if (confirmed == "False") {
+                window.location.href = "@Url.Action("ConfirmRegistration","Account")";
+            }
+
+            $("#PictureType").val($(this).data('type'));
+            var dimension = $(this).data('size');
+            $("#imageSize").text(dimension);
+            if ($(this).data('type') == "TopRight") {
+                var i = $.find("#TopSliderItemList .active");
+                var type = $(this).data('type') + i[0].id.replace("Top", "");
+                $("#ActivePicture").val(type);
+            }
+        });
+
+        $(".rsbbom").mouseover(function () {
+            $("#AddPhotoTopBottom").show();
+        });
+
+        $(".rsbbom").mouseout(function () {
+            $("#AddPhotoTopBottom").hide();
+        });
+
+        $("#AddPhotoTopBottom").click(function () {
+            $("#divPhotoError").html("");
+            $("#Photo").val("");
+            var confirmed = "@member.IsConfirmed";
+            defineSize = $(this).data('maxsize');
+            defineSizeText = $(this).data('maxsizetext');
+            $("#uploadsize").text(defineSizeText);
+            if (confirmed == "False") {
+                window.location.href = "@Url.Action("ConfirmRegistration","Account")";
+            }
+
+            $("#PictureType").val($(this).data('type'));
+            var dimension = $(this).data('size');
+            $("#imageSize").text(dimension);
+
+            if ($(this).data('type') == "TopRight") {
+                var i = $.find("#TopSliderItemList .active");
+                var type = $(this).data('type') + i[1].id.replace("Top", "");
+                $("#ActivePicture").val(type);
+            }
+
+            if ($(this).data('type') == "BottomRight") {
+                var i = $.find(".carousel-inner .active");
+                var type = $("#PictureType").val() + i[1].id.replace("Bottom", "");
+                $("#ActivePicture").val(type);
+            }
+        });
+
+
+        $(".pro-file-sec").mouseover(function () {
+            $("#AddPhotoBackground").show();
+        });
+
+        $("#AddPhotoBackground").click(function () {
+            $("#divPhotoError").html("");
+            $("#Photo").val("");
+            var confirmed = "@member.IsConfirmed";
+            defineSize = $(this).data('maxsize');
+            defineSizeText = $(this).data('maxsizetext');
+            $("#uploadsize").text(defineSizeText);
+            if (confirmed == "False") {
+                window.location.href = "@Url.Action("ConfirmRegistration","Account")";
+            }
+
+            $("#PictureType").val($(this).data('type'));
+            var dimension = $(this).data('size');
+            $("#imageSize").text(dimension);
+
+            if ($(this).data('type') == "TopRight") {
+                var i = $(".carousel-inner .active").find("img");
+                var type = $(this).data('type') + i.attr("id").replace("Top", "");
+                $("#ActivePicture").val(type);
+            }
+
+            if ($(this).data('type') == "BottomRight") {
+                var i = $(".bottom .active").find("img");
+                var type = $("#PictureType").val() + i.attr("id").replace("Bottom", "");
+                $("#ActivePicture").val(type);
+            }
+        });
+
+        $(".pro-file-sec").mouseout(function () {
+            $("#AddPhotoBackground").hide();
+        });
+
+        $(".responsive-circle").mouseover(function () {
+            $("#AddPhoto").show();
+        });
+        $(".responsive-circle").mouseout(function () {
+            $("#AddPhoto").hide();
+        });
+
+        $(".pro-file-sec").dblclick(function () {
+            $(".photolist .item").removeClass("active");
+            $("#imgBackground").addClass("active");
+            $("#photoGallery").modal("show");
+        });
+
+        $(".pro-file-sec").on('doubletap', function () { // Mobile browsers only
+            $(".photolist .item").removeClass("active");
+            $("#imgBackground").addClass("active");
+            $("#photoGallery").modal("show");
+        });
+
+        $("#TopFirst").on('doubletap', function () {
+            var type = "BottomFirst";
+            $(".photolist .item").removeClass("active");
+            $("#img" + type).addClass("active");
+            $("#photoGallery").modal("show");
+        });
+
+        $("#TopSecond").on('doubletap', function () {
+            var type = "TopSecond";
+            $(".photolist .item").removeClass("active");
+            $("#img" + type).addClass("active");
+            $("#photoGallery").modal("show");
+        });
+
+        $("#TopFirst").dblclick(function () {
+            var type = "TopFirst";
+            $(".photolist .item").removeClass("active");
+            $("#img" + type).addClass("active");
+            $("#photoGallery").modal("show");
+        });
+
+        $("#TopSecond").dblclick(function () {
+            var type = "TopSecond";
+            $(".photolist .item").removeClass("active");
+            $("#img" + type).addClass("active");
+            $("#photoGallery").modal("show");
+        });
+
+
+        $("#BottomFirst").on('doubletap', function () {
+            var type = "BottomFirst";
+            $(".photolist .item").removeClass("active");
+            $("#img" + type).addClass("active");
+            $("#photoGallery").modal("show");
+        });
+
+        $("#BottomSecond").on('doubletap', function () {
+            var type = "BottomSecond";
+            $(".photolist .item").removeClass("active");
+            $("#img" + type).addClass("active");
+            $("#photoGallery").modal("show");
+        });
+
+        $("#BottomFirst").dblclick(function () {
+            var type = "BottomFirst";
+            $(".photolist .item").removeClass("active");
+            $("#img" + type).addClass("active");
+            $("#photoGallery").modal("show");
+        });
+
+        $("#BottomSecond").dblclick(function () {
+            var type = "BottomSecond";
+            $(".photolist .item").removeClass("active");
+            $("#img" + type).addClass("active");
+            $("#photoGallery").modal("show");
+        });
+
+        var imgSize = "";
+
+        $("#Photo").change(function () {
+            var file = document.getElementById('Photo').files[0];
+
+            var fileSize;
+            if (file.size == undefined) {
+                fileSize = file.fileSize;
+            } else {
+                fileSize = file.size
+            }
+            var name = file.name;
+            var ext = name.substr(name.lastIndexOf(".") + 1, 4).toLowerCase();
+            var allowed = "png, jpg, jpeg, gif";
+            $("#divPhotoError").html("");
+            if (name.length <= 0) {
+                $("#divPhotoError").html("Please select file!");
+                $("#photoUpload").attr('disabled', true);
+            }
+
+            if (fileSize > (defineSize * 1024)) {
+                $("#divPhotoError").html("Up to " + defineSizeText + " max file size.!");
+                $("#photoUpload").attr('disabled', true);
+            } else {
+                $("#photoUpload").attr('disabled', false);
+            }
+
+            if (allowed.indexOf(ext) < 0) {
+                $("#divPhotoError").html("Allowed file type are JPG, JPEG, PNG, GIF only.!");
+                $("#photoUpload").attr('disabled', true);
+            } else {
+                $("#photoUpload").attr('disabled', false);
+            }
+
+            var _URL = window.URL || window.webkitURL;
+            var image = new Image();
+
+            image.onload = function () {
+                //alert("The image width is " + this.width + " and image height is " + this.height);
+                if (this.height < this.width && this.height < 135) {
+                    imgSize = "contain";
+                } else {
+                    imgSize = "cover";
+                }
+            };
+            image.src = _URL.createObjectURL(file);
+        });
+
+        $("#photoUpload").click(function () {
+            $("#divAjaxBar").show();
+            var file = document.getElementById('Photo').files[0];
+            var name = file.name;
+            var ext = name.substr(name.lastIndexOf(".") + 1, 4).toLowerCase();
+
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+
+            reader.onload = function (e) {
+                var binaryString = e.target.result.toString();
+                binaryString = binaryString.replace("data:image/png;base64,", "");
+                binaryString = binaryString.replace("data:image/jpeg;base64,", "");
+                binaryString = binaryString.replace("data:image/gif;base64,", "");
+                binaryString = binaryString.replace("data:image/jpg;base64,", "");
+                var type = "";
+                if (ext == "jpg") {
+                    type = "data:image/jpg;base64";
+                } else if (ext == "jpeg") {
+                    type = "data:image/jpeg;base64";
+                } else if (ext == "png") {
+                    type = "data:image/png;base64";
+                } else if (ext == "gif") {
+                    type = "data:image/gif;base64";
+                }
+
+                var loc = $("#PictureType").val();
+                if (loc == "TopRight") {
+                    loc = $("#ActivePicture").val();
+                }
+
+                if (loc == "BottomRight") {
+                    loc = $("#ActivePicture").val();
+                }
+
+                $.post('@Url.Action("PictureUpload", "JsonHelper")', { Username: "@(User != null ? username : "")", data: binaryString, area: loc, type: type, size: imgSize },
+                   function (result) {
+                       $("#alertMessage").text(result);
+                       $(".alert").removeClass("in").show();
+                       $(".alert").delay(5000).addClass("in").fadeOut(5000);
+
+                   });
+            }; 28
+        });
+
+        if (loggedIn != "") {
+            setTimeout("showInfoBox()", 17000);
+        }
+
+        $(".mBlock").click(function () {
+            var bname = $(this).data('name');
+            var actionUrl = $(this).data('href');
+            var loggedInUserRole = "@(Request.IsAuthenticated ? uinfo.Role.GetDescription() : "")";
+            var msgText = "";
+            var role = $(this).data('role');
+            var isConfirmed = "@(Request.IsAuthenticated ? uinfo.IsConfirmed : false)";
+            if (isConfirmed == "True") {
+                if ((role == "Company" && loggedInUserRole == "Individual") || (loggedInUserRole == "Company" && role == "Individual")) {
+                    var msgText = "<b>Following may be withdrawn with <span id=\"bname\" style=\"font-weight:bold\">" + bname + "</span>:</b><br/>";
+                    msgText += "<ul>";
+                    msgText += "<li>Application(s)!</li>";
+                    msgText += "<li>Matching!</li>";
+                    msgText += "<li>Bookmark(s)!</li>";
+                    msgText += "<li>Interview(s)!</li>";
+                    msgText += "<li>Connection!</li>";
+                    msgText += "</ul>";
+                } else {
+                    if ($(this).data('connected') == "True") {
+                        msgText = "<b>Block</b> action will disconnect you with <span id=\"bname\" style=\"font-weight:bold\"><b>" + bname + "</span></b><br/>";
+                    } else {
+                        msgText = "<b>Block</b> <span id=\"bname\" style=\"font-weight:bold\"><b>" + bname + "</span></b><br/>";
+                    }
+                }
+                msgText += "<div style=\"text-align:right; color:red; font-size:1.5em;\">Are you sure?</div>";
+                $(".modal-body #divMsg").html(msgText);
+
+                actionUrl = $(this).data('href');
+                $("#dialogOk").click(function () {
+                    window.location.href = actionUrl;
+                });
+            }
+        });
+        var flag = "@Request.IsAuthenticated";
+        if (flag == "True") {
+            $(".webpart").each(function (index, item) {
+                var url = "@Request.Url.Scheme://@Request.Url.Authority" + $(item).data("url");
+                if (url && url.length > 0) {
+                    $(item).load(url);
+                }
+            });
+            setInterval("load_people()", 30000);
+            setInterval("load_viewed()", 30000);
+        }
+    });
+
+    function load_connections() {
+        $("#ConnectionList").each(function (index, item) {
+            var url = "@Request.Url.Scheme://@Request.Url.Authority" + $(item).data("url");
+            if (url && url.length > 0) {
+                $(item).load(url);
+            }
+        });
+    }
+
+    function load_people() {
+        $("#PeopleList").each(function (index, item) {
+            var url = "@Request.Url.Scheme://@Request.Url.Authority" + $(item).data("url");
+            if (url && url.length > 0) {
+                $(item).load(url);
+            }
+        });
+    }
+
+    function load_viewed() {
+        $("#PeopleList").each(function (index, item) {
+            var url = "@Request.Url.Scheme://@Request.Url.Authority" + $(item).data("url");
+            if (url && url.length > 0) {
+                $(item).load(url);
+            }
+        });
+    }
+
+    function showInfoBox() {
+        $('[data-toggle="popover"]').popover({
+            template:
+                '<div class="popover">\
+<div class="arrow"></div>\
+<div class="popover-header">\
+<button type="button" class="close" data-dismiss="popover" aria-hidden="true">&times;</button>\
+<h3 class="popover-title"></h3>\
+</div>\
+<div class="popover-content"></div>\
+</div>'
+        });
+        $('[data-toggle="popover"]').popover("show");
+        $(".popover").click(function () {
+            $('[data-toggle="popover"]').popover("hide");
+        });
+        setTimeout("hideInfoBox()", 12000);
+    }
+    function hideInfoBox() {
+        $('[data-toggle="popover"]').popover("hide");
+    }
+</script>

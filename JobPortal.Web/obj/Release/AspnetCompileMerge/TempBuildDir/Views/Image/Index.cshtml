@@ -1,0 +1,206 @@
+﻿@using JobPortal.Data
+@using JobPortal.Domain
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+
+    long? id = MemberService.Instance.GetPhotoId("Profile", User.Name);
+}
+<style>
+    .responsive-circle::after {
+        background: url("@Url.Action("Avtar", "Image", new { Id= User.Id })") no-repeat 0 0 / contain;
+        background-position: center center;
+    }
+
+    .responsive-circle {
+        bottom: 20px;
+        left: 20px;
+        position: absolute;
+        font-size: 75px;
+        font-weight: 700;
+        height: 135px;
+        width: 135px;
+        background-color: #fff;
+        border-radius: 50%;
+    }
+
+        .responsive-circle::after {
+            border-radius: 50%;
+            content: "";
+            display: block;
+            height: 0;
+            margin-bottom: 20px;
+            padding-bottom: 100%;
+            width: 100%;
+        }
+
+     .square110::after {
+        background: url("http://autonetmagz.com/wp-content/uploads/2015/05/wallpaper-renault-kadjar-728x404.jpg") no-repeat 0 0 / contain;
+        background-size: 758px 472px;
+    overflow:hidden;
+    }
+
+    .square110 {
+
+        font-size: 75px;
+        font-weight: 700;
+        height: 472px;
+        width: 758px;
+        background-color: #red;
+        }
+
+        .square110::after {
+
+            content: "";
+            display: block;
+            height: 0;
+            padding-bottom: 100%;
+            width: 100%;
+        }
+
+     .square80::after {
+        background: url("http://autonetmagz.com/wp-content/uploads/2015/05/wallpaper-renault-kadjar-728x404.jpg") no-repeat 0 0 / contain;
+        background-position: top left;
+    background-size: 475px 296px;
+    overflow:hidden;
+    }
+
+    .square80 {
+   
+        font-size: 75px;
+        font-weight: 700;
+        height: 296px;
+        width: 475px;
+        background-color: #fff;
+        }
+
+        .square80::after {
+
+            content: "";
+            display: block;
+            height: 0;
+            padding-bottom: 100%;
+            width: 100%;
+        }
+
+     .square58::after {
+        background: url("http://autonetmagz.com/wp-content/uploads/2015/05/wallpaper-renault-kadjar-728x404.jpg") no-repeat 0 0 / contain;
+        background-size: 379px 236px;
+        background-position: top left;
+    overflow:hidden;
+    }
+
+    .square58 {
+   
+        font-size: 75px;
+        font-weight: 700;
+        height: 236px;
+        width: 282px;
+        background-color: #fff;
+        }
+
+        .square58::after {
+            content: "";
+            display: block;
+            height: 0;
+            padding-bottom: 100%;
+            width: 100%;
+        }
+
+     .square54::after {
+        background: url("@Url.Action("Avtar", "Image", new { Id= User.Id })") no-repeat 0 0 / contain;
+        background-position: center center;
+    }
+
+    .square54 {
+    border: 1px solid lightgray;
+        font-size: 75px;
+        font-weight: 700;
+        height: 54px;
+        width: 54px;
+        background-color: #fff;
+        }
+
+        .square54::after {
+
+            content: "";
+            display: block;
+            height: 0;
+            padding-bottom: 100%;
+            width: 100%;
+        }
+
+    .square48::after {
+        background: url("@Url.Action("Avtar", "Image", new { Id= User.Id })") no-repeat 0 0 / contain;
+        background-position: center center;
+    }
+
+    .square48 {
+        border: 1px solid lightgray;
+        font-size: 75px;
+        font-weight: 700;
+        height: 48px;
+        width: 48px;
+        background-color: #fff;
+        }
+
+        .square48::after {
+
+            content: "";
+            display: block;
+            height: 0;
+            padding-bottom: 100%;
+            width: 100%;
+        }
+</style>
+
+<h2>Updated Successfully!</h2>
+<div class="section">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="square110"></div>
+        </div>
+        <div class="col-sm-4">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="square58"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="square58"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br />
+<br />
+<div class="square80"></div>
+<br />
+<br />
+
+<br />
+<br />
+<div class="square54"></div>
+<br />
+<br />
+<div class="square48"></div>
+@*<div class="responsive-circle">
+    </div>
+    <br />*@
+
+@*
+    <br />
+    <div style="height:58px; width:58px; border:1px solid #bbb9b9">
+        <img src="data:image/png;base64,@Convert.ToBase64String(avtar.Image)">
+    </div>
+    <br />
+    <div style="height:54px; width:54px; border:1px solid #bbb9b9">
+        <img src="data:image/png;base64,@Convert.ToBase64String(avtar.Image)">
+    </div>
+    <br />
+    <div style="height:48px; width:48px; border:1px solid #bbb9b9">
+        <img src="data:image/png;base64,@Convert.ToBase64String(avtar.Image)">
+    </div>*@
+<br />

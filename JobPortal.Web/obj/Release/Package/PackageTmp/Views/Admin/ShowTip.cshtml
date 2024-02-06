@@ -1,0 +1,19 @@
+﻿@model JobPortal.Data.Tip
+
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">@Model.Title</h1>
+        </div>
+    </div>
+</div>
+@Html.Partial("_MessagePartial")
+<div class="clear" style="height:15px;"></div>
+<div class="list-group-item">
+    @Html.Raw(Model.Body)
+</div>

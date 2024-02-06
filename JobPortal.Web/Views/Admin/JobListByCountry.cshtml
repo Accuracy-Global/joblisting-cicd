@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = @ViewBag.Country.Text + "Jobs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">@ViewBag.Country.Text Jobs</h1>
+            Manage Jobs here
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:15px;"></div>
+<div class="row">
+    <div class="col-lg-10 col-md-10 col-sm-10">
+        <input type="text" id="Name" name="Name" placeholder="SEARCH BY COMPANY NAME" class="form-control" />
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-2">
+        <div class="form-group">
+            <input type="button" value="Search" id="Search" class="btn btn-info" style="width:105px;" />
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:15px;"></div>
+<div id="tableContainer"></div>
+<script>
+    $(document).ready(function () {
+
+        var ajobs = 0;
+        var ejobs = 0;
+        var djobs = 0;
+        var dataPointsTemp = [];
+        var dataPointsMales = [];
+        var dataPointsFemales = [];
+        var dataPointsAll = [];
+
+        $.getJSON("/JsonHelper/GetJobListByCountry?CountryId=" + @ViewBag.Country.Id, function (data) {
+
+            var shtml = "";
+
+            shtml = "<table class=\"table table-bordered table-hover\" style = \"width:100%\">";
+            shtml += "<thead>";
+            shtml += "<tr><th>Company</th><th>Active Jobs</th><th>Expired Jobs</th><th>Deleted Jobs</th><th>Total Jobs</th></tr>";
+            shtml += "</thead>";
+            shtml += "<tbody>";
+            $.each(data, function (i, item) {
+                ajobs += item.ActiveJobs;
+                ejobs += item.ExpiredJobs;
+                djobs += item.DeletedJobs;
+
+                shtml += "<tr><td><a href=\"/Admin/JobsByCompany?CountryId=" + @ViewBag.Country.Id + "&Id=" + item.Id +"\" target=\"_blank\">" + item.Company + "</a></td><td><a href=\"/Admin/JobsByCompany?CountryId=" + @ViewBag.Country.Id + "&Id=" + item.Id +"&TypeId=1\" target=\"_blank\">" + item.ActiveJobs + "</a></td><td><a href=\"/Admin/JobsByCompany?CountryId=" + @ViewBag.Country.Id + "&Id=" + item.Id +"&TypeId=2\" target=\"_blank\">" + item.ExpiredJobs + "</a></td><td><a href=\"/Admin/JobsByCompany?CountryId=" + @ViewBag.Country.Id + "&Id=" + item.Id +"&TypeId=3\" target=\"_blank\">" + item.DeletedJobs + "</td><td>" + (item.ActiveJobs + item.ExpiredJobs + item.DeletedJobs) + "</td></tr>";
+            });
+            shtml += "</tbody>";
+            shtml += "</table>";
+            $("#tableContainer").html(shtml);
+        });
+
+        $("#Search").click(function () {
+            $.getJSON("/JsonHelper/GetJobListByCountry?CountryId=" + @ViewBag.Country.Id + "&Name=" + $("#Name").val(), function (data) {
+
+                var shtml = "";
+
+                shtml = "<table class=\"table table-bordered table-hover\" style = \"width:100%\">";
+                shtml += "<thead>";
+                shtml += "<tr><th>Company</th><th>Active Jobs</th><th>Expired Jobs</th><th>Deleted Jobs</th><th>Total Jobs</th></tr>";
+                shtml += "</thead>";
+                shtml += "<tbody>";
+                $.each(data, function (i, item) {
+                    ajobs += item.ActiveJobs;
+                    ejobs += item.ExpiredJobs;
+                    djobs += item.DeletedJobs;
+                    shtml += "<tr><td><a href=\"/Admin/JobsByCompany?CountryId=" + @ViewBag.Country.Id + "&Id=" + item.Id +"\" target=\"_blank\">" + item.Company + "</a></td><td><a href=\"/Admin/JobsByCompany?CountryId=" + @ViewBag.Country.Id + "&Id=" + item.Id +"&TypeId=1\" target=\"_blank\">" + item.ActiveJobs + "</a></td><td><a href=\"/Admin/JobsByCompany?CountryId=" + @ViewBag.Country.Id + "&Id=" + item.Id +"&TypeId=2\" target=\"_blank\">" + item.ExpiredJobs + "</a></td><td><a href=\"/Admin/JobsByCompany?CountryId=" + @ViewBag.Country.Id + "&Id=" + item.Id +"&TypeId=3\" target=\"_blank\">" + item.DeletedJobs + "</td><td>" + (item.ActiveJobs + item.ExpiredJobs + item.DeletedJobs) + "</td></tr>";
+                });
+                shtml += "</tbody>";
+                shtml += "</table>";
+                $("#tableContainer").html(shtml);
+            });
+        })
+    });
+</script>
+

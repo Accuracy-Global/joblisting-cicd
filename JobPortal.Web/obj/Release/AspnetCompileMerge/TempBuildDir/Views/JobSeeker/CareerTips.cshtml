@@ -1,0 +1,78 @@
+﻿@model IEnumerable<JobPortal.Data.Tip>
+
+@using JobPortal.Domain
+@using JobPortal.Data
+@using JobPortal.Library.Enumerators;
+@using JobPortal.Library.Helpers;
+@using System.Collections
+@using PagedList.Mvc
+@using JobPortal.Models   
+@{
+    ViewBag.Title = "Tips";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+}
+
+<div class="row">
+    <div class="col-lg-10 col-md-10">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">Tips</h1>
+            Career tips here
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-2">
+        <div class="form-group pull-right">
+            <div style="background-color:#b3cb39;width: 92px;padding: 4px;height: 34px;border-radius:4px; display:block">
+                <a href="https://play.google.com/store/apps/details?id=com.joblisting.joblisting" style="background-color: #b3cb39; color:#ffffff; text-decoration:none" target="_blank">
+                    <table cellpadding="0" style="margin-bottom: 0px;">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <i class="fa fa-android" aria-hidden="true" style="font-size:20px; color:#ffffff"></i>
+                                </td>
+                                <td>
+                                    <div style="font-size: 10px;padding-left:2px;line-height: 8px;">
+                                        Download for
+                                    </div>
+                                    <div style="font-size:18px">
+                                        Android
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+@Html.Partial("_MessagePartial")
+<div class="clear" style="height:15px;"></div>
+<div class="row">
+    <div class="col-lg-3 col-md-3 col-lg-offset-9 col-md-offset-9">
+        @if (user.Type == 4 && user.PromoteDate == null || (user.PromoteDate.Value.Date < DateTime.Now.Date))
+        {
+            <a href="/package/promote?id=@user.Id&type=P&returnUrl=@Request.Url.ToString()" class="btn btn-info promote pull-right" style="width:165px;">Promote Profile</a>
+        }
+    </div>
+</div>
+<div class="clear" style="height:15px;"></div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        @if (Model.Count() > 0)
+        {
+            <div class="list-group-item">
+                <ul style="list-style-type:none; padding-left:0;">
+                    @foreach (Tip item in Model)
+                    {
+                        <li><h4>@Html.ActionLink((string)item.Title, "ShowCareerTip", new { id = item.Id }, new { title = item.Title, @target = "_blank" })</h4></li>
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+</div>

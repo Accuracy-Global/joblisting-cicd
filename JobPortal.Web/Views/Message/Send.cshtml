@@ -1,0 +1,40 @@
+﻿@model JobPortal.Web.Models.SendMessageModel
+@{
+    ViewBag.Title = "Send Message";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1 style="margin-top:-15px;">Send Message</h1>
+            Send message here
+        </div>
+    </div>
+</div>
+@Html.Partial("_MessagePartial")
+<div class="clear" style="height:15px;"></div>
+@using (Html.BeginForm())
+{
+    <div class="clear" style="height:15px;"></div>
+    <div class="well">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                @Html.Hidden("ReceiverEmail", Model.ReceiverEmail)
+                @Html.Hidden("TrackingId", Model.TrackingId)
+                @Html.Hidden("redirect", (string)ViewBag.Redirect)
+
+                @Html.Label("Write message")
+                @Html.TextArea("Message", new { @class = "form-control", @title = "Send Message", placeholder = "Write message here", maxlength = "250" })
+                @Html.ValidationMessageFor(model=>model.Message)
+            </div>
+        </div>
+        <div class="clear" style="height:15px;"></div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <input type="submit" value="Send" style="width:75px;" class="btn btn-info" />
+                <input type="button" value="Cancel" style="width:75px;" class="btn btn-info" onclick="window.history.back();"/>
+            </div>
+        </div>
+    </div>
+}

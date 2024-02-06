@@ -1,0 +1,681 @@
+﻿@model JobPortal.Web.Models.JobseekerProfileModel
+@using JobPortal.Data
+@using System.Globalization
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Web.Models
+@using JobPortal.Models
+@{ var model1 = ViewBag.model1 as JobPortal.Web.Models.ConnectionModel; }
+
+@{
+    ViewBag.Title = "My Resume";
+    long id = ViewBag.uid;
+    Layout = "";
+
+    decimal width1 = 0;
+    UserInfoEntity user = (new JobPortal.Services.UserService()).Get(id);
+    decimal weightage = MemberService.Instance.GetProfileWeightage(id);
+    decimal width = weightage < 5 ? 5 : weightage;
+
+    Photo photo = MemberService.Instance.GetPhotoByUserID("Profile", id);
+    List<User_Skills> skillslist = MemberService.Instance.GetUserskill(id);
+    List<User_Experience> explist = MemberService.Instance.GetUserexp(id);
+    List<User_Education> edulist = MemberService.Instance.GetUseredu(id);
+    List<User_Certificate> cerlist = MemberService.Instance.GetUsercer(id);
+    string profile_image_url = Url.Action("Avtar", "Image", new { Id = id });
+}
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Joblisting :: Resume</title>
+    <link href="https://fonts.googleapis.com/css?family=Mukta:300,400,500,600,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/Resume/assets/vendors/fortawesome/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="~/Content/Resume/assets/css/live-resume.css">
+
+</head>
+
+<style>
+
+html{
+    font-family: 'Open Sans',sans-serif;
+    background: whitesmoke;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+hr{
+    background: grey;
+}
+#container{
+    position: relative;
+    display: flex;
+}
+#profile{
+    flex: 15%;
+    display: block;
+    position: relative;
+    margin: 5% 2% 0 10%;
+    width: 100%;
+    height: 100%;
+}
+#info-cards{
+    flex: 55%;
+    display: block;
+    margin-top: 5%;
+    margin-right: 10%;
+    width: 100%;
+    height: 100%;
+}
+#image{
+    position: relative;
+    overflow: hidden;
+}
+#image,#profile-photo{
+    position: relative;
+    width: 180px;
+    height: 140px;
+    border-radius: 10px;
+}
+#image > a{
+    position: absolute;
+    top:0;
+    left:0;
+    background: rgba(0,0,0,0.5) !important;
+    height: 100%;
+    width: 100%;
+    display: none;
+}
+#image > a > i{
+    -webkit-text-stroke: 1px #ffffffdd;
+    padding: 40%;
+}
+#image:hover a{
+    display: block;
+}
+#name{
+    font-size: 23px !important;
+    line-height: 20px !important;
+}
+#about,.card > ul > li{
+    padding: 0 0 0 15px;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+#about{
+    font-size: 20px !important;
+    padding: 0 !important;
+}
+#name, #about > p{
+    font-weight: bolder;
+    font-family: 'Open Sans', sans-serif;
+}
+#email{
+    font-size: 15px !important;
+    font-weight: bold !important;
+    font-family: 'Cutive Mono',monospace;
+}
+#college,#email,#year-graduation,#education,#more-about,#telephone,#fax{
+    color: #555;
+    font-size: 13.5px;
+}
+strong,span{
+    color: black;
+    font-size: 16px;
+}
+#social-links,#about{
+    display: inline-block;
+}
+#social-links{
+    margin-bottom: 12px;
+}
+#social-links a{
+    margin: 0 10px;
+}
+#edit-intro{
+    display: block;
+    color:#097bbf;
+    font-family: 'Nunito', sans-serif;
+}
+.fab{
+    font-size: 1.1em;
+}
+.fab,.fas{
+    color: whitesmoke;
+}
+#about > a{
+    top: 4px;
+    right: 8px;
+}
+.edit{
+    top: 19px;
+    right: 10px;
+}
+#about > a, .edit{
+    position: absolute;
+    font-size: 15px !important;
+}
+.stroke-transparent {
+ -webkit-text-stroke: 1px #000;
+ -webkit-text-fill-color: transparent;
+}
+.blue{
+    color: #097bbf !important;
+    font-size: 13px;
+}
+.stroke-transparent-blue {
+ -webkit-text-stroke: 1px #097bbf;
+ -webkit-text-fill-color: transparent;
+}
+.card{
+    box-shadow: 0 3px 10px 0 rgba(0,0,0,.1);
+    overflow-x: hidden;
+    margin-bottom: 10px;
+    padding: 15px 30px 30px 30px;
+    background-color: #fff;
+    width:400px;
+    margin-left:10px;
+}
+.card > p{
+    color: #0e141e;
+    font-weight: bolder;
+    font-size: 18px;
+    line-height: 2;
+}
+.card > p > i{
+    font-size: 16px;
+}
+.card > a{
+    font-weight: 400;
+    font-size: 15px;
+    margin: 0;
+    margin-left: 25px;
+    padding: 0;
+    border: 0;
+    height: auto;
+    background: transparent;
+    color: #097bbf;
+    outline: none;
+    cursor: pointer;
+}
+.card > ul{
+    list-style-type: none;
+}
+.tags{
+    font-size: 17px;
+    font-weight: bolder;
+}
+.tags ~ a{
+    display: none !important;
+}
+.tags span{
+    font-size: 14px;
+    font-weight: normal;
+    color: #0e141e;
+}
+.tags span span{
+    color: #738f93;
+}
+@*@media screen and (max-width:1090px){
+    #profile{
+        margin-left: 5%;
+    }
+}
+@media screen and (max-width:850px){
+    #container{
+        display: block;
+    }*@
+    #profile{
+        width: 150%;
+    }
+    .card{
+        margin: 0 5%;
+        margin-bottom: 30px;
+    }
+}
+    #image, #profile-photo {
+        position: relative;
+        width: 250px;
+        height: 200px;
+        border-radius: 10px;
+    }
+
+        #image > a {
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: rgba(0,0,0,0.5) !important;
+            height: 100%;
+            width: 100%;
+            display: none;
+        }
+
+            #image > a > i {
+                -webkit-text-stroke: 1px #ffffffdd;
+                padding: 40%;
+            }
+
+        #image:hover a {
+            display: block;
+        }
+
+
+    .square110 {
+        cursor: pointer;
+        font-size: 75px;
+        font-weight: 700;
+        height: 255px;
+        width: 455px;
+        background-color: #fff;
+    }
+    * {
+        box-sizing: border-box
+    }
+
+    .container1 {
+        width: 100%;
+        background-color: #ddd;
+    }
+
+    .skills {
+        text-align: right;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        color: white;
+    }
+
+    .html {
+
+        height: 5px;
+        background-color: #04AA6D;
+    }
+
+</style>
+<script src="~/Scripts/jquery-2.1.4.min.js"></script>
+@Styles.Render("~/content/joblisting/resume")
+<body style="background-color: white;">
+    <div class="row" style="margin-left:-30px;background-color: white; width:1470px;margin-top:-60px;">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+
+
+            @*<div class="row">
+
+                    <div class="col-lg-8 col-md-8">
+                        <div class="title-login">
+                            <h1 style="margin-top: -15px;float:inherit">My Profile</h1>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+
+                        <div style="text-align:left;margin-top: -15px;">
+
+                            <button class="btn btn-primary" onclick="saveDiv()">Download Resume</button>
+                        </div>
+
+
+                    </div>
+                </div>*@
+
+            <div class="content-wrapper">
+                <aside>
+                    <div class="profile-img-wrapper">
+                        <img src="@profile_image_url" alt="profile">
+                    </div>
+                    <h1 class="profile-name">@user.FirstName &nbsp; @user.LastName</h1>
+                    <div class="text-center">
+                        <span class="badge badge-white badge-pill profile-designation"> @user.Title</span>
+                    </div>
+                    <nav class="social-links">
+                        <a href="#!" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#!" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#!" class="social-link"><i class="fab fa-behance"></i></a>
+                        <a href="#!" class="social-link"><i class="fab fa-dribbble"></i></a>
+                        <a href="#!" class="social-link"><i class="fab fa-github"></i></a>
+                    </nav>
+                    <div class="widget">
+                        @*<h5 class="widget-title">personal information</h5>*@
+                        <div class="widget-content">
+
+                            @*<p>PHONE : @user.Phone</p>
+                                <p>MAIL : @user.Username</p>
+                                @if (user.StateName != null)
+                                {
+                                    <p>Location : @user.StateName &nbsp; @user.CountryName</p>
+                                }
+                                else
+                                {
+                                    <p>Location :  @user.Address</p>
+
+                                }*@
+
+                            <button class="btn btn-download-cv btn-primary rounded-pill" onclick="saveDiv()" style="margin-top:80px;">
+                                <img src="~/Content/Resume/assets/images/download.svg" alt="download"
+                                     class="btn-img">DOWNLOAD CV
+                            </button>
+                        </div>
+                    </div>
+                    @*<div class="widget card" style="margin-left:-10px;">
+                            <div class="card-body">
+                                <div class="widget-content">
+                                    <h5 class="widget-title card-title">SKILLS</h5>
+                                    @for (int m = 0; m < skillslist.Count; m++)
+                                    {
+                                        @skillslist[m].SkillName;
+
+                                    }
+                                    </div>
+                            </div>
+                        </div>*@
+                    @*<div class="widget card">
+                            <div class="card-body">
+                                <div class="widget-content">
+                                    <h5 class="widget-title card-title">INTERESTS</h5>
+                                    <p>Video games</p>
+                                    <p>Finance</p>
+                                    <p>Basketball</p>
+                                    <p>Theatre</p>
+                                </div>
+                            </div>
+                        </div>*@
+                </aside>
+                <main>
+                    @*<section class="intro-section">
+                            <h2 class="section-title" style="margin-top:-50px;">Hello,@user.FirstName!</h2>
+
+                            <a href="#!" class="btn btn-primary btn-hire-me">HIRE ME</a>
+                        </section>*@
+                    <section class="resume-section">
+                        <div class="row">
+                            <div class="col-lg-6" style="margin-top:-50px;">
+                                @*<h6 class="section-subtitle">RESUME</h6>*@
+                                <h2 class="section-title" style="margin-left:-3px">EDUCATION</h2>
+                                <ul class="time-line" style="margin-left:-15px">
+                                    @for (int m = 0; m < edulist.Count; m++)
+                                    {
+                                        <div class="row">
+
+                                            @{string rwi1 = "edd" + m.ToString();
+                                                string rwi2 = "eddd" + m.ToString();}
+                                            <div class="col-lg-10 col-md-10 col-sm-10" id="@rwi1">
+
+
+
+                                                <div class="col-lg-2 col-md-2 col-sm-2" style="text-align: justify; font-family: Verdana; font-size: 12px; ">
+
+                                                    @edulist[m].Education
+
+                                                </div>
+                                                <div class="col-lg-5 col-md-5 col-sm-5" style="text-align: justify; font-family: Verdana; font-size: 12px; ">
+                                                    @edulist[m].School
+                                                    @*</div>
+                                                        <div class="col-lg-4 col-md-4 col-sm-4" style="font-family: Verdana">*@
+
+
+                                                </div>
+                                                <div class="col-lg-3 col-md-3 col-sm-3" style="text-align: justify; font-family: Verdana; font-size: 12px; ">
+
+                                                    @edulist[m].FromYr - @edulist[m].ToYr
+
+                                                </div>
+
+
+
+
+                                            </div>
+
+                                        </div>
+                                        <!--<div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12" style="font-family: Verdana">-->
+                                        @*<div class="col-lg-2 col-md-2 col-sm-2">
+                                            School/College
+                                            </div>*@
+                                        <!--<div class="col-lg-6 col-md-6 col-sm-6">
+
+                                        @edulist[m].School
+
+                                        </div>-->
+                                        @*<div class="col-lg-2 col-md-2 col-sm-2">
+                                            Grade
+                                            </div>*@
+                                        <!--<div class="col-lg-6 col-md-6 col-sm-6">
+
+                                        @edulist[m].Grade
+                                        </div>
+
+
+                                        </div>
+
+                                         </div>-->
+
+
+                                        <hr />
+
+                                    }
+                                </ul>
+                                <div @*class="widget card"*@ style="margin-left:-260px; margin-top:-33px;">
+                                    <div class="card-body">
+                                        <div class="widget-content">
+                                            <h2 class="section-title">SKILLS</h2>
+                                            <div style="margin-left:20px;">
+                                                @*<h5 class="widget-title card-title">SKILLS</h5>*@
+                                                @for (int m = 0; m < skillslist.Count; m++)
+                                                {
+                                                    @skillslist[m].SkillName;
+
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-5" style="margin-top:-50px;">
+                                @*<h6 class="section-subtitle">RESUME</h6>*@
+                                <h2 class="section-title">Experience</h2>
+                                <ul class="time-line">
+                                    <li class="time-line-item">
+                                        <span class="badge badge-primary">2010 - 2014</span>
+                                        <h6 class="time-line-item-title">UI/UX Designer</h6>
+                                        <p class="time-line-item-subtitle">Web Agency</p>
+                                        <p class="time-line-item-content">
+                                            Mauris magna sapien, pharetra consectetur fringilla
+                                            vitae, interdum sed
+                                            tortor.
+                                        </p>
+                                    </li>
+                                    <li class="time-line-item">
+                                        <span class="badge badge-primary">2008 - 2010</span>
+                                        <h6 class="time-line-item-title">Web Designer</h6>
+                                        <p class="time-line-item-subtitle">Apple Inc.</p>
+                                        <p class="time-line-item-content">
+                                            Mauris magna sapien, pharetra consectetur fringilla
+                                            vitae, interdum sed
+                                            tortor.
+                                        </p>
+                                    </li>
+                                    <li class="time-line-item">
+                                        <span class="badge badge-primary">2006 - 2008</span>
+                                        <h6 class="time-line-item-title">Graphic Designer</h6>
+                                        <p class="time-line-item-subtitle">Apple Inc.</p>
+                                        <p class="time-line-item-content">
+                                            Mauris magna sapien, pharetra consectetur fringilla
+                                            vitae, interdum sed
+                                            tortor.
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-lg-5" style="margin-top:-270px;">
+                                @*<h6 class="section-subtitle">RESUME</h6>*@
+                                <h2 class="section-title">CERTIFICATION</h2>
+                                <ul class="time-line">
+                                    <li class="time-line-item">
+                                        <span class="badge badge-primary"><img src="assets/images/001-target.svg" alt="target"></span>
+                                        <h6 class="time-line-item-title">web designing</h6>
+                                        @*<p class="time-line-item-subtitle">Web Agency</p>*@
+                                        <p class="time-line-item-content">
+                                            Mauris magna sapien, pharetra consectetur fringilla vitae, interdum sed
+                                            tortor.
+                                        </p>
+                                    </li>
+                                    <li class="time-line-item">
+                                        <span class="badge badge-primary"><img src="assets/images/003-idea.svg" alt="bulb"></span>
+                                        <h6 class="time-line-item-title">Graphic design</h6>
+                                        @*<p class="time-line-item-subtitle">Apple Inc.</p>*@
+                                        <p class="time-line-item-content">
+                                            Mauris magna sapien, pharetra consectetur fringilla vitae, interdum sed
+                                            tortor.
+                                        </p>
+                                    </li>
+                                    <li class="time-line-item">
+                                        <span class="badge badge-primary"><img src="assets/images/002-development.svg" alt="development"></span>
+                                        <h6 class="time-line-item-title">Development</h6>
+                                        @*<p class="time-line-item-subtitle">Apple Inc.</p>*@
+                                        <p class="time-line-item-content">
+                                            Mauris magna sapien, pharetra consectetur fringilla vitae, interdum sed
+                                            tortor.
+                                        </p>
+                                    </li>
+                                    <li class="time-line-item">
+                                        <span class="badge badge-primary"><img src="assets/images/004-smartphone.svg" alt="smartphone"></span>
+                                        <h6 class="time-line-item-title">Mobile design</h6>
+                                        @*<p class="time-line-item-subtitle">Apple Inc.</p>*@
+                                        <p class="time-line-item-content">
+                                            Mauris magna sapien, pharetra consectetur fringilla vitae, interdum sed
+                                            tortor.
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </section>
+                    @*<section class="services-section" style="margin-top:-190px; padding-left:-15px;">*@
+                    @*<h6 class="section-subtitle">WHAT I DO</h6>*@
+                    @*<h2 class="section-title">CERTIFICATION</h2>
+                            <div class="row" style="margin-top:-30px;">
+                                <div class="media service-card col-lg-12">
+                                    <div class="service-icon">
+                                        <img src="assets/images/001-target.svg" alt="target">
+                                    </div>
+                                    <div class="media-body">
+                                        <h5 class="service-title">web designing</h5>
+                                           <p class="service-description">
+                                            Mauris magna sapien, pharetra consectetur fringilla vitae, interdum sed
+                                            tortor.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="media service-card col-lg-12" style="margin-top:5px;">
+                                    <div class="service-icon">
+                                        <img src="assets/images/003-idea.svg" alt="bulb">
+                                    </div>
+                                    <div class="media-body">
+                                        <h5 class="service-title">Graphic design</h5>
+                                        <p class="service-description">
+                                            Mauris magna sapien, pharetra consectetur fringilla vitae, interdum sed
+                                            tortor.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="media service-card col-lg-12">
+                                    <div class="service-icon">
+                                        <img src="assets/images/002-development.svg" alt="development">
+                                    </div>
+                                    <div class="media-body">
+                                        <h5 class="service-title">Development</h5>
+                                        <p class="service-description">
+                                            Mauris magna sapien, pharetra consectetur fringilla vitae, interdum sed
+                                            tortor.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="media service-card col-lg-12">
+                                    <div class="service-icon">
+                                        <img src="assets/images/004-smartphone.svg" alt="smartphone">
+                                    </div>
+                                    <div class="media-body">
+                                        <h5 class="service-title">Mobile design</h5>
+                                        <p class="service-description">
+                                            Mauris magna sapien, pharetra consectetur fringilla vitae, interdum sed
+                                            tortor.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>*@
+
+
+
+                    <footer>Live Joblisting<a href="" target="_blank" rel="noopener noreferrer">Joblisting</a>. All Rights Reserved 2023</footer>
+                </main>
+            </div>
+            <script src="~/Content/Resume/assets/vendors/jquery/dist/jquery.min.js"></script>
+            <script src="~/Content/Resume/assets/vendors/popperjs/core/dist/umd/popper-base.min.js"></script>
+            <script src="~/Content/Resume/assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+
+            <script src="~/Content/Resume/assets/js/live-resume.js"></script>
+        </div>
+    </div>
+</body>
+
+
+<script src="~/Content/Resume/assets/vendors/jquery/dist/jquery.min.js"></script>
+<script src="~/Content/Resume/assets/vendors/popperjs/core/dist/umd/popper-base.min.js"></script>
+<script src="~/Content/Resume/assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="~/Content/Resume/assets/js/live-resume.js"></script>
+
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script type="text/javascript" src="~/Scripts/html2canvas.js"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+
+<script>
+    function saveDiv() {
+
+        debugger;
+            var HTML_Width = $("#pdf").width();
+            var HTML_Height = $("#pdf").height();
+            var dto = @Html.Raw(Json.Encode(user.FirstName));
+        var top_left_margin = 15;
+        var PDF_Width = HTML_Width + (top_left_margin * 2);
+        var PDF_Height = (PDF_Width * 1.8) + (top_left_margin * 2);
+        var canvas_image_width = HTML_Width;
+        var canvas_image_height = HTML_Height;
+
+        var totalPDFPages = Math.ceil(HTML_Height / PDF_Height) - 1;
+
+
+            html2canvas($("#pdf")[0]).then(function (canvas) {
+                //var f =@user.FirstName + "_" +@user.LastName;
+                var imgData = canvas.toDataURL("image/jpeg", 1.0);
+                var pdf = new jsPDF('p', 'mm', [PDF_Width, PDF_Height]);
+                pdf.addImage(imgData, 'JPG', top_left_margin, top_left_margin, canvas_image_width, canvas_image_height);
+                for (var i = 1; i <= totalPDFPages; i++) {
+                    pdf.addPage(PDF_Width, PDF_Height);
+                    pdf.addImage(imgData, 'JPG', top_left_margin, -(PDF_Height * i) + (top_left_margin * 4), canvas_image_width, canvas_image_height);
+                }
+                //pdf.SetProperties({ title =@user.FirstName});
+                pdf.save(dto + ".pdf");
+                //$(".html-content").hide();
+
+            });
+        }
+
+
+</script>
+
+
+
+
+
+
+
+

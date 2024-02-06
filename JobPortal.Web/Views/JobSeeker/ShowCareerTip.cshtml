@@ -1,0 +1,37 @@
+﻿@model JobPortal.Data.Tip
+@using JobPortal.Models           
+
+@{
+    ViewBag.Title = Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+}
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">@Model.Title</h1>
+        </div>
+    </div>
+</div>
+@Html.Partial("_MessagePartial")
+<div class="clear" style="height:15px;"></div>
+<div class="row">
+    <div class="col-lg-3 col-md-3 col-lg-offset-9 col-md-offset-9">
+        @if (user.Type == 4)
+        {
+            if (user.Type == 4 && user.PromoteDate == null || (user.PromoteDate.Value.Date < DateTime.Now.Date))
+            {
+                <a href="/package/promote?id=@user.Id&type=P&returnUrl=@Request.Url.ToString()" class="btn btn-info promote pull-right" style="width:165px;">Promote Profile</a>
+            }
+        }
+    </div>
+</div>
+<div class="clear" style="height:15px;"></div>
+<div class="list-group-item">
+    @Html.Raw(Model.Body)
+</div>

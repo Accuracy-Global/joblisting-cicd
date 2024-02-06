@@ -1,0 +1,6 @@
+﻿Dear @@firstname @@lastname,
+
+@@employer wants to conduct your @@round interview for @@jobtitle. Plese find following details for the same:
+@@agenda 
+      
+Wish you all the best!

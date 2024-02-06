@@ -1,0 +1,2665 @@
+﻿@model JobPortal.Web.Models.SearchJobModel
+@using JobPortal.Library.Constants
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Domain
+@using JobPortal.Models
+@using PagedList.Mvc
+@using PagedList
+
+@{
+
+    Layout = "~/Views/Shared/_LandingLayout.cshtml";
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+
+        var dile = user.FullName;
+    }
+    //var pagedModel = ViewBag.LatestJobs as PagedList.IPagedList<JobPortal.Models.LatestJob>;
+}
+
+
+<style>
+
+    .multi-dropdown.form-control {
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px thin #f2f2f2;
+        border-radius: 10px;
+        box-sizing: border-box;
+    }
+
+    .multi-dropdown dd,
+    .multi-dropdown dt {
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .multi-dropdown ul {
+        margin: -1px 0 0 0;
+    }
+
+    .multi-dropdown dd {
+        position: relative;
+    }
+
+    .multi-dropdown a,
+    .multi-dropdown a:visited {
+        color: #34ba08;
+        text-decoration: none;
+        outline: none;
+        font-size: 16px;
+        font-weight: normal;
+    }
+
+    .multi-dropdown dt dl {
+        display: block;
+        padding: 0 20px 0 0px;
+        xmin-height: 25px;
+        line-height: 24px;
+        overflow: unset;
+        margin-bottom: 0px;
+    }
+
+        .multi-dropdown dt dl span {
+            cursor: pointer;
+            display: inline-block;
+            font-weight: normal;
+            margin-right: 15px;
+        }
+
+    .multiSel span {
+        background: #34ba08;
+        color: #fff;
+        padding: 3px 15px;
+        border-radius: 20px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+    }
+
+    p.multiSel {
+        margin-bottom: 0px;
+    }
+
+    /* .multi-dropdown dd ul {
+        background-color: #fff;
+        color: #34ba08;
+        display: none;
+        left: -13px;
+        padding: 2px 15px 2px 5px;
+        position: absolute;
+        top: 0;
+        width: 253.7%;
+        list-style: none;
+        height: auto;
+        overflow: auto;
+        z-index: 9999999;
+        border: 1px solid #34ba08;
+    }*/
+
+    .multi-dropdown dd ul li {
+        display: list-item;
+    }
+
+    .multi-dropdown span.value {
+        display: none;
+    }
+
+    .multi-dropdown dd ul li a {
+        padding: 5px;
+        display: block;
+    }
+
+        .multi-dropdown dd ul li a:hover {
+            background-color: #fff;
+        }
+
+    option:disabled {
+        color: #34ba08;
+    }
+
+
+    #body {
+        background: #ffffff none repeat scroll 0 0 !important;
+    }
+
+    .right-side-bar {
+        background: #fff none repeat scroll 0 0;
+        border-bottom: 1px solid #e4e4e4;
+    }
+
+    .sponsored {
+        background: #ffffff;
+    }
+
+    .sponsored {
+        background: #fff none repeat scroll 0 0;
+        padding: 15px 15px 0;
+    }
+
+    .abcdesign {
+        margin: 0 0 18px 0;
+    }
+
+        .abcdesign > h3 {
+            color: #333;
+            font-size: 14px;
+            margin: 0 0 11px 0;
+        }
+
+    .sub-heading h2 {
+        color: #000;
+        font-size: 14px;
+        margin: 0 0 20px;
+        padding-bottom: 6px;
+        position: relative;
+        font-weight: bold;
+    }
+
+        .sub-heading h2::after {
+            border-bottom: 2px solid #e93100;
+            bottom: 0;
+            content: "";
+            display: block;
+            left: 0;
+            position: absolute;
+            width: 100%;
+        }
+
+    .news {
+        border-bottom: 2px solid #f5f5f5;
+        margin-bottom: 20px;
+        min-height: 54px;
+        position: relative;
+    }
+
+    .news-img {
+        position: absolute;
+        margin-bottom: 10px;
+        font-size: 75px;
+        font-weight: 700;
+        height: 54px;
+        width: 54px;
+        background-color: #fff;
+    }
+
+        .news-img::after {
+            content: "";
+            display: block;
+            height: 0;
+            padding-bottom: 100%;
+            width: 100%;
+        }
+
+    .news-content {
+        margin-left: 63px;
+    }
+
+        .news-content > h3 {
+            font-size: 13px;
+            margin: 0;
+            color: #222222;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .news-content a {
+            color: #333;
+        }
+
+            .news-content a:hover {
+                color: #34ba08;
+            }
+
+        .news-content > h4 {
+            color: #999898;
+            font-size: 10px;
+            margin: 7px 0 0 0;
+        }
+
+        .news-content > p {
+            color: #222222;
+            font-family: 'Roboto', sans-serif;
+            font-size: 11px;
+            line-height: 16px;
+            padding: 4px 0 0;
+        }
+
+            .news-content > p:last-child {
+                margin: 0;
+            }
+
+    .left-col {
+        padding-right: 6px;
+        width: 81.25%;
+    }
+
+    .right-col {
+        padding-left: 6px;
+        width: 202px;
+    }
+
+    @@media (max-width: 320px) {
+        .right-col {
+            padding-left: 15px !important;
+            width: 100% !important;
+        }
+
+        .left-col {
+            padding-right: 15px !important;
+            width: 100% !important;
+        }
+    }
+
+    @@media only screen and (max-width:360px) {
+        .right-col {
+            padding-left: 15px !important;
+            width: 100% !important;
+        }
+
+        .left-col {
+            padding-right: 15px !important;
+            width: 100% !important;
+        }
+    }
+
+    @@media only screen and (max-width:384px) {
+        .right-col {
+            padding-left: 15px !important;
+            width: 100% !important;
+        }
+
+        .left-col {
+            padding-right: 15px !important;
+            width: 100% !important;
+        }
+    }
+
+    @@media only screen and (max-width:600px) {
+        .right-col {
+            padding-left: 15px !important;
+            width: 100% !important;
+        }
+
+        .left-col {
+            padding-right: 15px !important;
+            width: 100% !important;
+        }
+    }
+
+    @@media screen and (max-width:800px) {
+        .right-col {
+            padding-left: 6px;
+            width: 202px;
+        }
+
+        .left-col {
+            padding-right: 6px !important;
+            width: 73%;
+        }
+    }
+
+    .seemore {
+        text-align: right;
+    }
+
+        .seemore > a {
+            color: #000000;
+            font-family: "Roboto", sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .seemore i {
+            font-size: 16px;
+            padding: 0 0 0 5px;
+            vertical-align: middle;
+        }
+
+    .cdate {
+        padding-left: 0px;
+        list-style-type: none;
+    }
+
+        .cdate li {
+            display: inline-block;
+            width: auto;
+        }
+
+    .job-photo {
+        border-radius: 5px;
+        border: 2px solid #ede9e9;
+        /*width: 46px;
+        height: 46px;*/
+    }
+
+    .card-buttons-override {
+        background-color: #34ba08 !important;
+        text-align: center;
+        color: white;
+    }
+
+    /*.detail-btn-override {*/
+    /* // background-color: var(--active-light-color) !important;
+        color: var(--active-color) !important;*/
+    /*background-color: white;
+        border-color: #e7e7e7;
+        color: #34ba08;
+        font-size: 10px !important;
+        font-weight: 480 !important;
+    }*/
+
+    .detail-btn-override {
+        /* // background-color: var(--active-light-color) !important;
+        color: var(--active-color) !important;*/
+        background-color: white;
+        border-color: #34ba08;
+        color: black;
+        font-size: 10px !important;
+        font-weight: 500 !important;
+    }
+
+    .bookmark-btn {
+        margin-right: 12px;
+        background-color: #34ba08 !important;
+        text-align: center;
+    }
+</style>
+<style type="text/css">
+    @@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+    * {
+        outline: none;
+        box-sizing: border-box;
+    }
+
+    :root {
+        --body-bg-color: #e5ecef;
+        --theme-bg-color: #fafafb;
+        --body-font: "Poppins", sans-serif;
+        --body-color: #2f2f33;
+        --active-color: #ffffff;
+        --active-light-color: #e1ebfb;
+        --header-bg-color: #fff;
+        --search-border-color: #efefef;
+        --border-color: #d8d8d8;
+        --alert-bg-color: #e8f2ff;
+        --subtitle-color: #83838e;
+        --inactive-color: #f0f0f0;
+        --placeholder-color: #9b9ba5;
+        --time-button: #fc5757;
+        --level-button: #fff;
+        --button-color: #fff;
+    }
+
+    .dark-mode {
+        --body-bg-color: #1d1d1d;
+        --theme-bg-color: #13131a;
+        --header-bg-color: #1c1c24;
+        --alert-bg-color: #292932;
+        --body-color: #fff;
+        --inactive-color: #292932;
+        --time-button: #fff;
+        --level-button: #fff;
+        --active-light-color: #263d63;
+        --border-color: #26262f;
+        --search-border-color: #26262f;
+    }
+
+    ::-moz-placeholder {
+        color: var(--placeholder-color);
+    }
+
+    :-ms-input-placeholder {
+        color: var(--placeholder-color);
+    }
+
+    ::placeholder {
+        color: var(--placeholder-color);
+    }
+
+    img {
+        max-width: 100%;
+    }
+
+    html {
+        box-sizing: border-box;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+        background-color: var(--body-bg-color);
+        font-family: var(--body-font);
+        font-size: 15px;
+        color: var(--body-color);
+    }
+
+    .dark-light svg {
+        margin-right: 8px;
+        width: 22px;
+        cursor: pointer;
+        fill: transparent;
+        transition: 0.5s;
+    }
+
+    .dark-mode .dark-light svg {
+        fill: #ffce45;
+        stroke: #ffce45;
+    }
+
+    .dark-mode .job-card svg {
+        box-shadow: none;
+    }
+
+    .dark-mode .search.item {
+        color: var(--body-color);
+        border-color: var(--body-color);
+    }
+
+    .dark-mode .search-location svg,
+    .dark-mode .search-job svg,
+    .dark-mode .search-salary svg {
+        color: var(--body-color);
+    }
+
+    .dark-mode .detail-button {
+        background-color: var(--inactive-color);
+        color: var(--subtitle-color);
+    }
+
+    .job {
+        display: flex;
+        flex-direction: column;
+        max-width: 1400px;
+        padding: 10px;
+        margin: 0 auto;
+        overflow: hidden;
+        background-color: var(--theme-bg-color);
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        font-size: 18px;
+        cursor: pointer;
+    }
+
+        .logo svg {
+            width: 24px;
+            margin-right: 12px;
+        }
+
+    .header {
+        display: flex;
+        align-items: center;
+        transition: box-shadow 0.3s;
+        flex-shrink: 0;
+        padding: 0 40px;
+        white-space: nowrap;
+        background-color: var(--header-bg-color);
+        height: 60px;
+        width: 100%;
+        font-size: 14px;
+        justify-content: space-between;
+    }
+
+    .header-menu a {
+        text-decoration: none;
+        color: var(--body-color);
+        font-weight: 500;
+    }
+
+        .header-menu a:hover {
+            color: var(--active-color);
+        }
+
+        .header-menu a:not(:first-child) {
+            margin-left: 30px;
+        }
+
+        .header-menu a.active {
+            color: var(--active-color);
+        }
+
+    .user-settings {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+    }
+
+        .user-settings svg {
+            width: 20px;
+            color: #94949f;
+        }
+
+    .user-menu {
+        position: relative;
+        margin-right: 8px;
+        padding-right: 8px;
+        border-right: 2px solid #d6d6db;
+    }
+
+        .user-menu:before {
+            position: absolute;
+            content: "";
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            border: 2px solid var(--header-bg-color);
+            right: 6px;
+            top: -1px;
+            background-color: var(--active-color);
+        }
+
+    .user-profile {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        -o-object-fit: cover;
+        object-fit: cover;
+        margin-right: 10px;
+    }
+
+    .wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        scroll-behavior: smooth;
+        padding: 30px 20px;
+        overflow: auto;
+    }
+
+    .search-menu {
+        height: 56px;
+        white-space: nowrap;
+        display: flex;
+        flex-shrink: 0;
+        align-items: center;
+        background-color: var(--header-bg-color);
+        border-radius: 8px;
+        width: 100%;
+        padding-left: 20px;
+    }
+
+        .search-menu div:not(:last-of-type) {
+            border-right: 1px solid var(--search-border-color);
+        }
+
+    .search-bar {
+        height: 55px;
+        width: 100%;
+        position: relative;
+    }
+
+        .search-bar input {
+            width: 100%;
+            height: 100%;
+            display: block;
+            background-color: transparent;
+            border: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 56.966 56.966' fill='%230162ff'%3e%3cpath d='M55.146 51.887L41.588 37.786A22.926 22.926 0 0046.984 23c0-12.682-10.318-23-23-23s-23 10.318-23 23 10.318 23 23 23c4.761 0 9.298-1.436 13.177-4.162l13.661 14.208c.571.593 1.339.92 2.162.92.779 0 1.518-.297 2.079-.837a3.004 3.004 0 00.083-4.242zM23.984 6c9.374 0 17 7.626 17 17s-7.626 17-17 17-17-7.626-17-17 7.626-17 17-17z'/%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-size: 14px;
+            background-position: 0 50%;
+            padding: 0 25px 0 305px;
+        }
+
+    .search-location,
+    .search-job,
+    .search-salary {
+        display: flex;
+        align-items: center;
+        width: 50%;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 0 25px;
+        height: 100%;
+    }
+
+        .search-location input,
+        .search-job input,
+        .search-salary input {
+            width: 100%;
+            height: 100%;
+            display: block;
+            background-color: transparent;
+            border: none;
+        }
+
+        .search-location svg,
+        .search-job svg,
+        .search-salary svg {
+            margin-right: 8px;
+            width: 18px;
+            color: var(--active-color);
+            flex-shrink: 0;
+        }
+
+    .search-button {
+        background-color: var(--active-color);
+        height: 55px;
+        border: none;
+        font-weight: 600;
+        font-size: 14px;
+        padding: 0 15px;
+        border-radius: 0 8px 8px 0;
+        color: var(--button-color);
+        cursor: pointer;
+        margin-left: auto;
+    }
+
+    .search.item {
+        position: absolute;
+        top: 10px;
+        left: 25px;
+        font-size: 13px;
+        color: var(--active-color);
+        border: 1px solid var(--search-border-color);
+        padding: 8px 10px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+    }
+
+        .search.item svg {
+            width: 12px;
+            margin-left: 5px;
+        }
+
+        .search.item:last-child {
+            left: 185px;
+        }
+
+    .main-container {
+        display: flex;
+        flex-grow: 1;
+        padding-top: 30px;
+    }
+
+    .search-type {
+        width: 270px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        flex-shrink: 0;
+    }
+
+    .alert {
+        background-color: var(--alert-bg-color);
+        padding: 24px 18px;
+        border-radius: 8px;
+    }
+
+    .alert-title {
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 8px;
+    }
+
+    .alert-subtitle {
+        font-size: 13px;
+        color: var(--subtitle-color);
+        line-height: 1.6em;
+        margin-bottom: 20px;
+    }
+
+    .alert input {
+        width: 100%;
+        padding: 10px;
+        display: block;
+        border-radius: 6px;
+        background-color: var(--header-bg-color);
+        border: none;
+        font-size: 13px;
+    }
+
+    .search-buttons {
+        border-color: #34ba08;
+        color: black;
+        /*//color: var(--button-color);
+        //background-color: var(--active-color);*/
+        background-color: #ffffff;
+        padding: 8px 10px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 600;
+        margin-top: 14px;
+    }
+
+    .bookmarkview {
+        color: #FFFFFF;
+        background-color: #34ba08;
+        padding: 8px 10px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 600;
+        margin-top: 14px;
+        cursor: none;
+    }
+
+        .bookmarkview:hover {
+            background-color: white;
+            color: white;
+        }
+
+        .bookmarkview:focus {
+            background-color: #34ba08;
+            color: white;
+        }
+
+    .job-wrapper {
+        padding-top: 20px;
+    }
+
+    .job-time {
+        padding-top: 20px;
+    }
+
+    .job-time-title {
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    .type-container {
+        display: flex;
+        align-items: center;
+        color: var(--subtitle-color);
+        font-size: 13px;
+    }
+
+        .type-container label {
+            margin-left: 2px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .type-container + .type-container {
+            margin-top: 10px;
+        }
+
+    .job-number {
+        margin-left: auto;
+        background-color: var(--inactive-color);
+        color: var(--subtitle-color);
+        font-size: 10px;
+        font-weight: 500;
+        padding: 5px;
+        border-radius: 4px;
+    }
+
+    .job-style {
+        display: none;
+    }
+
+        .job-style + label:before {
+            content: "";
+            margin-right: 10px;
+            width: 16px;
+            height: 16px;
+            border: 1px solid var(--subtitle-color);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .job-style:checked + label:before {
+            background-color: var(--active-color);
+            border-color: var(--active-color);
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' class='feather feather-check'%3e%3cpath d='M20 6L9 17l-5-5'/%3e%3c/svg%3e");
+            background-position: 50%;
+            background-size: 14px;
+            background-repeat: no-repeat;
+        }
+
+        .job-style:checked + label + span {
+            background-color: var(--active-light-color);
+            color: var(--active-color);
+        }
+
+    .searched-jobs {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        /* padding-left: 40px; */
+    }
+
+    @@-webkit-keyframes slideY {
+        0% {
+            opacity: 0;
+            transform: translateY(200px);
+        }
+    }
+
+    @@keyframes slideY {
+        0% {
+            opacity: 0;
+            transform: translateY(200px);
+        }
+    }
+
+    .searched-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        -webkit-animation: slideY 0.6s both;
+        animation: slideY 0.6s both;
+    }
+
+    .searched-show {
+        font-size: 19px;
+        font-weight: 600;
+    }
+
+    .searched-sort {
+        font-size: 14px;
+        color: var(--subtitle-color);
+    }
+
+        .searched-sort .post-time {
+            font-weight: 600;
+            color: var(--subtitle-color);
+        }
+
+        .searched-sort .menu-icon {
+            font-size: 9px;
+            color: var(--placeholder-color);
+            margin-left: 6px;
+        }
+
+    .job-cards {
+        padding-top: 20px;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-column-gap: 55px;
+        grid-row-gap: 25px;
+        -webkit-animation: slideY 0.6s both;
+        animation: slideY 0.6s both;
+    }
+
+    @@media screen and (max-width: 1212px) {
+        .job-cards {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @@media screen and (max-width: 930px) {
+        .job-cards {
+            grid-template-columns: repeat(1, 1fr);
+        }
+    }
+
+    .job-card {
+        padding: 20px 16px;
+        background-color: var(--header-bg-color);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+        .job-card:hover {
+            transform: scale(1.02);
+        }
+
+        .job-card svg {
+            width: 56px;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+    .job-card-title {
+        height: 61px;
+        font-weight: 600;
+        font-size: 14px;
+        width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .job-card-subtitle {
+        color: var(--subtitle-color);
+        font-size: 13px;
+        margin-top: 2px;
+        max-height: 17px;
+        overflow-wrap: break-word;
+        overflow: hidden;
+        line-height: 1.6em;
+    }
+
+    .job-card-subtitle1 {
+        color: var(--subtitle-color);
+        font-size: 13px;
+        max-height: 15px;
+        overflow-wrap: break-word;
+        /*overflow: hidden;*/
+        line-height: 1.6em;
+    }
+
+    .job-card-header {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .overview-card:hover {
+        background: #2b2ecf;
+        transition: none;
+        transform: scale(1);
+    }
+
+        .overview-card:hover svg {
+            box-shadow: none;
+        }
+
+        .overview-card:hover .job-overview-buttons .search-buttons.time-button,
+        .overview-card:hover .job-overview-buttons .search-buttons.level-button {
+            background-color: #575ad8;
+            color: #fff;
+        }
+
+        .overview-card:hover .job-card-title,
+        .overview-card:hover .job-stat {
+            color: #fff;
+        }
+
+        .overview-card:hover .job-card-subtitle,
+        .overview-card:hover .job-day {
+            color: #dedede;
+        }
+
+        .overview-card:hover .overview-wrapper .heart {
+            color: #fff;
+            border-color: #fff;
+        }
+
+            .overview-card:hover .overview-wrapper .heart:hover {
+                fill: red;
+                stroke: red;
+                transform: scale(1.1);
+            }
+
+    .detail-button {
+        background-color: var(--active-light-color);
+        color: var(--active-color);
+        font-size: 11px;
+        font-weight: 500;
+        padding: 6px 8px;
+        border-radius: 4px;
+    }
+
+        .detail-button + .detail-button {
+            margin-left: 4px;
+        }
+
+    .job-card-buttons {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        margin-top: 4px;
+    }
+
+    .card-buttons,
+    .card-buttons-msg {
+        padding: 5px;
+        width: 75px;
+        font-size: 12px;
+        cursor: pointer;
+        overflow: hidden;
+    }
+
+    .card-buttons {
+        margin-right: 12px;
+    }
+
+    .card-buttons-msg {
+        background-color: #ffffff;
+        color: #ffffff;
+    }
+
+    .menu-dot {
+        background-color: var(--placeholder-color);
+        box-shadow: -6px 0 0 0 var(--placeholder-color), 6px 0 0 0 var(--placeholder-color);
+        width: 4px;
+        height: 4px;
+        border: 0;
+        padding: 0;
+        border-radius: 50%;
+        margin-left: auto;
+        margin-right: 8px;
+    }
+
+    .header-shadow {
+        box-shadow: 0 4px 20px rgba(88, 99, 148, 0.17);
+        z-index: 1;
+    }
+
+    @@-webkit-keyframes slide {
+        0% {
+            opacity: 0;
+            transform: translateX(300px);
+        }
+    }
+
+    @@keyframes slide {
+        0% {
+            opacity: 0;
+            transform: translateX(300px);
+        }
+    }
+
+    .job-overview {
+        display: flex;
+        flex-grow: 1;
+        display: none;
+        -webkit-animation: slide 0.6s both;
+        animation: slide 0.6s both;
+    }
+
+    .job-overview-cards {
+        display: flex;
+        flex-direction: column;
+        width: 330px;
+        height: 100%;
+        flex-shrink: 0;
+    }
+
+    .job-overview-card + .job-overview-card {
+        margin-top: 20px;
+    }
+
+    .job-overview-buttons {
+        display: flex;
+        align-items: center;
+        margin-top: 12px;
+    }
+
+        .job-overview-buttons .search-buttons {
+            background-color: var(--inactive-color);
+            font-size: 11px;
+            padding: 6px 8px;
+            margin-top: 0;
+            font-weight: 500;
+        }
+
+            .job-overview-buttons .search-buttons.time-button {
+                color: var(--time-button);
+                margin-right: 8px;
+            }
+
+            .job-overview-buttons .search-buttons.level-button {
+                color: var(--level-button);
+            }
+
+        .job-overview-buttons .job-stat {
+            color: var(--active-color);
+            font-size: 12px;
+            font-weight: 500;
+            margin-left: auto;
+        }
+
+        .job-overview-buttons .job-day {
+            color: var(--subtitle-color);
+            font-size: 12px;
+            margin-left: 8px;
+            font-weight: 500;
+        }
+
+    .job-overview .overview-wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+        .job-overview .overview-wrapper svg:first-child {
+            width: 42px;
+            margin-right: 10px;
+        }
+
+        .job-overview .overview-wrapper .heart {
+            background: none;
+            box-shadow: none;
+            width: 24px;
+            padding: 4px;
+            color: var(--subtitle-color);
+            border: 1px solid var(--border-color);
+            margin-left: auto;
+            margin-bottom: auto;
+        }
+
+    .overview-detail .job-card-title,
+    .overview-detail .job-card-subtitle {
+        margin-top: 6px;
+    }
+
+    .overview-detail .job-card-subtitle {
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    .job-explain {
+        background-color: var(--header-bg-color);
+        margin-left: 40px;
+        border-radius: 0 0 8px 8px;
+    }
+
+    .job-bg {
+        border-radius: 8px 8px 0 0;
+        -o-object-fit: cover;
+        object-fit: cover;
+        width: 100%;
+        height: 180px;
+        transition: 0.3s;
+        position: relative;
+    }
+
+    .job-logos {
+        margin-top: -30px;
+        position: relative;
+        margin-bottom: -36px;
+        padding: 0 20px;
+    }
+
+        .job-logos svg {
+            width: 66px;
+            padding: 12px;
+            background-color: #fff;
+            border-radius: 10px;
+            border: 4px solid var(--header-bg-color);
+        }
+
+    .job-title-wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+        .job-title-wrapper .job-card-title {
+            font-size: 20px;
+            margin-top: 0;
+            font-weight: 600;
+        }
+
+    .job-action {
+        display: flex;
+        align-items: center;
+        margin-left: auto;
+    }
+
+        .job-action svg {
+            width: 32px;
+            border: 1px solid var(--border-color);
+            color: var(--subtitle-color);
+            border-radius: 8px;
+            padding: 6px;
+        }
+
+            .job-action svg + svg {
+                margin-left: 12px;
+            }
+
+    .job-explain-content {
+        padding: 50px 25px 30px;
+    }
+
+    .job-subtitle-wrapper {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+        .job-subtitle-wrapper .posted {
+            margin-left: auto;
+        }
+
+        .job-subtitle-wrapper .company-name {
+            color: var(--active-color);
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .job-subtitle-wrapper .comp-location,
+        .job-subtitle-wrapper .posted {
+            color: var(--subtitle-color);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .job-subtitle-wrapper .comp-location {
+            position: relative;
+            margin-left: 10px;
+        }
+
+            .job-subtitle-wrapper .comp-location:before {
+                content: "";
+                width: 3px;
+                height: 3px;
+                border-radius: 50%;
+                background-color: var(--placeholder-color);
+                top: 49%;
+                left: -8px;
+                position: absolute;
+            }
+
+        .job-subtitle-wrapper .app-number {
+            color: var(--body-color);
+            position: relative;
+            margin-left: 12px;
+        }
+
+            .job-subtitle-wrapper .app-number:before {
+                content: "";
+                width: 3px;
+                height: 3px;
+                border-radius: 50%;
+                background-color: var(--placeholder-color);
+                top: 50%;
+                left: -7px;
+                position: absolute;
+            }
+
+    .explain-bar {
+        margin-top: 20px;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        display: flex;
+        height: 66px;
+        padding: 0 16px;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .explain-title {
+        color: var(--subtitle-color);
+        font-size: 12px;
+        line-height: 40px;
+        white-space: nowrap;
+    }
+
+    .explain-subtitle {
+        font-size: 13px;
+        font-weight: 500;
+        margin-top: -2px;
+        white-space: nowrap;
+    }
+
+    .explain-contents {
+        height: 66px;
+    }
+
+        .explain-contents + .explain-contents {
+            border-left: 1px solid var(--border-color);
+            padding-left: 16px;
+        }
+
+    .overview-text {
+        margin-top: 30px;
+    }
+
+    .overview-text-header {
+        font-weight: 600;
+        margin-bottom: 25px;
+    }
+
+    .overview-text-subheader {
+        font-size: 13px;
+        line-height: 2em;
+    }
+
+    .overview-text-item {
+        font-size: 13px;
+        position: relative;
+        display: flex;
+    }
+
+        .overview-text-item + .overview-text-item {
+            margin-top: 20px;
+        }
+
+        .overview-text-item:before {
+            content: "";
+            border: 2px solid #61bcff;
+            border-radius: 50%;
+            height: 8px;
+            width: 8px;
+            margin-right: 8px;
+            flex-shrink: 0;
+        }
+
+    .detail-page .job-overview {
+        display: flex;
+    }
+
+    .detail-page .job-cards,
+    .detail-page .searched-bar {
+        display: none;
+    }
+
+    @@media screen and (max-width: 1300px) {
+        .detail-page .search-type {
+            display: none;
+        }
+
+        .detail-page .searched-jobs {
+            padding-left: 0;
+        }
+    }
+
+    @@media screen and (max-width: 990px) {
+        .explain-contents, .explain-bar {
+            height: auto;
+        }
+
+        .explain-bar {
+            flex-wrap: wrap;
+            padding-bottom: 14px;
+        }
+
+        .explain-contents {
+            width: 50%;
+        }
+
+            .explain-contents + .explain-contents {
+                padding: 0;
+                border: 0;
+            }
+
+            .explain-contents:nth-child(2) ~ .explain-contents {
+                margin-top: 16px;
+                border-top: 1px solid var(--border-color);
+            }
+
+        .job-subtitle-wrapper {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+            .job-subtitle-wrapper .posted {
+                margin-left: 0;
+                margin-top: 6px;
+            }
+    }
+
+    @@media screen and (max-width: 930px) {
+        .search-job, .search-salary {
+            display: none;
+        }
+
+        .search-bar {
+            width: auto;
+        }
+    }
+
+    @@media screen and (max-width: 760px) {
+        .detail-page .job-overview-cards {
+            display: none;
+        }
+
+        .user-name {
+            display: none;
+        }
+
+        .user-profile {
+            margin-right: 0;
+        }
+
+        .job-explain {
+            margin-left: 0;
+        }
+    }
+
+    @@media screen and (max-width: 730px) {
+        .search-type {
+            display: none;
+        }
+
+        .searched-jobs {
+            padding-left: 0;
+        }
+
+        .search-menu div:not(:last-of-type) {
+            border: 0;
+        }
+
+        .job-cards {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .search-location {
+            display: none;
+        }
+    }
+
+    @@media screen and (max-width: 490px) {
+        .job-cards {
+            grid-template-columns: repeat(1, 1fr);
+        }
+
+        .header-menu a:not(:first-child) {
+            margin-left: 10px;
+        }
+    }
+
+    @@media screen and (max-width: 590px) {
+        .header-menu {
+            display: none;
+        }
+    }
+
+    @@media screen and (max-width: 520px) {
+        .search.item {
+            display: none;
+        }
+
+        .search-bar {
+            flex-grow: 1;
+        }
+
+            .search-bar input {
+                padding: 0 0 0 30px;
+            }
+
+        .search-button {
+            margin-left: 16px;
+        }
+
+        .searched-bar {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .searched-sort {
+            margin-top: 5px;
+        }
+
+        .main-container {
+            padding-top: 20px;
+        }
+    }
+
+    @@media screen and (max-width: 380px) {
+        .explain-contents {
+            width: 100%;
+            margin: 0;
+        }
+
+            .explain-contents:nth-child(2) ~ .explain-contents {
+                margin: 0;
+                border: 0;
+            }
+
+        .wrapper {
+            padding: 20px;
+        }
+
+        .header {
+            padding: 0 20px;
+        }
+    }
+
+    .collapsible {
+        background-color: #777;
+        color: white;
+        cursor: pointer;
+        padding: 18px;
+        width: 100%;
+        border: none;
+        text-align: left;
+        outline: none;
+        font-size: 15px;
+    }
+
+        .active, .collapsible:hover {
+            background-color: #555;
+        }
+
+    .content {
+        padding: 0 18px;
+        display: none;
+        overflow: hidden;
+        background-color: #f1f1f1;
+    }
+</style>
+
+
+<style>
+    .centered1 {
+        width: 80%;
+        position: absolute;
+        right: 0;
+    }
+</style>
+
+@*dileep*@
+<div class="split left">
+    <div class="centered">
+
+    </div>
+</div>
+
+<div class="split right">
+    <div class="centered1">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="row">
+                    <div class="col-sm-12">
+
+                        <div style="background-color:#fff; padding:0px 20px 20px 20px;">
+
+                            <div id="PaidArea">
+                                <div id="PaidResultArea"></div>
+                            </div>
+                            <div id="DisplayArea" class="hide">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">&nbsp;</div>
+                                </div>
+                                <div class="job">
+                                    <div class="searched-jobs">
+                                        <div id="ResultArea" class="job-cards"></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">&nbsp;</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">&nbsp;</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <a id="ViewMore" class="btn btn-primary btn-block hide" style="width:100%;">View More</a>
+                                        <a id="JoinSeeMore" class="btn btn-info hide" style="width:100%;">Join to See More</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" id="divLatestJobs">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="job">
+                                        <div class="searched-jobs">
+                                            <div class="searched-bar">
+                                                <div class="searched-show">Latest Jobs</div>
+                                            </div>
+                                            <div class="job-cards">
+                                                @if (ViewBag.LatestJobs != null)
+                                                {
+                                                    foreach (LatestJob latestJob in ViewBag.LatestJobs)
+                                                    {<!-- card start -->
+                                                        <div class="job-card">
+                                                            <div class="row" style="min-height:45px;">
+                                                                <div class="col-md-5">
+                                                                    @Html.Raw(string.Format("<text><span><img  height='100' width='100' src=\"/Image/Avtar/" + latestJob.EmployerId + "\" /><span> </text>"))
+                                                                    @*@if (latestJob.Image != null)
+                                                                        {
+                                                                            @Html.Raw(string.Format("<text><img height='100' width='100' src=\"data:image/jpg;base64," + (latestJob.Image) + " \" /> </text>"));
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            @Html.Raw(string.Format("<text><img height='100' width='100' src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAAAwCAYAAAC4wJK5AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAsLSURBVGhD1VoJWFTlGn6HGZYZhlVBAQUBWcTcTc28GprZYmWllXm7eq3HW96bqZXZoldbXR5cerLUx7Ks1Hq817xZ7m0W4r6gCMgiiso+wAzDNjD3+z7O2KDAsFn28uD555z/HL73/7/l/Y6jshJgB7PJhAqzWfl088JNp4NOr5dxPRJVFRUwlZbK2N3DAy5ublCpVPK5paioKYfGSQONylk503awqWxjmdEon/WenmKjk3xSUFFeLkcm4KrVtppAdnk6VqXPw3dXNqK6tko523awPWwX28ew2VuPhMVikSOzay2OGn7CouR/YdOFlfgwfT7253+rXGk/2Oyz2VuPBO2XHFq7A1uy1+DlU4/hYOE+WOknr/IS3j77DE4Z4pUZ7YOr9in21ifRSlTXVmJ1xkIsTpkBQ3UBaunHhmJLIaYcHYGEor2wWKuVs+2LdiGRSyu+v+Bb1FprlDP1oaJdeTNpGnbnfKWcgcwtrymD2WJqM7l62akoL0+Ovv7+cmwusssz8HLi40guPaacaRid3YKxut9u/JC/DWllZ1BVYxa3c3ZyRUeXAIwN/Bu663sqs5uGva2/G4kQXSR6ew/FgYKdMFpKUFlbl1lsUKs06KINx+s9PkR/n+HK2cZhb2u7uFNJdSFKqgqVT9djsO8o+leF7Zc/RUFVjrhPrP84vBC5DC9ELcO9nf8KvcYTWeYUzE2ciISCfaix1mWe5qDNO5FObrE+cxF25mwW12gIXs4dhKhe44XeXkOQX3kZC3uuR5RHX2UG8A0RXJD0lIw9aN7rPdbiDv8HGi2W7bITNRSYvxbskIDdkbOpUQIMJhDm3gMzI5ZgHhnn61K3SFllqbhSnoWq2goi6I1gXQS66sLF3Vaem4uf87fLPEdo9U58d+ULLD/3IgxVBU0SUElusmJFn20Y2nGMjO/bH0q53onSfK0cebV5HEZB/Wz4QqotzyLZeAyeGl/sHn6JAv/63WjzTqzLfAfzzkxGUVW+GNUYovR9sarfDhk7qdTkMp/gwV+i5J6ZEYuxa3g2dv7lgszhYD5rPIrzZSlY2vsrIV9qKUJuxUW5vym0isSW7NXKqGnMiHgXwe6RMl5/fhEOF/2AV3qsoiwUKtnKhhCa83Dg03BRuWLTxZX4/MIK5Qpgqi5RRo2jXbJTY/iZdNM7Z6fLeLT/BLxK6XNIhzvhTplITQrXHhb6CdPXxQ3DtsPlVEscoVUkAqhoNQd5lRcxOeRFGbO7sPGMHHKRzRdXkc6agFknxlEMTMd3OV+Q5SpKADF4MmQWNKiLg2KSMY7QIhIsFU6XHBYjVHQrF6imMDF4Bgb63iFjo8WAn/K/wdxTEynFXoG72hMj/B7CSP+HEOnRCxUWMzLNycgsOyuBrnZSy30mS7Ecm0LTVtjBQsVnX+4WCWpWp9100VTE7kSS8TAyypJQZqlrVOyRWHIILk51svn9tNfQwaUTBtCOlFYX4Z7OjyPGc6BcY9zV6VE8En8Lyfd/Y1jHeyURMCyN6DF7NGsnyiylWJvxBpamzhKD+3gNlQB9PnIR/h2zjgrTGozv8owUKXt8lhV3tYAN9I3FazFrMKHrdLiqqRuj1HotQt2j8UTw89ibt0U6Q4a1PUiw0nw/bb4YVFptwMNB07Ck95cY6DMCrrTKoVTERneaICnzyyEn8Gr0B4jU95F72Z/PlyXLeOulj7Aq7XWkG09LYXNqxBVv8RqEN3p+QlXeVz5XN0PhOix2G7PeQ9y52bTK3niUVvGp0Felf0go3EM+/j/RQvd0nojbOoyBTq2/GrynihOw9fI6mWeiCmyuMcl5hq0ABrp1kzH3H+Yao6Tdt2/5XJ7x98PDSEulYnZUHCZ1fV658zfY2+owJnIrs2lle2Na2HwKxPtJKyWRVlqMg0V74EmrddGchkNF34vM7ud9O4bTHFajvbwHk2odgsvl52nuXhwo3I0U4wlRvEyAjd92e6q4FffhO3I2Ylnqi1QnVmF80NNwU2sVCxzD4U6cJXnN7SAT2Zf3X3x6filSTCcosKPwEP2xBCLDq81aiuHqpCX9E0bibgCiSeCN8BuLIG2YxFWq6SQuEOntVz6jLHcIB0bW7U4tSQ7OXlMODUM4SY+ymlKSHcfFfWdGLsGTwbNlnj3q2cokbCjMzZXfhrA8ZY51+A++1v571NZJCYOsacbT1sqacmtJVZE1Y8cn1oy+kdaTfQOtU5drZQ7/Dv3ew3rXz12s046Msu7P/9ZKKy7PIr1F9yfK2IZiOkckrOmmJOuWi6utA/Zo5BkbsuKUGfVhb6vDnSisykVcyizsofTqptbhbvJ/7gFYIlTU1lVT89gJqE5MlHFVr3CsXhKEk8XxEgucGGw9N0vy+wKexEi/cQjVR+NTShacSln8+TkHYlfeZizqtYnc1IearMcQX7AL/+z+FqZ2myv328PeVofZafvlDdiV+xX90RgxflbEUjGMxVxcyguIIz/mbbeBg/LdXhuxcfARzIl+Dw8ETUVPqgfezh1Fkm8kXfSPY6Mw+8TD1J5WwosSBiuMA0W7SBHni8sJlKVtTv/tcCdWpy+Q4H08+Dn08hosK/xZ1jLEF+6kFrNC5gw5rcdzH3tApXbGqTkjEDxmEgZRN8fBy0Zw33CJAvqY4RecIyOPGH6U4rl58HFEULVmZJszMC4+iuKpO+6nXvv7vK8pHo9KKh9Du59dli4pnRPGrb4jYSyoq+Rsq0MS7BJsjE7jQQ/eiveoWblUnimV2JvcI4+6NKvdKxqWDO40V6/2wqhO46n63k1VeoRc476ai1hexSX8WLANg31G07PSYbAU4ED+LsTTbjDYWH4OV/Ror/7opo0U7aWlFK5Vu8vzDXn5MrdZJDgdskxYee4VbLv8sRBinx1HRW9yyGxkmM7geMmvOED+y9qnsqaCDP0tDhgcP+O7PksrGIsk0l5XKi/g1/wdMFTnk/5SU6yRYWoPStNdqXG6m+pFBIZ3HCvnG4O9rc1KsSvOvYSjhv3SYd3qE4tJITNFN12LxJKDQiSx+CDVjr1SExoCi8cgXSgCXEPEnThmBnjfAT+3AGWGY7SIxNr0hViT+Sb8XANJ18yQ7OTvGkRqM5mK13FZcb7Ww6M/jNXFOFr8E8VNQoMkWPWyuOPY6kuFMcAtRFa/NWgRiQ9INyUZj+ClqBUiE1gecMXmClsuKdZK/utCvqqT1yxlFtN17sT+PTV0LmJJdnMvwn7N59qCFpFgScBvIzifs4JdnDwDZ0oPK1cbBksJdwrsrlSp7wl4QpRpe6NFJDgVpptOU1Cvx3+y1zrM213I8L7ew3Bnp0ckK7EovBFoEYkf87/Gmow3kUZEGnthzOD3SrHUqd3W8S7STP3EZW4k7G11WLH35W5FqvFkE2+8VZjSbQ6W9/kaT4e9Rkp22A0ncC2aJDHv9OS6Br4B8CvJ0VTMvrk9Dc91fwdddOFUAF2Vq78vGiXBeoglxrXgqsk1Yh61pG/13IAAbYhy5Y9DoyS4aHE6tYefawCmhy/Egp4fUeCOh8bJRbnyx6JREtzE1NCPDbH+D2LDoARpUbnY3UxokATrJW4l+TUMt53zY9aRzv9SjG9rkboRqE9C+V9JMxmfWZZCemY4FsR8hAcDp5DxzX5FdcNxtSoo9tarE6UGAyzV1dC4OyPeuFPeL90MgXstKsvL5VsFGmdnePr41Cdh/7UIrV4HN627vCS4WcCmNvS1iHokGH/6L6jYwGz5exPytYPrL/9xIK/QaDTkIdp6X91okMSfC8D/ATKUv4mDHEz7AAAAAElFTkSuQmCC\" alt=\"Image\" /></text>", Url.Content("~/Content/images/non-preview-photo.gif")));
+                                                                        }*@
+                                                                </div>
+                                                                <div class="col-md-7" style="padding-right:2px;">
+                                                                    <div class="job-card-title">@Html.Raw(latestJob.Title)</div>
+                                                                    <div class="job-card-subtitle">
+                                                                        <b>Location: </b>@Html.Raw(string.Format("{0} {1}", latestJob.Country, latestJob.City))
+                                                                    </div>
+                                                                    <div class="job-card-subtitle1">
+                                                                        <div class="row" style="padding-top: 0px;width: 100%;margin-top: 6px;">
+                                                                            <div class="col-md-12">
+                                                                                <b>Status: </b> @Html.Raw(latestJob.Status)
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="job-card-buttons">
+                                                                <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;">@Html.Raw(latestJob.JobType)</button>
+                                                                @*<button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;">@Html.Raw(latestJob.MinimumExperience)</button>*@
+
+                                                                @{
+                                                                    var x = latestJob.MinimumExperience;
+                                                                    if (x == "0" || x == "0 Years" || x == "fresher" || x == "0 Year" || x == null || x == "0-1" || x == "0-2" || x == "0-3" || x == "0-4" || x == "0-5" || x == "0-6" || x == "0-7" || x == "0-8" || x == "0-9" || x == "0-10" || x == "0-11" || x == "0-12" || x == "0-13" || x == "0-14" || x == "0-15")
+                                                                    {
+                                                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 0-1 Yrs</button>
+                                                                    }
+                                                                    else if (x == "1" || x == "1 Years" || x == "1 Year" || x == "1 year" || x == "1-2" || x == "1-3" || x == "1-4" || x == "1-5" || x == "1-6" || x == "1-7" || x == "1-8" || x == "1-9" || x == "1-10" || x == "1-11" || x == "1-12" || x == "1-13" || x == "1-14" || x == "1-15")
+                                                                    {
+                                                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 1-2 Yrs</button>
+                                                                    }
+                                                                    else if (x == "2" || x == "2 Years" || x == "2 years" || x == "2-3" || x == "2-4" || x == "2-5" || x == "2-6" || x == "0-7" || x == "2-8" || x == "2-9" || x == "2-10" || x == "2-11" || x == "2-12" || x == "2-13" || x == "2-14" || x == "2-15" || x == "2-20")
+                                                                    {
+                                                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 2-3 Yrs</button>
+                                                                    }
+                                                                    else if (x == "3" || x == "3 Years" || x == "3 years" || x == "3-4" || x == "3-5" || x == "3-6" || x == "0-7" || x == "3-8" || x == "3-9" || x == "3-10" || x == "3-11" || x == "3-12" || x == "3-13" || x == "3-14" || x == "3-15")
+                                                                    {
+                                                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;">3-4 Yrs</button>
+                                                                    }
+                                                                    else if (x == "4" || x == "4 Years" || x == "4 years" || x == "4-5" || x == "4-6" || x == "0-7" || x == "5-8" || x == "4-9" || x == "4-10" || x == "4-11" || x == "4-12" || x == "4-13" || x == "4-14" || x == "4-15")
+                                                                    {
+                                                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 4-10 Yrs</button>
+                                                                    }
+                                                                    else if (x == "5" || x == "5 Years" || x == "5 years" || x == "5-6" || x == "0-7" || x == "6-8" || x == "5-9" || x == "5-10" || x == "5-11" || x == "5-12" || x == "5-13" || x == "5-14" || x == "5-15")
+                                                                    {
+                                                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 5-10 Yrs</button>
+                                                                    }
+                                                                    else if (x == "6" || x == "6 Years" || x == "6 years" || x == "6-7" || x == "6-8" || x == "6-9" || x == "6-10" || x == "6-11" || x == "6-12" || x == "6-13" || x == "6-14" || x == "6-15")
+                                                                    {
+                                                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 6-12 Yrs</button>
+                                                                    }
+                                                                    else if (x == "7" || x == "7 Years" || x == "7-8" || x == "7-9" || x == "7-10" || x == "7-11" || x == "7-12" || x == "7-13" || x == "7-14" || x == "7-15")
+                                                                    {
+                                                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 7-15 Yrs</button>
+                                                                    }
+                                                                    else if (x == "8" || x == "8 Years" || x == "8-9" || x == "8-10" || x == "8-11" || x == "8-12" || x == "8-13" || x == "8-14" || x == "8-15")
+                                                                    {
+                                                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 8-15 Yrs</button>
+                                                                    }
+                                                                    else if (x == "9" || x == "9 Years" || x == "9-10" || x == "9-11" || x == "9-12" || x == "9-13" || x == "9-14" || x == "9-15")
+                                                                    {
+                                                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 9-15 Yrs</button>
+                                                                    }
+                                                                    else if (x == "10" || x == "10 Years" || x == "10-11" || x == "10-12" || x == "10-13" || x == "10-14" || x == "10-15")
+                                                                    {
+                                                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 10-15 Yrs</button>
+                                                                    }
+                                                                    else if (x == "11" || x == "11 Years" || x == "11-12" || x == "11-13" || x == "11-14" || x == "11-15")
+                                                                    {
+                                                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 11-15 Yrs</button>
+                                                                    }
+                                                                    else if (x == "12" || x == "12 Years" || x == "12-13" || x == "12-14" || x == "12-15")
+                                                                    {
+                                                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 12-15 Yrs</button>
+                                                                    }
+                                                                    else if (x == "13" || x == "13 Years" || x == "13-14" || x == "13-15")
+                                                                    {
+                                                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 13-15 Yrs</button>
+                                                                    }
+                                                                    else if (x == "14" || x == "14 Years" || x == "14-15")
+                                                                    {
+                                                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 14-15 Yrs</button>
+                                                                    }
+                                                                    else if (x == "15" || x == "15 Years" || x == "15-16")
+                                                                    {
+                                                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 10-16 Yrs</button>
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;">@Html.Raw(string.Format("{0} ", latestJob.MinimumExperience))</button>
+                                                                    }
+                                                                }
+                                                                <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;">@Html.Raw(latestJob.JobLevel)</button>
+                                                            </div>
+                                                            <div class="job-card-buttons">
+
+
+                                                                @*<a href="/job/jobview?Id=@latestJob.JobID" target="_blank" class="card-buttons card-buttons-override bookmarkview">View</a>*@
+                                                                @Html.ActionLink("View", "View", "job", new { Id = latestJob.JobID }, new { target = "_blank", @class = "card-buttons card-buttons-override bookmarkview" })
+                                                                @Html.ActionLink("Share", "Email", "job", new { Id = latestJob.JobID }, new { target = "_blank", @class = "card-buttons card-buttons-override bookmarkview" })
+                                                                @Html.ActionLink("Bookmark", "BookMarkedJobs", "JobSeeker", new { Id = latestJob.JobID }, new { target = "_blank", title = "Bookmark this job.", @class = "card-buttons card-buttons-override bookmarkview" })
+                                                            </div>
+                                                        </div> <!-- card end -->}
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="text-align:center; margin-top: -15px;" id="paginationDiv">
+
+                                <ul class="pagination">
+                                    @if (Model.CurrentPage > 1)
+                                    {
+                                        <li class="page-item">
+                                            <a class="page-link" href='@ViewBag.name?i=@(Model.CurrentPage - 1)' aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                    }
+                                    @for (var page = Model.StartPage; page <= Model.EndPage; page++)
+                                    {
+                                        var activeClass = Model.CurrentPage == page ? "active bg-info" : string.Empty;
+                                        <li class="page-item @activeClass"><a class="page-link" href='@ViewBag.name?i=@page'>@page</a></li>
+                                    }
+                                    @if (Model.CurrentPage < Model.TotalPages)
+                                    {
+                                        <li class="page-item">
+                                            <a class="page-link" href='@ViewBag.name?i=@(Model.CurrentPage + 1)' aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*end dileep*@
+
+
+
+
+@*<div class="col-lg-2 col-md-2 col-sm-2">
+        <div class=" form-group">
+            <label>&nbsp;</label>
+            <input id="SearchAdvance" type="submit" value="Search" class="btn btn-info btn-block jsearch1" />
+        </div>
+    </div>*@
+<style>
+    .asText {
+        background: none;
+        border: none;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+<style>
+    i.fa-angle-down {
+        float: right;
+    }
+
+    .toggled-on .fa-angle-down {
+        display: none;
+    }
+
+
+
+    .koh-faqs-page-title {
+        /* font-family: Nexa W01 Heavy;*/
+        font-size: 30px;
+        color: #04202E;
+        font-weight: 700;
+    }
+
+    .koh-faq-question-span {
+        /* font-family: Helvetica Neue LT Pro Roman !important;*/
+        font-size: 16px !important;
+        color: #000 !important;
+        font-weight: 700 !important;
+        display: inline-block;
+    }
+
+    .koh-faq-answer {
+        /*  font-family: Helvetica Neue LT Pro Roman;*/
+        color: #000;
+        font-weight: 400;
+        display: none;
+    }
+
+    .koh-faq-answer1 {
+        /*  font-family: Helvetica Neue LT Pro Roman;*/
+        color: #000;
+        font-weight: 400;
+    }
+
+
+    .icon {
+        font-size: 10px;
+        padding-right: 5px;
+    }
+
+    .fa {
+        transition: transform .2s;
+    }
+
+        .fa.active {
+            transform: rotateZ(90deg);
+        }
+</style>
+<script>
+    function myFunction() {
+        var x = document.getElementById("dil");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+
+    $(document).ready(function () {
+        $(this).on("click", ".koh-faq-question", function () {
+            $(this).parent().find(".koh-faq-answer").toggle();
+            $(this).find(".fa").toggleClass('active');
+        });
+    });
+</script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+    @*<a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            Link with href
+        </a>*@
+
+<div class="w3-sidebar w3-light-grey w3-bar-block" style="width:25%">
+    <div class="col-lg-2 col-md-3 col-sm-3" style="width:280px;">
+        
+                    <div class="koh-faq-question">
+                        <ul class="nav nav-pills nav-stacked well_new" >
+                            <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;"> SUGGESTIONS <i class="fa fa-chevron-right" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="float:right; color : #34ba08" aria-hidden="true"></i></a> </li>
+                        </ul>
+                    </div>
+                    <div class="collapse" id="collapseExample">
+                        <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+
+
+                            <li style="font-family: Calibri;">Make sure about words</li>
+                            <li style="font-family: Calibri;">Try different keywords.</li>
+                            <li style="font-family: Calibri;">Try more general keywords.</li>
+                            <li style="font-family: Calibri;">Try fewer keywords.</li>
+                            <li style="font-family: Calibri;">Try entire word.</li>
+
+
+                        </ul>
+                    </div>
+               
+    </div>
+
+
+    <div class="col-lg-2 col-md-3 col-sm-3" style="width:280px;">
+       
+                        <div class="form-group">
+
+                          
+                                <dl class="multi-dropdown">
+
+                                    <dd>
+                                        <div class="mutliSelect">
+                                            <select class="form-control _basic" style="width: 250px; height: 31px; border: 1px solid #ccc;border-radius:4px; ">
+                                                <option value="" disabled selected >MANDATORY SKILLS</option>
+                                                <option value="Ajax">Ajax</option>
+                                                <option value="ASP">ASP</option>
+                                                <option value="Android">Android</option>
+                                                <option value="Azure">Azure</option>
+                                                <option value="Azure Devops">Azure Devops</option>
+                                                <option value="Big Data">Big Data</option>
+                                                <option value="C#">C#</option>
+                                                <option value="C++">C++</option>
+                                                <option value="CSS">CSS</option>
+                                                <option value="Dejango">Dejango</option>
+                                                <option value="Data Scienes">Data Scienes</option>
+                                                <option value="Dart">Dart</option>
+                                                <option value="Flutter">Flutter</option>
+                                                <option value=".net">.net</option>
+                                                <option value="SQL">SQL</option>
+                                                <option value="MS SQL">MS SQL</option>
+                                                <option value="Jquery">Jquery</option>
+                                                <option value="Java">Java</option>
+                                                <option value="JavaScript">JavaScript</option>
+                                                <option value="HTML">HTML</option>
+                                                <option value="TFS">TFS</option>
+                                                <option value="Python">Python</option>
+                                                <option value="Xamarin">Xamarin</option>
+                                                <option value="Software">Software</option>
+                                                <option value="VB++">VB++</option>
+                                                <option value="VBNet">VBNet</option>
+                                                <option value="MVC">MVC</option>
+
+                                            </select>
+                                        </div>
+                                    </dd>
+                                  
+                                    <dt>
+                                        <dl>
+
+                                            <p class="multiSel"></p>
+                                        </dl>
+                                    </dt>
+                                </dl>
+
+
+                          
+                       
+        </div>
+
+
+
+
+    </div>
+
+    <div class="col-lg-2 col-md-3 col-sm-3" style="width:280px;">
+        <div class="koh-tab-content">
+            <div class="koh-tab-content-body">
+                <div class="koh-faq">
+                    <div class="koh-faq-question">
+                        <div class="form-group">
+                            @Html.TextBoxFor(model => model.JobTitle, new { placeholder = "OPTIONAL SKILLS", @class = "form-control _basic", @maxlength = 50, @style = "" })
+                            @Html.ValidationMessageFor(model => model.Where)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-2 col-md-3 col-sm-3" style="width:280px;">
+                       <div class=" form-group">
+                         
+                            <input id="SearchAdvance" type="submit" value="Search" style="" class="btn btn-info btn-block jsearch1" />
+                        </div>
+               
+    </div>
+    <div class="col-lg-2 col-md-3 col-sm-3" style="width:280px;">
+       
+                        <div class=" form-group">
+                          
+                            <input id="SearchAdvance" type="submit" style="" value="Advance Search" class="btn btn-info btn-block jsearch1" />
+                        </div>
+                   
+    </div>
+
+
+    
+</div>
+
+
+
+
+
+
+
+<script>
+    $(".mutliSelect select").on("change", function () {
+
+        /* Grabs the selected category */
+        var displayTitle = $(this).val() + "";
+
+        $('option[value="' + displayTitle + '"]').prop('disabled', true);
+
+        var p_elem = $("<span />")
+            .attr("class", "categoryBubble")
+            .attr("title", displayTitle)
+            .text(displayTitle);
+
+        var other_span = $("<span />")
+            .on("click", foo)
+            .addClass("Xout")
+            .text("x");
+
+        $(p_elem).append(other_span);
+        $(".multiSel").append(p_elem);
+
+        $(".hida").hide();
+
+        function foo() {
+            $(this).parent().remove();
+            $('option[value="' + displayTitle + '"]').prop('disabled', false);
+        }
+
+    });
+
+
+</script>
+
+<link href="https://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/habibmhamadi/multi-select-tag/dist/css/multi-select-tag.css">
+<div class="clear" style="height:15px;"></div>
+
+
+<script src="~/Scripts/Search.js"></script>
+
+<script type="text/javascript">
+    var formId = "";
+    $(document).ready(function () {
+        $('#addRowButton').click(function () {
+        $("#noresult").hide();
+        $("#divLatestJobs").show();
+        $("#paginationDiv").show();
+
+        var country = "@(Model.Where!=null?Model.Where:"")";
+        var countryId = Number("@(Request.QueryString["CountryId"] != null ? Request.QueryString["CountryId"] : "0")");
+        var rows = 0;
+        var pages = 0;
+        var offset = 1;
+        $('#Save').click(function () {
+            alert('button click')
+            $.post('@Url.Action("BookMarkedJob", "JsonHelper")', { jobId: 52 }, function (data) {
+                $("#msg").html(data);
+            });
+        })
+
+        if (countryId > 0) {
+            $("#waitDialog").modal("show");
+            $("#divMsg").removeClass("show");
+            $("#divMsg").addClass("hide");
+            offset = 1;
+            var jsonForm = { CountryId: countryId, PageNumber: offset };
+            $.post("/jobs", jsonForm, function (result) {
+                $("#waitDialog").modal("hide");
+                if (result.length > 0) {
+                    rows = result[0].TotalRow;
+                    pages = Math.ceil(rows / 12);
+                    $("#noresult").hide();
+                    $("#divLatestJobs").hide();
+                    $("#paginationDiv").hide();
+                    $("#DisplayArea").removeClass("hide");
+                    $("#DisplayArea").addClass("show");
+                    $(result).each(function () {
+                        if (this.ExpiryStatus == null || this.ExpiryStatus == '') {
+                            this.ExpiryStatus = this.ClosedOn;
+                        }
+                        this.authflag = "@Request.IsAuthenticated";
+                        this.Role = "@(user!= null?user.Role.GetDescription():"")";
+                        $("#ResultItem").tmpl(this).appendTo("#ResultArea");
+                    });
+                    if ((offset < pages)) {
+                        if (authenticated == "True") {
+
+                            $("#JoinSeeMore").removeClass("show");
+                            $("#JoinSeeMore").addClass("hide");
+                            $("#ViewMore").removeClass("hide");
+                            $("#ViewMore").addClass("show");
+
+                        } else {
+                            $("#JoinSeeMore").removeClass("hide");
+                            $("#JoinSeeMore").addClass("show");
+                            $("#ViewMore").removeClass("show");
+                            $("#ViewMore").addClass("hide");
+                        }
+                    } else {
+                        $("#JoinSeeMore").removeClass("show");
+                        $("#JoinSeeMore").addClass("hide");
+                        $("#ViewMore").removeClass("show");
+                        $("#ViewMore").addClass("hide");
+                    }
+                } else {
+                    $("#JoinSeeMore").removeClass("show");
+                    $("#JoinSeeMore").addClass("hide");
+                    $("#ViewMore").removeClass("show");
+                    $("#ViewMore").addClass("hide");
+                    $("#noresult").show();
+                    $("#divLatestJobs").hide();
+                    $("#paginationDiv").hide();
+                    $("#JobArea").removeClass("show");
+                    $("#JobArea").addClass("hide");
+                }
+            });
+        }
+        if (country !== "") {
+            $("#waitDialog").modal("show");
+            $("#divMsg").removeClass("show");
+            $("#divMsg").addClass("hide");
+            offset = 1;
+            var jsonForm = { Where: country, PageNumber: offset };
+            $.post("/jobs", jsonForm, function (result) {
+                $("#waitDialog").modal("hide");
+                if (result.length > 0) {
+                    rows = result[0].TotalRow;
+                    pages = Math.ceil(rows / 12);
+                    $("#noresult").hide();
+                    $("#divLatestJobs").hide();
+                    $("#paginationDiv").hide();
+                    $("#DisplayArea").removeClass("hide");
+                    $("#DisplayArea").addClass("show");
+                    $(result).each(function () {
+                        if (this.ExpiryStatus == null || this.ExpiryStatus == '') {
+                            this.ExpiryStatus = this.ClosedOn;
+                        }
+                        this.authflag = "@Request.IsAuthenticated";
+                        this.Role = "@(user!= null?user.Role.GetDescription():"")";
+                        $("#ResultItem").tmpl(this).appendTo("#ResultArea");
+                    });
+                    if ((offset < pages)) {
+                        if (authenticated == "True") {
+
+                            $("#JoinSeeMore").removeClass("show");
+                            $("#JoinSeeMore").addClass("hide");
+                            $("#ViewMore").removeClass("hide");
+                            $("#ViewMore").addClass("show");
+
+                        } else {
+                            $("#JoinSeeMore").removeClass("hide");
+                            $("#JoinSeeMore").addClass("show");
+                            $("#ViewMore").removeClass("show");
+                            $("#ViewMore").addClass("hide");
+                        }
+                    } else {
+                        $("#JoinSeeMore").removeClass("show");
+                        $("#JoinSeeMore").addClass("hide");
+                        $("#ViewMore").removeClass("show");
+                        $("#ViewMore").addClass("hide");
+                    }
+                } else {
+                    $("#JoinSeeMore").removeClass("show");
+                    $("#JoinSeeMore").addClass("hide");
+                    $("#ViewMore").removeClass("show");
+                    $("#ViewMore").addClass("hide");
+                    $("#noresult").show();
+                    $("#divLatestJobs").hide();
+                    $("#paginationDiv").hide();
+                    $("#JobArea").removeClass("show");
+                    $("#JobArea").addClass("hide");
+                }
+            });
+        }
+
+        var sender = "@(Request.UrlReferrer != null ? Request.UrlReferrer.GetLeftPart(UriPartial.Path) : string.Empty)";
+        var current = "@Request.Url.GetLeftPart(UriPartial.Path)";
+
+        if (current == sender) {
+            var flag = $.cookie('searchjob');
+            if (flag == 'advance') {
+                $('#AdvanceSearch').show();
+                $('#BasicSearch').hide();
+                $("#JobTitle").val("");
+                $("#Where").val("");
+            } else if (flag == 'basic') {
+                $('#AdvanceSearch').hide();
+                $('#BasicSearch').show();
+
+                $("#JobTitle").val("");
+                $("#CategoryId").val("");
+                $("#SpecializationId").val("");
+                $("#CountryId").val("");
+                $("#State").val("");
+                $("#City").val("");
+                $("#FromDay").val("");
+                $("#FromMonth").val("");
+                $("#FromYear").val("");
+                $("#ToDay").val("");
+                $("#ToMonth").val("");
+                $("#ToYear").val("");
+                $("#QualificationId").val("");
+                $("#EmploymentTypeId").val("");
+                $("#ZipCode").val("");
+            }
+        }
+
+        $("#AdvanceSearchButton").click(function () {
+            $.cookie('searchjob', 'advance');
+            $('#AdvanceSearch').show();
+            $('#BasicSearch').hide();
+            $("#JobTitle").val("");
+            $("#Where").val("");
+            $("#noresult").hide();
+            $("#divLatestJobs").show();
+            $("#paginationDiv").show();
+            return false;
+        })
+
+        $("#BasicSearchButton").click(function () {
+            $.cookie('searchjob', 'basic');
+            $('#AdvanceSearch').hide();
+            $('#BasicSearch').show();
+
+            $("#JobTitle").val("");
+            $("#CategoryId").val("");
+            $("#SpecializationId").val("");
+            $("#CountryId").val("");
+            $("#State").val("");
+            $("#City").val("");
+            $("#FromDay").val("");
+            $("#FromMonth").val("");
+            $("#FromYear").val("");
+            $("#ToDay").val("");
+            $("#ToMonth").val("");
+            $("#ToYear").val("");
+            $("#QualificationId").val("");
+            $("#EmploymentTypeId").val("");
+            $("#ZipCode").val("");
+            $("#noresult").hide();
+            $("#divLatestJobs").show();
+            $("#paginationDiv").show();
+
+            return false;
+        });
+
+        $("#SearchAdvance").click(function () {
+            var isValidStartDate = isValidDate($("#FromDay").val(), $("#FromMonth").val(), $("#FromYear").val());
+            var isValidEndDate = isValidDate($("#ToDay").val(), $("#ToMonth").val(), $("#ToYear").val());
+
+            if (isValidStartDate) {
+                $("#fromDateError").html("");
+                $("#fromDateError").show();
+                $("#Search").enabled = true;
+            } else {
+                $("#fromDateError").html("Provide correct from date!");
+                $("#fromDateError").show();
+                $("#Search").enabled = false;
+            }
+
+            if (isValidEndDate) {
+                $("#toDateError").html("");
+                $("#toDateError").show();
+                $("#Search").enabled = true;
+            } else {
+                $("#toDateError").html("Provide correct to date!");
+                $("#toDateError").show();
+                $("#Search").enabled = false;
+            }
+
+            return (isValidStartDate == true && isValidEndDate == true);
+        });
+        var authenticated = "@Request.IsAuthenticated";
+         $(".jsearch1").click(function () {
+
+                $("#JobTitleError").hide();
+                $("#CountryError").hide();
+                $("#waitDialog").modal("show");
+                $("#divMsg").removeClass("show");
+                $("#divMsg").addClass("hide");
+                formId = $(this).closest("form").attr("id");
+                var jsonForm = $(this).closest("form").serializeObject();
+             $("#noresult").hide();
+             $("#divLatestJobs").hide();
+             $("#paginationDiv").hide();
+                offset = 1;
+                jsonForm.PageNumber = offset;
+                $.post("/jobs", jsonForm, function (result) {
+                    $("#waitDialog").modal("hide");
+                    //DisplayPaidJobs();
+                    //setInterval("DisplayPaidJobs()", 11000);
+                    if (result.length > 0) {
+                        $("#PaidResultArea").show();
+
+                        rows = result[0].TotalRow;
+                        pages = Math.ceil(rows / 12);
+                        $("#noresult").hide();
+                        $("#divLatestJobs").hide();
+                        $("#paginationDiv").hide();
+                        $("#DisplayArea").removeClass("hide");
+                        $("#DisplayArea").addClass("show");
+                        $("#ResultArea").empty();
+                        $(result).each(function () {
+                            if (this.ExpiryStatus == null || this.ExpiryStatus == '') {
+                                this.ExpiryStatus = this.ClosedOn;
+                            }
+                            this.authflag = "@Request.IsAuthenticated";
+                            this.Role = "@(user!= null?user.Role.GetDescription():"")";
+                            $("#ResultItem").tmpl(this).appendTo("#ResultArea");
+                        });
+                        if ((offset < pages)) {
+                            if (authenticated == "True") {
+                                $("#JoinSeeMore").removeClass("show");
+                                $("#JoinSeeMore").addClass("hide");
+                                $("#ViewMore").removeClass("hide");
+                                $("#ViewMore").addClass("show");
+                            } else {
+                                $("#JoinSeeMore").removeClass("hide");
+                                $("#JoinSeeMore").addClass("show");
+                                $("#ViewMore").removeClass("show");
+                                $("#ViewMore").addClass("hide");
+                            }
+                        } else {
+                            $("#JoinSeeMore").removeClass("show");
+                            $("#JoinSeeMore").addClass("hide");
+                            $("#ViewMore").removeClass("show");
+                            $("#ViewMore").addClass("hide");
+                        }
+                    } else {
+                        $("#PaidJobResultArea").hide();
+                        $("#JoinSeeMore").removeClass("show");
+                        $("#JoinSeeMore").addClass("hide");
+                        $("#ViewMore").removeClass("show");
+                        $("#ViewMore").addClass("hide");
+                        $("#noresult").show();
+                        $("#divLatestJobs").hide();
+                        $("#paginationDiv").hide();
+                        $("#DisplayArea").removeClass("show");
+                        $("#DisplayArea").addClass("hide");
+                    }
+                });
+
+                return false;
+
+        });
+        $(".jsearch").click(function () {
+            var ValidJobTitle = $("#JobTitle").val();
+            var ValidCountry = $("#Where").val();
+
+            if (ValidJobTitle == "" && ValidCountry == "") {
+                $("#JobTitleError").html("Job Title is Required!");
+                $("#JobTitleError").show();
+                $("#CountryError").html("Country is Required!");
+                $("#CountryError").show();
+                $("#Search").enabled = false;
+
+                $("#PaidJobResultArea").hide();
+                $("#JoinSeeMore").removeClass("show");
+                $("#JoinSeeMore").addClass("hide");
+                $("#ViewMore").removeClass("show");
+                $("#ViewMore").addClass("hide");
+                //$("#noresult").show();
+                $("#divLatestJobs").show();
+                $("#paginationDiv").show();
+                $("#DisplayArea").removeClass("show");
+                $("#DisplayArea").addClass("hide");
+                return false;
+
+            }
+            else if (ValidJobTitle != "" && ValidCountry == "")
+            {
+                $("#JobTitleError").hide();
+                $("#CountryError").html("Country is Required!");
+                $("#CountryError").show();
+                $("#Search").enabled = false;
+                $("#PaidJobResultArea").hide();
+                $("#JoinSeeMore").removeClass("show");
+                $("#JoinSeeMore").addClass("hide");
+                $("#ViewMore").removeClass("show");
+                $("#ViewMore").addClass("hide");
+                //$("#noresult").show();
+                $("#divLatestJobs").show();
+                $("#paginationDiv").show();
+                $("#DisplayArea").removeClass("show");
+                $("#DisplayArea").addClass("hide");
+                return false;
+            }
+            else if (ValidJobTitle == "" && ValidCountry != "")
+            {
+                $("#JobTitleError").html("Job Title is Required!");
+                $("#JobTitleError").show();
+                $("#CountryError").hide();
+                $("#Search").enabled = false;
+                $("#PaidJobResultArea").hide();
+                $("#JoinSeeMore").removeClass("show");
+                $("#JoinSeeMore").addClass("hide");
+                $("#ViewMore").removeClass("show");
+                $("#ViewMore").addClass("hide");
+                //$("#noresult").show();
+                $("#divLatestJobs").show();
+                $("#paginationDiv").show();
+                $("#DisplayArea").removeClass("show");
+                $("#DisplayArea").addClass("hide");
+                return false;
+            }
+            else {
+                $("#JobTitleError").hide();
+                $("#CountryError").hide();
+                $("#waitDialog").modal("show");
+                $("#divMsg").removeClass("show");
+                $("#divMsg").addClass("hide");
+                formId = $(this).closest("form").attr("id");
+                var jsonForm = $(this).closest("form").serializeObject();
+                $("#noresult").hide();
+                $("#divLatestJobs").hide();
+                $("#paginationDiv").hide();
+                offset = 1;
+                jsonForm.PageNumber = offset;
+                $.post("/jobs", jsonForm, function (result) {
+                    $("#waitDialog").modal("hide");
+                    //DisplayPaidJobs();
+                    //setInterval("DisplayPaidJobs()", 11000);
+
+                    if (result.length > 0) {
+                        $("#PaidResultArea").show();
+
+                        rows = result[0].TotalRow;
+                        pages = Math.ceil(rows / 12);
+                        $("#noresult").hide();
+                        $("#divLatestJobs").hide();
+                        $("#paginationDiv").hide();
+                        $("#DisplayArea").removeClass("hide");
+                        $("#DisplayArea").addClass("show");
+                        $("#ResultArea").empty();
+                        $(result).each(function () {
+                            if (this.ExpiryStatus == null || this.ExpiryStatus == '') {
+                                this.ExpiryStatus = this.ClosedOn;
+                            }
+                            this.authflag = "@Request.IsAuthenticated";
+                            this.Role = "@(user!= null?user.Role.GetDescription():"")";
+                            $("#ResultItem").tmpl(this).appendTo("#ResultArea");
+                        });
+                        if ((offset < pages)) {
+                            if (authenticated == "True") {
+                                $("#JoinSeeMore").removeClass("show");
+                                $("#JoinSeeMore").addClass("hide");
+                                $("#ViewMore").removeClass("hide");
+                                $("#ViewMore").addClass("show");
+                            } else {
+                                $("#JoinSeeMore").removeClass("hide");
+                                $("#JoinSeeMore").addClass("show");
+                                $("#ViewMore").removeClass("show");
+                                $("#ViewMore").addClass("hide");
+                            }
+                        } else {
+                            $("#JoinSeeMore").removeClass("show");
+                            $("#JoinSeeMore").addClass("hide");
+                            $("#ViewMore").removeClass("show");
+                            $("#ViewMore").addClass("hide");
+                        }
+                    } else {
+                        $("#PaidJobResultArea").hide();
+                        $("#JoinSeeMore").removeClass("show");
+                        $("#JoinSeeMore").addClass("hide");
+                        $("#ViewMore").removeClass("show");
+                        $("#ViewMore").addClass("hide");
+                        $("#noresult").show();
+                        $("#divLatestJobs").hide();
+                        $("#paginationDiv").hide();
+                        $("#DisplayArea").removeClass("show");
+                        $("#DisplayArea").addClass("hide");
+                    }
+                });
+
+                return false;
+            }
+        });
+
+        $("#ViewMore").click(function () {
+            debugger;
+            $("#waitDialog").modal("show");
+            var jsonForm = $("#" + formId).serializeObject();
+            if (offset < pages) {
+                offset = offset + 1;
+            }
+            jsonForm.PageNumber = offset;
+            $.post("/jobs", jsonForm, function (result) {
+                $("#waitDialog").modal("hide");
+                if (result.length > 0) {
+                    $("#noresult").hide();
+                    $("#divLatestJobs").hide();
+                    $("#paginationDiv").hide();
+                    $(result).each(function () {
+                        if (this.ExpiryStatus == null || this.ExpiryStatus == '') {
+                            this.ExpiryStatus = this.ClosedOn;
+                        }
+                        this.authflag = "@Request.IsAuthenticated";
+                        this.Role = "@(user!= null?user.Role.GetDescription():"")";
+                        this.authenticated = "@Request.IsAuthenticated";
+                        $("#ResultItem").tmpl(this).appendTo("#ResultArea");
+                    });
+
+                    if ((offset < pages)) {
+                        if (authenticated == "True") {
+                            $("#JoinSeeMore").removeClass("show");
+                            $("#JoinSeeMore").addClass("hide");
+                            $("#ViewMore").removeClass("hide");
+                            $("#ViewMore").addClass("show");
+                        } else {
+                            $("#JoinSeeMore").removeClass("hide");
+                            $("#JoinSeeMore").addClass("show");
+                            $("#ViewMore").removeClass("show");
+                            $("#ViewMore").addClass("hide");
+                        }
+                    } else {
+                        $("#JoinSeeMore").removeClass("show");
+                        $("#JoinSeeMore").addClass("hide");
+                        $("#ViewMore").removeClass("show");
+                        $("#ViewMore").addClass("hide");
+                    }
+
+                } else {
+                    $("#ViewMore").removeClass("show");
+                    $("#ViewMore").addClass("hide");
+                    $("#noresult").hide();
+                    $("#divLatestJobs").hide();
+                    $("#paginationDiv").hide();
+                }
+            });
+            return false;
+        });
+
+        $("#JoinSeeMore").click(function () {
+            var jsonForm = $(formId).serializeObject();
+            console.log(jsonForm);
+            var qs = "@Request.Url.ToString()?" + $.param(jsonForm);
+            var url = "/account/login?returnurl=" + encodeURIComponent(qs);
+            window.location.href = url;
+        });
+    });
+
+    var pjOffset = 0;
+    var pjPages = 1;
+
+    function DisplayPaidJobs() {
+        var jsonForm = $("#" + formId).serializeObject();
+        if (pjOffset < pjPages) {
+            pjOffset = pjOffset + 1;
+        } else {
+            pjOffset = 1;
+        }
+
+        jsonForm.PageNumber = pjOffset;
+
+        $.post("/job/paidjobs", jsonForm, function (result) {
+            $("#PaidResultArea").empty();
+            if (result.length > 0) {
+                $("#PaidResultArea").show();
+                $("#noresult").hide();
+                $("#divLatestJobs").hide();
+                $("#paginationDiv").hide();
+                var rows = result[0].TotalRow;
+                pjPages = Math.ceil(rows / 2);
+                $(result).each(function () {
+                    if (this.ExpiryStatus == null || this.ExpiryStatus == '') {
+                        this.ExpiryStatus = this.ClosedOn;
+                    }
+                    this.authflag = "@Request.IsAuthenticated";
+                    this.Role = "@(user!= null?user.Role.GetDescription():"")";
+                    this.authenticated = "@Request.IsAuthenticated";
+                    $("#PaidResultItem").tmpl(this).appendTo("#PaidResultArea");
+                });
+            } else {
+                $("#PaidResultArea").hide();
+            }
+        });
+    }
+</script>
+
+
+<script type="text/x-jquery-tmpl" id="ResultItem">
+    <div class="job-card">
+        <div class="row" style="min-height:45px;">
+
+
+
+
+            <div class="col-md-5" style="text-align: end;">
+                <span> <img src="/Image/Avtar/${EmployerId}" class="img-responsive job-photo" style="height:100px; width:100px;" /></span>
+            </div>
+            <div class="col-md-6">
+                <div class="job-card-title">${Title}</div>
+                <div class="job-card-subtitle">
+                    <b>Location: </b> ${Country} ${State}
+                </div>
+                <div class="job-card-subtitle1">
+                    <div class="row" style="padding-top: 0px;width: 100%;margin-top: 6px;">
+                        <div class="col-md-12">
+                            <b>Status: </b> ${Status}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="job-card-buttons">
+            <button class="search-buttons card-buttons detail-btn-override">${JobType}</button>
+            <button class="search-buttons card-buttons detail-btn-override">${MinimumExperience}</button>
+            <button class="search-buttons card-buttons detail-btn-override">${JobLevel}</button>
+        </div>
+        <div class="job-card-buttons">
+            <a href="/job/view?Id=${JobID}" target="_blank" class="search-buttons card-buttons card-buttons-override bookmarkview" style="text-align:center">View</a>
+            @*@Html.ActionLink("View", "View", "job", new { Id = latestJob.JobID }, new { target = "_blank", @class = "card-buttons card-buttons-override bookmarkview" })*@
+            <a href="/job/email?Id=${JobID}" target="_blank" class="search-buttons card-buttons card-buttons-override bookmarkview">Share</a>
+            <a href="/JobSeeker/BookMarkedJobs" target="_blank" class="search-buttons card-buttons card-buttons-override bookmarkview">Bookmark</a>
+        </div>
+    </div>
+</script>
+
+
+
+
+
+
+@*<script type="text/x-jquery-tmpl" id="ResultItem">
+        <div class="job-card">
+            <div class="row" style="min-height:45px;">
+                <div class="col-md-9">
+                    <div class="job-card-title">
+                        ${Title}
+                    </div>
+                </div>
+                <div class="col-md-3" style="text-align: end;">
+                    <span> <img src="/Image/Avtar/${EmployerId}" class="img-responsive job-photo" style="height:48px; width:48px;" /></span>
+                </div>
+            </div>
+            <div class="job-card-subtitle">
+                <b>Location: </b> ${Country} ${State}
+                <div class="row" style="padding-top: 0px;width: 100%;margin-top: 6px;">
+                    <div class="col-md-12">
+                        <b>Status: </b> {{if  Source == "Joblisting"}}Live{{else}}<span style="color:red">Expired</span> {{/if}}
+                    </div>
+                </div>
+            </div>
+            <div class="job-card-buttons">
+                <button class="search-buttons card-buttons detail-btn-override">@Html.Raw("Full Time")</button>
+                <button class="search-buttons card-buttons detail-btn-override">Min. ${MinimumExperience} Year</button>
+                <button class="search-buttons card-buttons detail-btn-override">@Html.Raw("Senior Level")</button>
+            </div>
+            <div class="job-card-buttons">
+                {{if Source == "Joblisting"}}
+                <a href="${JobUrl}" target="_blank" class="search-buttons card-buttons card-buttons-override bookmarkview" style="text-align:center">View</a>
+                <a href="/job/email?Id=${Id}" target="_blank" class="search-buttons card-buttons card-buttons-override bookmarkview">Share</a>
+                <a href="/job/bookmark?Id=${Id}&redirect=@Request.Url.ToString()" target="_blank" class="search-buttons card-buttons card-buttons-override bookmarkview">Bookmark</a>
+                {{else}}
+                <a href="javascript:alert('Job is expired!');" class="search-buttons card-buttons card-buttons-override bookmarkview" style="text-align:center">View</a>
+                <a href="javascript:alert('Job is expired!');" class="search-buttons card-buttons card-buttons-override bookmarkview">Share</a>
+                <a href="javascript:alert('Job is expired!');" class="search-buttons card-buttons card-buttons-override bookmarkview">Bookmark</a>
+                {{/if}}
+            </div>
+        </div>
+    </script>*@
+<script type="text/x-jquery-tmpl" id="PaidResultItem">
+    <div class="job-card">
+        <div class="row" style="min-height:45px;">
+            <div class="col-md-5" style="text-align: end;">
+                <span> <img src="/Image/Avtar/${EmployerId}" class="img-responsive job-photo" style="height:100px; width:100px;" /></span>
+            </div>
+            <div class="col-md-6">
+                <div class="job-card-title">${Title}</div>
+                <div class="job-card-subtitle">
+                    <b>Location: </b> ${Country} ${State}
+                </div>
+                <div class="job-card-subtitle1">
+                    <div class="row" style="padding-top: 0px;width: 100%;margin-top: 6px;">
+                        <div class="col-md-12">
+                            <b>Status: </b> ${Status}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="job-card-buttons">
+            <button class="search-buttons card-buttons detail-btn-override">@Html.Raw("Full Time")</button>
+            <button class="search-buttons card-buttons detail-btn-override">${MinimumExperience} </button>
+            <button class="search-buttons card-buttons detail-btn-override">@Html.Raw("Senior Level")</button>
+        </div>
+        <div class="job-card-buttons">
+            {{if Source == "Joblisting"}}
+            <a href="/job/view?Id=${JobID}" target="_blank" class="search-buttons card-buttons card-buttons-override bookmarkview" style="text-align:center">View</a>
+            <a href="/job/email?Id=${JobID}" target="_blank" class="search-buttons card-buttons card-buttons-override bookmarkview">Share</a>
+            <a href="/JobSeeker/BookMarkedJobs}" target="_blank" class="search-buttons card-buttons card-buttons-override bookmarkview">Bookmark</a>
+            {{else}}
+            <a href="javascript:alert('Job is expired!');" class="search-buttons card-buttons card-buttons-override bookmarkview" style="text-align:center">View</a>
+            <a href="javascript:alert('Job is expired!');" class="search-buttons card-buttons card-buttons-override bookmarkview">Share</a>
+            <a href="javascript:alert('Job is expired!');" class="search-buttons card-buttons card-buttons-override bookmarkview">Bookmark</a>
+            {{/if}}
+        </div>
+    </div>
+</script>

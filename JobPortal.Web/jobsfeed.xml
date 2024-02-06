@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<source>
+  <publisher>Joblisting</publisher>
+  <publisherurl>https://www.joblisting.com/</publisherurl>
+  <lastBuildDate>Fri, 10 Dec 2008 22:49:39 GMT</lastBuildDate>
+  <job>
+    <title><![CDATA[Sales Executive]]></title>
+    <date><![CDATA[Fri, 10 Dec 2005 22:49:39 GMT]]></date>
+    <referencenumber><![CDATA[unique123131]]></referencenumber>
+    <url><![CDATA[https://www.joblisting.com/viewjob.cfm?jobid=unique123131]]></url>
+    <company><![CDATA[Big ABC Corporation]]></company>
+    <city><![CDATA[Phoenix]]></city>
+    <state><![CDATA[AZ]]></state>
+    <country><![CDATA[US]]></country>
+    <postalcode><![CDATA[85003]]></postalcode>
+    <description>
+      <![CDATA[Do you have 1-3 years of sales experience? Are you relentless at closing the deal? Are you ready for an exciting and high-speed career in sales? If so, we want to hear from you!
+      We provide competitive compensation, including stock options and a full benefit plan. As a fast-growing business, we offer excellent opportunities for exciting and challenging work. As our company continues to grow, you can expect unlimited career advancement! ]]>
+    </description>
+    <salary><![CDATA[$50K per year]]></salary>
+    <education><![CDATA[Bachelors]]></education>
+    <jobtype><![CDATA[fulltime, parttime]]></jobtype>
+    <category><![CDATA[Category1, Category2, CategoryN]]></category>
+    <experience><![CDATA[5+ years]]></experience>
+  </job>
+</source>

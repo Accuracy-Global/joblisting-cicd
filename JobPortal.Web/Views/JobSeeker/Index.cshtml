@@ -1,0 +1,775 @@
+﻿@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Web.Models
+@using JobPortal.Models
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Applications";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+}
+@Scripts.Render("~/bundles/jScripts")
+<script src="~/Scripts/jquery.tmpl.min.js"></script>
+<script src="~/Scripts/jquery.tmplPlus.min.js"></script>
+<style>
+    .safety {
+        min-height: 160px;
+        padding: 10px;
+        font-size: 12px;
+        /*background-color: #fee9e9;*/
+    }
+
+        .safety p {
+            line-height: 15px;
+        }
+
+    .seemore {
+        text-align: right;
+    }
+
+        .seemore > a {
+            color: #000000;
+            font-family: "Roboto", sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .seemore i {
+            font-size: 16px;
+            padding: 0 0 0 5px;
+            vertical-align: middle;
+        }
+
+    .sponsored {
+        background: #ffffff;
+    }
+
+    .sponsored {
+        background: #fff none repeat scroll 0 0;
+        padding: 0px 15px 0;
+        margin-top: -6px;
+    }
+
+    .abcdesign {
+        margin: 0 0 18px 0;
+    }
+
+        .abcdesign > h3 {
+            color: #333;
+            font-size: 14px;
+            margin: 0 0 11px 0;
+        }
+
+    .sub-heading h2 {
+        color: #000;
+        font-size: 14px;
+        margin: 0 0 20px;
+        padding-bottom: 6px;
+        position: relative;
+        font-weight: bold;
+    }
+
+        .sub-heading h2::after {
+            border-bottom: 2px solid #e93100;
+            bottom: 0;
+            content: "";
+            display: block;
+            left: 0;
+            position: absolute;
+            width: 100%;
+        }
+
+    .actionlinks {
+        list-style: none;
+        padding-left: 0;
+    }
+
+        .actionlinks li {
+            float: left;
+            list-style-type: none;
+        }
+
+            .actionlinks li a {
+                font-size: 14px;
+                font-weight: normal;
+            }
+
+    i.fa-angle-down {
+        float: right;
+        /* position:absolute;
+        right:-0px;
+     */
+        /*  display: inline;
+        justify-content: inline-end;*/
+    }
+
+    .fa-angle-down::before {
+        content: '^';
+        display: block;
+        transition: transform .2s ease;
+        transform: rotate(0);
+        left: 0;
+    }
+
+    .rotate.fa-angle-down::before {
+        transform: rotate(180deg);
+    }
+</style>
+<div class="hidden-lg hidden-md" style="height:15px"></div>
+<div class="row">
+    <div class="col-lg-6 col-md-6">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">Applications</h1>
+            Manage applications here
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-2">
+        <div class="form-group">
+            @if (user != null && user.Type == 4)
+            {
+                if (user.PromoteDate != null)
+                {
+                    if (user.PromoteDate.Value.Date < DateTime.Now.Date)
+                    {
+                        <a href="/package/promote?id=@user.Id&type=P&returnUrl=@Request.Url.ToString()" class="btn btn-info promote" style="width:165px;">Promote Profile</a>
+                    }
+                }
+                else
+                {
+                    <a href="/package/promote?id=@user.Id&type=P&returnUrl=@Request.Url.ToString()" class="btn btn-info promote" style="width:165px;">Promote Profile</a>
+                }
+            }
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-2">
+        <div class="form-group"></div>
+    </div>
+    <div class="col-lg-2 col-md-2">
+        <div class="form-group">
+            @if (user != null && user.Type == 4)
+            {
+                <div style=" ">
+                    <a href="https://apps.apple.com/in/app/job-listing/id1575724994">
+                        <img src="~/Images/ios.png" style="height:40px;width:40px;" border="0" />
+
+                    </a>
+
+
+                    <a href="https://play.google.com/store/apps/details?id=com.accuracy.joblisting">
+                        <img src="~/Images/android-icon.png" style="height:40px;width:40px;" border="0" />
+
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:30px;"></div>
+@Html.Partial("_MessagePartial")
+@*<div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="safety">
+                <span style="font-size:15px; font-weight:bold; color:red" data-toggle="collapse" data-target="#toggle">Safety Advice:</span>
+                <i class="fa fa-angle-down" style="color:#34ba08;font-size:26px;" data-toggle="collapse" data-target="#toggle"></i>
+                @Html.Raw(ConfigService.Instance.GetConfigValue("SafetyAdvice").Replace("Disclaimer:", "<span style='color:red', class='collapse',id='#toggle'>Disclaimer:</span>"))
+
+            </div>
+        </div>
+    </div>*@
+
+
+<div class="row">
+    <div class="col-lg-15 col-md-12 col-sm-8">
+
+
+        <div class="list-group">
+            <div class="list-group-item">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        @*<i class="fa fa-envelope" style="color:#34ba08;font-size:20px;" data-toggle="collapse" data-target="#toggle"></i>*@
+
+
+                        <span style="font-size:18px; font-weight:bold; color:red">Safety Advice:</span>
+                        <i class="fa fa-angle-down" style="color:#34ba08;font-size:26px;" data-toggle="collapse" data-target="#toggle"></i>
+
+
+                    </div>
+                </div>
+
+                <div id="toggle" class="collapse">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <br />
+                            @*<div class="list-group-item" style="padding: 5px;background-color:#efeeee;">
+                                    <b>Message:</b>
+                                </div>*@
+                            <div class="list-group-item" style="padding:5px;background-color:#efeeee;">
+                                <p style="text-align:justify">
+                                    @Html.Raw(ConfigService.Instance.GetConfigValue("SafetyAdvice").Replace("Disclaimer:", "<span style='color:red'>Disclaimer:</span>"))
+
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<div class="clear" style="height:15px"></div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="clear" style="height:15px"></div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+               
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <div class="form-group">
+                                    @Html.Label("Job Title")
+                                    <select id="Title" name="Title" class="form-control">
+                                        <option value="">All</option>
+                                    </select>
+                                    @*@Html.DropDownList("JobTitle", ViewBag.JobList as SelectList, "--All--", new { @class = "form-control" })*@
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                @Html.Label("Company")
+                                <select id="Company" name="Company" class="form-control">
+                                    <option value="">All</option>
+                                </select>
+                                @*@Html.DropDownList("Company", ViewBag.CompanyList as SelectList, "--All--", new { @class = "form-control" })*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            @Html.Label("From Date")
+                            <div class='input-group date' style="margin-bottom:0;">
+                                @Html.TextBox("Start", null, new { @class = "form-control", placeholder = "FROM DATE", @title = "FROM DATE", @readonly = "readonly" })
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+
+                            @Html.Label("To Date")
+                            <div class='input-group date' style="margin-bottom:0;">
+                                @Html.TextBox("End", null, new { @class = "form-control", placeholder = "TO DATE", @title = "TO DATE", @readonly = "readonly" })
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="clear" style="height:15px"></div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-lg-offset-8 col-md-offset-8">
+                            <input type="submit" id="manage" value="Search" class="btn btn-info btn-block" />
+                        </div>
+                    </div>
+                    <div class="clear" style="height:15px"></div>
+              
+            </div>
+        </div>
+        <div class="clear" style="height:25px"></div>
+
+        @*if (ViewBag.Model != null)
+                {
+                    foreach (var item in ViewBag.Model)
+                    {
+                        string jlink = string.Empty;
+                        string clink = string.Empty;
+                        string appstatus = string.Empty;
+                        var constatus = string.Empty;
+
+                        Interview interview = InterviewService.Instance.Get(item.Id);
+                        Job job = null;
+                        UserProfile employer = null;
+                        //bool isBlockedByMe = false;
+                        //bool isBlockedBySomeone = false;
+                        if (item.JobId != null)
+                        {
+                            //job = JobService.Instance.Get(item.JobId);
+                            //employer = MemberService.Instance.Get(job.EmployerId.Value);
+                            //isBlockedByMe = DomainService.Instance.IsBlockedByMe(employer.UserId, user.Id);
+                            // isBlockedBySomeone = DomainService.Instance.IsBlockedBySomeone(employer.UserId, user.Id);
+
+                            if (item.BlockedByMe)
+                            {
+                                if (!item.JobDeleted)
+                                {
+                                    jlink += string.Format("<a href=\"/job/{0}\" target=\"_blank\">{1}</a>", item.JobUrl, item.Title);
+                                }
+                                else
+                                {
+                                    jlink += job.Title;
+                                }
+                                clink = string.Format("<a href=\"/{0}\" target=\"_blank\">{1}</a>", item.EmployerUrl, item.Company);
+                            }
+                            else if (item.BlockedBySomeone)
+                            {
+                                jlink += item.Title;
+                                clink = string.Format("{0}", item.Company);
+                            }
+                            else
+                            {
+                                jlink += string.Format("<a href=\"/job/{0}\" target=\"_blank\">{1}</a>", item.JobUrl, item.Title);
+                                clink = string.Format("<a href=\"/{0}\" target=\"_blank\">{1}</a>", item.EmployerUrl, item.Company);
+                            }
+                        }
+                        else
+                        {
+                            if (interview != null)
+                            {
+                                employer = MemberService.Instance.Get(interview.UserId);
+                                //isBlockedByMe = item.BlockedByMe;
+                                //isBlockedBySomeone = item.BlockedBySomeone;
+                            }
+
+                            if (item.BlockedByMe)
+                            {
+                                if (item.JobId != null)
+                                {
+                                    if (!item.JobDeleted)
+                                    {
+                                        jlink += string.Format("<a href=\"/job/{0}-{1}\" target=\"_blank\">{2}</a>", item.JobUrl, item.Title);
+                                    }
+                                    else
+                                    {
+                                        jlink += item.Title;
+                                    }
+                                }
+                                else
+                                {
+                                    jlink = "Not Applicable";
+                                }
+                                clink = string.Format("<a href=\"/{0}\" target=\"_blank\">{1}</a>", item.EmployerUrl, item.Company);
+                            }
+                            else if (item.BlockedBySomeone)
+                            {
+                                if (item.JobId != null)
+                                {
+                                    jlink += item.Title;
+                                }
+                                else
+                                {
+                                    jlink = "Not Applicable";
+                                }
+                                clink = string.Format("{0}", item.Company);
+                            }
+                            else
+                            {
+                                if (item.JobId != null)
+                                {
+                                    jlink += string.Format("<a href=\"/job/{0}\" target=\"_blank\">{1}</a>", item.JobUrl, item.Title);
+                                }
+                                else
+                                {
+                                    jlink = "Not Applicable";
+                                }
+                                clink = string.Format("<a href=\"/{0}\" target=\"_blank\">{1}</a>", item.EmployerUrl, item.Company);
+                            }
+                        }
+
+                        if ((TrackingTypes)item.Type == TrackingTypes.WITHDRAWN)
+                        {
+                            appstatus = string.Format("<span style=\"color:red\">{0} on {1}</span>", ((TrackingTypes)item.Type).GetDescription(), item.DateUpdated.ToString("MMM-dd-yyyy"));
+                        }
+                        else if ((TrackingTypes)item.Type == TrackingTypes.REJECTED)
+                        {
+                            appstatus = string.Format("<span style=\"color:red\">{0} on {1}</span>", ((TrackingTypes)item.Type).GetDescription(), item.DateUpdated.ToString("MMM-dd-yyyy"));
+                        }
+                        else
+                        {
+                            appstatus = string.Format("{0} on {1}", ((TrackingTypes)item.Type).GetDescription(), item.DateUpdated.ToString("MMM-dd-yyyy"));
+                        }
+
+
+                        if (item.JobId != null)
+                        {
+                            job = JobService.Instance.Get(item.JobId);
+                            employer = MemberService.Instance.Get(job.EmployerId.Value);
+                            constatus = item.ConnectionStatus;
+                        }
+                        else
+                        {
+                            constatus = "Not Applicable";
+                        }
+
+                        string alinks = string.Empty;
+
+                        if (!string.IsNullOrEmpty(user.Username))
+                        {
+                            if (item.JobId != null)
+                            {
+                                //job = JobService.Instance.Get(item.JobId);
+                                //employer = MemberService.Instance.Get(job.EmployerId.Value);
+
+                                //bool isConnected = DomainService.Instance.IsConnected(employer.UserId, user.Id);
+                                //isBlockedByMe = DomainService.Instance.IsBlockedByMe(employer.UserId, user.Id);
+                                //isBlockedBySomeone = DomainService.Instance.IsBlockedBySomeone(employer.UserId, user.Id);
+                                //bool isInvitedByMe = DomainService.Instance.IsInvitedByMe(employer.UserId, user.Id);
+                                //bool isInvitedBySomeone = DomainService.Instance.IsInvitedBySomeone(employer.UserId, user.Id);
+                                //Connection connection = ConnectionHelper.Get(employer.Username, user.Username);
+
+
+                                int msg_counts = item.Messages; // ConnectionHelper.MessageCounts(employer.UserId, user.Id);
+                                string view_text = "Message";
+                                if (msg_counts > 0)
+                                {
+                                    view_text = string.Format("Message (<span style=\"color:red;\">{0}</span>)", msg_counts);
+                                }
+                                alinks += "<b>" + string.Format("<a href=\"{0}\">{1}</a>", Url.Action("List", "Message", new { SenderId = item.EmployerId }), view_text) + "</b>";
+
+                                if (item.IsConnected)
+                                {
+                                    alinks += string.Format(" | <b><a href=\"#\" data-aurl=\"{0}\" role=\"button\" data-toggle=\"modal\" data-target=\"#discDialog\" class=\"disc\">Disconnect</a></b>", Url.Action("Disconnect", "Network", new { Id = item.ConnectionId, redirect = Request.Url.ToString() }));
+                                }
+                                else
+                                {
+
+                                    if (item.InvitedByMe)
+                                    {
+                                        alinks += string.Format(" | <b><a href=\"#\" data-aurl=\"{0}\" role=\"button\" data-toggle=\"modal\" data-target=\"#discDialog\" class=\"disc\">Disconnect</a></b>", Url.Action("Disconnect", "Network", new { Id = item.ConnectionId, redirect = Request.Url.ToString() }));
+                                    }
+                                    else if (item.InvitedBySomeone)
+                                    {
+                                        alinks += " | " + "<b>" + Html.ActionLink("Accept", "Accept", "Network", new { Id = item.ConnectionId, redirect = Request.Url.ToString() }, new { title = "Accept" }).ToString() + "</b>";
+                                        alinks += string.Format(" | <b><a href=\"#\" data-aurl=\"{0}\" role=\"button\" data-toggle=\"modal\" data-target=\"#discDialog\" class=\"disc\">Disconnect</a></b>", Url.Action("Disconnect", "Network", new { Id = item.ConnectionId, redirect = Request.Url.ToString() }));
+                                    }
+                                    else
+                                    {
+                                        if (!item.IsConnected)
+                                        {
+                                            alinks += " | " + "<b>" + Html.ActionLink("Connect", "Connect", "Home", new { id = item.EmployerId, redirect = Request.Url.ToString() }, new { title = "Connect" }).ToString() + "</b>";
+                                        }
+                                    }
+                                }
+                                if (item.BlockedByMe)
+                                {
+                                    alinks += " | " + "<b>" + Html.ActionLink("Unblock", "Unblock", "Home", new { id = item.EmployerId, redirect = Request.Url.ToString() }, new { @target = "_blank" }).ToString() + "</b>";
+                                }
+                                else if (item.BlockedByMe == false && item.BlockedBySomeone == false)
+                                {
+                                    alinks += " | " + string.Format("<b><a href=\"#\"  data-href=\"/Home/Block?email={0}\" data-name=\"{1}\" role=\"button\" data-toggle=\"modal\" data-target=\"#cDialog\" class=\"aBlock\" data-role=\"{2}\"  data-connected=\"{3}\">Block</a></b>", employer.Username, string.Format("{0} {1}", employer.FirstName, employer.LastName), ((SecurityRoles)employer.Type).GetDescription(), item.IsConnected);
+                                }
+
+                                TrackingTypes type = (TrackingTypes)item.Type;
+                                switch (type)
+                                {
+                                    case TrackingTypes.APPLIED:
+                                        alinks += " | " + "<b>" + Html.ActionLink("Withdraw", "Withdraw", "Jobseeker", new { id = item.Id }, new { onclick = "return confirm('Are you sure, want to withdraw your application?');" }).ToString() + "</b>";
+                                        break;
+                                    case TrackingTypes.AUTO_MATCHED:
+                                        alinks += " | " + "<b>" + Html.ActionLink("Withdraw", "Withdraw", "Jobseeker", new { id = item.Id }, new { onclick = "return confirm('Are you sure, want to withdraw your application?');" }).ToString() + "</b>";
+                                        break;
+                                    case TrackingTypes.SHORTLISTED:
+                                        alinks += " | " + "<b>" + Html.ActionLink("Withdraw", "Withdraw", "Jobseeker", new { id = item.Id }, new { onclick = "return confirm('Are you sure, want to withdraw your application?');" }).ToString() + "</b>";
+                                        break;
+                                    case TrackingTypes.WITHDRAWN:
+                                        if (!item.JobDeleted)
+                                        {
+                                            if (!item.BlockedByMe && !item.BlockedBySomeone)
+                                            {
+                                                alinks += " | " + string.Format("<b> <a href=\"{0}\"><span>Reapply</span></a></b>", Url.Action("Apply", "Job", new { JobId = item.JobId, redirect = Request.Url.ToString() }));
+                                            }
+                                        }
+                                        break;
+                                }
+                            }
+                        }
+
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <i><b>Job Title:</b></i> @Html.Raw(jlink)
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <i><b>Company:</b></i> @Html.Raw(clink)
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <i><b>Application Status:</b></i> @Html.Raw(appstatus)
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="form-group">
+                                            <i><b>Connection Status:</b></i> @Html.Raw(constatus)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        @Html.Raw(alinks)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                <div style="text-align:center; margin-top: -15px;">
+
+                    @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Index",
+                new RouteValueDictionary()
+                {
+                    { "PageNumber" , PageNumber},
+                    { "StartDae" , Request["StartDate"]},
+                    { "EndDate" , Request["EndDate"]},
+                    { "JobTitle" , Request["JobTitle"]},
+                    { "Company" , Request["Company"]}
+                }),
+                PagedListRenderOptions.ClassicPlusFirstAndLast)
+                </div>
+            }
+            else
+            {
+                <h4>No record found.</h4>
+            }*@
+        <div id="ResultArea"></div>
+        @*<a id="ViewMore" class="btn btn-primary btn-block hide" style="width:100%;">View More</a>*@
+    </div>
+
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>*@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js">
+</script>
+
+<script>
+    $('.fa-angle-down').click(function () {
+        $(this).toggleClass('rotate')
+    })
+</script>
+<script>
+    var apg = 1;
+    var apgs = 1;
+    $(document).ready(function () {
+
+        $.get("/jobseeker/ApplicationJobTitles", {}, function (result) {
+            if (result.length > 0) {
+                $("#Title").empty();
+                $("#Title").append("<option value =\"\">SELECT</option>");
+                $.each(result, function () {
+                    $("#Title").append("<option value =" + this.Title + ">" + this.Title + "</option>");
+                });
+            }
+        });
+
+        $.get("/jobseeker/applicationcompanies", {}, function (result) {
+            if (result.length > 0) {
+                $("#Company").empty();
+                $("#Company").append("<option value =\"\">SELECT</option>");
+                $.each(result, function () {
+                    $("#Company").append("<option value =" + this.Company + ">" + this.Company + "</option>");
+                });
+            }
+        });
+
+        $.post("/jobseeker/index", { pageNumber: apg }, function (result) {
+            if (result.length > 0) {
+                var rows = result[0].MaxRows;
+                apgs = Math.ceil(rows / 10);
+                $.each(result, function () {
+                    this.authenticated = "@Request.IsAuthenticated";
+                    this.role = "@user.Role.GetDescription()";
+                    $("#ResultItem").tmpl(this).appendTo("#ResultArea");
+                });
+            }
+
+            if (apg < apgs) {
+                $("#ViewMore").removeClass("hide");
+                $("#ViewMore").addClass("show");
+            } else {
+                $("#ViewMore").removeClass("show");
+                $("#ViewMore").addClass("hide");
+            }
+        });
+
+        @*$("#manage").click(function () {
+            $("#waitDialog").modal("show");
+            var json = $("#manage").closest("form").serializeObject();
+            json.pageNumber = 1;
+            $.post("/jobseeker/index", json, function (result) {
+                $("#waitDialog").modal("hide");
+                $("#ResultArea").empty();
+                if (result.length > 0) {
+                    var rows = result[0].MaxRows;
+                    apgs = Math.ceil(rows / 10);
+                    $.each(result, function () {
+                        this.authenticated = "@Request.IsAuthenticated";
+                        this.role = "@user.Role.GetDescription()";
+                        $("#ResultItem").tmpl(this).appendTo("#ResultArea");
+                    });
+                }
+
+                if (apg < apgs) {
+                    $("#ViewMore").removeClass("hide");
+                    $("#ViewMore").addClass("show");
+                } else {
+                    $("#ViewMore").removeClass("show");
+                    $("#ViewMore").addClass("hide");
+                }
+            });
+            return false;
+        });*@
+
+        $("#manage").click(function () {
+
+            location.reload();
+
+                  });
+
+        $("#ViewMore").click(function () {
+            if (apg <= apgs) {
+                apg++;
+                $("#waitDialog").modal("show");
+                var json = $("#manage").closest("form").serializeObject();
+                json.pageNumber = apg
+                $.post("/jobseeker/index", json, function (result) {
+                    $("#waitDialog").modal("hide");
+                    $.each(result, function () {
+                        this.authenticated = "@Request.IsAuthenticated";
+                        this.role = "@user.Role.GetDescription()";
+                        $("#ResultItem").tmpl(this).appendTo("#ResultArea");
+                    });
+                });
+            }
+            if (apg < apgs) {
+                $("#ViewMore").removeClass("hide");
+                $("#ViewMore").addClass("show");
+            } else {
+                $("#ViewMore").removeClass("show");
+                $("#ViewMore").addClass("hide");
+            }
+        });
+    })
+</script>
+
+<script type="text/x-jquery-tmpl" id="ResultItem">
+    <div class="list-group">
+        <div class="list-group-item">
+            <a role="button" style="position:absolute; top:5px; right:5px; color:red; padding:4px; height:20px; text-align:center; z-index:1000; cursor:pointer" class="rmv" title="Remove" data-pid="${UserId}"></a>
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    <a href="/${PermaLink}">
+                        <div style="width:60px; height:60px; background:url('/Image/Avtar?Id=${EmployerId}') no-repeat; background-size:contain; background-position:top center">
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <i><b>Job Title: </b></i><a href="/job/${JobUrl}" title="View profile" target="_blank">${Title}</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <i><b>Company: </b></i><a href="/${EmployerUrl}" title="View profile" target="_blank">${Company}</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <i><b>Connection Status: </b></i>${ConnectionStatus}
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <i><b>Application Status: </b></i>${ApplicationStatus}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <ul class="actionlinks">
+                                    <li>
+                                        {{if Messages > 0 }}
+                                        <b><a href="/Message/List?SenderId=${EmployerId}" target="_blank">Message (<span style="color:red;">${Messages}</span>)</a></b>
+                                        {{else}}
+                                        <b><a href="/Message/List?SenderId=${EmployerId}" target="_blank">Message</a></b>
+                                        {{/if}}
+                                    </li>
+                                    {{if authenticated == "False"}}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/Home/Connect?id=${EmployerId}" target="_blank" title="Connect">Connect</a></b>
+                                    </li>
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/${EmployerUrl}" title="View profile" target="_blank">View Profile</a></b>
+                                    </li>
+                                    {{/if}}
+
+                                    {{if authenticated == "True" }}
+
+                                    {{if IsConnected == true }}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a data-aurl="/Network/Disconnect?Id=${ConnectionId}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
+                                    </li>
+                                    {{else}}
+                                    {{if InvitedByMe > 0 || InvitedBySomeone > 0}}
+                                    {{if InvitedByMe > 0}}
+                                    <li>
+                                        &nbsp;|&nbsp; <b><a data-aurl="/Network/Disconnect?Id=${ConnectionId}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{if InvitedBySomeone > 0}}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/Network/Accept?Id=${ConnectionId}&redirect=@Request.Url.ToString()" title="Accept" target="_blank">Accept</a></b>
+                                        &nbsp;|&nbsp;<b><a data-aurl="/Network/Disconnect?Id=${ConnectionId}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{else}}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/Home/Connect?id=${UserId}&redirect=@Request.Url.ToString()" title="Connect" target="_blank">Connect</a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{/if}}
+
+                                    {{if BlockedByMe == true }}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/Home/Unblock?id=${UserId}&redirect=@Request.Url.ToString()" title="Unblock" target="_blank">Unblock</a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{if BlockedByMe == false && BlockedBySomeone == false }}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a data-href="/Home/Block?email=${Username}" data-name="${Name}" role="button" data-toggle="modal" data-target="#cDialog" class="aBlock" data-role="${TypeName}" data-connected="${IsConnected}" style="cursor:pointer;" title="Block">Block</a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{/if}}
+
+                                    {{if Type == 0 || Type == 7}}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/jobseeker/Withdraw?id=${Id}">Withdraw</a></b>
+                                    </li>
+                                    {{/if}}
+
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

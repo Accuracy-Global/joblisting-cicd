@@ -1,0 +1,181 @@
+{
+  "base-path": "/asserts/json/Service/",
+  "title": "Our Services",
+  "img-path": "",
+  "about": "",
+  "header": [
+    {
+      "h1": "Technologies"
+    },
+    {
+      "h2": "Bpo Services"
+    }
+  ],
+  "items": {
+    "h1": {
+      "title": "Dealepal",
+      "about": "Dealepal",
+      "img-path": "",
+      "header": [
+        {
+          "h1": "Product Development"
+        },
+        {
+          "h2": "Mobile Application Development"
+        },
+        {
+          "h3": "SEO & Digital Marketing"
+        },
+        {
+          "h4": "Website Designing & Development"
+        },
+        {
+          "h5": "Big Data & Analytics"
+        },
+        {
+          "h6":"IoT Solutions"
+        },
+        {
+          "h7":"Tech Support Services"
+        }
+      ],
+      "items": {
+        "h1": {
+          "about": "Accelerate your Business Velocity with our Enterprise Grade Software Products & Solutions.",
+          "extras": [],
+          "technologies": [],
+          "detailed-data-path": "inhouse/"
+        },
+        "h2": {
+          "about": "We can help you create a custom platform where customer can interact directly with your company and get instant access to your services and company information. Android or Hybrid Custom application development with high quality and low cost. We are also equipped making inhouse products for android devices. ",
+          "extras": [],
+          "technologies": [],
+          "detailed-data-path": "mobile/"
+        },
+        "h3": {
+          "about": "It remains needy for every businesses to successfully to implement search engine optimization, pay-per click advertising, Adwords and Facebook, social media marketing. We have experts in digital marketing, to provide you the best solution to keep you a front runner.",
+          "extras": [],
+          "technologies": [],
+          "detailed-data-path": "seo/"
+        },
+        "h4": {
+          "about": "We craft high-quality, responsive websites that will engage your digital users/viewers. We also re-engineer and update existing web sites with Best quality product at reasonable price.",
+          "extras": {
+            "item": [
+              "Static Portfolio Development",
+              "Dynamic Website with custom requirement"
+            ]
+          },
+          "technologies": [],
+          "detailed-data-path": "website/"
+        },
+        "h5": {
+          "about": "Big Data is very wide in scope and its usage covers a large spectrum of applications from targeted advertisement and recommendation systems, to energy consumption estimation and smart metering.",
+          "extras": {},
+          "technologies": [],
+          "detailed-data-path": "bigdata/"
+        },
+        "h6": {
+          "about": "Coming soon",
+          "extras": [],
+          "technologies": [],
+          "detailed-data-path": "iot/"
+        },
+        "h7": {
+          "about": "Coming soon",
+          "extras": [],
+          "technologies": [],
+          "detailed-data-path": "technology/"
+        }
+      },
+      "extras": {},
+      "detailed-data-path": ""
+    },
+    "h2": {
+      "title": "",
+      "about": "",
+      "img-path": "",
+      "header": [
+        {
+          "h1": "Voice Process"
+        },
+        {
+          "h2": "Non-Voice Process"
+        }
+      ],
+      "items": {
+        "h1": {
+          "about": "",
+          "title": "Bpo Services",
+          "headers": [
+            {
+              "h1": "Email Services"
+            },
+            {
+              "h2": "Domestic Voice"
+            },
+            {
+              "h3": "Non Voice"
+            },
+            {
+              "h4": "Back Offices"
+            },
+            {
+              "h5": "International Voice"
+            }
+          ],
+          "items": {
+            "h1": {
+              "about": "",
+              "extras": [],
+              "technologies": [],
+              "detailed-data-path": "email/"
+            },
+            "h2": {
+              "about": "",
+              "extras": [],
+              "technologies": [],
+              "detailed-data-path": "domestic/"
+            },
+            "h3": {
+              "about": "",
+              "extras": [],
+              "technologies": [],
+              "detailed-data-path": "nonvoice/"
+            },
+            "h4": {
+              "about": "",
+              "extras": [],
+              "technologies": [],
+              "detailed-data-path": "backoffice/"
+            },
+            "h5": {
+              "about": "",
+              "extras": [],
+              "technologies": [],
+              "detailed-data-path": "inter/"
+            }
+          },
+          "technologies": [],
+          "detailed-data-path": "voice/"
+        },
+        "h2": {
+          "about": "",
+          "technologies": [],
+          "detailed-data-path": "nonvoice/"
+        }
+      },
+      "extras": {
+        "h1": [
+          "Domestic Sales & CRM",
+          "International (Australia) Sales – Telecom"
+        ],
+        "h2": [
+          "Data Entry for US Client"
+        ]
+      },
+      "detailed-data-path": ""
+    }
+  },
+  "detailed-data-path": ""
+}

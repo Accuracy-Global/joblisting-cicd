@@ -1,0 +1,90 @@
+﻿@model JobPortal.Web.Models.WebScrapModel
+@using JobPortal.Domain
+@{
+    ViewBag.Title = "Edit - Website";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/tinymce/tinymce.min.js"></script>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">Edit</h1>
+            Update Website  here
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:15px;"></div>
+
+@using (Html.BeginForm())
+{
+<div>
+    @Html.ValidationSummary(true)
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.CountryName)
+
+                @Html.DropDownListFor(model => model.CountryName, new SelectList(SharedService.Instance.GetCountryList(), "Text", "Text"), "--SELECT--", new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CountryName)
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.CompanyName)
+
+                @Html.TextBoxFor(model => model.CompanyName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CompanyName)
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Website)
+
+                @Html.TextBoxFor(model => model.Website, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Website)
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Name)
+
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
+                @Html.Label("Send to Email")
+                @*@Html.DropDownList("Email", new SelectList(new SortedDictionary<string, string>() { { "krishnaveni@accuracy.com.sg", "krishnaveni@accuracy.com.sg" }, { "Bheemesh@accuracy.com.sg", "Bheemesh@accuracy.com.sg" }, { "vikas@accuracy.com.sg", "vikas@accuracy.com.sg" }, { "Yashwanth@accuracy.com.sg", "Yashwanth@accuracy.com.sg" }, { "prudhvi@accuracy.com.sg", "prudhvi@accuracy.com.sg" }, { "mouni@accuracy.com.sg", "mouni@accuracy.com.sg" } }, "key", "value"), "SELECT EMAIL", new { @class = "form-control" })*@
+
+                @Html.DropDownList("Email", new SelectList(new SortedDictionary<string, string>() { { "krishnaveni@accuracy.com.sg", "krishnaveni@accuracy.com.sg" }, { "Bheemesh@accuracy.com.sg", "Bheemesh@accuracy.com.sg" }, { "vikas@accuracy.com.sg", "vikas@accuracy.com.sg" }, { "Yashwanth@accuracy.com.sg", "Yashwanth@accuracy.com.sg" }, { "prudhvi@accuracy.com.sg", "prudhvi@accuracy.com.sg" }, { "mouni@accuracy.com.sg", "mouni@accuracy.com.sg" }, { "Harshasree@accuracy.com.sg", "Harshasree@accuracy.com.sg" }, { "prasanna@accuracy.com.sg", "prasanna@accuracy.com.sg" } }, "key", "value"), "SELECT EMAIL", new { @class = "form-control" })
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 text-right">
+            <div class="form-group">
+                @Html.ActionLink("Back", "Websites", null, new { @class = "btn btn-default", @style = "width:75px;" }) &nbsp;<input type="submit" value="Submit" class="btn btn-info" style="width:75px;" />
+            </div>
+        </div>
+    </div>
+</div>
+       
+}
+<script>
+    tinymce.init({ selector: '#Body', plugins: "link", toolbar: "bold | italic | underline | strikethrough | alignleft | aligncenter | alignright | alignjustify | styleselect | formatselect | fontselect | fontsizeselect | bullist | numlist | outdent | indent | blockquote | undo | redo | removeformat | subscript | superscript | link", menubar: false, height: "285px" });
+</script>

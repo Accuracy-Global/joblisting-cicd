@@ -1,0 +1,467 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <!-- Favicon -->
+    <link href="Content/homed/img/favicon.ico" rel="icon">
+
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="Content/homed/css/bootstrap.min.css" rel="stylesheet">
+    <link href="Content/homed/css/style.css" rel="stylesheet">
+    <!-- Stylesheet -->
+
+    <style>
+        .mySlides {
+            display: none;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            font-family: Calibri;
+            display: grid;
+            background-color: #ffffff;
+            align-content: center;
+            min-height: 100vh;
+        }
+
+        section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 100vh;
+            width: 100vw;
+            margin: 0 auto;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            border-radius: 25px
+        }
+
+        .image {
+            background-color: #ffffff;
+            display: flex;
+            border-radius: 12px 0 0 12px;
+            // right: 50px;
+        }
+
+            .image img {
+                height: 80vh;
+                // margin: 100px auto;
+                width: 80vw;
+                right: 50px;
+            }
+
+        .content {
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            border-radius: 0 12px 12px 0;
+            color: #000;
+        }
+
+            .content h2 {
+                text-transform: uppercase;
+                font-size: 36px;
+                letter-spacing: 6px;
+                opacity: 0.9;
+            }
+
+            .content span {
+                height: 0.5px;
+                width: 80px;
+                background: #777;
+                margin: 30px 0;
+            }
+
+            .content p {
+                padding-bottom: 15px;
+                font-weight: 380;
+                opacity: 0.7;
+                width: 65%;
+                text-align: center;
+                margin: 0 auto;
+                line-height: 1.7;
+                color: #000000;
+            }
+
+        .links {
+            margin: 15px 0;
+        }
+
+            .links li {
+                border: 2px solid #4158D0;
+                list-style: none;
+                border-radius: 5px;
+                padding: 10px 15px;
+                width: 160px;
+                text-align: center;
+            }
+
+                .links li a {
+                    text-transform: uppercase;
+                    color: #34ba08;
+                    text-decoration: none;
+                }
+
+                .links li:hover {
+                    border-color: #ffffff;
+                }
+
+        .vertical-line {
+            height: 30px;
+            width: 3px;
+            background: #C850C0;
+            margin: 0 auto;
+        }
+
+        .icons {
+            display: flex;
+            padding: 15px 0;
+        }
+
+            .icons li {
+                display: block;
+                padding: 5px;
+                margin: 5px;
+            }
+
+                .icons li i {
+                    font-size: 26px;
+                    opacity: 0.8;
+                }
+
+                    .icons li i:hover {
+                        color: #34bc08;
+                        cursor: pointer;
+                    }
+
+
+        /*****************/
+
+        @media(max-width: 900px) {
+            section {
+                grid-template-columns: 1fr;
+                width: 100%;
+                border-radius: none;
+            }
+
+            .image {
+                height: 100vh;
+                border-radius: none;
+                width: 80vw;
+                right: 50px;
+            }
+
+            .content {
+                height: 100vh;
+                border-radius: none;
+            }
+
+                .content h2 {
+                    font-size: 20px;
+                    margin-top: 5px;
+                }
+
+                .content span {
+                    margin: 20px 0;
+                }
+
+                .content p {
+                    font-size: 14px;
+                }
+
+            .links li a {
+                font-size: 14px;
+            }
+
+            .links {
+                margin: 5px 0;
+            }
+
+                .links li {
+                    padding: 6px 10px;
+                }
+
+            .icons li i {
+                font-size: 15px;
+            }
+        }
+
+        .credit {
+            text-align: center;
+            color: #000;
+            font-family: Calibri;
+        }
+
+            .credit a {
+                text-decoration: none;
+                color: #000;
+                font-weight: bold;
+            }
+
+        ul li a {
+            font-size: 30px;
+        }
+    </style>
+    <!--<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">-->
+    <script src="https://kit.fontawesome.com/dbed6b6114.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <!-- NAV BAR -->
+    <div class="" id="top" style="height:80px; background-color:white; ">
+
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-white rounded" aria-label="Eleventh navbar example">
+            <div class="container-fluid">
+                <div class="navbar-brand logo" href="#">
+                    <!-- <span style="color:  #34ba08;">  Job </span>Listing -->
+                    <a href="/job/home"><img src="images/JobListing_Aldhabi_Font.PNG" style="width:350px;height:80px;" class="img-fluid"></a>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarsExample09">
+
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/jobs" style="font-weight: 700; font-size: 18px;"><span>Search Jobs</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/search-people" style="font-weight: 700; font-size: 18px;"><span>Search People</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/search-jobseekers" style="font-weight: 700; font-size: 18px;"><span>Search Jobseekers</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/listjob" style="font-weight: 700; font-size: 18px;"><span>List NEW Job</span></a>
+                        </li>
+                        <li class="nav-link"><a id="google_translate_element"></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <style type="text/css">
+            #google_translate_element select {
+                width: 80px;
+                height: 22px;
+                border-color: #34ba08;
+            }
+
+            .goog-logo-link {
+                display: none !important;
+            }
+
+            .goog-te-gadget {
+                color: transparent !important;
+            }
+            /*google translate link | logo */
+            .goog-logo-link {
+                display: none !important;
+            }
+            /* google translate banner-frame */
+            .goog-te-banner-frame {
+                display: none !important;
+            }
+
+            #goog-gt-tt, .goog-te-balloon-frame {
+                display: none !important;
+            }
+
+            .goog-text-highlight {
+                background: none !important;
+                box-shadow: none !important;
+            }
+
+            body {
+                top: 0 !important;
+            }
+        </style>
+
+        <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=loadGoogleTranslate"></script>
+        <script>function loadGoogleTranslate() { new google.translate.TranslateElement("google_translate_element"); }</script>
+        <script type="text/javascript">
+            const button = document.querySelector('#google_translate_element');
+            button.addEventListener('click', () => {
+                const element = document.querySelector('.demo');
+                element.style.margin = '25px 0px 0px';
+            });
+        </script>
+
+
+    </div>
+    <section>
+        <div class="image">
+            <!--<img src="https://cdn.pixabay.com/photo/2017/08/26/23/37/business-2684758__340.png">-->
+
+            <div class="w3-content w3-section">
+                <img class="mySlides" src="/Images/JOB__4_-removebg-preview (2).png" style="width:100%; margin-left:70px;">
+
+            </div>
+        </div>
+
+        <div class="content" style=" margin-top:-100px;" ">
+            <h2 style="color:#34bc08;">About Joblisting</h2>
+            <span><!-- line here --></span>
+            <p>
+                JobListing is a global website that gives access to a wide range of jobs across several categories, such as green jobs, freelance offers, and seasonal jobs. Users can upload their resumes on the platform and submit them to potential employers and recruiters for review. Employers and recruiters can easily be connected to potential employees via targeted job ads. Universities can use JobListing to efficiently manage their recruitment process.
+            </p>
+
+            <ul class="icons">
+
+                <li>
+                    <a href="https://www.facebook.com/Joblisitng" class="facebook"> <i class="fa fa-facebook"></i></a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/101560853443212199687" class="linkedin"><i class="fa fa-google-plus"></i></a>
+                </li>
+                <li>
+                    <a href="https://twitter.com/Joblistingcom" class="twitter"> <i class="fa fa-twitter"></i></a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/101560853443212199687" class="linkedin"><i class="fa fa-linkedin"></i></a>
+                </li>
+
+
+                <li>
+                    <a href="https://www.instagram.com/joblistingportal/" class="instagram"><i class="fa fa-instagram"></i></a>
+                </li>
+
+            </ul>
+        </div>
+    </section>
+    <!--footer-->
+    <!--<div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
+        <div class="container py-2">
+            <div class="row g-5">
+                <div class="col-lg-4 col-md-6">
+                    <h5 class="text-white mb-4">About</h5>
+                    <p>JobListing is a global website that facilitates job hunting and range from small, medium to large scale as well as cross-sector categories such as green jobs, ethical jobs, freelance and seasonal jobs.</p>
+                    <div class="position-relative mx-auto" style="max-width: 400px;">
+                        <input class="form-control bg-transparent w-100 py-3 ps-4 pe-5" type="text" placeholder="Your email">
+                        <button type="button" class="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2">Subscribe</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-white mb-4">Contact</h5>
+                    <p style="font-size: 14px !important;" class="mb-2"><i class="fa fa-map-marker-alt me-3"></i>35 Selegie Road, #09-22, Parklane Shopping Mall, Singapore 188307.</p>-->
+    <!-- <p class="mb-2"><i class="fa fa-phone-alt me-3"></i>+012 345 67890</p> -->
+    <!--<p style="font-size: 14px !important;" class="mb-2"><i class="fa fa-envelope me-3"></i>pratapchandran@joblisting.com</p>
+                    <div class="d-flex pt-2">
+                        <a class="btn btn-outline-light btn-social" href="https://www.facebook.com/Joblisitng"><i class="fab fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-light btn-social" target="_blank" href="https://plus.google.com/101560853443212199687"><i class="fab fa-google-plus"></i></a>
+                        <a class="btn btn-outline-light btn-social" href="https://www.linkedin.com/company/joblisting-com/about/"><i class="fab fa-linkedin-in"></i></a>
+                        <a class="btn btn-outline-light btn-social" href="https://twitter.com/Joblistingcom"><i class="fab fa-twitter"></i></a>
+                        <a class="btn btn-outline-light btn-social" href="https://www.instagram.com/joblistingportal/"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6">
+                    <h5 class="text-white mb-4">Useful Links</h5>
+                    <a class="btn btn-link text-white-50" href="/jobs">Search Jobs</a>
+                    <a class="btn btn-link text-white-50" href="/search-people">Search People</a>
+                    <a class="btn btn-link text-white-50" href="/search-jobseekers">Search Jobseeker</a>
+                    <a class="btn btn-link text-white-50" href="/listjob">List Jobs</a>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <h5 class="text-white mb-4">Webinars</h5>
+                    <div class="parent">
+                        <div class="child">
+                            <img width="40" src="https://www.joblisting.com/images/img1.jpeg">
+                            <p>HR Webinar</p>
+                        </div>
+                        <div class="child">
+                            <img width="40" src="https://www.joblisting.com/images/img1.jpeg">
+                            <p>HR Webinar</p>
+                        </div>
+                        <div class="child">
+                            <img width="40" src="https://www.joblisting.com/images/img1.jpeg">
+                            <p>HR Webinar</p>
+                        </div>
+                        <div class="child">
+                            <img width="40" src="https://www.joblisting.com/images/img1.jpeg">
+                            <p>HR Webinar</p>
+                        </div>
+                        <div class="child">
+                            <img width="40" src="https://www.joblisting.com/images/img1.jpeg">
+                            <p>HR Webinar</p>
+                        </div>
+                        <div class="child">
+                            <img width="40" src="https://www.joblisting.com/images/img1.jpeg">
+                            <p>HR Webinar</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="copyright">
+                <div class="row">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        &copy; <a class="border-bottom" href="#">Job Listing</a> All Right Reserved.
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <div class="footer-menu">
+                            <a href="AboutPage.html" target="_blank">About</a>
+                            <a href="/terms" target="_blank">Terms</a>
+                            <a href="/privacy" target="_blank">Privacy</a>
+                            <a href="/home/contact" target="_blank">Contact</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->
+    <style>
+        .linkss a {
+            color: white;
+        }
+    </style>
+    <div class="container-fluid bg-dark" style="height:100px; margin:5px;">
+        <div class="linkss" style="word-spacing:50px;  color:white; text-align:center; padding:25px;">
+            <a href="AboutPage.html" target="_blank">About</a>
+            <a href="/terms" target="_blank">Terms</a>
+            <a href="/privacy" target="_blank">Privacy</a>
+            <a href="/home/contact" target="_blank">Contact</a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="Content/homed/lib/wow/wow.min.js"></script>
+    <script src="Content/homed/lib/easing/easing.min.js"></script>
+    <script src="Content/homed/lib/waypoints/waypoints.min.js"></script>
+    <script src="Content/homed/lib/owlcarousel/owl.carousel.min.js"></script>
+    <!-- Javascript -->
+    <script src="Content/homed/js/main.js"></script>
+    <script>
+        var myIndex = 0;
+        carousel();
+
+        function carousel() {
+            var i;
+            var x = document.getElementsByClassName("mySlides");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            myIndex++;
+            if (myIndex > x.length) { myIndex = 1 }
+            x[myIndex - 1].style.display = "block";
+            setTimeout(carousel, 2000); // Change image every 2 seconds
+        }
+    </script>
+
+</body>
+</html>

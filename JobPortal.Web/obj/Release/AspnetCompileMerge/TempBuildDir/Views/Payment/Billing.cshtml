@@ -1,0 +1,692 @@
+﻿@using PagedList.Mvc
+@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Models
+@{
+    ViewBag.Title = "Billing";
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+    
+    int inboxItems = 0;
+    int appCounts = 0;
+    int intCounts = 0;
+    Photo photo = null;
+    if (user.Role == JobPortal.Library.Enumerators.SecurityRoles.Administrator || user.Role == JobPortal.Library.Enumerators.SecurityRoles.SuperUser)
+    {
+        Layout = "~/Views/Shared/_CommonLayout.cshtml";
+        UserProfile profile = MemberService.Instance.Get(ViewBag.User.Id);
+        inboxItems = DomainService.Instance.DashboardInboxItems(ViewBag.User.Id);
+        appCounts = MemberService.Instance.GetApplicationCount(profile.Username);
+        intCounts = MemberService.Instance.GetInterviewCount(profile.Username);
+        photo = MemberService.Instance.GetPhoto("Profile", profile.Username);
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<JobPortal.Models.TransactionEntity>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+    string display = "show";
+    if (ViewBag.User.Type == 4)
+    {
+        display = "hide";
+    }
+    else if (ViewBag.User.Type == 5)
+    {
+        display = "show";
+    }
+
+}
+<style>
+    .tooltip > .tooltip-inner {
+        background-color: #ffffff;
+        color: #000000;
+        border: 1px solid #000000;
+        padding: 10px;
+        font-size: 14px;
+        opacity: 10;
+    }
+    /* Tooltip on top */
+    .tooltip.top > .tooltip-arrow {
+        border-top: 5px solid #000000;
+    }
+    /* Tooltip on bottom */
+    .tooltip.bottom > .tooltip-arrow {
+        border-bottom: 5px solid #000000;
+    }
+    /* Tooltip on left */
+    .tooltip.left > .tooltip-arrow {
+        border-left: 5px solid #000000;
+    }
+    /* Tooltip on right */
+    .tooltip.right > .tooltip-arrow {
+        border-right: 5px solid #000000;
+    }
+</style>
+
+@if (user.Role == JobPortal.Library.Enumerators.SecurityRoles.Administrator || user.Role == JobPortal.Library.Enumerators.SecurityRoles.SuperUser)
+{
+    <div class="section">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                    <li class="active"><a href="#">QUICK LINKS</a></li>
+                    <li>@Html.ActionLink("Connections", "Connections", "Admin", new { UserId = ViewBag.User.Id }, new { target = "_blank" })</li>
+                    <li>@Html.ActionLink("Messages", "Messages", "Admin", new { Id = ViewBag.User.Id }, new { target = "_blank" })</li>
+                    <li>@Html.ActionLink("Jobs", "JobsByCompany", "Admin", new { Id = ViewBag.User.Id }, new { target = "_blank" })</li>
+                    @if (appCounts > 0)
+                    {
+                        <li>@Html.ActionLink(string.Format("Applications ({0})", appCounts), "Applications", "Admin", new { UserId = ViewBag.User.Id }, new { target = "_blank" })</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Applications", "Applications", "Admin", new { UserId = ViewBag.User.Id }, new { target = "_blank" })</li>
+                    }
+                    @if (intCounts > 0)
+                    {
+                        <li>@Html.ActionLink(string.Format("Interviews ({0})", intCounts), "Interviews", "Admin", new { UserId = ViewBag.User.Id }, new { target = "_blank" })</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Interviews", "Interviews", "Admin", new { UserId = ViewBag.User.Id }, new { target = "_blank" })</li>
+                    }
+                    <li>@Html.ActionLink("Downloads", "DownloadHistory", "Admin", new { Id = ViewBag.User.Id }, new { target = "_blank" })</li>
+
+                    @if (inboxItems > 0)
+                    {
+                        <li><a href="/Admin/Inbox?Id=@ViewBag.User.Id" target="_blank">Inbox (<span style="color:red; font-weight:bold">@inboxItems</span>)</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="/Admin/Inbox?Id=@ViewBag.User.Id" target="_blank">Inbox</a></li>
+                    }
+                    <li>@Html.ActionLink("Profile", "ManageCompany", "Admin", new { Id = ViewBag.User.Id }, new { })</li>
+                    <li>@Html.ActionLink("Purchased Profiles", "PaidProfiles", "Payment", new { userId = ViewBag.User.Id }, null)</li>
+                    <li>@Html.ActionLink("Billing & Invoices", "billing", "Payment", new { userId = ViewBag.User.Id }, new { })</li>
+                    <li>@Html.ActionLink("Reset Password", "ResetPassword", "Admin", new { Id = ViewBag.User.Id }, new { target = "_blank" })</li>
+                    <li>@Html.ActionLink("Login History", "LoginHistory", "Admin", new { Id = ViewBag.User.Id }, new { target = "_blank" })</li>
+                    <li>@Html.ActionLink("Alert Settings", "Alerts", "Admin", new { Id = ViewBag.User.Id }, new { target = "_blank" })</li>
+                </ul>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-9">           
+                <div class="row">
+                    <div class="col-lg-10 col-md-10">
+                        <div class="title-login">
+                            <h1 style="margin-top: -15px;">Billing &amp; Invoices</h1>
+                            Manage billing &amp; invoices here
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2">
+                        <div class="form-group pull-right">
+                            <div style="background-color:#b3cb39;width: 92px;padding: 4px;height: 34px;border-radius:4px; display:block">
+                                <a href="https://play.google.com/store/apps/details?id=com.joblisting.joblisting" style="background-color: #b3cb39; color:#ffffff; text-decoration:none" target="_blank">
+                                    <table cellpadding="0" style="margin-bottom: 0px;">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    <i class="fa fa-android" aria-hidden="true" style="font-size:20px; color:#ffffff"></i>
+                                                </td>
+                                                <td>
+                                                    <div style="font-size: 10px;padding-left:2px;line-height: 8px;">
+                                                        Download for
+                                                    </div>
+                                                    <div style="font-size:18px">
+                                                        Android
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear" style="height:15px"></div>
+               
+                @using (Html.BeginForm())
+                {
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="form-group">
+                                <div class='input-group date' style="margin-bottom:0;">
+                                    @Html.TextBox("StartDate", null, new { @class = "form-control", placeholder = "FROM DATE", @title = "FROM DATE", @readonly = "readonly" })
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="form-group">
+                                <div class='input-group date' style="margin-bottom:0;">
+                                    @Html.TextBox("EndDate", null, new { @class = "form-control", placeholder = "TO DATE", @title = "TO DATE", @readonly = "readonly" })
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 col-sm-offset-2">
+                            <div class="form-group">
+                                <input type="submit" value="Search" class="btn btn-info btn-block" />
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @if (ViewBag.Usage != null)
+                {
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <h3>Balances</h3>
+
+                            <table class="table table-bordered table-condensed table-responsive" style="width:100%;">
+                                <tr>
+                                    <th>Item</th>
+                                    <th style="width:100px; text-align:center">Used</th>
+                                    <th style="width:100px; text-align:center">Balance</th>
+                                </tr>
+                                @if (ViewBag.User.Type == 5)
+                                {
+                                    <tr>
+                                        <td>Job List with <a href="#" data-toggle="tooltip" title="Job will be distributed to over @ViewBag.DistributeNumbers people on facebook, twitter & google+. however free job list will not be distributed to social media.">Social Media</a></td>
+                                        @if (ViewBag.Model != null && ViewBag.Model.Count > 0)
+                                        {
+                                            if (ViewBag.Usage.UsedJobs > 0)
+                                            {
+                                                <td style="width:100px; text-align:center"><a href="@Url.Action("Index", "Employer", new { Id = ViewBag.User.Id })" target="_blank">@ViewBag.Usage.UsedJobs</a></td>
+                                            }
+                                            else
+                                            {
+                                                <td style="width:100px; text-align:center">@ViewBag.Usage.UsedJobs</td>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <td style="width:100px; text-align:center"></td>
+                                        }
+                                        @if (ViewBag.Model != null && ViewBag.Model.Count > 0)
+                                        {
+                                            <td style="width:100px; text-align:center">@ViewBag.Usage.BalanceJobs</td>
+                                        }
+                                        else
+                                        {
+                                            <td style="width:100px; text-align:center"></td>
+                                        }
+                                    </tr>
+                                }
+                                <tr>
+                                    @if (ViewBag.User.Type == 5)
+                                    {
+                                        <td>Purchased Profiles (<a href="#" data-toggle="tooltip" title="After resume download and viewing profile, if user of that profile blocks, purchased resume and profile will be removed and you will be still charged!">Blocked User</a>)</td>
+                                    }
+                                    else if (ViewBag.User.Type == 4)
+                                    {
+                                        <td>Purchased Profiles (<a href="#" data-toggle="tooltip" title="After viewing profile, if user of that profile blocks, purchased profile will be removed and you will be still charged!">Blocked User</a>)</td>
+                                    }
+
+                                    @if (ViewBag.Model != null && ViewBag.Model.Count > 0)
+                                    {
+                                        if (ViewBag.Usage.UsedProfiles > 0)
+                                        {
+                                            <td style="width:100px; text-align:center"><a href="@Url.Action("PaidProfiles", "Payment", new { userId = ViewBag.User.Id })" target="_blank">@ViewBag.Usage.UsedProfiles</a></td>
+                                        }
+                                        else
+                                        {
+                                            <td style="width:100px; text-align:center">@ViewBag.Usage.UsedProfiles</td>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <td style="width:100px; text-align:center"></td>
+                                    }
+                                    @if (ViewBag.Model != null && ViewBag.Model.Count > 0)
+                                    {
+                                        <td style="width:100px; text-align:center">@ViewBag.Usage.BalanceProfiles</td>
+                                    }
+                                    else
+                                    {
+                                        <td style="width:100px; text-align:center"></td>
+                                    }
+                                </tr>
+                                <tr>
+                                    <td>Messages (<a href="#" data-toggle="tooltip" title="After sending message, if user who is receiving message blocks, purchased message will be removed and you will be still charged for message!">Blocked User</a>)</td>
+                                    @if (ViewBag.Model != null && ViewBag.Model.Count > 0)
+                                    {
+                                        if (ViewBag.Usage.UsedMessages > 0)
+                                        {
+                                            <td style="width:100px; text-align:center"><a href="@Url.Action("Index","Message")" target="_blank">@ViewBag.Usage.UsedMessages</a></td>
+                                        }
+                                        else
+                                        {
+                                            <td style="width:100px; text-align:center">@ViewBag.Usage.UsedMessages</td>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <td style="width:100px; text-align:center"></td>
+                                    }
+                                    @if (ViewBag.Model != null && ViewBag.Model.Count > 0)
+                                    {
+                                        <td style="width:100px; text-align:center">@ViewBag.Usage.BalanceMessages</td>
+                                    }
+                                    else
+                                    {
+                                        <td style="width:100px; text-align:center"></td>
+                                    }
+                                </tr>
+                                @if (ViewBag.User.Type == 5)
+                                {
+                                    <tr>
+                                        <td>Interviews (<a href="#" data-toggle="tooltip" title="After initiating interview, if user blocks, purchased interview will be withdrawn and you will be still charged for interview!">Blocked User</a>)</td>
+                                        @if (ViewBag.Model != null && ViewBag.Model.Count > 0)
+                                        {
+                                            if (ViewBag.Usage.UsedInterviews > 0)
+                                            {
+                                                <td style="width:100px; text-align:center"><a href="@Url.Action("Interviews", "Admin", new { UserId = ViewBag.User.Id })" target="_blank">@ViewBag.Usage.UsedInterviews</a></td>
+                                            }
+                                            else
+                                            {
+                                                <td style="width:100px; text-align:center">@ViewBag.Usage.UsedInterviews</td>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <td style="width:100px; text-align:center"></td>
+                                        }
+
+                                        @if (ViewBag.Model != null && ViewBag.Model.Count > 0)
+                                        {
+                                            <td style="width:100px; text-align:center">@ViewBag.Usage.BalanceInterviews</td>
+                                        }
+                                        else
+                                        {
+                                            <td style="width:100px; text-align:center"></td>
+                                        }
+                                    </tr>
+
+                                    <tr>
+                                        <td>Resume Downloads (<a href="#" data-toggle="tooltip" title="After resume download and viewing profile, if user blocks, purchased resume and profile will be removed and you will be still charged!">Blocked User</a>)</td>
+                                        @if (ViewBag.Model != null && ViewBag.Model.Count > 0)
+                                        {
+                                            if (ViewBag.Usage.UsedResumes > 0)
+                                            {
+                                                <td style="width:100px; text-align:center"><a href="@Url.Action("DownloadHistory", "Admin", new { Id = ViewBag.User.Id })" target="_blank">@ViewBag.Usage.UsedResumes</a></td>
+                                            }
+                                            else
+                                            {
+                                                <td style="width:100px; text-align:center">@ViewBag.Usage.UsedResumes</td>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <td style="width:100px; text-align:center"></td>
+                                        }
+                                        @if (ViewBag.Model != null && ViewBag.Model.Count > 0)
+                                        {
+                                            <td style="width:100px; text-align:center">@ViewBag.Usage.BalanceResumes</td>
+                                        }
+                                        else
+                                        {
+                                            <td style="width:100px; text-align:center"></td>
+                                        }
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                }
+                <div class="clear" style="height:30px"></div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <h3>Package Details</h3>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+                        @Html.ActionLink("Purchase Package", "Index", "Payment", new { returnurl = Request.Url.ToString() }, new { @class = "btn btn-info", @style = "width:200px; margin-top: 10px;" })
+                    </div>
+                </div>
+                <div class="clear" style="height:5px"></div>
+                @if (ViewBag.Model != null)
+                {
+                    foreach (var item in ViewBag.Model)
+                    {
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <i><b>Description:</b></i>                                        
+                                        <b>@item.Description</b>
+                                        
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <i><b>Date:</b></i> @Html.Raw(item.TransactionDate.ToString("dd-MMM-yyyy"))
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <i><b>Amount (USD):</b></i> @Html.Raw(item.Amount)
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <i><b>Method:</b></i> @Html.Raw(item.PaymentMethod)
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        @Html.ActionLink("Download Invoice", "Invoice", "Payment", new { userId = ViewBag.User.Id, Id = item.Id }, new { target = "_blank", style = "font-weight:bold" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                <div style="text-align:center; margin-top: -15px;">
+
+                    @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Billing",
+            new RouteValueDictionary()
+            {
+                { "PageNumber" , PageNumber},
+                { "userId" , Request["userId"]}
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{    
+    <div class="row">
+        <div class="col-lg-10 col-md-10">
+            <div class="title-login">
+                <h1 style="margin-top: -15px;">Billing &amp; Invoices</h1>
+                Manage billing &amp; invoices here
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2">
+            <div class="form-group pull-right">
+                <label>&nbsp;</label>
+                <div style="background-color:#b3cb39;width: 92px;padding: 4px;height: 34px;border-radius:4px; display:block">
+                    <a href="https://play.google.com/store/apps/details?id=com.joblisting.joblisting" style="background-color: #b3cb39; color:#ffffff; text-decoration:none" target="_blank">
+                        <table cellpadding="0" style="margin-bottom: 0px;">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <i class="fa fa-android" aria-hidden="true" style="font-size:20px; color:#ffffff"></i>
+                                    </td>
+                                    <td>
+                                        <div style="font-size: 10px;padding-left:2px;line-height: 8px;">
+                                            Download for
+                                        </div>
+                                        <div style="font-size:18px">
+                                            Android
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="clear" style="height:15px"></div>
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-lg-offset-9 col-md-offset-9">
+            @if (user != null && user.Type == 4)
+            {
+                if (user.PromoteDate == null)
+                {
+                    <a href="/package/promote?id=@user.Id&type=P&returnUrl=@Request.Url.ToString()" class="btn btn-info promote pull-right" style="width:165px;">Promote Profile</a>
+                }
+                else
+                {
+                    if (DateTime.Now.Date > user.PromoteDate.Value.Date)
+                    {
+                        <a href="/package/promote?id=@user.Id&type=P&returnUrl=@Request.Url.ToString()" class="btn btn-info promote pull-right" style="width:165px;">Promote Profile</a>
+                    }
+                }
+            }            
+        </div>
+    </div>
+    <div class="clear" style="height:15px;"></div>
+    using (Html.BeginForm())
+    {
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    <div class='input-group date' style="margin-bottom:0;">
+                        @Html.TextBox("StartDate", null, new { @class = "form-control", placeholder = "FROM DATE", @title = "FROM DATE", @readonly = "readonly" })
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    <div class='input-group date' style="margin-bottom:0;">
+                        @Html.TextBox("EndDate", null, new { @class = "form-control", placeholder = "TO DATE", @title = "TO DATE", @readonly = "readonly" })
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-2 col-sm-offset-2">
+                <div class="form-group">
+                    <input type="submit" value="Search" class="btn btn-info btn-block" />
+                </div>
+            </div>
+        </div>
+    }
+
+    if (ViewBag.Usage != null)
+    {
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <h3>Balances</h3>
+
+                <table class="table table-bordered table-condensed table-responsive" style="width:100%;">
+                    <tr>
+                        <th>Item</th>
+                        <th style="width:100px; text-align:center">Used</th>
+                        <th style="width:100px; text-align:center">Balance</th>
+                    </tr>                   
+                    <tr>
+                        @if (ViewBag.User.Type == 5)
+                        {
+                            <td>Purchased Profiles (<a href="#" data-toggle="tooltip" title="After resume download and viewing profile, if user of that profile blocks, purchased resume and profile will be removed and you will be still charged!">Blocked User</a>)</td>
+                        }
+                        else if (ViewBag.User.Type == 4)
+                        {
+                            <td>Purchased Profiles (<a href="#" data-toggle="tooltip" title="After viewing profile, if user of that profile blocks, purchased profile will be removed and you will be still charged!">Blocked User</a>)</td>
+                        }
+
+                        @if (ViewBag.Model != null && ViewBag.Model.Count > 0)
+                        {
+                            if (ViewBag.Usage.UsedProfiles > 0)
+                            {
+                                <td style="width:100px; text-align:center"><a href="@Url.Action("PaidProfiles", "Payment", new { userId = ViewBag.User.Id })" target="_blank">@ViewBag.Usage.UsedProfiles</a></td>
+                            }
+                            else
+                            {
+                                <td style="width:100px; text-align:center">@ViewBag.Usage.UsedProfiles</td>
+                            }
+                        }
+                        else
+                        {
+                            <td style="width:100px; text-align:center"></td>
+                        }
+                        @if (ViewBag.Model != null && ViewBag.Model.Count > 0)
+                        {
+                            <td style="width:100px; text-align:center">@ViewBag.Usage.BalanceProfiles</td>
+                        }
+                        else
+                        {
+                            <td style="width:100px; text-align:center"></td>
+                        }
+                    </tr>
+                    <tr>
+                        <td>Messages (<a href="#" data-toggle="tooltip" title="After sending message, if user who is receiving message blocks, purchased message will be removed and you will be still charged for message!">Blocked User</a>)</td>
+                        @if (ViewBag.Model != null && ViewBag.Model.Count > 0)
+                        {
+                            if (ViewBag.Usage.UsedMessages > 0)
+                            {
+                                <td style="width:100px; text-align:center"><a href="@Url.Action("Index","Message")" target="_blank">@ViewBag.Usage.UsedMessages</a></td>
+                            }
+                            else
+                            {
+                                <td style="width:100px; text-align:center">@ViewBag.Usage.UsedMessages</td>
+                            }
+                        }
+                        else
+                        {
+                            <td style="width:100px; text-align:center"></td>
+                        }
+                        @if (ViewBag.Model != null && ViewBag.Model.Count > 0)
+                        {
+                            <td style="width:100px; text-align:center">@ViewBag.Usage.BalanceMessages</td>
+                        }
+                        else
+                        {
+                            <td style="width:100px; text-align:center"></td>
+                        }
+                    </tr>
+                    @if (ViewBag.User.Type == 5)
+                    {
+                        <tr>
+                            <td>Interviews (<a href="#" data-toggle="tooltip" title="After initiating interview, if user blocks, purchased interview will be withdrawn and you will be still charged for interview!">Blocked User</a>)</td>
+                            @if (ViewBag.Model != null && ViewBag.Model.Count > 0)
+                            {
+                                if (ViewBag.Usage.UsedInterviews > 0)
+                                {
+                                    <td style="width:100px; text-align:center"><a href="@Url.Action("Interviews", "Admin", new { UserId = ViewBag.User.Id })" target="_blank">@ViewBag.Usage.UsedInterviews</a></td>
+                                }
+                                else
+                                {
+                                    <td style="width:100px; text-align:center">@ViewBag.Usage.UsedInterviews</td>
+                                }
+                            }
+                            else
+                            {
+                                <td style="width:100px; text-align:center"></td>
+                            }
+
+                            @if (ViewBag.Model != null && ViewBag.Model.Count > 0)
+                            {
+                                <td style="width:100px; text-align:center">@ViewBag.Usage.BalanceInterviews</td>
+                            }
+                            else
+                            {
+                                <td style="width:100px; text-align:center"></td>
+                            }
+                        </tr>
+
+                        <tr>
+                            <td>Resumes Download (<a href="#" data-toggle="tooltip" title="After resume download and viewing profile, if user blocks, purchased resume and profile will be removed and you will be still charged!">Blocked User</a>)</td>
+                            @if (ViewBag.Model != null && ViewBag.Model.Count > 0)
+                            {
+                                if (ViewBag.Usage.UsedResumes > 0)
+                                {
+                                    <td style="width:100px; text-align:center"><a href="@Url.Action("DownloadHistory", "Admin", new { Id = ViewBag.User.Id })" target="_blank">@ViewBag.Usage.UsedResumes</a></td>
+                                }
+                                else
+                                {
+                                    <td style="width:100px; text-align:center">@ViewBag.Usage.UsedResumes</td>
+                                }
+                            }
+                            else
+                            {
+                                <td style="width:100px; text-align:center"></td>
+                            }
+                            @if (ViewBag.Model != null && ViewBag.Model.Count > 0)
+                            {
+                                <td style="width:100px; text-align:center">@ViewBag.Usage.BalanceResumes</td>
+                            }
+                            else
+                            {
+                                <td style="width:100px; text-align:center"></td>
+                            }
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    }
+    <div class="clear" style="height:30px"></div>
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <h3>Package Details</h3>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+            @Html.ActionLink("Purchase Package", "Index", "Payment", new { returnurl = Request.Url.ToString() }, new { @class = "btn btn-info", @style = "width:200px; margin-top: 10px;" })
+        </div>
+    </div>
+    <div class="clear" style="height:5px"></div>
+    if (ViewBag.Model != null)
+    {
+        foreach (var item in ViewBag.Model)
+        {
+            <div class="list-group">
+                <div class="list-group-item">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <i><b>Description:</b></i>                           
+                            <text><b>@item.Description</b></text>
+                           
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <i><b>Date:</b></i> @Html.Raw(item.TransactionDate.ToString("dd-MMM-yyyy"))
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <i><b>Amount (USD):</b></i> @Html.Raw(item.Amount)
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <i><b>Method:</b></i> @Html.Raw(item.PaymentMethod)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            @Html.ActionLink("Download Invoice", "Invoice", "Payment", new { userId = ViewBag.User.Id, Id = item.Id }, new { target = "_blank", style = "font-weight:bold" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    <div style="text-align:center; margin-top: -15px;">
+
+        @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Billing",
+            new RouteValueDictionary()
+            {
+                { "PageNumber" , PageNumber},
+                { "userId" , Request["userId"]}
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip({ placement: "bottom" });
+    });
+</script>

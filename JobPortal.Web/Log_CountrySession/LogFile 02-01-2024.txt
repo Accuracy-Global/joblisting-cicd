@@ -1,0 +1,823 @@
+================================================================================================================
+02-01-2024 09:59:53 AM
+Initial Url => http://localhost:1511/Account/LogOff
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 152.58.209.111
+GeoLocation Api => https://api.ipapi.com/api/152.58.209.111?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"152.58.209.111","type":"ipv4","continent_code":"AS","continent_name":"Asia","country_code":"IN","country_name":"India","region_code":"KA","region_name":"Karnataka","city":"Bengaluru","zip":"560002","latitude":"12.963800430297852","longitude":"77.58200073242188"}
+Session_Start() => Session: India
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Account/LogOff
+UrlPrivilegeFilter => Contoller: account, Action: logoff, Session: india
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Account/LogOff
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Account/LogOff
+UrlPrivilegeFilter => Contoller: account, Action: logoff, Session: india
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/account/logout
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/account/logout
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/account/login
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/account/login
+================================================================================================================
+02-01-2024 10:21:17 AM
+Initial Url => http://localhost:1511/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 152.58.209.111
+GeoLocation Api => https://api.ipapi.com/api/152.58.209.111?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"152.58.209.111","type":"ipv4","continent_code":"AS","continent_name":"Asia","country_code":"IN","country_name":"India","region_code":"KA","region_name":"Karnataka","city":"Bengaluru","zip":"560002","latitude":"12.963800430297852","longitude":"77.58200073242188"}
+Session_Start() => Session: India
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: india
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india
+Controller: Job, Action: Homein => Session: India
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38123
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38124
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38125
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38128
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38085
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38086
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38122
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38126
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/account/login
+UrlPrivilegeFilter => Contoller: account, Action: login, Session: india
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/account/login
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/account/login
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/Admin/Index
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/JsonHelper/GetUserCounts
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/JsonHelper/GetRegisteredUsersByCountry?countryId=undefined&type=&confirmed=&active=&fd=&fm=&fy=&td=&tm=&ty=
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/Admin/Index
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/JsonHelper/GetUserCounts
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/JsonHelper/GetRegisteredUsersByCountry?countryId=undefined&type=&confirmed=&active=&fd=&fm=&fy=&td=&tm=&ty=
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/Admin/Index
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/JsonHelper/GetUserCounts
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/JsonHelper/GetRegisteredUsersByCountry?countryId=undefined&type=&confirmed=&active=&fd=&fm=&fy=&td=&tm=&ty=
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Admin/JobsByCompanyAll?CountryId
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Admin/JobsByCompanyAll?CountryId
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Admin/JobsByCompanyAll?CountryId
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Admin/JobsByCompanyAll?CountryId
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/singapore/Admin/jobs
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/JsonHelper/GetJobCounts
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/JsonHelper/GetJobs?countryId=undefined&fd=&fm=&fy=&td=&tm=&ty=
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/singapore/Admin/jobs
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/singapore/Admin/Addjob
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/JsonHelper/GetJobCounts
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/JsonHelper/GetJobs?countryId=undefined&fd=&fm=&fy=&td=&tm=&ty=
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Admin/JobsByCompanyAll?CountryId=40
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Admin/Jobs
+UrlPrivilegeFilter => Contoller: job, Action: searchjobs, Session: india
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/Jobs
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38123
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/countrylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/categorylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/qualifications
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38085
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38086
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38087
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38124
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38122
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38090
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38091
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38130
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38132
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38134
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38089
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38128
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38088
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38125
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38126
+================================================================================================================
+02-01-2024 11:22:37 AM
+Initial Url => http://localhost:1511/india/Jobs
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/singapore/Admin/Addjob
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+================================================================================================================
+02-01-2024 11:25:11 AM
+Initial Url => http://localhost:1511/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 152.58.209.43
+GeoLocation Api => https://api.ipapi.com/api/152.58.209.43?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"152.58.209.43","type":"ipv4","continent_code":"AS","continent_name":"Asia","country_code":"IN","country_name":"India","region_code":"KA","region_name":"Karnataka","city":"Yelahanka","zip":"584116","latitude":"13.044899940490723","longitude":"77.54900360107422"}
+Session_Start() => Session: India
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: india
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india
+Controller: Job, Action: Homein => Session: India
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38122
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38125
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38086
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38124
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38126
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38123
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38085
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38128
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/account/login
+UrlPrivilegeFilter => Contoller: account, Action: login, Session: india
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/account/login
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Admin/Index
+UrlPrivilegeFilter => Contoller: admin, Action: index, Session: india
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/Admin/Index
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/JsonHelper/GetUserCounts
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/JsonHelper/GetRegisteredUsersByCountry?countryId=undefined&type=&confirmed=&active=&fd=&fm=&fy=&td=&tm=&ty=
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Admin/Jobs
+UrlPrivilegeFilter => Contoller: job, Action: searchjobs, Session: india
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/Jobs
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/administrator/profile
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38134
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38122
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38123
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38136
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38125
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38126
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38128
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38085
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38086
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38087
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38088
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38089
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38090
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38091
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/qualifications
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38124
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/countrylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/categorylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38132
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/singapore/Admin/jobs
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/JsonHelper/GetJobCounts
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/JsonHelper/GetJobs?countryId=undefined&fd=&fm=&fy=&td=&tm=&ty=
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/Admin/Index
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/JsonHelper/GetUserCounts
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/JsonHelper/GetRegisteredUsersByCountry?countryId=undefined&type=&confirmed=&active=&fd=&fm=&fy=&td=&tm=&ty=
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/singapore/Admin/jobs
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/JsonHelper/GetJobCounts
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/JsonHelper/GetJobs?countryId=undefined&fd=&fm=&fy=&td=&tm=&ty=
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/singapore/change-email-address
+UrlPrivilegeFilter => Contoller: account, Action: changeemailaddress, Session: india
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/change-email-address
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/login-history
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/singapore/Admin/Announcements
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/singapore/Admin/Updates
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/singapore/Admin/Updates
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/singapore/Admin/Campaign
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/singapore/Admin/Tips
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/singapore/Admin/EditTip/3
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/singapore/Admin/ShowTip/3
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/singapore/Admin/EditCampaign/1354
+================================================================================================================
+02-01-2024 11:42:28 AM
+Initial Url => http://localhost:1511/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 152.58.209.43
+GeoLocation Api => https://api.ipapi.com/api/152.58.209.43?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"152.58.209.43","type":"ipv4","continent_code":"AS","continent_name":"Asia","country_code":"IN","country_name":"India","region_code":"KA","region_name":"Karnataka","city":"Yelahanka","zip":"584116","latitude":"13.044899940490723","longitude":"77.54900360107422"}
+Session_Start() => Session: India
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: india
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india
+Controller: Job, Action: Homein => Session: India
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38124
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38128
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38085
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38086
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38087
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38088
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38126
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38125
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/account/login
+UrlPrivilegeFilter => Contoller: account, Action: login, Session: india
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/account/login
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Admin/Index
+UrlPrivilegeFilter => Contoller: admin, Action: index, Session: india
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/Admin/Index
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/JsonHelper/GetUserCounts
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/JsonHelper/GetRegisteredUsersByCountry?countryId=undefined&type=&confirmed=&active=&fd=&fm=&fy=&td=&tm=&ty=
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/account/logout
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/account/login
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/account/login
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/profile/dileepks-ks-182570
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/55751
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/55565
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40082
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40053
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40074
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/connections
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/singapore/Account/Confirm/182570?returnUrl=http%3A%2F%2Flocalhost%3A1511%2Findia%2Fconnections
+UrlPrivilegeFilter => Contoller: account, Action: confirm, Session: india
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/account/confirm/182570?returnUrl=http%3A%2F%2Flocalhost%3A1511%2Findia%2Fconnections
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/Jobs
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38124
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38087
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/countrylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/categorylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/qualifications
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38088
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38089
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38091
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38090
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38130
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38132
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38134
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38086
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38122
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38136
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38085
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38128
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38126
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38125
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/account/logout
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/account/login
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/jobs/
+UrlPrivilegeFilter => Contoller: job, Action: searchjobs, Session: india
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/Jobs
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38124
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38085
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38086
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/countrylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/categorylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/qualifications
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38087
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38088
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38122
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38090
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38091
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38130
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38132
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38134
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38089
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38123
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38128
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38125
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38126
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/Jobs?i=2
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38173
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38174
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/countrylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/categorylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/qualifications
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38175
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38176
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38177
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38178
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38179
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38170
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38171
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38231
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38232
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38132
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38136
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38172
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38134
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/Jobs?i=6
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38130
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/39992
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/countrylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/categorylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/qualifications
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/27358
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/39994
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/39981
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/39979
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/31986
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/39953
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/39952
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/39985
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/39951
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/26597
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/39563
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/39993
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/39996
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/39995
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/39950
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/Jobs?i=10
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40188
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40236
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40337
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/countrylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/categorylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/qualifications
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40189
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40234
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40336
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40232
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40303
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40238
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40230
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40335
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40239
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40235
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40112
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40338
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40231
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/Jobs?i=10
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40188
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40236
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40337
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/countrylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/categorylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/qualifications
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40235
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40234
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40336
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40232
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40303
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40238
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40335
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40230
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40239
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40338
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40189
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40112
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/40231
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/account/register
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/countrylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/skillslist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/UnivList1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/CompanyList
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/CategoryList1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/account/register
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/countrylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/skillslist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/account/register
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/bundles/spgcss?v=kROZrSxlbBMrYQgeqI4dOS9rXl6TYyyGI9DUwDDrjdM1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/bundles/spg?v=w58CtGj1y8G0ci6kLmv80GpUMfp99roq8UVfG8Fgars1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/bundles/jqueryval?v=liFQDLl2DYXeEfda_Lo9HxMCJUnZ2Adg-vEhq6ZMqpo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/skillslist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/countrylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/bundles/spgcss?v=kROZrSxlbBMrYQgeqI4dOS9rXl6TYyyGI9DUwDDrjdM1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/account/register
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/bundles/spg?v=w58CtGj1y8G0ci6kLmv80GpUMfp99roq8UVfG8Fgars1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/bundles/jqueryval?v=liFQDLl2DYXeEfda_Lo9HxMCJUnZ2Adg-vEhq6ZMqpo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/countrylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/skillslist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/account/register
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/countrylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/CompanyList
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/UnivList1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/CategoryList1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/skillslist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/account/register
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/profile/dileep-ks-1846131
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/jobseeker
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/singapore/Account/Confirm/1846131?returnUrl=http%3A%2F%2Flocalhost%3A1511%2Findia%2Fjobseeker
+UrlPrivilegeFilter => Contoller: account, Action: confirm, Session: india
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/account/confirm/1846131?returnUrl=http%3A%2F%2Flocalhost%3A1511%2Findia%2Fjobseeker
+================================================================================================================
+02-01-2024 12:42:32 PM
+Initial Url => http://localhost:1511/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 152.58.209.43
+GeoLocation Api => https://api.ipapi.com/api/152.58.209.43?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"152.58.209.43","type":"ipv4","continent_code":"AS","continent_name":"Asia","country_code":"IN","country_name":"India","region_code":"KA","region_name":"Karnataka","city":"Yelahanka","zip":"584116","latitude":"13.044899940490723","longitude":"77.54900360107422"}
+Session_Start() => Session: India
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: india
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india
+Controller: Job, Action: Homein => Session: India
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38124
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38086
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38088
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38125
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38087
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38126
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38085
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38128
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/account/register
+UrlPrivilegeFilter => Contoller: account, Action: register, Session: india
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/account/register
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/countrylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/UnivList1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/CompanyList
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/skillslist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/help/CategoryList1
+================================================================================================================
+02-01-2024 12:43:55 PM
+Initial Url => http://localhost:1511/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 152.58.209.43
+GeoLocation Api => https://api.ipapi.com/api/152.58.209.43?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"152.58.209.43","type":"ipv4","continent_code":"AS","continent_name":"Asia","country_code":"IN","country_name":"India","region_code":"KA","region_name":"Karnataka","city":"Yelahanka","zip":"584116","latitude":"13.044899940490723","longitude":"77.54900360107422"}
+Session_Start() => Session: India
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: india
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india
+Controller: Job, Action: Homein => Session: India
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38124
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38087
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38088
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38128
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38126
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38085
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38125
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38086
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/account/login
+UrlPrivilegeFilter => Contoller: account, Action: login, Session: india
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/account/login
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/account/login
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/Admin/Index
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/JsonHelper/GetUserCounts
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/JsonHelper/GetRegisteredUsersByCountry?countryId=undefined&type=&confirmed=&active=&fd=&fm=&fy=&td=&tm=&ty=
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Admin/JobsByCompanyAll?CountryId
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/account/logout
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/account/login
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india
+Controller: Job, Action: Homein => Session: India
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38122
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38085
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38086
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38125
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38123
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38128
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38124
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38126
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india
+Controller: Job, Action: Homein => Session: India
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38122
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38085
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38086
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38124
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38126
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38125
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38123
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38128
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/india/home
+Controller: Job, Action: Home => Session: India
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38122
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38085
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38086
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38126
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38125
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38124
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38123
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1511/Image/Avtar/38128

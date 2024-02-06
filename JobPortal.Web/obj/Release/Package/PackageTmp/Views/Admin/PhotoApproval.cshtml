@@ -1,0 +1,264 @@
+﻿@model IEnumerable<JobPortal.Data.Photo>
+@using JobPortal.Data
+@using JobPortal.Domain
+@{
+    ViewBag.Title = "Photo Approvals";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    #fullsize {
+        position: absolute;
+    }
+
+        #fullsize.hidden {
+            display: none;
+        }
+</style>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">Photo Approval</h1>
+            @Html.Raw("Manage photos approval here")
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:15px;"></div>
+@Html.Partial("_MessagePartial")
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+            @foreach (var item in Model)
+            {
+                UserProfile profile = MemberService.Instance.Get(item.UserId);
+                int inboxItems = DomainService.Instance.DashboardInboxItems(User.Id, item.UserId, item.Id);
+                string url = "";
+                if (profile.Type == 5)
+                {
+                    url = string.Format("/admin/ManageCompany?Id={0}", item.UserId);
+                }
+                else if (profile.Type == 4)
+                {
+                    url = string.Format("/admin/ManageIndividual?Id={0}", item.UserId);
+                }
+
+                <div style="float:left; margin:10px;width:302px; height:328px;border:1px solid #0094ff;" title="@item.Area">
+                    <a href="@url"><div style="background:url('@Url.Action("LoadThumbnail", "Image", new { Id= item.Id, height=300, width=300 })') no-repeat; background-size:cover; background-position:center center; height:300px; width:300px"></div></a>
+                    <div style="background-color:#d6effe; width:100%; padding:4px; text-align:center">
+                        <small>
+                            <b>
+                                @if (item.IsApproved == false && item.InEditMode == true)
+                                {
+                                    <a href="#" class="approvephoto" role="button" data-imgsrc="@item.Type,@(Convert.ToBase64String(item.NewImage))" data-id="@item.Id" data-toggle='modal' data-target='#approveDialog' title="Approve Photo">Approve</a>
+                                }
+                                else
+                                {
+                                    <a href="#" class="approvephoto" role="button" data-imgsrc="@item.Type,@(Convert.ToBase64String(item.Image))" data-id="@item.Id" data-toggle='modal' data-target='#approveDialog' title="Approve Photo">Approve</a>
+                                }
+                            </b>&nbsp;&nbsp;|&nbsp;&nbsp;
+                            @if (item.IsApproved == false && item.InEditMode == true)
+                            {
+                                <b><a href="#" class="rejectphoto" role="button" data-imgsrc="@item.Type,@(Convert.ToBase64String(item.NewImage))" data-id="@item.Id" data-toggle='modal' data-target='#rejectDialog' title="Reject Photo">Reject</a></b>
+                            }
+                            else
+                            {
+                                <b><a href="#" class="rejectphoto" role="button" data-imgsrc="@item.Type,@(Convert.ToBase64String(item.Image))" data-id="@item.Id" data-toggle='modal' data-target='#rejectDialog' title="Reject Photo">Reject</a></b>
+                            }
+                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                            @if (item.IsApproved == false && item.InEditMode == true)
+                            {
+                                <b><a href="#" class="deletephoto" role="button" data-imgsrc="@item.Type,@(Convert.ToBase64String(item.NewImage))" data-id="@item.Id" data-toggle='modal' data-target='#deleteDialog' title="Delete Photo">Delete</a></b>
+                            }
+                            else
+                            {
+                                <b><a href="#" class="deletephoto" role="button" data-imgsrc="@item.Type,@(Convert.ToBase64String(item.Image))" data-id="@item.Id" data-toggle='modal' data-target='#deleteDialog' title="Delete Photo">Delete</a></b>
+                            }
+                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                            <b>
+                                <a href="#jobMsgDialog" data-id='@item.Id' data-uid='@item.UserId' role='button' data-toggle='modal' class="jmsg">Message</a>
+                            </b>
+                            &nbsp;&nbsp;|&nbsp;&nbsp;
+                            <b>
+                                @if (inboxItems > 0)
+                                {
+                                    <a href="/admin/inbox?id=@item.UserId">Inbox (<span style="color:red">@inboxItems</span>)</a>
+                                }
+                                else
+                                {
+                                    <a href="/admin/inbox?id=@item.UserId">Inbox</a>
+                                }
+                            </b>
+                        </small>
+
+                    </div>
+                </div>
+            }
+    </div>
+</div>
+<div id="fullsize"></div>
+<div class="modal fade" id="deleteDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Html.BeginForm("DeletePhoto", "Admin", FormMethod.Post))
+            {
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        Photo Deletion
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="Id" name="Id" />
+                    <h3 style="color:red">Are you sure?</h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px;">Cancel</button>
+                    <input type="submit" class="btn btn-primary" style="width:75px;" value="Delete" />
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="rejectDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Html.BeginForm("RejectPhoto", "Admin", FormMethod.Post))
+            {
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        Write reason for rejection
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <img id="originalReject" />
+                    <div style="height:15px;"></div>
+                    <div class="form-group">
+                        <textarea id="Reason" name="Reason" class="form-control" style="height:100px;" maxlength="400" required></textarea>
+                        <input type="hidden" id="Id" name="Id" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px;">Cancel</button>
+                    <input type="submit" class="btn btn-primary" style="width:75px;" value="Submit" />
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="approveDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            @using (Html.BeginForm("ApprovePhoto", "Admin", FormMethod.Post))
+            {
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        Approve Photo
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <img id="originalApprove" />
+                    <div style="height:15px;"></div>
+                    <div class="form-group">
+                        <span style="font-size:1.2em">Are you sure?</span>
+                        <input type="hidden" id="Id" name="Id" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px;">No</button>
+                    <input type="submit" class="btn btn-primary" style="width:75px;" value="Yes" />
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="jobMsgDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="PhotoMessageForm">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">
+                        Message
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        @Html.Hidden("ReferenceId")
+                        @Html.Hidden("SenderId", User.Id)
+                        @Html.Hidden("ReceiverId")
+                        @Html.Hidden("ReferenceType", 0)
+                        @Html.Hidden("Subject", "Photo Uploaded")
+                        <div class="form-group">
+                            @Html.Label("Write message here")
+                            @Html.TextArea("Body", new { @class = "form-control", @style = "height:100px", @maxlength = "400", @required = "required" })
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px">Close</button>
+                    <button id="Send" type="submit" class="btn btn-primary" style="width:75px">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $(".approvephoto").click(function () {
+            var src = $(this).data('imgsrc');
+
+            $("#originalApprove").attr("src", src);
+            $("#originalApprove").attr("width", "100%");
+
+            var id = $(this).data('id');
+            $(".modal-body #Id").val(id);
+        });
+
+        $(".rejectphoto").click(function () {
+            var src = $(this).data('imgsrc');
+            $("#originalReject").attr("src", src);
+            $("#originalReject").attr("width", "100%");
+
+            var id = $(this).data('id');
+            $(".modal-body #Id").val(id);
+        });
+
+        $(".deletephoto").click(function () {
+            var id = $(this).data('id');
+            $(".modal-body #Id").val(id);
+        });
+
+        $(".jmsg").click(function () {
+            var photoId = $(this).data('id');
+            var userId = $(this).data('uid');
+            $(".modal-body #ReferenceId").val(photoId);
+            $(".modal-body #ReceiverId").val(userId);
+        });
+
+        $("#Send").click(function () {
+            if ($("#PhotoMessageForm")[0].checkValidity()) {
+                var jsonForm = $("#PhotoMessageForm").serializeObject();
+                $.post("@Url.Action("SendMessage", "Admin")", jsonForm, function (result) {
+                    window.location.reload();
+                });
+            }
+            return false;
+        });
+    });
+    $.fn.serializeObject = function () {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function () {
+            if (o[this.name]) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+</script>

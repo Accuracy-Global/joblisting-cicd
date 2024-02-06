@@ -1,0 +1,444 @@
+﻿@model JobPortal.Web.Models.SearchJobModel
+@using JobPortal.Library.Constants
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Domain
+@using JobPortal.Models
+@using System.Text;
+@{
+    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+}
+<style>
+    .txt {
+        color: #34ba08;
+    }
+</style>
+
+@{
+    string region = string.Empty;
+    string username = string.Empty;
+
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+        username = user.Username;
+    }
+
+
+}
+
+<style>
+
+
+
+    .square135 {
+        font-size: 75px;
+        font-weight: 700;
+        height: 135px;
+        width: 135px;
+    }
+
+        .square135::after {
+            content: "";
+            display: block;
+            height: 0;
+            padding-bottom: 100%;
+            width: 100%;
+        }
+
+    .bs-callout {
+        padding-top: 0px;
+        padding-bottom: 0px;
+        margin-right: -15px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+        .bs-callout p {
+            word-wrap: break-word;
+        }
+
+    .safety {
+        min-height: 155px;
+        height: 100%;
+        padding: 10px;
+        font-size: 12px;
+        background-color: #f5f5f5;
+        margin-bottom: 5px;
+    }
+
+        .safety p {
+            height: 5px;
+            word-wrap: break-word;
+        }
+
+        .safety ul {
+            margin-bottom: 5px;
+        }
+</style>
+<div class="section" style="padding-left: 15px; padding-right: 15px;">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            @Html.Partial("_MessagePartial")
+        </div>
+    </div>
+</div>
+@if (ViewBag.LatestJob2 != null)
+{
+    foreach (LatestJob latestJob in ViewBag.LatestJob2)
+    {
+        
+        string days = "";
+        DateTime dt1 = latestJob.DateCreated;
+        DateTime dt2 = DateTime.Now;
+        TimeSpan ts = dt2.Subtract(dt1);
+        if (ts.Days < 1)
+        {
+            days = "Today";
+        }
+        else
+        {
+            if (ts.Days > 365 && ts.Days < 730)
+            {
+                days = "1 Year Ago";
+            }
+            else if (ts.Days > 730 && ts.Days < 1095)
+            {
+                days = "2 Years Ago";
+            }
+            else if (ts.Days > 1095 && ts.Days < 1460)
+            {
+                days = "3 Years Ago";
+            }
+            else if (ts.Days > 1460 && ts.Days < 1825)
+            {
+                days = "4 Years Ago";
+            }
+            else if (ts.Days > 1825 && ts.Days < 2190)
+            {
+                days = "5 Years Ago";
+            }
+            else if (ts.Days > 2190)
+            {
+                days = "Before 6 Years";
+            }
+            else
+            {
+                days = ts.Days + " Days Ago";
+            }
+        }
+        <div class="clear" style="height:15px;"></div>
+        <div class="container shadow-lg p-3 mb-5 bg-white rounded" style="padding: 5px;">
+            <div class="row" style="margin-top: 10px; border: 1px solid #34ba08; border-radius: 10px; padding: 5px;">
+                @*<div class="col-lg-1 col-md-1 col-sm-1"> </div>*@
+                <div class="col-lg-9 col-md-9 col-sm-9" style="padding:4px; text-align:justify;">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <h3 class="txt">@Html.Raw(latestJob.Title)</h3>
+                                <h4 class="txt">@Html.Raw(latestJob.Company)</h4>
+                                @{
+                                    string str = latestJob.JobURL;
+                                    if(str==null)
+                                    {
+                                        str = "#";
+                                    }
+                                    char x = '-';
+                                    int index = -1;
+                                    for (int i = 0; i < str.Length; i++)
+                                    {
+                                        if (str[i] == x)
+                                        {
+                                            index = i;
+                                        }
+                                    }
+                                    if (index == -1)
+                                    {
+                                        ViewBag.Message = "Not Found";
+                                    }
+                                    else
+                                    {
+                                        StringBuilder sb = new StringBuilder(str);
+                                        sb[index] = '?';
+                                        str = sb.ToString();
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1"></div>
+                <div class="col-lg-2 col-md-2 col-sm-2" style="text-align:right">
+                    @*@Html.Raw(string.Format("<text><span><img  height='130' width='130' src=\"/Image/Avtar/" + latestJob.EmployerId + "\" /><span> </text>"))*@
+
+                    @if (latestJob.Image != null)
+                    {
+                        @Html.Raw(string.Format("<text><img height='130' width='130' src=\"data:image/jpg;base64," + (latestJob.Image) + " \" /> </text>"));
+
+                    }
+                    else
+                    {
+                        @Html.Raw(string.Format("<text><img height='130' width='130' src=\"data:image/png;base64,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\" alt=\"Image\" /></text>", Url.Content("~/Content/images/non-preview-photo.gif")));
+                    }
+                </div>
+            </div>
+        </div>
+
+        if (Model != null)
+        {
+            UserInfoEntity employer = (new JobPortal.Services.UserService()).Get(latestJob.Title);
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2"></div>
+                    <div class="col-lg-8 col-md-8 col-sm-8">
+                        <div style="text-align:center;">
+                            <div class="title-login alert" style="margin-top: -5px;">
+                                <h3 class="page-title text-center">@latestJob.Title</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2">
+                        <div class="form-group pull-right">
+                            <label>&nbsp;</label>
+                            @if (user != null && user.Type == 4)
+                            {
+                                <div>
+                                    <a href="https://apps.apple.com/in/app/job-listing/id1575724994">
+                                        <img src="~/Images/ios.png" style="height:40px;width:40px;" border="0" />
+                                    </a>
+                                    <a href="https://play.google.com/store/apps/details?id=com.accuracy.joblisting">
+                                        <img src="~/Images/android-icon.png" style="height:40px;width:40px;" border="0" />
+                                    </a>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    @*<div class="col-lg-1 col-md-1 col-sm-1"></div>*@
+                </div>
+            </div>
+        }
+
+        <div class="clear" style="height:20px;"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 col-sm-9 col-lg-9" style="text-align:right; padding-top:3px;">
+                    @{
+                        string lnk = string.Empty;
+                        @Html.Hidden("JobId")
+                        if (User != null)
+                        {
+                            <a href="@str" target="_blank" class="btn btn-info">Apply</a>
+                        }
+                        else
+                        {
+                            <a href="~/account/login" target="_blank" class="btn btn-info">Apply</a>
+                        }
+                        @Html.ActionLink("Message", "List", "Message", new { SenderId = latestJob.EmployerId, redirect = Request.Url.ToString() }, new { @class = "btn btn-info" });
+                        @Html.Raw("&nbsp;")
+                        <a href="/Employer/Joblist?Id=@latestJob.JobID" target="_blank" class="btn btn-info">All Jobs of this Company</a>
+                    }
+                </div>
+                <div class="col-md-3 col-sm-3 col-lg-3 pull-right" id="mydiv" >
+                    <ul class="soc  pull-right" style="padding:0px; float:right;">
+                        <li><a href="https://www.facebook.com/sharer.php?u=@Request.Url.ToString()&title=@ViewBag.Title" target="_blank" class="icon-26 facebook" id="Facebook" name="provider" value="Facebook" title="Log in using your Facebook account"><svg viewBox="0 0 512 512"><path d="M211.9 197.4h-36.7v59.9h36.7V433.1h70.5V256.5h49.2l5.2-59.1h-54.4c0 0 0-22.1 0-33.7 0-13.9 2.8-19.5 16.3-19.5 10.9 0 38.2 0 38.2 0V82.9c0 0-40.2 0-48.8 0 -52.5 0-76.1 23.1-76.1 67.3C211.9 188.8 211.9 197.4 211.9 197.4z"></path></svg><!--[if lt IE 9]><em>Facebook</em><![endif]--></a></li>
+                        <li><a href="https://plus.google.com/share?url=@Request.Url.ToString()" target="_blank" class="icon-14 googleplus" id="GooglePlus" name="provider" value="GooglePlus" title="Log in using your GooglePlus account"><svg viewBox="0 0 512 512"><path d="M179.7 237.6L179.7 284.2 256.7 284.2C253.6 304.2 233.4 342.9 179.7 342.9 133.4 342.9 95.6 304.4 95.6 257 95.6 209.6 133.4 171.1 179.7 171.1 206.1 171.1 223.7 182.4 233.8 192.1L270.6 156.6C247 134.4 216.4 121 179.7 121 104.7 121 44 181.8 44 257 44 332.2 104.7 393 179.7 393 258 393 310 337.8 310 260.1 310 251.2 309 244.4 307.9 237.6L179.7 237.6 179.7 237.6ZM468 236.7L429.3 236.7 429.3 198 390.7 198 390.7 236.7 352 236.7 352 275.3 390.7 275.3 390.7 314 429.3 314 429.3 275.3 468 275.3"></path></svg><!--[if lt IE 9]><em>GooglePlus</em><![endif]--></a></li>
+                        <li><a href="https://twitter.com/intent/tweet?url=@Request.Url.ToString()&text=@ViewBag.Title" target="_blank" class="icon-10 twitter" id="Twitter" name="provider" value="Twitter" title="Log in using your Twitter account"><svg viewBox="0 0 512 512"><path d="M419.6 168.6c-11.7 5.2-24.2 8.7-37.4 10.2 13.4-8.1 23.8-20.8 28.6-36 -12.6 7.5-26.5 12.9-41.3 15.8 -11.9-12.6-28.8-20.6-47.5-20.6 -42 0-72.9 39.2-63.4 79.9 -54.1-2.7-102.1-28.6-134.2-68 -17 29.2-8.8 67.5 20.1 86.9 -10.7-0.3-20.7-3.3-29.5-8.1 -0.7 30.2 20.9 58.4 52.2 64.6 -9.2 2.5-19.2 3.1-29.4 1.1 8.3 25.9 32.3 44.7 60.8 45.2 -27.4 21.4-61.8 31-96.4 27 28.8 18.5 63 29.2 99.8 29.2 120.8 0 189.1-102.1 185-193.6C399.9 193.1 410.9 181.7 419.6 168.6z"></path></svg><!--[if lt IE 9]><em>Twitter</em><![endif]--></a></li>
+                        <li><a href="https://www.linkedin.com/shareArticle?url=@Request.Url.ToString()&title=@ViewBag.Title" target="_blank" class="icon-17 linkedin" id="LinkedIn" name="provider" value="LinkedIn" title="Log in using your LinkedIn account"><svg viewBox="0 0 512 512"><path d="M186.4 142.4c0 19-15.3 34.5-34.2 34.5 -18.9 0-34.2-15.4-34.2-34.5 0-19 15.3-34.5 34.2-34.5C171.1 107.9 186.4 123.4 186.4 142.4zM181.4 201.3h-57.8V388.1h57.8V201.3zM273.8 201.3h-55.4V388.1h55.4c0 0 0-69.3 0-98 0-26.3 12.1-41.9 35.2-41.9 21.3 0 31.5 15 31.5 41.9 0 26.9 0 98 0 98h57.5c0 0 0-68.2 0-118.3 0-50-28.3-74.2-68-74.2 -39.6 0-56.3 30.9-56.3 30.9v-25.2H273.8z"></path></svg><!--[if lt IE 9]><em>LinkedIn</em><![endif]--></a></li>
+                        <li><a href="https://www.instagram.com/?url=@Request.Url.ToString()&title=@ViewBag.Title" target="_blank" class="icon-18 Instagram" id="Instagram" name="provider" value="Instagram" title="Log in using your Instagram account"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.829 6.302c-.738-.034-.96-.04-2.829-.04s-2.09.007-2.828.04c-1.899.087-2.783.986-2.87 2.87-.033.738-.041.959-.041 2.828s.008 2.09.041 2.829c.087 1.879.967 2.783 2.87 2.87.737.033.959.041 2.828.041 1.87 0 2.091-.007 2.829-.041 1.899-.086 2.782-.988 2.87-2.87.033-.738.04-.96.04-2.829s-.007-2.09-.04-2.828c-.088-1.883-.973-2.783-2.87-2.87zm-2.829 9.293c-1.985 0-3.595-1.609-3.595-3.595 0-1.985 1.61-3.594 3.595-3.594s3.595 1.609 3.595 3.594c0 1.985-1.61 3.595-3.595 3.595zm3.737-6.491c-.464 0-.84-.376-.84-.84 0-.464.376-.84.84-.84.464 0 .84.376.84.84 0 .463-.376.84-.84.84zm-1.404 2.896c0 1.289-1.045 2.333-2.333 2.333s-2.333-1.044-2.333-2.333c0-1.289 1.045-2.333 2.333-2.333s2.333 1.044 2.333 2.333zm-2.333-12c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6.958 14.886c-.115 2.545-1.532 3.955-4.071 4.072-.747.034-.986.042-2.887.042s-2.139-.008-2.886-.042c-2.544-.117-3.955-1.529-4.072-4.072-.034-.746-.042-.985-.042-2.886 0-1.901.008-2.139.042-2.886.117-2.544 1.529-3.955 4.072-4.071.747-.035.985-.043 2.886-.043s2.14.008 2.887.043c2.545.117 3.957 1.532 4.071 4.071.034.747.042.985.042 2.886 0 1.901-.008 2.14-.042 2.886z" /></svg><!--[if lt IE 9]><em>LinkedIn</em><![endif]--></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="clear" style="height:10px;"></div>
+        <div class="resume">
+
+
+
+            @{
+                <div id="ResumeArea"></div>
+                <div class="row">
+                    <div class="col-lg-1 col-md-1 col-sm-1"></div>
+                    <div class="col-lg-10 col-md-10 col-sm-10">
+                        <div>
+
+                        </div>
+                        <div class="clear" style="height:5px;"></div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading resume-heading" style="padding-left: 25px; padding-right: 25px;">
+                                <h3 class="title-login" style="text-align:center;">Summary</h3>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                        <strong>Category: </strong> @latestJob.JobType
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                        <strong>Job Posted : </strong> @days
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                        <strong>Company: </strong> @latestJob.Company
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                        <strong>Job Country: </strong>@latestJob.Country
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                        <strong>Job State: </strong> @(!string.IsNullOrEmpty(latestJob.State) ? latestJob.State : "Not Available")
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                        <strong>Job City: </strong>@(!string.IsNullOrEmpty(latestJob.State) ? latestJob.State : "Not Available")
+                                    </div>
+                                </div>
+                                @if (user != null && (user.Role == SecurityRoles.SuperUser || latestJob.EmployerId == user.Id))
+                                {
+
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                            <strong>Qualification: </strong> @(!string.IsNullOrEmpty(latestJob.Qualification) ? latestJob.Qualification : "Not Available")
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                            <strong>Job Type: </strong> @latestJob.JobType
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                            <strong>Minimum Experience: </strong> @latestJob.MinimumExperience
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                            <strong>Maximum Experience: </strong> @latestJob.MinimumExperience
+                                        </div>
+                                    </div>
+
+                                    <div class="bs-callout bs-callout-danger" style="padding-top: 0px; padding-bottom: 0px;">
+                                        <h4>Job Description</h4>
+                                        <p>
+                                            @Html.Raw(latestJob.Description)
+                                        </p>
+                                    </div>
+                                    <div class="bs-callout bs-callout-danger" style="padding-top: 0px; padding-bottom: 45px;">
+                                        <h4>Responsibilities</h4>
+                                        <p>
+                                            
+                                        </p>
+                                    </div>
+                                    <div class="bs-callout bs-callout-danger" style="padding-top: 0px; padding-bottom: 45px;">
+                                        <h4>Job Requirements</h4>
+                                        <p>
+                                            
+                                        </p>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                            <strong>Qualification: </strong> @(!string.IsNullOrEmpty(latestJob.Qualification) ? latestJob.Qualification : "Not Available")
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                            <strong>Job Type: </strong> @latestJob.JobType
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                            <strong>Minimum Experience: </strong> @latestJob.MinimumExperience
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                            <strong>Maximum Experience: </strong> @latestJob.MinimumExperience
+                                        </div>
+                                    </div>
+
+
+                                    <div class="bs-callout bs-callout-danger" style="padding-top: 0px; padding-bottom: 0px;">
+                                        <h4>Job Description</h4>
+                                        <p>
+                                            @Html.Raw(latestJob.Description)
+                                        </p>
+                                    </div>
+                                    <div class="bs-callout bs-callout-danger" style="padding-top: 0px; padding-bottom: 45px;">
+                                        <h4>Responsibilities</h4>
+                                        <p>
+                                            
+                                        </p>
+                                    </div>
+                                    <div class="bs-callout bs-callout-danger" style="padding-top: 0px; padding-bottom: 45px;">
+                                        <h4>Job Requirements</h4>
+                                        <p>
+                                        
+                                        </p>
+                                    </div>
+                                }
+
+
+                            </div>
+
+                        </div>
+                        <div class="col-lg-1 col-md-1 col-sm-1"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-1 col-md-1 col-sm-1"></div>
+                    <div class="col-lg-10 col-md-10 col-sm-10">
+                        <div class="safety">
+                            <span style="font-size:15px; font-weight:bold; color:black">Safety Advice:</span>
+                            @Html.Raw(ConfigService.Instance.GetConfigValue("SafetyAdvice").Replace("Disclaimer:", "<span style='color:red'>Disclaimer:</span>"))
+                        </div>
+                    </div>
+
+                    <div class="col-lg-1 col-md-1 col-sm-1"></div>
+                </div>
+            }
+
+        </div>
+
+
+        <div class="clear" style="height:20px;"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9 col-sm-9">
+
+                    @{
+                        string lnk1 = string.Empty;
+                        <a href="@str" target="_blank" class="btn btn-info">Apply</a>
+                        @Html.ActionLink("Message", "List", "Message", new { SenderId = latestJob.EmployerId, redirect = Request.Url.ToString() }, new { @class = "btn btn-info" });
+                        @Html.Raw("&nbsp;")
+                        <a href="/Employer/Joblist?Id=@latestJob.JobID" target="_blank" class="btn btn-info">All Jobs of this Company</a>
+                    }
+                </div>
+                <div class="col-md-3 col-sm-3 pull-right" id="mydiv1">
+                    <ul class="soc" style="padding:0px;">
+                        <li><a href="https://www.facebook.com/sharer.php?u=@Request.Url.ToString()&title=@ViewBag.Title" target="_blank" class="icon-26 facebook" id="Facebook" name="provider" value="Facebook" title="Log in using your Facebook account"><svg viewBox="0 0 512 512"><path d="M211.9 197.4h-36.7v59.9h36.7V433.1h70.5V256.5h49.2l5.2-59.1h-54.4c0 0 0-22.1 0-33.7 0-13.9 2.8-19.5 16.3-19.5 10.9 0 38.2 0 38.2 0V82.9c0 0-40.2 0-48.8 0 -52.5 0-76.1 23.1-76.1 67.3C211.9 188.8 211.9 197.4 211.9 197.4z"></path></svg><!--[if lt IE 9]><em>Facebook</em><![endif]--></a></li>
+                        <li><a href="https://plus.google.com/share?url=@Request.Url.ToString()" target="_blank" class="icon-14 googleplus" id="GooglePlus" name="provider" value="GooglePlus" title="Log in using your GooglePlus account"><svg viewBox="0 0 512 512"><path d="M179.7 237.6L179.7 284.2 256.7 284.2C253.6 304.2 233.4 342.9 179.7 342.9 133.4 342.9 95.6 304.4 95.6 257 95.6 209.6 133.4 171.1 179.7 171.1 206.1 171.1 223.7 182.4 233.8 192.1L270.6 156.6C247 134.4 216.4 121 179.7 121 104.7 121 44 181.8 44 257 44 332.2 104.7 393 179.7 393 258 393 310 337.8 310 260.1 310 251.2 309 244.4 307.9 237.6L179.7 237.6 179.7 237.6ZM468 236.7L429.3 236.7 429.3 198 390.7 198 390.7 236.7 352 236.7 352 275.3 390.7 275.3 390.7 314 429.3 314 429.3 275.3 468 275.3"></path></svg><!--[if lt IE 9]><em>GooglePlus</em><![endif]--></a></li>
+                        <li><a href="https://twitter.com/intent/tweet?url=@Request.Url.ToString()&text=@ViewBag.Title" target="_blank" class="icon-10 twitter" id="Twitter" name="provider" value="Twitter" title="Log in using your Twitter account"><svg viewBox="0 0 512 512"><path d="M419.6 168.6c-11.7 5.2-24.2 8.7-37.4 10.2 13.4-8.1 23.8-20.8 28.6-36 -12.6 7.5-26.5 12.9-41.3 15.8 -11.9-12.6-28.8-20.6-47.5-20.6 -42 0-72.9 39.2-63.4 79.9 -54.1-2.7-102.1-28.6-134.2-68 -17 29.2-8.8 67.5 20.1 86.9 -10.7-0.3-20.7-3.3-29.5-8.1 -0.7 30.2 20.9 58.4 52.2 64.6 -9.2 2.5-19.2 3.1-29.4 1.1 8.3 25.9 32.3 44.7 60.8 45.2 -27.4 21.4-61.8 31-96.4 27 28.8 18.5 63 29.2 99.8 29.2 120.8 0 189.1-102.1 185-193.6C399.9 193.1 410.9 181.7 419.6 168.6z"></path></svg><!--[if lt IE 9]><em>Twitter</em><![endif]--></a></li>
+                        <li><a href="https://www.linkedin.com/shareArticle?url=@Request.Url.ToString()&title=@ViewBag.Title" target="_blank" class="icon-17 linkedin" id="LinkedIn" name="provider" value="LinkedIn" title="Log in using your LinkedIn account"><svg viewBox="0 0 512 512"><path d="M186.4 142.4c0 19-15.3 34.5-34.2 34.5 -18.9 0-34.2-15.4-34.2-34.5 0-19 15.3-34.5 34.2-34.5C171.1 107.9 186.4 123.4 186.4 142.4zM181.4 201.3h-57.8V388.1h57.8V201.3zM273.8 201.3h-55.4V388.1h55.4c0 0 0-69.3 0-98 0-26.3 12.1-41.9 35.2-41.9 21.3 0 31.5 15 31.5 41.9 0 26.9 0 98 0 98h57.5c0 0 0-68.2 0-118.3 0-50-28.3-74.2-68-74.2 -39.6 0-56.3 30.9-56.3 30.9v-25.2H273.8z"></path></svg><!--[if lt IE 9]><em>LinkedIn</em><![endif]--></a></li>
+                        <li><a href="https://www.instagram.com/?url=@Request.Url.ToString()&title=@ViewBag.Title" target="_blank" class="icon-18 Instagram" id="Instagram" name="provider" value="Instagram" title="Log in using your Instagram account"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14.829 6.302c-.738-.034-.96-.04-2.829-.04s-2.09.007-2.828.04c-1.899.087-2.783.986-2.87 2.87-.033.738-.041.959-.041 2.828s.008 2.09.041 2.829c.087 1.879.967 2.783 2.87 2.87.737.033.959.041 2.828.041 1.87 0 2.091-.007 2.829-.041 1.899-.086 2.782-.988 2.87-2.87.033-.738.04-.96.04-2.829s-.007-2.09-.04-2.828c-.088-1.883-.973-2.783-2.87-2.87zm-2.829 9.293c-1.985 0-3.595-1.609-3.595-3.595 0-1.985 1.61-3.594 3.595-3.594s3.595 1.609 3.595 3.594c0 1.985-1.61 3.595-3.595 3.595zm3.737-6.491c-.464 0-.84-.376-.84-.84 0-.464.376-.84.84-.84.464 0 .84.376.84.84 0 .463-.376.84-.84.84zm-1.404 2.896c0 1.289-1.045 2.333-2.333 2.333s-2.333-1.044-2.333-2.333c0-1.289 1.045-2.333 2.333-2.333s2.333 1.044 2.333 2.333zm-2.333-12c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6.958 14.886c-.115 2.545-1.532 3.955-4.071 4.072-.747.034-.986.042-2.887.042s-2.139-.008-2.886-.042c-2.544-.117-3.955-1.529-4.072-4.072-.034-.746-.042-.985-.042-2.886 0-1.901.008-2.139.042-2.886.117-2.544 1.529-3.955 4.072-4.071.747-.035.985-.043 2.886-.043s2.14.008 2.887.043c2.545.117 3.957 1.532 4.071 4.071.034.747.042.985.042 2.886 0 1.901-.008 2.14-.042 2.886z" /></svg><!--[if lt IE 9]><em>LinkedIn</em><![endif]--></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="clear" style="height:50px;"></div>
+        <div>
+            @*<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>*@
+            <!-- Responsive-Ad -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-8925328521448849"
+                 data-ad-slot="5008878215"
+                 data-ad-format="auto"></ins>
+            @*<script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>*@
+        </div>
+
+    }
+}
+else
+{
+<p>This Job May Be Deleted or not Published Yet</p>
+}
+
+

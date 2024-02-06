@@ -1,0 +1,58 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Inviter</title>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+    <script type="text/javascript" src="//socialinviter.com/assets/js/src/socialinviter.js"></script>
+
+    <script type="text/javascript">
+        var formattedSignature;
+        SI.initialize({
+        //Your original license key here
+        license: "lic_c4d729e9-4561-455f-8dd0-88364",
+        callback: function (sigData) {
+            //Get your formatted signature key here
+            formattedSignature = sigData["lic_c4d729e9-4561-455f-8dd0-88364"];
+            //alert(formattedSignature);
+
+           
+        }
+    });
+    </script>
+</head>
+<body>
+   <button id="facebook" value="google">Google</button>
+    <div class="result"></div>
+   <script>
+       $(document).ready(function () {
+
+           $("#facebook").click(function () {
+               var url = "http://socialinviter.com/api/friends.aspx?";
+               var parameters = "service=" + $(this).val() +"&";
+               parameters += "type=authenticationurl&";
+               parameters += "consumerkey=956678047963-i87vfl26le7sn9oskptrjph4hjq633b2.apps.googleusercontent.com&";
+               parameters += "consumersecret=YICMtHXGT7KMbO0T9RpOzcF9&";
+               parameters += "returnurl=@Request.Url.Scheme://@Request.Url.Authority/network/getfriends&";
+               parameters += "signaturekey=" + formattedSignature;
+               url = url + encodeURI(parameters);
+               $.getJSON(url, function (response) {
+                   var result = response;
+                   console.log(response);
+                   window.open(result.data.authurl);
+                   //alert(wind.location.href);
+               });
+               //var wind = window.open(url);
+           })
+
+         
+       });
+   </script>
+</body>
+</html>

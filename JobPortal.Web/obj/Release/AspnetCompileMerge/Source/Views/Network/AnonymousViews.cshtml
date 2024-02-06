@@ -1,0 +1,67 @@
+﻿@using JobPortal.Domain
+@using JobPortal.Data
+@using JobPortal.Models
+@using PagedList.Mvc
+@using JobPortal.Library.Helpers
+@using JobPortal.Library.Enumerators
+@{
+    ViewBag.Title = "Viewed Your Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<ProfileViewEntity>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+}
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1 style="margin-top:-15px;">
+                Viewed Your Profile
+            </h1>
+            Manage viewed your profile here
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:15px;"></div>
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        @if (ViewBag.Model != null)
+        {
+            foreach (var item in ViewBag.Model)
+            {
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <i><b>Name:</b></i> @Html.Raw(string.Format("{0}", item.Name))
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <i><b>Date:</b></i> @item.DateViewed.ToString("MMM-dd-yyyy") <i><b>Views:</b></i> @Html.Raw(item.Views)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }       
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div style="text-align:center; margin-top: -15px;">
+            @Html.PagedListPager(pagedModel, PageNumber => Url.Action("AnonymousViews",
+            new RouteValueDictionary()
+            {
+                { "pageNumber" , PageNumber}
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    </div>
+</div>

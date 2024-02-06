@@ -1,0 +1,42 @@
+﻿@model IEnumerable<JobPortal.Data.Alert>
+@using JobPortal.Domain
+
+@{
+    ViewBag.Title = "Alerts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="title-login">
+    <h1 style="margin-top: -15px">
+        Alert Settings
+    </h1>
+    Manage alert settings here
+</div>
+@Html.Partial("_MessagePartial")
+<div class="clear" style="height:15px;"></div>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover" style="width:50%">
+        <tr>
+            <th>
+                @Html.DisplayName("Alert Name")
+            </th>
+            <th>
+                @Html.DisplayName("Action")
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            string status = MemberService.Instance.GetAlertStatus(item.Id, User.Username);
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.ActionLink(status, "UpdateAlert", new { id = item.Id })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

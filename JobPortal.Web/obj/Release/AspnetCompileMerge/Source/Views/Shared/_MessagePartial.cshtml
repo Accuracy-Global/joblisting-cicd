@@ -1,0 +1,43 @@
+﻿@if (TempData["SaveData"] != null)
+{
+    <div class="message-info">
+        @Html.Raw(TempData["SaveData"])
+    </div>
+}
+else if (TempData["UpdateData"] != null)
+{
+    <div class="message-info">
+        @Html.Raw(TempData["UpdateData"])
+    </div>
+}
+else if (TempData["DeleteData"] != null)
+{
+    <div class="message-info">
+        @Html.Raw(TempData["DeleteData"])
+    </div>
+}
+else if (TempData["Error"] != null)
+{
+    <div class="message-error">
+        @Html.Raw(TempData["Error"])
+    </div>
+}
+else if (TempData["Instruction"] != null)
+{
+    <div class="message-instruction">
+        @Html.Raw(TempData["Instruction"])
+    </div>
+}
+else if (TempData["UpdateInfo"] != null)
+{
+    <div class="message-info-paging">
+        @Html.Raw(TempData["UpdateInfo"])
+    </div>
+}
+@{
+    TempData["SaveData"] = null;
+    TempData["UpdateData"] = null;
+    TempData["DeleteData"] = null;
+    TempData["Error"] =null;
+    TempData["Instruction"] = null;
+}

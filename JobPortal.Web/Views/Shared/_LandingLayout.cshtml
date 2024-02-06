@@ -1,0 +1,1261 @@
+﻿@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Models
+@using JobPortal.Web
+@using JobPortal.Web.Models
+@{
+    string url = Request.Url.ToString();
+    string url1 = HttpContext.Current.Request.Url.AbsoluteUri;
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8" />
+    @*<meta name="google-site-verification" content="S5zQVJ4IFMsjB4nON0ZAui2kVc1Z2thh4Vzzxc11gPo" />*@
+    <meta name="description" content="@ViewBag.Description" />
+    <meta name="p:domain_verify" content="a628b3f5df5e37369ad1d6b1ad708e3f" />
+    <meta name="keywords" content="@ViewBag.Keywords" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" href="~/favicon.png" type="image/png">
+    <link href="https://fonts.cdnfonts.com/css/aldhabi" rel="stylesheet">
+    <link href="~/Content/fonts/aldhabi.ttf" ref="stylesheet">
+
+    @*@Html.InlineStyles("~/Content/css")*@
+    @*@Html.InlineScripts("~/bundles/spg")*@
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    @Styles.Render("~/bundles/spgcss")
+    @Scripts.Render("~/bundles/spg")
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-G1CXYWJBM9"></script>
+    <style>
+        body {
+           
+            overflow-x: hidden;
+        }
+
+        /* .navbar-inverse .navbar-nav > li > a {
+            font-weight: normal;
+            font-size: smaller;
+            padding: 5px 5px;
+            font-family: Tahoma;
+        }*/
+
+
+        .navbar-nav li {
+            /* margin-left: 7px;*/
+            font-weight: 500;
+            color: #FFFFFF;
+            font-size: 17px;
+            text-transform: uppercase;
+            outline: none;
+        }
+        .nav-c {
+            display: inline-block;
+            position: relative;
+            top: 50px;
+        }
+        .active2 {
+            padding: 5px 5px;
+        }
+
+            .active2 a {
+                /*font-weight: normal !important;
+                font-size: small !important;*/
+                font-weight: 500;
+                font-size: 14px;
+                background-color: #34ba08;
+                color: #fff !important;
+                border-radius: 1px;
+                padding-left: 3px !important;
+                padding-right: 3px !important;
+                padding-top: 1px !important;
+                padding-bottom: 1px !important;
+                font-family: Tahoma !important;
+            }
+
+                .active2 a:hover {
+                    background-color: #34ba08 !important;
+                    color: #fff !important;
+                }
+
+        /*.soc {
+            display: block;
+            font-size: 0;
+            list-style: none;
+            margin: 0;
+        }
+
+            .soc, .soc em {
+                text-align: center;
+            }
+
+                .mstyle, .soc em {
+                    bottom: 0;
+                    left: 0;
+                }
+
+                .soc li {
+                    display: inline-block;
+                    margin-left: 3px;*/
+        /*margin-right: 3px;*/
+        /*}
+
+                .soc button, .soc i {
+                    display: block;
+                }
+
+                .soc button {
+                    position: relative;
+                    height: 34px;
+                    width: 34px;
+                    padding: 5px;
+                    border-radius: 100%;
+                    border: 2px solid #fff;
+                    cursor: pointer;
+                    font-weight: bold;
+                }
+
+                .soc i {
+                    height: 100%;
+                    width: 100%;
+                    color:black;
+                }
+
+                .soc em {
+                    font-size: 14px;
+                    line-height: 1.5;
+                    margin-top: -.75em;
+                    position: absolute;
+                    top: 50%;
+                    right: 0;
+                }
+
+        .icon-10 {
+            color: #fff;
+            fill: #fff;
+            background: #4060a5;
+            border: 2px solid #4060a5;
+        }
+
+            .icon-10:hover {
+                background-color: #fff;
+                color: #4060a5;
+                fill: #4060a5;
+                border: 2px solid #4060a5;
+            }
+
+        .icon-14 {
+            color: #fff;
+            fill: #fff;
+            background: #e64522;
+            border: 2px solid #e64522;
+        }
+
+            .icon-14:hover {
+                background-color: #fff;
+                color: #e64522;
+                fill: #e64522;
+                border-color: #e64522;
+            }
+
+        .icon-17 {
+            color: black;
+            fill: #fff;
+            background-color: #0094bc;
+            border: 2px solid #0094bc;
+        }
+
+            .icon-17:hover {
+                background-color: #fff;
+                color: #0094bc;
+                fill: #0094bc;
+                border-color: #0094bc;
+            }
+
+        .icon-18 {
+            color: #fff;
+            fill: #fff;
+            background-color: deeppink;
+            border: 2px solid deeppink;
+        }
+            .icon-18:hover {
+                color: deeppink;
+                fill: deeppink;
+                background-color: white;
+                border-color: deeppink;
+            }
+
+        .icon-26 {
+            color: #fff;
+            fill: #fff;
+            background-color: #00abe3;
+            border: 2px solid #00abe3;
+        }
+
+            .icon-26:hover {
+                background-color: #fff;
+                color: #00abe3;
+                fill: #00abe3;
+                border-color: #00abe3;
+            }*/
+        .soc {
+            display: block;
+            font-size: 0;
+            list-style: none;
+            margin: 0;
+        }
+
+            .soc, .soc em {
+                text-align: center;
+            }
+
+                .mstyle, .soc em {
+                    bottom: 0;
+                    left: 0;
+                }
+
+                .soc li {
+                    display: inline-block;
+                    margin-left: 2px;
+                    margin-right: 2px;
+                }
+
+                .soc a, .soc svg {
+                    display: block;
+                }
+
+                .soc a {
+                    position: relative;
+                    height: 34px;
+                    width: 34px;
+                    padding: 5px;
+                    border-radius: 100%;
+                    border: 2px solid none;
+                    cursor: pointer;
+                    font-weight: bold;
+                }
+
+                .soc svg {
+                    height: 100%;
+                    width: 100%;
+                }
+
+                .soc em {
+                    font-size: 14px;
+                    line-height: 1.5;
+                    margin-top: -.75em;
+                    position: absolute;
+                    top: 50%;
+                    right: 0;
+                }
+
+        .icon-10 {
+            color: #fff;
+            fill: #fff;
+            background: #4060a5;
+            border: 2px solid #4060a5;
+            height: 32px;
+            width: 32px;
+            border-radius: 100%;
+        }
+
+            .icon-10:hover {
+                background-color: #fff;
+                color: #4060a5;
+                fill: #4060a5;
+                border: 2px solid #4060a5;
+            }
+
+        .icon-14 {
+            color: black;
+            fill: black;
+            background-color: white;
+            border: 2px solid black;
+            height: 32px;
+            width: 32px;
+            border-radius: 100%;
+        }
+
+            .icon-14:hover {
+                background-color: #fff;
+                color: #34ba08;
+                fill: #34ba08;
+                border-color: #34ba08;
+            }
+
+        .icon-17 {
+            color: black;
+            fill: black;
+            background-color: white;
+            border: 2px solid black;
+            height: 32px;
+            width: 32px;
+            border-radius: 100%;
+        }
+
+            .icon-17:hover {
+                background-color: #fff;
+                color: #34ba08;
+                fill: #34ba08;
+                border-color: #34ba08;
+            }
+
+        .icon-18 {
+            color: #fff;
+            fill: #fff;
+            background-color: deeppink;
+            border: 2px solid deeppink;
+            height: 32px;
+            width: 32px;
+            border-radius: 100%;
+        }
+
+            .icon-18:hover {
+                background-color: #fff;
+                color: deeppink;
+                fill: deeppink;
+                border-color: deeppink;
+            }
+
+
+        .icon-26 {
+            color: black;
+            fill: black;
+            background-color: white;
+            border: 2px solid black;
+            height: 32px;
+            width: 32px;
+            border-radius: 100%;
+        }
+
+            .icon-26:hover {
+                background-color: #fff;
+                color: #34ba08;
+                fill: #34ba08;
+                border-color: #34ba08;
+            }
+
+        .social-icons a {
+            color: #FFFFFF;
+            font-size: 16px;
+            border-radius: 50%;
+            background-color: black;
+            display: inline-block;
+            text-align: center;
+            border: 1px solid #fff;
+            width: 28px;
+            height: 28px;
+            line-height: 20px;
+            margin: 0.50px;
+            opacity: 0.85;
+            padding: 4.5px;
+        }
+
+            .social-icons a:hover {
+                color: white;
+            }
+    </style>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-216946851-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-216946851-1');
+    </script>
+</head>
+<body data-spy="scroll" data-offset="20">
+    <header>
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="max-width:1550px; max-height:150px;">
+            <div class="container-fluid" style="padding:0px 0px;">
+                <div class="row" style="padding-top:15px; padding-bottom:10px;">
+                    <div class="col-lg-4 col-md-4 col-sm-5" style="padding-left: 25px;">
+                        @*<div class="navbar-header">*@
+                       
+                            <div class="navbar-header">
+                                <div class="navbar-header" style="font-size: 70px; font-weight: 600; font-family:'Adobe Devanagari'">@*<a href="~/Content/fonts/aldhabi.ttf" alt="Joblisting" height="150" width="350" class="img-responsive">*@<span class="span1" style="color: #34ba08; font-style: inherit;font-family: 'Adobe Devanagari';">Job</span> <span class="span2" style="color: black; font-family: 'Adobe Devanagari';">Listing</span>@*</a>*@</div>
+                                @*<img src="~/images/logo.png" alt="Joblisting" border="0"  style="width: 350px;height: 80px;" />*@
+                                @*<a href='#'>
+                                    <img src="/Images/JobListing_Aldhabi_Font.PNG" alt="Joblisting" width="350" height="80" class="img-responsive" />
+                                </a>*@
+                                <button type="button" class="navbar-toggle" style="float:right;" data-toggle="collapse" data-target=".navbar-ex1-collapse"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                            </div>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-7" style="padding-top: 25px; position: absolute; right: 10px;">
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                                <div class="toggle_nav"></div>
+                                <ul class="nav navbar-nav bottom-100">
+
+                                    @*<ul class="nav navbar-nav top-right" style="max-width:900px; padding-left:10px; max-height:80px;">*@
+                                    @if (!Request.IsAuthenticated)
+                                    {
+
+                                        <li><a href="/jobs/">SEARCH JOBS</a></li>
+
+                                        @*<li> @Html.ActionLink("SEARCH PEOPLE", "SearchPeople", "Home")</li>*@
+                                        <li>@Html.ActionLink("SEARCH JOBSEEKERS", "Search", "Jobseeker")</li>
+                                        @*<li>@Html.ActionLink("SEARCH RESUMES", "SearchResumes", "Home")</li>*@
+                                        <li>@Html.ActionLink("LIST JOB", "ListJob", "Employer")</li>
+                                        <li><a href="/Inbox/Index">INBOX</a></li>
+                                        @*<li>@Html.ActionLink("REGISTER", "Register", "Account") </li>*@
+                                        @*<li class="active1" style="padding-left: 10px;">
+                            <a href='@Url.Action("Login", "Account")'>
+                                <i class="fa fa-lock">&nbsp;</i>Login
+                            </a>
+                        </li>*@
+                                        /*<div style="position: absolute; top: 8px; right: 110px; display: inline-block;"><a href='@Url.Action("logoff", "account")'><img style="width:26px;height:26px;" src="~/Images/logooout.jpg" /></a></div>*/
+                                    }
+                                    else
+                                    {
+                                        //UserInfoEntity user = User.Info;
+                                        string username = user.Username;
+                                        int msg_counts = ConnectionHelper.MessageCounts(user.Id);
+                                        int apps = EmployerService.Instance.GetApplicationCount(username);
+                                        int bookmarks = EmployerService.Instance.GetBookmarkCount(username);
+                                        int interviews = EmployerService.Instance.GetInterviewCount(username);
+                                        int inboxItems = DomainService.Instance.DashboardInboxItems(user.Id);
+
+                                        if (user.Role == SecurityRoles.Employers)
+                                        {
+
+                                            @*<li>@Html.ActionLink("SEARCH PEOPLE", "SearchPeople", "Home")</li>*@
+                                            <!--<li>@Html.ActionLink("SEARCH JOBSEEKERS", "Search", "Jobseeker")</li>-->
+                                            @*<li>@Html.ActionLink("SEARCH RESUMES", "SearchResumes", "Home")</li>*@
+                                            <!--if (msg_counts > 0)
+                        {
+                            <li><a href="/Message/Index">MESSAGING(<span style="color:red;">@msg_counts</span>)</a></li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("MESSAGING", "Index", "Message")</li>
+                        }
+
+                        if (inboxItems > 0)
+                        {
+                            <li><a href="/Inbox/Index">INBOX(<span style="color:red;">@inboxItems</span>)</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="/Inbox/Index">INBOX</a></li>
+                        }-->
+
+                                            <li>@Html.ActionLink("LIST JOB", "Addjob", "Admin")</li>
+                                            <li>@Html.ActionLink("JOB MANAGEMENT", "Index", "Employer")</li>
+                                            <li class=""><a href='@Url.Action("Campaign", "Admin")'>CAMPAIGN</a></li>
+                                            <li class=""><a href='@Url.Action("profile", "company")'>MY ACCOUNT</a></li>
+                                            @*if (!Request.Url.ToString().Contains("connections"))
+                            {
+                                <li>@Html.ActionLink("SETTINGS", "Index", "Network")</li>
+                            }*@
+
+                                        }
+                                        else if (user.Role == SecurityRoles.Institute)
+                                        {
+                                            <li>@Html.ActionLink("SEARCH JOBSEEKERS", "SearchPeople", "Home")</li>
+                                            <li>@Html.ActionLink("SEARCH COMPANIES", "SearchCompany", "Job")</li>
+                                            if (msg_counts > 0)
+                                            {
+                                                <li><a href="/Message/Index">MESSAGING(<span style="color:red;">@msg_counts</span>)</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li>@Html.ActionLink("MESSAGING", "Index", "Message")</li>
+                                            }
+
+                                            if (inboxItems > 0)
+                                            {
+                                                <li><a href="/Inbox/Index">INBOX(<span style="color:red;">@inboxItems</span>)</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li><a href="/Inbox/Index">INBOX</a></li>
+                                            }
+                                            if (!Request.Url.ToString().Contains("connections"))
+                                            {
+                                                <li>@Html.ActionLink("SETTINGS", "Index", "Network")</li>
+                                            }
+
+                                        }
+                                        else if (user.Role == SecurityRoles.Jobseeker)
+                                        {
+
+                                            <li><a href="/jobs/">SEARCH JOBS</a></li>
+
+                                            <li>@Html.ActionLink("JOBSEEKERS", "SearchPeople", "Home")</li>
+
+
+
+                                            if (msg_counts > 0)
+                                            {
+                                                <li><a href="/Message/Index">MESSAGING(<span style="color:red;">@msg_counts</span>)</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li>@Html.ActionLink("MESSAGING", "Index", "Message")</li>
+                                            }
+                                            @*if (apps > 0)
+                            {
+                                <li><a href="/JobSeeker/Index">APPLICATIONS(<span style="color:red;">@apps</span>)</a></li>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("APPLICATIONS", "Index", "JobSeeker")</li>
+                            }*@
+
+                                            if (inboxItems > 0)
+                                            {
+                                                <li><a href="/Inbox/Index">INBOX(<span style="color:red;">@inboxItems</span>)</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li><a href="/Inbox/Index">INBOX</a></li>
+                                            }
+
+                                            @*<li>@Html.ActionLink("SETTINGS", "Index", "Network")</li>*@
+                                        }
+                                        else if (user.Role == SecurityRoles.Student || user.Role == SecurityRoles.Interns)
+                                        {
+
+                                            <li><a href="/jobs/">SEARCH JOBS</a></li>
+
+                                            <li>@Html.ActionLink("SEARCH JOBSEEKERS", "SearchPeople", "Home")</li>
+
+
+
+                                            if (msg_counts > 0)
+                                            {
+                                                <li><a href="/Message/Index">MESSAGING(<span style="color:red;">@msg_counts</span>)</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li>@Html.ActionLink("MESSAGING", "Index", "Message")</li>
+                                            }
+                                            if (apps > 0)
+                                            {
+                                                <li><a href="/JobSeeker/Index">APPLICATIONS(<span style="color:red;">@apps</span>)</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li>@Html.ActionLink("APPLICATIONS", "Index", "JobSeeker")</li>
+                                            }
+
+                                            if (inboxItems > 0)
+                                            {
+                                                <li><a href="/Inbox/Index">INBOX(<span style="color:red;">@inboxItems</span>)</a></li>
+                                            }
+                                            else
+                                            {
+                                                <li><a href="/Inbox/Index">INBOX</a></li>
+                                            }
+
+                                            <li>@Html.ActionLink("SETTINGS", "Index", "Network")</li>
+                                        }
+                                        else if (user.Role == SecurityRoles.RecruitmentAgency)
+                                        {
+                                            <li>
+                                                <a href="~/Admin/Index" style="display: inline-block; font-weight:700;">SETTINGS</a>
+                                            </li>
+                                        }
+
+                                        @*if (user.Role == SecurityRoles.SuperUser)
+                        {
+                            <li> @Html.ActionLink("SETTINGS", "Index", "Admin")</li>
+                        }*@
+                                        @*else if (user.Role == SecurityRoles.Administrator)
+                        {
+                            <li>
+                                @Html.ActionLink("SETTINGS", "Index", "Admin")
+                            </li>
+                        }*@
+
+
+                                        @*else if (user.Role == SecurityRoles.SuperUser || user.Role == SecurityRoles.Administrator)
+                        {
+                            <li>
+                                @Html.ActionLink("SETTINGS", "Index", "Admin")
+                            </li>
+                        }*@
+
+                                        <!--if (user.Role == SecurityRoles.Employers)
+                    {-->
+                                        @*<li>@Html.ActionLink("LIST JOB", "ListJob", "Employer")</li>*@
+                                        <!--<li>@Html.ActionLink("LIST JOB", "Addjob", "Admin")</li>
+                    }-->
+                                        if (user.Type == 1 || User.Username == "RecruiterCom@joblisting.com" || User.Username == "vani123@accuracy.com.sg" || User.Username == "tasnim@accuracy.com.sg" || User.Username == "ganeshr@joblisting.com" || User.Username == "deepti@accuracy.com.sg" || User.Username == "doli.chauhan123@accuracy.com.sg" || User.Username == "sandhya@accuracy.com.sg" || User.Username == "shreyag1234@accuracy.com.sg" || User.Username == "pallavi123@accuracy.com.sg" || User.Username == "druthi@accuracy.com.sg" || User.Username == "baba@accuracy.com.sg" || User.Username == "anshikagupta@accuracy.com.sg" || User.Username == "dianna@accuracy.com.sg" || User.Username == "haris@joblisting.com" || User.Username == "anilkumar@joblisting.com" || User.Username == "denise@accuracy.com.sg" || User.Username == "lakshmip@accuracy.com.sg" || User.Username == "vanshika@accuracy.com.sg" || User.Username == "sarika123@accuracy.com.sg" || User.Username == "naveena@accuracy.com.sg" || User.Username == "gowthami@accuracy.com.sg")
+
+                                        {
+
+                                            <li class=""><a href='@Url.Action("Index", "Admin")'>REGISTRATIONS</a></li>
+
+                                            <li><a href="/admin/jobs">APPROVALS</a></li>
+                                            @*<li class=""><a href='@Url.Action("AddJob", "Admin")'>APPROVALS</a></li>*@
+
+                                            <li class=""><a href='@Url.Action("Campaign", "Admin")'>CAMPAIGN</a></li>
+                                            <li class=""><a href='@Url.Action("MyProfile", "Admin")'>MY ACCOUNT</a></li>
+                                            <li class=""><a href='@Url.Action("Index", "Inbox")'>SALES</a></li>
+                                            <li class=""><a href='@Url.Action("CategoryList", "Admin")'>CONTENT</a></li>
+                                            <li class=""><a href='@Url.Action("jobs", "Admin")'>JOB MANAGEMENT</a></li>
+
+                                        }
+
+                                    }
+
+                                    @*<li style="float:right;">@Html.Partial("_LanguagePartial")</li>*@
+                                    @*<li style="float:right; margin-top:-6px;">@Html.Partial("_LanguagePartial")</li>*@
+                                </ul>
+                            </div>
+                            <!-- /.navbar-collapse -->
+                        </div>
+                    </div>
+            </div>
+            <div style="position: absolute; top: 25px; right: 160px; display: inline-block;">
+                <div class="social-icons" style="width:300px;height:50px;">
+
+                    @*<a href="https://twitter.com/JobListing4" class="twitter">
+                            <ion-icon name="logo-twitter"></ion-icon>
+                            <i class="bi bi-twitter twitter-color"></i>
+                        </a>
+
+                        <a href="https://www.facebook.com/Joblisitng" class="facebook">
+                            <ion-icon name="logo-facebook"></ion-icon>
+                            <i class="bi bi-facebook facebook-color"></i>
+                        </a>
+
+                        <a href="https://www.instagram.com/joblistingportal/" class="instagram">
+                            <ion-icon name="logo-instagram"></ion-icon>
+                            <i class="bi bi-instagram instagram-color"></i>
+                        </a>
+
+                        <a href="https://www.linkedin.com/in/joblisting-01/" class="linkedin">
+                            <ion-icon name="logo-linkedin"></ion-icon>
+                            <i class="bi bi-linkedin linkedin-color"></i>
+                        </a>
+                        <a href="https://www.googleplus.com/in/joblisting-01/" class="google">
+                            <ion-icon name="logo-google"></ion-icon>
+                            <i class="bi bi-google google-color"></i>
+                        </a>
+                        <a href="https://www.yahoo.com/in/joblisting-01/" class="yahoo">
+                            <ion-icon name="logo-yahoo"></ion-icon>
+                            <i class="bi bi-yahoo yahoo-color"></i>
+                        </a>*@
+                    @*<div class="header-social-links d-flex align-items-center">*@
+                    <a href="https://twitter.com/JobListing4" class="twitter">
+                        <ion-icon name="logo-twitter"></ion-icon>
+                        @*<i class="bi bi-twitter twitter-color"></i>*@
+                    </a>
+
+                    <a href="https://www.facebook.com/Joblisitng" class="facebook">
+                        <ion-icon name="logo-facebook"></ion-icon>
+                        @*<i class="bi bi-facebook facebook-color"></i>*@
+                    </a>
+
+                    <a href="https://www.instagram.com/joblistingportal/" class="instagram">
+                        <ion-icon name="logo-instagram"></ion-icon>
+                        @*<i class="bi bi-instagram instagram-color"></i>*@
+                    </a>
+
+                    <a href="https://www.linkedin.com/in/joblisting-01/" class="linkedin">
+                        <ion-icon name="logo-linkedin"></ion-icon>
+                        @*<i class="bi bi-linkedin linkedin-color"></i>*@
+                    </a>
+                    <a href="https://www.googleplus.com/in/joblisting-01/" class="google">
+                        <ion-icon name="logo-google"></ion-icon>
+                        @*<i class="bi bi-google google-color"></i>*@
+                    </a>
+                    <a href="https://www.yahoo.com/in/joblisting-01/" class="yahoo">
+                        <ion-icon name="logo-yahoo"></ion-icon>
+                        @*<i class="bi bi-yahoo yahoo-color"></i>*@
+                    </a>
+                </div>
+                @*<style>
+                        .twitter-color {
+                            color: #FFFFFF; /* Twitter's official blue color */
+                        }
+
+                        .facebook-color {
+                            color: #FFFFFF; /* Facebook's official blue color */
+                        }
+
+                        .instagram-color {
+                            color: #FFFFFF; /* Instagram's official gradient color */
+                        }
+
+                        .linkedin-color {
+                            color: #FFFFFF; /* LinkedIn's official blue color */
+                        }
+
+                        .google-color {
+                            color: #000000; /* google's official blue color */
+                        }
+
+                        .yahoo-color {
+                            color: #000000; /* yahoo's official blue color */
+                        }
+                    </style>*@
+
+            </div>
+
+            <div style="position: absolute; top: 21px; right: 112px;">
+
+
+                <div>@Html.Partial("_LanguagePartial")</div>
+            </div>
+            <div style="position: absolute; top: 24px; right: 80px; display: inline-block;">
+
+
+                @if (Request.IsAuthenticated)
+                {
+
+                    @*<li class="active2"><a href='@Url.Action("logoff", "account")'>Logout</a></li>*@
+                    <div><a href='@Url.Action("logoff", "account")'><img style="width:26px;height:26px;" src="~/Images/logooout.jpg" /></a></div>
+
+                }
+
+
+
+
+            </div>
+            <!-- /.container -->
+        </nav>
+    </header>
+    <div id="body">
+        <div class="container-fluid" style="margin-top:30px; padding:15px 10px;">
+            @RenderBody()
+            <div class="clear" style="height:20px;"></div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="cDialog" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="title">Confirmation</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="divMsg">
+                        Are you sure to delete?
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="width:57px">No</button>
+                    <a id="dialogOk" class="btn btn-primary btn-ok" style="width:57px">Yes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (Request.IsAuthenticated)
+    {
+        <script>
+            var timer;
+            $(document).ready(function () {
+                timer = setInterval("logout()", 1000 * 60 * 60);
+            });
+        </script>
+    }
+    <!-- /.section -->
+    @*@Html.Partial("_FooterPartial")*@
+
+    @RenderSection("scripts", required: false)
+
+    <script>
+        var actionUrl;
+        $(document).ready(function () {
+            $("#body").css("min-height", $(document).height() - 200);
+
+            $(document).on("click", ".disc", function () {
+                discUrl = $(this).data('aurl');
+                $("#discDialog #dialogOk").click(function () {
+                    $.post(discUrl, {}, function (result) {
+                        $("#discDialog").modal("hide");
+                        toastr.info(result);
+                        window.location.reload();
+                    });
+                });
+            });
+            $(document).on("click", ".aDelete", function () {
+                $("#cDialog #divMsg").html("All messages will be removed!<br/>Are you sure?");
+                actionUrl = $(this).data('href');
+
+                $("#cDialog #dialogOk").click(function () {
+                    window.location.href = actionUrl;
+                });
+            });
+            $(document).on("click", ".aBlock", function () {
+                var bname = $(this).data('name');
+                var actionUrl = $(this).data('href');
+                var loggedInUserRole = "@(Request.IsAuthenticated ? user.Role.GetDescription() : "")";
+                var msgText = "";
+                var role = $(this).data('role');
+                var isConfirmed = "@(Request.IsAuthenticated ? user.IsConfirmed : false)";
+                if (isConfirmed == "True") {
+                    if ((role == "Company" && loggedInUserRole == "Individual") || (loggedInUserRole == "Company" && role == "Individual")) {
+                        var msgText = "<b>Following may be withdrawn with <span id=\"bname\" style=\"font-weight:bold\">" + bname + "</span>:</b><br/>";
+                        msgText += "<ul>";
+                        msgText += "<li>Application(s)!</li>";
+                        msgText += "<li>Matching!</li>";
+                        msgText += "<li>Bookmark(s)!</li>";
+                        msgText += "<li>Interview(s)!</li>";
+                        msgText += "<li>Connection!</li>";
+                        msgText += "</ul>";
+                    } else {
+                        if ($(this).data('connected') == "True") {
+                            msgText = "<b>Block</b> action will disconnect you with <span id=\"bname\" style=\"font-weight:bold\"><b>" + bname + "</span></b><br/>";
+                        } else {
+                            msgText = "<b>Block</b> <span id=\"bname\" style=\"font-weight:bold\"><b>" + bname + "</span></b><br/>";
+                        }
+                    }
+                    msgText += "<div style=\"text-align:right; color:red; font-size:1.5em;\">Are you sure?</div>";
+                    $("#cDialog #divMsg").html(msgText);
+
+                    actionUrl = $(this).data('href');
+                    $("#cDialog #dialogOk").click(function () {
+                        window.location.href = actionUrl;
+                    });
+                } else {
+                    msgText = "<b>Block</b> <span id=\"bname\" style=\"font-weight:bold\"><b>" + bname + "</span></b><br/>";
+                    msgText += "<div style=\"text-align:right; color:red; font-size:1.5em;\">Are you sure?</div>";
+                    $("#cDialog #divMsg").html(msgText);
+
+                    actionUrl = $(this).data('href');
+                    $("#cDialog #dialogOk").click(function () {
+                        window.location.href = actionUrl;
+                    });
+                }
+            });
+
+            $(document).on("click", ".aSelect", function () {
+                var bname = $(this).data('name');
+                var actionUrl = $(this).data('href');
+
+                var msgText = "You are selecting <b><span id=\"bname\" style=\"font-weight:bold\">" + bname + "</span></b> for this interview!<br/>";
+                msgText += "<div style=\"text-align:right; color:red; font-size:1.5em;\">Are you sure?</div>";
+                $("#cDialog #divMsg").html(msgText);
+
+                $("#cDialog #dialogOk").click(function () {
+                    $.post(actionUrl, {}, function (result) {
+                        toastr.info(result);
+                        window.location.reload();
+                    });
+                });
+            });
+        });
+
+    </script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-216946851-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+
+
+
+
+
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-216946851-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>
+
+    <script type="text/javascript">
+        var ag, re, un, fn, ln, pw, cp, cn, rf, id, cd, co, bd, bm, by, ge, ed, mg, ty, RC, Rcn, Rrn, mn, sc;
+        function rginit() {
+            mn = document.getElementById("Mobile");
+            ag = document.getElementById("Agreed");
+            re = document.getElementById("Register");
+            un = document.getElementById("Username");
+            fn = document.getElementById("FirstName");
+            ln = document.getElementById("LastName");
+            sc = document.getElementById("Categry");
+            pw = document.getElementById("Password");
+            cp = document.getElementById("ConfirmPassword");
+            cn = document.getElementById("Company");
+            uni = document.getElementById("University");
+            tn = document.getElementById("Title");
+            id = document.getElementById("divIndividual");
+            cd = document.getElementById("divCompany");
+            ud = document.getElementById("divUniversity");
+            sd = document.getElementById("divStudent");
+            co = document.getElementById("CountryId");
+            unin = document.getElementById("Universityname");
+            RC = document.getElementById("divRecruiter");
+            Rcn = document.getElementById("CompanyName");
+            Rrn = document.getElementById("RecruiterName");
+            ed = document.getElementById("divError");
+            re.disabled = false;
+            un.focus();
+            id.setAttribute("class", "hide");
+            cd.setAttribute("class", "hide");
+            ed.setAttribute("class", "hide");
+            ud.setAttribute("class", "hide");
+            sd.setAttribute("class", "hide");
+            RC.setAttribute("class", "hide");
+
+            ty = document.getElementById("AccountType");
+
+
+            if (ty.value == 5) {
+                RC.setAttribute("class", "hide");
+                cd.setAttribute("class", "show");
+                id.setAttribute("class", "hide");
+                ud.setAttribute("class", "hide");
+                sd.setAttribute("class", "hide");
+            } else if (ty.value == 4) {
+                RC.setAttribute("class", "hide");
+                cd.setAttribute("class", "hide");
+                id.setAttribute("class", "show");
+                ud.setAttribute("class", "hide");
+                sd.setAttribute("class", "hide");
+            }
+            else if (ty.value == 12) {
+                RC.setAttribute("class", "hide");
+                cd.setAttribute("class", "hide");
+                id.setAttribute("class", "hide");
+                ud.setAttribute("class", "show");
+                sd.setAttribute("class", "hide");
+
+            } else if (ty.value == 13) {
+                RC.setAttribute("class", "hide");
+                cd.setAttribute("class", "hide");
+                id.setAttribute("class", "hide");
+                ud.setAttribute("class", "hide");
+                sd.setAttribute("class", "show");
+            }
+            else if (ty.value == 18) {
+                RC.setAttribute("class", "hide");
+                cd.setAttribute("class", "hide");
+                id.setAttribute("class", "hide");
+                ud.setAttribute("class", "hide");
+                sd.setAttribute("class", "show");
+            }
+            else if (ty.value == 14) {
+                RC.setAttribute("class", "show");
+                cd.setAttribute("class", "hide");
+                id.setAttribute("class", "hide");
+                ud.setAttribute("class", "hide");
+                sd.setAttribute("class", "hide");
+            }
+
+            ty.onchange = function () {
+                if (ty.value == 5) {
+                    RC.setAttribute("class", "hide");
+                    cd.setAttribute("class", "show");
+                    id.setAttribute("class", "hide");
+                    ud.setAttribute("class", "hide");
+                    sd.setAttribute("class", "hide");
+                } else if (ty.value == 4) {
+                    RC.setAttribute("class", "hide");
+                    cd.setAttribute("class", "hide");
+                    id.setAttribute("class", "show");
+                    ud.setAttribute("class", "hide");
+                    sd.setAttribute("class", "hide");
+                } else if (ty.value == 12) {
+                    RC.setAttribute("class", "hide");
+                    cd.setAttribute("class", "hide");
+                    id.setAttribute("class", "hide");
+                    ud.setAttribute("class", "show");
+                    sd.setAttribute("class", "hide");
+                } else if (ty.value == 13) {
+                    RC.setAttribute("class", "hide");
+                    cd.setAttribute("class", "hide");
+                    id.setAttribute("class", "hide");
+                    ud.setAttribute("class", "hide");
+                    sd.setAttribute("class", "show");
+                }
+                else if (ty.value == 18) {
+                    RC.setAttribute("class", "hide");
+                    cd.setAttribute("class", "hide");
+                    id.setAttribute("class", "hide");
+                    ud.setAttribute("class", "hide");
+                    sd.setAttribute("class", "show");
+                }
+                else if (ty.value == 14) {
+                    RC.setAttribute("class", "show");
+                    cd.setAttribute("class", "hide");
+                    id.setAttribute("class", "hide");
+                    ud.setAttribute("class", "hide");
+                    sd.setAttribute("class", "hide");
+                } else {
+                    RC.setAttribute("class", "hide");
+                    cd.setAttribute("class", "hide");
+                    id.setAttribute("class", "hide");
+                    ud.setAttribute("class", "hide");
+                    sd.setAttribute("class", "hide");
+                }
+            }
+
+            re.onclick = function () {
+                return vd();
+            }
+
+            ag.onchange = function () {
+                var e = ag.checked;
+                re.disabled = !e
+            }
+        }
+
+        // check valid email address
+        function ve(e) {
+            var t = /^(([^<>()\[\]\\.,;:\s@@"]+(\.[^<>()\[\]\\.,;:\s@@"]+)*)|(".+"))@@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return t.test(e);
+        }
+        function vepwd(e) {
+            var t = /(?=.*\d)(?=.*[a-zA-Z]).{9,}/;
+            return t.test(e);
+        }
+        // checks form validity
+        function vd() {
+            var f = false;
+            mg = "";
+            mn = document.getElementById("Mobile");
+            un = document.getElementById("Username");
+            fn = document.getElementById("FirstName");
+            ln = document.getElementById("LastName");
+            sc = document.getElementById("Categry");
+            pw = document.getElementById("Password");
+            cp = document.getElementById("ConfirmPassword");
+            cn = document.getElementById("Company");
+            uni = document.getElementById("University");
+            unin = document.getElementById("Universityname");
+            tn = document.getElementById("Title");
+            co = document.getElementById("CountryId");
+            ty = document.getElementById("AccountType");
+            ed = document.getElementById("divError");
+            RC = document.getElementById("divRecruiter");
+            Rcn = document.getElementById("CompanyName");
+            Rrn = document.getElementById("RecruiterName");
+            if (un.value.trim() == "") {
+                mg += "Email Address should not be empty!<br/>";
+            } else if (!ve(un.value.trim())) {
+                mg += "Email Address should be in correct format!<br/>";
+            }
+
+            if (fn.value.trim() == "") {
+                mg += "First Name should not be empty!<br/>";
+            }
+
+            if (ln.value.trim() == "") {
+                mg += "Last Name should not be empty!<br/>";
+            }
+
+            if (pw.value.trim() == "") {
+                mg += "Empty password or space in password not allowed!<br/>";
+            }
+
+            if (pw.value.trim().length < 5) {
+                mg += "Password Min. 9 numbers & letters mixed!<br/>";
+            } else if (!vepwd(pw.value.trim())) {
+                mg += "Password Min. 9 numbers & letters mixed!<br/>";
+            }
+
+            if (cp.value.trim() == "") {
+                mg += "Confirm Password should not be empty!<br/>";
+            }
+
+            if (pw.value != cp.value) {
+                mg += "Password must match with Confirm Password!<br/>";
+            }
+
+            if (co.value == "") {
+                mg += "Select country!<br/>";
+            }
+
+            if (ty.value == "") {
+                mg += "Select account type!<br/>";
+            }
+
+            if (ty.value == 4) {
+                if (tn.value == "") {
+                    mg += "Title should not be empty!<br/>";
+                }
+                if (tn.value.length < 5) {
+                    mg += "Title Minimum 5 characters!<br/>";
+                }
+
+            } else if (ty.value == 5) {
+                if (cn.value == "") {
+                    mg += "Company should not be empty!<br/>";
+                }
+                if (cn.value.length < 5) {
+                    mg += "Company Minimum 5 characters!<br/>";
+                }
+            }
+            else if (ty.value == 14) {
+                if (Rcn.value == "") {
+                    mg += "Company should not be empty!<br/>";
+                }
+                if (Rcn.value.length < 5) {
+                    mg += "Company Minimum 5 characters!<br/>";
+                }
+                if (Rrn.value == "") {
+                    mg += "Recruiter Name should not be empty!<br/>";
+                }
+            } else if (ty.value == 12) {
+                if (uni.value == "") {
+                    mg += "University should not be empty!<br/>";
+                }
+
+            } else if (ty.value == 13) {
+                if (unin.value == "") {
+                    mg += "Select University name<br/>";
+                }
+
+            }
+
+            if (mg != "") {
+                ed.setAttribute("class", "hide");
+                ed.innerHTML = '<div class="message-error" style="font-size:1em; font-weight:normal">' + mg + '</div><div class="clear" style="height:15px"></div>'
+                ed.setAttribute("class", "show");
+                f = false;
+            } else {
+                ed.setAttribute("class", "hide");
+                f = true;
+            }
+            return f;
+        }
+        rginit();
+
+        $(function () {
+            $("#Username").focus();
+            $("#Register").attr("disabled", true);
+            $.getJSON("/help/countrylist", {}, function (list) {
+                $("#CountryId").empty();
+                $("#CountryId").append("<option value = ''>SELECT COUNTRY</option>");
+
+                if (list.length != 0) {
+                    $(list).each(function () {
+                        $("#CountryId").append("<option value =" + this.Id + ">" + this.Name + "</option>");
+                    });
+                }
+            });
+            $.getJSON("/help/skillslist", {}, function (list) {
+                $("#LastName").empty();
+                $("#LastName").append("<option value = ''>SELECT SKILLS</option>");
+
+                if (list.length != 0) {
+                    $(list).each(function () {
+                        if (this.SkillName != '' && this.SkillName != null)
+                            $("#LastName").append("<option value =" + this.SkillName + ">" + this.SkillName + "</option>");
+                    });
+                }
+            });
+
+            $.getJSON("/help/CategoryList1", {}, function (list) {
+                $("#Category").empty();
+                $("#Category").append("<option value = ''>SELECT CATEGORY</option>");
+
+                if (list.length != 0) {
+                    $(list).each(function () {
+                        if (this.Name != '' && this.Name != null)
+                            $("#Category").append("<option value =" + this.Id + ">" + this.Name + "</option>");
+                    });
+                }
+            });
+
+            $.getJSON("/help/UnivList1", {}, function (list) {
+                $("#Universityname").empty();
+                $("#Universityname").append("<option value = ''>Select University Name</option>");
+
+                if (list.length != 0) {
+                    $(list).each(function () {
+                        $("#Universityname").append("<option value =" + this.UnivName + ">" + this.UnivName + "</option>");
+                    });
+                }
+            });
+
+            $.getJSON("/help/CompanyList", {}, function (list) {
+                $("#CompanyName").empty();
+                $("#CompanyName").append("<option value = ''>Select Company Name</option>");
+
+                if (list.length != 0) {
+                    $(list).each(function () {
+                        $("#CompanyName").append("<option value =" + this.CompanyName + ">" + this.CompanyName + "</option>");
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        var lgu, lgp, led;
+        function vdl() {
+            var f = false;
+            lmg = "";
+            lgu = $("#LoginUsername");
+            lgp = $("#LoginPassword");
+            led = $("#divErrorBx");
+
+            if (lgu.val().trim() == "") {
+                lmg += "Provide Email Address!<br/>";
+            } else if (!ve(lgu.val().trim())) {
+                lmg += "Provide Email Address in correct format!<br/>";
+            }
+
+            if (lgp.val().trim() == "") {
+                lmg += "Empty password or space in password not allowed!<br/>";
+            }
+
+            if (lmg != "") {
+                led.hide();
+                led.html('<div class="message-error" style="font-size:1em; font-weight:normal">' + lmg + '</div><div class="clear" style="height:15px"></div>');
+                led.show();
+                f = false;
+            } else {
+                led.hide();
+                f = true;
+            }
+            return f;
+        }
+
+        $(document).ready(function () {
+            $("#divErrorBx").hide();
+            $("#LoginUsername").change(function () {
+                $("#LoginUsername").val($("#LoginUsername").val().trim());
+            });
+
+            $("#login").click(function () {
+                return vdl();
+            });
+        });
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=loadGoogleTranslate"></script>
+    <script>function loadGoogleTranslate() { new google.translate.TranslateElement("google_translate_element"); }</script>
+    <script type="text/javascript">
+        const button = document.querySelector('#google_translate_element');
+        button.addEventListener('click', () => {
+            const element = document.querySelector('.demo');
+            element.style.margin = '40px 0px 0px';
+        });
+    </script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    @Scripts.Render("~/bundles/jqueryval")
+</body>
+</html>

@@ -1,0 +1,80 @@
+﻿@model JobPortal.Web.Models.AdminUserSignUpModel
+
+@{
+    ViewBag.Title = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1>Create Admin Account</h1>
+            Register your account here.
+            <div class="imp">
+                All fields are mandatory.
+            </div>
+        </div>
+
+        <div class="clear" style="height:20px;"></div>
+        Already have an account? @Html.ActionLink("Login Here", "Login", "Account", routeValues: null, htmlAttributes: new { id = "btn btn-info" })
+    </div>
+    <div class="clear"></div>
+    @Html.Partial("_MessagePartial")
+</div>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Company)
+
+            @Html.TextBoxFor(model => model.Company, null, new { placeholder = "Company", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Company)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Username)
+
+            @Html.TextBoxFor(model => model.Username, null, new { placeholder = "Username", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Username)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Password)
+
+            @Html.PasswordFor(model => model.Password,  new { placeholder = "Password", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ConfirmPassword)
+
+            @Html.PasswordFor(model => model.ConfirmPassword, new { placeholder = "Confirm Password", @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.ConfirmPassword)
+        </div>
+
+        <label class="checkbox-inline" id="Agree">
+            @Html.CheckBoxFor(model => model.AgreeCheck, new { onclick = "alert('hello')" }) I agree with joblisting
+        </label>
+        <label class="checkbox-inline">
+            <a href="javascript:popup_win('@Url.Action("terms", "help")',600,500);">Terms&nbsp;of&nbsp;Use</a>,
+            <a href="javascript:popup_win('@Url.Action("privacy", "help")',600,500);">Privacy&nbsp;Policy</a>
+            and <a href="javascript:popup_win('@Url.Action("copyright", "help")',600,500);">Copyright</a>
+        </label>
+        <div class="clear" style="height:15px;"></div>
+        <p>
+            <input type="submit" value="Create Account" class="btn btn-info" />
+        </p>
+        <div class="clear" style="height:5px;"></div>
+    </fieldset>
+}
+
+
+
+@*<section class="float-left" id="socialLoginForm">
+        <h2>Use other service to register.</h2>
+        @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
+    </section>*@

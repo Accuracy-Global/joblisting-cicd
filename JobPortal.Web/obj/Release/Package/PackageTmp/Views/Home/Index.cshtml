@@ -1,0 +1,391 @@
+﻿@using JobPortal.Data
+@using JobPortal.Domain
+@{
+    ViewBag.Title = "Home - Joblisting";
+    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+    string username = string.Empty;
+    if (User != null)
+    {
+        username = User.Username;
+    }
+    UserProfile profile = null;
+    Photo background = MemberService.Instance.GetPhoto("Background", username);
+    Photo avtar = MemberService.Instance.GetPhoto("Profile", username);
+    Photo trf = MemberService.Instance.GetPhoto("TopRightFirst", username);
+    Photo trs = MemberService.Instance.GetPhoto("TopRightSecond", username);
+    Photo brf = MemberService.Instance.GetPhoto("BottomRightFirst", username);
+    Photo brs = MemberService.Instance.GetPhoto("BottomRightSecond", username);
+    if (!string.IsNullOrEmpty(username))
+    {
+        profile = MemberService.Instance.Get(username);
+    }
+}
+<style>
+   
+    @if(background != null)
+    {
+        <text>
+        .pro-file-sec {
+            background: rgba(0, 0, 0, 0.3) url("@background.Type;base64,@(Convert.ToBase64String(background.Image))") no-repeat scroll 0 0 / cover !important;
+        }
+        </text>
+    }
+</style>
+@*<h1>@ViewBag.Message</h1>*@
+<link href="~/Content/style.css" rel="stylesheet" />
+<link href="~/Content/member.css" rel="stylesheet" />
+<section class="slider-wrapper">
+    @*<div class="container">*@
+    <div class="slider">
+        <div class="row">
+            <div class="col-sm-8 custom-lsb">
+                <div class="row">
+                    <div class="overcls">
+                        <div class="pro-file-sec">
+                            <div id="AddPhotoBackground" data-type="Background" role="button" data-toggle='modal' data-target='#uploadDialog' class="pic" style="position:absolute;z-index:100; top:50%; left:65%; padding:5px;  width:auto; font-weight:normal; cursor:pointer"><a style="color:#5e5d5d; font-size:smaller" data-toggle="tooltip" title="Add&nbsp;a&nbsp;background&nbsp;photo"><i class="fa fa-camera" aria-hidden="true" style="color:red; font-size:x-large"></i></a></div>
+                            @{
+                                string name = string.Empty;
+                                if (profile.Type == 4)
+                                {
+                                    name = string.Format("<a href=\"{2}\" target=\"_blank\">{0} {1}</a>", profile.FirstName, profile.LastName, profile.PermaLink);
+                                }
+                                else
+                                {
+                                    name = string.Format("<a href=\"{1}\" target=\"_blank\">{0}</a>", profile.Company.Replace(" ", "&nbsp;"), profile.PermaLink);
+                                }
+                            }
+                            <div id="ProfileName">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12 grad1">
+                                        @Html.Raw(name)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="covercls">
+                            <div class="pro-pick">
+                                <div id="AddPhoto" data-type="Profile" role="button" data-toggle='modal' data-target='#uploadDialog' class="pic" style="position:absolute;z-index:100; padding:5px; top:40%; left:40%; font-weight:normal; cursor:pointer"><a style="color:#ff0000" data-toggle="tooltip" title='Add&nbsp;Logo/Photo Diamention: 135px x 135px'><i class="fa fa-camera" aria-hidden="true" style="font-size:x-large"></i></a></div>
+                                @if (avtar != null)
+                                {
+                                    <img src="@avtar.Type;base64,@(Convert.ToBase64String(avtar.Image))" alt="...">
+                                }
+                                else
+                                {
+                                    <img src="/images/pro-img.png" alt="...">
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 custom-rsb">
+                <div class="row">
+                    <div class="right-side-bar">
+                        <div class="top-sec">
+                            <div class="rsbanner">
+                                <div id="AddPhotoTopRight" class="logo pic" data-type="TopRight" role="button" data-toggle='modal' data-target='#uploadDialog' style="cursor:pointer"><a style="color:red" data-toggle="tooltip" title="Add&nbsp;photo"><i class="fa fa-camera" aria-hidden="true" style="font-size:x-large"></i></a></div>
+                                <div data-ride="carousel" class="carousel slide" id="carousel-example-generic" data-interval="false">
+                                    <!-- Indicators -->
+                                    <ol class="carousel-indicators">
+                                        <li data-target="#carousel-example-generic" data-slide-to="0" class=""></li>
+                                        <li class="active" data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                        <li data-slide-to="2" data-target="#carousel-example-generic"></li>
+                                    </ol>
+
+                                    <!-- Wrapper for slides -->
+                                    <div role="listbox" class="carousel-inner">
+                                        <div class="item active">
+                                            @if (trf != null)
+                                            {
+                                                <img alt="..." id="TopFirst" class="sliderimage" src="@trf.Type;base64,@(Convert.ToBase64String(trf.Image))">
+                                            }
+                                            else
+                                            {
+                                                <img alt="..." id="TopFirst" class="sliderimage" src="/images/right-side-top-1.png">
+                                            }
+                                            <div class="carousel-caption"> </div>
+                                        </div>
+                                        <div class="item">
+                                            @if (trs != null)
+                                            {
+                                                <img alt="..." id="TopSecond" class="sliderimage" src="@trs.Type;base64,@(Convert.ToBase64String(trs.Image))">
+                                            }
+                                            else
+                                            {
+                                                <img alt="..." id="TopSecond" class="sliderimage" src="/images/right-side-top-2.png">
+                                            }
+
+                                            <div class="carousel-caption"> </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Controls -->
+                                    <a data-slide="prev" role="button" href="#carousel-example-generic" class="left carousel-control"> <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span> <span class="sr-only">Previous</span> </a> <a data-slide="next" role="button" href="#carousel-example-generic" class="right carousel-control"> <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span> <span class="sr-only">Next</span> </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bottom-sec">
+                            <div class="rsbbom">
+                                <div id="AddPhotoTopBottom" data-type="BottomRight" role="button" data-toggle='modal' data-target='#uploadDialog' class="pic" style="position:absolute;z-index:100; padding:5px; top:33%;left:45%;font-weight:normal; cursor:pointer"><a style="color:#5e5d5d" data-toggle="tooltip" title="Add&nbsp;photo"><i class="fa fa-camera" aria-hidden="true" style="color:red; font-size:x-large"></i></a></div>
+                                <div data-ride="carousel" class="carousel slide" id="carousel-example-generic2" data-interval="7000">
+                                    <!-- Indicators -->
+                                    <ol class="carousel-indicators">
+                                        <li class="" data-slide-to="0" data-target="#carousel-example-generic2"></li>
+                                        <li data-slide-to="1" data-target="#carousel-example-generic2" class="active"></li>
+                                        <li data-slide-to="2" data-target="#carousel-example-generic2"></li>
+                                    </ol>
+
+                                    <!-- Wrapper for slides -->
+                                    <div role="listbox" class="carousel-inner bottom" data-interval="false">
+                                        <div class="item">
+                                            @if (brf != null)
+                                            {
+                                                <img alt="..." id="BottomFirst" class="sliderimage" src="@brf.Type;base64,@(Convert.ToBase64String(brf.Image))">
+                                            }
+                                            else
+                                            {
+                                                <img alt="..." id="BottomFirst" class="sliderimage" src="/images/right-side-bottom-1.png">
+                                            }
+                                            <div class="carousel-caption hide">
+                                                @*<h2>Pixar Theory Proves Sulley was killed 1</h2>
+                                                    <p>Some additional text</p>*@
+                                            </div>
+                                        </div>
+                                        <div class="item active">
+                                            @if (brs != null)
+                                            {
+                                                <img alt="..." id="BottomSecond" class="sliderimage" src="@brs.Type;base64,@(Convert.ToBase64String(brs.Image))">
+                                            }
+                                            else
+                                            {
+                                                <img alt="..." id="BottomSecond" class="sliderimage" src="/images/right-side-bottom-2.png">
+                                            }
+                                            <div class="carousel-caption hide">
+                                                @*<h2>Pixar Theory Proves Sulley was killed 1</h2>
+                                                    <p>Some additional text</p>*@
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Controls -->
+                                    <a data-slide="prev" role="button" href="#carousel-example-generic2" class="left carousel-control"> <span aria-hidden="true" class="glyphicon glyphicon-chevron-left"></span> <span class="sr-only">Previous</span> </a>
+                                    <a data-slide="next" role="button" href="#carousel-example-generic2" class="right carousel-control"> <span aria-hidden="true" class="glyphicon glyphicon-chevron-right"></span> <span class="sr-only">Next</span> </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*</div>*@
+</section>
+<section class="articles-wrapper">
+    @*<div class="container">*@
+    <div class="sticky-section">
+        <div class="articles">
+            <div class="row stickem-container">
+                <div class="col-sm-3 left-col" id="left">
+                    <div class="left-side-bar sidebar sticky">
+                        @if (Request.IsAuthenticated)
+                        {
+                            @Html.Action("Connections", "Home")
+                            @Html.Action("PeopleList", "Home")
+                            @*<div class="clear" style="height:5px"></div>*@
+                            <div class="connect-with">
+                                <div class="sub-heading">
+                                    <h2>Connect With</h2>
+                                </div>
+                                <div class="social-icons">
+                                    <ul>
+                                        <li><button type="submit" class="googleBtn smGlobalBtn" id="GooglePlus" name="provider" value="GooglePlus" title="Log in using your GooglePlus account" onclick="socialinviter.friendsinviter.auth('google')"></button></li>
+                                        @*<li><a href="javascript:void(0);"><img src="/images/twitter_circle.png" alt="..." /></a></li>
+                                            <li><a href="javascript:void(0);"><img src="/images/instagram_circle.png" alt="..." /></a></li>
+                                            <li><a href="javascript:void(0);"><img src="/images/google_circle.png" alt="..." /></a></li>
+                                            <li><a href="javascript:void(0);"><img src="/images/linkedin_circle.png" alt="..." /></a></li>
+                                            <li><a href="javascript:void(0);"><img src="/images/youtube_circle.png" alt="..." /></a></li>*@
+                                    </ul>
+                                </div>
+                            </div>
+                            @Html.Partial("ImportContacts")
+                            @Html.Partial("InviteFriend")
+                        }
+                    </div>
+                </div>
+                <div class="col-sm-6 center-col">
+                    @Html.Action("ActivityStream", "Home", new { Username = username })
+                </div>
+                <div class="col-sm-3 right-col" id="right">
+                    <div class="right-side-bar  sidebar sticky" style="width: 257px;">
+                        
+                        @Html.Action("RecentJobs", "Home")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @*</div>*@
+</section>
+<div class="modal fade" id="uploadDialog" tabindex="-1" role="dialog" aria-labelledby="uploadDialogLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="uploadDialogLabel">
+                    Upload Photo
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    @Html.Label("Upload Picture")<br />
+                    (JPG, PNG or GIF up to size of 500 KB.)
+                    <input type="hidden" id="PictureType" />
+                    <input type="hidden" id="ActivePicture" />
+                    <input id="Photo" name="Photo" type="file" title="JPG, PNG or GIF up to size of 500 KB." placeholder="UPLOAD PHOTO" class="form-control" />
+                    <div id="divPhotoError" style="color: red; font-weight: bold;"></div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                @if (profile != null)
+                {
+                    @Html.Hidden("Id", profile.UserId);
+                }
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px;">Close</button>
+                <button type="button" id="photoUpload" data-dismiss="modal" class="btn btn-primary" style="width:75px;">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="alert alert-success" role="alert" id="Success" style="position:absolute; top:90px; width:auto; display:none; z-index:10000">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong> <span id="alertMessage" style="padding-left:5px; padding-right:5px;"></span></strong>
+</div>
+@*<script src="~/Scripts/jquery.stickem.js"></script>*@
+<script>
+    $(document).ready(function () {
+        $("#AddPhotoTopRight").hide();
+        $("#AddPhotoTopBottom").hide();
+        $("#AddPhotoBackground").hide();
+        $("#AddPhoto").hide();
+        $(".rsbanner").mouseover(function () {
+            $("#AddPhotoTopRight").show();
+        });
+        $(".rsbanner").mouseout(function () {
+            $("#AddPhotoTopRight").hide();
+        });
+
+        $(".rsbbom").mouseover(function () {
+            $("#AddPhotoTopBottom").show();
+        });
+        $(".rsbbom").mouseout(function () {
+            $("#AddPhotoTopBottom").hide();
+        });
+        $(".pro-file-sec").mouseover(function () {
+            $("#AddPhotoBackground").show();
+        });
+        $(".pro-file-sec").mouseout(function () {
+            $("#AddPhotoBackground").hide();
+        });
+
+        $(".pro-pick").mouseover(function () {
+            $("#AddPhoto").show();
+        });
+        $(".pro-pick").mouseout(function () {
+            $("#AddPhoto").hide();
+        });
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+
+        $("#Photo").change(function () {
+            var file = document.getElementById('Photo').files[0];
+            var defineSize = 600 * 1024;
+            var fileSize;
+            if (file.size == undefined) {
+                fileSize = file.fileSize;
+            } else {
+                fileSize = file.size
+            }
+            var name = file.name;
+            var ext = name.substr(name.lastIndexOf(".") + 1, 4).toLowerCase();
+            var allowed = "png, jpg, jpeg, gif";
+            $("#divPhotoError").html("");
+            if (name.length > 0) {
+                if (allowed.indexOf(ext) < 0) {
+                    $("#divPhotoError").html("Only JPG,JPEG, PNG, GIF files are allowed!");
+                    $("#photoUpload").attr('disabled', true);
+                } else {
+                    if (fileSize > defineSize) {
+                        $("#divPhotoError").html("File upload failed - Exceeded max file size (600 KB)!");
+                        $("#photoUpload").attr('disabled', true);
+                    } else {
+                        $("#divPhotoError").html("");
+                        $("#photoUpload").attr('disabled', false);
+                    }
+                }
+            } else {
+                $("#divPhotoError").html("Please select file!");
+                $("#photoUpload").attr('disabled', true);
+            }
+        });
+
+        $(".pic").click(function () {
+            $("#PictureType").val($(this).data('type'));
+
+            if ($(this).data('type') == "TopRight") {
+                var i = $(".carousel-inner .active").find("img");
+                var type = $(this).data('type') + i.attr("id").replace("Top", "");
+                $("#ActivePicture").val(type);
+            }
+
+            if ($(this).data('type') == "BottomRight") {
+                var i = $(".bottom .active").find("img");
+                var type = $("#PictureType").val() + i.attr("id").replace("Bottom", "");
+                $("#ActivePicture").val(type);
+            }
+        });
+
+        $("#photoUpload").click(function () {
+            var file = document.getElementById('Photo').files[0];
+            var name = file.name;
+            var ext = name.substr(name.lastIndexOf(".") + 1, 4).toLowerCase();
+
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function (e) {
+                var binaryString = e.target.result.toString();
+                binaryString = binaryString.replace("data:image/png;base64,", "");
+                binaryString = binaryString.replace("data:image/jpeg;base64,", "");
+                binaryString = binaryString.replace("data:image/gif;base64,", "");
+                binaryString = binaryString.replace("data:image/jpg;base64,", "");
+                var type = "";
+                if (ext == "jpg") {
+                    type = "data:image/jpg;base64";
+                } else if (ext == "jpeg") {
+                    type = "data:image/jpeg;base64";
+                } else if (ext == "png") {
+                    type = "data:image/png;base64";
+                } else if (ext == "gif") {
+                    type = "data:image/gif;base64";
+                }
+
+                var loc = $("#PictureType").val();
+                if (loc == "TopRight") {
+                    loc = $("#ActivePicture").val();
+                }
+
+                if (loc == "BottomRight") {
+                    loc = $("#ActivePicture").val();
+                }
+
+                $.post('@Url.Action("PictureUpload", "JsonHelper")', { Username: "@username", data: binaryString, area: loc, type: type },
+                   function (result) {
+                       $("#alertMessage").text(result);
+                       $(".alert").removeClass("in").show();
+                       $(".alert").delay(5000).addClass("in").fadeOut(5000);
+                   });
+            };
+        });
+    });
+</script>

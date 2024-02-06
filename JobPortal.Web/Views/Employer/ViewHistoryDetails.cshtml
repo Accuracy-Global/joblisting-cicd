@@ -1,0 +1,141 @@
+﻿@using PagedList.Mvc
+@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Helpers
+
+@{
+    ViewBag.Title = "Job View History";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<JobPortal.Web.Models.JobViewModel>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+
+    Job job = JobService.Instance.Get(Convert.ToInt64(ViewBag.Id));
+    UserProfile jobSeeker = MemberService.Instance.Get(Convert.ToInt64(Request["JobseekerId"]));
+    UserProfile employer = MemberService.Instance.Get(job.EmployerId.Value);
+    List country = SharedService.Instance.GetCountry(job.CountryId.Value);
+    List state = SharedService.Instance.GetState(job.StateId.Value);
+}
+<style>
+    .viewed {
+        width: 50px;
+        text-align: center;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1>Job View History</h1>
+            Job View history details
+        </div>
+    </div>
+</div>
+@Html.Partial("_MessagePartial")
+<div class="clear" style="height:15px"></div>
+<div class="row" style="padding-left:15px;padding-right:15px;">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4 list-group-item">
+                @if (job != null)
+                {
+                    <strong>Job Title:&nbsp;&nbsp;</strong><a href="@(string.Format("/job/{0}-{1}", job.PermaLink, job.Id))" target="_blank">@job.Title</a>
+                }
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 list-group-item">
+                @if (jobSeeker != null)
+                {
+                    <strong>Name:&nbsp;&nbsp;</strong><a href="@(string.Format("/{0}", jobSeeker.PermaLink))" target="_blank">@jobSeeker.FirstName @jobSeeker.LastName</a>
+                }
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 list-group-item">
+                @{
+                    var links = string.Empty;
+                    if (jobSeeker != null)
+                    {
+                        string username = User.Username;
+                        if (!string.IsNullOrEmpty(username))
+                        {
+                            UserProfile profile = MemberService.Instance.Get(username);
+                            bool connected = ConnectionHelper.IsConnected(jobSeeker.Username, profile.UserId);
+                            bool blockedByMe = ConnectionHelper.IsBlockedByMe(jobSeeker.Username, profile.UserId);
+                            bool blocked = ConnectionHelper.IsBlocked(jobSeeker.Username, profile.UserId);
+                            bool accepted = ConnectionHelper.IsAccepted(jobSeeker.Username, profile.UserId);
+                            string lnk = string.Empty;
+                            if (!connected)
+                            {
+                                if (!accepted)
+                                {
+                                    Connection connection = ConnectionHelper.Get(jobSeeker.Username, profile.Username);
+                                    if (connection != null)
+                                    {
+                                        if (!string.IsNullOrEmpty(connection.CreatedBy) && !connection.CreatedBy.Equals(profile.Username))
+                                        {
+                                            links += "<b>" + Html.ActionLink("Accept", "Accept", "Network", new { Id = connection.Id, redirect = Request.Url.ToString() }, new { }).ToString() + "</b>";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        links += "<b>" + Html.ActionLink("Connect", "Connect", "Home", new { id = jobSeeker.UserId, redirect = Request.Url.ToString() }, new { }).ToString() + "</b>";
+                                        links += " | " + "<b>" + Html.ActionLink("Message", "List", "Message", new { SenderId = jobSeeker.UserId, redirect = Request.Url.ToString() }, new { }).ToString() + "</b>";
+                                        links += " | " + "<b>" + Html.ActionLink("Bookmark", "BookmarkJobseeker", "Employer", new { Id = jobSeeker.UserId, redirect = "/Employer/Bookmarks" }, new { title = "Bookmark", @target = "_blank" }).ToString() + "</b>";
+                                    }
+                                }
+                                else
+                                {
+                                    links += "<b>" + Html.ActionLink("Connect", "Connect", "Home", new { id = jobSeeker.UserId, redirect = Request.Url.ToString() }, new { }).ToString() + "</b>";
+                                    links += " | " + "<b>" + Html.ActionLink("Message", "List", "Message", new { SenderId = jobSeeker.UserId, redirect = Request.Url.ToString() }, new { }).ToString() + "</b>";
+                                    links += " | " + "<b>" + Html.ActionLink("Bookmark", "BookmarkJobseeker", "Employer", new { Id = jobSeeker.UserId, redirect = "/Employer/Bookmarks" }, new { title = "Bookmark", @target = "_blank" }).ToString() + "</b>";
+                                }
+                            }
+                            else
+                            {
+                                links += "<b>" + Html.ActionLink("Message", "List", "Message", new { SenderId = jobSeeker.UserId, redirect = Request.Url.ToString() }, new { }).ToString() + "</b>";
+                                links += " | " + "<b>" + Html.ActionLink("Bookmark", "BookmarkJobseeker", "Employer", new { Id = jobSeeker.UserId, redirect = "/Employer/Bookmarks" }, new { title = "Bookmark", @target = "_blank" }).ToString() + "</b>";
+                            }
+                        }
+                    }
+                    @Html.Raw(links);
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:30px"></div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        @{
+            WebGrid grid = new WebGrid(ViewBag.Model, ajaxUpdateContainerId: "grid");
+        }
+
+        <div id="container-grid" class="table-responsive">
+            @grid.GetHtml(htmlAttributes: new { id = "grid", @style = "width:100%" }, tableStyle: "table table-bordered table-hover",
+                       columns: new[] {
+
+                grid.Column(columnName:"ViewedOn",header:"Date",canSort:false,  format: p =>  p.ViewedOn.ToString("MMM-dd-yyyy")),
+                grid.Column(columnName:"Viewed",header:"Viewed",canSort:false, format: p =>  p.Times),
+
+                })
+        </div>
+
+        <div style="text-align:center; margin-top: -15px;">
+
+            @Html.PagedListPager(pagedModel, PageNumber => Url.Action("ViewHistoryDetails",
+            new RouteValueDictionary()
+            {
+                { "pageNumber" , PageNumber},
+                { "Id" , Request["Id"]},
+                { "JobseekerId" , Request["JobseekerId"]}
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    </div>
+</div>

@@ -1,0 +1,147 @@
+{
+  "base-path": "/asserts/json/Portfolio/",
+  "title": "Portfolio",
+  "img-path": "",
+  "about": [
+    "Our expertise & creativity across different websites."
+  ],
+  "header": {
+    "1": "Dealepal",
+    "2": "Univzone",
+    "3": "What’s Your Math Score",
+    "4": "Kun Devaki",
+    "5": "Hindu Way Of Life",
+    "6": "Sanpets",
+    "7": "ScoreCard"
+  },
+  "items": {
+    "1": {
+      "title": "Dealepal",
+      "about": "Dealepal",
+      "img-path": "",
+      "header": {
+        "1": "img/",
+        "2": "img/",
+        "3": "img/",
+        "4": "img/"
+      },
+      "items": {
+        
+      },
+      "extras": {
+        
+      },
+      "detailed-data-path": "detail/"
+    },
+    "2": {
+      "title": "Univzone",
+      "about": "Univzone",
+      "img-path": "",
+      "header": {
+        "1": "img/",
+        "2": "img/",
+        "3": "img/",
+        "4": "img/"
+      },
+      "items": {
+        
+      },
+      "extras": {
+        
+      },
+      "detailed-data-path": "detail/"
+    },
+    "3": {
+      "title": "What’s Your Math Score",
+      "about": "What’s Your Math Score",
+      "img-path": "",
+      "header": {
+        "1": "img/",
+        "2": "img/",
+        "3": "img/",
+        "4": "img/"
+      },
+      "items": {
+        
+      },
+      "extras": {
+        
+      },
+      "detailed-data-path": "detail/"
+    },
+    "4": {
+      "title": "Kun Devaki",
+      "about": "Kun Devaki",
+      "img-path": "",
+      "header": {
+        "1": "img/",
+        "2": "img/",
+        "3": "img/",
+        "4": "img/"
+      },
+      "items": {
+        
+      },
+      "extras": {
+        
+      },
+      "detailed-data-path": "detail/"
+    },
+    "5": {
+      "title": "Hindu Way Of Life",
+      "about": "Hindu Way Of Life",
+      "img-path": "",
+      "header": {
+        "1": "img/",
+        "2": "img/",
+        "3": "img/",
+        "4": "img/"
+      },
+      "items": {
+        
+      },
+      "extras": {
+        
+      },
+      "detailed-data-path": "detail/"
+    },
+    "6": {
+      "title": "Sanpets",
+      "about": "Sanpets",
+      "img-path": "",
+      "header": {
+        "1": "img/",
+        "2": "img/",
+        "3": "img/",
+        "4": "img/"
+      },
+      "items": {
+        
+      },
+      "extras": {
+        
+      },
+      "detailed-data-path": "detail/"
+    },
+	
+    "7": {
+      "title": "ScoreCard",
+      "about": "ScoreCard",
+      "img-path": "",
+      "header": {
+        "1": "img/",
+        "2": "img/",
+        "3": "img/",
+        "4": "img/"
+      },
+      "items": {
+        
+      },
+      "extras": {
+        
+      },
+      "detailed-data-path": "detail/"
+    }
+  },
+  "detailed-data-path": ""
+}

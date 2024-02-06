@@ -1,0 +1,768 @@
+﻿@model JobPortal.Web.Models.UploadResumeModal
+
+@{
+    ViewBag.Title = "Upload Resume";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="title-login">
+    <h1 style="margin-top: -15px;">Upload Resumes</h1>
+    Upload resumes here
+</div>
+<div class="clear" style="height:5px;"></div>
+@Html.Partial("_MessagePartial")
+<div class="clear" style="height:5px;"></div>
+@using (Html.BeginForm("UploadResume", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true)
+    <div id="Set1" class="list-group-item">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div id="divErrorBox1" class="message-error"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.Label("Title")
+
+                    @Html.TextBoxFor(model => model.TitleOne, new { placeholder = "TITLE", @class = "form-control", @maxlength = 50, @autocomplete = "off" })
+                    @Html.ValidationMessageFor(model => model.TitleOne)
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.Label("Category")
+
+                    @Html.DropDownListFor(model => model.CategoryIdOne, new SelectList(Model.Categories, "Id", "Name"), "--SELECT--", new { @class = "form-control " })
+                    @Html.ValidationMessageFor(model => model.CategoryIdOne)
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.Label("Specialization")
+
+                    @Html.DropDownListFor(model => model.SpecializationIdOne, new SelectList(Model.Specialisations, "Id", "Name"), "--SELECT--", new { @class = "form-control " })
+                    @Html.ValidationMessageFor(model => model.SpecializationIdOne)
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.Label("Country")
+
+                    @Html.DropDownListFor(model => model.CountryIdOne, new SelectList(Model.Countries, "Id", "Text"), "--SELECT--", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CountryIdOne)
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.Label("State")
+
+                    @Html.DropDownListFor(model => model.StateIdOne, new SelectList(Model.States, "Id", "Text"), "--SELECT--", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.City1)
+
+                    @Html.TextBoxFor(model => model.City1, new { placeholder = "CITY", title = "City", @class = "form-control", @maxlength = 50 })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        @Html.Label("Zip")
+                        @Html.TextBoxFor(model => model.Zip1, new { placeholder = "ZIP", title = "Zip", @class = "form-control", @maxlength = 15 })
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        @Html.Label("Experience")
+                        @Html.DropDownListFor(model => model.Experience1, Model.ExperienceList(), "--SELECT--", new { title = "Experience", @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.QualificationId1)
+
+                    @Html.DropDownListFor(model => model.QualificationId1, new SelectList(Model.Qualifications, "Id", "Text"), "--SELECT--", new { title = "Highest Qualification", @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            @Html.Label("Age From")
+                            @Html.DropDownListFor(model => model.MinimumAge1, Model.AgeList(), "--SELECT--", new { title = "Age From", @class = "form-control" })
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            @Html.Label("Age To")
+                            @Html.DropDownListFor(model => model.MaximumAge1, Model.AgeList(20), "--SELECT--", new { title = "Age To", @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                    <input type="file" name="UploadResume1" id="UploadResume1" title="Upload DOC, DOCX  or PDF file with maximum size of 300 KB" style="border:1px solid #eae2e2; width:100%; padding:4px; border-radius:4px;" />
+                    Upload Resume as DOC, DOCX, PDF file with maximum size of 300 KB
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div style="height:35px;"></div>
+    <div id="Set2" class="list-group-item">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div id="divErrorBox2" class="message-error"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.Label("Title")
+                    @Html.TextBoxFor(model => model.TitleTwo, new { placeholder = "TITLE", @class = "form-control", @maxlength = 50, @autocomplete = "off" })
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CategoryIdTwo)
+                    @Html.DropDownListFor(model => model.CategoryIdTwo, new SelectList(Model.Categories, "Id", "Name"), "--SELECT--", new { @class = "form-control " })
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SpecializationIdTwo)
+                    @Html.DropDownListFor(model => model.SpecializationIdTwo, new SelectList(Model.Specialisations, "Id", "Name"), "--SELECT--", new { @class = "form-control " })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CountryIdTwo)
+                    @Html.DropDownListFor(model => model.CountryIdTwo, new SelectList(Model.Countries, "Id", "Text"), "--SELECT--", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StateIdTwo)
+                    @Html.DropDownListFor(model => model.StateIdTwo, new SelectList(Model.States, "Id", "Text"), "--SELECT--", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.City2)
+                    @Html.TextBoxFor(model => model.City2, new { placeholder = "CITY", title = "City", @class = "form-control", @maxlength = 50 })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        @Html.LabelFor(model => model.Zip2)
+                        @Html.TextBoxFor(model => model.Zip2, new { placeholder = "ZIP", title = "Zip", @class = "form-control", @maxlength = 15 })
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        @Html.Label("Experience")
+                        @Html.DropDownListFor(model => model.Experience2, Model.ExperienceList(), "--SELECT--", new { title = "Experience", @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.QualificationId2)
+
+                    @Html.DropDownListFor(model => model.QualificationId2, new SelectList(Model.Qualifications, "Id", "Text"), "--SELECT--", new { title = "Highest Qualification", @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            @Html.Label("Age From")
+                            @Html.DropDownListFor(model => model.MinimumAge2, Model.AgeList(), "--SELECT--", new { title = "Age From", @class = "form-control" })
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            @Html.Label("Age To")
+                            @Html.DropDownListFor(model => model.MaximumAge2, Model.AgeList(20), "--SELECT--", new { title = "Age To", @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                    <input type="file" name="UploadResume2" id="UploadResume2" title="Upload DOC, DOCX  or PDF file with maximum size of 300 KB" style="border:1px solid #eae2e2; width:100%; padding:4px; border-radius:4px;" />
+                    Upload Resume as DOC, DOCX, PDF file with maximum size of 300 KB
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div style="height:35px;"></div>
+    <div id="Set3" class="list-group-item">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div id="divErrorBox3" class="message-error"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.Label("Title")
+                    @Html.TextBoxFor(model => model.TitleThree, new { placeholder = "TITLE", @class = "form-control", @maxlength = 50, @autocomplete = "off" })
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CategoryIdThree)
+                    @Html.DropDownListFor(model => model.CategoryIdThree, new SelectList(Model.Categories, "Id", "Name"), "--SELECT--", new { @class = "form-control " })
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SpecializationIdThree)
+                    @Html.DropDownListFor(model => model.SpecializationIdThree, new SelectList(Model.Specialisations, "Id", "Name"), "--SELECT--", new { @class = "form-control " })
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CountryIdThree)
+                    @Html.DropDownListFor(model => model.CountryIdThree, new SelectList(Model.Countries, "Id", "Text"), "--SELECT--", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StateIdThree)
+                    @Html.DropDownListFor(model => model.StateIdThree, new SelectList(Model.States, "Id", "Text"), "--SELECT--", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.City3)
+                    @Html.TextBoxFor(model => model.City3, new { placeholder = "CITY", title = "City", @class = "form-control", @maxlength = 50 })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        @Html.LabelFor(model => model.Zip3)
+                        @Html.TextBoxFor(model => model.Zip3, new { placeholder = "ZIP", title = "Zip", @class = "form-control", @maxlength = 15 })
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        @Html.Label("Experience")
+                        @Html.DropDownListFor(model => model.Experience3, Model.ExperienceList(), "--SELECT--", new { title = "Experience", @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.QualificationId3)
+
+                    @Html.DropDownListFor(model => model.QualificationId3, new SelectList(Model.Qualifications, "Id", "Text"), "--SELECT--", new { title = "Highest Qualification", @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            @Html.Label("Age From")
+                            @Html.DropDownListFor(model => model.MinimumAge3, Model.AgeList(), "--SELECT--", new { title = "Age From", @class = "form-control" })
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            @Html.Label("Age To")
+                            @Html.DropDownListFor(model => model.MaximumAge3, Model.AgeList(20), "--SELECT--", new { title = "Age To", @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                    <input type="file" name="UploadResume3" id="UploadResume3" title="Upload DOC, DOCX  or PDF file with maximum size of 300 KB" style="border:1px solid #eae2e2; width:100%; padding:4px; border-radius:4px;" />
+                    Upload Resume as DOC, DOCX, PDF file with maximum size of 300 KB
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div style="height:35px;"></div>
+    <div id="Set4" class="list-group-item">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div id="divErrorBox4" class="message-error"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.Label("Title")
+
+                    @Html.TextBoxFor(model => model.TitleFour, new { placeholder = "TITLE", @class = "form-control", @maxlength = 50, @autocomplete = "off" })
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CategoryIdFour)
+                    @Html.DropDownListFor(model => model.CategoryIdFour, new SelectList(Model.Categories, "Id", "Name"), "--SELECT--", new { @class = "form-control " })
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SpecializationIdFour)
+
+                    @Html.DropDownListFor(model => model.SpecializationIdFour, new SelectList(Model.Specialisations, "Id", "Name"), "--SELECT--", new { @class = "form-control " })
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CountryIdFour)
+
+                    @Html.DropDownListFor(model => model.CountryIdFour, new SelectList(Model.Countries, "Id", "Text"), "--SELECT--", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StateIdFour)
+
+                    @Html.DropDownListFor(model => model.StateIdFour, new SelectList(Model.States, "Id", "Text"), "--SELECT--", new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.City4)
+
+                    @Html.TextBoxFor(model => model.City4, new { placeholder = "CITY", title = "City", @class = "form-control", @maxlength = 50 })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        @Html.LabelFor(model => model.Zip4)
+                        @Html.TextBoxFor(model => model.Zip4, new { placeholder = "ZIP", title = "Zip", @class = "form-control", @maxlength = 15 })
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        @Html.Label("Experience")
+                        @Html.DropDownListFor(model => model.Experience4, Model.ExperienceList(), "--SELECT--", new { title = "Experience", @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.QualificationId4)
+
+                    @Html.DropDownListFor(model => model.QualificationId4, new SelectList(Model.Qualifications, "Id", "Text"), "--SELECT--", new { title = "Highest Qualification", @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            @Html.Label("Age From")
+                            @Html.DropDownListFor(model => model.MinimumAge4, Model.AgeList(), "--SELECT--", new { title = "Age From", @class = "form-control" })
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            @Html.Label("Age To")
+                            @Html.DropDownListFor(model => model.MaximumAge4, Model.AgeList(20), "--SELECT--", new { title = "Age To", @class = "form-control" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                    <input type="file" name="UploadResume4" id="UploadResume4" title="Upload DOC, DOCX  or PDF file with maximum size of 300 KB" style="border:1px solid #eae2e2; width:100%; padding:4px; border-radius:4px;" />
+                    Upload Resume as DOC, DOCX, PDF file with maximum size of 300 KB
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div style="height:35px;"></div>
+    <div class="form-group text-center">
+        <input type="submit" value="Upload Resumes" id="btnUploadResumes" class="btn btn-info" />
+    </div>
+}
+<script type="text/javascript" language="javascript">
+
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#divErrorBox1").hide();
+        $("#divErrorBox2").hide();
+        $("#divErrorBox3").hide();
+        $("#divErrorBox4").hide();
+
+        $("#MinimumAge1").change(function () {
+            $("#MaximumAge1").empty();
+            $("#MaximumAge1").append("<option value =\"\">--SELECT--</option>");
+
+            $.post('@Url.Action("GetAgeList", "JsonHelper")', { age: $('option:selected', $(this)).val() },
+                    function (result) {
+                        if (result.length != 0) {
+                            $(result).each(function () {
+                                $("#MaximumAge1").append("<option value =" + this.Value + ">" + this.Text + "</option>");
+                            });
+                        }
+                    });
+        });
+
+        $("#MinimumAge2").change(function () {
+            $("#MaximumAge2").empty();
+            $("#MaximumAge2").append("<option value =\"\">--SELECT--</option>");
+            $.post('@Url.Action("GetAgeList", "JsonHelper")', { age: $('option:selected', $(this)).val() },
+                    function (result) {
+                        if (result.length != 0) {
+
+                            $(result).each(function () {
+                                $("#MaximumAge2").append("<option value =" + this.Value + ">" + this.Text + "</option>");
+                            });
+                        }
+                    });
+        });
+
+        $("#MinimumAge3").change(function () {
+            $("#MaximumAge3").empty();
+            $("#MaximumAge3").append("<option value =\"\">--SELECT--</option>");
+            $.post('@Url.Action("GetAgeList", "JsonHelper")', { age: $('option:selected', $(this)).val() },
+                    function (result) {
+                        if (result.length != 0) {
+
+                            $(result).each(function () {
+                                $("#MaximumAge3").append("<option value =" + this.Value + ">" + this.Text + "</option>");
+                            });
+                        }
+                    });
+        });
+
+        $("#MinimumAge4").change(function () {
+            $("#MaximumAge4").empty();
+            $("#MaximumAge4").append("<option value =\"\">--SELECT--</option>");
+            $.post('@Url.Action("GetAgeList", "JsonHelper")', { age: $('option:selected', $(this)).val() },
+                    function (result) {
+                        if (result.length != 0) {
+
+                            $(result).each(function () {
+                                $("#MaximumAge4").append("<option value =" + this.Value + ">" + this.Text + "</option>");
+                            });
+                        }
+                    });
+        });
+
+        $("#CountryIdOne").change(function () {
+            $("#StateIdOne").empty();
+            $("#StateIdOne").append("<option value =\"\">--SELECT--</option>");
+            $.post('@Url.Action("GetStates", "JsonHelper")', { countryid: $('option:selected', $(this)).val() },
+                    function (result) {
+                        if (result.length != 0) {
+                            $(result).each(function () {
+                                $("#StateIdOne").append("<option value =" + this.Value + ">" + this.Text + "</option>");
+                            });
+                        }
+                    });
+        });
+
+        $("#CountryIdTwo").change(function () {
+            $("#StateIdTwo").empty();
+            $("#StateIdTwo").append("<option value =\"\">--SELECT--</option>");
+            $.post('@Url.Action("GetStates", "JsonHelper")', { countryid: $('option:selected', $(this)).val() },
+                    function (result) {
+                        if (result.length != 0) {
+                            $(result).each(function () {
+                                $("#StateIdTwo").append("<option value =" + this.Value + ">" + this.Text + "</option>");
+                            });
+                        }
+                    });
+        });
+
+        $("#CountryIdThree").change(function () {
+            $("#StateIdThree").empty();
+            $("#StateIdThree").append("<option value =\"\">--SELECT--</option>");
+            $.post('@Url.Action("GetStates", "JsonHelper")', { countryid: $('option:selected', $(this)).val() },
+                    function (result) {
+                        if (result.length != 0) {
+                            $(result).each(function () {
+                                $("#StateIdThree").append("<option value =" + this.Value + ">" + this.Text + "</option>");
+                            });
+                        }
+                    });
+        });
+
+        $("#CountryIdFour").change(function () {
+            $("#StateIdFour").empty();
+            $("#StateIdFour").append("<option value =\"\">--SELECT--</option>");
+            $.post('@Url.Action("GetStates", "JsonHelper")', { countryid: $('option:selected', $(this)).val() },
+                    function (result) {
+                        if (result.length != 0) {
+                            $(result).each(function () {
+                                $("#StateIdFour").append("<option value =" + this.Value + ">" + this.Text + "</option>");
+                            });
+                        }
+                    });
+        });
+
+        $("#CategoryIdOne").change(function () {
+            $("#SpecializationIdOne").empty();
+            $("#SpecializationIdOne").append("<option value =\"\">--SELECT--</option>");
+            $.post('@Url.Action("GetSpecializations", "JsonHelper")', { categoryid: $('option:selected', $(this)).val() },
+                    function (result) {
+                        if (result.length != 0) {
+                            $(result).each(function () {
+                                $("#SpecializationIdOne").append("<option value =" + this.Value + ">" + this.Text + "</option>");
+                            });
+                        }
+                    });
+        });
+
+        $("#CategoryIdTwo").change(function () {
+            $("#SpecializationIdTwo").empty();
+            $("#SpecializationIdTwo").append("<option value =\"\">--SELECT--</option>");
+            $.post('@Url.Action("GetSpecializations", "JsonHelper")', { categoryid: $('option:selected', $(this)).val() },
+                    function (result) {
+                        if (result.length != 0) {
+                            $(result).each(function () {
+                                $("#SpecializationIdTwo").append("<option value =" + this.Value + ">" + this.Text + "</option>");
+                            });
+                        }
+                    });
+        });
+
+
+        $("#CategoryIdThree").change(function () {
+            $("#SpecializationIdThree").empty();
+            $("#SpecializationIdThree").append("<option value =\"\">--SELECT--</option>");
+            $.post('@Url.Action("GetSpecializations", "JsonHelper")', { categoryid: $('option:selected', $(this)).val() },
+                    function (result) {
+                        if (result.length != 0) {
+                            $(result).each(function () {
+                                $("#SpecializationIdThree").append("<option value =" + this.Value + ">" + this.Text + "</option>");
+                            });
+                        }
+                    });
+        });
+
+
+        $("#CategoryIdFour").change(function () {
+            $("#SpecializationIdFour").empty();
+            $("#SpecializationIdFour").append("<option value =\"\">--SELECT--</option>");
+            $.post('@Url.Action("GetSpecializations", "JsonHelper")', { categoryid: $('option:selected', $(this)).val() },
+                    function (result) {
+                        if (result.length != 0) {
+                            $("#SpecializationIdFour").empty();
+                            $(result).each(function () {
+                                $("#SpecializationIdFour").append("<option value =" + this.Value + ">" + this.Text + "</option>");
+                            });
+                        }
+                    });
+        });
+
+        $("#UploadResume1").change(function () {
+            var DefineSize = 300 * 1024;
+            var flag = false;
+
+            if ($("#TitleOne").val() != "" && $("#CategoryIdOne").val() != "" && $("#SpecializationIdOne").val() != "" && $("#CountryIdOne").val() != "") {
+                var reg = /^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))+(.doc|.pdf|.docx|.DOC|.DOCX|.rtf)$/;
+                if ($(this).val() != "") {
+                    if (reg.test($(this).val())) {
+                        var fileSize = this.files[0].size;
+                        if (parseInt(DefineSize) >= parseInt(fileSize)) {
+                            flag = true;
+                            $("#divErrorBox1").hide();
+                        }
+                        else {
+                            $("#divErrorBox1").html("File size exceed the limit (300 KB)!");
+                            $("#divErrorBox1").show();
+                            flag = false;
+                        }
+                    }
+                    else {
+                        flag = false;
+                        $("#divErrorBox1").html("Only .doc, .docx, .pdf files are allowed!");
+                        $("#divErrorBox1").show();
+                    }
+                } else {
+                    flag = false;
+                    $("#divErrorBox1").html("Please Select File (.doc, .docx, .pdf)!");
+                    $("#divErrorBox1").show();
+                }
+            } else {
+                $("#divErrorBox1").html("Please provide Title, Category, Specialization and Country!");
+                $("#divErrorBox1").show();
+                flag = false;
+            }
+
+            return flag;
+        });
+
+        $("#UploadResume2").change(function () {
+            var DefineSize = 300 * 1024;
+            var flag = false;
+
+            if ($("#TitleTwo").val() != "" && $("#CategoryIdTwo").val() != "" && $("#SpecializationIdTwo").val() != "" && $("#CountryIdTwo").val() != "") {
+                var reg = /^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))+(.doc|.pdf|.docx|.DOC|.DOCX|.rtf)$/;
+                if ($(this).val() != "") {
+                    if (reg.test($(this).val())) {
+                        var fileSize = this.files[0].size;
+                        if (parseInt(DefineSize) >= parseInt(fileSize)) {
+                            flag = true;
+                            $("#divErrorBox2").hide();
+                        }
+                        else {
+                            $("#divErrorBox2").html("File size exceed the limit (300 KB)!");
+                            $("#divErrorBox2").show();
+                            flag = false;
+                        }
+                    }
+                    else {
+                        flag = false;
+                        $("#divErrorBox2").html("Only .doc, .docx, .pdf files are allowed!");
+                        $("#divErrorBox2").show();
+                    }
+                } else {
+                    $("#divErrorBox2").html("Please Select File (.doc, .docx, .pdf)!");
+                    $("#divErrorBox2").show();
+                    flag = false;
+                }
+            } else {
+                $("#divErrorBox2").html("Please provide Title, Category, Specialization and Country!");
+                $("#divErrorBox2").show();
+                flag = false;
+            }
+        });
+
+        $("#UploadResume3").change(function () {
+            var DefineSize = 300 * 1024;
+            var flag = false;
+
+            if ($("#TitleThree").val() != "" && $("#CategoryIdThree").val() != "" && $("#SpecializationIdThree").val() != "" && $("#CountryIdThree").val() != "") {
+                var reg = /^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))+(.doc|.pdf|.docx|.DOC|.DOCX|.rtf)$/;
+                if ($(this).val() != "") {
+                    if (reg.test($(this).val())) {
+                        var fileSize = this.files[0].size;
+                        if (parseInt(DefineSize) >= parseInt(fileSize)) {
+                            flag = true;
+                            $("#divErrorBox3").hide();
+                        }
+                        else {
+                            $("#divErrorBox3").html("File size exceed the limit (300 KB)!");
+                            $("#divErrorBox3").show();
+                            flag = false;
+                        }
+                    }
+                    else {
+                        flag = false;
+                        $("#divErrorBox3").html("Only .doc, .docx, .pdf files are allowed!");
+                        $("#divErrorBox3").show();
+                    }
+                } else {
+                    $("#divErrorBox3").html("Please Select File (.doc, .docx, .pdf)!");
+                    $("#divErrorBox3").show();
+                    flag = false;
+                }
+            } else {
+                $("#divErrorBox3").html("Please provide Title, Category, Specialization and Country!");
+                $("#divErrorBox3").show();
+                flag = false;
+            }
+        });
+
+        $("#UploadResume4").change(function () {
+            var DefineSize = 300 * 1024;
+            var flag = false;
+
+            if ($("#TitleFour").val() != "" && $("#CategoryIdFour").val() != "" && $("#SpecializationIdFour").val() != "" && $("#CountryIdFour").val() != "") {
+                var reg = /^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))+(.doc|.pdf|.docx|.DOC|.DOCX|.rtf)$/;
+                if ($(this).val() != "") {
+                    if (reg.test($(this).val())) {
+                        var fileSize = this.files[0].size;
+                        if (parseInt(DefineSize) >= parseInt(fileSize)) {
+                            flag = true;
+                            $("#divErrorBox4").hide();
+                        }
+                        else {
+                            $("#divErrorBox4").html("File size exceed the limit (300 KB)!");
+                            $("#divErrorBox4").show();
+                            flag = false;
+                        }
+                    }
+                    else {
+                        flag = false;
+                        $("#divErrorBox4").html("Only .doc, .docx, .pdf files are allowed!");
+                        $("#divErrorBox4").show();
+                    }
+                } else {
+                    $("#divErrorBox4").html("Please Select File (.doc, .docx, .pdf)!");
+                    $("#divErrorBox4").show();
+                    flag = false;
+                }
+            } else {
+                $("#divErrorBox4").html("Please provide Title, Category, Specialization and Country!");
+                $("#divErrorBox4").show();
+                flag = false;
+            }
+        });
+
+       
+    });
+
+
+    function validate() {
+        var uploadcontrol = document.getElementById('file');
+        var uploadval = document.getElementById('file').value;
+        var reg = /^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))+(.doc|.pdf|.docx|.DOC|.DOCX|.rtf)$/;
+        if (uploadval.length > 0) {
+            var fileSize = uploadcontrol.files[0].size;
+            if (reg.test(uploadval)) {
+                var DefineSize = 300 * 1024;
+                if (parseInt(DefineSize) >= parseInt(fileSize))
+                    return true;
+                else {
+                    alert("Your File Size Exceed 300 KB!!!");
+                    return false;
+                }
+            }
+            else {
+                alert("Only .doc, docx,pdf files are allowed!");
+                return false;
+            }
+        }
+        else {
+            alert("Please Select File [.doc, docx,pdf!!]");
+            return false;
+        }
+    }
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,132 @@
+﻿<div class="clear" style="height:15px"></div>
+<div class="import-contacts">
+    <div class="sub-heading">
+        <h2>Invite Contacts</h2>
+    </div>
+    <div class="contact">
+        <ul>
+            <li>
+                <a href="https://login.yahoo.com/" target="_blank" style="width:48px; height:32px; padding:5px; display:inline-block; cursor:pointer" title="Import contact from Yahoo Mail">
+                    <img src="~/images/yahoo.png" alt="" height="32" width="32">
+                </a>
+                @*<a onclick="socialinviter.contactimporter.auth('yahoo');" style="width:48px; height:32px; padding:5px; display:inline-block; cursor:pointer" title="Import contact from Yahoo Mail">
+                    <img src="~/images/yahoo.png" alt="" height="32" width="32">
+                </a>*@
+            </li>
+            <li>
+                <a href="https://accounts.google.com/" target="_blank" style="width:48px; height:32px; padding:5px; display:inline-block; cursor:pointer" title="Import contacts from Gmail">
+                    <img src="~/images/gmail.png" alt="Gmail" height="32" width="32">
+                </a>
+                @*<a onclick="socialinviter.contactimporter.auth('gmail');" style="width:48px; height:32px; padding:5px; display:inline-block; cursor:pointer" title="Import contacts from Gmail">
+                    <img src="~/images/gmail.png" alt="Gmail" height="32" width="32">
+                </a>*@
+            </li>
+            <li>
+                <a href="/network/live" target="_blank" style="width:48px; height:32px; padding:5px; display:inline-block; cursor:pointer" title="Import contacts from Outlook">
+                    <img src="~/images/outlook.png" alt="outlook" height="32" width="32" />
+                </a>
+                @*<a onclick="socialinviter.contactimporter.auth('outlook');" style="width:48px; height:32px; padding:5px; display:inline-block; cursor:pointer" title="Import contacts from Outlook">
+                    <img src="~/images/outlook.png" alt="outlook" height="32" width="32" />
+                </a>*@
+            </li>
+            <li>
+                <a role="button" data-toggle='modal' class="csvupload" data-target='#uploadCSVDialog' style="width:48px; height:32px; padding:5px; display:inline-block; cursor:pointer" title="Import contacts by Uploading .csv file">
+                    <img src="~/images/File-CSV-icon.png" alt="CSV File Upload" height="32" width="32" />
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<div id="socialinviter-template" style="display:none; visibility:hidden"></div>
+<script type="text/javascript">
+    var licenses = "lic_c4d729e9-4561-455f-8dd0-88364,lic_ea2b7167-f480-41d0-b579-02af3"; //replace your license key lic_ea2b7167-f480-41d0-b579-02af3
+    var SIConfiguration = {
+        "showmodal": false,
+        "path": {
+            "authpage": "@Request.Url.Scheme://@Request.Url.Authority/oauth.html" //replace the web url of oauth.html
+        },
+        "callbacks": {
+            "loaded": function (service, data) {
+
+                console.log(socialinviter.friendsinviter.getAllContacts());
+                var contacts = [];
+
+                for (var i = 0; i < data.length; i++) {
+
+                    var first_name = data[i].name.first_name;
+                    var last_name = data[i].name.last_name;
+                    var email = "";
+                    var phone = "";
+                    if (data[i].id == undefined) {
+                        email = data[i].email[0];
+                    } else {
+                        email = data[i].id;
+                    }
+                    if (data[i].phone != undefined) {
+                        phone = data[i].phone[0];
+                    }
+                    contacts.push({ "FirstName": first_name, "LastName": last_name, "Phone": phone, "Email": email });
+                }
+
+                $.post('@Url.Action("ImportContacts", "JsonHelper")', { data: contacts },
+                     function (result) {
+                         //window.location.reload();
+                     });
+            }
+        }
+    }
+
+    var fileref = document.createElement("script"); fileref.setAttribute("type", "text/javascript");
+    fileref.setAttribute("id", "apiscript"); fileref.setAttribute("src", "//socialinviter.com/all.js?keys=" + licenses);
+    try { document.body.appendChild(fileref) } catch (a) { document.getElementsByTagName("head")[0].appendChild(fileref); }
+    var loadInitFlg = 0, socialinviter, loadConf = function () {
+        window.setTimeout(function () {
+            $(document).ready(function () {
+                loadInitFlg++;
+                socialinviter ? socialinviter.load(SIConfiguration) : 15 > loadInitFlg && window.setTimeout(loadConf, 200)
+            })
+        },
+        250)
+    }; window.setTimeout(loadConf, 200);
+</script>
+
+
+<style>
+    .CI-SI-services {
+        height: 32px;
+    }
+
+    .CI-SI-shape-rounded {
+        border-radius: 0 !important;
+    }
+
+    .CI-SI-twitter {
+        background: url(/Images/twitter.png) no-repeat;
+    }
+
+        .CI-SI-twitter:hover {
+            background: url(/Images/twitter.png) no-repeat;
+        }
+
+    .CI-SI-google {
+        background: url(/Images/google-plus.png) no-repeat;
+        height: 32px;
+    }
+
+        .CI-SI-google:hover {
+            background: url(/Images/google-plus.png) no-repeat;
+            height: 32px;
+        }
+
+    .CI-SI-facebook {
+        background: url(/Images/facebook.png) no-repeat;
+        height: 32px;
+    }
+
+        .CI-SI-facebook:hover {
+            background: url(/Images/facebook.png) no-repeat;
+            height: 32px;
+        }
+</style>

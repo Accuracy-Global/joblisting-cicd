@@ -1,0 +1,193 @@
+{
+  "base-path": "/asserts/json/",
+  "title": "",
+  "img-path": "",
+  "about": [
+    "With the growing reach of the digitalization, it is very important for businesses to have a strong online presence. Thus, having not just a website but a user-friendly, responsive website is crucial. Rasi Infotech is the right partner which can introduce new elements to your business's digital presence. We cater to the unique demands and requirements of every client and approaching every project with a creative and positive mindset.",
+    "It is the diligence and experience of our developers that makes us successful in what we do. Owing to the fast pace of the world of technology, new discoveries are being made almost every day. In fact, it has gone through some drastic changes in the last few decades and have gained instant popularity."
+  ],
+  "header": [
+    {
+      "h1": "Our USP"
+    },
+    {
+      "h2": "In-House Product Development"
+    },
+    {
+      "h3": "Strategy"
+    },
+    {
+      "h4": "Design"
+    },
+    {
+      "h5": "Deliver"
+    }
+  ],
+  "items": {
+    "h1": {
+      "title": "Our USP",
+      "about": "Our USP",
+      "img-path": "",
+      "header": [
+        {
+          "h1": "Software Development & Creative Design under one roof"
+        },
+        {
+          "h2": "Customer-focused solution frameworks"
+        },
+        {
+          "h3": "Innovative Products"
+        },
+        {
+          "h4": "Time-to-market advantage"
+        },
+        {
+          "h5": "Customization ability"
+        },
+        {
+          "h6": "Robust delivery mechanism"
+        },
+        {
+          "h7": "Quality-oriented work culture"
+        }
+      ],
+      "items": {
+        "h1": {
+          "about": "",
+          "extras": [
+            
+          ],
+          "technologies": [
+            
+          ],
+          "detailed-data-path": ""
+        },
+        "h2": {
+          "about": "",
+          "extras": [
+            
+          ],
+          "technologies": [
+            
+          ],
+          "detailed-data-path": ""
+        },
+        "h3": {
+          "about": "",
+          "extras": [
+            
+          ],
+          "technologies": [
+            
+          ],
+          "detailed-data-path": "app/"
+        },
+        "h4": {
+          "about": "",
+          "extras": [
+            
+          ],
+          "technologies": [
+            
+          ],
+          "detailed-data-path": "app/"
+        },
+        "h5": {
+          "about": "",
+          "extras": [
+            
+          ],
+          "technologies": [
+            
+          ],
+          "detailed-data-path": "app/"
+        },
+        "h6": {
+          "about": "",
+          "extras": [
+            
+          ],
+          "technologies": [
+            
+          ],
+          "detailed-data-path": "app/"
+        },
+        "h7": {
+          "about": "",
+          "extras": [
+            
+          ],
+          "technologies": [
+            
+          ],
+          "detailed-data-path": "app/"
+        }
+      },
+      "extras": {
+        
+      },
+      "detailed-data-path": ""
+    },
+    "h2": {
+      "title": "",
+      "about": "",
+      "img-path": "",
+      "header": [
+        
+      ],
+      "items": {
+        
+      },
+      "extras": {
+        
+      },
+      "detailed-data-path": ""
+    },
+    "h3": {
+      "title": "Strategy",
+      "about": "Our Team , analyses the customers business problem and brings a practical & logical plan to solve the business puzzle",
+      "img-path": "",
+      "header": [
+        
+      ],
+      "items": {
+        
+      },
+      "extras": {
+        
+      },
+      "detailed-data-path": ""
+    },
+    "h4": {
+      "title": "Design",
+      "about": "UI / UX & Application developers create the business design based on a systametic discussion with the customer.We plan our application gives an instant answer to the client and is scalable for tomorrows need.",
+      "img-path": "",
+      "header": [
+        
+      ],
+      "items": {
+        
+      },
+      "extras": {
+        
+      },
+      "detailed-data-path": ""
+    },
+    "h5": {
+      "title": "Deliver",
+      "about": "We always keep up our timelines and plan our execution and quality assessment prior to the delivery.",
+      "img-path": "",
+      "header": [
+        
+      ],
+      "items": {
+        
+      },
+      "extras": {
+        
+      },
+      "detailed-data-path": ""
+    }
+  },
+  "detailed-data-path": ""
+}

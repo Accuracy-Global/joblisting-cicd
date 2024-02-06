@@ -1,0 +1,113 @@
+﻿@using JobPortal.Domain
+@using JobPortal.Data
+@using JobPortal.Library.Enumerators;
+@using JobPortal.Library.Helpers;
+@using System.Collections
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Manage Tips";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<JobPortal.Data.Tip>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+}
+
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">Tips</h1>
+            Mange tips here
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+        @Html.ActionLink("Create New Tip", "AddTip", "Admin", null, new { @class = "btn btn-info" })
+    </div>
+</div>
+@Html.Partial("_MessagePartial")
+<div class="clear" style="height:15px;"></div>
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="form-group">
+                @Html.DropDownList("Type", new SelectList(new SortedDictionary<int, string>() { { 4, "Individual" }, { 5, "Company" } }, "key", "value"), "SELECT TYPE", new { @class = "form-control" })
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        <div class='input-group date'>
+                            @Html.TextBox("StartDate", null, new { @class = "form-control", placeholder = "FROM DATE", @title = "FROM DATE", @readonly = "readonly" })
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <div class='input-group date'>
+                                @Html.TextBox("EndDate", null, new { @class = "form-control", placeholder = "TO DATE", @title = "TO DATE", @readonly = "readonly" })
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 text-right">
+            <input type="submit" value="Search" class="btn btn-info btn-block" />
+        </div>
+    </div>
+}
+<div class="clear" style="height:15px;"></div>
+@{
+    WebGrid grid = new WebGrid(@ViewBag.Model, ajaxUpdateContainerId: "grid");
+}
+<div id="container-grid" class="table-responsive">
+    @grid.GetHtml(htmlAttributes: new { id = "grid", @style = "width:100%" }, tableStyle: "table table-bordered table-hover",
+        columns: new[]
+        {
+            grid.Column(columnName: "Type", header: "Type", canSort:false, format: (p) =>
+            {
+                string type= string.Empty;
+                type = ((SecurityRoles)p.Type).ToString().TitleCase();
+                return type;
+            }),
+            grid.Column("Title",header:"Title", canSort:false, format: (item) =>
+            {
+                return Html.ActionLink((string)item.Title, "ShowTip", new { id = item.Id }, new { title = item.Title, @target = "_blank" });
+            }),
+            grid.Column(columnName: "DateCreated", header: "Date", canSort:false, format: p => p.DateCreated.ToString("MMM-dd-yyyy")),
+            grid.Column("Actions", canSort:false, format: (item) =>
+            {
+                string links = string.Empty;
+                links = string.Format("<b>{0}</b>", Html.ActionLink("Edit", "EditTip", new { Id = item.Id }, new { title = "Delete Tip", @target = "_blank" }).ToString());
+                links += string.Format(" | <b>{0}</b>", Html.ActionLink("Delete", "DeleteTip", new { Id = item.Id }, new { title = "Delete Tip", @target = "_blank", onclick="return confirm('Are you sure to delete?');" }).ToString());
+                return Html.Raw(links);
+            })
+        })
+    <div style="text-align:center; margin-top: -15px;">
+
+        @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Tips",
+            new RouteValueDictionary()
+            {
+                { "PageNumber" , PageNumber},
+                { "Type" , Request["Type"]},
+                { "StartDate" , Request["StartDate"]},
+                { "EndDate" , Request["EndDate"]},
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+    </div>
+</div>

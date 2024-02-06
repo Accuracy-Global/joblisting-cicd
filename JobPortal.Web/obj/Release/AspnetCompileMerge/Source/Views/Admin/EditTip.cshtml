@@ -1,0 +1,61 @@
+﻿@model JobPortal.Web.Models.TipModel
+
+@{
+    ViewBag.Title = "Tip - Update";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/tinymce/tinymce.min.js"></script>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">Edit</h1>
+            Update tip here
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:15px;"></div>
+
+@using (Html.BeginForm())
+{
+    <div>
+        @Html.ValidationSummary(true)
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Type)
+
+                    @Html.DropDownListFor(model => model.Type, new SelectList(new SortedDictionary<int, string>() { { 4, "Individual" }, { 5, "Company" }, { 0, "All" } }, "key", "value"), "--SELECT--", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Type)
+
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Title)
+
+                    @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Title)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Body)
+                    @Html.TextAreaFor(model => model.Body, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Body)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 text-right">
+                <div class="form-group">
+                    @Html.ActionLink("Back", "Tips", null, new { @class = "btn btn-default", @style = "width:75px;" }) &nbsp;<input type="submit" value="Submit" class="btn btn-info" style="width:75px;" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    tinymce.init({ selector: '#Body', plugins: "link", toolbar: "bold | italic | underline | strikethrough | alignleft | aligncenter | alignright | alignjustify | styleselect | formatselect | fontselect | fontsizeselect | bullist | numlist | outdent | indent | blockquote | undo | redo | removeformat | subscript | superscript | link", menubar: false, height: "285px" });
+</script>

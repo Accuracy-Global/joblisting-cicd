@@ -1,0 +1,355 @@
+﻿@model JobPortal.Models.PackageSelect
+@using JobPortal.Models
+@{
+    ViewBag.Title = "Choose Package";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+}
+<script src="~/Scripts/jquery.tmpl.min.js"></script>
+<script src="~/Scripts/jquery.tmplPlus.min.js"></script>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    .icolumns {
+        /*float: left;*/
+        /*width: 33.33%;*/
+        /*padding: 0px;*/
+        /*border-right:solid #fff 2px;*/
+        /*background-color: #eee;*/
+    }
+
+    .ecolumns {
+        float: left;
+        /*width: 25%;*/
+        width: 33.33%;
+        padding: 1px;
+        /*border:solid #bab9b9 1px;*/
+    }
+
+    .price {
+        list-style-type: none;
+        /*border: 1px solid #eee;*/
+        margin: 0;
+        padding: 0;
+        -webkit-transition: 0.3s;
+        transition: 0.3s;
+        background-color: #eee;
+        min-height: 75px;
+    }
+
+        /*.price:hover {
+        box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2)
+    }*/
+
+        .price .header {
+            background-color: #aaa9ae;
+            color: white;
+            font-size: 20px;
+            padding: 2px;
+            text-align: center;
+        }
+
+        .price .footer {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            text-align: center;
+            padding-left: 24%;
+            padding-right: 20%;
+        }
+
+        .price li {
+            /*border-bottom: 1px solid #eee;*/
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-right: 8px;
+            text-align: left;
+            padding-left: 5%;
+            font-size: 14px;
+        }
+
+            .price li:nth-child(3) {
+                /*border-bottom: 1px solid #eee;*/
+                padding-top: 15px;
+                padding-bottom: 5px;
+                padding-left: 8px;
+                padding-right: 8px;
+                text-align: left;
+                padding-left: 5%;
+                font-size: 14px;
+            }
+
+        .price .grey {
+            background-color: #00a0d9;
+            font-size: 20px;
+            color: #fff;
+            font-size: 20px;
+            padding: 5px;
+            text-align: center;
+        }
+
+    /*.price .grey {
+        background-color: #2f88bc;
+        font-size: 20px;
+        color:#fff;
+        font-size: 20px;
+        padding:8px;
+        text-align:center;
+    }*/
+    .buttonfree {
+        background-color: #eee;
+        border: none;
+        color: white;
+        padding: 5px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 18px;
+        display: block;
+        width: 100px;
+        text-align: center;
+    }
+
+    .button {
+        background-color: #00a6e0;
+        border: none;
+        color: white;
+        padding: 5px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 18px;
+        display: block;
+        width: 100px;
+        text-align: center;
+    }
+
+        .button:hover {
+            text-decoration: none;
+            color: #fff;
+        }
+
+    @@media only screen and (max-width: 600px) {
+        .columns {
+            width: 100%;
+        }
+    }
+
+    .tooltip > .tooltip-inner {
+        background-color: #ffffff;
+        color: #000000;
+        border: 1px solid #000000;
+        padding: 10px;
+        font-size: 14px;
+        font-weight: bold;
+        opacity: 10;
+    }
+    /* Tooltip on top */
+    .tooltip.top > .tooltip-arrow {
+        border-top: 5px solid #000000;
+    }
+    /* Tooltip on bottom */
+    .tooltip.bottom > .tooltip-arrow {
+        border-bottom: 5px solid #000000;
+    }
+    /* Tooltip on left */
+    .tooltip.left > .tooltip-arrow {
+        border-left: 5px solid #000000;
+    }
+    /* Tooltip on right */
+    .tooltip.right > .tooltip-arrow {
+        border-right: 5px solid #000000;
+    }
+</style>
+
+@Html.Partial("_MessagePartial")
+
+<div>
+    <form id="SelectForm" action="Select" method="post">
+        <input type="hidden" id="ReturnUrl" name="ReturnUrl" value="@Model.ReturnUrl" />
+        <input type="hidden" id="Act" name="Act" value="@Model.Act" />
+        <input type="hidden" id="Ctrl" name="Ctrl" value="@Model.Ctrl" />
+        <div class="clear" style="height:15px;"></div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="alert alert-info" style="background-color:#eee; border-color:#eee">
+                    <span style="color:#000;font-size:18px; font-weight:bold">
+                        Country where job will be shown to jobseekers!
+                    </span>
+                    <span style="margin-bottom:0px; color:#000">
+                        <small>
+                            (For example, job will be shown to jobseekers in this country only)
+                        </small>
+                    </span>
+                    <div class="clear" style="height:8px;"></div>
+                    <select id="CountryId" name="CountryId" class="form-control" data-text="Select Country" data-value="@Model.CountryId" style="font-size: 18px; font-weight: bold">
+                        <option value="">Select Country</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="clear" style="height:15px;"></div>
+        @if (user.Type == 4)
+        {
+            <div class="row" id="iArea" style="margin-left:-5px;margin-right:-5px;"></div>
+            <div class="clear" style="height:25px;"></div>
+            <div class="text-center" style="font-weight:500; font-size:18px;">
+                Advertise your job to multiple social network sites and reach to large number of users!
+            </div>
+            <div class="clear" style="height:50px;"></div>
+        }
+        else
+        {
+            <div class="row" id="eArea" style="margin-left:-5px;margin-right:-5px;">
+            </div>
+            <div class="clear" style="height:25px;"></div>
+            <div class="text-center" style="font-weight:500; font-size:18px;">
+                Advertise your job to multiple social network sites and reach to large number of users!
+            </div>
+            <div class="clear" style="height:50px;"></div>
+
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12 text-center">
+                    <div class="form-group" style="margin-bottom:30px;">
+                        <img src="~/Images/indeed.png" />
+                        <div style="padding-left:45px; padding-right:22px; padding-top:30px; text-align:left">
+                            Your job will be sent to Indeed to show to large number of users for maximum response
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 text-center">
+                    <div class="form-group" style="margin-bottom:30px;">
+                        <img src="~/Images/facebook_payment.png" />
+                        <div style="padding-left:45px; padding-right:22px; padding-top:24px; text-align:left">
+                            Your job will be sent to Facebook to show to 156000 of users for maximum response
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 text-center">
+                    <div class="form-group" style="margin-bottom:30px;">
+                        <img src="~/Images/twitter_payment.png" />
+                        <div style="padding-left:45px; padding-right:22px; padding-top:24px; text-align:left">
+                            Your job will be sent to Twitter to show to 65000 of users for maximum response
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="clear" style="height:60px;"></div>
+        <div class="text-center">
+            <a href="/@user.PermaLink" class="btn btn-default" style="width:100px">CANCEL</a>
+        </div>
+        <div class="clear" style="height:25px;"></div>
+        }
+    </form>
+</div>
+<script type="text/javascript">
+    var utype = @user.Type;
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip({ placement: "bottom" });
+        $.getJSON("/help/countrylist", {}, function (result) {
+            $("#CountryId").empty();
+            $("#CountryId").append("<option value=''>" + $("#CountryId").data("text") + "</option>");
+            $.each(result, function (idx, item) {
+                $("#CountryId").append("<option value=" + item.Id + ">" + item.Name + "</option>");
+            });
+            $("#CountryId").val($("#CountryId").data("value"));
+            filter();
+        });
+        $("#CountryId").change(function () {
+            filter();
+            return false;
+        });
+
+        //var pkgs = $.find(".pkg");
+        //$(pkgs).each(function () {
+
+        //});
+    });
+
+    function filter(){
+        var jsonForm = $("#SelectForm").serializeObject();
+        $("#waitDialog").modal("show");
+        var flag=false;
+        $.post("/package/select", jsonForm, function (result) {
+            if (result.Id > 0) {
+                $("#waitDialog").modal("hide");
+                $("#iArea").empty();
+                $("#eArea").empty();
+                var list = result.Data.List;
+                $(list).each(function () {
+                    if (utype == 4) {
+                        this.Act = result.Data.Act;
+                        this.Ctrl = result.Data.Ctrl;
+                        this.ReturnUrl = result.Data.ReturnUrl;
+                        $("#iResultItem").tmpl(this).appendTo("#iArea");
+
+                        $.post("/package/boostlist", { id: $(this).data("id") }, function (result) {
+                            if (result.Id > 0) {
+                                $.each(result.Data, function (idx, item) {
+                                    $("#PKG_" + item.PackageId).append("<li style='padding-left:0px;'>" + item.Area + " for " + item.Days + " days</li>");
+                                });
+                            }
+                        });
+
+                    } else {
+                        this.Act = result.Data.Act;
+                        this.Ctrl = result.Data.Ctrl;
+                        this.ReturnUrl = result.Data.ReturnUrl;
+                        $("#eResultItem").tmpl(this).appendTo("#eArea");
+
+                        $.post("/package/boostlist", { id: this.Id }, function (result) {
+                            if (result.Id > 0) {
+                                $.each(result.Data, function (idx, item) {
+                                    $("#PKG_" + item.PackageId).append("<li style='padding-left:0px;'>" + item.Area + " for " + item.Days + " days</li>");
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+</script>
+<script id="iResultItem" type="text/x-jquery-tmpl">
+    <div class="col-lg-4 col-md-4" style="padding-left:5px; padding-right:5px;margin-bottom:30px;min-height:336px;">
+        <div class="icolumns">
+            <ul class="price">
+                <li class="header">${Name}</li>
+                <li class="grey">$ ${Rate}e</li>
+                <li>${Profiles} Profiles View</li>
+                <li>${Messages} Messages</li>
+                <li data-id="${Id}" class="pkg">
+                    <ul id="PKG_${Id}" class="price" style="padding-left:0px;"></ul>
+                </li>
+                <li class="footer"><a href="/${Ctrl}/${act}?rurl=${ReturnUrl}&PackageId=${id}" class="btn btn-info" style="width:75px;font-size: 13px;">Buy&nbsp;Now</a></li>
+            </ul>
+        </div>
+    </div>
+</script>
+<script id="eResultItem" type="text/x-jquery-tmpl">
+    <div class="col-lg-4 col-md-4" style="padding-left:5px; padding-right:5px;margin-bottom:30px;min-height:336px;">
+        <div class="icolumns">
+            <ul class="price">
+                <li class="header">${Name}</li>
+                <li class="grey">$ ${Rate}</li>
+                {{if (Name == "Free")}}
+                <li>${Jobs} Job List</li>
+                {{else}}
+                <li>${Jobs} Job List with <a href="#" data-toggle="tooltip" title="Job will be distributed to @ViewBag.DistributeNumbers Facebook, Twitter, Indeed, Google and others! See list below!">Social Network</a></li>
+                {{/if}}
+                <li>${Profiles} Profiles View</li>
+                <li>${Messages} Messages</li>
+                <li>${Interviews} Interviews</li>
+                <li>${Downloads} Resume Downloads</li>
+                <li data-id="${Id}" class="pkg">
+                    <ul id="PKG_${Id}" class="price" style="padding-left:0px;"></ul>
+                </li>
+                <li class="footer"><a href="/${Ctrl}/${Act}?rurl=${ReturnUrl}&PackageId=${Id}" class="btn btn-info" style="width:75px;font-size: 13px;">Buy&nbsp;Now</a></li>
+            </ul>
+        </div>
+    </div>
+</script>

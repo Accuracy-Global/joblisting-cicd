@@ -1,0 +1,39 @@
+========================================================
+20-10-2023 03:21:48 AM 
+========================================================
+20-10-2023 03:27:16 AM 
+========================================================
+20-10-2023 03:34:37 AM 
+GetUserCountryByIp() => {"country_code":"CA","country_name":"Canada","city":"Sherwood Park","postal":"T8H","latitude":53.556,"longitude":-113.2952,"IPv4":"108.181.97.217","state":"Alberta"}
+Session_Start() => Session: Canada
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: Canada
+Controller: Job, Action: Home => Session: Canada
+========================================================
+20-10-2023 03:42:50 AM 
+GetUserCountryByIp() => 108.181.97.217
+GetUserCountryByIp() => {"country_code":"CA","country_name":"Canada","city":"Sherwood Park","postal":"T8H","latitude":53.556,"longitude":-113.2952,"IPv4":"108.181.97.217","state":"Alberta"}
+========================================================
+20-10-2023 03:46:01 AM 
+GetUserCountryByIp() => ::1
+GetUserCountryByIp() => 108.181.97.217
+GetUserCountryByIp() => {"country_code":"CA","country_name":"Canada","city":"Sherwood Park","postal":"T8H","latitude":53.556,"longitude":-113.2952,"IPv4":"108.181.97.217","state":"Alberta"}
+Session_Start() => Session: Canada
+========================================================
+20-10-2023 03:55:06 AM 
+========================================================
+20-10-2023 03:57:35 AM 
+/Home
+GetUser_IP 1 () => ::1
+GetUser_IP 2 () => 108.181.97.217
+https://geolocation-db.com/json/975d73a0-5723-11ee-abeb-bbf96f1cb178/108.181.97.217
+GetUserCountryByIp() => {"country_code":"CA","country_name":"Canada","city":"Sherwood Park","postal":"T8H","latitude":53.556,"longitude":-113.2952,"IPv4":"108.181.97.217","state":"Alberta"}
+Session_Start() => Session: Canada
+========================================================
+========================================================
+20-10-2023 04:06:51 AM
+Initial Url => /Home
+GetUser_IP 1 () => Public Ip: ::1
+GetUser_IP 2 () => Public Ip: 108.181.97.217
+https://geolocation-db.com/json/975d73a0-5723-11ee-abeb-bbf96f1cb178/108.181.97.217
+GetUserCountryByIp() => {"country_code":"CA","country_name":"Canada","city":"Sherwood Park","postal":"T8H","latitude":53.556,"longitude":-113.2952,"IPv4":"108.181.97.217","state":"Alberta"}
+Session_Start() => Session: Canada

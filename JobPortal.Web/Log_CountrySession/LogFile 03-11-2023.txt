@@ -1,0 +1,463 @@
+================================================================================================================
+03-11-2023 05:27:17 AM
+Initial Url => http://localhost:1514/us/profile/mouni-ch-180954
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/profile/mouni-ch-180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/32902
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/35715
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/34860
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/26555
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/33647
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/profile/mouni-ch-180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/32902
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/26555
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/35715
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/33647
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/34860
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/profile/mouni-ch-180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/32902
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/26555
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/34860
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/35715
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/33647
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/profile/mouni-ch-180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/32902
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/33647
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/35715
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/34860
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/26555
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/profile/mouni-ch-180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/32902
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/34860
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/26555
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/33647
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/35715
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/profile/mouni-ch-180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/32902
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/26555
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/34860
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/35715
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/33647
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/profile/mouni-ch-180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/32902
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/26555
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/33647
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/34860
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/35715
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/india/profile/mouni-ch-180954
+UrlPrivilegeFilter => Contoller: home, Action: memberprofile, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/profile/mouni-ch-180954?country=us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/32902
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/26555
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/33647
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/34860
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/35715
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/profile/mouni-ch-180954?country=us
+================================================================================================================
+03-11-2023 05:50:25 AM
+Initial Url => http://localhost:1514/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41599
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41742
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41736
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41597
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41595
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41596
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41747
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41745
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Afghanistan/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41599
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41742
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41736
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41597
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41747
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41595
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41596
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41745
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41599
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41595
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41747
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41745
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41742
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Afghanistan
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41597
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41596
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41736
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30572
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30249
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22773
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22762
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30569
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30290
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22774
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30576
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Afghanistan
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30572
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22762
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22773
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30290
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30576
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30249
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30569
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22774
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Afghanistan
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30576
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22774
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22773
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30569
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22762
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30290
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30572
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30249
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Afghanistan
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30572
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22774
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22773
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30290
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30569
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30576
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30249
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22762
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Afghanistan
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30572
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22774
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22773
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30249
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30576
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30569
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30290
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22762
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Afghanistan
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30290
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22774
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22773
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22762
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30572
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30569
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30576
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30249
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Afghanistan
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30572
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22774
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22773
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30569
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30249
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30576
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30290
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22762
+================================================================================================================
+03-11-2023 06:55:09 AM
+Initial Url => http://localhost:1514/Afghanistan
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Afghanistan
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30572
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22774
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22773
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22762
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30290
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30249
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30576
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30569
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Afghanistan
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30572
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22774
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22773
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30249
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30576
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30569
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30290
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22762
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41599
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41595
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41747
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41745
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41742
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41736
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41596
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41597
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Afghanista
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Afghanistan
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30572
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22774
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22773
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30290
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30576
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30249
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30569
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22762
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Afghanistan
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30572
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22773
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22774
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30290
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30569
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30249
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30576
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22762
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Afghanistan
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30572
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22773
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30290
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30576
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30249
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/30569
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22762
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/22774
+================================================================================================================
+03-11-2023 07:10:59 AM
+Initial Url => http://localhost:1514/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 108.181.97.217
+GeoLocation Api => https://api.ipapi.com/api/108.181.97.217?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"108.181.97.217","type":"ipv4","continent_code":"NA","continent_name":"North America","country_code":"US","country_name":"United States","region_code":"CA","region_name":"California","city":"Walnut","zip":"91789","latitude":"34.01301956176758","longitude":"-117.85394287109375"}
+Session_Start() => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: us
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/us/Home
+Controller: Job, Action: Home => Session: US
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41599
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41742
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41736
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41597
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41595
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41596
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41745
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1514/Image/Avtar/41747

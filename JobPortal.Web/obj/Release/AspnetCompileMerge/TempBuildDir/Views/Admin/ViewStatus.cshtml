@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewBag.Title = "SMS Status Report";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/jquery.tmpl.min.js"></script>
+<script src="~/Scripts/jquery.tmplPlus.min.js"></script>
+<style>
+    .cdate {
+        padding-left: 0px;
+        list-style-type: none;
+    }
+
+        .cdate li {
+            display: inline-block;
+            width: auto;
+        }
+
+    .fcountry {
+    }
+
+    .nfield {
+        min-width: 75px;
+        text-align: center;
+    }
+
+    #fy {
+        width: 85px;
+    }
+
+    #ty {
+        width: 85px;
+    }
+</style>
+<div class="title-login">
+    <h1 style="margin-top:-15px;">SMS Status Report</h1>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div style="font-size:1.2em; background-color:#ede9e9; padding:4px;">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    @ViewBag.Name
+                </div>
+            </div>
+        </div>
+        <table class="table table-bordered table-hover" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th class="nfield">Phone</th>
+                    <th class="nfield">Status</th>
+                    <th class="nfield">Status Date</th>                    
+                    <th class="nfield">Action</th>
+                </tr>
+            </thead>
+            <tbody id="ContactArea"></tbody>
+        </table>
+        <div class="row hide" id="ViewMore">
+            <div class="col-lg-12 col-md-12">
+                <button role="button" class="btn btn-info btn-sm btn-block" style="width:100%;">View More</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script id="itemplate" type="text/html">
+    <tr>
+        <td>${Name}</td>
+        <td class="nfield">${Phone}</td>
+        <td class="nfield">${Status}</td>
+        <td class="nfield">${StatusDate}</td>
+        <td class="nfield"></td>
+    </tr>
+</script>
+<script>
+    var url = "/admin/ViewStatus";           
+    $(function () {
+        $.post(url, {Id : @Request.QueryString["id"] }, function (data) {
+            $("#ContactArea").empty();
+            if(data.length>0){               
+                $.each(data, function (i, item) {
+                    $("#itemplate").tmpl(item).appendTo("#ContactArea");
+                });
+            }
+        });         
+    });
+</script>

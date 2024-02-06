@@ -1,0 +1,69 @@
+﻿@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Web.Models
+@using JobPortal.Models
+@{
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+}
+<script>
+    $(function () {
+        RecentJobs();
+        setInterval("RecentJobs()", 10000);
+    });
+    var type = Number("@(User != null ? user.Type : 0)");
+    var jobs = Number("@(User != null ? JobService.Instance.CountJobsByCountry(user.CountryId.Value) : 0)");
+    var rows = 0;
+    var pages = 0;
+    var pagesize = 5;
+    var pageNumber = 1;
+    function RecentJobs() {
+        if(pages != 0 && pageNumber < pages){
+            pageNumber ++;
+        }else{
+            pageNumber = 1;
+        }
+        $.post('@Url.Action("PromotedProciles", "Jobseeker")', { pageNumber: pageNumber},
+                   function (result) {                       
+                       $("#PromotedProfiles").empty();
+                       if (result.Data.length != 0) {
+                           rows = result.Data[0].MaxRows;
+                           pages = Math.ceil(rows/pagesize);                           
+                           $(result.Data).each(function () {                             
+                                var html = "<div class=\"news\">";
+                                html += "<style>.c-" + this.UserId + "::after { background: url(\"/image/Avtar?Id=" + this.UserId + "\") no-repeat 0 0 / contain; background-position: center center;}</style>";
+                                html += "<a href=\"" + this.PermaLink + "\" data-toggle=\"tooltip\" title=\"" + this.FullName + "\" target=\"_blank\"><div class=\"news-img c-" + this.UserId + "\"></div></a>"
+                                html += "<div class=\"news-content\">";
+                                html += "<small><a href=\"" + this.PermaLink + "\" title=\"" + this.Title + "\" target=\"_blank\" style=\"color:#34ba08\">" + (this.Title.length > 25 ? this.Title.substring(0, 24) + "..." : this.Title) + "</a></small>";
+                                html += "<p><small><span title=\"" + this.FullName + "\">" + this.FullName + "</span></small><br/><small><span title=\"" + this.Country + "\">" + this.Country + "</span></small></p>";
+                                html += "</div>";
+                                html += "</div>";
+
+                                $("#PromotedProfiles").append(html);
+                           });
+
+                           if(type != 0){
+                               if(jobs <= 0 && type == 4){
+                                   $("#rj").hide();
+                               }
+                           }
+                       } else if(result.length < 5) {
+                           $("#rj").hide();
+                       }
+                   });
+    }
+</script>
+<div class="connect">
+    <div class="sub-heading">
+        <h2>Suggested Jobseekers</h2>
+    </div>
+    <div id="PromotedProfiles">
+    </div>
+    @if (User != null && user.Role == JobPortal.Library.Enumerators.SecurityRoles.Employers)
+    {       
+        <div class="seemore" id="rj"><a href="@Url.Action("Search", "Jobseeker", new { CountryId = user.CountryId })" target="_blank">See more</a><i aria-hidden="true" class="fa fa-angle-right"></i></div>     
+    }
+</div>

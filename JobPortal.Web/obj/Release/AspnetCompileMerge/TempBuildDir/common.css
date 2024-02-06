@@ -1,0 +1,64 @@
+﻿body
+    {
+        background-color:#eee;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+    .logo-holder
+    {
+        width:1000px;height:70px;margin:0 auto;text-align:left;
+    }
+    .logo
+    {
+        background-color: Black;color: Orange;float: left;padding: 5px 10px;border-radius: 5px;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;font-size: 20px;margin-top: 12px;margin-left: 20px;
+    }
+    .login
+    {
+        text-decoration: none;float: right;margin-top: 20px;font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;margin-right: 20px;font-size: 14px;color: #2864AA;
+    }
+    .body-holder
+    {
+        width:1000px;height:400px;background-color:White;margin:0 auto;text-align:center;border-radius:5px;
+    }
+    .btnProduct
+    {
+        padding: 20px;float: left;margin-left: 32px;text-align: center;margin-top: 150px;width: 250px;height: 50px;line-height: 55px;font-size: 25px;border-radius: 5px;cursor: pointer;
+    }
+    .btnProduct span
+    {
+        float:left;
+    }
+    .btnProduct img
+    {
+        margin-right:10px;
+    }
+    .CI 
+    {
+        background-color: #40cb90;color: white;
+    }
+    .CI:hover {
+        background-color: #3DE09B;
+    }
+    .SC{
+      background-color: #415E9B;color: white
+    }
+    .SC:hover{
+      background-color: #4F6DAC;
+    }
+    .FI
+    {
+        background-color: #578DFF;color: white;
+    }
+    .FI:hover
+    {
+        background-color: #7EA7FF;
+    }
+    ul
+    {
+        list-style:none;
+        padding:0px;
+        margin:0px;
+    }
+    ul li
+    {
+        float:left;
+    }

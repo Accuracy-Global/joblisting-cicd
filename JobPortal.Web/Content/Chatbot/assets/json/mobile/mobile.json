@@ -1,0 +1,243 @@
+{
+  "base-path": "/asserts/json/",
+  "title": "Mobile Application Development",
+  "img-path": "",
+  "about": [
+    "In the present digital scenario mobile apps has escalated in all businesses. To cope with that, we become your accelerator to design and develop brilliant mobile applications. Rasi Infotech is a top-notch mobile app crafting company offering mobile application development services for Android and Hybrid models.",
+    "Our team of mobile app developers is creative and knowledgeable to accomplish your individual demands as well as your business needs. With advanced tools and technology our mobile apps developers are able to create highly customized mobile applications for consumer needs and enterprises."
+  ],
+  "header": [
+    {
+      "h1": "Our Key Focus is always on"
+    },
+    {
+      "h2": "Products to Showcase"
+    },
+    {
+      "h3": "Design"
+    },
+    {
+      "h4": "Develop"
+    },
+    {
+      "h5": "Deliver"
+    }
+  ],
+  "items": {
+    "h1": {
+      "title": "",
+      "about": "",
+      "img-path": "",
+      "header": [
+        {
+          "h1": "User Experience Design"
+        },
+        {
+          "h2": "Scalability & Interoperability"
+        },
+        {
+          "h3": "Cross-Platform Coverage"
+        },
+        {
+          "h4": "Security & Compliance"
+        },
+        {
+          "h5": "Accelerated Delivery"
+        }
+      ],
+      "items": [
+        {
+          "h1": {
+            "about": "",
+            "extras": [],
+            "technologies": [],
+            "detailed-data-path": ""
+          }
+        },
+        {
+          "h2": {
+            "about": "",
+            "extras": [],
+            "technologies": [],
+            "detailed-data-path": ""
+          }
+        },
+        {
+          "h3": {
+            "about": "",
+            "extras": [],
+            "technologies": [],
+            "detailed-data-path": ""
+          }
+        },
+        {
+          "h4": {
+            "about": "",
+            "extras": [],
+            "technologies": [],
+            "detailed-data-path": ""
+          }
+        },
+        {
+          "h5": {
+            "about": "",
+            "extras": [],
+            "technologies": [],
+            "detailed-data-path": ""
+          }
+        }
+      ],
+      "extras": [],
+      "detailed-data-path": "app/"
+    },
+    "h2": {
+      "title": "",
+      "about": "",
+      "img-path": "",
+      "header": {
+        "h1": "Dealepal",
+        "h2": "Univzone",
+        "h3": "What’s Your Math Score",
+        "h4": "Kun Devaki",
+        "h5": "Hindu Way Of Life",
+        "h6": "Sanpets"
+      },
+
+      "items":[ {
+        "h1": {
+          "title": "Dealepal",
+          "about": "Dealepal",
+          "img-path": "",
+          "header": {
+            "1": "/asserts/img/Portfolio",
+            "2": "/asserts/img/Portfolio",
+            "3": "/asserts/img/Portfolio",
+            "4": "/asserts/img/Portfolio"
+          },
+          "items": {},
+          "extras": {},
+          "detailed-data-path": "detail/"
+        }},
+        {"h2": {
+          "title": "Univzone",
+          "about": "Univzone",
+          "img-path": "",
+          "header": {
+            "1": "/asserts/img/Portfolio",
+            "2": "/asserts/img/Portfolio",
+            "3": "/asserts/img/Portfolio",
+            "4": "/asserts/img/Portfolio"
+          },
+          "items": {},
+          "extras": {},
+          "detailed-data-path": "detail/"
+        }},
+        {"h3": {
+          "title": "What’s Your Math Score",
+          "about": "What’s Your Math Score",
+          "img-path": "",
+          "header": {
+            "1": "/asserts/img/Portfolio",
+            "2": "/asserts/img/Portfolio",
+            "3": "/asserts/img/Portfolio",
+            "4": "/asserts/img/Portfolio"
+          },
+          "items": {},
+          "extras": {},
+          "detailed-data-path": "detail/"
+        }},
+        {"h4": {
+          "title": "Kun Devaki",
+          "about": "Kun Devaki",
+          "img-path": "",
+          "header": {
+            "1": "/asserts/img/Portfolio",
+            "2": "/asserts/img/Portfolio",
+            "3": "/asserts/img/Portfolio",
+            "4": "/asserts/img/Portfolio"
+          },
+          "items": {},
+          "extras": {},
+          "detailed-data-path": "detail/"
+        }},
+        {"h5": {
+          "title": "Hindu Way Of Life",
+          "about": "Hindu Way Of Life",
+          "img-path": "",
+          "header": {
+            "1": "/asserts/img/Portfolio",
+            "2": "/asserts/img/Portfolio",
+            "3": "/asserts/img/Portfolio",
+            "4": "/asserts/img/Portfolio"
+          },
+          "items": {},
+          "extras": {},
+          "detailed-data-path": "detail/"
+        }},
+       { "h6": {
+          "title": "Sanpets",
+          "about": "Sanpets",
+          "img-path": "",
+          "header": {
+            "1": "/asserts/img/Portfolio",
+            "2": "/asserts/img/Portfolio",
+            "3": "/asserts/img/Portfolio",
+            "4": "/asserts/img/Portfolio"
+          },
+          "items": {},
+          "extras": {},
+          "detailed-data-path": "detail/"
+        }
+      }],
+      "extras": [],
+      "detailed-data-path": "app/"
+    },
+    "h3": {
+      "title": "Design",
+      "about": "Our Team , analyses the customers business problem and brings a practical & logical design to make the application user friendly.",
+      "img-path": "",
+      "header": [
+        
+      ],
+      "items": {
+        
+      },
+      "extras": {
+        
+      },
+      "detailed-data-path": ""
+    },
+    "h4": {
+      "title": "Develop",
+      "about": "UI / UX & Application developers create the business design based on a systametic discussion with the customer.We plan our application gives an instant answer to the client and is scalable for tomorrows need.",
+      "img-path": "",
+      "header": [
+        
+      ],
+      "items": {
+        
+      },
+      "extras": {
+        
+      },
+      "detailed-data-path": ""
+    },
+    "h5": {
+      "title": "Deliver",
+      "about": "We always keep up our timelines and plan our execution and quality assessment prior to the delivery.",
+      "img-path": "",
+      "header": [
+        
+      ],
+      "items": {
+        
+      },
+      "extras": {
+        
+      },
+      "detailed-data-path": ""
+    }
+ 
+  },
+  "detailed-data-path": ""
+}

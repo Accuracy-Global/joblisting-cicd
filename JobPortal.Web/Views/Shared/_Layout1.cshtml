@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>@Page.Title</title>
+    @RenderSection("head", required: false)
+</head>
+<style>
+
+    #campaign a:visited {
+        color: #34ba08;
+    }
+
+    #myaccount a:visited {
+        color: #34ba08;
+    }
+
+    #mywork a:visited {
+        color: #34ba08;
+    }
+</style>
+<style>
+    i.fa-angle-down {
+        float: right;
+    }
+
+    .toggled-on .fa-angle-down {
+        display: none;
+    }
+
+
+
+    .koh-faqs-page-title {
+        /* font-family: Nexa W01 Heavy;*/
+        font-size: 30px;
+        color: #04202E;
+        font-weight: 700;
+    }
+
+    .koh-faq-question-span {
+        /* font-family: Helvetica Neue LT Pro Roman !important;*/
+        font-size: 16px !important;
+        color: #000 !important;
+        font-weight: 700 !important;
+        display: inline-block;
+    }
+
+    .koh-faq-answer {
+        /*  font-family: Helvetica Neue LT Pro Roman;*/
+        color: #000;
+        font-weight: 400;
+        display: none;
+    }
+
+    .koh-faq-answer1 {
+        /*  font-family: Helvetica Neue LT Pro Roman;*/
+        color: #000;
+        font-weight: 400;
+    }
+
+
+    .icon {
+        font-size: 10px;
+        padding-right: 5px;
+    }
+
+    .fa {
+        transition: transform .2s;
+    }
+
+        .fa.active {
+            transform: rotateZ(90deg);
+        }
+</style>
+<body>
+
+    <div class="col-sm-3">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important;width:230px;">
+
+
+            @RenderBody();
+            </ul>
+
+    </div>
+
+
+</body>
+</html>

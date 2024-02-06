@@ -1,0 +1,206 @@
+{
+  "base-path": "/asserts/json/Bigdata",
+  "title": "Big Data & Analytics: Volume, Visual, Value",
+  "img-path": "",
+  "quotes": [
+   {"quote": "Processed data is information. Processed information is knowledge Processed knowledge is Wisdom.",
+    "quoteBy":"Ankala V. Subbarao"},
+   {"quote":"Information is the oil of the 21st century, and analytics is the combustion engine.",
+   "quoteBy":"Peter Sondergaard, Gartner Research."},
+   {"quote":"The most valuable commodity I know of is information.",
+   "quoteBy":"Gordon Gekko, Wall Street"},
+   {"quote":"You can have data without information, but you cannot have information without data.",
+   "quoteBy":"Daniel Keys Moran"},
+   {"quote":"Data really powers everything that we do.",
+   "quoteBy":"Jeff Weiner"}
+  ],
+  "breif": [
+    "Data has become a strategic asset for many grown-up companies in a variety of industries. Increasingly, efficient operations rely on effective usage of available amounts of structure or/and unstructured data. Data from any source(Database or files) can add significant value and competitive advantages. With the exponential growth of data, it becomes difficult to process it using database management tools along with traditional data processing applications. Team at Rasi Infotech has right and deep expertise in handling your data , processing, storage and in providing analysis for your business decisions.",
+    "Companies planning to exploit the benefits of Big Data are often facing the challenge of developing stand-alone efficient solution to operate humongous volumes of unstructured data that is cost-efficient, secure and addresses specific business need.",
+    "Our Team have been developing enterprise-wide analytics and business critical solutions for the companies trying to effectively use large amounts of structured and unstructured data from various sources. We combine extensive multi-industry experience with innovative approach to Big Data storage, analysis and processing techniques development.",
+    "We have Developed products that uses data analytis with the available data for improvizing the business and to provide crisp data for the organization to take decision."
+  ],
+  "about": [
+    "Data , be it small or big is the lifeline of business in the present scenario as it forms the foundation of long-term planning and decision-making. It serves as a rich source of business knowledge and insights once combined with analytics.",
+    "However, the challenge lies in being able to extract and analyze this data in an efficient manner. The innovative technique of visualizing the processed data enables businesses to overcome the challenge related to data handling. A dashboard offers an aggregated graphical view of a variety of business elements such as reports, analysis, graphs, tables, and more at a single location.",
+    "In current business scenario data analytics is needed in Business to Consumer applications (B2C). Organizations collect data that they have gathered from customers, businesses, economy and practical experience. Data is then processed after gathering and is categorized as per the requirement and analysis is done to study purchase patterns and etc."
+  ],
+  "aboutBigData": [
+    "We, at Rasi Infotech, serve as a reliable digital partner in securing the data and offering a range of dashboard development services, including data visualization, business intelligence technologies, business analysis, and more.",
+    "Our competent team of professionals collects, organizes, and transforms your business data into rich visuals, which are easy to comprehend. We make sure that our expertly prepared dashboards keep you updated with the latest information so that you can recognize the latest trends and make informed business decisions."
+  ],
+  "four": [
+    "The amount of data. While volume indicates more data, it is the granular nature of the data that is unique. Big data requires processing high volumes of low-density, unstructured Hadoop data—that is, data of unknown value, such as Twitter data feeds, click streams on a web page and a mobile app, network traffic, sensor-enabled equipment capturing data at the speed of light, and many more. It is the task of big data to convert such Hadoop data into valuable information. For some organizations, this might be tens of terabytes, for others it may be hundreds of petabytes.",
+    "The fast rate at which data is received and perhaps acted upon. The highest velocity data normally streams directly into memory versus being written to disk. Some Internet of Things (IoT) applications have health and safety ramifications that require real-time evaluation and action. Other internet-enabled smart products operate in real time or near real time. For example, consumer eCommerce applications seek to combine mobile device location and personal preferences to make time-sensitive marketing offers. Operationally, mobile application experiences have large user populations, increased network traffic, and the expectation for immediate response.",
+    "New unstructured data types. Unstructured and semi-structured data types, such as text, audio, and video require additional processing to both derive meaning and the supporting metadata. Once understood, unstructured data has many of the same requirements as structured data, such as summarization, lineage, auditability, and privacy. Further complexity arises when data from a known source changes without notice. Frequent or real-time schema changes are an enormous burden for both transaction and analytical environments.",
+    "Data has intrinsic value—but it must be discovered. There are a range of quantitative and investigative techniques to derive value from data—from discovering a consumer preference or sentiment, to making a relevant offer by location, or for identifying a piece of equipment that is about to fail. The technological breakthrough is that the cost of data storage and compute has exponentially decreased, thus providing an abundance of data from which statistical analysis on the entire data set versus previously only sample. The technological breakthrough makes much more accurate and precise decisions possible. However, finding value also requires new discovery processes involving clever and insightful analysts, business users, and executives. The real big data challenge is a human one, which is learning to ask the right questions, recognizing patterns, making informed assumptions, and predicting behavior."
+  ],
+  "header": [
+    {
+      "h1": "Services We Offer:"
+    },
+    {
+      "h2": "Technologies We Are Familiar With:"
+    }
+  ],
+  "items": {
+    "h1": {
+      "title": "Services We Offer",
+      "about": "",
+      "img-path": "",
+      "header": [
+        {
+          "h1": "Architecture Strategy & Design"
+        },
+        {
+          "h2": "Big Data Implementation"
+        },
+        {
+          "h3": "Business Analytics & Intelligence"
+        },
+        {
+          "h4": "Big Data Consulting"
+        },
+        {
+          "h5": "Data Mining & Data Aggregation"
+        },
+        {
+          "h6": "Big Data Integration"
+        },
+        {
+          "h7": "Data Migration & Maintenance"
+        },
+        {
+          "h8": "Big Data Optimization"
+        },
+        {
+          "h9": "Custom Business Solutions"
+        }
+      ],
+      "items": {
+        "h1": {
+          "about": "",
+          "extras": [],
+          "technologies": [],
+          "detailed-data-path": ""
+        },
+        "h2": {
+          "about": "",
+          "extras": [],
+          "technologies": [],
+          "detailed-data-path": ""
+        },
+        "h3": {
+          "about": "",
+          "extras": [],
+          "technologies": [],
+          "detailed-data-path": ""
+        },
+        "h4": {
+          "about": "",
+          "extras": [],
+          "technologies": [],
+          "detailed-data-path": ""
+        },
+        "h5": {
+          "about": "",
+          "extras": {},
+          "technologies": [],
+          "detailed-data-path": "website/"
+        },
+        "h6": {
+          "about": "",
+          "extras": {},
+          "technologies": [],
+          "detailed-data-path": "website/"
+        },
+        "h7": {
+          "about": "",
+          "extras": {},
+          "technologies": [],
+          "detailed-data-path": "website/"
+        },
+        "h8": {
+          "about": "",
+          "extras": {},
+          "technologies": [],
+          "detailed-data-path": "website/"
+        },
+        "h9": {
+          "about": "",
+          "extras": {},
+          "technologies": [],
+          "detailed-data-path": "website/"
+        }
+      },
+      "extras": {},
+      "detailed-data-path": ""
+    },
+    "h2": {
+      "title": "Technologies We Are Familiar With",
+      "about": "Technologies We Are Familiar With",
+      "img-path": "",
+      "header": [
+        {
+          "h1": "Hadoop & Eco System"
+        },
+        {
+          "h2": "Mongo DB"
+        },
+        {
+          "h3": "Apache Solr"
+        },
+        {
+          "h4": "R – Machine Learning"
+        },
+        {
+          "h5": "Weka"
+        },
+        {
+          "h6": "Python"
+        }
+      ],
+      "items": {
+        "1": {
+          "about": "",
+          "extras": [],
+          "technologies": [],
+          "detailed-data-path": ""
+        },
+        "2": {
+          "about": "",
+          "extras": [],
+          "technologies": [],
+          "detailed-data-path": ""
+        },
+        "3": {
+          "about": "",
+          "extras": [],
+          "technologies": [],
+          "detailed-data-path": ""
+        },
+        "4": {
+          "about": "",
+          "extras": [],
+          "technologies": [],
+          "detailed-data-path": ""
+        },
+        "5": {
+          "about": "",
+          "extras": {},
+          "technologies": [],
+          "detailed-data-path": "website/"
+        },
+        "6": {
+          "about": "",
+          "extras": {},
+          "technologies": [],
+          "detailed-data-path": "website/"
+        }
+      },
+      "extras": {},
+      "detailed-data-path": ""
+    }
+  },
+  "detailed-data-path": ""
+}

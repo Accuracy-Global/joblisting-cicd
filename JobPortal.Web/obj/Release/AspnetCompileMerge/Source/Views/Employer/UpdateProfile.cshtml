@@ -1,0 +1,647 @@
+﻿@model JobPortal.Web.Models.EmployerModel
+@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Web.Models
+@using JobPortal.Models
+@{
+    ViewBag.Title = Model.Company + " - Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    UserInfoEntity user = null;
+    string username = string.Empty;
+    if (User != null)
+    {
+        user = User.Info;
+        username = user.Username;
+    }
+    UserProfile profile = MemberService.Instance.Get(Model.Id);
+    Photo photo = MemberService.Instance.GetPhoto("Profile", profile.Username);
+    bool allowUpload = (!string.IsNullOrEmpty(profile.Summary) && profile.CategoryId != null && !string.IsNullOrEmpty(profile.Mobile));
+    string profile_image_url = Url.Action("Avtar", "Image", new { Id = user.Id });
+}
+
+@using (Html.BeginForm("UpdateProfile", "Employer", FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-lg-4 col-md-4">
+            <div class="title-login">
+                <h1 style="margin-top:-15px">Profile</h1>
+                Manage profile here
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-lg-offset-4 col-md-offset-4">
+            <input type="submit" value="Submit" class="btn btn-info sbutton pull-right" style="width:85px;" />
+        </div>
+        <div class="col-lg-2 col-md-2">
+            <div class="form-group">
+                <div style="background-color:#b3cb39;width: 92px;padding: 4px;height: 34px;border-radius:4px; display:block">
+                    <a href="https://play.google.com/store/apps/details?id=com.joblisting.joblisting" style="background-color: #b3cb39; color:#ffffff; text-decoration:none" target="_blank">
+                        <table cellpadding="0" style="margin-bottom: 0px;">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <i class="fa fa-android" aria-hidden="true" style="font-size:20px; color:#ffffff"></i>
+                                    </td>
+                                    <td>
+                                        <div style="font-size: 10px;padding-left:2px;line-height: 8px;">
+                                            Download for
+                                        </div>
+                                        <div style="font-size:18px">
+                                            Android
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("_MessagePartial")
+    <div class="clear" style="height:15px"></div>
+    <div class="row">
+        <div class="col-lg-10 col-md-10 col-sm-10">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    &nbsp;
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    @if (!string.IsNullOrEmpty(Model.PremaLink))
+                    {
+                        <div id="divWebAddressDisplay" style="padding: 5px; border: #c9cacc 1px solid; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;">
+                            Page Address:&nbsp;&nbsp;<a href="/@Model.PremaLink" target="_blank">@Request.Url.Scheme://@Request.Url.Authority/@Model.PremaLink</a>
+                        </div>
+                        <div id="divEditWebAddress" style="display:none;">
+                            @Html.TextBoxFor(model => model.PremaLink, new { @class = "form-control", placeholder = "PAGE ADDRESS", title = "PAGE ADDRESS", @maxlength = 50 })
+
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4" style="padding-top:5px;">
+                    <a href="#" id="btnEditWebAddress" title="Edit Page Address" style="font-weight:bold">Edit Page Address</a>
+                    <span id="btnCancel" style="font-weight:bold; display:none"> | <a href="#">Cancel</a></span>
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-8" style="padding-top:5px;" id="divWebAddressMsg">
+                    @Html.ValidationMessageFor(model => model.PremaLink)
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2">
+            <style>
+                .square110 {
+                    cursor: pointer;
+                    font-size: 75px;
+                    font-weight: 700;
+                    height: 110px;
+                    width: 110px;
+                    background-color: #fff;
+                }
+
+                    .square110::after {
+                        content: "";
+                        display: block;
+                        height: 0;
+                        padding-bottom: 100%;
+                        width: 100%;
+                    }
+            </style>
+            <div style="display:table-cell; vertical-align:middle; text-align:center; width:110px; height:70px;">
+                <div class="square110" href="#" id="mylogo" role="button" data-toggle='modal' data-target='#uploadDialog' title="Upload photo" style="background: url('@profile_image_url') no-repeat 0 0 / contain;background-position center center;"></div>
+            </div>
+            <div class="clear" style="height:5px"></div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    @if (!string.IsNullOrEmpty(profile.Summary) && profile.CategoryId != null && !string.IsNullOrEmpty(profile.Mobile))
+                    {
+                        <a href="#" role="button" id="lnkbUpload" data-toggle='modal' data-target='#uploadDialog' onclick="return isValid();">Upload</a>
+                    }
+                    else
+                    {
+                        <a href="javascript:void();" role="button">Upload</a>
+                    }
+                    @if (photo != null && photo.IsApproved && profile.IsConfirmed == true)
+                    {
+                        <text> | </text><a href="#" id="lnkbDeletePhoto" role="button" data-toggle='modal' data-target='#deleteDialog' title="Delete Photo">Delete</a>
+                    }
+                    else
+                    {
+                        <text> | </text><a id="deletePhoto" title="Delete Photo">Delete</a>
+                        <script>
+                            $("#deletePhoto").attr("disabled", true);
+                        </script>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            &nbsp;
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+                @Html.Label("Overview") <span style="color:#ff6a00">(Min. 150 &amp; Max. 700 characters)</span>
+                @Html.TextAreaFor(model => model.Overview, new { @class = "form-control", @maxlength = 700, @style = "height:85px;resize:vertical" })
+                @Html.ValidationMessageFor(model => model.Overview)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Company)
+
+                @Html.TextBoxFor(model => model.Company, new { @class = "form-control", @maxlength = 50 })
+                @Html.ValidationMessageFor(model => model.Company)
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.CategoryId)
+                <select id="CategoryId" name="CategoryId" class="form-control" required data-value="@Model.CategoryId"></select>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.FirstName)
+                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", @maxlength = 20 })
+                @Html.ValidationMessageFor(model => model.FirstName)
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.LastName)
+                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", @maxlength = 20 })
+                @Html.ValidationMessageFor(model => model.LastName)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address)
+
+                @Html.TextAreaFor(model => model.Address, new { @class = "form-control", @maxlength = 150, @style = "height:100px;resize:none" })
+                @Html.ValidationMessageFor(model => model.Address)
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CountryId)
+                        <select id="CountryId" name="CountryId" class="form-control" data-value="@Model.CountryId"></select>
+                        @Html.ValidationMessageFor(model => model.CountryId)
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.StateId)
+                        <select id="StateId" name="StateId" class="form-control" data-value="@Model.StateId"></select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.City)
+
+                @Html.TextBoxFor(model => model.City, new { @class = "form-control", @maxlength = 50 })
+                @Html.ValidationMessageFor(model => model.City)
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Zip)
+
+                @Html.TextBoxFor(model => model.Zip, new { @class = "form-control", @maxlength = 15 })
+                @Html.ValidationMessageFor(model => model.Zip)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
+                @Html.Label("Mobile Number")
+
+                <div class="input-group">
+                    @Html.DropDownListFor(model => model.MobileCountryCode, new SelectList(Model.CountryWithCodes, "Value", "Key", Model.MobileCountryCode), "SELECT", new { @class = "form-control", @required = "required", @style = "height:31px" })
+                    <span class="input-group-btn" style="width:0px;"></span>
+                    @Html.TextBoxFor(model => model.Mobile, new { @class = "form-control", placeholder = "MOBILE NUMBER", maxlength = "15", @style = "height:31px" })
+                </div>
+
+                @Html.ValidationMessageFor(model => model.Mobile)
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
+                @Html.Label("Phone Number")
+
+                <div class="input-group">
+                    @Html.DropDownListFor(model => model.PhoneCountryCode, new SelectList(Model.CountryWithCodes, "Value", "Key", Model.PhoneCountryCode), "SELECT", new { @class = "form-control", @required = "required", @style = "height:31px" })
+                    <span class="input-group-btn" style="width:0px;"></span>
+                    @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", placeholder = "PHONE NUMBER", maxlength = "15", @style = "height:31px" })
+                </div>
+
+                @Html.ValidationMessageFor(model => model.Phone)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+                @Html.LabelFor(model => model.Website)
+
+                @Html.TextBoxFor(model => model.Website, new { @class = "form-control", @maxlength = 80 })
+                @Html.ValidationMessageFor(model => model.Website)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+                @Html.Label("Facebook Page") (Optional)
+
+                @Html.TextBoxFor(model => model.Facebook, new { @class = "form-control", placeholder = "FACEBOOK PAGE" })
+                @Html.ValidationMessageFor(model => model.Facebook)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+                @Html.Label("Twitter Page") (Optional)
+
+                @Html.TextBoxFor(model => model.Twitter, new { @class = "form-control", placeholder = "TWITTER PAGE" })
+                @Html.ValidationMessageFor(model => model.Twitter)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+                @Html.Label("LinkedIn Page") (Optional)
+
+                @Html.TextBoxFor(model => model.LinkedIn, new { @class = "form-control", placeholder = "LINKEDIN PAGE" })
+                @Html.ValidationMessageFor(model => model.LinkedIn)
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+                @Html.Label("Other Url") (Optional)
+
+                @Html.TextBoxFor(model => model.GooglePlus, new { @class = "form-control", placeholder = "GOOGLEPLUS PAGE" })
+                @Html.ValidationMessageFor(model => model.GooglePlus)
+            </div>
+        </div>
+    </div>
+    <div class="clear" style="height:10px;"></div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+            @Html.HiddenFor(model => model.Id)
+            <input type="submit" value="Submit" class="btn btn-info sbutton" style="width:75px;" />
+        </div>
+    </div>
+    <div class="clear" style="height:30px;"></div>
+}
+@if (user.IsConfirmed == true && allowUpload == true)
+{
+    <div class="modal fade" id="uploadDialog" tabindex="-1" role="dialog" aria-labelledby="uploadDialogLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="uploadDialogLabel">
+                        Upload Photo
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        @Html.Label("Upload Photo")
+                        (JPG, PNG or GIF up to size of 500 KB.)
+
+                        <input id="Photo" name="Photo" type="file" title="JPG, PNG or GIF up to size of 500 KB." placeholder="UPLOAD PHOTO" class="form-control" />
+                        <div id="divPhotoError" style="color: red; font-weight: bold;"></div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    @Html.HiddenFor(model => model.Id)
+                    <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px;">Close</button>
+                    <button type="button" id="photoUpload" class="btn btn-primary" style="width:75px;">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div class="modal fade" id="deleteDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:325px">
+        @*<form id="formDelete" method="post" action="/employer/deleteimage">*@
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Delete Photo
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div style="font-size:1.5em;">Are you sure to delete photo?</div>
+            </div>
+            <div class="modal-footer">
+                @Html.Hidden("Username", User.Username)
+                <button type="submit" id="deleteUpload" class="btn btn-primary" data-dismiss="modal" style="width:75px;">Yes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px;">No</button>
+            </div>
+        </div>
+        @*</form>*@
+    </div>
+</div>
+<script type="text/javascript" language="javascript">
+    function isValid() {
+        var flag = false;
+        var company = $("#Company").val();
+        var firstName = $("#FirstName").val();
+        var lastName = $("#LastName").val();
+        var countryId = $("#CountryId").val();
+        var address = $("#Address").val();
+        var zip = $("#Zip").val();
+        var city = $("#City").val();
+        var telephone = $("#Telephone").val();
+
+        if (company != "" && firstName != "" && lastName != "" && countryId != "" && address != "" && zip != "" && city != "" && telephone != "") {
+            flag = true;
+        }
+        return flag;
+    }
+
+    $(document).ready(function () {
+        $("#logoUpload").attr('disabled', true);
+        $("#Overview").focus();
+
+        $("#StateId").change(function () {
+            $("#City").val("");
+            $("#Zip").val("");
+            $("#Address").val("");
+        });
+
+        $("#deleteUpload").click(function () {
+            $.post('@Url.Action("DeleteImage", "JsonHelper")', { Username: "@username" },
+               function (result) {
+                   toastr.info(result);
+                   window.location.reload();
+               });
+            return false;
+        });
+
+        $("#divEditWebAddress").hide();
+        var baseUrl = "@Request.Url.Scheme://@Request.Url.Authority/";
+        $("#btnEditWebAddress").click(function () {
+            if ($("#btnEditWebAddress").text() == "Edit Page Address") {
+                $("#btnEditWebAddress").text("Save Page Address");
+                $("#divWebAddressDisplay").hide();
+                $("#divEditWebAddress").show();
+                $("#btnCancel").show();
+
+                $("#PremaLink").attr("required", true);
+            } else {
+                if ($("#PremaLink").val() != "" && $("#PremaLink").val() != null) {
+                    var regex = /^[a-zA-Z0-9-_]+$/;
+                    var flag = regex.test($("#PremaLink").val());
+                    var nanFlag = isNaN(Number($("#PremaLink").val()));
+                    if (flag == true && nanFlag == true) {
+                        $.post('@Url.Action("UpdateWebAddress", "JsonHelper")', { address: $("#PremaLink").val() },
+                          function (result) {
+                              if (result != "NA") {
+                                  $("#btnEditWebAddress").text("Edit Page Address");
+                                  $("#divWebAddressDisplay").html("Page Address:&nbsp;&nbsp;<a href=\"/" + result + "\" target=\"_blank\">" + baseUrl + result + "</a>")
+                                  $("#divWebAddressDisplay").show();
+                                  $("#divEditWebAddress").hide();
+                                  $("#PremaLink").attr("required", false);
+                                  $("#divWebAddressMsg").html("");
+                                  $("#btnCancel").hide();
+                              } else {
+                                  $("#divWebAddressMsg").html("<div style=\"color:red;\">" + $("#PremaLink").val() + " page address not available!</div>");
+                              }
+                          });
+                    } else {
+                        $("#divWebAddressMsg").html("<div style=\"color:red;\">Only alphanumeric and underscore, period and dash is allowed!</div>");
+                    }
+                } else {
+                    $("#divWebAddressMsg").html("<div style=\"color:red;\">Page address must not be empty!</div>");
+                }
+            }
+        })
+
+        $("#Photo").change(function () {
+            var file = document.getElementById('Photo').files[0];
+            var defineSize = 500 * 1024;
+            var fileSize;
+            if (file.size == undefined) {
+                fileSize = file.fileSize;
+            } else {
+                fileSize = file.size
+            }
+            var name = file.name;
+            var ext = name.substr(name.lastIndexOf(".") + 1, 4).toLowerCase();
+            var allowed = "png, jpg, jpeg, gif";
+            $("#divPhotoError").html("");
+            if (name.length > 0) {
+                if (allowed.indexOf(ext) < 0) {
+                    $("#divPhotoError").html("Only JPG,JPEG, PNG, GIF files are allowed!");
+                    $("#photoUpload").attr('disabled', true);
+                } else {
+                    if (fileSize > defineSize) {
+                        $("#divPhotoError").html("File upload failed - Exceeded max file size (500 KB)!");
+                        $("#photoUpload").attr('disabled', true);
+                    } else {
+                        $("#divPhotoError").html("");
+                        $("#photoUpload").attr('disabled', false);
+                    }
+                }
+            } else {
+                $("#divPhotoError").html("Please select file!");
+                $("#photoUpload").attr('disabled', true);
+            }
+        });
+        $("#photoUpload").click(function () {
+            var file = document.getElementById('Photo').files[0];
+            if (file != null) {
+                $("#uploadDialog").modal("hide");
+                var name = file.name;
+                var ext = name.substr(name.lastIndexOf(".") + 1, 4).toLowerCase();
+
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function (e) {
+                    var binaryString = e.target.result.toString();
+                    binaryString = binaryString.replace("data:image/png;base64,", "");
+                    binaryString = binaryString.replace("data:image/jpeg;base64,", "");
+                    binaryString = binaryString.replace("data:image/gif;base64,", "");
+                    binaryString = binaryString.replace("data:image/jpg;base64,", "");
+
+                    var type = "";
+                    if (ext == "jpg") {
+                        type = "data:image/jpg;base64";
+                    } else if (ext == "jpeg") {
+                        type = "data:image/jpeg;base64";
+                    } else if (ext == "png") {
+                        type = "data:image/png;base64";
+                    } else if (ext == "gif") {
+                        type = "data:image/gif;base64";
+                    }
+
+                    $.post('@Url.Action("PictureUpload", "JsonHelper")', { Username: "@username", data: binaryString, area: "Profile", type: type },
+                       function (result) {
+                           toastr.info(result);
+                           window.location.reload();
+                       });
+                };
+            } else {
+                $("#divPhotoError").html("Please select file!");
+            }
+        });
+
+        $(".square110").click(function () {
+            var confirmed = "@user.IsConfirmed";
+            if (confirmed == "False") {
+                window.location.href = "@Url.Action("ConfirmRegistration","Account")";
+            }
+        });
+
+        $("#lnkbUpload").click(function () {
+            var confirmed = "@user.IsConfirmed";
+            if (confirmed == "False") {
+                window.location.href = "@Url.Action("ConfirmRegistration","Account")";
+            }
+            //$(".modal-body #Photo").val("");
+            //$(".modal-body #divvalidFile").html("");
+            //$(".modal-body #Logo").val("");
+
+            $(".modal-body #divPhotoError").html("");
+            $(".modal-body #Photo").val("");
+        });
+
+        $("#btnCancel").click(function () {
+            $("#btnEditWebAddress").text("Edit Page Address");
+            $("#divWebAddressDisplay").show();
+            $("#divEditWebAddress").hide();
+            $("#PremaLink").attr("required", false);
+            $("#btnCancel").hide();
+        })
+
+        $(".sbutton").click(function () {
+            $("#Company").val($("#Company").val().trim());
+            $("#FirstName").val($("#FirstName").val().trim());
+            $("#LastName").val($("#LastName").val().trim());
+            $("#Address").val($("#Address").val().trim());
+
+            if ($("#Zip").val() != "" || $("#Zip").val() != null) {
+                $("#Zip").val($("#Zip").val().trim());
+            }
+
+            if ($("#City").val() != "" || $("#City").val() != null) {
+                $("#City").val($("#City").val().trim());
+            }
+
+            if ($("#Phone").val() != "" || $("#Phone").val() != null) {
+                $("#Phone").val($("#Phone").val().trim());
+            }
+        });
+
+        $.getJSON("/help/categorylist", {}, function (list) {
+            $("#CategoryId").empty();
+            $("#CategoryId").append("<option value = ''>SELECT</option>");
+
+            if (list.length != 0) {
+                $(list).each(function () {
+                    $("#CategoryId").append("<option value =" + this.Id + ">" + this.Name + "</option>");
+                });
+                $("#CategoryId").val($("#CategoryId").data("value"));
+            }
+        });
+
+
+        $.getJSON("/help/countrylist", {}, function (list) {
+            $("#CountryId").empty();
+            $("#CountryId").append("<option value = ''>SELECT</option>");
+
+            if (list.length != 0) {
+                $(list).each(function () {
+                    $("#CountryId").append("<option value =" + this.Id + ">" + this.Name + "</option>");
+                });
+                $("#CountryId").val($("#CountryId").data("value"));
+                $("#StateId").empty();
+                $.getJSON("/help/statelist", { countryId: $("#CountryId").val() }, function (result) {
+                    $("#StateId").append("<option value =" + '' + ">" + 'SELECT' + "</option>");
+                    if (result.length != 0) {
+                        $(result).each(function () {
+                            $("#StateId").append("<option value =" + this.Id + ">" + this.Name + "</option>");
+                        });
+                        $("#StateId").val($("#StateId").data("value"));
+                    }
+                });
+            }
+        });
+
+        $("#CountryId").change(function () {
+            if ($(this).val() != "") {
+                $.post('@Url.Action("GetDialingCode", "JsonHelper")', { countryId: $(this).val() },
+                   function (result) {
+                       $("#MobileCountryCode").val(result);
+                       $("#PhoneCountryCode").val(result);
+                   });
+
+                $("#StateId").empty();
+                $.getJSON("/help/statelist", { countryId: $(this).val() }, function (result) {
+                    $("#StateId").append("<option value =" + '' + ">" + 'SELECT' + "</option>");
+                    if (result.length != 0) {
+                        $(result).each(function () {
+                            $("#StateId").append("<option value =" + this.Id + ">" + this.Name + "</option>");
+                        });
+                        $("#StateId").val($("#StateId").data("value"));
+                    }
+                });
+
+            }
+        });
+
+        var mcc = $("#MobileCountryCode").val();
+        var pcc = $("#PhoneCountryCode").val();
+
+        if ((mcc == "" || mcc == null) || (pcc == "" || pcc == null)) {
+            $.post('@Url.Action("GetDialingCode", "JsonHelper")', { countryId: $("#CountryId").val() },
+               function (result) {
+                   if (mcc == "" || mcc == null) {
+                       $("#MobileCountryCode").val(result);
+                   } else {
+                       $("#MobileCountryCode").val(mcc)
+                   }
+                   if (pcc == "" || pcc == null) {
+                       $("#PhoneCountryCode").val(result);
+                   } else {
+                       $("#PhoneCountryCode").val(pcc);
+                   }
+               });
+        }
+    });
+</script>

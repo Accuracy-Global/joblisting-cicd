@@ -1,0 +1,444 @@
+﻿@using JobPortal.Data
+@using JobPortal.Domain
+@using PagedList.Mvc
+@using JobPortal.Models
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@{
+    ViewBag.Title = "Listed Jobs";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<JobEntity>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+
+    WebGrid grid = new WebGrid(ViewBag.Model, ajaxUpdateContainerId: "grid");
+
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+}
+<style>
+    .seemore {
+        text-align: right;
+    }
+
+        .seemore > a {
+            color: #000000;
+            font-family: "Roboto", sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .seemore i {
+            font-size: 16px;
+            padding: 0 0 0 5px;
+            vertical-align: middle;
+        }
+
+    .sponsored {
+        background: #ffffff;
+    }
+
+    .sponsored {
+        background: #fff none repeat scroll 0 0;
+        padding: 0px 15px 0;
+        margin-top: -6px;
+    }
+
+    .abcdesign {
+        margin: 0 0 18px 0;
+    }
+
+        .abcdesign > h3 {
+            color: #333;
+            font-size: 14px;
+            margin: 0 0 11px 0;
+        }
+
+    .sub-heading h2 {
+        color: #000;
+        font-size: 14px;
+        margin: 0 0 20px;
+        padding-bottom: 6px;
+        position: relative;
+        font-weight: bold;
+    }
+
+        .sub-heading h2::after {
+            border-bottom: 2px solid #e93100;
+            bottom: 0;
+            content: "";
+            display: block;
+            left: 0;
+            position: absolute;
+            width: 100%;
+        }
+</style>
+<div class="row">
+    <div class="col-lg-10 col-md-10 col-sm-10">
+        <div class="title-login">
+            <h1 style="margin-top:-15px;">Listed Jobs</h1>
+            Manage listed jobs here
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-2" style="text-align:right">
+        @Html.ActionLink("List Job", "ListJob", null, new { title = "List Job", @class = "btn btn-info", @style = "width:75px; margin-top:10px;" })
+    </div>
+</div>
+@Html.Partial("_MessagePartial")
+<div class="clear" style="height:15px"></div>
+<div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-12">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                @using (Html.BeginForm())
+                {
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label>Country</label>
+                                @Html.DropDownList("CountryId", ViewBag.CountryList as SelectList, "SELECT", new { @class = "form-control input-sm" })
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label>Status</label>
+                                @Html.DropDownList("Status", ViewBag.StatusList as SelectList, "SELECT", new { @class = "form-control input-sm" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label>From Date</label>
+                                <div class="input-group" style="width:100%;">
+                                    @Html.DropDownList("fd", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control input-sm" })
+                                    <span class="input-group-btn" style="width:0px"></span>
+                                    @Html.DropDownList("fm", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control input-sm" })
+                                    <span class="input-group-btn" style="width:0px"></span>
+                                    @Html.DropDownList("fy", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 1)), "YEAR", new { @class = "form-control input-sm" })
+                                </div>
+                                <div id="fromDateError" style="color:red;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                <label>To Date</label>
+                                <div class="input-group" style="width:100%;">
+                                    @Html.DropDownList("td", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control input-sm" })
+                                    <span class="input-group-btn" style="width:0px"></span>
+                                    @Html.DropDownList("tm", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control input-sm" })
+                                    <span class="input-group-btn" style="width:0px"></span>
+                                    @Html.DropDownList("ty", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 1)), "YEAR", new { @class = "form-control input-sm" })
+                                </div>
+                                <div id="toDateError" style="color:red;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-lg-offset-8 col-md-offset-8">
+                            <div class="form-group">
+                                <input id="Search" type="submit" value="Search" class="btn btn-info btn-block" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear" style="height: 10px"></div>
+                }
+            </div>
+        </div>
+        <div class="clear" style="height:15px"></div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                @if (ViewBag.Model != null)
+                {
+                    foreach (var item in ViewBag.Model)
+                    {
+                        string pl = string.Empty;
+                        string jlink = string.Empty;
+                        if (item.Deleted > 0)
+                        {
+                            jlink = item.Title;
+                        }
+                        else
+                        {
+                            jlink = string.Format("<a href=\"{0}\" target=\"_blank\">{1}</a>", item.PermaLink, item.Title);
+                        }
+                        var status = string.Empty;
+                        if (item.Live > 0)
+                        {
+                            status = "Live";
+                        }
+                        else if (item.Deactivated > 0)
+                        {
+                            status = "Deactivated";
+                        }
+                        else if (item.Deleted > 0)
+                        {
+                            status = "<span style=\"color:red\">Deleted</span>";
+                        }
+                        else if (item.Waiting > 0)
+                        {
+                            status = "In Approval Process";
+                        }
+                        else if (item.Rejected > 0)
+                        {
+                            status = "<span style=\"color:red\">Rejected</span>";
+                        }
+                        else if (item.Expired > 0)
+                        {
+                            status = "<b style='color:red;'>Expired</b>";
+                        }
+
+                        var alinks = "";
+                        if (item.Expired == 0)
+                        {
+                            if (item.Deactivated == 0 && item.Deleted == 0)
+                            {
+                                alinks = Html.ActionLink("Edit", "UpdateJob", new { id = item.Id }, new { title = "Edit", @class = "edit" }).ToString();
+                            }
+
+                        }
+                        else if (item.Expired > 0)
+                        {
+                            if (item.Deleted == 0)
+                            {
+                                alinks = Html.ActionLink("Repost", "Repost", "Employer", new { id = item.Id }, new { title = "Repost" }).ToString();
+                            }
+                        }
+                        if (item.Rejected > 0 || item.Deleted > 0)
+                        {
+                            Inbox inboxItem = DomainService.Instance.GetInboxItem(item.EmployerId, item.Id, 1);
+                            if (inboxItem != null && inboxItem.Unread == true)
+                            {
+                                if (!string.IsNullOrEmpty(alinks))
+                                {
+                                    alinks += " | " + "<a href=\"/inbox/show?Id=" + inboxItem.Id + "\" target=\"_blank\">View Reason (<span style=\"color:red; font-weight:bold\">1</span>)</a>";
+                                }
+                                else
+                                {
+                                    alinks += "<a href=\"/inbox/show?Id=" + inboxItem.Id + "\" target=\"_blank\">View Reason (<span style=\"color:red; font-weight:bold\">1</span>)</a>";
+                                }
+                            }
+                            else
+                            {
+                                if (!string.IsNullOrEmpty(alinks))
+                                {
+                                    alinks += " | " + "<a href=\"/inbox/show?Id=" + inboxItem.Id + "\" target=\"_blank\">View Reason</a>";
+                                }
+                                else
+                                {
+                                    alinks += "<a href=\"/inbox/show?Id=" + inboxItem.Id + "\" target=\"_blank\">View Reason</a>";
+                                }
+                            }
+                        }
+                        DateTime? pd = null;
+                        if (item.PromoteDate == DateTime.MinValue)
+                        {
+                            pd = null;
+                        }
+                        else
+                        {
+                            pd = item.PromoteDate;
+                        }
+
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <i><b>Job Title:</b></i> @Html.Raw(jlink)
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <i><b>Location:</b></i> @Html.Raw(item.Country + (item.State != null ? ", " + item.State : "") + (item.City != null ? ", " + item.City : ""))
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <i><b>Listed:</b></i> @Html.Raw(item.PublishedDate.ToString("MMM-dd-yyyy"))
+                                        @if (item.Expired > 0)
+                                        {
+                                            <i><b>Expiry:</b></i><span style="color:red">@Html.Raw(item.ClosingDate.ToString("MMM-dd-yyyy"))</span>
+                                        }
+                                        else
+                                        {
+                                            <i><b>Expiry:</b></i> @Html.Raw(item.ClosingDate.ToString("MMM-dd-yyyy"))
+                                        }
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <i><b>Status:</b></i> @Html.Raw(status)
+                                        &nbsp;&nbsp;<i><b>Job Viewed:</b></i> @Html.Raw(string.Format("<a href=\"/Employer/ViewHistory/{0}\" target=\"_blank\">{1}</a>", item.Id, EmployerService.Instance.GetViewCounts(item.Id)))
+                                    </div>
+                                </div>
+                                <div style="height:15px;">
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+
+                                        @if (item.Live > 0)
+                                        {
+                                            if (pd != null && DateTime.Now.Date <= pd.Value.Date && pd.Value.Date <= item.ClosingDate.Date)
+                                            {
+                                                <label class="label label-success" style="padding: 5px; width: 85px; display: inline-block;">PROMOTED</label>
+                                            }
+                                            else
+                                            {
+                                                if (item.PackageId != null)
+                                                {
+                                                    Package pkg = (new JobPortal.Services.HelperService()).GetPackage(item.PackageId);
+                                                    if (pkg != null)
+                                                    {
+                                                        <label class="label label-success" style="padding: 5px; width: 85px; display: inline-block;">PAID - @pkg.Name.ToUpper()</label>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <label class="label label-danger" style="padding: 5px; width: 85px; display: inline-block">UN-PAID</label>
+                                                }
+
+                                                if (pd != null && DateTime.Now.Date > pd.Value.Date && pd.Value.Date <= item.ClosingDate.Date)
+                                                {
+                                                    pl = "&nbsp;&nbsp;" + Html.ActionLink("PROMOTE", "Promote", "Employer", new { id = item.Id }, new { title = "Promote", @class = "label label-success Promote", @style = "padding:5px; background-color: #01a7e1;width: 85px; display:inline-block" }).ToString();
+                                                }
+                                                else if (pd == null)
+                                                {
+                                                    pl = "&nbsp;&nbsp;" + Html.ActionLink("PROMOTE", "Promote", "Employer", new { id = item.Id }, new { title = "Promote", @class = "label label-success Promote", @style = "padding:5px; background-color: #01a7e1;width: 85px; display:inline-block" }).ToString();
+                                                }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (item.PackageId != null)
+                                            {
+                                                Package pkg = (new JobPortal.Services.HelperService()).GetPackage(item.PackageId);
+                                                if (pkg != null)
+                                                {
+                                                    <label class="label label-success" style="padding: 5px; width: 85px; display: inline-block; ">PAID - @pkg.Name.ToUpper()</label>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <label class="label label-danger" style="padding: 5px; width: 85px; width: 85px; display: inline-block; ">UN-PAID</label>
+                                            }
+
+                                        }
+                                        @Html.Raw(pl)
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        &nbsp;
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        @Html.Raw(alinks)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+
+                <div style="text-align:center; margin-top: -15px;">
+
+                    @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Index", "Employer",
+            new RouteValueDictionary()
+            {
+                { "PageNumber" , PageNumber},
+                { "Id" , ViewBag.User.Id},
+                { "CountryId" , Request["CountryId"]},
+                { "Type" , Request["Type"]},
+                { "Status" , Request["Status"]},
+                { "fm" , Request["fm"]},
+                { "fd" , Request["fd"]},
+                { "fy" , Request["fy"]},
+                { "tm" , Request["tm"]},
+                { "td" , Request["td"]},
+                { "ty" , Request["ty"]},
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-12"></div>
+    <div class="col-lg-3 col-md-3 col-sm-12" style="background-color:#fff; padding-bottom:15px; min-height:590px">
+        <div class="sponsored">
+            <div class="sub-heading">
+                <h2>Sponsored Ads</h2>
+            </div>
+            <div class="abcdesign">
+                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- Right-column-Ad-1 -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-8925328521448849"
+                     data-ad-slot="8709143016"
+                     data-ad-format="rectangle"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+        <div class="sponsored">
+            @if ((User != null && user.Role == SecurityRoles.Individual))
+            {
+                @Html.Action("RecentJobsWithoutLogo", "Home", new { Id = user.Id })
+            }
+            else if (User != null && user.Role == SecurityRoles.Company)
+            {
+                @Html.Partial("_SearchPromotedJobSeekers")
+            }
+            else if (User == null)
+            {
+                @Html.Action("RecentJobsWithoutLogo", "Home", new { Id = 0 })
+            }
+        </div>
+
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+        $("#Search").click(function () {
+            var isValidStartDate = isValidDate($("#fd").val(), $("#fm").val(), $("#fy").val());
+            var isValidEndDate = isValidDate($("#td").val(), $("#tm").val(), $("#ty").val());
+
+            if (isValidStartDate) {
+                $("#fromDateError").html("");
+                $("#fromDateError").show();
+                $("#Search").enabled = true;
+            } else {
+                $("#fromDateError").html("Provide correct from date!");
+                $("#fromDateError").show();
+                $("#Search").enabled = false;
+            }
+
+            if (isValidEndDate) {
+                $("#toDateError").html("");
+                $("#toDateError").show();
+                $("#Search").enabled = true;
+            } else {
+                $("#toDateError").html("Provide correct to date!");
+                $("#toDateError").show();
+                $("#Search").enabled = false;
+            }
+            return (isValidStartDate == true && isValidEndDate == true);
+        });
+    })
+</script>

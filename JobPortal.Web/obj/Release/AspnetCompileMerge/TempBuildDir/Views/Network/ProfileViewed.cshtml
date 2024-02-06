@@ -1,0 +1,371 @@
+﻿@using JobPortal.Domain
+@using JobPortal.Data
+@using PagedList.Mvc
+@using JobPortal.Library.Helpers
+@using JobPortal.Library.Enumerators
+@using JobPortal.Models
+
+@{
+
+    ViewBag.Title = "Viewed Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+}
+<script src="~/Scripts/jquery.tmpl.min.js"></script>
+<script src="~/Scripts/jquery.tmplPlus.min.js"></script>
+<style>
+    .box:nth-child(odd) {
+        float: left;
+        width: 382px;
+        margin-right: 15px;
+        margin-bottom: 25px;
+    }
+
+    .box:nth-child(even) {
+        float: left;
+        width: 382px;
+        margin-right: 0px;
+        margin-bottom: 25px;
+    }
+
+    .seemore {
+        text-align: right;
+    }
+
+        .seemore > a {
+            color: #000000;
+            font-family: "Roboto", sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .seemore i {
+            font-size: 16px;
+            padding: 0 0 0 5px;
+            vertical-align: middle;
+        }
+
+    .sponsored {
+        background: #ffffff;
+    }
+
+    .sponsored {
+        background: #fff none repeat scroll 0 0;
+        padding: 0px 15px 0;
+        margin-top: -6px;
+    }
+
+    .abcdesign {
+        margin: 0 0 18px 0;
+    }
+
+        .abcdesign > h3 {
+            color: #333;
+            font-size: 14px;
+            margin: 0 0 11px 0;
+        }
+
+    .sub-heading h2 {
+        color: #000;
+        font-size: 14px;
+        margin: 0 0 20px;
+        padding-bottom: 6px;
+        position: relative;
+        font-weight: bold;
+    }
+
+        .sub-heading h2::after {
+            border-bottom: 2px solid #e93100;
+            bottom: 0;
+            content: "";
+            display: block;
+            left: 0;
+            position: absolute;
+            width: 100%;
+        }
+
+    .actionlinks {
+        list-style: none;
+        padding-left: 0;
+    }
+
+        .actionlinks li {
+            float: left;
+            list-style-type: none;
+        }
+
+            .actionlinks li a {
+                font-size: 14px;
+                font-weight: normal;
+            }
+</style>
+<div class="row">
+    <div class="col-lg-6 col-md-6">
+        <div class="title-login">
+            <h1 style="margin-top:-15px;">
+                Viewed Your Profile
+            </h1>
+            Manage viewed your profile here
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-2">
+        <div class="form-group">
+            @if (user != null && user.Type == 4)
+            {
+                if (user.PromoteDate != null)
+                {
+                    if (user.PromoteDate.Value.Date < DateTime.Now.Date)
+                    {
+                        <a href="/package/promote?id=@user.Id&type=P&returnUrl=@Request.Url.ToString()" class="btn btn-info promote" style="width:165px;">Promote Profile</a>
+                    }
+                }
+                else
+                {
+                    <a href="/package/promote?id=@user.Id&type=P&returnUrl=@Request.Url.ToString()" class="btn btn-info promote" style="width:165px;">Promote Profile</a>
+                }
+            }
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-2">
+        <div class="form-group"></div>
+    </div>
+    <div class="col-lg-2 col-md-2">
+        <div class="form-group">
+            <div style="background-color:#b3cb39;width:100px;padding: 4px;height: 34px;border-radius:4px; display:block">
+                <a href="https://play.google.com/store/apps/details?id=com.joblisting.joblisting" style="background-color: #b3cb39; color:#ffffff; text-decoration:none" target="_blank">
+                    <table cellpadding="0" style="margin-bottom: 0px;">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <i class="fa fa-android" aria-hidden="true" style="font-size:20px; color:#ffffff"></i>
+                                </td>
+                                <td>
+                                    <div style="font-size: 10px;padding-left:5px;line-height: 8px;">
+                                        Download for
+                                    </div>
+                                    <div style="font-size:18px;padding-left:5px;">
+                                        Android
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:30px;"></div>
+@Html.Partial("_MessagePartial")
+<div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-12">
+        <div class="list-group">
+            <div class="list-group-item">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <i><b>Name:</b></i> Anonymous
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <i><b>Action:</b></i> <a href="/network/AnonymousViews" title="Profile viewed @ViewBag.Anonymous times">@ViewBag.Anonymous</a> | <a href="/network/AnonymousViews" title="Profile viewed @ViewBag.Anonymous times">View</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="ResultArea"></div>
+        <a id="ViewMore" class="btn btn-primary btn-block hide" style="width:100%;">View More</a>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-12"></div>
+    <div class="col-lg-3 col-md-3 col-sm-12" style="background-color:#fff; padding-bottom:15px; min-height:590px">
+        <div class="sponsored">
+            <div class="sub-heading">
+                <h2>Sponsored Ads</h2>
+            </div>
+            <div class="abcdesign">
+                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- Right-column-Ad-1 -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-8925328521448849"
+                     data-ad-slot="8709143016"
+                     data-ad-format="rectangle"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+        <div class="sponsored">
+            @if ((User != null && user.Role == SecurityRoles.Individual))
+            {
+                @Html.Action("RecentJobsWithoutLogo", "Home", new { Id = user.Id })
+            }
+            else if (User != null && user.Role == SecurityRoles.Company)
+            {
+                @Html.Partial("_SearchPromotedJobSeekers")
+            }
+            else if (User == null)
+            {
+                @Html.Action("RecentJobsWithoutLogo", "Home", new { Id = 0 })
+            }
+        </div>
+    </div>
+</div>
+<script>
+    var page = 1;
+    var pages = 1;
+    $(document).ready(function () {
+        $.post("/network/ProfileViewed", { pageNumber: page }, function (result) {
+            if (result.length > 0) {
+                var rows = result[0].MaxRows;
+                pages = Math.ceil(rows / 10);
+                $.each(result, function () {
+                    this.authenticated = "@Request.IsAuthenticated";
+                    this.role = "@user.Role.GetDescription()";
+                    $("#ResultItem").tmpl(this).appendTo("#ResultArea");
+                });
+            }
+
+            if (page < pages) {
+                $("#ViewMore").removeClass("hide");
+                $("#ViewMore").addClass("show");
+            } else {
+                $("#ViewMore").removeClass("show");
+                $("#ViewMore").addClass("hide");
+            }
+        });
+
+        $("#ViewMore").click(function () {
+            if (page <= pages) {
+                page++;
+                $("#waitDialog").modal("show");
+                $.post("/network/ProfileViewed", { pageNumber: page }, function (result) {
+                    $("#waitDialog").modal("hide");
+                    $.each(result, function () {
+                        this.authenticated = "@Request.IsAuthenticated";
+                        this.role = "@user.Role.GetDescription()";
+                        $("#ResultItem").tmpl(this).appendTo("#ResultArea");
+                    });
+                });
+            }
+
+            if (page < pages) {
+                $("#ViewMore").removeClass("hide");
+                $("#ViewMore").addClass("show");
+            } else {
+                $("#ViewMore").removeClass("show");
+                $("#ViewMore").addClass("hide");
+            }
+        });
+
+        $("#ResultArea").on("click", ".rmv", function () {
+            $("#waitDialog").modal("show");
+            $.post('@Url.Action("Remove", "JsonHelper")', { Id: $(this).data('pid') },
+                function (result) {
+                    $("#waitDialog").modal("hide");
+                    if (result == "Success") {
+                        window.location.reload();
+                    }
+                }
+            );
+        });
+    })
+</script>
+
+<script type="text/x-jquery-tmpl" id="ResultItem">
+    <div class="list-group">
+        <div class="list-group-item">
+            <a role="button" style="position:absolute; top:5px; right:5px; color:red; padding:4px; height:20px; text-align:center; z-index:1000; cursor:pointer" class="rmv" title="Remove" data-pid="${UserId}"></a>
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    <a href="/${PermaLink}">
+                        <div style="width:60px; height:60px; background:url('/Image/Avtar?Id=${UserId}') no-repeat; background-size:contain; background-position:top center">
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <i><b>Name: </b></i><a href="${PermaLink}" title="View profile" target="_blank">${Name}</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <ul class="actionlinks">
+                                    <li>
+                                        {{if Messages > 0 }}
+                                        <b><a href="/Message/List?SenderId=${UserId}" target="_blank">Message (<span style="color:red;">${Messages}</span>)</a></b>
+                                        {{else}}
+                                        <b><a href="/Message/List?SenderId=${UserId}" target="_blank">Message</a></b>
+                                        {{/if}}
+                                    </li>
+                                    {{if authenticated == "False"}}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/Home/Connect?id=${UserId}" target="_blank" title="Connect">Connect</a></b>
+                                    </li>
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/${PermaLink}" title="View profile" target="_blank">View Profile</a></b>
+                                    </li>
+                                    {{/if}}
+
+                                    {{if authenticated == "True" }}
+
+                                    {{if IsConnected == true }}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a data-aurl="/Network/Disconnect?Id=${ConnectionId}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
+                                    </li>
+                                    {{else}}
+                                    {{if InvitedByMe > 0 || InvitedBySomeone > 0}}
+                                    {{if InvitedByMe > 0}}
+                                    <li>
+                                        &nbsp;|&nbsp; <b><a data-aurl="/Network/Disconnect?Id=${ConnectionId}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{if InvitedBySomeone > 0}}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/Network/Accept?Id=${ConnectionId}&redirect=@Request.Url.ToString()" title="Accept" target="_blank">Accept</a></b>
+                                        &nbsp;|&nbsp;<b><a data-aurl="/Network/Disconnect?Id=${ConnectionId}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{else}}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/Home/Connect?id=${UserId}&redirect=@Request.Url.ToString()" title="Connect" target="_blank">Connect</a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{/if}}
+
+                                    {{if BlockedByMe > 0 }}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/Home/Unblock?id=${UserId}&redirect=@Request.Url.ToString()" title="Unblock" target="_blank">Unblock</a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{if BlockedByMe <= 0 && Blocked <= 0 }}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a data-href="/Home/Block?email=${Username}" data-name="${Name}" role="button" data-toggle="modal" data-target="#cDialog" class="aBlock" data-role="${TypeName}" data-connected="${IsConnected}" style="cursor:pointer;" title="Block">Block</a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{/if}}
+
+                                    {{if Views > 0 }}
+                                    <li>
+                                        &nbsp;|&nbsp; <a href="/network/profilevieweddetails?Id=${UserId}" title="Profile viewed ${Views} times" target="_blank">View (<span style="color:red;">${Views}</span>)</a>
+                                    </li>
+                                    {{else}}
+                                    <li>
+                                        &nbsp;|&nbsp; <a href="/network/profilevieweddetails?Id=${UserId}" title="Profile viewed ${Views} times" target="_blank">View</a>
+                                    </li>
+                                    {{/if}}
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

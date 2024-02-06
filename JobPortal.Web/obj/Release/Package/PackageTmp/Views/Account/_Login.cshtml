@@ -1,0 +1,66 @@
+﻿@model JobPortal.Web.Models.LoginModel
+
+<div class="row">
+    <div class="col-sm-12">
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { id = "jblLoginForm", @autocomplete = "off" }))
+        {
+
+            <br />
+            <br />
+            <br />
+            if (ViewBag.LoginError != null)
+            {@Html.Raw(ViewBag.LoginError)}
+        ViewBag.LoginError = null;
+
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div id="divErrorBx"></div>
+            </div>
+        </div>
+
+        @Html.Label("Login with Joblisting account")
+        <div class="row">
+            <div class="col-lg-5 col-md-5 col-sm-5">
+                <div class="form-group">
+                    <input type="email" name="LoginUsername" id="LoginUsername" placeholder="Email Format (user@example.com)" class="form-control" maxlength="100" required />
+                </div>
+            </div>
+            <div class="col-sm-1 col-lg-1"></div>
+            <div class="col-lg-5 col-md-5 col-sm-5">
+                <div class="form-group">
+                    <input type="password" id="LoginPassword" name="LoginPassword" placeholder="PASSWORD" class="form-control" required />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-5 col-md-5 col-sm-5">
+                <div class="form-group">
+                    <label class="checkbox-inline" style="padding-left:20px;">
+                        @Html.CheckBoxFor(m => m.RememberMe, new { @checked = "checked" }) Remember Me
+                    </label>
+                    <label class="checkbox-inline" style="padding-left:0;">
+                        @Html.ActionLink("Forgot Password", "ForgotPassword", "Home")
+                    </label>
+                    <div class="clear" style="height:10px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-5 col-md-5 col-sm-5">
+                <input id="login" type="submit" class="btn btn-info" style="width:75px;" value="Login" />
+            </div>
+        </div><div style="margin-top:-10px">
+            <table style="width:100%;">
+                <tr>
+                    <td style="text-align:right;padding-right: 30px;">Safe&nbsp;and&nbsp;Secure</td>
+                    <td style="width:15%">
+                        @*<script type="text/javascript"
+                            src="https://seal.websecurity.norton.com/getseal?host_name=www.joblisting.com&amp;size=S&amp;use_flash=YES&amp;use_transparent=YES&amp;lang=en">
+                            </script>*@
+                    </td>
+                </tr>
+            </table>
+        </div>}
+    </div>
+</div>

@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Apply Job";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="section">
+    <div class="clear" style="height:10px;"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="title-login">
+                    <h1>Apply Job</h1>
+                    Apply to selected job here.
+                </div>
+            </div>
+        </div>
+    </div>
+    @using (Html.BeginForm("ApplyJobs", "job", new { jobids = ViewBag.Jobs, backurl = ViewBag.BackUrl }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <div class="well">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        When this job was listed, our system did shortlist your resume automatically and sent to employer of this job already. If you still want to apply, kindly proceed.
+                    </div>
+                </div>
+            </div>
+           
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <input type="submit" value="Apply" class="btn btn-info"/>
+                    <input type="button" onclick="return history.go(-1)" value="Back" class="btn btn-info"/>
+                </div>
+            </div>
+        </div>
+    }
+</div>

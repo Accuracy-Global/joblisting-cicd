@@ -1,0 +1,278 @@
+﻿@model IEnumerable<JobPortal.Web.Models.UserInfo>
+@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Models
+@using JobPortal.Web.Models
+@{
+    var eye = "<svg class='lnr lnr-eye' viewBox='0 0 18 18'><path d='M10,6.978c-1.666,0-3.022,1.356-3.022,3.022S8.334,13.022,10,13.022s3.022-1.356,3.022-3.022S11.666,6.978,10,6.978M10,12.267c-1.25,0-2.267-1.017-2.267-2.267c0-1.25,1.016-2.267,2.267-2.267c1.251,0,2.267,1.016,2.267,2.267C12.267,11.25,11.251,12.267,10,12.267 M18.391,9.733l-1.624-1.639C14.966,6.279,12.563,5.278,10,5.278S5.034,6.279,3.234,8.094L1.609,9.733c-0.146,0.147-0.146,0.386,0,0.533l1.625,1.639c1.8,1.815,4.203,2.816,6.766,2.816s4.966-1.001,6.767-2.816l1.624-1.639C18.536,10.119,18.536,9.881,18.391,9.733 M16.229,11.373c-1.656,1.672-3.868,2.594-6.229,2.594s-4.573-0.922-6.23-2.594L2.41,10l1.36-1.374C5.427,6.955,7.639,6.033,10,6.033s4.573,0.922,6.229,2.593L17.59,10L16.229,11.373z'></path></svg>";
+    var shr = "<svg class='lnr lnr-share' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none' /><path d='M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z' /></svg>";
+    var msg = "<svg class='lnr lnr-bubble' viewBox='0 0 1024 1024'><path d='M25.6 972.8c-11.507 0-21.6-7.677-24.67-18.766s1.634-22.864 11.501-28.784c86.57-51.942 122.485-127.414 135.218-162.755-94.088-72.048-147.648-171.746-147.648-276.094 0-52.704 13.23-103.755 39.323-151.736 24.902-45.794 60.406-86.806 105.526-121.899 91.504-71.17 212.802-110.365 341.55-110.365s250.046 39.195 341.552 110.366c45.118 35.093 80.624 76.104 105.526 121.899 26.091 47.979 39.322 99.030 39.322 151.734 0 52.702-13.23 103.755-39.322 151.736-24.902 45.794-60.408 86.806-105.526 121.899-91.506 71.17-212.803 110.365-341.552 110.365-52.907 0-104.8-6.627-154.437-19.707-21.974 14.637-63.040 40.605-112.086 65.005-76.163 37.89-141.528 57.102-194.277 57.102zM486.4 153.6c-239.97 0-435.2 149.294-435.2 332.8 0 92.946 51.432 182.379 141.107 245.368 8.797 6.178 12.795 17.194 10.013 27.576-5.984 22.325-26.363 83.597-80.878 142.734 66.659-23.341 138.424-63.832 191.434-100.286 6.296-4.328 14.197-5.621 21.544-3.52 48.558 13.888 99.691 20.928 151.981 20.928 239.97 0 435.2-149.294 435.2-332.8s-195.23-332.8-435.2-332.8z'></path></svg>";
+    var blk = "<svg class='lnr lnr-block' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none' /><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z' /></svg>";
+}
+<style>
+    .first::after {
+        background: url("/images/c1.jpg") no-repeat 0 0 / contain;
+        background-position: center center;
+    }
+
+    .second::after {
+        background: url("/images/c2.jpg") no-repeat 0 0 / contain;
+        background-position: center center;
+    }
+
+    .third::after {
+        background: url("/images/c3.jpg") no-repeat 0 0 / contain;
+        background-position: center center;
+    }
+
+    .lnr {
+        fill: currentColor;
+        width: 1em;
+        height: 1em;
+        vertical-align: -0.05em;
+    }
+
+    .lnr-eye {
+        color:#34ba08;
+        font-size: 18px;
+    }
+
+    .lnr-share {
+        color:#34ba08;
+        font-size: 15px;
+    }
+
+    .lnr-bubble {
+        color:#34ba08;
+        font-size: 15px;
+    }
+
+    .lnr-block {
+        color: red;
+        font-size: 15px;
+    }
+
+    .lnr-block-disabled {
+        color: #A9ABA2;
+        font-size: 15px;
+    }
+
+    .post-content-section {  
+        padding-top:5px;    
+        min-height: 58px;
+    }
+
+        .post-content-section h3 {
+            font-size: 12px;
+            margin: 0;
+            color: #999;
+            text-align: left;
+            text-transform: uppercase;
+        }
+
+            .post-content-section h3 a {
+                color: #999;
+                font-weight: bold;
+            }
+
+        .post-content-section > p {
+            color: #333;
+            font-family: 'Roboto', sans-serif;
+            font-size: 12px;
+            line-height: 16px;
+            margin: 0 0 6px;
+            padding: 2px 0 0;
+            text-align: justify;
+            font-weight: 400;
+        }
+</style>
+@{
+    int items = Model.Count();
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+}
+@foreach (var item in Model)
+{
+    UserInfoEntity profile = MemberService.Instance.GetUserInfo(item.Username);
+    if (profile != null)
+    {      
+        <div class="post1">
+            <div class="post-img">@Html.Raw(MemberService.Instance.ProfileLinkAndLogo(profile.Username, 80, 80))</div>
+            <div class="post-content">
+                <section class="post-content-section">
+                    @if (profile.Type == 4)
+                    {
+                        <h3>@Html.Raw(MemberService.Instance.ProfileLink(profile.Username))</h3>
+                        <p>
+                            @profile.CountryName
+                            <br />
+                            @if (profile.Age != null)
+                            {
+                                <text>@(profile.Gender != null ? profile.Gender + ", " : "")@profile.Age@(profile.RelationshipStatus != null ? ", " + ((Relationships)profile.RelationshipStatus).GetDescription().TitleCase() : "")</text>
+                            }
+                        </p>
+                    }
+                    else
+                    {
+                        <h3>@Html.Raw(MemberService.Instance.ProfileLink(profile.Username))</h3>
+                        <p>@profile.CountryName</p>
+                    }
+                </section>
+                <ul class="review">
+                    @*<li data-toggle="tooltip" title="@MemberService.Instance.GetProfileViews(profile.Username)"><a>@Html.Raw(eye)</a></li>*@
+                    <li><a href="/Network/ProfileViewed?id=@item.Id" data-toggle="tooltip" title="@item.Views" target="_blank">@Html.Raw(eye)</a></li>
+                    <li><a href="/share-profile?url=@Request.Url.Scheme://@Request.Url.Authority/@profile.PermaLink" target="_blank" data-toggle="tooltip" title="Share">@Html.Raw(shr)</a></li>
+                    <li><a href="/Message/List?SenderId=@profile.Id" target="_blank" data-toggle="tooltip" title="Message">@Html.Raw(msg)</a></li>
+                    <li data-toggle="tooltip" title="Block">@Html.Raw(item.BlockIconUrl.Replace("aBlock", "cnnBlock"))</li>
+                </ul>
+            </div>
+        </div>
+    }
+}
+@if (items == 0)
+{
+    <div class="post1">
+        <div class="post-img"><img alt="..." src="/images/c1.jpg" data-toggle="tooltip" title="John Doe"></div>
+        <div class="post-content">
+            <section class="post-content-section">
+                <h3>John Doe</h3>
+                <p>United States</p>
+            </section>
+            <ul class="review">
+                <li><a href="javascript:void();" data-toggle="tooltip" title="Profile Viewed">@Html.Raw(eye)</a></li>
+                <li><a href="javascript:void();" target="_blank" data-toggle="tooltip" title="Share">@Html.Raw(shr)</a></li>
+                <li><a href="javascript:void();" data-toggle="tooltip" title="Message">@Html.Raw(msg)</a></li>
+                <li><a href="javascript:void();" data-toggle="tooltip" title="Block">@Html.Raw(blk)</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="post1">
+        <div class="post-img"><img alt="..." src="/images/c2.jpg" data-toggle="tooltip" title="Anna Imari"></div>
+        <div class="post-content">
+            <section class="post-content-section">
+                <h3>Anna Imari</h3>
+                <p>United Kingdom</p>
+            </section>
+            <ul class="review">
+                <li><a href="javascript:void();" data-toggle="tooltip" title="Profile Viewed">@Html.Raw(eye)</a></li>
+                <li><a href="javascript:void();" target="_blank" data-toggle="tooltip" title="Share">@Html.Raw(shr)</a></li>
+                <li><a href="javascript:void();" data-toggle="tooltip" title="Message">@Html.Raw(msg)</a></li>
+                <li><a href="javascript:void();" data-toggle="tooltip" title="Block">@Html.Raw(blk)</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="post1">
+        <div class="post-img"><img alt="..." src="/images/c3.jpg" data-toggle="tooltip" title="Yang Chen"></div>
+        <div class="post-content">
+            <section class="post-content-section">
+                <h3>Yang Chen</h3>
+                <p>Singapore</p>
+            </section> 
+            <ul class="review">
+                <li><a href="javascript:void();" data-toggle="tooltip" title="Profile Viewed">@Html.Raw(eye)</a></li>
+                <li><a href="javascript:void();" target="_blank" data-toggle="tooltip" title="Share">@Html.Raw(shr)</a></li>
+                <li><a href="javascript:void();" data-toggle="tooltip" title="Message">@Html.Raw(msg)</a></li>
+                <li><a href="javascript:void();" data-toggle="tooltip" title="Block">@Html.Raw(blk)</a></li>
+            </ul>
+        </div>
+    </div>
+}
+
+@if (items == 1)
+{
+    <div class="post1">
+        <div class="post-img"><img alt="..." src="/images/c2.jpg" data-toggle="tooltip" title="Anna Imari"></div>
+        <div class="post-content">
+            <section class="post-content-section">
+                <h3>Anna Imari</h3>
+                <p>United Kingdom</p>
+            </section>
+            <ul class="review">
+                <li><a href="javascript:void();" data-toggle="tooltip" title="Profile Viewed">@Html.Raw(eye)</a></li>
+                <li><a href="javascript:void();" target="_blank" data-toggle="tooltip" title="Share">@Html.Raw(shr)</a></li>
+                <li><a href="javascript:void();" data-toggle="tooltip" title="Message">@Html.Raw(msg)</a></li>
+                <li><a href="javascript:void();" data-toggle="tooltip" title="Block">@Html.Raw(blk)</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="post1">
+        <div class="post-img"><img alt="..." src="/images/c3.jpg" data-toggle="tooltip" title="Yang Chen"></div>
+        <div class="post-content">
+            <section class="post-content-section">
+                <h3>Yang Chen</h3>
+                <p>Singapore</p>
+            </section>
+            <ul class="review">
+                <li><a href="javascript:void();" data-toggle="tooltip" title="Profile Viewed">@Html.Raw(eye)</a></li>
+                <li><a href="javascript:void();" target="_blank" data-toggle="tooltip" title="Share">@Html.Raw(shr)</a></li>
+                <li><a href="javascript:void();" data-toggle="tooltip" title="Message">@Html.Raw(msg)</a></li>
+                <li><a href="javascript:void();" data-toggle="tooltip" title="Block">@Html.Raw(blk)</a></li>
+            </ul>
+        </div>
+    </div>
+}
+@if (items == 2)
+{
+    <div class="post1">
+        <div class="post-img"><img alt="..." src="/images/c3.jpg" data-toggle="tooltip" title="Yang Chen"></div>
+        <div class="post-content">
+            <section class="post-content-section">
+                <h3>Yang Chen</h3>
+                <p>Singapore</p>
+            </section>
+            <ul class="review">
+                <li><a href="javascript:void();" data-toggle="tooltip" title="Profile Viewed">@Html.Raw(eye)</a></li>
+                <li><a href="javascript:void();" target="_blank" data-toggle="tooltip" title="Share">@Html.Raw(shr)</a></li>
+                <li><a href="javascript:void();" data-toggle="tooltip" title="Message">@Html.Raw(msg)</a></li>
+                <li><a href="javascript:void();" data-toggle="tooltip" title="Block">@Html.Raw(blk)</a></li>
+            </ul>
+        </div>
+    </div>
+}
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' });
+
+        $(".cnnBlock").click(function () {
+            var bname = $(this).data('name');
+            var actionUrl = $(this).data('href');
+            var msgText = "";
+            var loggedInUserRole = "@(User != null ? (user.Role).GetDescription() : "")";
+            var isConfirmed = "@(Request.IsAuthenticated ? user.IsConfirmed : false)";
+            if (isConfirmed == "True") {
+                var role = $(this).data('role');
+                if ((role == "Company" && loggedInUserRole == "Individual") || (loggedInUserRole == "Company" && role == "Individual")) {
+                    msgText = "<b>Following may be withdrawn with <span id=\"bname\" style=\"font-weight:bold\">" + bname + "</span>:</b><br/>";
+                    msgText += "<ul>";
+                    msgText += "<li>Application(s)!</li>";
+                    msgText += "<li>Matching!</li>";
+                    msgText += "<li>Bookmark(s)!</li>";
+                    msgText += "<li>Interview(s)!</li>";
+                    msgText += "<li>Connection!</li>";
+                    msgText += "</ul>";
+                } else {
+                    if ($(this).data('connected') == "True") {
+                        msgText = "<b>Block</b> action will disconnect you with <span id=\"bname\" style=\"font-weight:bold\"><b>" + bname + "</span></b><br/>";
+                    } else {
+                        msgText = "<b>Block</b> <span id=\"bname\" style=\"font-weight:bold\"><b>" + bname + "</span></b><br/>";
+                    }
+                }
+                msgText += "<div style=\"text-align:right; color:red; font-size:1.5em;\">Are you sure?</div>";
+                $(".modal-body #divMsg").html(msgText);
+
+                actionUrl = $(this).data('href');
+                $("#dialogOk").click(function () {
+                    window.location.href = actionUrl;
+                });
+            } else {
+                window.location.href = actionUrl;
+            }
+        });        
+    });
+</script>

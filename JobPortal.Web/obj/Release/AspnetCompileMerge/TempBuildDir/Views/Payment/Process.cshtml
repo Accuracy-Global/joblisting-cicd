@@ -1,0 +1,183 @@
+﻿@model JobPortal.Web.Models.Payment
+@using JobPortal.Domain
+@using JobPortal.Models
+@{
+    ViewBag.Title = "Process";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+}
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1 style="margin-top:-15px;">Payment Process</h1>
+            Manage payment process here
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        &nbsp;
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        &nbsp;
+    </div>
+</div>
+
+@using (Html.BeginForm("Checkout", "Payment", FormMethod.Post, new { id="form_checkout" }))
+{
+    <div class="row">
+        <div class="col-md-7">
+            <div class="form-group">
+                <input type="radio" class="pp" data-id="1" name="PaymentOption" checked="checked" />&nbsp;Use your credit or debit Card&nbsp;&nbsp;<img src="~/Images/cards.png" style="height:26px;" />
+            </div>
+        </div>
+        <div class="col-md-5 hidden-sm hidden-xs" style="text-align:right">
+            <div class="form-group">
+                <input type="radio" class="pp" data-id="2" name="PaymentOption" />&nbsp;Use your PayPal Account
+                &nbsp;&nbsp;<img src="~/Images/paypal.png" style="height:26px;" />
+            </div>
+        </div>
+        <div class="col-sm-5 hidden-lg hidden-md">
+            <div class="form-group">
+                <input type="radio" class="pp" data-id="2" name="PaymentOption" />&nbsp;Use your PayPal Account
+                &nbsp;&nbsp;<img src="~/Images/paypal.png" style="height:26px;" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            &nbsp;
+        </div>
+    </div>
+    if (Model.PaymentMode == 0)
+    {
+        <div class="list-group-item" id="sectionA">
+            @Html.HiddenFor(model => model.RUrl)
+            @Html.HiddenFor(model => model.PackageId)            
+            @Html.HiddenFor(model => model.Amount)            
+            @Html.HiddenFor(model => model.SessionId)
+            @Html.HiddenFor(model => model.Type)
+            <table class="table-bordered table-condensed table-responsive" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th style="width:75px;">Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                           @Model.Description
+                        </td>
+                        <th class="text-center">
+                            $@Model.Amount
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+            <div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.HolderName)
+
+                            @Html.EditorFor(model => model.HolderName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.HolderName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CardNumber)
+
+                            @Html.EditorFor(model => model.CardNumber, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.CardNumber, "", new { @class = "text-danger" })
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="ExpiryMonth">Expiration</label>
+                            <hidden data-braintree-name="expiration_date"></hidden>
+                            <div class="input-group">
+                                @Html.DropDownList("ExpiryMonth", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control" })
+                                <span class="input-group-btn" style="width:0px;"></span>
+                                @Html.DropDownList("ExpiryYear", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year)), "YEAR", new { @class = "form-control" })
+                            </div>
+                            @Html.ValidationMessageFor(model => model.ExpiryMonth, "", new { @class = "text-danger" })
+                            @Html.ValidationMessageFor(model => model.ExpiryYear, "", new { @class = "text-danger" })
+
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SecurityCode)
+
+                            @Html.EditorFor(model => model.SecurityCode, new { htmlAttributes = new { @class = "form-control", maxlength = "4" } })
+                            @Html.ValidationMessageFor(model => model.SecurityCode, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        &nbsp;
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <input type="hidden" id="nonce" name="nonce" />
+                            <input type="submit" id="PayNow" value="Pay Now" class="btn btn-primary" style="width:100px;" />
+                            @Html.ActionLink("Cancel", "Index", new { returnurl = @Model.RUrl, id = Model.SessionId }, new { @class = "btn btn-default", style = "width:100px;" })
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+<script>
+    $(document).ready(function () {
+        $("#sectionA").show();
+        $(".pp").click(function () {
+            var id = $(this).data("id");
+            if (id == 1) {
+                $("#sectionA").show();                
+            } else {
+                $("#HolderName").val("");
+                $("#CardNumber").val("");
+                $("#ExpiryMonth").val("");
+                $("#ExpiryYear").val("");
+                $("#SecurityCode").val("");
+                $("#sectionA").hide();
+                window.location.href = "/checkout?rurl=@Model.RUrl&PackageId=@Model.PackageId";
+                $("#form_checkout").submit();
+            }
+        });
+
+        $("#PayNow").click(function () {
+            var client = new braintree.api.Client({ clientToken: '@ViewBag.ClientToken' });
+            client.tokenizeCard({
+                number: $("CardNumber").val(),
+                cardholderName: $("HolderName").val(),               
+                expirationMonth: $("ExpiryMonth").val(),
+                expirationYear: $("ExpiryYear").val(),                
+                cvv: $("SecurityCode").val()                
+            }, function (err, nonce) {                                
+                $("#nonce").val(nonce)
+            });
+        });
+    });
+</script>

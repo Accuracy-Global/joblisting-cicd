@@ -1,0 +1,115 @@
+﻿@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+
+<footer>
+    @*<style>
+        ul li {
+            font-size: 0.9em;
+        }
+    </style>*@
+
+    <div class="footer_bar_bg " id="divfooter">
+        <ul style="list-style-type:none;padding-left:10px;padding-right:10px; font-size:0.9em; font-weight:normal;">
+            @if (User != null && !User.Identity.IsAuthenticated)
+            {
+
+                <li><a href="/jobs/">Search Jobs</a></li>
+
+                @*<li>@Html.ActionLink("Search People", "SearchPeople", "Home")</li>*@
+                <li>@Html.ActionLink("Search Jobseekers", "Search", "Jobseeker")</li>
+                @*<li>@Html.ActionLink("Search Resumes", "SearchResumes", "Jobseeker")</li>*@
+                <li>@Html.ActionLink("List Job", "Addjob", "Admin")</li>
+                <li>@Html.ActionLink("Register now!", "Register", "Account")</li>
+            }
+            else
+            {
+                if (User != null && User.Info.Role == SecurityRoles.SuperUser)
+                {
+
+
+                    <li>@Html.ActionLink("Settings", "Index", "Admin")</li>
+                }
+                else if (User != null && User.Info.Role == SecurityRoles.Administrator)
+                {
+                    <li>@Html.ActionLink("Settings", "Employer", "Admin")</li>
+                }
+                else if (User != null && User.Info.Role == SecurityRoles.Employers)
+                {
+                    @*<li>@Html.ActionLink("Search People", "SearchPeople", "Home")</li>*@
+                    <li>@Html.ActionLink("Search Jobseekers", "Search", "Jobseeker")</li>
+                    @*<li>@Html.ActionLink("Search Resumes", "SearchResumes", "Home")</li>*@
+                    <li>@Html.ActionLink("List Job", "Addjob", "Admin")</li>
+                    <li>@Html.ActionLink("Settings", "Index", "Network")</li>
+                }
+                else if (User != null && User.Info.Role == SecurityRoles.Institute)
+                {
+                    <li>@Html.ActionLink("Search People", "SearchPeople", "Home")</li>
+                    <li>@Html.ActionLink("Search Companies", "SearchCompany", "Job")</li>
+                    @*<li>@Html.ActionLink("Search Jobseekers", "Search", "Jobseeker")</li>*@
+                    <li>@Html.ActionLink("Settings", "Index", "Network")</li>
+                }
+                else if (User != null && User.Info.Role == SecurityRoles.Jobseeker)
+                {
+                    @*<li>@Html.ActionLink("Search Jobs", "SearchJobs", "Job") </li>*@
+
+                    <li><a href="/jobs/">Search Jobs</a></li>
+
+                    @*<li>@Html.ActionLink("Search People", "SearchPeople", "Home")</li>*@
+                    <li>@Html.ActionLink("Settings", "Index", "Network")</li>
+                }
+                else if (User != null && User.Info.Role == SecurityRoles.Student)
+                {
+                    @*<li>@Html.ActionLink("Search Jobs", "SearchJobs", "Job") </li>*@
+                    <li><a href="/jobs/">Search jobs</a></li>
+                    @*<li>@Html.ActionLink("Search People", "SearchPeople", "Home")</li>*@
+                    <li>@Html.ActionLink("Settings", "Index", "Network")</li>
+                }
+                else if (User != null && User.Info.Role == SecurityRoles.Interns)
+                {
+
+                    <li><a href="/jobs/">SEARCH JOBS</a></li>
+
+                  
+                    <li>@Html.ActionLink("Settings", "Index", "Network")</li>
+                }
+            }
+
+            @if (Request.IsAuthenticated)
+            {
+                <li>@Html.ActionLink("Logout", "logoff", "Account")</li>
+            }
+            else
+            {
+                <li>@Html.ActionLink("Login", "Login", "Account")</li>
+            }
+            <li> <a href="/home/contact" target="_blank">Contact&nbsp;us</a></li>
+            <li> <a href="/Home/AboutUs" target="_blank">About&nbsp;us</a></li>
+            <li><a href="/terms" target="_blank">Terms&nbsp;Of&nbsp;Use</a></li>
+            <li><a href="/privacy" target="_blank">Privacy</a></li>
+            <li><a href="/copyright" target="_blank">Copyright</a></li>
+            <li><a href="https://play.google.com/store/apps/details?id=com.accuracy.joblisting" target="_blank">Android App</a></li>
+            <li><a href="https://apps.apple.com/in/app/job-listing/id1575724994" target="_blank">Ios App</a></li>
+        </ul>
+        <div style="height:5px;"></div>
+        <ul style="list-style-type:none; padding-left:0; font-size:small">
+            @*<li style="color:#ffffff">U.S. Patent Pending</li>*@
+        </ul>
+        <ul style="list-style-type:none; padding-left:0;">
+            <li>
+                @if (!Request.Url.ToString().ToLower().Contains("login") && !Request.Url.ToString().ToLower().Contains("registernow") && !Request.Url.ToString().ToLower().Contains("listyourjob"))
+                {
+                    if (Request.Url.Authority.ToLower().Contains("joblisting.com"))
+                    {
+                        @*<script type="text/javascript" src="https://seal.websecurity.norton.com/getseal?host_name=www.joblisting.com&amp;size=S&amp;use_flash=YES&amp;use_transparent=YES&amp;lang=en"></script>*@
+                    }
+                }
+                @if (Request.Url.ToString().ToLower().Contains("login-history"))
+                {
+                    @*<script type="text/javascript" src="https://seal.websecurity.norton.com/getseal?host_name=www.joblisting.com&amp;size=S&amp;use_flash=YES&amp;use_transparent=YES&amp;lang=en"></script>*@
+                }
+            </li>
+        </ul>
+        <div style="height:16px;"></div>
+    </div>
+</footer>

@@ -1,0 +1,1045 @@
+﻿@model JobPortal.Web.Models.ConnectionModel
+
+@using JobPortal.Data
+@using System.Collections
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using PagedList.Mvc
+@using JobPortal.Models
+@{
+    ViewBag.Title = "Connections";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string username = string.Empty;
+    SortedDictionary<string, string> SearchByList = new SortedDictionary<string, string>();
+    SearchByList.Add("SearchByName", "Search By Name");
+    SearchByList.Add("SearchByStatus", "Search By Status");
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        username = User.Username;
+        user = User.Info;
+    }
+    UserProfile profile = new UserProfile();
+    if (!string.IsNullOrEmpty(username))
+    {
+        //profile = MemberService.Instance.Get(username);
+        ViewBag.Title = string.Format("{0} - Connections", user.FullName);
+    }
+}
+<script src="~/Scripts/jquery.tmpl.min.js"></script>
+<script src="~/Scripts/jquery.tmplPlus.min.js"></script>
+<script type="text/javascript" language="javascript">
+    var source = "";
+    function toggle(source) {
+        checkboxes = document.getElementsByName('checkd');
+        for (var i = 0, n = checkboxes.length; i < n; i++) {
+            checkboxes[i].checked = source.checked;
+        }
+    }
+
+    function chk() {
+
+        var grpval = document.getElementById('contAccounts').value;
+        var usrval = document.getElementById('ContactEmail').value;
+        var emailReg = /^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/;
+        if (grpval == "0" && (usrval == "")) {
+            alert("1). Please Select Group \n2). Please Input Your Email Address");
+            return false;
+        }
+        else if (grpval != "0" && (usrval == "")) {
+            alert("Please Enter Your Email");
+            return false;
+        }
+        else if (grpval == "0" && (usrval != "")) {
+            if (!emailReg.test(usrval)) {
+                alert("1).Please Select Group \n2). Your Email Address is Invalid");
+            }
+            alert("Please Select Group");
+            return false;
+        }
+        else if (grpval != "0" && (usrval != "")) {
+            if (!emailReg.test(usrval)) {
+                alert("Your Email Address is Invalid");
+                return false;
+            }
+            return true;
+        }
+        return true;
+    }
+</script>
+
+<!-- Place the below script at the end of the file -->
+<script type="text/javascript">
+    var storeImportedContacts = function () {
+        $.post('@Url.Action("ImportContacts", "JsonHelper")', { data: JSON.stringify(contactimporter.getAllContacts().addressbook), source: source },
+            function (result) {
+                if (result.length != 0) {
+                    alert(result);
+                    window.location.href = "/Network/Index";
+                }
+            });
+    }
+    var sendSelectedContacts = function () {
+        //document.getElementById("<%= selectedcontacts.ClientID %>").value = JSON.stringify(contactimporter.getRecipients());
+        //document.getElementById("<%= subject.ClientID %>").value = $(".mailing-subject").val();
+        //document.getElementById("<%= message.ClientID %>").value = $(".mailing-message").val();
+        //document.getElementById("<%= btnsend.ClientID %>").click();
+    }
+    var sendConfirmation = function () {
+        modalSI.showSuccessMessage("Success: Email sent.");
+    }
+</script>
+<style>
+    .photo {
+        width: 50px;
+        height: 50px;
+        text-align: center;
+    }
+
+    .namefield {
+        width: 175px;
+    }
+
+    .titlefield {
+        width: 175px;
+    }
+
+    .genderfield {
+        width: 70px;
+    }
+
+    .typefield {
+        width: 70px;
+    }
+
+    .agefield {
+        width: 40px;
+    }
+
+    .relationfield {
+        width: 300px;
+    }
+
+    .actonfield {
+        width: 200px;
+    }
+
+    .smGlobalBtnRectangle { /* global button class */
+        display: inline-block;
+        position: relative;
+        cursor: pointer;
+        width: 60px;
+        height: 32px;
+        padding: 5px;
+        text-decoration: none;
+        text-align: center;
+        color: #fff;
+        font-size: 13px;
+        font-weight: lighter;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        border: 2px solid transparent;
+    }
+
+    .facebookBtn1 {
+        background: #4060A5;
+    }
+
+        .facebookBtn1:hover {
+            color: #4060A5;
+            background: #fff;
+            text-decoration: none;
+            border: 2px solid #4060A5;
+        }
+
+    /* twitter button class*/
+    .twitterBtn1 {
+        background: #00ABE3;
+    }
+
+
+
+        .twitterBtn1:hover {
+            color: #00ABE3;
+            background: #fff;
+            text-decoration: none;
+            border: 2px solid #00ABE3;
+        }
+
+    /* google plus button class*/
+    .googleBtn1 {
+        background: #e64522;
+    }
+
+        .googleBtn1:hover {
+            color: #e64522;
+            background: #fff;
+            text-decoration: none;
+            border: 2px solid #e64522;
+        }
+
+    /* linkedin button class*/
+    .linkedinBtn1 {
+        background: #0094BC;
+    }
+
+        .linkedinBtn1:hover {
+            color: #0094BC;
+            background: #fff;
+            text-decoration: none;
+            border: 2px solid #0094BC;
+        }
+
+    .pagination {
+        margin: 0;
+    }
+
+    .sponsored {
+        background: #ffffff;
+    }
+
+    .sponsored {
+        background: #fff none repeat scroll 0 0;
+        padding: 15px 15px 0;
+    }
+
+    .abcdesign {
+        margin: 0 0 18px 0;
+    }
+
+        .abcdesign > h3 {
+            color: #333;
+            font-size: 14px;
+            margin: 0 0 11px 0;
+        }
+
+    .sub-heading h2 {
+        color: #000;
+        font-size: 14px;
+        margin: 0 0 20px;
+        padding-bottom: 6px;
+        position: relative;
+        font-weight: bold;
+    }
+
+        .sub-heading h2::after {
+            border-bottom: 2px solid #e93100;
+            bottom: 0;
+            content: "";
+            display: block;
+            left: 0;
+            position: absolute;
+            width: 100%;
+        }
+
+    .left-col {
+        padding-right: 6px;
+        width: 81.25%;
+    }
+
+    .right-col {
+        padding-left: 6px;
+        width: 202px;
+    }
+
+    @@media (max-width: 320px) {
+        .right-col {
+            padding-left: 15px !important;
+            width: 100% !important;
+        }
+
+        .left-col {
+            padding-right: 15px !important;
+            width: 100% !important;
+        }
+    }
+
+    @@media only screen and (max-width:360px) {
+        .right-col {
+            padding-left: 15px !important;
+            width: 100% !important;
+        }
+
+        .left-col {
+            padding-right: 15px !important;
+            width: 100% !important;
+        }
+    }
+
+    @@media only screen and (max-width:384px) {
+        .right-col {
+            padding-left: 15px !important;
+            width: 100% !important;
+        }
+
+        .left-col {
+            padding-right: 15px !important;
+            width: 100% !important;
+        }
+    }
+
+    @@media only screen and (max-width:600px) {
+        .right-col {
+            padding-left: 15px !important;
+            width: 100% !important;
+        }
+
+        .left-col {
+            padding-right: 15px !important;
+            width: 100% !important;
+        }
+    }
+
+    @@media screen and (max-width:800px) {
+        .right-col {
+            padding-left: 6px;
+            width: 202px;
+        }
+
+        .left-col {
+            padding-right: 6px !important;
+            width: 73%;
+        }
+    }
+
+    .seemore {
+        text-align: right;
+    }
+
+        .seemore > a {
+            color: #000000;
+            font-family: "Roboto", sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .seemore i {
+            font-size: 16px;
+            padding: 0 0 0 5px;
+            vertical-align: middle;
+        }
+</style>
+
+
+<div class="row">
+    <div class="col-lg-6 col-md-6">
+        <div class="title-login">
+            <h1 style="margin-top:-15px;">Connections</h1>
+            Manage connections here
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-2">
+        <div class="form-group">
+            @if (user != null && user.Type == 4)
+            {
+                if (user.PromoteDate != null)
+                {
+                    if (user.PromoteDate.Value.Date < DateTime.Now.Date)
+                    {
+                        <a href="/package/promote?id=@user.Id&type=P&returnUrl=@Request.Url.ToString()" class="btn btn-info promote" style="width:165px;">Promote Profile</a>
+                    }
+                }
+                else
+                {
+                    <a href="/package/promote?id=@user.Id&type=P&returnUrl=@Request.Url.ToString()" class="btn btn-info promote" style="width:165px;">Promote Profile</a>
+                }
+            }
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-2">
+        <div class="form-group"></div>
+    </div>
+    <div class="col-lg-2 col-md-2">
+        <div class="form-group">
+            <div style="background-color:#b3cb39;width:100px;padding: 4px;height: 34px;border-radius:4px; display:block">
+                <a href="https://play.google.com/store/apps/details?id=com.joblisting.joblisting" style="background-color: #b3cb39; color:#ffffff; text-decoration:none" target="_blank">
+                    <table cellpadding="0" style="margin-bottom: 0px;">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <i class="fa fa-android" aria-hidden="true" style="font-size:20px; color:#ffffff"></i>
+                                </td>
+                                <td>
+                                    <div style="font-size: 10px;padding-left:5px;line-height: 8px;">
+                                        Download for
+                                    </div>
+                                    <div style="font-size:18px;padding-left:5px;">
+                                        Android
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:15px"></div>
+<div class="row">
+    <div class="col-lg-9 col-md-9">
+        <div style="color:red; font-weight:normal; font-size:1.2em;">Your contacts are always safe with us!</div>
+    </div>
+</div>
+@Html.Partial("_MessagePartial")
+<div class="clear" style="height:15px"></div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-12">
+                <fieldset style="padding:14px; margin-top:-5px;">
+                    <legend>Invite contacts and build network now!</legend>
+                    <div>
+                        <a href="/network/yahoo" target="_blank" style="width:48px; height:32px; padding:5px; display:inline-block; cursor:pointer" title="Import contact from Yahoo Mail">
+                            <img src="~/images/yahoo.png" alt="" height="32" width="32">
+                        </a>
+                        <a href="/network/google" target="_blank" style="width:48px; height:32px; padding:5px; display:inline-block; cursor:pointer" title="Import contacts from Gmail">
+                            <img src="~/images/gmail.png" alt="Gmail" height="32" width="32">
+                        </a>
+                        <a href="/network/live" target="_blank" style="width:48px; height:32px; padding:5px; display:inline-block; cursor:pointer" title="Import contacts from Outlook">
+                            <img src="~/images/outlook.png" alt="outlook" height="32" width="32" />
+                        </a>
+
+                        <a role="button" data-toggle='modal' class="csvupload" data-target='#uploadDialog' style="width:48px; height:32px; padding:5px; display:inline-block; cursor:pointer" title="Import contacts by Uploading .csv file">
+                            <img src="~/images/File-CSV-icon.png" alt="CSV File Upload" height="32" width="32" />
+                        </a>
+                    </div>
+                    <div class="modal fade" id="uploadDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">
+                                        Import contacts from CSV File
+                                    </h4>
+                                </div>
+                                @using (Html.BeginForm("UploadPst", "Network", FormMethod.Post, new { enctype = "multipart/form-data", @autocomplete = "off" }))
+                                {
+                                    <div class="modal-body">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <div class="form-group">
+                                                @Html.Label("Select CSV File")
+                                                <input id="postedFile" name="postedFile" type="file" title="Upload CSV File" class="form-control" placeholder="UPLOAD CSV FILE" onchange="return validate();" />
+                                                <div id="divvalidFile" style="color: red; font-weight: bold;"></div>
+                                                <div class="clear"></div>
+                                            </div>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="submit" id="SubmitCSV" class="btn btn-primary">Submit</button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="clear" style="height: 35px;"></div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <fieldset style="padding:14px; margin-top:-5px;">
+                            <legend>Connect your friends and build network now!</legend>
+                            <div id="socialLoginList" type="friendsinviter">
+                                <a href="#">
+                                    <img src="~/Images/google-plus.png" onclick="socialinviter.friendsinviter.auth('google')" />
+                                </a>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="clear" style="height: 35px;"></div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <fieldset style="padding:14px; margin-top:-5px;">
+                            @if (profile.Type == (int)SecurityRoles.Company)
+                            {
+                                <legend>Send Connection Invitation via Email</legend>
+                            }
+                            else
+                            {
+                                <legend>Invite your friend via Email</legend>
+                            }
+                            @using (Html.BeginForm("Add", "Network", FormMethod.Post, new { name = "InviteYourFriend" }))
+                            {
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(model => model.EmailAddress, "", new { @class = "form-control", @placeholder = "PROVIDE EMAIL ADDRESS", @title = "Email Address" })
+                                            @Html.ValidationMessageFor(model => model.EmailAddress)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-12 col-lg-offset-8 col-md-offset-8">
+                                        <div class="form-group">
+                                            <input type="submit" id="InviteYourFriend" value="Invite via Email" class="btn btn-info btn-block" style="height:28px;background-color:#01a7e1" title="Invite your friend" default />
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="clear" style="height: 25px;"></div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <fieldset style="padding:14px; margin-top:-5px;">
+                            @if (profile.Type == (int)SecurityRoles.Company)
+                            {
+                                <legend>Send Connection Invitation via SMS</legend>
+                            }
+                            else
+                            {
+                                <legend>Invite your friend via SMS</legend>
+                            }
+                            @using (Html.BeginForm("InviteFriend", "Network", FormMethod.Post))
+                            {
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            @Html.DropDownList("Country", new SelectList(SharedService.Instance.CountryWithCodes, "Value", "Key"), "SELECT COUNTRY", new { @class = "form-control", @title = "Country", @required = "required" })
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            @Html.TextBox("Mobile", "", new { @class = "form-control", @placeholder = "PROVIDE MOBILE NO", @title = "Mobile Number (not start with zero)", @required = "required", maxlength = "15", pattern = "^[1-9][0-9]*$" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-12 col-lg-offset-8 col-md-offset-8">
+                                        <div class="form-group">
+                                            <input type="submit" value="Invite via SMS" class="btn btn-info btn-block" style="height:28px;background-color:#01a7e1" title="Invite your friend via Mobile" default />
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="clear" style="height: 25px;"></div>
+                @if (profile.Type == (int)SecurityRoles.Individual)
+                {
+                    Html.RenderPartial("SearchIndividuals", new JobPortal.Web.Models.SearchModel() { ShowConnect = true, ButtonText = "Search & Connect" });
+                }
+                else
+                {
+                    @Html.Partial("SearchPeople", new JobPortal.Web.Models.SearchModel() { ShowConnect = true, ButtonText = "Search & Connect" })
+                }
+                <div class="clear" style="height: 25px;"></div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="list-group-item">
+                            <h4>Manage Connections</h4>
+                            <div class="clear" style="height: 10px;"></div>
+                            @using (Html.BeginForm("Index", "Network", FormMethod.Post, new { id = "SearchByForm", name = "SearchByForm" }))
+                            {
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            @Html.DropDownList("Status", new SelectList(new Hashtable() { { 2, "Blocked" }, { 1, "Connected" }, { 0, "Waiting for Acceptance" }, { 4, "Individual" }, { 5, "Company" } }, "key", "value"), "--SELECT--", new { @class = "form-control" })
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            @Html.TextBox("Name", "", new { @class = "form-control", placeholder = "NAME" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-12 col-lg-offset-8 col-md-offset-8">
+                                        <input type="submit" id="manage" value="Search" class="btn btn-info btn-block" style="background-color:#01a7e1" />
+                                    </div>
+                                </div>
+                            }
+                            <div id="ConnectionArea" style="padding-top:30px;"></div>
+                            <a id="ViewMoreConnections" class="btn btn-primary btn-block hide" style="width:100%;">View More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-1 col-md-1"></div>
+            <div class="col-sm-3 right-col">
+                <div style="background-color:#fff; padding-bottom:15px; min-height:590px">
+                    <div class="sponsored">
+                        <div class="sub-heading">
+                            <h2 style="margin-top:-15px;">Sponsored Ads</h2>
+                        </div>
+
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-8925328521448849"
+                             data-ad-slot="8709143016"
+                             data-ad-format="rectangle"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+
+                    </div>
+                    <div class="sponsored">
+                        @if ((User != null && user.Role == SecurityRoles.Individual))
+                        {
+                            @Html.Action("RecentJobsWithoutLogo", "Home", new { Id = user.Id })
+                        }
+                        else if (User != null && user.Role == SecurityRoles.Company)
+                        {
+                            @Html.Partial("_SearchPromotedJobSeekers")
+                        }
+                        else if (User == null)
+                        {
+                            @Html.Action("RecentJobsWithoutLogo", "Home", new { Id = 0 })
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="clear" style="height:15px"></div>
+
+<div id="socialinviter-template" style="display:none; visibility:hidden"></div>
+<script type="text/javascript">
+    var licenses = "lic_c4d729e9-4561-455f-8dd0-88364,lic_ea2b7167-f480-41d0-b579-02af3"; //replace your license key lic_ea2b7167-f480-41d0-b579-02af3
+    var SIConfiguration = {
+        "showmodal": false,
+        "path": {
+            "authpage": "@Request.Url.Scheme://@Request.Url.Authority/oauth.html" //replace the web url of oauth.html
+        },
+        "callbacks": {
+            "loaded": function (service, data) {
+
+                console.log(socialinviter.friendsinviter.getAllContacts());
+                var contacts = [];
+
+                for (var i = 0; i < data.length; i++) {
+
+                    var first_name = data[i].name.first_name;
+                    var last_name = data[i].name.last_name;
+                    var email = "";
+                    var phone = "";
+                    if (data[i].id == undefined) {
+                        email = data[i].email[0];
+                    } else {
+                        email = data[i].id;
+                    }
+                    if (data[i].phone != undefined) {
+                        phone = data[i].phone[0];
+                    }
+                    contacts.push({ "FirstName": first_name, "LastName": last_name, "Phone": phone, "Email": email });
+                }
+
+                $.post('@Url.Action("ImportContacts", "JsonHelper")', { data: contacts },
+                     function (result) {
+                         //alert(result);
+                         window.location.reload();
+                     });
+            }
+        }
+    }
+
+    var fileref = document.createElement("script"); fileref.setAttribute("type", "text/javascript");
+    fileref.setAttribute("id", "apiscript"); fileref.setAttribute("src", "//socialinviter.com/all.js?keys=" + licenses);
+    try { document.body.appendChild(fileref) } catch (a) { document.getElementsByTagName("head")[0].appendChild(fileref); }
+    var loadInitFlg = 0, socialinviter, loadConf = function () {
+        window.setTimeout(function () {
+            $(document).ready(function () {
+                loadInitFlg++;
+                socialinviter ? socialinviter.load(SIConfiguration) : 15 > loadInitFlg && window.setTimeout(loadConf, 200)
+            })
+        },
+        250)
+    }; window.setTimeout(loadConf, 200);
+</script>
+
+
+<style>
+    .CI-SI-services {
+        height: 32px;
+    }
+
+    .CI-SI-shape-rounded {
+        border-radius: 0 !important;
+    }
+
+    .CI-SI-twitter {
+        background: url(/Images/twitter.png) no-repeat;
+    }
+
+        .CI-SI-twitter:hover {
+            background: url(/Images/twitter.png) no-repeat;
+        }
+
+    .CI-SI-google {
+        background: url(/Images/google-plus.png) no-repeat;
+        height: 32px;
+    }
+
+        .CI-SI-google:hover {
+            background: url(/Images/google-plus.png) no-repeat;
+            height: 32px;
+        }
+
+    .CI-SI-facebook {
+        background: url(/Images/facebook.png) no-repeat;
+        height: 32px;
+    }
+
+        .CI-SI-facebook:hover {
+            background: url(/Images/facebook.png) no-repeat;
+            height: 32px;
+        }
+
+    .actionlinks {
+        list-style: none;
+        padding-left: 0;
+    }
+
+        .actionlinks li {
+            float: left;
+            list-style-type: none;
+        }
+
+            .actionlinks li a {
+                font-size: 14px;
+                font-weight: normal;
+            }
+</style>
+<script type="text/javascript">
+    var cpage = 1;
+    var cpages = 1;
+    $(document).ready(function () {
+        $.post("/network/index", { pageNumber: 1 }, function (result) {
+            if (result.length > 0) {
+                var rows = result[0].MaxRows;
+                cpages = Math.ceil(rows / 10);
+                $.each(result, function () {
+                    this.authenticated = "@Request.IsAuthenticated";
+                    this.role = "@user.Role.GetDescription()";
+                    $("#ResultItem").tmpl(this).appendTo("#ConnectionArea");
+                });
+            }
+
+            if (cpage < cpages) {
+                $("#ViewMoreConnections").removeClass("hide");
+                $("#ViewMoreConnections").addClass("show");
+            } else {
+                $("#ViewMoreConnections").removeClass("show");
+                $("#ViewMoreConnections").addClass("hide");
+            }
+        });
+
+        $("#manage").click(function () {
+            var json = $("#manage").closest("form").serializeObject();
+            json.pageNumber = 1;
+            $.post("/network/index", json, function (result) {
+                if (result.length > 0) {
+                    $("#ConnectionArea").empty();
+                    var rows = result[0].MaxRows;
+                    cpages = Math.ceil(rows / 10);
+                    $.each(result, function () {
+                        this.authenticated = "@Request.IsAuthenticated";
+                        this.role = "@user.Role.GetDescription()";
+                        $("#ResultItem").tmpl(this).appendTo("#ConnectionArea");
+                    });
+                }
+
+                if (cpage < cpages) {
+                    $("#ViewMoreConnections").removeClass("hide");
+                    $("#ViewMoreConnections").addClass("show");
+                } else {
+                    $("#ViewMoreConnections").removeClass("show");
+                    $("#ViewMoreConnections").addClass("hide");
+                }
+                return false;
+            });
+        });
+
+        $("#ViewMoreConnections").click(function () {
+            if (cpage <= cpages) {
+                cpage++;
+                var json = $("#manage").closest("form").serializeObject();
+                json.pageNumber = cpage;
+                $("#waitDialog").modal("show");
+                $.post("/network/index", json, function (result) {
+                    $("#waitDialog").modal("hide");
+                    $.each(result, function () {
+                        this.authenticated = "@Request.IsAuthenticated";
+                        this.role = "@user.Role.GetDescription()";
+                        $("#ResultItem").tmpl(this).appendTo("#ConnectionArea");
+                    });
+                });
+            }
+
+            if (cpage < cpages) {
+                $("#ViewMoreConnections").removeClass("hide");
+                $("#ViewMoreConnections").addClass("show");
+            } else {
+                $("#ViewMoreConnections").removeClass("show");
+                $("#ViewMoreConnections").addClass("hide");
+            }
+        });
+
+        $(".csvupload").click(function () {
+            $("#inviteDialog").modal("hide");
+            $("#divvalidFile").html("");
+            $("#postedFile").val("");
+        });
+
+        $("#SubmitCSV").click(function () {
+            var flag = true;
+            if ($("#postedFile").val() == null || $("#postedFile").val() == "") {
+                $("#divvalidFile").html("Please select file!");
+                flag = false;
+            } else {
+                $("#divvalidFile").html("");
+            }
+            return flag;
+        });
+
+        $('.delete-case').on('click', function (e) {
+            e.preventDefault();
+            var tr = $(this).parents('tr:first');
+            id = $(this).prop('id');
+            if (confirm("Are you sure want to delete this contact?")) {
+                $.ajax({
+                    type: 'POST',
+                    contentType: "application/json; charset=utf-8",
+                    url: "/Network/DeleteContact/" + id,
+                    dataType: "json",
+                    success: function (data) {
+                        window.location.href = "/Network/Index";
+                    },
+                    error: function () {
+                        alert('Error occured during delete.');
+                    }
+                });
+            }
+        });
+
+        $('.connectnow').on('click', function (e) {
+            e.preventDefault();
+            var tr = $(this).parents('tr:first');
+            id = $(this).prop('id');
+            $.ajax({
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                url: "/Network/Invite/" + id,
+                dataType: "json",
+                success: function (data) {
+                    alert(data);
+                    window.location.href = "/Network/Index";
+                },
+                error: function () {
+                    alert('Error occured while inviting.');
+                }
+            });
+
+        });
+        $("#ContactType").change(function () {
+            this.form.submit();
+        })
+        $('#Status').change(function () {
+            this.form.submit();
+        });
+
+        $(".CI-SI-Holder").hide();
+
+    });
+
+    function submitMainForm() {
+        $('#hdnSelectedValue').val($('#contAccounts').val());
+        $('#submitForm').submit();
+    }
+
+
+    function checkSelection() {
+        var id = document.getElementById("contAccounts").value;
+        alert(id);
+    }
+
+    ReInvitation = function (FriendEmail) {
+        if (FriendEmail != "") {
+            $.ajax({
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                url: '@Url.Action("ReconnectedEmail", "Network")',
+                data: { "EmailAddress": FriendEmail },
+                dataType: "json",
+                beforeSend: function () { },
+                success: function (data) {
+                    debugger;
+
+                    if (data != "") {
+                        alert(data);
+                    }
+                    else {
+                        alert('There is some error');
+                    }
+                }
+            });
+        }
+        else {
+            alert('Please check Email Address!');
+            return false;
+        }
+    }
+
+</script>
+
+<script type="text/javascript" language="javascript">
+    function validate() {
+        var uploadcontrol = document.getElementById('postedFile');
+        var uploadval = document.getElementById('postedFile').value;
+        var reg = /^(([a-zA-Z]:)|(\\{2}\w+)\$?)(\\(\w[\w].*))+(.csv|.CSV)$/;
+        //alert(123);
+
+        if (uploadval.length > 0) {
+            var fileSize = uploadcontrol.files[0].size;
+            if (reg.test(uploadval)) {
+                return true;
+            }
+            else {
+                alert("Only .csv files are allowed!");
+                return false;
+            }
+        }
+        else {
+            alert("Please Select File [.csv!!]");
+            return false;
+        }
+    }
+</script>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script type="text/x-jquery-tmpl" id="ResultItem">
+    <div class="list-group">
+        <div class="list-group-item">
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    <a href="/${PermaLink}">
+                        <div style="width:60px; height:60px; background:url('/Image/Avtar?Id=${ConnectedUserId}') no-repeat; background-size:contain; background-position:top center">
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <i><b>Name: </b></i><a href="${PermaLink}" title="View profile" target="_blank">${FullName}</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <i><b>Status: </b></i>${ConnectionStatus}
+                        </div>
+                    </div>
+                    @*<div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                {{if Type == 4}}
+                                {{if Age != null }}${Age} years{{/if}} {{if Gender != null }}, ${Gender} {{/if}}{{if RelationshipStatus != null }}, ${relation(RelationshipStatus)} {{/if}}
+                                {{/if}}
+                            </div>
+                        </div>*@
+                    @*<div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <i><b>Location:</b></i> ${Country}
+                            </div>
+                        </div>*@
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <ul class="actionlinks">
+                                    <li>
+                                        {{if Messages > 0 }}
+                                        <b><a href="/Message/List?SenderId=${UserId}" target="_blank">Message (<span style="color:red;">${Messages}</span>)</a></b>
+                                        {{else}}
+                                        <b><a href="/Message/List?SenderId=${UserId}" target="_blank">Message</a></b>
+                                        {{/if}}
+                                    </li>
+                                    {{if authenticated == "False"}}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/Home/Connect?id=${UserId}" target="_blank" title="Connect">Connect</a></b>
+                                    </li>
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/${PermaLink}" title="View profile" target="_blank">View Profile</a></b>
+                                    </li>
+                                    {{/if}}
+
+                                    {{if authenticated == "True" }}
+
+                                    {{if IsConnected == true }}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a data-aurl="/Network/Disconnect?Id=${Id}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
+                                    </li>
+                                    {{else}}
+                                    {{if InvitedByMe > 0 || InvitedBySomeone > 0}}
+                                    {{if InvitedByMe > 0}}
+                                    <li>
+                                        &nbsp;|&nbsp; <b><a data-aurl="/Network/Disconnect?Id=${Id}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{if InvitedBySomeone > 0}}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/Network/Accept?Id=${Id}&redirect=@Request.Url.ToString()" title="Accept" target="_blank">Accept</a></b>
+                                        &nbsp;|&nbsp;<b><a data-aurl="/Network/Disconnect?Id=${Id}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{else}}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/Home/Connect?id=${UserId}&redirect=@Request.Url.ToString()" title="Connect" target="_blank">Connect</a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{/if}}
+
+                                    {{if BlockedByMe > 0 }}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/Home/Unblock?id=${UserId}&redirect=@Request.Url.ToString()" title="Unblock" target="_blank">Unblock</a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{if BlockedByMe <= 0 && Blocked <= 0 }}
+                                    {{if role == "Company" && Content != null}}
+                                    {{if Title != null && CategoryId!= null && SpecializationId!=null}}
+
+                                    {{if InterviewStatus == 0 || InterviewStatus == 1}}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a href="/Interview/Update?id=${InterviewId}" title="View in-progress interview details" target="_blank"><span>Interview&nbsp;In-progress</span></a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{/if}}
+                                    {{/if}}
+                                    <li>
+                                        &nbsp;|&nbsp;<b><a data-href="/Home/Block?email=${Username}" data-name="${FullName}" role="button" data-toggle="modal" data-target="#cDialog" class="aBlock" data-role="${TypeName}" data-connected="${IsConnected}" style="cursor:pointer;" title="Block">Block</a></b>
+                                    </li>
+                                    {{/if}}
+                                    {{/if}}
+                                    {{if Downloadable == true}}
+                                    <li>
+                                        @if (Request.IsAuthenticated)
+                                        {
+                                            <text>&nbsp;|&nbsp;<a href="/jobseeker/download?id=${UserId}&redirect=@Request.Url.ToString()" title="Download Resume" target="_blank">Download</a></text>
+                                        }
+                                        else
+                                        {
+                                            <text>&nbsp;|&nbsp;<a href="/jobseeker/DownloadResume?id=${UserId}&redirect=@Request.Url.ToString()" title="Download Resume" target="_blank">Download</a></text>
+                                        }
+                                    </li>
+                                    {{/if}}
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

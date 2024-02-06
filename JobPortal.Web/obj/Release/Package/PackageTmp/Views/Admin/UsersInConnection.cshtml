@@ -1,0 +1,419 @@
+﻿@using JobPortal.Domain
+@using JobPortal.Data
+@using JobPortal.Library.Enumerators;
+@using JobPortal.Library.Helpers;
+@using System.Collections
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Connections";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<JobPortal.Data.UserProfile>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+}
+<script src="~/Scripts/highcharts.js"></script>
+<style>
+    .cdate {
+        padding-left: 0px;
+        list-style-type: none;
+    }
+
+        .cdate li {
+            display: inline-block;
+            width: auto;
+        }
+</style>
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">Connections</h1>
+            Manage connections here
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:15px;"></div>
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <span style="font-size:1em; font-weight:bold">Last 7 days @(ViewBag.Country != null ? string.Format(" for {0}", ViewBag.Country.Text) : "")</span>
+        <div id="container1" class="list-group-item" style="height:240px;">
+
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-12 col-sm-6">
+        <span style="font-size:1em; font-weight:bold">Total @(ViewBag.Country != null ? string.Format(" for {0}", ViewBag.Country.Text) : "")</span>
+        <div id="container2" class="list-group-item" style="height:240px;">
+
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:15px;"></div>
+@using (Html.BeginForm("UsersInConnection", "Admin", method: FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+                @Html.Label("Search By Name")
+                <input type="text" id="Name" name="Name" placeholder="SEARCH BY NAME" class="form-control" />
+                <input type="hidden" name="CountryId" id="CountryId" value="@ViewBag.Country.Id" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="form-group">
+                @Html.Label("Type")
+                <select id="UserType" name="UserType" class="form-control">
+                    <option value="">TYPE</option>
+                    <option value="4">Individual</option>
+                    <option value="5">Company</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-8">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        @Html.Label("From Date")
+                        <ul class="cdate" title="From Date">
+                            <li>
+                                @Html.DropDownList("fd", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control", @style = "padding:5px;width:64px;" })
+                            </li>
+                            <li>
+                                @Html.DropDownList("fm", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control", @style = "padding:5px;" })
+                            </li>
+                            <li>
+                                @Html.DropDownList("fy", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 1)), "YEAR", new { @class = "form-control", @style = "padding:5px;width:70px;" })
+                            </li>
+                        </ul>
+                        <div id="fromDateError" style="color:red;"></div>
+                    </div>
+
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        @Html.Label("To Date")
+                        <ul class="cdate" title="To Date">
+                            <li>
+                                @Html.DropDownList("td", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control", @style = "padding:5px;width:64px;" })
+                            </li>
+                            <li>
+                                @Html.DropDownList("tm", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control", @style = "padding:5px;" })
+                            </li>
+                            <li>
+                                @Html.DropDownList("ty", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 1)), "YEAR", new { @class = "form-control", @style = "padding:5px;width:70px;" })
+                            </li>
+                        </ul>
+                        <div id="toDateError" style="color:red;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-sm-offset-10 col-xs-8">
+            <div class="form-group">
+                <input id="Search" type="submit" value="Search" class="btn btn-info" style="width:105px;" />
+            </div>
+        </div>
+    </div>
+    <div class="clear" style="height:15px;"></div>
+}
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div style="font-size:1.2em; background-color:#ede9e9; padding:4px;">@ViewBag.Country.Text</div>
+    </div>
+</div>
+<div id="container-grid" class="table-responsive">
+    <table class="table table-bordered table-hover" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Connections</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.Model)
+            {
+                <tr>
+                    <td>
+                        @Html.Raw(item.FirstName)   @Html.Raw(item.LastName)
+                        @*@Html.Raw(MemberService.Instance.ProfileLink(item.Username))*@
+                    </td>
+                    <td>
+                        @{
+                            string type = string.Empty;
+                            if (item.Type == 4)
+                            {
+                                type = "Individual";
+                            }
+                            else if (item.Type == 5)
+                            {
+                                type = "Company";
+                            }
+                        }
+                        @Html.Raw(type)
+                    </td>
+                    <td>
+                        @{
+                int items = MemberService.Instance.GetConnectionCounts(item.Username);
+
+                string link = string.Empty;
+                if (items > 0)
+                {
+                    link = string.Format("<a href=\"/Admin/UserConnections?Id={0}&fd={1}&fm={2}&fy={3}&td={4}&tm={5}&ty={6}\" target=\"_blank\">{7}</a>", item.UserId, Request["fd"], Request["fm"], Request["fy"], Request["td"], Request["tm"], Request["ty"], items);
+                }
+                else
+                {
+                    link = Convert.ToString(items);
+                }
+                        }
+                        @Html.Raw(link)
+                    </td>
+                    <td>
+                        @item.DateCreated.ToString("MMM-dd-yyyy")
+                    </td>
+                    <td>
+                        @{
+                string links = string.Empty;
+
+                links += string.Format("<b>{0}</b>", Html.ActionLink("Manage", "Connections", new { UserId = item.UserId }, new { title = "Manage Connections", @class = "edit", @target = "_blank" }).ToString());
+                        }
+                        @Html.Raw(links)
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Total</th>
+                <th>@ViewBag.Rows</th>
+                <th>@ViewBag.Connections</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<div style="text-align:center; margin-top: -15px;">
+
+    @Html.PagedListPager(pagedModel, PageNumber => Url.Action("UsersInConnection",
+            new RouteValueDictionary()
+            {
+                { "PageNumber" , PageNumber},
+                { "CountryId" , ViewBag.Country.Id},
+                { "fd" , Request["fd"]},
+                { "fm" , Request["fm"]},
+                { "fy" , Request["fy"]},
+                { "td" , Request["td"]},
+                { "tm" , Request["tm"]},
+                { "ty" , Request["ty"]},
+                { "UserType" , Request["UserType"]},
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+</div>
+<script>
+    $(document).ready(function () {
+
+        var companies = 0;
+        var individuals = 0;
+        var females = 0;
+        var dataPoints = [];
+
+        var url = "/JsonHelper/GetConnectionCounts?CountryId=@ViewBag.Country.Id&fd=" + $("#fd").val() + "&fm=" + $("#fm").val() + "&fy=" + $("#fy").val() + "&td=" + $("#td").val() + "&tm=" + $("#tm").val() + "&ty=" + $("#ty").val();
+
+        $.getJSON(url, function (data) {
+            var total = 0;
+            dataPoints = [];
+            $.each(data, function (key, value) {
+                dataPoints.push({ name: key, y: value });
+                total += value;
+            });
+
+            $('#container1').highcharts({
+                colors: ['#FFB61C', '#87D42E', '#475d8f'],
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                events: {
+                    click: function () {
+                        alert('chart clicked');
+                    }
+                },
+                title: {
+                    text: ''
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.y}</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        depth: 10,
+                        dataLabels: {
+                            enabled: true,
+                            distance: -30,
+                            format: '{point.y}',
+                            shadow: false,
+                            style: {
+                                textShadow: "0 0 0px contrast, 0 0 0px contrast",
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Connections',
+                    data: dataPoints,
+                    showInLegend: true,
+                    dataLabels: {
+                        enabled: true,
+                        distance: -30,
+                        format: '{point.y}',
+                        shadow: false
+                    }
+                }]
+            });
+
+            if (total == 0) {
+                $('#container1').html("<div style=\"padding-top:100px; color:red\"><b>No Connections</b></div>");
+                $('#container1').addClass("text-center");
+            }
+        });
+
+        url = "/JsonHelper/GetConnectionCountsByCountry?CountryId=@ViewBag.Country.Id&fd=" + $("#fd").val() + "&fm=" + $("#fm").val() + "&fy=" + $("#fy").val() + "&td=" + $("#td").val() + "&tm=" + $("#tm").val() + "&ty=" + $("#ty").val();
+
+        $.getJSON(url, function (data) {
+
+            companies = 0;
+            males = 0;
+            females = 0;
+            dataPoints = []
+
+            $.each(data, function (i, item) {
+                companies += item.Companies;
+                individuals += item.Individuals;
+                dataPoints.push({ code: "" + item.Code, value: (item.Individuals + item.Companies), name: item.Country, countryId: item.CountryId });
+
+            });
+
+
+            dataPoints = [];
+            var utype=@(ViewBag.UserType!=null ? ViewBag.UserType : -1);
+            if(utype==4){
+                dataPoints.push({ name: "Individuals", y: @ViewBag.Rows, typeId: 1 });
+                dataPoints.push({ name: "Connections", y: @ViewBag.Connections, typeId: 3 });
+            }else if(utype==5){
+                dataPoints.push({ name: "Companies", y: @ViewBag.Rows, typeId: 1 });
+                dataPoints.push({ name: "Connections", y: @ViewBag.Connections, typeId: 3 });
+            }
+            else{
+                dataPoints.push({ name: "Individuals", y: individuals, typeId: 1 });
+                dataPoints.push({ name: "Companies", y: companies, typeId: 3 });
+                dataPoints.push({ name: "Total", y: (individuals + companies) });
+            }
+            $('#container2').highcharts({
+                colors: ['#FFB61C', '#87D42E', '#475d8f'],
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                events: {
+                    click: function () {
+                        alert('chart clicked');
+                    }
+                },
+                title: {
+                    text: ''
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.y}</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        depth: 10,
+                        dataLabels: {
+                            enabled: true,
+                            distance: -30,
+                            format: '{point.y}',
+                            shadow: false,
+                            style: {
+                                textShadow: "0 0 0px contrast, 0 0 0px contrast",
+                            }
+                        }
+                    },
+                    series: {
+                        cursor: 'pointer',
+                        point: {
+                            events: {
+                                @*click: function () {
+                                    if (this.typeId != null) {
+                                        window.open("/Admin/UserList?CountryId=@ViewBag.Country.Id&TypeId=" + this.typeId + "&fd=" + $("#fd").val() + "&fm=" + $("#fm").val() + "&fy=" + $("#fy").val() + "&td=" + $("#td").val() + "&tm=" + $("#tm").val() + "&ty=" + $("#ty").val(), "_blank");
+                                    }
+                                }*@
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Connections',
+                    data: dataPoints,
+                    showInLegend: true,
+                    dataLabels: {
+                        enabled: true,
+                        distance: -30,
+                        format: '{point.y}',
+                        shadow: false
+                    }
+                }]
+            });
+        });
+
+        $("#Search").click(function () {
+            var isValidStartDate = isValidDate($("#fd").val(), $("#fm").val(), $("#fy").val());
+            var isValidEndDate = isValidDate($("#td").val(), $("#tm").val(), $("#ty").val());
+
+            if (isValidStartDate) {
+                $("#fromDateError").html("");
+                $("#fromDateError").show();
+                $("#Search").enabled = true;
+            } else {
+                $("#fromDateError").html("Provide correct from date!");
+                $("#fromDateError").show();
+                $("#Search").enabled = false;
+            }
+
+            if (isValidEndDate) {
+                $("#toDateError").html("");
+                $("#toDateError").show();
+                $("#Search").enabled = true;
+            } else {
+                $("#toDateError").html("Provide correct to date!");
+                $("#toDateError").show();
+                $("#Search").enabled = false;
+            }
+            return (isValidStartDate == true && isValidEndDate == true);
+        });
+    });
+
+</script>

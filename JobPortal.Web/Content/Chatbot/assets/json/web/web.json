@@ -1,0 +1,100 @@
+{
+  "base-path": "/asserts/json/web",
+  "title": "Website Designing & Development",
+  "img-path": "",
+  "about": [
+    "To make sure our clients receive the most out of our open source development services, we follow a time-bound and cost-effective development philosophy, which our developers use to craft any web idea for your online business website into a reality.",
+    "To accomplish this, we use state-of-the-art open source web development technologies like WordPress, Joomla, Drupal, Opencart, and more. We stand second to none when it comes to maximizing business outputs with optimized web solutions for our valued customers."
+  ],
+  "header": [
+    {
+      "h1": "The various services we provide are:"
+    }
+  ],
+  "items": {
+    "h1": {
+      "title": "",
+      "about": "",
+      "img-path": "",
+      "header": [
+        {
+          "h1": "CMS Development Services"
+        },
+        {
+          "h2": "Opencart E-commerce"
+        },
+        {
+          "h3": "Custom Module Development"
+        },
+        {
+          "h4": "Web Store Development"
+        },
+        {
+          "h5": "Website Support & Maintenance"
+        },
+        {
+          "h6": "Migrations & Upgradations"
+        },
+        {
+          "h7": "Responsive Web UI in Angular"
+        },
+        {
+          "h8": "Web Portal Development"
+        }
+      ],
+      "items": {
+        "h1": {
+          "about": "",
+          "extras": [],
+          "technologies": [],
+          "detailed-data-path": ""
+        },
+        "h2": {
+          "about": "",
+          "extras": [],
+          "technologies": [],
+          "detailed-data-path": ""
+        },
+        "h3": {
+          "about": "",
+          "extras": [],
+          "technologies": [],
+          "detailed-data-path": ""
+        },
+        "h4": {
+          "about": "",
+          "extras": [],
+          "technologies": [],
+          "detailed-data-path": ""
+        },
+        "h5": {
+          "about": "",
+          "extras": {},
+          "technologies": [],
+          "detailed-data-path": "website/"
+        },
+        "h6": {
+          "about": "",
+          "extras": {},
+          "technologies": [],
+          "detailed-data-path": "website/"
+        },
+        "h7": {
+          "about": "",
+          "extras": {},
+          "technologies": [],
+          "detailed-data-path": "website/"
+        },
+        "8": {
+          "about": "",
+          "extras": {},
+          "technologies": [],
+          "detailed-data-path": "website/"
+        }
+      },
+      "extras": {},
+      "detailed-data-path": ""
+    }
+  },
+  "detailed-data-path": "Web Application Development/"
+}

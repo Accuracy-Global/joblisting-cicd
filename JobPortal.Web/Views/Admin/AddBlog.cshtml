@@ -1,0 +1,125 @@
+﻿@model JobPortal.Models.AddBlog
+
+@{
+    ViewBag.Title = "AddBlog";
+    Layout = "~/Views/Shared/_NewLayout.cshtml";
+    //Layout = "~/Views/Shared/_LandingLayout.cshtml";
+}
+
+<h2>Add-Blog</h2>
+
+
+@*<form>
+    <label>
+        Title:
+    </label>
+    <input type="text" class="form-control" />
+    <br />
+    <br />
+
+    <label>
+        Descripton:
+    </label>
+    <textarea type="text" class="form-control"></textarea>
+
+    <br />
+    <br />
+    <label>
+        Banner:
+    </label>
+    <br />
+    <input type="file" />
+    <br />
+    <br />
+
+    <br />
+    <br />
+    <label>
+        Name:
+    </label>
+    <br />
+    <input type="text" />
+    <br />
+    <br />
+
+    <br />
+    <br />
+    <label>
+        Category:
+    </label>
+    <br />
+    <input type="text" />
+    <br />
+    <br />
+
+    <input type="button" value="Submit" />
+
+    <br />
+    <br />
+</form>*@
+
+<div class="clear" style="height:15px;"></div>
+@using (Html.BeginForm("AddBlog", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        @Html.ValidationSummary(true)
+       
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Title)
+
+                    @*@Html.TextBoxFor(model => model.Type, new { @class = "form-control" })*@
+                    @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Title)
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.descriptions)
+                        @Html.TextAreaFor(model => model.descriptions, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.descriptions)
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Name)
+
+                    @*@Html.TextBoxFor(model => model.Type, new { @class = "form-control" })*@
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Name)
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.categories)
+
+                    @*@Html.TextBoxFor(model => model.Type, new { @class = "form-control" })*@
+                    @Html.TextBoxFor(model => model.categories, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.categories)
+
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-3">
+                <div class="form-group">
+                    <input type="file" name="FileUpload" />
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 text-right">
+                <div class="form-group">
+                    @Html.ActionLink("AddBlog", "Admin", null, new { @class = "btn btn-default", @style = "width:75px;" }) &nbsp;<input type="submit" value="Submit" class="btn btn-info" style="width:75px;" />
+                </div>
+            </div>
+        </div>
+   
+
+}
+

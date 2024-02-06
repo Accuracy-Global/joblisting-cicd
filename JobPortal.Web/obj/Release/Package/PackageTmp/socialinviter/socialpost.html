@@ -1,0 +1,558 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title></title>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="//socialinviter.com/assets/js/src/socialinviter.js"></script>
+    <style type="text/css">
+        .hiddenBtn{width:0;height:0;position:absolute;left:-2000px}
+        .rowHeader{background-color:#eee;color:#000;font-weight:700;line-height:30px;padding-left:10px;font-size:16px;margin-top:40px;margin-bottom:20px}
+        body{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;padding-bottom:10px;color:#5a5a5a;font-size:14px}
+        .label{width:120px}.text{width:300px;border-radius:4px;border:1px solid #DDD;padding:5px}
+        .text-lg,textarea{width:400px;border-radius:4px}
+        .text-lg{border:1px solid #DDD;padding:5px}
+        table tr td{padding-top:3px;padding-bottom:3px;padding-right:10px}
+        .btn{background-color:#2154B0;cursor:pointer;color:#fff;border:0;padding:5px 10px;border-radius:4px;line-height:21px}
+        textarea{height:200px;border:1px solid #D0CDCD}
+        .select{width:200px;border-radius:4px;border:1px solid #DDD;padding:5px}
+        .fr{float:right}
+        .fl{float:left}
+        .posrel{position:relative}
+        .posabs{position:absolute}
+        .text-primary{color:Orange}
+        .center{margin:0 auto;text-align:center}
+        .backholder{width:200px;right:0;top:-30px}
+        .backholder a{color:Red}.outlook{display:none}
+        .loading{background-image:url(blueloading.gif);position:fixed;width:100%;height:100%;background-repeat:no-repeat;background-position:center;display:none;}
+    </style>
+</head>
+<body>
+            <div class="loading"></div>
+            <h1 class="text-primary center">
+                Check out our demo</h1>
+            <div class="fr posrel">
+                <div class="posabs backholder">
+                    <a href="index.html">Back to products</a></div>
+            </div>
+            <div class="enguser center">
+                <h2>Promote Your website with the Best Social Tools on the Web.</h2>
+            </div>
+            <hr />
+            <h2 class="text-primary">Social Connect REST API example</h2>
+            <div class="rowHeader">
+                Step1 : Getting Authentication Url
+            </div>
+            <table>
+                <tr>
+                    <td class="label">
+                        Service
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                        <select class="select" onchange="changeService()" id="ddnservice">
+                            <option value="facebook">Facebook</option>
+                            <option value="twitter">Twitter</option>
+                            <option value="linkedin">Linkedin</option>
+                            <option value="xing">Xing</option>
+                            <option value="tumblr">Tumblr</option>
+                            <option value="delicious">Delicious</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Consumer key
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                        <input type="text" class="text" runat="server" id="authConsumerKey" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Consumer secret
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                        <input type="text" class="text" runat="server" id="authConsumerSecret" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Redirect Url
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                        <input type="text" class="text" runat="server" id="authRedirectUrl" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Formatted key
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                        <input type="text" class="text" runat="server" id="formattedKey" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                    </td>
+                    <td>
+                        <input type="button" class="btn" value="Get authentication url" onclick="getAuthUrl()" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <table>
+                            <tr>
+                                <td>
+                                    API Request
+                                </td>
+                                <td>
+                                    API Response
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <textarea runat="server" id="authRequest"></textarea>
+                                </td>
+                                <td>
+                                    <textarea runat="server" id="authResponse"></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <div class="rowHeader step2">
+                Step2 : Authenticating User
+            </div>
+            <table>
+                <tr>
+                    <td class="label">
+                        Authenticatio Url
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                        <input type="text" class="text-lg" id="txtAuthUrl" runat="server" disabled="disabled" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                    </td>
+                    <td>
+                        <input type="button" class="btn" value="Authentication user" onclick="authUser()" />
+                    </td>
+                </tr>
+            </table>
+            <div class="rowHeader step3">
+                Step3 : Getting Access Token
+            </div>
+            <table>
+                <tr>
+                    <td class="label">
+                        Token
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                        <input type="text" class="text" id="accToken" runat="server" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Token secret
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                        <input type="text" class="text" id="accTokenSecret" runat="server" />  (Optional)
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Token Verifier
+                    </td>
+                    <td>
+                        :
+                    </td>
+                    <td>
+                        <input type="text" class="text" id="accTokenVerifier" runat="server" />  (Optional)
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                    </td>
+                    <td>
+                        <input type="button" class="btn" value="Get access token" onclick="getAccTok()" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <table>
+                            <tr>
+                                <td>
+                                    API Request
+                                </td>
+                                <td>
+                                    API Response
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <textarea runat="server" id="accessRequest"></textarea>
+                                </td>
+                                <td>
+                                    <textarea runat="server" id="accessResponse"></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            <div class="rowHeader step4">
+                Step4 : Share Content
+            </div>
+            <table>
+    <tr>
+        <td class="label">Token</td>
+        <td>:</td>
+        <td><input type="text" class="text" id="shareToken" runat="server" /></td>
+    </tr>
+    <tr>
+        <td>Token secret</td>
+        <td>:</td>
+        <td><input type="text" class="text" id="shareTokenSecret" runat="server" />  (Optional)</td>
+    </tr>
+    <tr>
+        <td>Token Verifier</td>
+        <td>:</td>
+        <td><input type="text" class="text" id="shareTokenVerifier" runat="server" />  (Optional)</td>
+    </tr>
+    <tr>
+        <td>User Id</td>
+        <td>:</td>
+        <td><input type="text" class="text" id="shareUserId" runat="server" />  (Optional)</td>
+    </tr>
+    <tr>
+        <td>Title</td>
+        <td>:</td>
+        <td><input type="text" class="text" id="shareTitle" runat="server" value="Social Inviter"/>(Note: Not applicable for twitter, facebook, xing)</td>
+    </tr>
+    <tr>
+        <td>Link</td>
+        <td>:</td>
+        <td><input type="text" class="text" id="shareLink" runat="server" value="https://socialinviter.com"/>(Note: Not applicable for twitter)</td>
+    </tr>
+    <tr>
+        <td>Picture</td>
+        <td>:</td>
+        <td><input type="text" class="text" id="sharePicture" runat="server" value="http://socialinviter.com/assets/img/icons/brandlogo1.jpg"/>(Note: Not applicable for twitter, facebook, xing, delicious)</td>
+    </tr>
+    <tr>
+        <td>Description</td>
+        <td>:</td>
+        <td><input type="text" class="text" id="shareDescription" runat="server" value="Promote Your website with the Best Social Tools on the Web."/>(Note: Not applicable for delicious)</td>
+    </tr>
+    <tr>
+        <td>Comment</td>
+        <td>:</td>
+        <td><input type="text" class="text" id="shareComment" runat="server" value="REST API demo"/>(Note: Not applicable for twitter, facebook, xing, tumblr)</td>
+    </tr>
+    <tr>
+        <td colspan="2"></td>
+        <td>
+            <input type="button" class="btn" value="Share Content" onclick="shareContent()"/>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="3">
+            <table>
+                <tr>
+                    <td>
+                        API Request
+                    </td>
+                    <td>
+                        API Response
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <textarea runat="server" id="shareRequest"></textarea>
+                    </td>
+                    <td>
+                        <textarea runat="server" id="shareResponse"></textarea>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+    <script type="text/javascript">
+        var getQueryString = function (name, target) {
+            name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+            var regexS = "[\\?&]" + name + "=([^&#]*)";
+            var regex = new RegExp(regexS);
+            var results = regex.exec(target);
+            if (results == null)
+                return "";
+            else
+                return decodeURIComponent(results[1].replace(/\+/g, " "));
+        };
+        var putInToStore = function (name, value) {
+            var c_name = name;
+            var exdays = 300;
+            var exdate = new Date();
+            exdate.setDate(exdate.getDate() + exdays);
+            var c_value = escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
+            //document.cookie = c_name + "=" + c_value + ";path=/;";
+            if (document.domain === 'localhost') {
+                document.cookie = c_name + "=" + c_value + ";path=/;";
+            } else {
+                document.cookie = c_name + "=" + c_value + ';domain=.' + document.domain + ';path=/;';
+            }
+        }
+        var getFromStore = function (name) {
+            var c_name = name;
+            var i, x, y, ARRcookies = document.cookie.split(";").reverse();
+            for (i = 0; i < ARRcookies.length; i++) {
+                x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+                y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+                x = x.replace(/^\s+|\s+$/g, "");
+                if (x == c_name) {
+                    return unescape(y);
+                }
+            }
+        }
+        var removeFromStore = function (name, path, domain) {
+            if (path)
+                document.cookie = name + "=" + ((path) ? ";path=" + path : "") + ((domain) ? ";domain=" + domain : "") + ";expires=Thu, 01 Jan 1970 00:00:01 GMT";
+            else
+                document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        }
+        var focusStep = function (dom) {
+            $('body,html').animate({
+                scrollTop: $("." + dom).offset().top - 30
+            }, 600);
+            $(".loading").hide();
+        }
+        var changeService = function () {
+            if (document.getElementById("ddnservice").value == "outlook") {
+                $(".outlook").show();
+                $(".nonoutlook").hide();
+            }
+            else {
+                $(".outlook").hide();
+                $(".nonoutlook").show();
+            }
+        }
+        var setService = function (service) {
+            document.getElementById("ddnservice").value = service;
+            $("#ddnservice").change();
+            $(".loading").hide();
+        }
+    </script>
+    <script type="text/javascript">
+        /*
+        *
+        *   PREREQUESITE STEP 1: Formatting the license key
+        *
+        */
+
+        //Code to Format the license key
+        var licenses = "lic_83aa7c48-0b95-4ff6-9924-8faa4"; //comma seperated
+        SI.initialize({
+            //Your original license key here
+            license: licenses,
+            callback: function (sigData) {
+                //Get your formatted signature key here
+                document.getElementById("formattedKey").value = sigData[licenses];
+            }
+        });
+
+
+
+
+        /* 
+        *
+        *   PREREQUESITE STEP 2: Declaration
+        *
+        */
+        var APIKey = "Your API key here";
+        var APISecretKey = "Your API Secret key here";
+        var RedirectUrl = "http://localhost:52464/JS/socialpost.html";
+
+        $("#authConsumerKey").val(APIKey);
+        $("#authConsumerSecret").val(APISecretKey);
+        $("#authRedirectUrl").val(RedirectUrl);
+
+
+        /* 
+        *
+        *   STEP 1: Getting authentication url
+        *
+        */
+        var getAuthUrl = function () {
+            var authRequestUrl = "http://socialinviter.com/api/share.aspx?";
+            authRequestUrl += "service=" + $("#ddnservice").val();
+            authRequestUrl += "&type=authenticationurl";
+            authRequestUrl += "&consumerkey=" + $("#authConsumerKey").val();
+            authRequestUrl += "&consumersecret=" + $("#authConsumerSecret").val();
+            authRequestUrl += "&returnurl=" + $("#authRedirectUrl").val();
+            authRequestUrl += "&signaturekey=" + $("#formattedKey").val();
+            putInToStore("authrequest", authRequestUrl);
+            putInToStore("service", $("#ddnservice").val());
+            $("#authRequest").val(authRequestUrl);
+            $.get(authRequestUrl, function (response) {
+                $("#authResponse").val(response);
+                var respObj = $.parseJSON(response).data;
+                $("#txtAuthUrl").val(respObj.authurl);
+                $("#accToken").val(respObj.token);
+                $("#accTokenSecret").val(respObj.tokensecret);
+                $("#accTokenVerifier").val(respObj.tokenverifier);
+                putInToStore("authresponse", response);
+                focusStep('step2');
+            });
+            $(".loading").show();
+        }
+
+        /* 
+        *
+        *   STEP 2: Redirecting user for authentication
+        *
+        */
+        var authUser = function () {
+            window.location.href = $("#txtAuthUrl").val();
+        }
+
+
+        /* 
+        *
+        *   STEP 3: Page load function to extract the token/code and verifier values
+        *
+        */
+        var pageLoad = function () {
+            if (getQueryString("code", window.location.href) != "" || getQueryString("oauth_token", window.location.href) != "") {
+                var service = getFromStore("service");
+                $("#ddnservice").val(service);
+                var response = getFromStore("authresponse");
+                $("#authResponse").val(response);
+                $("#authRequest").val(getFromStore("authrequest"));
+                var respObj = $.parseJSON(response).data;
+                $("#txtAuthUrl").val(respObj.authurl);
+                $("#accToken").val(respObj.token);
+                $("#accTokenSecret").val(respObj.tokensecret);
+                $("#accTokenVerifier").val(respObj.tokenverifier);
+
+                if (getQueryString("code", window.location.href) != "") {
+                    $("#accToken").val(getQueryString("code", window.location.href));
+                }
+                else if (getQueryString("oauth_token", window.location.href) != "") {
+                    $("#accToken").val(getQueryString("oauth_token", window.location.href));
+                    $("#accTokenVerifier").val(getQueryString("oauth_verifier", window.location.href));
+                }
+                focusStep('step3');
+            }
+            else {
+                removeFromStore("authrequest");
+                removeFromStore("authresponse");
+                removeFromStore("accessrequest");
+                removeFromStore("accessresponse");
+            }
+        }
+
+        /* 
+        *
+        *   STEP 4: Getting access token using the authentication token/code
+        *
+        */
+        var getAccTok = function () {
+            var accessRequestUrl = "http://socialinviter.com/api/share.aspx?";
+            accessRequestUrl += "service=" + $("#ddnservice").val();
+            accessRequestUrl += "&type=accesstoken";
+            accessRequestUrl += "&consumerkey=" + $("#authConsumerKey").val();
+            accessRequestUrl += "&consumersecret=" + $("#authConsumerSecret").val();
+            accessRequestUrl += "&returnurl=" + $("#authRedirectUrl").val();
+            accessRequestUrl += "&token=" + $("#accToken").val();
+            accessRequestUrl += "&tokensecret=" + $("#accTokenSecret").val();
+            accessRequestUrl += "&tokenverifier=" + $("#accTokenVerifier").val();
+            accessRequestUrl += "&signaturekey=" + $("#formattedKey").val();
+            putInToStore("accessrequest", accessRequestUrl);
+            $("#accessRequest").val(accessRequestUrl);
+            $.get(accessRequestUrl, function (response) {
+                $("#accessResponse").val(response);
+                var accessObj = $.parseJSON(response).data;
+                $("#conToken").val(unescape(accessObj.token));
+                $("#conTokenSecret").val(accessObj.tokensecret);
+                $("#conTokenVerifier").val(accessObj.tokenverifier);
+                $("#conUserId").val(accessObj.userid);
+
+                $("#shareToken").val(unescape(accessObj.token));
+                $("#shareTokenSecret").val(accessObj.tokensecret);
+                $("#shareTokenVerifier").val(accessObj.tokenverifier);
+                $("#shareUserId").val(accessObj.userid); 
+                putInToStore("accessresponse", response);
+                focusStep('step4');
+            });
+            $(".loading").show();
+        }
+
+        /* 
+        *
+        *   STEP 5: Posting content
+        *
+        */
+        var shareContent = function () {
+            var shareRequestUrl = "http://socialinviter.com/api/share.aspx?";
+
+            var formData = "service=" + $("#ddnservice").val();
+            formData += "&type=share";
+            formData += "&consumerkey=" + $("#authConsumerKey").val();
+            formData += "&consumersecret=" + $("#authConsumerSecret").val();
+            formData += "&returnurl=" + encodeURIComponent($("#authRedirectUrl").val());
+            formData += "&token=" + encodeURIComponent($("#shareToken").val());
+            formData += "&tokensecret=" + $("#shareTokenSecret").val();
+            formData += "&tokenverifier=" + $("#shareTokenVerifier").val();
+            formData += "&userid=" + $("#shareUserId").val();
+            formData += "&title=" + $("#shareTitle").val();
+            formData += "&link=" + $("#shareLink").val();
+            formData += "&picture=" + $("#sharePicture").val();
+            formData += "&description=" + $("#shareDescription").val();
+            formData += "&comment=" + $("#shareComment").val();
+            formData += "&signaturekey=" + $("#formattedKey").val();
+
+            $("#shareRequest").val(shareRequestUrl+ "\n\nForm Data: \n\n" + formData);
+            $.post(shareRequestUrl,formData, function (response) {
+                $("#shareResponse").val(unescape(response));
+                $(".loading").hide();
+            });
+            $(".loading").show();
+        }
+        
+
+        pageLoad();
+        
+
+    </script>
+
+    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+</body>
+</html>
+

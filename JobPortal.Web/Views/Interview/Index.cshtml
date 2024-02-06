@@ -1,0 +1,945 @@
+﻿@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Web.Models
+@using PagedList.Mvc
+@using JobPortal.Models
+
+@{
+    ViewBag.Title = "Interviews";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string username = string.Empty;
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+        username = user.Username;
+    }
+
+    string header = "Jobseeker";
+    if (user.Role == SecurityRoles.Jobseeker)
+    {
+        header = "Company";
+    }
+}
+@Scripts.Render("~/bundles/jScripts")
+<script src="~/Scripts/jquery.tmpl.min.js"></script>
+<script src="~/Scripts/jquery.tmplPlus.min.js"></script>
+<style>
+    .box:nth-child(odd) {
+        float: left;
+        width: 382px;
+        margin-right: 15px;
+        margin-bottom: 25px;
+    }
+
+    .box:nth-child(even) {
+        float: left;
+        width: 382px;
+        margin-right: 0px;
+        margin-bottom: 25px;
+    }
+
+    .seemore {
+        text-align: right;
+    }
+
+        .seemore > a {
+            color: #000000;
+            font-family: "Roboto", sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .seemore i {
+            font-size: 16px;
+            padding: 0 0 0 5px;
+            vertical-align: middle;
+        }
+
+    .sponsored {
+        background: #ffffff;
+    }
+
+    .sponsored {
+        background: #fff none repeat scroll 0 0;
+        padding: 0px 15px 0;
+        margin-top: -6px;
+    }
+
+    .abcdesign {
+        margin: 0 0 18px 0;
+    }
+
+        .abcdesign > h3 {
+            color: #333;
+            font-size: 14px;
+            margin: 0 0 11px 0;
+        }
+
+    .sub-heading h2 {
+        color: #000;
+        font-size: 14px;
+        margin: 0 0 20px;
+        padding-bottom: 6px;
+        position: relative;
+        font-weight: bold;
+    }
+
+        .sub-heading h2::after {
+            border-bottom: 2px solid #e93100;
+            bottom: 0;
+            content: "";
+            display: block;
+            left: 0;
+            position: absolute;
+            width: 100%;
+        }
+
+    .actionlinks {
+        list-style: none;
+        padding-left: 0;
+    }
+
+        .actionlinks li {
+            float: left;
+            list-style-type: none;
+        }
+
+            .actionlinks li a {
+                font-size: 14px;
+                font-weight: normal;
+            }
+</style>
+<div class="clear hidden-lg hidden-md" style="height:15px;"></div>
+<div class="row">
+    <div class="col-lg-6 col-md-6">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">Interviews</h1>
+            Manage interviews here
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-2">
+        <div class="form-group">
+            @if (user != null && user.Type == 4)
+            {
+                if (user.PromoteDate != null)
+                {
+                    if (user.PromoteDate.Value.Date < DateTime.Now.Date)
+                    {
+                        <a href="/package/promote?id=@user.Id&type=P&returnUrl=@Request.Url.ToString()" class="btn btn-info promote" style="width:165px;">Promote Profile</a>
+                    }
+                }
+                else
+                {
+                    <a href="/package/promote?id=@user.Id&type=P&returnUrl=@Request.Url.ToString()" class="btn btn-info promote" style="width:165px;">Promote Profile</a>
+                }
+            }
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-2">
+        <div class="form-group"></div>
+    </div>
+    <div class="col-lg-2 col-md-2">
+        <div class="form-group">
+            @if (user != null && user.Type == 4)
+            {
+                <div style=" ">
+                    <a href="https://apps.apple.com/in/app/job-listing/id1575724994">
+                        <img src="~/Images/ios.png" style="height:40px;width:40px;" border="0" />
+
+                    </a>
+
+
+                    <a href="https://play.google.com/store/apps/details?id=com.accuracy.joblisting">
+                        <img src="~/Images/android-icon.png" style="height:40px;width:40px;" border="0" />
+
+                    </a>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+<div class="clear" style="height:30px;"></div>
+@Html.Partial("_MessagePartial")
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+
+        @using (Html.BeginForm())
+        {
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        @Html.Label("Job Title")
+                        <select id="Title" name="Title" class="form-control">
+                            <option>SELECT</option>
+                        </select>
+                        @*@Html.DropDownList("Title", (SelectList)ViewBag.JobList, "--SELECT--", new { @class = "form-control", @id = "JobTitle" })*@
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="form-group">
+                        @Html.Label("Country")
+                        <select id="CountryId" name="CountryId" class="form-control">
+                            <option>SELECT</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="form-group">
+                        @Html.Label("Interview Status")
+                        @Html.DropDownList("Status", UIHelper.DropDown<InterviewStatus>(), "All", new { @class = "form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        @Html.Label("From Date")
+                        <div class='input-group date' style="margin-bottom:0;">
+                            @Html.TextBox("Start", null, new { @class = "form-control", @title = "FROM DATE", @readonly = "readonly" })
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        @Html.Label("To Date")
+                        <div class='input-group date' style="margin-bottom:0;">
+                            @Html.TextBox("End", null, new { @class = "form-control", placeholder = "TO DATE", @title = "TO DATE", @readonly = "readonly" })
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear" style="height:5px;"></div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-lg-offset-8 col-md-offset-8">
+                    <div class="form-group">
+                        <input type="submit" id="manage" value="Search" class="btn btn-info btn-block" />
+                    </div>
+                </div>
+            </div>
+            <div class="clear" style="height:15px;"></div>
+        }
+        <div class="clear" style="height:15px"></div>
+        @*@if (ViewBag.Model != null)
+            {
+                foreach (var item in ViewBag.Model)
+                {
+                    string jlink = string.Empty;
+                    string nlink = string.Empty;
+                    bool isConnected = false;
+                    bool isInvitedByMe = false;
+                    bool isInvitedBySomeone = false;
+                    bool isBlockedByMe = false;
+                    bool isBlockedBySomeone = false;
+                    bool inprogress = false;
+                    bool initiated = false;
+                    bool withdrawn = false;
+                    bool rejected = false;
+                    UserProfile friend = new UserProfile();
+                    Connection connection = null;
+                    Interview interview = null;
+                    Tracking record = TrackingService.Instance.Get(item.TrackingId);
+                    UserProfile jobSeeker = null;
+                    if (record.JobseekerId != null)
+                    {
+                        jobSeeker = MemberService.Instance.Get(record.JobseekerId.Value);
+                    }
+
+                    if (jobSeeker != null)
+                    {
+                        if (!string.IsNullOrEmpty(username))
+                        {
+                            if (user.Role == SecurityRoles.Employers)
+                            {
+                                friend = MemberService.Instance.Get(record.JobseekerId.Value);
+                            }
+                            else if (user.Role == SecurityRoles.Jobseeker)
+                            {
+                                if (record.JobId != null)
+                                {
+                                    Job job = JobService.Instance.Get(record.JobId.Value);
+                                    friend = MemberService.Instance.Get(job.EmployerId.Value);
+                                }
+                                else
+                                {
+                                    friend = MemberService.Instance.Get(item.CreatedBy);
+                                }
+                            }
+
+                            isConnected = DomainService.Instance.IsConnected(friend.UserId, user.Id);
+                            isInvitedByMe = DomainService.Instance.IsInvitedByMe(friend.UserId, user.Id);
+                            isInvitedBySomeone = DomainService.Instance.IsInvitedBySomeone(friend.UserId, user.Id);
+                            isBlockedByMe = DomainService.Instance.IsBlockedByMe(friend.UserId, user.Id);
+                            isBlockedBySomeone = DomainService.Instance.IsBlockedBySomeone(friend.UserId, user.Id);
+                            connection = ConnectionHelper.Get(friend.Username, username);
+
+                            inprogress = InterviewService.Instance.InProgress(item.Id);
+                            initiated = InterviewService.Instance.Initiated(item.Id);
+                            withdrawn = InterviewService.Instance.IsWidthdrawn(item.Id);
+                            rejected = InterviewService.Instance.IsRejected(item.Id);
+                        }
+                    }
+
+                    string link = string.Empty;
+                    if (record.JobId != null)
+                    {
+                        Job job = JobService.Instance.Get(record.JobId.Value);
+                        if (user.Type == (int)SecurityRoles.Employers)
+                        {
+                            friend = MemberService.Instance.Get(record.JobseekerId.Value);
+                        }
+                        else
+                        {
+                            friend = MemberService.Instance.Get(job.EmployerId.Value);
+                        }
+
+                        if (isBlockedByMe)
+                        {
+                            jlink = string.Format("<a href=\"/job/{0}-{1}\" target=\"_blank\">{2}</a>", job.PermaLink, job.Id, job.Title);
+                        }
+                        else if (isBlockedBySomeone)
+                        {
+                            jlink = string.Format("{0}", job.Title);
+                        }
+                        else
+                        {
+                            jlink = string.Format("<a href=\"/job/{0}-{1}\" target=\"_blank\">{2}</a>", job.PermaLink, job.Id, job.Title);
+                        }
+                    }
+                    else
+                    {
+                        jlink = "Not Applicable";
+                    }
+
+                    if (user.Role == SecurityRoles.Employers)
+                    {
+                        if (jobSeeker != null)
+                        {
+                            if (isBlockedByMe)
+                            {
+                                nlink = Html.Raw(string.Format("<a href=\"/{0}\" target=\"_blank\">{1} {2}</a>", jobSeeker.PermaLink, jobSeeker.FirstName, jobSeeker.LastName)).ToString();
+                            }
+                            else if (isBlockedBySomeone)
+                            {
+                                nlink = Html.Raw(string.Format("{0} {1}", jobSeeker.FirstName, jobSeeker.LastName)).ToString();
+                            }
+                            else
+                            {
+                                nlink = Html.Raw(string.Format("<a href=\"/{0}\" target=\"_blank\">{1} {2}</a>", jobSeeker.PermaLink, jobSeeker.FirstName, jobSeeker.LastName)).ToString();
+                            }
+                        }
+                    }
+                    else if (user.Role == SecurityRoles.Jobseeker)
+                    {
+                        if (record.JobId != null)
+                        {
+                            Job job = JobService.Instance.Get(record.JobId.Value);
+                            UserProfile employer = MemberService.Instance.Get(job.EmployerId.Value);
+
+                            if (isBlockedByMe)
+                            {
+                                nlink = string.Format("<a href=\"/{0}\" target=\"_blank\">{1}</a>", employer.PermaLink, employer.Company);
+                            }
+                            else if (isBlockedBySomeone)
+                            {
+                                nlink = Html.Raw(employer.Company).ToString();
+                            }
+                            else
+                            {
+                                nlink = string.Format("<a href=\"/{0}\" target=\"_blank\">{1}</a>", employer.PermaLink, employer.Company);
+                            }
+                        }
+                        else
+                        {
+                            UserProfile employer = MemberService.Instance.Get(item.UserId);
+                            if (isBlockedByMe)
+                            {
+                                nlink = string.Format("<a href=\"/{0}\" target=\"_blank\">{1}</a>", employer.PermaLink, employer.Company);
+                            }
+                            else if (isBlockedBySomeone)
+                            {
+                                nlink = Html.Raw(employer.Company).ToString();
+                            }
+                            else
+                            {
+                                nlink = string.Format("<a href=\"/{0}\" target=\"_blank\">{1}</a>", employer.PermaLink, employer.Company);
+                            }
+                        }
+                    }
+
+                    string status = string.Empty;
+                    if (inprogress)
+                    {
+                        status = "<b>" + Html.ActionLink(((InterviewStatus)item.Status).GetDescription(), "Update", "Interview", new { id = item.Id }, new { title = "View In-progress interview details", target = "_blank" }).ToString() + "</b>";
+                    }
+                    else
+                    {
+                        if (withdrawn)
+                        {
+                            status = string.Format("<span style=\"color:red\">{0}</span>", ((InterviewStatus)item.Status).GetDescription());
+                        }
+                        else if (rejected)
+                        {
+                            status = string.Format("<span style=\"color:red\">{0}</span>", ((InterviewStatus)item.Status).GetDescription());
+                        }
+                        else
+                        {
+                            status = ((InterviewStatus)item.Status).GetDescription();
+                        }
+                    }
+
+                    var cstatus = string.Empty;
+                    record = TrackingService.Instance.Get(item.TrackingId);
+                    if (jobSeeker != null)
+                    {
+                        if (user.Role == SecurityRoles.Employers)
+                        {
+                            friend = MemberService.Instance.Get(record.JobseekerId.Value);
+                        }
+                        else if (user.Role == SecurityRoles.Jobseeker)
+                        {
+                            if (record.JobId != null)
+                            {
+                                Job job = JobService.Instance.Get(record.JobId.Value);
+                                friend = MemberService.Instance.Get(job.EmployerId.Value);
+                            }
+                            else
+                            {
+                                friend = MemberService.Instance.Get(item.CreatedBy);
+                            }
+                        }
+                        cstatus = ConnectionHelper.Status(friend.Username, user.Username);
+                    }
+                    else
+                    {
+                        cstatus = "Not Applicable";
+                    }
+                    string ilinks = string.Empty;
+                    long? employerId = null;
+                    long? jobseekerId = null;
+
+                    if (jobSeeker != null)
+                    {
+                        if (!string.IsNullOrEmpty(username))
+                        {
+                            if (user.Role == SecurityRoles.Employers)
+                            {
+                                friend = MemberService.Instance.Get(record.JobseekerId.Value);
+                                employerId = user.Id;
+                            }
+                            else if (user.Role == SecurityRoles.Jobseeker)
+                            {
+                                if (record.JobId != null)
+                                {
+                                    Job job = JobService.Instance.Get(record.JobId.Value);
+                                    friend = MemberService.Instance.Get(job.EmployerId.Value);
+                                    jobseekerId = user.Id;
+                                }
+                                else
+                                {
+                                    friend = MemberService.Instance.Get(item.CreatedBy);
+                                    jobseekerId = user.Id;
+                                }
+                            }
+
+                            string bname = (friend.Type == (int)SecurityRoles.Employers ? friend.Company : string.Format("{0} {1}", friend.FirstName, friend.LastName));
+
+                            string view_text = "Message";
+                            int msg_counts = ConnectionHelper.MessageCounts(friend.UserId, user.Id);
+                            if (msg_counts > 0)
+                            {
+                                view_text = string.Format("Message (<span style=\"color:red;\">{0}</span>)", msg_counts);
+                            }
+                            ilinks += string.Format("<b><a href=\"{0}\" target=\"_blank\" style = \"line-height:25px;\">{1}</a></b>", Url.Action("List", "Message", new { SenderId = friend.UserId }), view_text);
+
+                            if (inprogress)
+                            {
+                                ilinks += string.Format(" | <b><a href=\"{0}\" title=\"View In-progress interview details\" target=\"_blank\"><span>Interview&nbsp;In-progress</span></a></b>", Url.Action("Update", "Interview", new { id = item.Id }));
+                                if (user.Role == SecurityRoles.Employers)
+                                {
+                                    ilinks += " | " + "<b><a href=\"#\" data-name=\"" + friend.FirstName + " " + friend.LastName + "\" data-href=\"" + Url.Action("Select", "Interview", new { id = item.Id }) + "\" role=\"button\" data-toggle=\"modal\" data-target=\"#cDialog\" class=\"aSelect\">Select</a></b>";
+                                    ilinks += " | " + "<b><a href=\"#\" data-url=\"" + Request.Url.ToString() + "\" data-name=\"" + friend.FirstName + " " + friend.LastName + "\" data-ref=\"" + item.Id + "\" role=\"button\" data-toggle=\"modal\" data-target=\"#rejectDialog\" class=\"aReject\">Reject</a></b>";
+                                }
+                            }
+                            else
+                            {
+                                JobPortal.Services.JobService jobService = new JobPortal.Services.JobService();
+                                int counts = jobService.InterviewCounts(employerId, jobseekerId, item.Id);
+                                if (counts > 0)
+                                {
+                                    ilinks += string.Format(" | <b><a href=\"{0}\" title=\"View interview details\" target=\"_blank\"><span>View (<span style=\"color:red;\">{1}</span>)</a></b>", Url.Action("Update", "Interview", new { id = item.Id }), counts);
+                                }
+                                else
+                                {
+                                    ilinks += string.Format(" | <b><a href=\"{0}\" title=\"View interview details\" target=\"_blank\"><span>View</span></a></b>", Url.Action("Update", "Interview", new { id = item.Id }));
+                                }
+                                if (!withdrawn && !rejected)
+                                {
+                                    if (user.Role == SecurityRoles.Employers)
+                                    {
+                                        if (isBlockedByMe == false && isBlockedBySomeone == false)
+                                        {
+                                            if (!string.IsNullOrEmpty(jobSeeker.Content))
+                                            {
+            Downloadable
+                                                ilinks += " | " + "<b>" + Html.ActionLink("Download", "Download", "Jobseeker", new { id = jobSeeker.UserId, redirect = Request.Url.ToString() }, new { title = "Download Resume", @target = "_blank" }).ToString() + "</b>";
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (isConnected)
+                            {
+                                if (connection != null)
+                                {
+                                    ilinks += string.Format(" | <b><a href=\"#\" data-aurl=\"{0}\" role=\"button\" data-toggle=\"modal\" data-target=\"#discDialog\" class=\"disc\">Disconnect</a></b>", Url.Action("Disconnect", "Network", new { Id = connection.Id, redirect = Request.Url.ToString() }));
+                                }
+                            }
+                            else
+                            {
+                                if (isBlockedByMe == false && isBlockedBySomeone == false)
+                                {
+                                    if (connection != null && isInvitedByMe)
+                                    {
+                                        ilinks += string.Format(" | <b><a href=\"#\" data-aurl=\"{0}\" role=\"button\" data-toggle=\"modal\" data-target=\"#discDialog\" class=\"disc\">Disconnect</a></b>", Url.Action("Disconnect", "Network", new { Id = connection.Id, redirect = Request.Url.ToString() }));
+                                    }
+                                    else if (connection != null && isInvitedBySomeone)
+                                    {
+                                        ilinks += " | " + "<b>" + Html.ActionLink("Accept", "Accept", "Network", new { Id = connection.Id, redirect = Request.Url.ToString() }, new { title = "Accept" }).ToString() + "</b>";
+                                        ilinks += string.Format(" | <b><a href=\"#\" data-aurl=\"{0}\" role=\"button\" data-toggle=\"modal\" data-target=\"#discDialog\" class=\"disc\">Disconnect</a></b>", Url.Action("Disconnect", "Network", new { Id = connection.Id, redirect = Request.Url.ToString() }));
+                                    }
+                                    else
+                                    {
+                                        if (!isConnected)
+                                        {
+                                            ilinks += " | " + "<b>" + Html.ActionLink("Connect", "Connect", "Home", new { id = friend.UserId, redirect = Request.Url.ToString() }, new { title = "Connect" }).ToString() + "</b>";
+                                        }
+                                    }
+                                }
+                            }
+
+                            if (isBlockedByMe)
+                            {
+                                ilinks += " | " + "<b>" + Html.ActionLink("Unblock", "Unblock", "Home", new { id = friend.UserId, redirect = Request.Url.ToString() }, new { title = "Unblock", @target = "_blank" }).ToString() + "</b>";
+                            }
+
+                            if (isBlockedByMe == false && isBlockedBySomeone == false)
+                            {
+                                ilinks += " | " + string.Format("<b><a href=\"#\"  data-href=\"/Home/Block?email={0}\" data-name=\"{1}\" role=\"button\" data-toggle=\"modal\" data-target=\"#cDialog\" class=\"aBlock\" data-role=\"{2}\" data-connected=\"{3}\">Block</a></b>", friend.Username, bname, ((SecurityRoles)friend.Type).GetDescription(), isConnected);
+                            }
+                        }
+                    }
+                    <div class="list-group">
+                        <div class="list-group-item">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <i><b>@header:</b></i> @Html.Raw(nlink)
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <i><b>Job Title:</b></i> @Html.Raw(jlink)
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <i><b>Interview Status:</b></i> @Html.Raw(status)
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <i><b>Connection Status:</b></i> @Html.Raw(cstatus)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    @Html.Raw(ilinks)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            <div style="text-align:center;">
+                @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Applications",
+                            new RouteValueDictionary()
+                            {
+                                { "PageNumber" , PageNumber},
+                                { "JobTitle" , Request["JobTitle"]},
+                                { "Status" , Request["Status"]},
+                                { "CountryId" , Request["CountryId"]},
+                                { "StartDate" , Request["StartDate"]},
+                                { "EndDate" , Request["EndDate"]}
+                            }),
+                            PagedListRenderOptions.ClassicPlusFirstAndLast)
+            </div>*@
+        <div id="ResultArea"></div>
+        <a id="ViewMore" class="btn btn-primary btn-block hide" style="width:100%;">View More</a>
+    </div>
+
+</div>
+
+<div class="modal fade in out" id="rejectDialog" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            @using (Html.BeginForm("Reject", "Interview", FormMethod.Post))
+            {
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="title">Rejecting</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="Id" name="Id" />
+                    <input type="hidden" id="Redirect" name="Redirect" />
+                    <div class="form-group">
+                        @Html.Label("Write reason for rejection")
+                        @Html.TextArea("Reason", new { @class = "form-control", @maxlength = "400" })
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="form-group">
+                        <input type="submit" value="Submit" class="btn btn-info" style="width:75px;" />
+                        <input id="btnCancelReject" type="button" value="Cancel" data-dismiss="modal" class="btn btn-info" style="width:75px;" />
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script>
+    var page = 1;
+    var pages = 1;
+    $(function () {
+        $(".aReject").click(function () {
+            $(".modal-body #Id").val($(this).data('ref'));
+            $(".modal-body #Redirect").val($(this).data('url'));
+        });
+
+        $.post("/interview/jobtitlelist", {}, function (result) {
+            if (result.length > 0) {
+                $("#Title").empty();
+                $("#Title").append("<option value =\"\">SELECT</option>");
+                $.each(result, function () {
+                    $("#Title").append("<option value =" + this.Title + ">" + this.Title + "</option>");
+                });
+            }
+        });
+
+        $.getJSON("/help/countrylist", {}, function (list) {
+            $("#CountryId").empty();
+            $("#CountryId").append("<option value = ''>SELECT</option>");
+
+            if (list.length != 0) {
+                $(list).each(function () {
+                    $("#CountryId").append("<option value =" + this.Id + ">" + this.Name + "</option>");
+                });
+            }
+        });
+
+        $.post("/interview/index", { pageNumber: page }, function (result) {
+            if (result.length > 0) {
+                var rows = result[0].MaxRows;
+                pages = Math.ceil(rows / 10);
+                $.each(result, function () {
+                    this.authenticated = "@Request.IsAuthenticated";
+                    this.role = "@user.Role.GetDescription()";
+                    $("#ResultItem").tmpl(this).appendTo("#ResultArea");
+                });
+            }
+
+            if (page < pages) {
+                $("#ViewMore").removeClass("hide");
+                $("#ViewMore").addClass("show");
+            } else {
+                $("#ViewMore").removeClass("show");
+                $("#ViewMore").addClass("hide");
+            }
+        });
+
+        $("#manage").click(function () {
+            $("#waitDialog").modal("show");
+            var json = $("#manage").closest("form").serializeObject();
+            json.pageNumber = 1;
+            $.post("/interview/index", json, function (result) {
+                $("#waitDialog").modal("hide");
+                $("#ResultArea").empty();
+                if (result.length > 0) {
+                    var rows = result[0].MaxRows;
+                    pages = Math.ceil(rows / 10);
+                    $.each(result, function () {
+                        this.authenticated = "@Request.IsAuthenticated";
+                        this.role = "@user.Role.GetDescription()";
+                        $("#ResultItem").tmpl(this).appendTo("#ResultArea");
+                    });
+                }
+
+                if (page < pages) {
+                    $("#ViewMore").removeClass("hide");
+                    $("#ViewMore").addClass("show");
+                } else {
+                    $("#ViewMore").removeClass("show");
+                    $("#ViewMore").addClass("hide");
+                }
+            });
+            return false;
+        });
+
+        $("#ViewMore").click(function () {
+            if (page <= pages) {
+                page++;
+                $("#waitDialog").modal("show");
+                var json = $("#manage").closest("form").serializeObject();
+                json.pageNumber = page;
+                $.post("/interview/index", json, function (result) {
+                    $("#waitDialog").modal("hide");
+                    $.each(result, function () {
+                        this.authenticated = "@Request.IsAuthenticated";
+                        this.role = "@user.Role.GetDescription()";
+                        $("#ResultItem").tmpl(this).appendTo("#ResultArea");
+                    });
+                });
+            }
+
+            if (page < pages) {
+                $("#ViewMore").removeClass("hide");
+                $("#ViewMore").addClass("show");
+            } else {
+                $("#ViewMore").removeClass("show");
+                $("#ViewMore").addClass("hide");
+            }
+        });
+    });
+</script>
+
+<script type="text/x-jquery-tmpl" id="ResultItem">
+    <div class="list-group">
+        <div class="list-group-item">
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    @if (user.Role == SecurityRoles.Jobseeker)
+                    {
+                        <a href="/${EmployerUrl}">
+                            <div style="width:60px; height:60px; background:url('/Image/Avtar?Id=${EmployerId}') no-repeat; background-size:contain; background-position:top center">
+                            </div>
+                        </a>
+                    }
+                    else
+                    {
+                        <a href="/${JobseekerUrl}">
+                            <div style="width:60px; height:60px; background:url('/Image/Avtar?Id=${JobseekerId}') no-repeat; background-size:contain; background-position:top center">
+                            </div>
+                        </a>
+                    }
+                </div>
+                <div class="col-lg-10 col-md-10 col-sm-10">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            {{if JobId != null}}
+                            <i><b>Job Title: </b></i><a href="/job/${JobUrl}" title="${Title}" target="_blank">${Title}</a>
+                            {{else}}
+                            <i><b>Job Title: </b></i><span>Not Applicable</span>
+                            {{/if}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            @if (user.Role == SecurityRoles.Jobseeker)
+                            {
+                                <i><b>Company: </b></i><a href="${EmployerUrl}" title="View profile" target="_blank">${Company}</a>
+                            }
+                            else
+                            {
+                                <i><b>Jobseeker: </b></i><a href="${JobseekerUrl}" title="View profile" target="_blank">${Name}</a>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            {{if Status == 4 || Status == 5}}
+                            <i><b>Interview Status: </b></i><span style="color:red">${InterviewStatus}</span>
+                            {{else}}
+                            <i><b>Interview Status: </b></i><span>${InterviewStatus}</span>
+                            {{/if}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                @if (user.Role == SecurityRoles.Jobseeker)
+                                {
+                                    <ul class="actionlinks">
+                                        <li>
+                                            {{if Messages > 0 }}
+                                            <b><a href="/Message/List?SenderId=${EmployerId}" target="_blank">Message (<span style="color:red;">${Messages}</span>)</a></b>
+                                            {{else}}
+                                            <b><a href="/Message/List?SenderId=${EmployerId}" target="_blank">Message</a></b>
+                                            {{/if}}
+                                        </li>
+                                        {{if authenticated == "False"}}
+                                        <li>
+                                            &nbsp;|&nbsp;<b><a href="/Home/Connect?id=${EmployerId}" target="_blank" title="Connect">Connect</a></b>
+                                        </li>
+                                        {{/if}}
+
+                                        {{if authenticated == "True" }}
+
+                                        {{if IsConnected == true }}
+                                        <li>
+                                            &nbsp;|&nbsp;<b><a data-aurl="/Network/Disconnect?Id=${ConnectionId}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
+                                        </li>
+                                        {{else}}
+                                        {{if InvitedByMe > 0 || InvitedBySomeone > 0}}
+                                        {{if InvitedByMe > 0}}
+                                        <li>
+                                            &nbsp;|&nbsp; <b><a data-aurl="/Network/Disconnect?Id=${ConnectionId}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
+                                        </li>
+                                        {{/if}}
+                                        {{if InvitedBySomeone > 0}}
+                                        <li>
+                                            &nbsp;|&nbsp;<b><a href="/Network/Accept?Id=${ConnectionId}&redirect=@Request.Url.ToString()" title="Accept" target="_blank">Accept</a></b>
+                                            &nbsp;|&nbsp;<b><a data-aurl="/Network/Disconnect?Id=${ConnectionId}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
+                                        </li>
+                                        {{/if}}
+                                        {{else}}
+                                        <li>
+                                            &nbsp;|&nbsp;<b><a href="/Home/Connect?id=${EmployerId}&redirect=@Request.Url.ToString()" title="Connect" target="_blank">Connect</a></b>
+                                        </li>
+                                        {{/if}}
+                                        {{/if}}
+
+                                        {{if BlockedByMe > 0 }}
+                                        <li>
+                                            &nbsp;|&nbsp;<b><a href="/Home/Unblock?id=${EmployerId}&redirect=@Request.Url.ToString()" title="Unblock" target="_blank">Unblock</a></b>
+                                        </li>
+                                        {{/if}}
+                                        {{if BlockedByMe <= 0 && Blocked <= 0 }}
+                                        <li>
+                                            &nbsp;|&nbsp;<b><a data-href="/Home/Block?email=${EmployerEmail}" data-name="${Company}" role="button" data-toggle="modal" data-target="#cDialog" class="aBlock" data-role="${TypeName}" data-connected="${IsConnected}" style="cursor:pointer;" title="Block">Block</a></b>
+                                        </li>
+                                        {{/if}}
+                                        {{/if}}
+                                        {{if Status == 1}}
+                                        <li>
+                                            &nbsp;|&nbsp;<b><a href="/interview/update?id={Id}" title="View in-progress interview details" target="_blank"><span>Interview&nbsp;In-progress</span></a></b>
+                                        </li>
+                                        {{else}}
+
+                                        {{if InterviewCounts > 0}}
+                                        <li>
+                                            &nbsp;|&nbsp;<b><a href="/interview/update?id=${Id}" title="View interview details" target="_blank"><span>View (<span style="color:red;">${InterviewCounts}</span>)</span></a></b>
+                                        </li>
+                                        {{else}}
+                                        <li>
+                                            &nbsp;|&nbsp;<b><a href="/interview/update?id=${Id}" title="View interview details" target="_blank"><span>View</span></a></b>
+                                        </li>
+                                        {{/if}}
+
+                                        {{/if}}
+                                    </ul>
+                                }
+                                else if (user.Role == SecurityRoles.Employers)
+                                {
+                                    <ul class="actionlinks">
+                                        <li>
+                                            {{if Messages > 0 }}
+                                            <b><a href="/Message/List?SenderId=${JobseekerId}" target="_blank">Message (<span style="color:red;">${Messages}</span>)</a></b>
+                                            {{else}}
+                                            <b><a href="/Message/List?SenderId=${JobseekerId}" target="_blank">Message</a></b>
+                                            {{/if}}
+                                        </li>
+                                        {{if authenticated == "False"}}
+                                        <li>
+                                            &nbsp;|&nbsp;<b><a href="/Home/Connect?id=${JobseekerId}" target="_blank" title="Connect">Connect</a></b>
+                                        </li>
+                                        {{/if}}
+
+                                        {{if authenticated == "True" }}
+
+                                        {{if IsConnected == true }}
+                                        <li>
+                                            &nbsp;|&nbsp;<b><a data-aurl="/Network/Disconnect?Id=${ConnectionId}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
+                                        </li>
+                                        {{else}}
+                                        {{if InvitedByMe > 0 || InvitedBySomeone > 0}}
+                                        {{if InvitedByMe > 0}}
+                                        <li>
+                                            &nbsp;|&nbsp; <b><a data-aurl="/Network/Disconnect?Id=${ConnectionId}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
+                                        </li>
+                                        {{/if}}
+                                        {{if InvitedBySomeone > 0}}
+                                        <li>
+                                            &nbsp;|&nbsp;<b><a href="/Network/Accept?Id=${ConnectionId}&redirect=@Request.Url.ToString()" title="Accept" target="_blank">Accept</a></b>
+                                            &nbsp;|&nbsp;<b><a data-aurl="/Network/Disconnect?Id=${ConnectionId}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
+                                        </li>
+                                        {{/if}}
+                                        {{else}}
+                                        <li>
+                                            &nbsp;|&nbsp;<b><a href="/Home/Connect?id=${JobseekerId}&redirect=@Request.Url.ToString()" title="Connect" target="_blank">Connect</a></b>
+                                        </li>
+                                        {{/if}}
+                                        {{/if}}
+
+                                        {{if BlockedByMe > 0 }}
+                                        <li>
+                                            &nbsp;|&nbsp;<b><a href="/Home/Unblock?id=${JobseekerId}&redirect=@Request.Url.ToString()" title="Unblock" target="_blank">Unblock</a></b>
+                                        </li>
+                                        {{/if}}
+                                        {{if BlockedByMe <= 0 && Blocked <= 0 }}
+                                        <li>
+                                            &nbsp;|&nbsp;<b><a data-href="/Home/Block?email=${JobseekerEmail}" data-name="${Company}" role="button" data-toggle="modal" data-target="#cDialog" class="aBlock" data-role="${TypeName}" data-connected="${IsConnected}" style="cursor:pointer;" title="Block">Block</a></b>
+                                        </li>
+                                        {{/if}}
+                                        {{/if}}
+                                        {{if Status == 1}}
+                                        <li>
+                                            &nbsp;|&nbsp;<b><a href="/interview/update?id=${Id}" title="View in-progress interview details" target="_blank"><span>Interview&nbsp;In-progress</span></a></b>
+                                        </li>
+                                        <li>
+                                            &nbsp;|&nbsp;<b><a data-name="${Name}" data-href="/interview/select?id=${Id}" role="button" data-toggle="modal" data-target="#cDialog" class="aSelect">Select</a></b>
+                                        </li>
+                                        <li>
+                                            &nbsp;|&nbsp;<b><a data-url="@Request.Url.ToString()" data-name="${Name}" data-ref="${Id}" role="button" data-toggle="modal" data-target="#rejectDialog" class="aReject">Reject</a></b>
+                                        </li>
+                                        {{else}}
+                                        {{if InterviewCounts > 0}}
+                                        <li>
+                                            &nbsp;|&nbsp;<b><a href="/interview/update?id=${Id}" title="View interview details" target="_blank"><span>View (<span style="color:red;">${InterviewCounts}</span>)</span></a></b>
+                                        </li>
+                                        {{else}}
+                                        <li>
+                                            &nbsp;|&nbsp;<b><a href="/interview/update?id=${Id}" title="View interview details" target="_blank"><span>View</span></a></b>
+                                        </li>
+                                        {{/if}}
+                                        {{/if}}
+
+                                        <li>
+
+                                            &nbsp;|&nbsp;<b><a href="~/JobSeeker/Resume12?uid=${JobseekerId}" title="Download Resume" target="_blank"><span>Download</span></a></b>
+                                        </li>
+
+                                    </ul>
+                                }
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>

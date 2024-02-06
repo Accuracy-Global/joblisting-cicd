@@ -1,0 +1,234 @@
+﻿@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Download History";
+    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<JobPortal.Data.Tracking>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+
+    WebGrid grid = new WebGrid(ViewBag.Model, ajaxUpdateContainerId: "grid");
+    int inboxItems = DomainService.Instance.DashboardInboxItems(User.Id, ViewBag.UserInfo.Id);
+    int appCounts = MemberService.Instance.GetApplicationCount(ViewBag.UserInfo.Username);
+    int intCounts = MemberService.Instance.GetInterviewCount(ViewBag.UserInfo.Username);
+}
+<div class="section">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                <li class="active"><a href="#">QUICK LINKS</a></li>
+                <li>@Html.ActionLink("Connections", "Connections", "Admin", new { UserId = ViewBag.UserInfo.Id }, new { target = "_blank" })</li>
+                <li>@Html.ActionLink("Messages", "Messages", "Admin", new { Id = ViewBag.UserInfo.Id }, new { target = "_blank" })</li>
+                @if (ViewBag.UserInfo.Type == (int)SecurityRoles.Company)
+                {
+                    <li>@Html.ActionLink("Jobs", "JobsByCompany", "Admin", new { Id = ViewBag.UserInfo.Id }, new { target = "_blank" })</li>
+                }
+                @if (appCounts > 0)
+                {
+                    <li>@Html.ActionLink(string.Format("Applications ({0})", appCounts), "Applications", "Admin", new { UserId = ViewBag.UserInfo.Id }, new { target = "_blank" })</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Applications", "Applications", "Admin", new { UserId = ViewBag.UserInfo.Id }, new { target = "_blank" })</li>
+                }
+                @if (intCounts > 0)
+                {
+                    <li>@Html.ActionLink(string.Format("Interviews ({0})", intCounts), "Interviews", "Admin", new { UserId = ViewBag.UserInfo.Id }, new { target = "_blank" })</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Interviews", "Interviews", "Admin", new { UserId = ViewBag.UserInfo.Id }, new { target = "_blank" })</li>
+                }
+                @if (ViewBag.UserInfo.Type == (int)SecurityRoles.Company)
+                {
+                    <li>@Html.ActionLink("Downloads", "DownloadHistory", "Admin", new { Id = ViewBag.UserInfo.Id }, new { target = "_blank" })</li>
+                }
+                @if (inboxItems > 0)
+                {
+                    <li><a href="/Admin/Inbox?Id=@ViewBag.UserInfo.Id" target="_blank">Inbox (<span style="color:red; font-weight:bold">@inboxItems</span>)</a></li>
+                }
+                else
+                {
+                    <li><a href="/Admin/Inbox?Id=@ViewBag.UserInfo.Id" target="_blank">Inbox</a></li>
+                }
+                @if (ViewBag.UserInfo.Type == (int)SecurityRoles.Company)
+                {
+                    <li>@Html.ActionLink("Profile", "ManageCompany", "Admin", new { Id = ViewBag.UserInfo.Id }, new { target = "_blank" })</li>
+                }
+                else if (ViewBag.UserInfo.Type == (int)SecurityRoles.Individual)
+                {
+                    <li>@Html.ActionLink("Profile", "ManageIndividual", "Admin", new { Id = ViewBag.UserInfo.Id }, new { target = "_blank" })</li>
+                }
+                <li>@Html.ActionLink("Billing & Invoices", "billing", "Payment", new { userId = ViewBag.UserInfo.Id }, new { })</li>
+                <li>@Html.ActionLink("Reset Password", "ResetPassword", "Admin", new { Id = ViewBag.UserInfo.Id }, new { @class = "active" })</li>
+                <li>@Html.ActionLink("Login History", "LoginHistory", "Admin", new { Id = ViewBag.UserInfo.Id }, null)</li>
+                <li>@Html.ActionLink("Alert Settings", "Alerts", "Admin", new { Id = ViewBag.UserInfo.Id }, new { target = "_blank" })</li>
+            </ul>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-9">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="title-login">
+                        <h1 style="margin-top: -15px;">Download History</h1>
+                        View download history here
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+                    @Html.ActionLink("List Job", "ListJob", null, new { @class = "btn btn-info", @style = "width:75px; margin-top: 10px;" })
+                </div>
+            </div>
+            @Html.Partial("_MessagePartial")
+            <div class="clear" style="height:15px"></div>
+            @using (Html.BeginForm())
+            {
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        @Html.Label("Title")
+                        @Html.DropDownList("ResumeTitle", ViewBag.ResumeList as SelectList, "SELECT", new { @class = "form-control" })
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        @Html.Label("Country")
+                        @Html.DropDownList("CountryId", ViewBag.CountryList as SelectList, "SELECT", new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        @Html.Label("From Date")
+                        <div class='input-group date' style="margin-bottom:0;">
+                            @Html.TextBox("StartDate", null, new { @class = "form-control", placeholder = "FROM DATE", @title = "FROM DATE", @readonly = "readonly" })
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        @Html.Label("To Date")
+                        <div class='input-group date' style="margin-bottom:0;">
+                            @Html.TextBox("EndDate", null, new { @class = "form-control", placeholder = "TO DATE", @title = "TO DATE", @readonly = "readonly" })
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear" style="height:15px;"></div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 text-right">
+                        <input type="submit" value="Search" class="btn btn-info" style="padding: 4px 12px;" />
+                    </div>
+                </div>
+                <div class="clear" style="height:25px;"></div>
+            }
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div id="container-grid" class="table-responsive">
+                        @grid.GetHtml(htmlAttributes: new { id = "grid", @style = "width:100%" }, tableStyle: "table table-bordered table-hover",
+                       columns: new[] {
+                        grid.Column("Title",canSort:false, format:
+                        (item) =>  {
+                            var links="";
+                            if(item.JobseekerId!=null){
+                                UserProfile jobSeeker = MemberService.Instance.Get(item.JobseekerId);
+                                if (!string.IsNullOrEmpty(jobSeeker.Title)) { 
+                                    links = Html.ActionLink((string)jobSeeker.Title, "Download", "Jobseeker", new { id = item.JobseekerId, redirect = Request.Url.ToString() }, null).ToString();
+                                }
+                                else
+                                {
+                                    links = Html.ActionLink("Not Applicable", "Download", "Jobseeker", new { id = item.JobseekerId, redirect = Request.Url.ToString() }, null).ToString();
+                                }
+
+                            }
+                            return Html.Raw(links);
+                        }),
+                grid.Column("Jobseeker",canSort:false, format: (item) =>
+         {
+            var links="";
+                if (item.ResumeId == null && item.JobseekerId!=null)
+                {
+                    UserProfile jobSeeker = MemberService.Instance.Get(item.JobseekerId);
+                    links = string.Format("<a href=\"/{0}\" target=\"_blank\">{1} {2}</a>", jobSeeker.PermaLink, jobSeeker.FirstName, jobSeeker.LastName);
+                }
+                else
+                {
+                    links = "Not Applicable";
+                }
+            return Html.Raw(links);
+         }
+      ),
+       grid.Column(columnName:"Type", header:"Type",canSort:false,format: (item)=>{return (item.ResumeId==null ? "Jobseeker" : "Resume");}),
+                            grid.Column("Country", header: "Country",canSort:false, format: (item) =>
+                                        {
+                                            string countryName = string.Empty;
+                                            if (item.ResumeId != null)
+                                            {
+                                                Resume resume = SharedService.Instance.GetResume(item.ResumeId);
+                                                List country = SharedService.Instance.GetCountry(resume.CountryId.Value);
+                                                countryName = country.Text;
+                                            }
+                                            if (item.JobseekerId != null)
+                                            {
+                                                UserProfile jobSeeker = MemberService.Instance.Get(item.JobseekerId);
+                                                List country = SharedService.Instance.GetCountry(jobSeeker.CountryId.Value);
+                                                countryName = country.Text;
+                                            }
+                                            return countryName;
+                                        }),
+
+      grid.Column(columnName:"Date",header:"Date",canSort:false, format: p=>p.DateUpdated.ToString("MMM-dd-yyyy")),
+       grid.Column("Actions",canSort:false, format: (item) =>
+         {
+            var links="";
+            if(item.JobseekerId!=null){
+                UserProfile jobSeeker = MemberService.Instance.Get(item.JobseekerId);
+                links = Html.ActionLink("Download", "Download", "Jobseeker", new { id = item.JobseekerId,  redirect = Request.Url.ToString() }, null).ToString();
+            }else if(item.ResumeId!=null){
+                Resume resume = SharedService.Instance.GetResume(item.ResumeId);
+                links = Html.ActionLink("Download", "Download", "Jobseeker", new { id = item.ResumeId, type = DownloadTypes.RESUME, redirect = Request.Url.ToString() }, null).ToString();
+            }
+
+            return Html.Raw(links);
+         }
+      ),
+                       },
+                  mode: WebGridPagerModes.All, firstText: "<< First",
+                  previousText: "< Previous", nextText: "Next >", lastText: "Last >>")
+                    </div>
+                </div>
+            </div>
+            <div style="text-align:center; margin-top: -15px;">
+
+                @Html.PagedListPager(pagedModel, PageNumber => Url.Action("DownloadHistory",
+            new RouteValueDictionary()
+            {
+                { "PageNumber" , PageNumber},
+                { "ResumeTitle" , Request["ResumeTitle"]},
+                { "CountryId" , Request["CountryId"]},
+                { "StartDate" , Request["StartDate"]},
+                { "EndDate" , Request["EndDate"]}
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        $('#ResumeTitle').change(function () {
+            this.form.submit();
+        });
+
+        $('#CountryId').change(function () {
+            this.form.submit();
+        });
+    });
+</script>

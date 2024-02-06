@@ -1,0 +1,161 @@
+﻿@model IEnumerable<JobPortal.Data.Job>
+@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using PagedList.Mvc
+@using JobPortal.Models
+
+@{
+    ViewBag.Title = (ViewBag.Employer!= null ? ViewBag.Employer.Company + " - " : "") + "Jobs";
+    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+    
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<Job>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+
+    WebGrid grid = new WebGrid(ViewBag.Model, ajaxUpdateContainerId: "grid");
+
+    List<WebGridColumn> columnlist = new List<WebGridColumn>();
+
+    columnlist.Add(new WebGridColumn()
+    {
+        ColumnName = "Title",
+        Header = "Title",
+        CanSort = false,
+        Format = (item) =>
+        {
+            string link = string.Empty;
+
+            Job job = JobService.Instance.Get(item.Id);
+            if (job.IsDeleted)
+            {
+                link = job.Title;
+            }
+            else
+            {
+                link = string.Format("<a href=\"/job/{0}-{1}\" target=\"_blank\">{2}</>", job.PermaLink, job.Id, job.Title);
+            }
+            return Html.Raw(link);
+        },
+    });
+
+    columnlist.Add(new WebGridColumn()
+    {
+        ColumnName = "Category",
+        Header = "Category",
+        CanSort = false,
+        Format = (item) =>
+        {
+            string categoryName = string.Empty;
+            JobPortal.Data.Specialization category = SharedService.Instance.GetCategory(item.CategoryId);
+            if (category != null)
+            {
+                categoryName = category.Name;
+            }
+            return categoryName;
+        },
+    });
+
+    columnlist.Add(new WebGridColumn()
+    {
+        ColumnName = "Specialization",
+        Header = "Specialization",
+        CanSort = false,
+        Format = (item) =>
+        {
+            string specializationName = string.Empty;
+            SubSpecialization specialization = SharedService.Instance.GetSpecialization(item.SpecializationId);
+            if (specialization != null)
+            {
+                specializationName = specialization.Name;
+            }
+            return specializationName;
+        },
+    });
+
+    columnlist.Add(new WebGridColumn()
+    {
+        ColumnName = "PublishedDate",
+        Header = "Published Date",
+        Style = "datefield",
+        CanSort = false,
+        Format = (item) =>
+        {
+            return item.PublishedDate.ToString("MMM-dd-yyyy");
+        },
+    });
+
+    columnlist.Add(new WebGridColumn()
+    {
+        ColumnName = "ClosingDate",
+        Header = "Closing Date",
+        Style = "datefield",
+        CanSort = false,
+        Format = (item) =>
+        {
+            return item.ClosingDate.ToString("MMM-dd-yyyy");
+        },
+    });
+
+    if (User != null && user.Role == SecurityRoles.Individual)
+    {
+        columnlist.Add(new WebGridColumn()
+        {
+            ColumnName = "Actions",
+            Header = "Actions",
+            Style = "actionLinks",
+            CanSort = false,
+            Format = (item) =>
+            {
+                var links = "";
+                links = Html.ActionLink("Apply", "Apply", "job", new { JobId = item.Id, redirect = "/Employer/JobList" }, new { }).ToString();
+                return Html.Raw(links);
+            },
+        });
+    }
+}
+<div class="section">
+    <div class="row">
+        <div class="col-lg-10 col-md-10 col-sm-10">
+            <div class="title-login">
+                <h1 style="margin-top:-15px;">All Jobs</h1>
+                All jobs of @(ViewBag.Employer !=null ? ViewBag.Employer.Company : "")
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2" style="text-align:right">
+            @if (user!= null && user.Role == SecurityRoles.Company)
+            { 
+                @Html.ActionLink("List Job", "ListJob", null, new { title = "List Job", @class = "btn btn-info", @style = "width:75px; margin-top:10px;" })
+            }
+        </div>
+    </div>
+    @Html.Partial("_MessagePartial")
+
+    <div id="container-grid" class="table-responsive">
+        @grid.GetHtml(htmlAttributes: new { id = "grid", @style = "width:100%" }, tableStyle: "table table-bordered table-hover",
+    columns: columnlist)
+    </div>
+
+    <div style="text-align:center; margin-top: -15px;">
+
+        @Html.PagedListPager(pagedModel, PageNumber => Url.Action("JobList",
+            new RouteValueDictionary()
+            {
+                { "pageNumber" , PageNumber},
+                { "Id" , (ViewBag.Employer!= null ? ViewBag.Employer.UserId : 0)}
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+    </div>
+</div>

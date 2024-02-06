@@ -1,0 +1,983 @@
+﻿
+@model JobPortal.Web.Models.SearchJobModel
+@using JobPortal.Library.Constants
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Domain
+@using JobPortal.Models
+@using System.Text;
+@using System.Collections
+@{
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Job Listing</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Facebook Opengraph integration: https://developers.facebook.com/docs/sharing/opengraph -->
+    <meta property="og:title" content="">
+    <meta property="og:image" content="">
+    <meta property="og:url" content="">
+    <meta property="og:site_name" content="">
+    <meta property="og:description" content="">
+
+    <!-- Twitter Cards integration: https://dev.twitter.com/cards/  -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="">
+    <meta name="twitter:title" content="">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:image" content="">
+
+    <!-- Favicons -->
+    <link href="~/Content/Homesinga/assetsmalsya/img/favicon.png" rel="icon">
+    <!-- <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon"> -->
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,700|Roboto:400,900" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/Content/Homesinga/assetsmalsya/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/Homesinga/assetsmalsya/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/Content/Homesinga/assetsmalsya/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="~/Content/Homesinga/assetsmalsya/css/style.css" rel="stylesheet">
+
+    <!-- =======================================================
+    * Template Name: Bell - v4.6.0
+    * Template URL: https://bootstrapmade.com/bell-free-bootstrap-4-template/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+
+<body>
+    <img class="conatiner2" src="~/Content/chatbotnew/ChatWithUS.png" onclick="openForm()" alt="cwt" height="70" width="90" />
+    <link href="~/Content/chatbotnew/chatbotstyle.css" rel="stylesheet" />
+    <script src="~/Content/chatbotnew/chatbotjquerry.js"></script>
+    <div class="container1" id="myForm">
+        <div class="chat-header">
+            <div class="logo">
+                <!-- <img src="images/ChatWithUS.png" alt="cwt" /> -->
+            </div>
+            <div class="title" onclick="closeForm()">
+                <!-- Let's Chat -->
+                <img src="~/Content/chatbotnew/ChatWithUS.png" alt="cwt" />
+
+            </div>
+        </div>
+        <div class="chat-body">
+            <p class="chatbot-message">Hi I am Lovely </p>
+            <p class="chatbot-message">Select below options to serve better</p>
+            <p>
+                <button type="button" value="Student" class="btn bodybox1" id="bodybox1">Students</button>
+                <button type="button" value="Interns" class="btn bodybox1" id="bodybox2">Interns</button>
+                <button type="button" value="Jobseekers" class="btn bodybox1" id="bodybox3">Jobseekers</button>
+                <button type="button" value="Employers" class="btn bodybox1" id="bodybox4">Employers</button>
+                <button type="button" value="Recruitment Agency" class="btn bodybox1" id="bodybox5">Recruitment Agency</button>
+                <button type="button" value="Institutes" class="btn bodybox1" id="bodybox6">Institutes</button>
+                <button type="button" value="Freelancers" class="btn bodybox1" id="bodybox7">Freelancers</button>
+                <button type="button" value="Partners" class="btn bodybox1" id="bodybox8">Partners</button>
+            </p>
+            <div class="loading hide">
+                <div class="circle circle-1"></div>
+                <div class="circle circle-2"></div>
+                <div class="circle circle-3"></div>
+            </div>
+        </div>
+        <div class="chat-input" style="background-color: white;">
+            <div class="input-sec">
+                <input type="text" id="txtInput" placeholder="Type here..." autofocus />
+            </div>
+            <div class="send">
+                @*<img src="~/Content/chatbotnew/send.jpeg" style="width:59px; height: 53px;" alt="send" />*@
+                <button type="button" style="border: 1px solid #34ba08; border-radius:7px; width: 100px; height: 40px;">SEND</button>
+            </div>
+        </div>
+    </div>
+    <script src="~/Content/chatbotnew/app.js"></script>
+    <script src="~/Content/chatbotnew/response.js"></script>
+
+    <!-- ======= Hero Section ======= -->
+    <section id="hero" class="hero" style="background-image: url(/Images/russia.jpg); ">
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-md-12">
+                    <a class="hero-brand" href="index.html" title="Home">
+                        <img alt="Bell Logo" src="~/Content/Homesinga/assetsmalsya/img/PNG/logo_tool.png" width="250" height="65" class="m-0">
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+                <h1 style="font-size: 52px;">
+                    Find Job in russia, Employment and Career opportunities
+                </h1>
+
+                <p class="tagline">
+                    The Easiest Way to Get Your Dream Job
+                </p>
+                <div class="row">
+                    <div class="col" style="text-align: right;">
+
+                        <a href="/account/login" class="btn btn-full scrollto">Login</a>
+                    </div>
+
+                    <div class="col" style="text-align: left;">
+
+                        <a href="/account/register" class="btn btn-full scrollto">Register</a>
+                    </div>
+
+                </div>
+                <!-- <a class="btn btn-full scrollto" href="#about">Get Started Now</a> -->
+            </div>
+        </div>
+
+    </section><!-- End Hero -->
+    <!-- ======= Header ======= -->
+    <header id="header" class="d-flex align-items-center">
+        <div class="container d-flex align-items-center">
+
+            <div id="logo" class="me-auto">
+                <!-- <a href="index.html"><img src="assets/img/logo.png" alt=""></a> -->
+                <!-- Uncomment below if you prefer to use a text image -->
+                <!-- <h1><a href="#hero">Job Listing</a></h1> -->
+            </div>
+
+            <nav id="navbar" class="navbar order-last order-lg-0">
+                <ul>
+                    <li><a class="nav-link scrollto active" href="/russia/jobs">Jobs</a></li>
+                    <li><a class="nav-link scrollto" href="/search-people">People</a></li>
+                    <li><a class="nav-link scrollto" href="/search-jobseekers">Jobseekers</a></li>
+                    <li><a class="nav-link scrollto" href="/listjob">List New Job</a></li>
+                    <!-- <li><a class="nav-link scrollto" href="#team">Team</a></li>
+            <li><a class="nav-link scrollto" href="#contact">Contact</a></li> -->
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav><!-- .navbar -->
+
+            <div class="header-social-links d-flex align-items-center">
+                <a href="https://twitter.com/JobListing4" class="twitter"><i class="bi bi-twitter twitter-color"></i></a>
+                <a href="https://www.facebook.com/Joblisitng" class="facebook"><i class="bi bi-facebook facebook-color"></i></a>
+                <a href="https://www.instagram.com/joblistingportal/" class="instagram"><i class="bi bi-instagram instagram-color"></i></a>
+                @*<a href="https://www.linkedin.com/company/joblisting-com/about/" class="google"><i class="bi bi-google"></i></a>*@
+                <a href="https://www.linkedin.com/in/joblisting-01/" class="linkedin"><i class="bi bi-linkedin linkedin-color"></i></a>
+                @*<a href="https://www.whatsapp.com/Joblisitng" class="whatsapp"><i class="bu bi-whatsapp"></i></a>*@
+            </div>
+            <style>
+                .twitter-color {
+                    color: #1DA1F2; /* Twitter's official blue color */
+                }
+
+                .facebook-color {
+                    color: #1877F2; /* Facebook's official blue color */
+                }
+
+                .instagram-color {
+                    color: #E4405F; /* Instagram's official gradient color */
+                }
+
+                .linkedin-color {
+                    color: #0077B5; /* LinkedIn's official blue color */
+                }
+            </style>
+            <div class="header-social-links d-flex" style="padding-top:0px; ">
+                <a style="padding-bottom:20px; ">@Html.Partial("_LanguagePartial")</a>
+            </div>
+            <style>
+                #google_translate_element select {
+                    width: 120px;
+                    height: 32px;
+                    margin-top: -2px;
+                    border-color: #34ba08;
+                }
+            </style>
+        </div>
+    </header><!-- End Header -->
+
+    <main id="main">
+
+
+        <!-- ======= Features Section ======= -->
+        <section class="features" id="features">
+
+            <div class="container">
+                <!-- <h2 class="text-center">
+                    Categories
+                </h2> -->
+
+                <div class="row">
+                    <div class="feature-col col-lg-4 col-xs-12">
+                        <div class="card card-block text-center">
+                            <div>
+                                <div class="feature-icon">
+                                    <i class="bi bi-mortarboard"></i>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3>
+                                    Freshers
+                                </h3>
+
+                                <p>
+                                    Free Registration, Search Job For Free, Get recommended jobs, Received Job recommendations, Apply for Dream Job.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="feature-col col-lg-4 col-xs-12">
+                        <div class="card card-block text-center">
+                            <div>
+                                <div class="feature-icon">
+                                    <i class="bi bi-person-workspace"></i>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3>
+                                    Interns
+                                </h3>
+
+                                <p>
+                                    List Global Jobs,Search Global Profiles,View skills of the candidates and find matching candidates before posting jobs,Download Resumes.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="feature-col col-lg-4 col-xs-12">
+                        <div class="card card-block text-center">
+                            <div>
+                                <div class="feature-icon">
+                                    <i class="bi bi-building"></i>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3>
+                                    Employers
+                                </h3>
+
+                                <p>
+                                    Free Registration,
+                                    List Global Jobs,
+                                    Search Global Profiles,
+                                    View skills and find matching candidates before posting jobs,
+                                    Download Resumes.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- <div class="feature-col col-lg-2 col-xs-0"></div> -->
+
+                    <div class="feature-col col-lg-4 col-xs-12">
+                        <div class="card card-block text-center">
+                            <div>
+                                <div class="feature-icon">
+                                    <i class="bi bi-people"></i>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3>
+                                    Job Seekers
+                                </h3>
+
+                                <p>
+                                    Free Registration,Search Job For Free,
+                                    Get recommended jobs,
+                                    Received Job recommendations,Apply for Dream Job.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="feature-col col-lg-4 col-xs-12">
+                        <div class="card card-block text-center">
+                            <div>
+                                <div class="feature-icon">
+                                    <i class="bi bi-bank"></i>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3>
+                                    Institutes
+                                </h3>
+
+                                <p>
+                                    Free Registration, List &amp; Promote Students, Reach Global companies, Promote University/College, Manage Campus Recruitment.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="feature-col col-lg-4 col-xs-12">
+                        <div class="card card-block text-center">
+                            <div>
+                                <div class="feature-icon">
+                                    <i class="bi bi-ui-checks-grid"></i>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3>
+                                    Partners
+                                </h3>
+
+                                <p>
+                                    List Global Jobs,Search Global Profiles,View skills of the candidates and find matching candidates before posting jobs,Download Resumes.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+
+                <div class="row">
+                    <div class="feature-col col-lg-2 col-xs-0"></div>
+
+                    <div class="feature-col col-lg-4 col-xs-12">
+                        <div class="card card-block text-center">
+                            <div>
+                                <div class="feature-icon">
+                                    <i class="bi bi-pc-display-horizontal"></i>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3>
+                                    Freelancers
+                                </h3>
+
+                                <p>
+                                    List Global Jobs,Search Global Profiles,View skills of the candidates and find matching candidates before posting jobs,Download Resumes.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="feature-col col-lg-4 col-xs-12">
+                        <div class="card card-block text-center">
+                            <div>
+                                <div class="feature-icon">
+                                    <i class="bi bi-briefcase"></i>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3>
+                                    Recruitment Agencies
+                                </h3>
+
+                                <p>
+                                    List Global Jobs,Search Global Profiles,View skills of the candidates and find matching candidates before posting jobs,Download Resumes.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="feature-col col-lg-2 col-xs-0"></div>
+
+
+                </div>
+            </div>
+
+        </section><!-- End Features Section -->
+        <style>
+
+
+            /* Style the tab */
+            .tab {
+                overflow: hidden;
+                border: 1px solid #ccc;
+                background-color: #f1f1f1;
+                justify-content: center;
+                margin-bottom: 10px;
+            }
+
+                /* Style the buttons inside the tab */
+                .tab button {
+                    background-color: #34ba08 inherit;
+                    float: left;
+                    border: none;
+                    outline: none;
+                    cursor: pointer;
+                    padding: 14px 16px;
+                    transition: 0.3s;
+                    font-size: 17px;
+                }
+
+            .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+                background-color: #34ba08 !important;
+                color: white;
+            }
+
+
+
+
+            /* Change background color of buttons on hover */
+
+
+            /* Style the tab content */
+            .tabcontent {
+                display: none;
+                padding: 6px 12px;
+                border: 1px solid #ccc;
+                border-top: none;
+                background: black;
+                color: white;
+            }
+
+                .tabcontent p {
+                    color: white;
+                }
+        </style>
+
+
+        <div class="container" style="padding-top: 20px; background: #34ba08; border-bottom: 13px solid #34ba08;">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="text-center">
+                        <span style="color: #000;">Apply process</span>
+                        <h2 style="padding-bottom: 20px;color: white;"> How it works</h2>
+                    </div>
+                </div>
+            </div>
+            <ul class="nav nav-pills nav-justified" style="background-color: #f1f1f1;">
+                <li class="nav-item tab">
+                    <button class="nav-link tablinks btn-primary" style="color: black; background-color: white; font-weight: bold;" onclick="openCity(event, 'London')" id="defaultOpen">Search a job</button>
+                </li>
+                <li class="nav-item links ">
+                    <a class="nav-link" style="padding-top: 18px; font-size: 25px; font-weight: bold;"><i class="bi bi-arrow-right " style="color: #34ba08;"></i></a>
+                </li>
+                <li class="nav-item tab">
+                    <button class="nav-link tablinks btn-primary" style="color: black; background-color: white; font-weight: bold;" onclick="openCity(event, 'Paris')">Apply for job</button>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" style="padding-top: 18px; font-size: 25px; font-weight: bold;"><i class="bi bi-arrow-right" style="color: #34ba08; font-weight: bold;"></i></a>
+                </li>
+                <li class="nav-item tablinks tab">
+                    <button class="nav-link tablinks btn-primary" style="color: black; background-color: white; font-weight:bold;" onclick="openCity(event, 'Tokyo')">Get your job</button>
+                </li>
+
+            </ul>
+
+            <div id="London" class="tabcontent">
+                <br />
+                <p>
+                    Click the  Search Jobs at the top of homepage.<br />
+                    Click the Search jobs field and enter keywords or a company name.<br />
+                    You can also select from the job roles suggested by Joblisting  based on your qualification and experience.
+                </p>
+            </div>
+
+            <div id="Paris" class="tabcontent">
+                <br />
+                <p>
+                    Easy Apply: This allows you to apply for the job on Joblisting.<br />
+                    Apply: You’ll be redirected to the company website where you can apply for the job externally.
+                </p>
+            </div>
+
+            <div id="Tokyo" class="tabcontent">
+                <br />
+                <p>Get your dream job in  Joblisting </p>
+            </div>
+        </div>
+        <script>
+            function openCity(evt, cityName) {
+                var i, tabcontent, tablinks;
+                tabcontent = document.getElementsByClassName("tabcontent");
+                for (i = 0; i < tabcontent.length; i++) {
+                    tabcontent[i].style.display = "none";
+                }
+                tablinks = document.getElementsByClassName("tablinks");
+                for (i = 0; i < tablinks.length; i++) {
+                    tablinks[i].className = tablinks[i].className.replace(" active", "");
+                }
+                document.getElementById(cityName).style.display = "block";
+                evt.currentTarget.className += " active";
+            }
+            document.getElementById("defaultOpen").click();
+        </script>
+        <!--<section id="call-to-action">
+
+        <div class="container">-->
+        <!-- Section Tittle -->
+        <!--<div class="row">
+            <div class="col-lg-12">
+                <div class="section-tittle white-text text-center">
+                    <span style="color: #34ba08;">Apply process</span>
+                    <h2 style="padding-bottom: 60px;color: #fff;"> How it works</h2>
+                </div>
+            </div>
+        </div>-->
+        <!-- Apply Process Caption -->
+        <!--<div class="row">
+                    <div class="col-lg-4 col-md-6">
+                        <div class="single-process text-center mb-30">
+                            <div class="process-ion">
+                                <span class="flaticon-search"></span>
+                            </div>
+                            <div class="process-cap">
+                                <h5 style="color: #fff;">1. Search a job</h5>
+                                <p style="color: #fff;">Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="single-process text-center mb-30">
+                            <div class="process-ion">
+                                <span class="flaticon-curriculum-vitae"></span>
+                            </div>
+                            <div class="process-cap">
+                                <h5 style="color: #fff;">2. Apply for job</h5>
+                                <p style="color: #fff;">Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <div class="single-process text-center mb-30">
+                            <div class="process-ion">
+                                <span class="flaticon-tour"></span>
+                            </div>
+                            <div class="process-cap">
+                                <h5 style="color: #fff;">3. Get your job</h5>
+                                <p style="color: #fff;">Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>-->
+        <br /><br />
+        <div class="container-fluid">
+            <style>
+                .process-cap {
+                    background-color: black;
+                    color: white;
+                }
+
+                .job-card-subtitle {
+                    color: var(--subtitle-color);
+                    font-size: 13px;
+                    margin-top: 12px;
+                    max-height: 19px;
+                    overflow-wrap: break-word;
+                    overflow: hidden;
+                    line-height: 1.6em;
+                }
+
+                .job-card-subtitle1 {
+                    color: var(--subtitle-color);
+                    font-size: 13px;
+                    max-height: 14px;
+                    overflow-wrap: break-word;
+                    /*overflow: hidden;*/
+                    line-height: 1.6em;
+                }
+
+                .job-card-title {
+                    height: 49px;
+                    font-weight: 600;
+                    font-size: 14px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    padding-top: 10px;
+                }
+
+                .job-card-buttons {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    width: 100%;
+                }
+
+                .search-buttons {
+                    border-color: #34ba08;
+                    color: black;
+                    /*//color: var(--button-color);
+                      //background-color: var(--active-color);*/
+                    background-color: #ffffff;
+                    padding: 8px 10px;
+                    border-radius: 6px;
+                    font-size: 11px;
+                    font-weight: 600;
+                    margin-top: 14px;
+                }
+
+                .bookmarkview {
+                    color: #FFFFFF;
+                    background-color: #34ba08;
+                    padding: 8px 10px;
+                    border-radius: 6px;
+                    font-size: 11px;
+                    font-weight: 600;
+                    margin-top: 14px;
+                    cursor: none;
+                }
+
+                    .bookmarkview:hover {
+                        background-color: white;
+                        color: white;
+                    }
+
+                    .bookmarkview:focus {
+                        background-color: #34ba08;
+                        color: white;
+                    }
+
+                .search-buttons {
+                    background-color: var(--inactive-color);
+                    font-size: 11px;
+                    padding: 6px 8px;
+                    margin-top: 0;
+                    font-weight: 500;
+                }
+
+                .card-buttons,
+                .card-buttons-msg {
+                    padding: 5px;
+                    width: 100%;
+                    font-size: 12px;
+                    cursor: pointer;
+                }
+
+                .card-buttons {
+                    margin-right: 12px;
+                }
+
+                .card-buttons-override {
+                    background-color: #34ba08 !important;
+                    text-align: center;
+                    color: white;
+                }
+            </style>
+            <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">Latest Jobs</h1>
+            <div class="row">
+                @if (ViewBag.LatestJob1 != null)
+                {
+                    foreach (LatestJob latestJob in ViewBag.LatestJob1)
+                    {
+                        <div class="col-sm-3 card" style="margin: 5px; width: 24%; -webkit-animation: slideY 0.6s both; animation: slideY 0.6s both; margin-bottom:25px;">
+                            <div class="row" style="padding-bottom:5px;">
+                                <div class="col-sm-5" style="padding-top: 10px;">
+                                    @Html.Raw(string.Format("<text><span><img  height='100' width='100' src=\"/Image/Avtar/" + latestJob.EmployerId + "\" /><span> </text>"))
+
+                                    @*@if (latestJob.Image != null)
+                                        {
+                                            @Html.Raw(string.Format("<text><img height='100' width='100' src=\"data:image/jpg;base64," + (latestJob.Image) + " \" /> </text>"));
+                                        }
+                                        else
+                                        {
+                                            @Html.Raw(string.Format("<text><img height='100' width='100' src=\"data:image/png;base64,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\" alt=\"Image\" /></text>", Url.Content("~/Content/images/non-preview-photo.gif")));
+                                        }*@
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="job-card-title">@Html.Raw(latestJob.Title)</div>
+                                    <div class="job-card-subtitle">
+                                        <b>Location: </b>@Html.Raw(string.Format("{0} {1}", latestJob.Country, latestJob.City))
+                                    </div>
+                                    <div class="job-card-subtitle1">
+                                        <div class="row" style="padding-top: 0px;width: 100%;margin-top: 6px;">
+                                            <div class="col-md-12">
+                                                <b>Status: </b> @Html.Raw(latestJob.Status)
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="job-card-buttons">
+                                <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;">@Html.Raw(latestJob.JobType)</button>
+                                @*<button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;">@Html.Raw(string.Format("{0} ", latestJob.MinimumExperience))</button>*@
+                                @{
+                                    var x = latestJob.MinimumExperience;
+                                    if (x == "0" || x == "0 Years" || x == null || x == "0-1" || x == "0-2" || x == "0-3" || x == "0-4" || x == "0-5" || x == "0-6" || x == "0-7" || x == "0-8" || x == "0-9" || x == "0-10" || x == "0-11" || x == "0-12" || x == "0-13" || x == "0-14" || x == "0-15")
+                                    {
+                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 0-1 Yrs</button>
+                                    }
+                                    else if (x == "1" || x == "1 Years" || x == "1-2" || x == "1-3" || x == "1-4" || x == "1-5" || x == "1-6" || x == "1-7" || x == "1-8" || x == "1-9" || x == "1-10" || x == "1-11" || x == "1-12" || x == "1-13" || x == "1-14" || x == "1-15")
+                                    {
+                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 1-2 Yrs</button>
+                                    }
+                                    else if (x == "2" || x == "2 Years" || x == "2-3" || x == "2-4" || x == "2-5" || x == "2-6" || x == "0-7" || x == "2-8" || x == "2-9" || x == "2-10" || x == "2-11" || x == "2-12" || x == "2-13" || x == "2-14" || x == "2-15" || x == "2-20")
+                                    {
+                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 2-3 Yrs</button>
+                                    }
+                                    else if (x == "3" || x == "3 Years" || x == "3-4" || x == "3-5" || x == "3-6" || x == "0-7" || x == "3-8" || x == "3-9" || x == "3-10" || x == "3-11" || x == "3-12" || x == "3-13" || x == "3-14" || x == "3-15")
+                                    {
+                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;">3-4 Yrs</button>
+                                    }
+                                    else if (x == "4" || x == "4 Years" || x == "4-5" || x == "4-6" || x == "0-7" || x == "5-8" || x == "4-9" || x == "4-10" || x == "4-11" || x == "4-12" || x == "4-13" || x == "4-14" || x == "4-15")
+                                    {
+                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 4-10 Yrs</button>
+                                    }
+                                    else if (x == "5" || x == "5 Years" || x == "5-6" || x == "0-7" || x == "6-8" || x == "5-9" || x == "5-10" || x == "5-11" || x == "5-12" || x == "5-13" || x == "5-14" || x == "5-15")
+                                    {
+                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 5-10 Yrs</button>
+                                    }
+                                    else if (x == "6" || x == "6 Years" || x == "6-7" || x == "6-8" || x == "6-9" || x == "6-10" || x == "6-11" || x == "6-12" || x == "6-13" || x == "6-14" || x == "6-15")
+                                    {
+                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 6-12 Yrs</button>
+                                    }
+                                    else if (x == "7" || x == "7 Years" || x == "7-8" || x == "7-9" || x == "7-10" || x == "7-11" || x == "7-12" || x == "7-13" || x == "7-14" || x == "7-15")
+                                    {
+                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 7-15 Yrs</button>
+                                    }
+                                    else if (x == "8" || x == "8 Years" || x == "8-9" || x == "8-10" || x == "8-11" || x == "8-12" || x == "8-13" || x == "8-14" || x == "8-15")
+                                    {
+                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 8-15 Yrs</button>
+                                    }
+                                    else if (x == "9" || x == "9 Years" || x == "9-10" || x == "9-11" || x == "9-12" || x == "9-13" || x == "9-14" || x == "9-15")
+                                    {
+                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 9-15 Yrs</button>
+                                    }
+                                    else if (x == "10" || x == "10 Years" || x == "10-11" || x == "10-12" || x == "10-13" || x == "10-14" || x == "10-15")
+                                    {
+                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 10-15 Yrs</button>
+                                    }
+                                    else if (x == "11" || x == "11 Years" || x == "11-12" || x == "11-13" || x == "11-14" || x == "11-15")
+                                    {
+                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 11-15 Yrs</button>
+                                    }
+                                    else if (x == "12" || x == "12 Years" || x == "12-13" || x == "12-14" || x == "12-15")
+                                    {
+                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 12-15 Yrs</button>
+                                    }
+                                    else if (x == "13" || x == "13 Years" || x == "13-14" || x == "13-15")
+                                    {
+                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 13-15 Yrs</button>
+                                    }
+                                    else if (x == "14" || x == "14 Years" || x == "14-15")
+                                    {
+                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 14-15 Yrs</button>
+                                    }
+                                    else if (x == "15" || x == "15 Years" || x == "15-16")
+                                    {
+                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;"> 10-16 Yrs</button>
+                                    }
+                                    else
+                                    {
+                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;">@Html.Raw(string.Format("{0} ", latestJob.MinimumExperience))</button>
+                                    }
+                                }
+                                <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;">@Html.Raw(latestJob.JobLevel)</button>
+                            </div>
+                            <div class="job-card-buttons" style="padding-bottom:10px;">
+                                @Html.ActionLink("View", "View", "job", new { Id = latestJob.JobID }, new { target = "_blank", @class = "card-buttons card-buttons-override bookmarkview" })
+                                @Html.ActionLink("Share", "Email", "job", new { Id = latestJob.JobID }, new { target = "_blank", @class = "card-buttons card-buttons-override bookmarkview" })
+                                @Html.ActionLink("Bookmark", "BookMarkedJobs", "JobSeeker", new { Id = latestJob.JobID }, new { target = "_blank", title = "Bookmark this job.", @class = "card-buttons card-buttons-override bookmarkview" })
+                            </div>
+                        </div>
+
+                    }
+                }
+            </div>
+            @*<h5 class="pull-right" style="float:right;"><a href="/jobs"><span><b>CLICK HERE</b></span></a> to search for more jobs in your state</h5>*@
+        </div>
+        <br />
+        <br />
+
+        <div class="row" style="padding-right:15px; padding-left:15px;">
+            <h1 class="text-center"><b>Hour Customers</b></h1>
+            <div class="col-sm-12">
+                <style>
+                    .imgf {
+                        padding: 15px;
+                    }
+                </style>
+                <marquee behavior="alternate">
+                    @foreach (var item in ViewBag.Model)
+                    {
+
+                        @Html.Raw(string.Format("<text ><img padding-left='25px' height='100' width='150' float='left' class='imgf'  src=\"data:image/jpg;base64," + (item["Logo"]) + " \" /> </text>"));
+
+                    }
+                </marquee>
+            </div>
+        </div>
+        <br />
+        <section id="contact">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h2 class="section-title">Contact Us</h2>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 col-md-4">
+
+
+
+                        <h3>About</h3>
+                        <p>JobListing is a global website that facilitates job hunting and range from small, medium to large scale as well as cross-sector categories such as green jobs, ethical jobs, freelance and seasonal jobs.</p>
+
+                        <h5>Webinars</h5>
+                        <div class="parent">
+                            <div class="child">
+                                <img width="40" src="https://www.joblisting.com/images/img1.jpeg">
+                                <p style="font-size: 14px;margin-top: 10px;">HR Webinar</p>
+                            </div>
+                            <div class="child">
+                                <img width="40" src="https://www.joblisting.com/images/img1.jpeg">
+                                <p style="font-size: 14px;margin-top: 10px;">HR Webinar</p>
+                            </div>
+                            <div class="child">
+                                <img width="40" src="https://www.joblisting.com/images/img1.jpeg">
+                                <p style="font-size: 14px;margin-top: 10px;">HR Webinar</p>
+                            </div>
+                            <!-- <div class="child">
+                                <img width="40" src="https://www.joblisting.com/images/img1.jpeg">
+                                <p style="font-size: 14px;margin-top: 10px;">HR Webinar</p>
+                            </div>
+                            <div class="child">
+                                <img width="40" src="https://www.joblisting.com/images/img1.jpeg">
+                                <p style="font-size: 14px;margin-top: 10px;">HR Webinar</p>
+                            </div>
+                            <div class="child">
+                                <img width="40" src="https://www.joblisting.com/images/img1.jpeg">
+                                <p style="font-size: 14px;margin-top: 10px;">HR Webinar</p>
+                            </div> -->
+                        </div>
+                        <!-- <div class="social-links">
+                          <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                          <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                          <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                          <a href="#" class="google"><i class="bi bi-google"></i></a>
+                          <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                        </div> -->
+
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <div class="info">
+                            <div>
+                                <i class="bi bi-geo-alt"></i>
+                                <p>35 Selegie Road, #09-22, Parklane Shopping Mall, Singapore 188307.</p>
+                            </div>
+
+                            <div>
+                                <i class="bi bi-envelope"></i>
+                                <p>pratapchandran@joblisting.com</p>
+                            </div>
+
+                            <h5>Useful Links</h5>
+                            <a href="/russia/jobs">Search Jobs</a><br>
+                            <a href="/search-people">Search People</a><br>
+                            <a href="/search-jobseekers">Search Jobseeker</a><br>
+                            <a href="/listjob">List Jobs</a>
+
+                            <!-- <div>
+                              <i class="bi bi-phone"></i>
+                              <p>+1 5589 55488 55s</p>
+                            </div> -->
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-8">
+                        <div class="form">
+                            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                                <div class="form-group">
+                                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                                </div>
+                                <div class="form-group mt-3">
+                                    <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                                </div>
+                                <div class="my-3">
+                                    <div class="loading">Loading</div>
+                                    <div class="error-message"></div>
+                                    <div class="sent-message">Your message has been sent. Thank you!</div>
+                                </div>
+                                <div class="text-center"><button type="submit">Send Message</button></div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section><!-- End Contact Section -->
+
+    </main><!-- End #main -->
+    <!-- ======= Footer ======= -->
+    <footer class="site-footer">
+        <div class="bottom">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-6 col-xs-12 text-lg-start text-center">
+                        <p class="copyright-text">
+                            &copy; Copyright <strong>Job Listing</strong>. All Rights Reserved
+                        </p>
+                        <!-- <div class="credits"> -->
+                        <!--
+                          All the links in the footer should remain intact.
+                          You can delete the links only if you purchased the pro version.
+                          Licensing information: https://bootstrapmade.com/license/
+                          Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Bell
+                        -->
+                        <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
+                        <!-- </div> -->
+                    </div>
+
+                    <div class="col-lg-6 col-xs-12 text-lg-right text-center">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <a href="/AboutPage.html">Home</a>
+                            </li>
+
+                            <li class="list-inline-item">
+                                <a href="/home/contact">Contact Us</a>
+                            </li>
+
+                            <li class="list-inline-item">
+                                <a href="/privacy">Privacy Policy</a>
+                            </li>
+
+                            <li class="list-inline-item">
+                                <a href="/terms">Terms of Use</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </footer><!-- End Footer -->
+    @*<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>*@
+
+    <!-- Vendor JS Files -->
+    <script src="~/Content/Homesinga/assetsmalsya/vendor/purecounter/purecounter.js"></script>
+    <script src="~/Content/Homesinga/assetsmalsya/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/Homesinga/assetsmalsya/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="~/Content/Homesinga/assetsmalsya/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="~/Content/Homesinga/assetsmalsya/js/main.js"></script>
+
+</body>
+
+</html>

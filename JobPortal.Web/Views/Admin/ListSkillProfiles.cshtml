@@ -1,0 +1,240 @@
+﻿@model JobPortal.Web.Models.AdminJobSearchModel
+@using JobPortal.Domain
+@using JobPortal.Data
+@using PagedList.Mvc
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers;
+
+@{
+    ViewBag.Title = "ListSkillProfiles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    UserProfile profile = MemberService.Instance.Get(ViewBag.Employer.UserId);
+    int inbox_items = DomainService.Instance.DashboardInboxItems(User.Id, ViewBag.Employer.UserId);
+}
+
+<div class="section" style="width:100%;">
+    <div class="row" style="width:100%;">
+        <!--<div class="col-lg-3 col-md-3 col-sm-3">
+            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                <li class="active"><a href="#">QUICK LINKS</a></li>
+                @{
+                    JobPortal.Services.JobService jobService = new JobPortal.Services.JobService();
+                    int apps = jobService.ApplicationCounts(ViewBag.Employer.UserId);
+                }-->
+                @*<li>@Html.ActionLink("Connections", "Connections", "Admin", new { UserId = ViewBag.Employer.UserId }, new { target = "_blank" })</li>*@
+                <!--<li>@Html.ActionLink("Connections", "Contacts", "Admin", new { UserId = ViewBag.Employer.UserId }, new { target = "_blank" })</li>
+                @if (ViewBag.Employer.Type == (int)SecurityRoles.Employers)
+                {
+                    <li>@Html.ActionLink("Listed Jobs", "JobsByCompanyAll", "Admin", new { Id = ViewBag.Employer.UserId }, new { target = "_blank" })</li>
+
+                    <li>@Html.ActionLink("Jobs", "JobsByCompany", "Admin", new { Id = ViewBag.Employer.UserId }, new { target = "_blank" })</li>
+                }-->
+                @*<li>@Html.ActionLink("Applications", "Applications", "Admin", new { UserId = ViewBag.Employer.UserId }, new { target = "_blank" })</li>*@
+                <!--@if (apps > 0)
+                {
+                    <li><a href="/Employer/Applications">Applications (<span style="color:red;">@apps</span>)</a></li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Applications", "Applications", "Employer")</li>
+                }-->
+                @*<li>@Html.ActionLink("Interviews", "Interviews", "Admin", new { UserId = ViewBag.Employer.UserId }, new { target = "_blank" })</li>*@
+                <!--<li>@Html.ActionLink("Interviews", "Index", "Interview", new { UserId = ViewBag.Employer.UserId }, new { target = "_blank" })</li>
+                <li>@Html.ActionLink("Downloads", "DownloadHistory", "Admin", new { Id = ViewBag.Employer.UserId }, new { target = "_blank" })</li>-->
+                @*<li>@Html.ActionLink("ListProfiled Skills", "ListSkillProfiles", "Admin", new { Id = ViewBag.Employer.UserId }, new { target = "_blank" })</li>*@
+                <!--@if (inbox_items > 0)
+                {
+                    <li><a href="/Admin/Inbox?Id=@ViewBag.Employer.UserId" target="_blank">Inbox (<span style="color:red; font-weight:bold">@inbox_items</span>)</a></li>
+                }
+                else
+                {
+                    <li><a href="/Admin/Inbox?Id=@ViewBag.Employer.UserId" target="_blank">Inbox</a></li>
+                }
+                <li>@Html.ActionLink("Profile", "MyProfile", "Admin", new { Id = ViewBag.Employer.UserId }, new { })</li>
+                <li>@Html.ActionLink("Billing & Invoices", "billing", "Payment", new { userId = ViewBag.Employer.UserId }, null)</li>
+                <li>@Html.ActionLink("Reset Password", "ResetPassword", "Admin", new { Id = ViewBag.Employer.UserId }, new { target = "_blank" })</li>
+                <li>@Html.ActionLink("Login History", "LoginHistory", "account", new { Id = ViewBag.Employer.UserId }, new { target = "_blank" })</li>
+            </ul>
+        </div>-->
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <h2>List  Profiles</h2>
+            @TempData["name"]
+            <div class="table ng-scope" style="width:100%">
+                <table id="datatableinfo" class="table table-bordered" style="width:100%"></table>
+            </div>
+        </div>
+    </div>
+</div>
+@*<div class="container-fluid box">
+        <div class="chartbg">
+            <div class="row">
+
+                <div class="col-12 col-sm-6 col-md-2">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <textarea id="ViewerData" name="ViewerData" class="ishighlight" style="width:500px;height:100px;"></textarea>
+                            <br />
+                            <br />
+                            <input type="button" class="SubmitProject" value="Submit" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>*@
+
+@*@TempData["name"]
+    <div class="table-responsive ng-scope">
+        <table id="datatableinfo" class="table table-bordered"></table>
+    </div>*@
+
+
+
+@Styles.Render("~/bundles/jScripts")
+
+<script type="text/javascript">
+
+
+    window.onload = function GetViewers() {
+
+        //
+        var url_string = document.URL;
+        const urlParams = new URLSearchParams(url_string);
+
+        const color = urlParams.get('color')
+
+
+
+        // var url_string = document.URL;
+        // var url = new URL(url_string);
+        //var a1= urlParams.get('a');
+        // console.log(c);
+        // debugger;
+
+
+        debugger;
+
+        $.ajax({
+
+            type: 'POST',
+            url: '/Admin/ListSkillProfiles',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify({ ViewerData: color }),
+            success: function (data) {
+                debugger;
+
+                if (data == 0) {
+                    "<span style='color:blue'>No Such Profiles Found!</span>"
+                }
+                //var x = "<thead style='background-color:white;' class=' text-primary'><tr><th>Edit</th><th>PWD</th><th>ID</th><th >Name</th><th style='display:none' >Password</th><th>Email<a></th><th>Phone</th>"
+                //        + "<th>Address</th><th>Bookings</th><th>My Jobs</th><th>Created On</th><th>Is Active?</th><th style='display:none'> Sandbox</th><th>Is Confirm?</th><th>Is Admin?</th></tr></thead>";
+                //x = x + "<tbody>"
+
+                var x = "<thead style='background-color:white;' class=' text-primary'><tr>"
+
+                    //+ "<th>Password</th>"
+                    + "<th>Name</th>"
+
+                    // + "<th style='display:none'>Password</th>"
+
+                    + "<th>Moblie</th>"
+
+                    + "<th>Address</th>"
+                    + "<th>Call</th>"
+
+                    + "</tr></thead>";
+                x = x + "<tbody>"
+
+                debugger;
+                for (var i = 0; i < data.length; i++) {
+                    var Id = data[i].Id;
+                    //var FirstName = data[i].FirstName;
+                    var FullName = data[i].FullName;
+                    var Mobile = data[i].Mobile;
+                    var StateName = data[i].StateName;
+                    var Address = data[i].Address;
+                    var CountryName = data[i].CountryName;
+                    debugger;
+                    var FullAdd = CountryName + ',' + Address + ',' + StateName;
+                    x = x + "<tr>"
+                        /*    + "<td>" + ButtonHtml(Id) + "</td > "*/
+                        //+ "<td><div style='direction:rtl;'>" + ButtonHtmlPwd(ID, Username, EmailID) + "</td>"
+                        + "<td style='display:none'><div style='direction:rtl;'>" + Id + "</td>"
+                        + "<td><div style='white-space:pre-line;width:310px;word-wrap: break-word;'>" + FullName + "</div></td>"
+                        + "<td><div style='white-space:pre-line;width:310px;word-wrap: break-word;'>" + Mobile + "</div></td>"
+                        + "<td><div style='white-space:pre-line;width:310px;word-wrap: break-word;'>" + FullAdd + "</div></td>"
+
+                        + "<td><div style='white-space:pre-line;width:310px;word-wrap: break-word;'>" + ButtonHtml(Id) + " " + ButtonHtml1(Id) + " " + ButtonHtml2(Id) + "</td > "
+                    // + "<td style='display:none'>" + Password + "</td>"
+                    /* + "<td>" + FullName + "</td>"*/
+                    //+ "<td style=direction:rtl>" + Mobile + "</td>"
+                    //+ "<td>" + Permission + "</td>"
+                    //+ "<td style = text - align: center > " + IsActive + "</td ></tr>";
+                }
+
+                x = x + "</tbody>";
+                $("#datatableinfo").empty();
+                $("#datatableinfo").append(x);
+                BindTable();
+                $("#datatableinfo_filter").hide();
+
+                $("#datatableinfo").removeClass("no-footer");
+                // ClearData();
+            },
+            error: function (data) {
+                console.log(data)
+                //HideProgress();
+
+            }
+
+        });
+
+    }
+    var table;
+    function BindTable() {
+        table = $('#datatableinfo').DataTable({
+            'Ordering': true,
+            "order": [[1, "desc"]],
+            'paging': true,
+            "pageLength": 10,
+            'bFilter': true,
+            "scrollY": 300,
+            "scrollX": true,
+            'lengthChange': false,
+            'destroy': true,
+            "columnDefs": [{
+                "targets": 0, "orderable": true
+            }],
+        });
+    }
+    function ButtonHtml(Id) {
+        debugger;
+        var HtmlText = " <button id=" + Id + " onclick='BindpopUp(this)'class='btn btn-primary btn-xs'style='font-weight: bold;cursor:pointer; '>" + "<span class='glyphicon glyphicon-earphone' style='font-size:1.7em;'>" + "</span></button>";
+        return HtmlText;
+    }
+    function ButtonHtml1(Id) {
+        debugger;
+        var HtmlText = " <button id=" + Id + " onclick='BindpopUp(this)'class='btn btn-primary btn-xs'style='font-weight: bold;cursor:pointer; margin-left:100px;'>" + "<span class='glyphicon glyphicon-envelope' style='font-size:1.7em;'>" + "</span></button>";
+        return HtmlText;
+    }
+    function ButtonHtml2(Id) {
+        debugger;
+        var HtmlText = " <button id=" + Id + " onclick='BindpopUp(this)'class='btn btn-primary btn-xs'style='font-weight: bold;cursor:pointer; margin-left:100px;'>" + "<span class='glyphicon glyphicon-send' style='font-size:1.7em;'>" + "</span></button>";
+        return HtmlText;
+    }
+    function formatDate(Val) {
+
+        var re = /-?\d+/;
+        var m = re.exec(Val);
+        var d = new Date(parseInt(m[0]));
+        d = new Date(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate());
+        return d.getDate() + "-" + (d.getMonth() + 1) + "-" + d.getFullYear();
+    }
+
+</script>
+
+
+
+

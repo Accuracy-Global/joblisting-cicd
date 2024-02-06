@@ -1,0 +1,151 @@
+﻿@model JobPortal.Web.Models.BasicProfileModel
+@using JobPortal.Domain
+@using JobPortal.Models
+@{
+    ViewBag.Title = "One More Step";
+    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+    UserInfoEntity uinfo = MemberService.Instance.GetUserInfo(Model.Id);
+}
+<style>
+    .bday {
+        padding-left: 0px;
+        list-style-type: none;
+    }
+
+        .bday li {
+            display: inline-block;
+        }
+</style>
+<div class="section">
+    <h2>One More Step</h2>
+    @*To start using your account, please update required fields.
+        Please update required fields before start using of your account.*@
+    <span style="font-size:20px; color:red;">To use your account, please update following.</span>
+
+    <div style="height:15px;"></div>
+
+    @using (Html.BeginForm("BasicProfile", "Account", null, FormMethod.Post, new { @id = "BasicForm", @autocomplete = "off" }))
+    {
+        <input type="hidden" id="Id" name="Id" value="@Model.Id" />
+        <input type="hidden" id="Type" name="Type" value="@Model.Type" />
+        <input type="hidden" id="ReturnUrl" name="ReturnUrl" value="@Model.ReturnUrl" />
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                @Html.Partial("_MessagePartial")
+                <div class="clear" style="height:5px"></div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <label for="FirstName">First Name</label>
+                        <div class="form-group">
+                            <input type="text" id="FirstName" name="FirstName" placeholder="FIRST NAME" title="FIRST NAME" pattern="[a-zA-Z\\s]+" class="form-control" maxlength=50 required oninvalid="this.setCustomValidity('You can\'t leave first name empty!')" oninput="this.setCustomValidity('')" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <label for="LastName">Last Name</label>
+                        <div class="form-group">
+                            <input type="text" id="LastName" name="LastName" placeholder="LAST NAME" title="LAST NAME" pattern="[a-zA-Z\\s]+" class="form-control" maxlength=50 required oninvalid="this.setCustomValidity('You can\'t leave last name empty!')" oninput="this.setCustomValidity('')" />
+                        </div>
+                    </div>
+                </div>
+                @if (Model.Type == 4)
+                {
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Gender)
+                                <select id="Gender" name="Gender" class="form-control" title="GENDER" oninvalid="this.setCustomValidity('You must select gender!')" oninput="this.setCustomValidity('')">
+                                    <option value="">SELECT GENDER</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <label for="BDay">Birth Date</label>
+                                <ul class="bday" title="Providing birth date helps to make sure that\nyou get right experience for your age!">
+                                    <li>
+                                        <select id="BDay" name="BDay" title="Birth Day" class="form-control">
+                                            <option value="">DAY</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
+                                            <option value="26">26</option>
+                                            <option value="27">27</option>
+                                            <option value="28">28</option>
+                                            <option value="29">29</option>
+                                            <option value="30">30</option>
+                                            <option value="31">31</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        <select id="BMonth" name="BMonth" title="Birth Month" class="form-control" style="width:96px;">
+                                            <option value="">MONTH</option>
+                                            <option value="1">January</option>
+                                            <option value="2">February</option>
+                                            <option value="3">March</option>
+                                            <option value="4">April</option>
+                                            <option value="5">May</option>
+                                            <option value="6">June</option>
+                                            <option value="7">July</option>
+                                            <option value="8">August</option>
+                                            <option value="9">September</option>
+                                            <option value="10">October</option>
+                                            <option value="11">November</option>
+                                            <option value="12">December</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        @Html.DropDownListFor(model => model.BYear, new SelectList(SharedService.Instance.GetYearList(true, DateTime.Now.Year)), "YEAR", new { @class = "form-control", placeholder = "YEAR" })
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else if (Model.Type == 5)
+                {
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <input type="text" name="Company" id="Company" title="COMPANY NAME" placeholder="COMPANY NAME" class="form-control" maxlength="50" oninvalid="this.setCustomValidity('You can\'t leave company name empty!')" oninput="this.setCustomValidity('')" />
+                            </div>
+                        </div>
+                    </div>
+                }
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <input id="BasicUpdate" type="submit" value="Update" class="btn btn-info" style="width:150px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+

@@ -1,0 +1,586 @@
+﻿@model JobPortal.Models.ViewJobModel
+@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Web.Models
+@using JobPortal.Models
+@{
+    string username = string.Empty;
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+        username = user.Username;
+    }
+    
+    long counter = 0;
+    string Applystatus = "";
+}
+
+<div class="clear" style="height:15px;"></div>
+<div class="row alert alert-info" style="padding:10px;">
+    @if (Model.CompanySummary != null)
+    {
+        <div class="col-lg-1 col-md-1 col-sm-1"></div>
+        <div class="col-lg-8 col-md-8 col-sm-8" style="padding:4px; text-align:justify">
+            <div class="form-group">
+                <b>@string.Format("{0} Overview", HttpUtility.HtmlEncode(Model.CompanyName))</b>
+                <div class="clear" style="height:5px;"></div>
+                @Html.Raw(Model.CompanySummary)
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2" style="text-align:right">
+            <a href="/@Model.EmployerLink" target="_blank"><div class="square135"></div></a>
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1"></div>
+    }
+    else
+    {
+        @Html.Raw("<h3 style=\"text-align:center\">" + Model.CompanyName + "</h3>")
+    }
+</div>
+
+@if (Model != null)
+{
+    UserProfile employer = MemberService.Instance.Get(Model.EmployerId);
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div style="text-align:center;">
+                <div class="title-login alert" style="margin-top: -5px;">
+                    <h1 class="page-title">@Model.Title  </h1>
+                    @if (Model.IsExpired == false)
+                    {
+                        <small> <i class="fa fa-clock-o"></i> @Html.Raw(string.Format("Job Listed on {0}. Closing on {1}", Model.PublishedDate.ToString("MMM-dd-yyyy"), Model.ClosingDate.ToString("MMM-dd-yyyy")))  <time></time></small>
+                    }
+                    else
+                    {
+                        <small> <i class="fa fa-clock-o"></i> @Html.Raw(string.Format("Job Listed on {0}. Closing on <span style=\"color:red\">{1}</span>", Model.PublishedDate.ToString("MMM-dd-yyyy"), Model.ClosingDate.ToString("MMM-dd-yyyy")))  <time></time></small>
+                    }
+                    @if (user != null && user.Role != SecurityRoles.Jobseeker)
+                    {
+                        long inboxId = DomainService.Instance.GetInboxId(Model.EmployerId, Model.Id, 1);
+                        if (Model.IsActive == true && Model.IsDeleted == false && Model.IsRejected == false && Model.IsPublished == false && Model.IsExpired == false)
+                        {
+                            <h3 style="color:orangered">In Approval Process</h3>
+                        }
+                        else if (Model.IsRejected == true && Model.IsActive == true && Model.IsDeleted == false && Model.IsExpired == false)
+                        {
+                            <h3 style="color:red">Rejected - See reason of rejection <a href="/inbox/show?Id=@inboxId" style="color:red">HERE</a></h3>
+                        }
+                        else if (Model.IsActive == false && Model.IsDeleted == false && Model.IsRejected == false && Model.IsExpired == false)
+                        {
+                            <h3 style="color:red">Deactivated - See reason of deactivation <a href="/inbox/show?Id=@inboxId" style="color:red">HERE</a></h3>
+                        }
+                        else if (Model.IsActive == true && Model.IsDeleted == false && Model.IsExpired == true)
+                        {
+                            <h3 style="color:red">Expired</h3>
+                        }
+                        else if (Model.IsDeleted)
+                        {
+                            <h3 style="color:red">Deleted - See reason of deletion <a href="/inbox/show?Id=@inboxId" style="color:red">HERE</a></h3>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    if (Model.ShowActionBar)
+    {
+        <div class="clear" style="height:20px;"></div>
+        <div class="row">
+            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+            <div class="col-md-8" style="text-align:right;">
+
+                @if (user != null && user.Role == SecurityRoles.Jobseeker)
+                {
+                    string lnk = string.Empty;
+                    if (Model.IsConnected)
+                    {
+                        if (Model.Messages == 0)
+                        {
+                            @Html.ActionLink("Message", "List", "Message", new { SenderId = employer.UserId, redirect = Request.Url.ToString() }, new { @class = "btn btn-info" });
+                        }
+                        else
+                        {
+                            string link = string.Empty;
+                            if (Model.Messages > 0)
+                            {
+                                link = string.Format("Message ({0})", Model.Messages);
+                            }
+                            else
+                            {
+                                link = "Message";
+                            }
+                            @Html.ActionLink(link, "List", "Message", new { SenderId = employer.UserId, redirect = Request.Url.ToString() }, new { @class = "btn btn-info" });
+                        }
+
+                        if ((Model.ClosingDate.Date >= DateTime.Now.Date) && (Model.IsDeleted == false) && counter < 1)
+                        {
+                            if (!Roles.IsUserInRole(username, "Administrator") && !Roles.IsUserInRole(username, "SuperUser"))
+                            {
+                                if (user.Role == SecurityRoles.Employers)
+                                {
+                                    @Html.Raw("&nbsp;")
+                                    @Html.ActionLink("Apply", "Apply", "job", new { JobId = @Model.Id, redirect = "/Jobseeker/Index" }, new { @class = "btn btn-info", id = "ApplyJobs", @style = "width:75px;", onclick = "alert('Please Login or Register account as Jobseeker to apply on this job!'); return false;" })
+                                }
+                                else
+                                {
+                                    @Html.Raw("&nbsp;")
+                                    @Html.ActionLink("Apply", "Apply", "job", new { JobId = @Model.Id, redirect = "/Jobseeker/Index" }, new { @class = "btn btn-info", id = "ApplyJobs", @style = "width:75px;" })
+                                }
+                            }
+                        }
+
+                        @Html.Raw("&nbsp;")
+                        @Html.ActionLink("Bookmark", "Bookmark", "job", new { Id = Model.Id, redirect = string.Format("~/{0}-{1}", Model.JobLink, Model.Id) }, new { title = "Bookmark this job.", @class = "btn btn-info" })
+
+                        @Html.Raw("&nbsp;")
+                        @Html.ActionLink("Share Link with Friend", "Email", "job", new { Id = Model.Id }, new { target = "_blank", @class = "btn btn-info" })
+
+                        @Html.Raw("&nbsp;")
+                        <a href="/Employer/Joblist?Id=@employer.UserId" target="_blank" class="btn btn-info">All Jobs of this Company</a>
+                    }
+                    else
+                    {
+                        if (Model.InvitedByMe > 0 || Model.InvitedBySomeone > 0)
+                        {
+                            if (Model.Connected > 0)
+                            {
+                                if (Model.InvitedBySomeone > 0)
+                                {
+                                    @Html.ActionLink("Accept", "Accept", "Network", new { Id = Model.Connected, redirect = Request.Url.ToString() }, new { @class = "btn btn-info" });
+                                }
+
+                                if ((Model.ClosingDate.Date >= DateTime.Now.Date) && (Model.IsDeleted == false) && counter < 1)
+                                {
+                                    @Html.Raw("&nbsp;")
+                                    @Html.ActionLink("Apply", "Apply", "job", new { JobId = @Model.Id, redirect = "/Jobseeker/Index" }, new { @class = "btn btn-info", id = "ApplyJobs", @style = "width:75px;" })
+                                }
+
+                                @Html.Raw("&nbsp;")
+                                @Html.ActionLink("Bookmark", "Bookmark", "job", new { Id = Model.Id, redirect = string.Format("~/{0}-{1}", Model.JobLink, Model.Id) }, new { title = "Bookmark this job.", @class = "btn btn-info" })
+
+                                @Html.Raw("&nbsp;")
+                                @Html.ActionLink("Share Link with Friend", "Email", "job", new { Id = Model.Id }, new { target = "_blank", @class = "btn btn-info" })
+
+                                @Html.Raw("&nbsp;")
+                                <a href="/Employer/Joblist?Id=@employer.UserId" target="_blank" class="btn btn-info">All Jobs of this Company</a>
+                            }
+                        }
+                        else
+                        {
+                            if (Model.IsBlockedByMe > 0)
+                            {
+                                @Html.ActionLink("Unblock", "Unblock", "Home", new { id = employer.UserId, redirect = "/Jobseeker/Index" }, new { @class = "btn btn-info", title = "Unblock" });
+                            }
+
+                            if (Model.IsBlockedByMe == 0 && Model.IsBlockedBySomeone == 0)
+                            {
+                                if ((Model.ClosingDate.Date >= DateTime.Now.Date) && (Model.IsDeleted == false) && counter < 1)
+                                {
+                                    @Html.ActionLink("Apply", "Apply", "job", new { JobId = @Model.Id, redirect = "/Jobseeker/Index" }, new { @class = "btn btn-info", id = "ApplyJobs", @style = "width:75px;" })
+                                }
+                                @Html.Raw("&nbsp;")
+                                @Html.ActionLink("Connect", "Connect", "Home", new { id = employer.UserId, redirect = "/Network/Index" }, new { @class = "btn btn-info" });
+
+                    @Html.Raw("&nbsp;")
+                    @Html.ActionLink("Message", "List", "Message", new { SenderId = employer.UserId, redirect = Request.Url.ToString() }, new { @class = "btn btn-info" });
+
+                    @Html.Raw("&nbsp;")
+                    @Html.ActionLink("Bookmark", "Bookmark", "job", new { Id = Model.Id, redirect = string.Format("~/{0}-{1}", Model.JobLink, Model.Id) }, new { title = "Bookmark this job.", @class = "btn btn-info" })
+
+                    @Html.Raw("&nbsp;")
+                    @Html.ActionLink("Share Link with Friend", "Email", "job", new { Id = Model.Id }, new { target = "_blank", @class = "btn btn-info" })
+
+                    @Html.Raw("&nbsp;")
+                    <a href="/Employer/Joblist?Id=@employer.UserId" target="_blank" class="btn btn-info">All Jobs of this Company</a>
+                            }
+                        }
+                    }
+
+                }
+                else if (user != null && user.Role == SecurityRoles.Employers)
+                {
+                    @Html.ActionLink("Share Link with Friend", "Email", "job", new { Id = Model.Id }, new { target = "_blank", @class = "btn btn-info" })
+                    @Html.Raw("&nbsp;")
+                    <a href="/Employer/Joblist?Id=@employer.UserId" target="_blank" class="btn btn-info">All Jobs of this Company</a>
+                }
+                else if (user == null)
+                {
+                    if ((Model.ClosingDate.Date >= DateTime.Now.Date) && (Model.IsDeleted == false) && counter < 1)
+                    {
+                        @Html.ActionLink("Apply", "Apply", "job", new { JobId = @Model.Id, redirect = "/Jobseeker/Index" }, new { @class = "btn btn-info", id = "ApplyJobs", @style = "width:75px;" })
+                    }
+                    @Html.Raw("&nbsp;")
+                    @Html.ActionLink("Connect", "Connect", "Home", new { id = employer.UserId, redirect = Request.Url.ToString() }, new { @class = "btn btn-info" });
+
+                    @Html.Raw("&nbsp;")
+                    @Html.ActionLink("Message", "List", "Message", new { SenderId = employer.UserId, redirect = Request.Url.ToString() }, new { @class = "btn btn-info" });
+
+                    @Html.Raw("&nbsp;")
+                    @Html.ActionLink("Bookmark", "Bookmark", "job", new { Id = Model.Id, redirect = string.Format("~/{0}-{1}", Model.JobLink, Model.Id) }, new { title = "Bookmark this job.", @class = "btn btn-info" })
+
+
+                    @Html.Raw("&nbsp;")
+                    @Html.ActionLink("Share Link with Friend", "Email", "job", new { Id = Model.Id }, new { target = "_blank", @class = "btn btn-info" })
+                    @Html.Raw("&nbsp;")
+                    <a href="/Employer/Joblist?Id=@employer.UserId" target="_blank" class="btn btn-info">All Jobs of this Company</a>
+                }
+
+
+            </div>
+            <div class="col-md-2 col-sm-2" id="mydiv" style="text-align:right; padding-left:0px;">
+                <script>
+                    $('#mydiv').share({
+                        networks: ['facebook', 'googleplus', 'twitter', 'linkedin'],
+                        theme: 'square',
+                        urlToShare: '@Request.Url.ToString()'
+                    });
+                </script>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+        </div>
+    }
+    <div class="clear" style="height:10px;"></div>
+    <div class="resume">
+        <div id="ResumeArea"></div>
+        <div class="row">
+            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+            <div class="col-lg-10 col-md-10 col-sm-10">
+                <div>
+                    @if (!string.IsNullOrEmpty(Applystatus))
+                    {
+                        <div class="message-error">
+                            @Applystatus
+                        </div>
+                    }
+                </div>
+                <div class="clear" style="height:5px;"></div>
+                <div class="panel panel-default">
+                    <div class="panel-heading resume-heading" style="padding-left: 25px; padding-right: 25px;">
+                        <h3 class="title-login" style="text-align:center;">Summary</h3>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                <strong>Category: </strong> @Model.CategoryName
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                <strong>Specialization: </strong> @Model.SpecializationName
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                <strong>Company: </strong> @Model.CompanyName
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                <strong>Job Country: </strong>@Model.CountryName
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                <strong>Job State: </strong> @(!string.IsNullOrEmpty(Model.StateName) ? Model.StateName : "Not Available")
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                <strong>Job City: </strong>@(!string.IsNullOrEmpty(Model.City) ? Model.City.TitleCase() : "Not Available")
+                            </div>
+                        </div>
+                        @if (user != null && (user.Role == SecurityRoles.SuperUser || Model.EmployerId == user.Id) && Model.InEditMode)
+                        {
+
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                    <strong>Qualification: </strong> @Model.QualificationName
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                    <strong>Job Type: </strong> @Model.JobType
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                    <strong>Minimum Experience: </strong> @Model.NewMinimumExperience Years
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                    <strong>Maximum Experience: </strong> @Model.NewMaximumExperience Years
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                    <strong>Minimum Salary: </strong> @Model.NewCurrency @Model.NewMinimumSalary
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                    <strong>Maximum Salary: </strong> @Model.NewCurrency @Model.NewMaximumSalary
+                                </div>
+                            </div>
+                            <div class="bs-callout bs-callout-danger" style="padding-top: 0px; padding-bottom: 0px;">
+                                <h4>Job Description</h4>
+                                <p>
+                                    @Html.Raw(Model.NewDescription)
+                                </p>
+                            </div>
+                            <div class="bs-callout bs-callout-danger" style="padding-top: 0px; padding-bottom: 45px;">
+                                <h4>Responsibilities</h4>
+                                <p>
+                                    @Html.Raw(Model.Responsibilities)
+                                </p>
+                            </div>
+                            <div class="bs-callout bs-callout-danger" style="padding-top: 0px; padding-bottom: 45px;">
+                                <h4>Job Requirements</h4>
+                                <p>
+                                    @Html.Raw(Model.NewRequirements)
+                                </p>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                    <strong>Qualification: </strong> @Model.QualificationName
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                    <strong>Job Type: </strong> @Model.JobType
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                    <strong>Minimum Experience: </strong> @Model.MinimumExperience Years
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                    <strong>Maximum Experience: </strong> @Model.MaximumExperience Years
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                    <strong>Minimum Salary: </strong> @Model.Currency @Model.MinimumSalary
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                    <strong>Maximum Salary: </strong> @Model.Currency @Model.MaximumSalary
+                                </div>
+                            </div>
+
+                            <div class="bs-callout bs-callout-danger" style="padding-top: 0px; padding-bottom: 0px;">
+                                <h4>Job Description</h4>
+                                <p>
+                                    @Html.Raw(Model.Description)
+                                </p>
+                            </div>
+                            <div class="bs-callout bs-callout-danger" style="padding-top: 0px; padding-bottom: 45px;">
+                                <h4>Responsibilities</h4>
+                                <p>
+                                    @Html.Raw(Model.Responsibilities)
+                                </p>
+                            </div>
+                            <div class="bs-callout bs-callout-danger" style="padding-top: 0px; padding-bottom: 45px;">
+                                <h4>Job Requirements</h4>
+                                <p>
+                                    @Html.Raw(Model.Requirements)
+                                </p>
+                            </div>
+                        }
+
+                        @if (!string.IsNullOrEmpty(Applystatus))
+                        {
+                            <div class="bs-callout bs-callout-danger">
+                                <div class="message-error">
+                                    @Applystatus
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+
+                </div>
+                <div class="col-lg-1 col-md-1 col-sm-1"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+            <div class="col-lg-10 col-md-10 col-sm-10">
+                <div class="safety">
+                    <span style="font-size:15px; font-weight:bold; color:black">Safety Advice:</span>
+                    @Html.Raw(ConfigService.Instance.GetConfigValue("SafetyAdvice").Replace("Disclaimer:", "<span style='color:red'>Disclaimer:</span>"))
+                </div>
+            </div>
+
+            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+        </div>
+
+    </div>
+    if (Model.ShowActionBar)
+    {
+        <div class="clear" style="height:20px;"></div>
+        <div class="row">
+            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+            <div class="col-md-8" style="text-align:right;">
+
+                @if (user != null && user.Role == SecurityRoles.Jobseeker)
+                {
+                    string lnk = string.Empty;
+                    if (Model.IsConnected)
+                    {
+                        if (Model.Messages == 0)
+                        {
+                            @Html.ActionLink("Message", "List", "Message", new { SenderId = employer.UserId, redirect = Request.Url.ToString() }, new { @class = "btn btn-info" });
+                        }
+                        else
+                        {
+                            string link = string.Empty;
+                            if (Model.Messages > 0)
+                            {
+                                link = string.Format("Message ({0})", Model.Messages);
+                            }
+                            else
+                            {
+                                link = "Message";
+                            }
+                            @Html.ActionLink(link, "List", "Message", new { SenderId = employer.UserId, redirect = Request.Url.ToString() }, new { @class = "btn btn-info" });
+
+                        }
+
+                        if ((Model.ClosingDate.Date >= DateTime.Now.Date) && (Model.IsDeleted == false) && counter < 1)
+                        {
+                            if (!Roles.IsUserInRole(username, "Administrator") && !Roles.IsUserInRole(username, "SuperUser"))
+                            {
+                                if (user.Role == SecurityRoles.Employers)
+                                {
+                                    @Html.Raw("&nbsp;")
+                                    @Html.ActionLink("Apply", "Apply", "job", new { JobId = @Model.Id, redirect = "/Jobseeker/Index" }, new { @class = "btn btn-info", id = "ApplyJobs", @style = "width:75px;", onclick = "alert('Please Login or Register account as Jobseeker to apply on this job!'); return false;" })
+                                }
+                                else
+                                {
+                                    @Html.Raw("&nbsp;")
+                                    @Html.ActionLink("Apply", "Apply", "job", new { JobId = @Model.Id, redirect = "/Jobseeker/Index" }, new { @class = "btn btn-info", id = "ApplyJobs", @style = "width:75px;" })
+                                }
+                            }
+                        }
+
+                        @Html.Raw("&nbsp;")
+                        @Html.ActionLink("Bookmark", "Bookmark", "job", new { Id = Model.Id, redirect = string.Format("~/{0}-{1}", Model.JobLink, Model.Id) }, new { title = "Bookmark this job.", @class = "btn btn-info" })
+
+                        @Html.Raw("&nbsp;")
+                        @Html.ActionLink("Share Link with Friend", "Email", "job", new { Id = Model.Id }, new { target = "_blank", @class = "btn btn-info" })
+
+                        @Html.Raw("&nbsp;")
+                        <a href="/Employer/Joblist?Id=@employer.UserId" target="_blank" class="btn btn-info">All Jobs of this Company</a>
+                    }
+                    else
+                    {
+                        if (Model.InvitedByMe > 0 || Model.InvitedBySomeone > 0)
+                        {
+                            //Connection connection = ConnectionHelper.Get(employer.Username, user.Username);
+                            if (Model.Connected > 0)
+                            {
+                                if (Model.InvitedBySomeone > 0)
+                                {
+                                    @Html.ActionLink("Accept", "Accept", "Network", new { Id = Model.Connected, redirect = Request.Url.ToString() }, new { @class = "btn btn-info" });
+                                }
+
+                                if ((Model.ClosingDate.Date >= DateTime.Now.Date) && (Model.IsDeleted == false) && counter < 1)
+                                {
+                                    @Html.Raw("&nbsp;")
+                                    @Html.ActionLink("Apply", "Apply", "job", new { JobId = @Model.Id, redirect = "/Jobseeker/Index" }, new { @class = "btn btn-info", id = "ApplyJobs", @style = "width:75px;" })
+                                }
+
+                                @Html.Raw("&nbsp;")
+                                @Html.ActionLink("Bookmark", "Bookmark", "job", new { Id = Model.Id, redirect = string.Format("~/{0}-{1}", Model.JobLink, Model.Id) }, new { title = "Bookmark this job.", @class = "btn btn-info" })
+
+                                @Html.Raw("&nbsp;")
+                                @Html.ActionLink("Share Link with Friend", "Email", "job", new { Id = Model.Id }, new { target = "_blank", @class = "btn btn-info" })
+
+                                @Html.Raw("&nbsp;")
+                                <a href="/Employer/Joblist?Id=@employer.UserId" target="_blank" class="btn btn-info">All Jobs of this Company</a>
+                            }
+                        }
+                        else
+                        {
+                            if (Model.IsBlockedByMe > 0)
+                            {
+                                @Html.ActionLink("Unblock", "Unblock", "Home", new { id = employer.UserId, redirect = "/Jobseeker/Index" }, new { @class = "btn btn-info", title = "Unblock" });
+                            }
+
+                            if (Model.IsBlockedByMe == 0 && Model.IsBlockedBySomeone == 0)
+                            {
+                                if ((Model.ClosingDate.Date >= DateTime.Now.Date) && (Model.IsDeleted == false) && counter < 1)
+                                {
+                                    @Html.ActionLink("Apply", "Apply", "job", new { JobId = @Model.Id, redirect = "/Jobseeker/Index" }, new { @class = "btn btn-info", id = "ApplyJobs", @style = "width:75px;" })
+                                }
+                                @Html.Raw("&nbsp;")
+                                @Html.ActionLink("Connect", "Connect", "Home", new { id = employer.UserId, redirect = "/Network/Index" }, new { @class = "btn btn-info" });
+
+                    @Html.Raw("&nbsp;")
+                    @Html.ActionLink("Message", "List", "Message", new { SenderId = employer.UserId, redirect = Request.Url.ToString() }, new { @class = "btn btn-info" });
+
+                    @Html.Raw("&nbsp;")
+                    @Html.ActionLink("Bookmark", "Bookmark", "job", new { Id = Model.Id, redirect = string.Format("~/{0}-{1}", Model.JobLink, Model.Id) }, new { title = "Bookmark this job.", @class = "btn btn-info" })
+
+                    @Html.Raw("&nbsp;")
+                    @Html.ActionLink("Share Link with Friend", "Email", "job", new { Id = Model.Id }, new { target = "_blank", @class = "btn btn-info" })
+
+                    @Html.Raw("&nbsp;")
+                    <a href="/Employer/Joblist?Id=@employer.UserId" target="_blank" class="btn btn-info">All Jobs of this Company</a>
+                            }
+                        }
+                    }
+
+                }
+                else if (user != null && user.Role == SecurityRoles.Employers)
+                {
+                    @Html.ActionLink("Share Link with Friend", "Email", "job", new { Id = Model.Id }, new { target = "_blank", @class = "btn btn-info" })
+                    @Html.Raw("&nbsp;")
+                    <a href="/Employer/Joblist?Id=@employer.UserId" target="_blank" class="btn btn-info">All Jobs of this Company</a>
+                }
+                else if (user == null)
+                {
+                    if ((Model.ClosingDate.Date >= DateTime.Now.Date) && (Model.IsDeleted == false) && counter < 1)
+                    {
+                        @Html.ActionLink("Apply", "Apply", "job", new { JobId = @Model.Id, redirect = "/Jobseeker/Index" }, new { @class = "btn btn-info", id = "ApplyJobs", @style = "width:75px;" })
+                    }
+                    @Html.Raw("&nbsp;")
+                    @Html.ActionLink("Connect", "Connect", "Home", new { id = employer.UserId, redirect = Request.Url.ToString() }, new { @class = "btn btn-info" });
+
+                    @Html.Raw("&nbsp;")
+                    @Html.ActionLink("Message", "List", "Message", new { SenderId = employer.UserId, redirect = Request.Url.ToString() }, new { @class = "btn btn-info" });
+
+                    @Html.Raw("&nbsp;")
+                    @Html.ActionLink("Bookmark", "Bookmark", "job", new { Id = Model.Id, redirect = string.Format("~/{0}-{1}", Model.JobLink, Model.Id) }, new { title = "Bookmark this job.", @class = "btn btn-info" })
+
+
+                    @Html.Raw("&nbsp;")
+                    @Html.ActionLink("Share Link with Friend", "Email", "job", new { Id = Model.Id }, new { target = "_blank", @class = "btn btn-info" })
+                    @Html.Raw("&nbsp;")
+                    <a href="/Employer/Joblist?Id=@employer.UserId" target="_blank" class="btn btn-info">All Jobs of this Company</a>
+                }
+
+
+            </div>
+            <div class="col-md-2 col-sm-2" id="mydiv1" style="text-align:right; padding-left:0px;">
+
+                <script>
+                    $('#mydiv1').share({
+                        networks: ['facebook', 'googleplus', 'twitter', 'linkedin'],
+                        theme: 'square',
+                        urlToShare: '@Request.Url.ToString()'
+                    });
+                </script>
+            </div>
+            <div class="col-lg-1 col-md-1 col-sm-1"></div>
+        </div>
+    }
+    <div class="clear" style="height:50px;"></div>
+    <div>
+        @*<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>*@
+        <!-- Responsive-Ad -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-8925328521448849"
+             data-ad-slot="5008878215"
+             data-ad-format="auto"></ins>
+        @*<script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>*@
+    </div>
+}

@@ -1,0 +1,160 @@
+{
+  "aboutBrief": "We are your digital partners, since 2016 We are a fast-growing solution provider in information technology, user experience and branding services for customers across the world. With our ‘Digital Gene’ approach to business problems, we enable businesses extract the most out of their digital investments. Personally, we are a group of technical, creative, upbeat and committed developers who prioritize integrity in our business relations. We strive to be excellent communicators, thinkers, and solution pioneers who are easy to understand and communicate with. We all love what we do with passion and great enthusiasm, and promise to make your experience with us a positive one always.",
+  "it": [
+    {
+      "item": {
+        "title":"app",
+        "name": "Application Development",
+        "list": [
+          
+        ]
+      }
+    },
+    {
+      "item": {
+        "title":"inhouse",
+        "name": "In-House Product Development",
+        "list": [
+          
+        ]
+      }
+    },
+    {
+      "item": {
+        "title":"mobile",
+        "name": "Mobile Application Development",
+        "list": [
+          
+        ]
+      }
+    },
+    {
+      "item": {
+        "title":"seo",
+        "name": "SEO & Digital Marketing",
+        "list": [
+          
+        ]
+      }
+    },
+    {
+      "item": {
+        "title":"web",
+        "name": "Website Development",
+        "list": [
+          " Static Portfolio Development",
+          " Dynamic Website with custom requirement"
+        ]
+      }
+      
+    },
+    {
+      "item": {
+        "title":"bigdata",
+        "name": "Big Data",
+        "list": [
+          
+        ]
+      }
+    }
+  ],
+  "ites": [
+    {
+      "item": {
+        "name": "Voice Process",
+        "list": [
+          " Domestic Sales & CRM",
+          " International (Australia) Sales – Telecom"
+        ]
+      }
+    },
+    {
+      "item": {
+        "name": "Non-Voice Process",
+        "list": [
+          " Data Entry for US Client"
+        ]
+      }
+    }
+  ],
+  "ecommerce": [
+    {
+      "item": "eCommerce web development has indeed become a necessity instead of a means to drive greater traffic. We, at Rasi Infotech, one of the pioneered web development companies,offer efficacious and effectual eCommerce web design, plug-in & module development solutions for small and medium level enterprises. "
+    },
+    {
+      "item": "We are associated with some of the leading responsive eCommerce platforms of this world for all budgets and product types. So, no matter whatever stage of eCommerce journey you are on and whether you want to spread your business globally or just starting out a venture, we can offer you the right eCommerce website design services, which drive growth and generate sales and a good return on investment. Working with us is really simple."
+    },
+    {
+      "item": "Having intense love for web designing and development, our skilled and talented professionals remain abreast with the current industry trends to deliver prolific results. With the best experience and expertise, our competent developers create customized e-commerce website to promote your brand effectively while bringing success as well as online sales."
+    }
+  ],
+  "bigDataItem": [
+    {
+      "item": "Data , be it small or big is the lifeline of business in the present scenario as it forms the foundation of long-term planning and decision-making. It serves as a rich source of business knowledge and insights once combined with analytics. However, the challenge lies in being able to extract and analyze this data in an efficient manner. The innovative technique of visualizing the processed data enables businesses to overcome the challenge related to data handling. A dashboard offers an aggregated graphical view of a variety of business elements such as reports, analysis, graphs, tables, and more at a single location."
+    },
+    {
+      "item": "In current business scenario data analytics is needed in Business to Consumer applications (B2C). Organizations collect data that they have gathered from customers, businesses, economy and practical experience. Data is then processed after gathering and is categorized as per the requirement and analysis is done to study purchase patterns and etc."
+    },
+    {
+      "item": "We, at Rasi Infotech, serve as a reliable digital partner in securing the data and  offering a range of dashboard development services, including data visualization, business intelligence technologies, business analysis, and more. Our competent team of professionals collects, organizes, and transforms your business data into rich visuals, which are easy to comprehend. We make sure that our expertly prepared dashboards keep you updated with the latest information so that you can recognize the latest trends and make informed business decisions."
+    }
+  ],
+  "bigdataList": [
+    "Business Analytics Dashboards",
+    "Marketing Dashboards",
+    "Sales Dashboards",
+    "Metrics Dashboards",
+    "Performance Dashboards",
+    "Executive Dashboards",
+    "Financial Analysis Dashboards",
+    "Error Analysis Dashboards",
+    "Log Analysis Dashboards"
+  ],
+  "bigdataList1": [
+    "Hadoop & Eco System",
+    "Mongo DB",
+    "Solr",
+    "R – Machine Learning"
+  ],
+  "mobile": [
+    {
+      "item": "In the present digital scenario mobile apps has escalated in all businesses. To cope with that, we become your accelerator to design and develop brilliant mobile applications. Rasi Infotech is a top-notch mobile app crafting company offering mobile application development services for Android and Hybrid models."
+    },
+    {
+      "item": "Our team of mobile app developers is creative and knowledgeable to accomplish your individual demands as well as your business needs. With advanced tools and technology our mobile apps developers are able to create highly customized mobile applications for consumer needs and enterprises."
+    }
+  ],
+  "mobileKeyItem": [
+    "User Experience Design",
+    "Scalability & Interoperability",
+    "Cross-Platform Coverage",
+    "Security & Compliance",
+    "Accelerated Delivery"
+  ],
+  "webdesign": {
+    "item": "To make sure our clients receive the most out of our open source development services, we follow a time-bound and cost-effective development philosophy, which our developers use to craft any web idea for your online business website into a reality. To accomplish this, we use state-of-the-art open source web development technologies like WordPress, Joomla, Drupal, Opencart, and more. We stand second to none when it comes to maximizing business outputs with optimized web solutions for our valued customers.",
+    "provide": [
+      "CMS Development Services",
+      "Opencart E-commerce",
+      "Custom Module Development",
+      "Web Store Development",
+      "Website Support & Maintenance",
+      "Migrations & Upgradations",
+      "Responsive Web UI in Angular",
+      "Web Portal Development"
+    ],
+    "brief": "Rasi Infotech is a premier website development company. We’re in the business of awesome web development because we only rely on premier, modern and most worthy technologies to build web projects. Focusing on process-driven development, each of us at Rasi Infotech aims at providing impressive website development services, quick product-to-market delivery so that users (client’s customers) don’t look any further as they can find everything they need on the websites we build.",
+    "brief1": "Be it a startup, enterprise or large-scale organization, our strategy is the same- to understand how users will interact with your product and work on it to maximize user engagement and satisfaction. With years of experience in offering custom web development services for clients around the world, we’ve fulfilled projects spanning multiple industries and business domains including healthcare, ecommerce, media, entertainment, travel and automotive.",
+    "list": [
+      "Custom Web Development",
+      "Customer Relationship Management (CRM)",
+      "Cloud Solutions",
+      "Third-Party Integrations (CRM and more)",
+      "WorkFlow Management",
+      "Enterprise Web Development",
+      "E-Commerce, B2B & B2C",
+      "Any custom business application"
+    ]
+  }
+   
+}

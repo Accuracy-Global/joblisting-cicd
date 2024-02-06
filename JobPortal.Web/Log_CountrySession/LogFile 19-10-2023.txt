@@ -1,0 +1,21 @@
+19-10-2023 08:21:43 PM 
+GetUserCountryByIp() => {"country_code":"CA","country_name":"Canada","city":"Sherwood Park","postal":"T8H","latitude":53.556,"longitude":-113.2952,"IPv4":"108.181.97.217","state":"Alberta"}
+Session_Start() => Session: Canada
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: Canada
+Controller: Job, Action: Home => Session: Canada
+Controller: Job, Action: Home => Session: Canada
+19-10-2023 10:15:21 PM 
+GetUserCountryByIp() => {"country_code":"CA","country_name":"Canada","city":"Sherwood Park","postal":"T8H","latitude":53.556,"longitude":-113.2952,"IPv4":"108.181.97.217","state":"Alberta"}
+Session_Start() => Session: Canada
+UrlPrivilegeFilter => Contoller: account, Action: login, Session: Canada
+UrlPrivilegeFilter => Contoller: jobseeker, Action: bookmarkedjobs, Session: Canada
+19-10-2023 10:24:08 PM 
+GetUserCountryByIp() => {"country_code":"CA","country_name":"Canada","city":"Sherwood Park","postal":"T8H","latitude":53.556,"longitude":-113.2952,"IPv4":"108.181.97.217","state":"Alberta"}
+Session_Start() => Session: Canada
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: Canada
+Controller: Job, Action: Home => Session: Canada
+UrlPrivilegeFilter => Contoller: account, Action: login, Session: Canada
+UrlPrivilegeFilter => Contoller: jobseeker, Action: bookmarkedjobs, Session: Canada
+19-10-2023 11:08:47 PM 
+GetUserCountryByIp() => {"country_code":"CA","country_name":"Canada","city":"Sherwood Park","postal":"T8H","latitude":53.556,"longitude":-113.2952,"IPv4":"108.181.97.217","state":"Alberta"}
+Session_Start() => Session: Canada

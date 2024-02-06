@@ -1,0 +1,117 @@
+﻿<div class="row">
+    <div class="col-lg-1 col-md-1 col-sm-1"></div>
+    <div class="col-lg-10 col-md-10 col-sm-10">       
+        <div class="clear" style="height:5px;"></div>
+        <div class="panel panel-default">
+            <div class="panel-heading resume-heading" style="padding-left: 25px; padding-right: 25px;">
+                <h3 class="title-login" style="text-align:center;">Summary</h3>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                        <strong>Category: </strong> ${CategoryName}
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                        <strong>Specialization: </strong> ${SpecializationName}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                        <strong>Company: </strong> ${CompanyName}
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                        <strong>Job Country: </strong>${CountryName}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                        <strong>Job State: </strong> ${StateName}
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                        <strong>Job City: </strong>${City}
+                    </div>
+                </div>
+                {{if InEditMode == true}}
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                        <strong>Qualification: </strong> ${QualificationName}
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                        <strong>Job Type: </strong> ${JobType}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                        <strong>Minimum Experience: </strong> ${NewMinimumExperience} Years
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                        <strong>Maximum Experience: </strong> ${NewMaximumExperience} Years
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                        <strong>Minimum Salary: </strong> ${NewCurrency} ${NewMinimumSalary}
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                        <strong>Maximum Salary: </strong> ${NewCurrency} ${NewMaximumSalary}
+                    </div>
+                </div>
+                <div class="bs-callout bs-callout-danger" style="padding-top: 0px; padding-bottom: 0px;">
+                    <h4>Job Description</h4>
+                    <p>
+                        ${NewDescription}
+                    </p>
+                </div>
+                <div class="bs-callout bs-callout-danger" style="padding-top: 0px; padding-bottom: 45px;">
+                    <h4>Job Requirements</h4>
+                    <p>
+                        ${NewRequirements}
+                    </p>
+                </div>
+                {{else}}
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                        <strong>Qualification: </strong> ${QualificationName}
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                        <strong>Job Type: </strong> ${JobType}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                        <strong>Minimum Experience: </strong> ${MinimumExperience} Years
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                        <strong>Maximum Experience: </strong> ${MaximumExperience} Years
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                        <strong>Minimum Salary: </strong> ${Currency} ${MinimumSalary}
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                        <strong>Maximum Salary: </strong> ${Currency} ${MaximumSalary}
+                    </div>
+                </div>
+
+                <div class="bs-callout bs-callout-danger" style="padding-top: 10px; padding-bottom: 0px;">
+                    <h4>Job Description</h4>
+                    <p>
+                        ${Description}
+                    </p>
+                </div>
+                <div class="bs-callout bs-callout-danger" style="padding-top: 0px; padding-bottom: 45px;">
+                    <h4>Job Requirements</h4>
+                    <p>
+                        ${Requirements}
+                    </p>
+                </div>
+                {{/if}}               
+            </div>
+
+        </div>
+        <div class="col-lg-1 col-md-1 col-sm-1"></div>
+    </div>
+</div>

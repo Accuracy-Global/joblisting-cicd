@@ -1,0 +1,281 @@
+@model JobPortal.Web.Models.SearchJobModel
+@using JobPortal.Data
+@using JobPortal.Domain
+@using PagedList.Mvc
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Models
+@using JobPortal.Web.Models
+
+@{
+    string username = string.Empty;
+    var pagedModel = Model.Jobs as PagedList.IPagedList<SearchedJobEntity>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = Model.TotalJobs;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+        username = user.Username;
+    }       
+}
+@Html.Hidden("hdnloginuser", username)
+<div>
+
+    <div id="divMsg">
+        <div style="text-align:center; padding:25px; display:none;"><i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom" style="font-size: 64px; color: #34ba08;"></i><br /></div>
+    </div>
+    <div class="clear" style="height:10px"></div>
+
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+
+            @if (user != null )
+            {
+                if (user.IsConfirmed == true && user.Role == SecurityRoles.Jobseeker)
+                {
+                    <input type="button" value="Apply Job(s)" name="applyjob" class="btn btn-info" onclick="return ValidateCheckBoxes();" style="width: 90px" />
+                }
+                else
+                {
+                    <input type="button" value="Apply Job(s)" name="applyjob" class="btn btn-info" onclick="alert('Kindly check your email @username for confirmation link.\n'); return false;" style="width: 90px" />
+                }
+            }
+            else
+            {
+                <input type="button" value="Apply Job(s)" name="applyjob" class="btn btn-info" onclick="alert('Please Login or Register account as Jobseeker to apply on this job!'); return false;" style="width: 90px" />
+            }
+            <input type="button" value="Select All" name="selectall" id="selectall" class="btn btn-info _SelectAll" style="width: 100px" />
+            @Html.HiddenFor(model => model.LoginUserName, new { @id = "hdnloginuser" })
+
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-8">
+            <h3 style="margin-top:5px; line-height:24px;">Showing @minRowSize to @maxRowSize out of  @totalRecord @(ViewBag.CategoryName != null ? ViewBag.CategoryName : "Job(s)")  </h3>
+        </div>
+    </div>
+
+    @if (pagedModel.Any())
+    {
+        <div class="clear" style="height:15px;"></div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <input type="hidden" value="" name="hdnSelectedContacts" />
+                <ul class="list-group" style=" border-top: 1px solid #ccc;">
+                    @foreach (var item in pagedModel)
+                    {
+                        <li id='JobItem' class="list-group-item1" style="padding: 15px 15px 3px 10px !important">
+                            <div class="row listing_text">
+                                <div class="col-lg-12 col-md-12 col-sm-12" style="font-size:13pt;">
+                                    @if (item.Expired == 0 && item.Applied == 0)
+                                    {                                       
+                                        if (user != null && user.Type == (int)SecurityRoles.Jobseeker && !string.IsNullOrEmpty(user.Title) && user.CategoryId != null && user.SpecializationId != null && !string.IsNullOrEmpty(user.Content)) 
+                                        { 
+                                            <div id="jtitle" class="checkbox-inline" style="margin-left:0; padding-left:18px;">
+                                                @Html.Raw(Html.CheckBox("chkJb", false, new { value = item.Id, @class = "chkJob" }).ToString() + "&nbsp; <a href=\"" + string.Format("{0}", item.JobUrl) + "\" target=\"_blank\">" + item.Title.TitleCase() + "</a>")
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div id="jtitle" class="checkbox-inline" style="margin-left:0; padding-left:0px;">
+                                                @Html.Raw("<a href=\"" + string.Format("{0}", item.JobUrl) + "\" target=\"_blank\">" + item.Title.TitleCase() + "</a>")
+                                            </div>
+                                        }                                       
+                                    }
+                                    else
+                                    {
+                                        <div id="jtitle" class="checkbox-inline" style="margin-left:0;padding-left:0;">
+                                            @Html.Raw("<a href=\"" + string.Format("{0}", item.JobUrl) + "\" target=\"_blank\">" + item.Title.TitleCase() + "</a>")
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="row listing_text">
+                                <div class="col-lg-12 col-md-12 col-sm-12" style="font-size:12pt;">
+                                    <a href="/@item.EmployerUrl" target="_blank">@(item.Company.TitleCase())</a><br />                                    
+                                </div>
+                            </div>
+                            <div class="row listing_text">
+                                <div class="col-lg-12 col-md-12 col-sm-12" style="font-size:11pt;">
+                                    @if (item.Summary.IndexOf("</p>") > 0)
+                                    {
+                                        @Html.Raw(item.Summary.RemoveEmails().RemoveNumbers().RemoveWebsites().Substring(0, item.Summary.IndexOf("</p>")).Replace("<p>", ""))<br />
+                                    }
+                                    else
+                                    {
+                                        @Html.Raw(item.Summary.RemoveEmails().RemoveNumbers().RemoveWebsites())<br />
+                                    }
+                                </div>
+                            </div>
+                            <div class="row listing_text">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="clear" style="height:2px;"></div>
+                                    <div id="jobmenu" class="text-left listing_text1">
+                                        <small>
+                                            Country: @(!string.IsNullOrEmpty(item.Country) ? item.Country : "")
+                                            <span>&nbsp;&nbsp;</span>
+                                            <text>State: @(!string.IsNullOrEmpty(item.State) ? item.State : "")</text>
+                                            <span>&nbsp;&nbsp;</span>
+                                            Job Listed: @item.PublishedDate.ToString("MMM-dd-yyyy")
+                                            <span>&nbsp;&nbsp;&nbsp;</span>
+                                            Job Expiry:
+                                            @if (item.Expired > 0)
+                                            {
+                                                <span style="color:red;">@item.ClosingDate.ToString("MMM-dd-yyyy") (Expired) </span>
+                                            }
+                                            else
+                                            {
+                                                string stat = string.Empty;
+                                                if (item.Applied > 0)
+                                                {
+                                                    stat = "(Already applied)";
+                                                }
+                                                else if (item.NearExpiry > 0)
+                                                {
+                                                    stat = "(Will expire soon)";
+                                                }
+                                                <span>@item.ClosingDate.ToString("MMM-dd-yyyy") @stat</span>
+                                            }
+
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                   
+                                        @Html.ActionLink("Bookmark Job", "Bookmark", "job", new { Id = item.Id, redirect = Request.Url.ToString() }, new { @target = "_blank" })
+                                        <text> | </text>
+                                        @Html.ActionLink("Email Job", "Email", "job", new { Id = item.Id }, new { @target = "_blank" })
+                                        <text> | </text>
+                                        <a href="/Employer/Joblist?Id=@item.EmployerId" target="_blank">All jobs of this company</a>
+                                        @if (user != null)
+                                        {                                     
+                                            if (item.JobseekerBlocked == 1)
+                                            {
+                                                <text> | </text>
+                                                @Html.ActionLink("Unblock", "Unblock", "Home", new { id = item.EmployerId, redirect = Request.Url.ToString() }, new { });
+                                            }
+                                            else
+                                            {
+                                                string bname = string.Empty;
+
+                                                if (!string.IsNullOrEmpty(item.Company))
+                                                {
+                                                    bname = item.Company;
+                                                }
+                                                bool flag = ConnectionHelper.IsConnected(item.EmployerEmail, username);
+                                                <text> | </text>
+                                                @Html.Raw(string.Format("<a href='#' data-href=\"/Home/Block?email={0}\" data-name=\"{1}\" role=\"button\" data-toggle=\"modal\" data-target=\"#cDialog\" class=\"aBlock\" data-role=\"{2}\"  data-connected=\"{3}\">Block</a>", item.EmployerEmail, bname, SecurityRoles.Employers.GetDescription(), flag));
+                                            }
+                                        }
+                                </div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div>
+                    @if (user != null)
+                    {
+                        if (user.Role == SecurityRoles.Jobseeker && user.IsConfirmed == true)
+                        {
+                            <input type="button" value="Apply Job(s)" name="applyjob" class="btn btn-info" onclick="return ValidateCheckBoxes();" style="width: 90px" />
+                        }
+                        else
+                        {
+                            <input type="button" value="Apply Job(s)" name="applyjob" class="btn btn-info" onclick="alert('Kindly check your email @username for confirmation link.\n'); return false;" style="width: 90px" />
+                        }
+                    }
+                    else
+                    {
+                        <input type="button" value="Apply Job(s)" name="applyjob" class="btn btn-info" onclick="alert('Please Login or Register account as Jobseeker to apply on this job!'); return false;" style="width: 90px" />
+                    }
+                    <input type="button" value="Select All" name="selectall2" id="selectall2" class="btn btn-info _SelectAll" style="width:100px;" />
+                </div>
+            </div>
+        </div>
+        <div class="clear" style="height:15px;"></div>
+        if (pagedModel.PageNumber == 1 && !Request.IsAuthenticated)
+        {
+            <style>
+                .pagination {
+                    color: #FFFFFF;
+                    position: relative;
+                    background-color: #000000;
+                    opacity: 0.5;
+                    filter: alpha(opacity=50);
+                    -moz-opacity: 0.5;
+                    padding: 0px;
+                }
+            </style>
+        }
+        <div class="clear" style="height:15px;"></div>
+        <div style="text-align:center; margin-top: -15px;">
+
+            @if (pagedModel.PageNumber == 1 && !Request.IsAuthenticated)
+            {
+                <div><a href="@Url.Action("Register", "Account", new { returnUrl = Request.Url.ToString() })" class="btn btn-info" style="width:150px;">Join to See More</a></div>
+                <div>
+                    @Html.PagedListPager(pagedModel, PageNumber => Url.Action("SearchJobs",
+            new RouteValueDictionary()
+            {
+                { "PageNumber" , PageNumber},
+                {"JobTitle", (!string.IsNullOrEmpty(Model.JobTitle)? Model.JobTitle:null)},
+                {"CategoryId", (Model.CategoryId!=null? Model.CategoryId:null)},
+                {"SpecializationId", (Model.SpecializationId!=null? Model.SpecializationId:null)},
+                {"CountryId", (Model.CountryId!=null? Model.CountryId:null)},
+                {"State", (!string.IsNullOrEmpty(Model.State) ? Model.State : null)},
+                {"ZipCode", (Model.ZipCode!=null? Model.ZipCode:null)},
+                {"FromDate", (Model.FromDate!=null? Model.FromDate:null)},
+                {"ToDate", (Model.ToDate!=null? Model.ToDate:null)},
+                {"EmploymentTypeId", (Model.EmploymentTypeId!=null? Model.EmploymentTypeId:null)},
+                {"QualificationId", (Model.QualificationId!=null? Model.QualificationId:null)}
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+                </div>
+            }
+            else
+            {
+                @Html.PagedListPager(pagedModel, PageNumber => Url.Action("SearchJobs",
+            new RouteValueDictionary()
+            {
+                { "PageNumber" , PageNumber},
+                {"JobTitle", (!string.IsNullOrEmpty(Model.JobTitle)? Model.JobTitle:null)},
+                {"CategoryId", (Model.CategoryId!=null? Model.CategoryId:null)},
+                {"SpecializationId", (Model.SpecializationId!=null? Model.SpecializationId:null)},
+                {"CountryId", (Model.CountryId!=null? Model.CountryId:null)},
+                {"State", (!string.IsNullOrEmpty(Model.State) ? Model.State : null)},
+                {"ZipCode", (Model.ZipCode!=null? Model.ZipCode:null)},
+                {"FromDate", (Model.FromDate!=null? Model.FromDate:null)},
+                {"ToDate", (Model.ToDate!=null? Model.ToDate:null)},
+                {"EmploymentTypeId", (Model.EmploymentTypeId!=null? Model.EmploymentTypeId:null)},
+                {"QualificationId", (Model.QualificationId!=null? Model.QualificationId:null)}
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+            }
+        </div>
+    }
+</div>
+@if (pagedModel.PageNumber == 1 && !Request.IsAuthenticated)
+{
+    <script>
+        $(document).ready(function () {
+            $("#divMsg").hide();
+            $(".pagination").click(function () {
+                return false;
+            })
+        });
+
+    </script>
+
+}

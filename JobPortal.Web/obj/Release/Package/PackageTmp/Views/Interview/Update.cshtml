@@ -1,0 +1,1167 @@
+﻿@model JobPortal.Data.Interview
+
+@using JobPortal.Domain
+@using JobPortal.Data
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Models
+@{
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+}
+@functions{
+    private string DisplaySenderName(long senderId, string permalink, string name)
+    {
+        UserInfoEntity user = null;
+        if (User != null)
+        {
+            user = User.Info;
+        }
+        BlockedPeople blocked = ConnectionHelper.GetBlockedEntity(senderId, user.Id);
+        bool isBlockedByMe = DomainService.Instance.IsBlockedByMe(senderId, user.Id);
+        bool isBlockedBySomeone = DomainService.Instance.IsBlockedBySomeone(senderId, user.Id);
+        string displayName = string.Empty;
+        if (isBlockedByMe)
+        {
+            displayName = string.Format("<strong>By</strong>&nbsp;<a href=\"/{0}\" target=\"_blank\">{1}</a>", permalink, name);
+        }
+        else if (isBlockedBySomeone)
+        {
+            displayName = string.Format("<strong>By</strong>&nbsp;{0}", name);
+        }
+        else
+        {
+            displayName = string.Format("<strong>By</strong>&nbsp;<a href=\"/{0}\" target=\"_blank\">{1}</a>", permalink, name);
+        }
+        return displayName;
+    }
+}
+@{
+
+    ViewBag.Title = "Manage Interview";
+    Layout = "~/Views/Shared/_Layout.cshtml";       
+    
+    Tracking record = new Tracking();
+    Job job = new Job();
+    UserProfile jobSeeker = new UserProfile();
+    UserProfile employer = new UserProfile();
+    if (Model.TrackingId != null)
+    {
+        record = TrackingService.Instance.Get(Model.TrackingId);
+    }
+
+    if (record != null)
+    {
+        if (record.JobId != null)
+        {
+            job = JobService.Instance.Get(record.JobId.Value);
+            employer = MemberService.Instance.Get(job.EmployerId.Value);
+        }
+        else
+        {
+            employer = MemberService.Instance.Get(Model.UserId);
+        }
+
+        if (record.JobseekerId != null)
+        {
+            jobSeeker = MemberService.Instance.Get(record.JobseekerId.Value);
+        }
+    }
+
+    int idx = 0;
+    string color = "#F9F9F9";
+
+    FollowUp followUp;
+    FollowUp initialFollowUp = InterviewService.Instance.GetInitialFollowUp(Model.Id);
+    FeedbackStatus status = FeedbackStatus.ACCEPTED;
+    Interview firstRound = InterviewService.Instance.Get(Model.TrackingId, 1);
+    Interview secondRound = InterviewService.Instance.Get(Model.TrackingId, 2);
+    InterviewStatus firstRoundStatus = (InterviewStatus)firstRound.Status;
+    InterviewStatus secondRoundStatus = (InterviewStatus)Model.Status;
+}
+<div></div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1>Interview</h1>
+            Manage Interview here
+        </div>
+    </div>
+</div>
+@Html.Partial("_MessagePartial")
+<div class="clear" style="height:25px; "></div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-1">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="list-group-item" style="background-color:#efeeee">
+                    @if (record.JobId != null)
+                    {
+                        <strong>Job Title: </strong><a href="/job/@(string.Format("{0}-{1}", job.PermaLink, job.Id))" target="_blank">@job.Title</a>
+                    }
+                    else
+                    {
+                        <strong>Job Title: </strong><span>Not Applicable</span>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="list-group-item" style="background-color:#efeeee">
+                    <strong>Jobseeker: </strong><a href="/@jobSeeker.PermaLink" target="_blank">@jobSeeker.FirstName @jobSeeker.LastName</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:25px;"></div>
+
+<ul class="nav nav-tabs">
+    <li class="active" style="width:110px; text-align:center; font-weight:bold"><a href="#tabs-1" id="r1" data-toggle="tab">1st Round</a></li>
+    @if ((InterviewRounds)Model.Round == InterviewRounds.SECOND_ROUND)
+    {
+        <li style="width:110px; text-align:center; font-weight:bold"><a href="#tabs-2" id="r2" data-toggle="tab">2nd Round</a></li>
+    }
+</ul>
+<div id="tabs-1" class="list-group-item">
+    <div style="padding-left:15px;padding-right:15px;">
+        <div class="clear" style="height:15px;"></div>
+        @if (ViewBag.First_FollowUpList != null)
+        {
+            foreach (FollowUp item in ViewBag.First_FollowUpList)
+            {
+                UserProfile sender = MemberService.Instance.Get(item.UserId);
+                bool isBlockedByMe = false;
+                bool isBlockedBySomeonce = false;
+                SecurityRoles senderRole = (SecurityRoles)sender.Type;
+                if (senderRole == SecurityRoles.Jobseeker)
+                {
+                    if (user.Role == SecurityRoles.Employers)
+                    {
+                        isBlockedByMe = DomainService.Instance.IsBlockedByMe(jobSeeker.UserId, user.Id);
+                        isBlockedBySomeonce = DomainService.Instance.IsBlockedBySomeone(jobSeeker.UserId, user.Id);
+                    }
+                }
+                else if (senderRole == SecurityRoles.Employers)
+                {
+                    if (user.Role == SecurityRoles.Jobseeker)
+                    {
+                        isBlockedByMe = DomainService.Instance.IsBlockedByMe(employer.UserId, user.Id);
+                        isBlockedBySomeonce = DomainService.Instance.IsBlockedBySomeone(employer.UserId, user.Id);
+                    }
+                }
+
+                followUp = InterviewService.Instance.GetFollowUpEntry(item.Id);
+                status = (FeedbackStatus)followUp.Status;
+                if (idx == (ViewBag.First_FollowUpList.Count - 1))
+                {
+                    color = "#efeeee";
+                }
+                else
+                {
+                    color = "#ffffff";
+                }
+
+                <div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 list-group-item" style="background-color:@color; padding:5px;">
+                            <strong>Status: </strong>@(((FeedbackStatus)item.Status).GetDescription())
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 list-group-item" style="background-color:@color; padding:5px;">
+                            <strong>Date &amp; Time: </strong>@item.NewDate.Value.ToString("MMM-dd-yyyy") @item.NewTime (PST Time)
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 list-group-item" style="background-color:@color; padding:5px;">
+                            @if (sender.Type == (int)SecurityRoles.Employers)
+                            {
+                                @Html.Raw(this.DisplaySenderName(sender.UserId, sender.PermaLink, sender.Company))
+                            }
+                            else if (sender.Type == (int)SecurityRoles.Jobseeker)
+                            {
+                                @Html.Raw(this.DisplaySenderName(sender.UserId, sender.PermaLink, sender.FirstName + " " + sender.LastName))
+                            }
+                            else
+                            {
+                                <strong>By </strong><text>Joblisting</text>
+                            }
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 list-group-item" style="background-color:@color; padding:5px;">
+                            <strong>Interviewer </strong> @Model.Interviewer
+                        </div>
+                    </div>
+                    @if (status != FeedbackStatus.ACCEPTED)
+                    {
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 list-group-item" style="background-color:@color; padding:5px;">
+                                <strong>Details: </strong> @item.Message
+                            </div>
+                        </div>
+                    }
+                    @if (idx == (ViewBag.First_FollowUpList.Count - 1))
+                    {
+                        List<int>
+                            int_status_list = new List<int>
+                                () { (int)InterviewStatus.INITIATED, (int)InterviewStatus.INTERVIEW_IN_PROGRESS, (int)InterviewStatus.RESCHEDULED };
+                        if (int_status_list.Contains(Model.Status))
+                        {
+                            switch (status)
+                            {
+                                case FeedbackStatus.INVITED:
+                                    if (isBlockedByMe == false && isBlockedBySomeonce == false)
+                                    {
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 list-group-item text-right">
+                                                @if (item.UserId != user.Id)
+                                                {
+                                                    @Html.ActionLink("Accept", "Accept", "Interview", new { Id = Model.Id }, new { @class = "btn btn-info", style = "color:#fff; width:75px" })
+                                                }
+                                                <a id="lnkbReject" href="#" class="btn btn-info" style="color:#fff; width:75px">Reject</a>
+                                                <a id="lnkbReschedule" href="#" class="btn btn-info" style="color:#fff; width:100px">Reschedule</a>
+                                            </div>
+                                        </div>
+                                    }
+                                    break;
+                                case FeedbackStatus.ACCEPTED:
+                                    if (Model.Status != (int)InterviewStatus.WITHDRAW)
+                                    {
+                                        if (user.Role == SecurityRoles.Employers && Model.Round == 1)
+                                        {
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 list-group-item text-right">
+                                                    <a href="#" data-name="@(string.Format(" {0} {1}", jobSeeker.FirstName, jobSeeker.LastName))" data-href="@Url.Action("Select", "Interview" , new { id=Model.Id })" role="button" data-toggle="modal" data-target="#cDialog" class="btn btn-info aSelect" style="width: 75px;">Select</a>
+                                                    <a id="lnkbReject" href="#" class="btn btn-info" style="color:#fff; width:75px">Reject</a>
+                                                    @if (Model.Round == (int)InterviewRounds.FIRST_ROUND)
+                                                    {
+                                                        if (DateTime.Now >= followUp.NewDate.Value)
+                                                        {
+                                                            @Html.ActionLink("Start 2nd Round", "Initiate", "Interview", new { Id = Model.TrackingId, round = 2 }, new { @class = "btn btn-info", style = "color:#fff" })
+                                                        }
+                                                    }
+                                                </div>
+                                            </div>
+                                        }
+                                        else if (user.Role == SecurityRoles.Jobseeker && Model.Round == 1)
+                                        {
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 list-group-item text-right">
+                                                    <a id="lnkbWithdraw" href="#" class="btn btn-info" style="color:#fff;width:100px;" title="Mark as Withdraw">Withdraw</a>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                    break;
+                                case FeedbackStatus.RESCHEDULE:
+                                    if (isBlockedByMe == false && isBlockedBySomeonce == false)
+                                    {
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 list-group-item text-right">
+                                                @if (item.UserId != user.Id)
+                                                {
+                                                    @Html.ActionLink("Accept", "Accept", "Interview", new { Id = Model.Id }, new { @class = "btn btn-info", style = "color:#fff; width:75px" })
+                                                }
+                                                <a id="lnkbReject" href="#" class="btn btn-info" style="color:#fff; width:75px">Reject</a>
+                                                <a id="lnkbReschedule" href="#" class="btn btn-info" style="color:#fff; width:100px">Reschedule</a>
+                                            </div>
+                                        </div>
+                                    }
+                                    break;
+                            }
+                        }
+                    }
+                </div>
+                <div class="clear" style="height:15px;"></div>
+                    idx++;
+            }
+        }
+    </div>
+    <div>
+        <div class="clear" style="height:35px;"></div>
+        @{
+            followUp = InterviewService.Instance.GetFollowUp(Model.Id);
+            status = (FeedbackStatus)followUp.Status;
+            if (firstRoundStatus != InterviewStatus.INITIATED)
+            {
+                <div>
+                    <div class="clear" style="height: 15px;"></div>
+                    <ul class="nav nav-tabs">
+                        <li class="active" style="width:95px; text-align:center; font-weight:bold"><a href="#msg" id="r1m1" data-toggle="tab">Messages</a></li>
+                        @if (user.Role == SecurityRoles.Employers)
+                        {
+                            <li style="text-align:center; font-weight:bold"><a href="#note" id="r1n1" data-toggle="tab">Interview Notes</a></li>
+                        }
+                    </ul>
+                </div>
+            }
+
+            if (firstRoundStatus != InterviewStatus.INITIATED)
+            {
+                <div id="Messages" class="list-group-item">
+                    <div class="clear" style="height:15px;"></div>
+                    @if (ViewBag.First_DiscussionList != null)
+                    {
+                        idx = 0;
+                        foreach (InterviewDiscussion item in ViewBag.First_DiscussionList)
+                        {
+                            UserProfile sender = MemberService.Instance.Get(item.UserId);
+                            if (idx == (ViewBag.First_DiscussionList.Count - 1))
+                            {
+                                color = "#efeeee";
+                            }
+                            else
+                            {
+                                color = "#ffffff";
+                            }
+                            <div class="list-group-item" style="background-color:@color;">
+                                <div class="row">
+                                    <div class="col-lg-1 col-md-1 col-md-1">
+                                        <div style="width:48px; height:48px; background:url('/Image/Avtar?Id=@sender.UserId&height=60&width=60') no-repeat; background-size:contain; background-position:top center"></div>
+                                    </div>
+                                    <div class="col-lg-11 col-md-11 col-sm-11">
+                                        @item.Message
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-md-6">
+                                        <small>
+                                            @if (sender.Type == (int)SecurityRoles.Employers)
+                                            {
+                                                @Html.Raw(this.DisplaySenderName(sender.UserId, sender.PermaLink, sender.Company))
+                                            }
+                                            else if (sender.Type == (int)SecurityRoles.Jobseeker)
+                                            {
+                                                @Html.Raw(this.DisplaySenderName(sender.UserId, sender.PermaLink, sender.FirstName + " " + sender.LastName))
+                                            }
+                                            else
+                                            {
+                                                <strong>By </strong><text>Joblisting</text>
+                                            }
+                                        </small>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="text-right">
+                                            <small>
+                                                <i class="fa fa-clock-o"></i>@Html.Raw(item.DateUpdated.ToString("MMM-dd-yyyy hh:mm:ss").Replace(" ", ",&nbsp;&nbsp;") + "&nbsp;(PST)")
+                                            </small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                            idx++;
+                        }
+                    }
+
+                    @if (followUp != null)
+                    {
+                        if (ViewBag.First_DiscussionList.Count > 0)
+                        {
+                            <div class="clear" style="height:25px;"></div>
+                        }
+
+                        if (firstRoundStatus == InterviewStatus.INTERVIEW_IN_PROGRESS)
+                        {
+                            followUp = InterviewService.Instance.GetFollowUp(firstRound.Id);
+                            if (DateTime.Now >= followUp.NewDate.Value && DateTime.Now <= followUp.NewDate.Value.AddHours(16))
+                            {
+                                using (Html.BeginForm("Send", "Interview"))
+                                {
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <span style="color:red; font-size:1em;">@(((InterviewRounds)firstRound.Round).GetDescription()) will expire in 16 hours from @followUp.NewDate.Value (PST Time)!</span>
+                                        </div>
+                                    </div>
+                                    <div class="clear" style="height:15px;"></div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            @Html.Hidden("Id", Model.Id)
+                                            @Html.Label("Write your message here")
+                                            <textarea name="Message" class="form-control" placeholder="WRITE MESSAGE (MAX. 350 CHARACTERS)" style="height:50px" maxlength="350" data-val="true" data-val-regex="Special characters and space not allowed!" data-val-regex-pattern="[ A-Za-z0-9,?)('_.-]*$" data-val-required="Please write your message."></textarea>
+                                            <span class="field-validation-valid" data-valmsg-for="Message" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <br />
+                                            <input type="submit" id="Reply" value="Send" title="Send Message" class="btn btn-info" style="width:75px;" />
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                if (firstRoundStatus == InterviewStatus.INITIATED || firstRoundStatus == InterviewStatus.INTERVIEW_IN_PROGRESS)
+                                {
+                                    if (DateTime.Now > followUp.NewDate.Value.AddHours(16))
+                                    {
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <span style="color:red; font-size:1em;">
+                                                    16 Hours time for @(((InterviewRounds)Model.Round).GetDescription()) has expired!
+                                                    @if (user.Role == SecurityRoles.Employers)
+                                                    {
+                                                        <text><br />If you want to continue, kindly start next round.</text>
+                                                    }
+                                                </span>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <span style="color:red; font-size:1em;">Interview will be enabled automatically at @followUp.NewDate.Value (PST Time)!</span>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            }
+                        }
+                    }
+                </div>
+
+                if (user.Role == SecurityRoles.Employers)
+                {
+                    <div id="Notes">
+                        @using (Html.BeginForm("addnote", "Interview"))
+                        {
+                            idx = 0;
+                            <div class="list-group-item">
+                                <ul style="list-style-type:none; padding-left:0">
+                                    @foreach (InterviewNote note in ViewBag.First_NoteList)
+                                    {
+                                        if (!note.IsDeleted)
+                                        {
+                                            UserProfile userProfile = MemberService.Instance.Get(note.UserId);
+                                            <li class="list-group-item" style="background-color:#efeeee;padding:5px;">
+                                                <div class="row">
+                                                    <div class="col-lg-7 col-md-7 col-sm-7">
+                                                        @note.Comments
+                                                    </div>
+                                                    <div class="col-lg-5 col-md-5 col-sm-5 text-right">
+                                                        @if (!string.IsNullOrEmpty(note.NoteTaker))
+                                                        {
+                                                            <text>@note.NoteTaker, &nbsp;</text>
+                                                        }
+                                                        else
+                                                        {
+                                                            <text>@userProfile.FirstName&nbsp;@userProfile.LastName, &nbsp;</text>
+                                                        }
+                                                        @note.DateUpdated.Value.ToString("MMM-dd-yyyy") &nbsp;
+                                                        <b>@Html.ActionLink("Delete", "DeleteNote", "Interview", new { interviewId = Model.Id, Id = note.Id }, new { @title = "Delete Interview Note", onclick = "return confirm('Are you sure to delete?')" })</b>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        }
+                                    }
+                                </ul>
+                                @if (ViewBag.First_NoteList.Count > 0)
+                                {
+                                    <div class="clear" style="height:15px;"></div>
+                                }
+                                @if (firstRoundStatus == InterviewStatus.INITIATED || firstRoundStatus == InterviewStatus.INTERVIEW_IN_PROGRESS)
+                                {
+                                    if (DateTime.Now >= followUp.NewDate.Value && DateTime.Now <= followUp.NewDate.Value.AddHours(16))
+                                    {
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <span style="color:red; font-size:1em;">@(((InterviewRounds)firstRound.Round).GetDescription()) will expire in 16 hours from @followUp.NewDate.Value (PST Time)!</span>
+                                            </div>
+                                        </div>
+                                        <div class="clear" style="height:15px;"></div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                @Html.Hidden("Id", Model.Id)
+                                                @Html.Hidden("TabId", "Notes")
+                                                @Html.Label("Interview Notes")
+                                                <textarea name="Comments" class="form-control" placeholder="WRITE MESSAGE (MAX. 350 CHARACTERS)" style="height:30px" maxlength="350" data-val="true" data-val-regex="Special characters and space not allowed!" data-val-regex-pattern="[ A-Za-z0-9(),'_.-]*$" data-val-required="Please write your message."></textarea>
+                                                <span class="field-validation-valid" data-valmsg-for="Comments" data-valmsg-replace="true"></span>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                @Html.Label("Notes Taker Name")
+                                                @Html.TextBox("Name", null, new { @class = "form-control", placeholder = "WRITE NOTES TAKER NAME", @maxlength = "70" })
+                                            </div>
+                                            <div class="col-lg-2" style="padding-top:22px;">
+                                                @Html.Raw("&nbsp;")
+                                                <input type="submit" value="ADD NOTES" title="Click here to add interview notes" class="btn btn-info" style="width:80px;" />
+                                            </div>
+                                        </div>
+                                    }
+                                    else if (DateTime.Now > followUp.NewDate.Value.AddHours(16))
+                                    {
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <span style="color:red; font-size:1em;">16 Hours time for @(((InterviewRounds)Model.Round).GetDescription()) has expired!<br />If you want to continue, kindly start next round.</span>
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <span style="color:red; font-size:1em;">Interview will be enabled automatically at @followUp.NewDate.Value (PST Time)!</span>
+                                            </div>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        }
+                    </div>
+                }
+            }
+        }
+    </div>
+</div>
+
+@if ((InterviewRounds)Model.Round == InterviewRounds.SECOND_ROUND)
+{
+    <div id="tabs-2" class="list-group-item">
+        <div style="padding-left:15px;padding-right:15px;">
+            <div class="clear" style="height:15px;"></div>
+            @if (ViewBag.Second_FollowUpList != null)
+            {
+                idx = 0;
+                foreach (FollowUp item in ViewBag.Second_FollowUpList)
+                {
+                    UserProfile sender = MemberService.Instance.Get(item.UserId);
+                    bool isBlockedByMe = false;
+                    bool isBlockedBySomeonce = false;
+                    SecurityRoles senderRole = (SecurityRoles)sender.Type;
+                    if (senderRole == SecurityRoles.Jobseeker)
+                    {
+                        if (user.Role== SecurityRoles.Employers)
+                        {
+                            isBlockedByMe = DomainService.Instance.IsBlockedByMe(jobSeeker.UserId, user.Id);
+                            isBlockedBySomeonce = DomainService.Instance.IsBlockedBySomeone(jobSeeker.UserId, user.Id);
+                        }
+                    }
+                    else if (senderRole == SecurityRoles.Employers)
+                    {
+                        if (user.Role == SecurityRoles.Jobseeker)
+                        {
+                            isBlockedByMe = DomainService.Instance.IsBlockedByMe(employer.UserId, user.Id);
+                            isBlockedBySomeonce = DomainService.Instance.IsBlockedBySomeone(employer.UserId, user.Id);
+                        }
+                    }
+                    followUp = InterviewService.Instance.GetFollowUpEntry(item.Id);
+                    status = (FeedbackStatus)followUp.Status;
+                    if (idx == (ViewBag.Second_FollowUpList.Count - 1))
+                    {
+                        color = "#efeeee";
+                    }
+                    else
+                    {
+                        color = "#ffffff";
+                    }
+
+                    <div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 list-group-item" style="background-color:@color; padding:5px;">
+                                <strong>Status: </strong>@(((FeedbackStatus)item.Status).GetDescription())
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 list-group-item" style="background-color:@color; padding:5px;">
+                                <strong>Date &amp; Time: </strong>@item.NewDate.Value.ToString("MMM-dd-yyyy") @item.NewTime (PST Time)
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 list-group-item" style="background-color:@color; padding:5px;">
+                                @if (sender.Type == (int)SecurityRoles.Employers)
+                                {
+                                    @Html.Raw(this.DisplaySenderName(sender.UserId, sender.PermaLink, sender.Company))
+                                }
+                                else if (sender.Type == (int)SecurityRoles.Jobseeker)
+                                {
+                                    @Html.Raw(this.DisplaySenderName(sender.UserId, sender.PermaLink, sender.FirstName + " " + sender.LastName))
+                                }
+                                else
+                                {
+                                    <strong>By </strong><text>Joblisting</text>
+                                }
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 list-group-item" style="background-color:@color; padding:5px;">
+                                <strong>Interviewer </strong> @Model.Interviewer
+                            </div>
+                        </div>
+                        @if (status != FeedbackStatus.ACCEPTED)
+                        {
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 list-group-item" style="background-color:@color; padding:5px;">
+                                    <strong>Details: </strong> @item.Message
+                                </div>
+                            </div>
+                        }
+
+                        @if (idx == (ViewBag.Second_FollowUpList.Count - 1))
+                        {
+                            List<int>
+                                int_status_list = new List<int>
+                                    () { (int)InterviewStatus.INITIATED, (int)InterviewStatus.INTERVIEW_IN_PROGRESS, (int)InterviewStatus.RESCHEDULED };
+                            if (int_status_list.Contains(Model.Status))
+                            {
+                                switch (status)
+                                {
+                                    case FeedbackStatus.INVITED:
+                                        if (isBlockedByMe == false && isBlockedBySomeonce == false)
+                                        {
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 list-group-item text-right">
+                                                    @if (item.UserId != user.Id)
+                                                    {
+                                                        @Html.ActionLink("Accept", "Accept", "Interview", new { Id = Model.Id }, new { @class = "btn btn-info", style = "color:#fff; width:75px" })
+                                                    }
+                                                    <a id="lnkbReject" href="#" class="btn btn-info" style="color:#fff; width:75px">Reject</a>
+                                                    <a id="lnkbReschedule" href="#" class="btn btn-info" style="color:#fff; width:100px">Reschedule</a>
+                                                </div>
+                                            </div>
+                                        }
+
+                                        break;
+                                    case FeedbackStatus.ACCEPTED:
+                                        if (Model.Status != (int)InterviewStatus.WITHDRAW)
+                                        {
+                                            if (user.Role == SecurityRoles.Employers)
+                                            {
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 list-group-item text-right">
+                                                        <a href="#" data-name="@(string.Format(" {0} {1}", jobSeeker.FirstName, jobSeeker.LastName))" data-href="@Url.Action("Select", "Interview" , new { id=Model.Id })" role="button" data-toggle="modal" data-target="#cDialog" class="btn btn-info aSelect" style="width: 75px;">Select</a>
+                                                        <a id="lnkbReject" href="#" class="btn btn-info" style="color:#fff; width:75px">Reject</a>
+                                                    </div>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="row">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 list-group-item text-right">
+                                                        <a id="lnkbWithdraw" href="#" class="btn btn-info" style="color:#fff;width:100px;" title="Mark as Withdraw">Withdraw</a>
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+                                        break;
+                                    case FeedbackStatus.RESCHEDULE:
+                                        if (isBlockedByMe == false && isBlockedBySomeonce == false)
+                                        {
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 list-group-item text-right">
+                                                    @if (item.UserId != user.Id)
+                                                    {
+                                                        @Html.ActionLink("Accept", "Accept", "Interview", new { Id = Model.Id }, new { @class = "btn btn-info", style = "color:#fff; width:75px" })
+                                                    }
+                                                    <a id="lnkbReject" href="#" class="btn btn-info" style="color:#fff; width:75px">Reject</a>
+                                                    <a id="lnkbReschedule" href="#" class="btn btn-info" style="color:#fff; width:100px">Reschedule</a>
+                                                </div>
+                                            </div>
+                                        }
+                                        break;
+                                }
+                            }
+                        }
+                    </div>
+                    <div class="clear" style="height:15px;"></div>
+                        idx++;
+                }
+            }
+        </div>
+        <div>
+            <div class="clear" style="height: 45px;"></div>
+            @{
+            followUp = InterviewService.Instance.GetFollowUp(Model.Id);
+            status = (FeedbackStatus)followUp.Status;
+            if (secondRoundStatus != InterviewStatus.INITIATED)
+            {
+                <ul class="nav nav-tabs">
+                    <li class="active" style="width:95px; text-align:center; font-weight:bold"><a href="#msg" id="r2m1" data-toggle="tab">Messages</a></li>
+                    @if (user.Role == SecurityRoles.Employers)
+                    {
+                        <li style="text-align:center; font-weight:bold"><a href="#note" id="r2n1" data-toggle="tab">Interview Notes</a></li>
+                    }
+                </ul>
+            }
+
+            if (secondRoundStatus != InterviewStatus.INITIATED)
+            {
+                idx = 0;
+                <div id="R2Messages" class="list-group-item">
+                    <div class="clear" style="height:15px;"></div>
+                    @foreach (InterviewDiscussion item in ViewBag.Second_DiscussionList)
+                    {
+                        UserProfile sender = MemberService.Instance.Get(item.UserId);
+                        if (idx == (ViewBag.Second_DiscussionList.Count - 1))
+                        {
+                            color = "#efeeee";
+                        }
+                        else
+                        {
+                            color = "#ffffff";
+                        }
+                        <div class="list-group-item" style="background-color:@color; padding:5px;">
+                            <div class="row">
+                                <div class="col-lg-1 col-md-1 col-md-1">
+                                    <div style="width:48px; height:48px; background:url('/Image/Avtar?Id=@sender.UserId&height=60&width=60') no-repeat; background-size:contain; background-position:top center"></div>
+                                </div>
+                                <div class="col-lg-11 col-md-11 col-sm-11">
+                                    @item.Message
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-md-6">
+                                    <small>
+                                        @if (sender.Type == (int)SecurityRoles.Employers)
+                                        {
+                                            @Html.Raw(this.DisplaySenderName(sender.UserId, sender.PermaLink, sender.Company))
+                                        }
+                                        else if (sender.Type == (int)SecurityRoles.Jobseeker)
+                                        {
+                                            @Html.Raw(this.DisplaySenderName(sender.UserId, sender.PermaLink, sender.FirstName + " " + sender.LastName))
+                                        }
+                                        else
+                                        {
+                                            <strong>By </strong><text>Joblisting</text>
+                                        }
+                                    </small>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6">
+                                    <div class="text-right">
+                                        <small>
+                                            <i class="fa fa-clock-o"></i>@Html.Raw(item.DateUpdated.ToString("MMM-dd-yyyy hh:mm:ss").Replace(" ", ",&nbsp;&nbsp;") + "&nbsp;(PST)")
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                                        idx++;
+                    }
+
+                    @if (followUp != null)
+                    {
+                        if (ViewBag.Second_DiscussionList.Count > 0)
+                        {
+                            <div class="clear" style="height:25px;"></div>
+                        }
+
+                        if (secondRoundStatus == InterviewStatus.INTERVIEW_IN_PROGRESS)
+                        {
+                            followUp = InterviewService.Instance.GetFollowUp(secondRound.Id);
+                            if (DateTime.Now >= followUp.NewDate.Value && DateTime.Now <= followUp.NewDate.Value.AddHours(16))
+                            {
+                                using (Html.BeginForm("Send", "Interview"))
+                                {
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <span style="color:red; font-size:1em;">@(((InterviewRounds)secondRound.Round).GetDescription()) will expire in 16 hours from @followUp.NewDate.Value (PST Time)!</span>
+                                        </div>
+                                    </div>
+                                    <div class="clear" style="height:15px;"></div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            @Html.Hidden("Id", Model.Id)
+                                            @Html.Label("Write your message here")
+                                            <textarea name="Message" class="form-control" placeholder="WRITE MESSAGE (MAX. 350 CHARACTERS)" style="height:50px" maxlength="350" data-val="true" data-val-regex="Special characters and space not allowed!" data-val-regex-pattern="[ A-Za-z0-9,?)('_.-]*$" data-val-required="Please write your message."></textarea>
+                                            <span class="field-validation-valid" data-valmsg-for="Message" data-valmsg-replace="true"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <br />
+                                            <input type="submit" id="Reply" value="Send" title="Send Message" class="btn btn-info" style="width:75px;" />
+                                        </div>
+                                    </div>
+                                }
+                            }
+                            else
+                            {
+                                if (DateTime.Now > followUp.NewDate.Value.AddHours(16))
+                                {
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <span style="color:red; font-size:1em;">
+                                                16 Hours time for @(((InterviewRounds)Model.Round).GetDescription()) has expired!
+                                            </span>
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <span style="color:red; font-size:1em;">Interview will be enabled automatically at @followUp.NewDate.Value (PST Time)!</span>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                    }
+                </div>
+
+                if (user.Role == SecurityRoles.Employers)
+                {
+                    <div id="R2Notes">
+                        @using (Html.BeginForm("addnote", "Interview"))
+                        {
+                            idx = 0;
+                            <div class="list-group-item">
+                                <div class="clear" style="height:15px;"></div>
+                                <ul style="list-style-type:none; padding-left:0">
+
+                                    @foreach (InterviewNote note in ViewBag.Second_NoteList)
+                                    {
+                                        if (!note.IsDeleted)
+                                        {
+                                            UserProfile userProfile = MemberService.Instance.Get(note.UserId);
+                                            <li class="list-group-item" style="background-color:#efeeee">
+                                                <div class="row">
+                                                    <div class="col-lg-7 col-md-7 col-sm-7">
+                                                        @note.Comments
+                                                    </div>
+                                                    <div class="col-lg-5 col-md-5 col-sm-5 text-right">
+                                                        @if (!string.IsNullOrEmpty(note.NoteTaker))
+                                                        {
+                                                            <text>@note.NoteTaker, &nbsp;</text>
+                                                        }
+                                                        else
+                                                        {
+                                                            <text>@userProfile.FirstName&nbsp;@userProfile.LastName, &nbsp;</text>
+                                                        }
+                                                        @note.DateUpdated.Value.ToString("MMM-dd-yyyy") &nbsp;
+                                                        <b>@Html.ActionLink("Delete", "DeleteNote", "Interview", new { interviewId = Model.Id, Id = note.Id }, new { @title = "Delete Interview Note", onclick = "return confirm('Are you sure to delete?')" })</b>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        }
+                                    }
+
+                                </ul>
+                                @if (ViewBag.Second_NoteList.Count > 0)
+                                {
+                                    <div class="clear" style="height:15px;"></div>
+                                }
+                                @if (secondRoundStatus == InterviewStatus.INTERVIEW_IN_PROGRESS)
+                                {
+                                    if (DateTime.Now >= followUp.NewDate.Value && DateTime.Now <= followUp.NewDate.Value.AddHours(16))
+                                    {
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <span style="color:red; font-size:1em;">@(((InterviewRounds)secondRound.Round).GetDescription()) will expire in 16 hours from @followUp.NewDate.Value (PST Time)!</span>
+                                            </div>
+                                        </div>
+                                        <div class="clear" style="height:15px;"></div>
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                @Html.Hidden("Id", Model.Id)
+                                                @Html.Hidden("TabId", "Notes")
+                                                @Html.Label("Interview Notes")
+                                                <textarea name="Comments" class="form-control" placeholder="WRITE MESSAGE (MAX. 350 CHARACTERS)" style="height:30px" maxlength="350" data-val="true" data-val-regex="Special characters and space not allowed!" data-val-regex-pattern="[ A-Za-z0-9(),'_.-]*$" data-val-required="Please write your message."></textarea>
+                                                <span class="field-validation-valid" data-valmsg-for="Comments" data-valmsg-replace="true"></span>
+                                            </div>
+                                            <div class="col-lg-4">
+                                                @Html.Label("Notes Taker Name")
+                                                @Html.TextBox("Name", null, new { @class = "form-control", placeholder = "WRITE NOTES TAKER NAME", @maxlength = "70" })
+                                            </div>
+                                            <div class="col-lg-2" style="padding-top:22px;">
+                                                @Html.Raw("&nbsp;")
+                                                <input type="submit" value="ADD NOTES" title="Click here to add interview notes" class="btn btn-info" style="width:80px;" />
+                                            </div>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        if (DateTime.Now > followUp.NewDate.Value.AddHours(16))
+                                        {
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                                    <span style="color:red; font-size:1em;">
+                                                        16 Hours time for @(((InterviewRounds)Model.Round).GetDescription()) has expired!
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                                    <span style="color:red; font-size:1em;">Interview will be enabled automatically at @followUp.NewDate.Value (PST Time)!</span>
+                                                </div>
+                                            </div>
+                                        }
+                                    }
+                                }
+                            </div>
+                        }
+                    </div>
+                }
+                <div class="clear" style="height:15px;"></div>
+            }
+            }
+        </div>
+    </div>
+}
+<div class="clear" style="height:45px;"></div>
+<div id="Reschedule" class="list-group-item" style="padding-top: 20px;">
+    @using (Html.BeginForm("Reschedule", "Interview", FormMethod.Post))
+    {
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.Hidden("followUpId", Model.Id)
+                    @Html.Hidden("Id", Model.Id)
+                    <label>Reschedule Date & Time (PST Time)</label>
+                    <div class="input-group" style="margin-bottom:0">
+                        @Html.TextBox("NewDate", null, new { @class = "form-control", placeholder = "RESCHEDULE DATE & TIME", @title = "Reschedule Date & Time" })
+
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-time"></span>
+                        </span>
+                    </div>
+                    <script>
+                        $('#NewDate').datetimepicker({
+                            format: "mm/dd/yyyy HH:ii P",
+                            pickDate: true,
+                            pickTime: true,
+                            autoclose: true,
+                            minView: 0,
+                            maxView: 4,
+                            pickerPosition:"bottom-left",
+                            @if (followUp.NewDate.Value <= DateTime.Now)
+                            {
+                                <text>startDate: new Date(@DateTime.Now.Year, @DateTime.Now.Month-1, @DateTime.Now.Day, @DateTime.Now.Hour, @DateTime.Now.Minute),</text>
+                            }else{
+                                <text>startDate: new Date(@followUp.NewDate.Value.Year, @followUp.NewDate.Value.Month-1, @followUp.NewDate.Value.Day, @followUp.NewDate.Value.Hour, @followUp.NewDate.Value.Minute + 60),</text>
+                            }
+                            icons: {
+                                up: 'glyphicon-chevron-up',
+                                down: 'glyphicon-chevron-down'
+                            }
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                    @Html.Label("Details")
+                    @Html.TextArea("Comments", new { @class = "form-control" })
+                </div>
+                <div id="rescheduleError" style="color:red;"></div>
+                <br />
+            </div>
+        </div>
+        <div class="form-group">
+            <input id="btnReschedule" type="submit" value="Confirm Reschedule" class="btn btn-info" />
+            <input id="btnCancelReschedule" type="button" value="Cancel" class="btn btn-info" style="width:75px;" />
+        </div>
+    }
+</div>
+
+<div id="Reject" class="list-group-item">
+    @using (Html.BeginForm("Reject", "Interview", FormMethod.Post))
+    {
+        @Html.Hidden("Id", Model.Id)
+        <div class="form-group">
+            @Html.Label("Reason")
+            @Html.TextArea("Reason", new { @class = "form-control", @maxlength = "400" })
+        </div>
+        <div id="rejectError" style="color:red;"></div>
+        <br />
+        <div class="form-group">
+            <input id="btnReject" type="submit" value="Confirm Rejection" class="btn btn-info" />
+            <input id="btnCancelReject" type="button" value="Cancel" class="btn btn-info" style="width:75px;" />
+        </div>
+    }
+</div>
+
+<div id="Withdraw" class="list-group-item">
+    @using (Html.BeginForm("Withdraw", "Interview", FormMethod.Post))
+    {
+        @Html.Hidden("Id", Model.Id)
+        <div class="form-group">
+            @Html.Label("Write withdrawal reason here")
+            @Html.TextArea("Reason", new { @class = "form-control withdrawal" })
+        </div>
+        <div id="withdrawError" style="color:red;"></div>
+        <br />
+        <div class="form-group">
+            <input id="btnWithdraw" type="submit" value="Confirm Withdrawal" class="btn btn-info" />
+            <input id="btnCancelWithdraw" type="button" value="Cancel" class="btn btn-info" style="width:75px;" />
+        </div>
+    }
+</div>
+
+<script>
+    $(function () {
+        var round = @Model.Round;
+        if(round==1){
+            $("#tabs-1").show();
+            $("#r1").parent().addClass("active");
+
+            $("#tabs-2").hide();
+            $("#r2").parent().removeClass("active");
+
+            $("#Notes").hide();
+            $("#r1n1").parent().removeClass("active");
+
+            $("#Messages").show();
+            $("#r1m1").parent().addClass("active");
+
+        }else{
+            $("#tabs-1").hide();
+            $("#r1").parent().removeClass("active");
+
+            $("#tabs-2").show();
+            $("#r2").parent().addClass("active");
+
+            $("#R2Notes").hide();
+            $("#r2n1").parent().removeClass("active");
+
+            $("#R2Messages").show();
+            $("#r2m1").parent().addClass("active");
+        }
+
+        $("#r1").click(function () {
+            $("#tabs-1").show();
+            $("#r1").parent().addClass("active");
+
+            $("#tabs-2").hide();
+            $("#r2").parent().removeClass("active");
+
+            $("#Messages").show();
+            $("#r1m1").parent().addClass("active");
+
+            $("#Notes").hide();
+            $("#r1n1").parent().removeClass("active");
+
+            $("#R2Notes").hide();
+            $("#r2n1").parent().removeClass("active");
+
+            $("#R2Messages").hide();
+            $("#r2m1").parent().removeClass("active");
+        })
+
+        $("#r2").click(function () {
+            $("#tabs-1").hide();
+            $("#r1").parent().removeClass("active");
+
+            $("#tabs-2").show();
+            $("#r2").parent().addClass("active");
+
+            $("#R2Messages").show();
+            $("#r2m1").parent().addClass("active");
+
+            $("#R2Notes").hide();
+            $("#r2n1").parent().removeClass("active");
+
+            $("#Notes").hide();
+            $("#r1n1").parent().removeClass("active");
+
+            $("#Messages").hide();
+            $("#r1m1").parent().removeClass("active");
+        })
+
+        $("#r1m1").click(function () {
+            $("#Notes").hide();
+            $("#Messages").show();
+        })
+
+        $("#r1n1").click(function () {
+            $("#Notes").show();
+            $("#Messages").hide();
+        })
+
+        $("#r2m1").click(function () {
+            $("#R2Notes").hide();
+            $("#R2Messages").show();
+        })
+
+        $("#r2n1").click(function () {
+            $("#R2Notes").show();
+            $("#R2Messages").hide();
+        })
+
+        $("#Reschedule").hide();
+        $("#Reject").hide();
+        $("#Withdraw").hide();
+
+        $("#lnkbWithdraw").click(function () {
+            $("#Withdraw").show();
+            $("#Reject").hide();
+            $("#Reschedule").hide();
+            $(".withdrawal").focus();
+            return false;
+        });
+
+        $("#lnkbReschedule").click(function () {
+            $("#Withdraw").hide();
+            $("#Reject").hide();
+            $("#Reschedule").show();
+            $("#Comments").focus();
+            return false;
+        });
+
+        $("#btnReject").click(function(){
+            if($("#Reject #Reason").val()!=""){
+                $("#rejectError").html("");
+                $("#rejectError").hide();
+                return true;
+            }else{
+                $("#rejectError").html("Write reason for rejection");
+                $("#rejectError").show();
+                return false;
+            }
+        });
+
+        $("#btnWithdraw").click(function(){
+            if($("#Withdraw #Reason").val()!=""){
+                $("#withdrawError").html("");
+                $("#withdrawError").hide();
+                return true;
+            }else{
+                $("#withdrawError").html("Write reason for widthdrawal");
+                $("#withdrawError").show();
+                return false;
+            }
+        });
+
+
+        $("#btnReschedule").click(function () {
+            if($("#NewDate").val()!=""){
+                $("#rescheduleError").html("");
+                $("#rescheduleError").hide();
+                return true;
+            }else{
+                $("#rescheduleError").html("Provide Reschedule Date and Details");
+                $("#rescheduleError").show();
+                return false;
+            }
+        });
+
+        $("#btnCancelReschedule").click(function () {
+            $("#Reschedule").hide();
+            $("#rescheduleError").html("");
+            $("#rescheduleError").hide();
+            return false;
+        });
+
+        $("#btnCancelWithdraw").click(function () {
+            $("#Withdraw").hide();
+            $("#withdrawError").html("");
+            $("#withdrawError").hide();
+            return false;
+        });
+
+        $("#lnkbReject").click(function () {
+            $("#Withdraw").hide();
+            $("#Reschedule").hide();
+            $("#Reject").show();
+            $("#Reason").focus();
+            return false;
+        });
+
+        $("#btnCancelReject").click(function () {
+            $("#Reject").hide();
+            $("#rejectError").html("");
+            $("#rejectError").hide();
+            return false;
+        });
+    });
+</script>

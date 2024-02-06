@@ -1,0 +1,292 @@
+﻿@using PagedList.Mvc
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Data
+@using JobPortal.Domain
+@{
+    ViewBag.Title = "Messages";
+    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+
+    int inboxItems = DomainService.Instance.DashboardInboxItems(User.Id, ViewBag.UserInfo.UserId);
+    int appCounts = MemberService.Instance.GetApplicationCount(ViewBag.UserInfo.Username);
+    int intCounts = MemberService.Instance.GetInterviewCount(ViewBag.UserInfo.Username);
+
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<Connection>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+}
+<style>
+    .cdate {
+        padding-left: 0px;
+        list-style-type: none;
+    }
+
+        .cdate li {
+            display: inline-block;
+            width: auto;
+        }
+</style>
+<div class="section">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                <li class="active"><a href="#">QUICK LINKS</a></li>
+                <li>@Html.ActionLink("Connections", "Connections", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                <li>@Html.ActionLink("Messages", "Messages", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                @if (ViewBag.UserInfo.Type == (int)SecurityRoles.Company)
+                {
+                    <li>@Html.ActionLink("Jobs", "JobsByCompany", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                @if (appCounts > 0)
+                {
+                    <li>@Html.ActionLink(string.Format("Applications ({0})", appCounts), "Applications", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Applications", "Applications", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                @if (intCounts > 0)
+                {
+                    <li>@Html.ActionLink(string.Format("Interviews ({0})", intCounts), "Interviews", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Interviews", "Interviews", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                @if (ViewBag.UserInfo.Type == (int)SecurityRoles.Company)
+                {
+                    <li>@Html.ActionLink("Downloads", "DownloadHistory", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+
+                @if (inboxItems > 0)
+                {
+                    <li><a href="/Admin/Inbox?Id=@ViewBag.UserInfo.UserId" target="_blank">Inbox (<span style="color:red; font-weight:bold">@inboxItems</span>)</a></li>
+                }
+                else
+                {
+                    <li><a href="/Admin/Inbox?Id=@ViewBag.UserInfo.UserId" target="_blank">Inbox</a></li>
+                }
+                @if (ViewBag.UserInfo.Type == (int)SecurityRoles.Company)
+                {
+                    <li>@Html.ActionLink("Profile", "ManageCompany", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                else if (ViewBag.UserInfo.Type == (int)SecurityRoles.Individual)
+                {
+                    <li>@Html.ActionLink("Profile", "ManageIndividual", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                <li>@Html.ActionLink("Billing & Invoices", "billing", "Payment", new { userId = ViewBag.UserInfo.UserId }, new { })</li>
+                <li>@Html.ActionLink("Reset Password", "ResetPassword", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                <li>@Html.ActionLink("Login History", "LoginHistory", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { @class = "active" })</li>
+                <li>@Html.ActionLink("Alert Settings", "Alerts", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+            </ul>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-9">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+
+                    <div class="title-login">
+                        <h1>Messages</h1>
+                        @if (ViewBag.UserInfo.Type == (int)SecurityRoles.Company)
+                        {
+                            <text>Manage messages  of <b>@ViewBag.UserInfo.Company</b> here</text>
+                        }
+                        else if (ViewBag.UserInfo.Type == (int)SecurityRoles.Individual)
+                        {
+                            <text> Manage messages  of <b>@ViewBag.UserInfo.FirstName  @ViewBag.UserInfo.LastName</b> here</text>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="clear" style="height:15px;"></div>
+            @using (Html.BeginForm("Messages", "Admin", method: FormMethod.Post))
+            {
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="form-group">
+                            @Html.Label("Search By Name")
+                            <input type="text" id="Name" name="Name" placeholder="SEARCH BY NAME" class="form-control" value="@Request["Name"]" />
+                            @*<input type="hidden" name="Id" id="Id" value="@Request["Id"]" />*@
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    @Html.Label("From Date")
+                                    <ul class="cdate" title="From Date">
+                                        <li>
+                                            @Html.DropDownList("fd", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control", @style = "padding:5px;width:64px;" })
+                                        </li>
+                                        <li>
+                                            @Html.DropDownList("fm", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control", @style = "padding:5px;" })
+                                        </li>
+                                        <li>
+                                            @Html.DropDownList("fy", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 1)), "YEAR", new { @class = "form-control", @style = "padding:5px;width:70px;" })
+                                        </li>
+                                    </ul>
+                                    <div id="fromDateError" style="color:red;"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    @Html.Label("To Date")
+                                    <ul class="cdate" title="To Date">
+                                        <li>
+                                            @Html.DropDownList("td", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control", @style = "padding:5px;width:64px;" })
+                                        </li>
+                                        <li>
+                                            @Html.DropDownList("tm", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control", @style = "padding:5px;" })
+                                        </li>
+                                        <li>
+                                            @Html.DropDownList("ty", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 1)), "YEAR", new { @class = "form-control", @style = "padding:5px;width:70px;" })
+                                        </li>
+                                    </ul>
+                                    <div id="toDateError" style="color:red;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 col-sm-offset-10 col-xs-8">
+                        <div class="form-group">
+                            <input id="Search" type="submit" value="Search" class="btn btn-info" style="width:105px;" />
+                        </div>
+                    </div>
+                </div>
+                <div class="clear" style="height:15px;"></div>
+            }
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-md-12">
+                    <div id="container-grid" class="table-responsive">
+                        <table class="table table-bordered table-hover" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in ViewBag.Model)
+                                {
+                                    
+                                    
+                                    <tr>
+                                        <td>
+                                            @{
+                                    string name = string.Empty;
+                                    UserProfile member = MemberService.Instance.Get(item.EmailAddress);
+                                    if (member != null)
+                                    {
+                                        name = MemberService.Instance.ProfileLink(member.Username);
+                                    }
+                                    else
+                                    {
+                                        name = item.EmailAddress;
+                                    }
+                                            }
+                                            @Html.Raw(name)
+                                        </td>
+                                        <td>
+                                            @{
+                                    string status = string.Empty;
+                                    status = ConnectionHelper.Status(item.EmailAddress, ViewBag.UserInfo.Username);
+                                    int msgs = 0;
+                                    if (member != null)
+                                    {
+                                        msgs = ConnectionHelper.GetMessageCounts(ViewBag.UserInfo.UserId, member.UserId);
+                                    }
+                                    
+                                    if (status.ToLower().Equals("not connected") && msgs > 0)
+                                    {
+                                        status = "Disconnected";
+                                    }
+                                            }
+                                            @Html.Raw(status)
+                                        </td>
+                                        <td>
+                                            @{
+                                    string links = string.Empty;
+                                    if (member != null)
+                                    {
+                                        int msg_counts = ConnectionHelper.GetMessageCounts(ViewBag.UserInfo.UserId, member.UserId);
+                                        string view_text = "View";
+                                        if (msg_counts > 0)
+                                        {
+                                            view_text = string.Format("View ({0})", msg_counts);
+                                        }
+                                        if (member != null)
+                                        {
+                                            links += "<b>" + Html.ActionLink(view_text, "ListMessages", "Admin", new { SenderId = ViewBag.UserInfo.UserId, UserId = member.UserId }, new { @style = "line-height:25px;", @target = "_blank" }).ToString() + "</b>";
+                                        }
+                                        else
+                                        {
+                                            links += "<b>" + Html.ActionLink(view_text, "ListMessages", "Admin", new { SenderId = ViewBag.UserInfo.UserId, UserId = member.UserId }, new { @style = "line-height:25px;", @target = "_blank" }).ToString() + "</b>";
+                                        }
+                                    }
+                                            }
+                                            @Html.Raw(links)
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+                    </div>
+                    <div style="text-align:center; margin-top: -15px;">
+
+                        @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Messages",
+            new RouteValueDictionary()
+            {
+                { "PageNumber" , PageNumber},
+                { "message" , Request["Message"]},
+                { "fd" , Request["fd"]},
+                { "fm" , Request["fm"]},
+                { "fy" , Request["fy"]},
+                { "td" , Request["td"]},
+                { "tm" , Request["tm"]},
+                { "ty" , Request["ty"]},
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#Search").click(function () {
+            var isValidStartDate = isValidDate($("#fd").val(), $("#fm").val(), $("#fy").val());
+            var isValidEndDate = isValidDate($("#td").val(), $("#tm").val(), $("#ty").val());
+
+            if (isValidStartDate) {
+                $("#fromDateError").html("");
+                $("#fromDateError").show();
+                $("#Search").enabled = true;
+            } else {
+                $("#fromDateError").html("Provide correct from date!");
+                $("#fromDateError").show();
+                $("#Search").enabled = false;
+            }
+
+            if (isValidEndDate) {
+                $("#toDateError").html("");
+                $("#toDateError").show();
+                $("#Search").enabled = true;
+            } else {
+                $("#toDateError").html("Provide correct to date!");
+                $("#toDateError").show();
+                $("#Search").enabled = false;
+            }
+            return (isValidStartDate == true && isValidEndDate == true);
+        });
+    })
+</script>

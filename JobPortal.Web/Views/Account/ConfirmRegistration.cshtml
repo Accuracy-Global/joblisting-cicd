@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Email confirmation required!";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<div class="clear" style="height:25px;"></div>*@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="message-info">
+            <div style="font-size:1.5em;">
+                One more step!
+            </div>
+            <div style="font-size:1em;">
+                Kindly confirm your email <b>@(User != null ? User.Username : "")</b>
+                <br />
+                <a href="/account/resend">CLICK HERE</a> to resend confirmation link.
+                <br />
+                <a href="/account/changeemailaddress">CLICK HERE</a> to change your email address.
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:25px;"></div>
+
+<div class="row">
+    <div class="col-lg-5 col-md-5"></div>
+    <div class="col-lg-2 col-md-2">
+        <div class="form-group">
+            @if (User != null && User.Info.Type == 4)
+            {
+                <div style="">
+                    <a href="https://apps.apple.com/in/app/job-listing/id1575724994">
+                        <img src="~/Images/ios.png" style="height:40px;width:40px;" border="0" />
+
+                    </a>
+
+
+                    <a href="https://play.google.com/store/apps/details?id=com.accuracy.joblisting">
+                        <img src="~/Images/android-icon.png" style="height:40px;width:40px;" border="0" />
+
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="col-lg-5 col-md-5"></div>
+</div>

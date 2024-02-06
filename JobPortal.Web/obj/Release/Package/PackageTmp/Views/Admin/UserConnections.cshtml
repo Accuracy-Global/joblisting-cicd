@@ -1,0 +1,207 @@
+﻿@using JobPortal.Domain
+@using JobPortal.Data
+@using JobPortal.Library.Enumerators;
+@using JobPortal.Library.Helpers;
+@using System.Collections
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Connections";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<JobPortal.Data.Connection>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+}
+<style>
+    .cdate {
+        padding-left: 0px;
+        list-style-type: none;
+    }
+
+        .cdate li {
+            display: inline-block;
+            width: auto;
+        }
+</style>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">Connections</h1>
+            Manage connections here
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:15px;"></div>
+@using (Html.BeginForm("UserConnections", "Admin", method: FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="form-group">
+                @Html.Label("Search By Name or Email")
+                <input type="text" id="Name" name="Name" placeholder="SEARCH BY NAME OR EMAIL" class="form-control" value="@Request["name"]" />
+                <input type="hidden" name="Id" id="Id" value="@ViewBag.UserInfo.UserId" />
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-8">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        @Html.Label("From Date")
+                        <ul class="cdate" title="From Date">
+                            <li>
+                                @Html.DropDownList("fd", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control", @style = "padding:5px;width:64px;" })
+                            </li>
+                            <li>
+                                @Html.DropDownList("fm", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control", @style = "padding:5px;" })
+                            </li>
+                            <li>
+                                @Html.DropDownList("fy", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 5)), "YEAR", new { @class = "form-control", @style = "padding:5px;width:70px;" })
+                            </li>
+                        </ul>
+                        <div id="fromDateError" style="color:red;"></div>
+                    </div>
+
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        @Html.Label("To Date")
+                        <ul class="cdate" title="To Date">
+                            <li>
+                                @Html.DropDownList("td", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control", @style = "padding:5px;width:64px;" })
+                            </li>
+                            <li>
+                                @Html.DropDownList("tm", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control", @style = "padding:5px;" })
+                            </li>
+                            <li>
+                                @Html.DropDownList("ty", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 5)), "YEAR", new { @class = "form-control", @style = "padding:5px;width:70px;" })
+                            </li>
+                        </ul>
+                        <div id="toDateError" style="color:red;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-sm-offset-10 col-xs-8">
+            <div class="form-group">
+                <input id="Search" type="submit" value="Search" class="btn btn-info" style="width:105px;" />
+            </div>
+        </div>
+    </div>
+    <div class="clear" style="height:15px;"></div>
+}
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div style="font-size:1.2em; background-color:#ede9e9; padding:4px;">@ViewBag.Country.Text - @(ViewBag.UserInfo.Company != null ? ViewBag.UserInfo.Company : string.Format("{0} {1}", ViewBag.UserInfo.FirstName, ViewBag.UserInfo.LastName)) Connections</div>
+    </div>
+</div>
+<div id="container-grid" class="table-responsive">
+    <table class="table table-bordered table-hover" style="width:100%">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.Model)
+            {
+                UserProfile entity = MemberService.Instance.Get(item.EmailAddress);
+                if (!string.IsNullOrEmpty(item.EmailAddress) && (entity == null || (entity != null && entity.Type != 6)))
+                {
+                    <tr>
+                        <td>
+                            @if (entity != null && (entity.Type == 4 || entity.Type == 5))
+                            {
+                                @Html.Raw(MemberService.Instance.ProfileLink(item.EmailAddress))
+                            }
+                            else
+                            {
+                                @Html.Raw(item.EmailAddress)
+                            }
+                        </td>
+                        <td>@item.DateCreated.ToString("MMM-dd-yyyy")</td>
+                        <td>
+                            @{
+                            string status = string.Empty;
+                            status = ConnectionHelper.Status(item.EmailAddress, ViewBag.UserInfo.Username);
+                            Connection connection = ConnectionHelper.Get(item.Id);
+                            if (connection != null && status.ToLower().Equals("not connected"))
+                            {
+                                status = "Invited";
+                            }
+                            }
+                            @Html.Raw(status)
+                        </td>
+
+                        <td>
+                            @{
+                            string links = string.Empty;
+                            if (entity != null)
+                            {
+                                links += string.Format("<b>{0}</b>", Html.ActionLink("Manage", "Connections", new { UserId = entity.UserId }, new { title = "Manage Connections", @class = "edit", @target = "_blank" }).ToString());
+                            }
+                            }
+                            @Html.Raw(links)
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+<div style="text-align:center; margin-top: -15px;">
+
+    @Html.PagedListPager(pagedModel, PageNumber => Url.Action("UserConnections",
+            new RouteValueDictionary()
+            {
+                { "PageNumber" , PageNumber},
+                { "Id" , ViewBag.UserInfo.UserId},
+                { "Name" , Request["Name"]},
+                { "fd" , Request["fd"]},
+                { "fm" , Request["fm"]},
+                { "fy" , Request["fy"]},
+                { "td" , Request["td"]},
+                { "tm" , Request["tm"]},
+                { "ty" , Request["ty"]},
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+</div>
+<script>
+    $(document).ready(function () {
+        $("#Search").click(function () {
+            var isValidStartDate = isValidDate($("#fd").val(), $("#fm").val(), $("#fy").val());
+            var isValidEndDate = isValidDate($("#td").val(), $("#tm").val(), $("#ty").val());
+
+            if (isValidStartDate) {
+                $("#fromDateError").html("");
+                $("#fromDateError").show();
+                $("#Search").enabled = true;
+            } else {
+                $("#fromDateError").html("Provide correct from date!");
+                $("#fromDateError").show();
+                $("#Search").enabled = false;
+            }
+
+            if (isValidEndDate) {
+                $("#toDateError").html("");
+                $("#toDateError").show();
+                $("#Search").enabled = true;
+            } else {
+                $("#toDateError").html("Provide correct to date!");
+                $("#toDateError").show();
+                $("#Search").enabled = false;
+            }
+            return (isValidStartDate == true && isValidEndDate == true);
+        });
+    });
+</script>

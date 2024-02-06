@@ -1,0 +1,479 @@
+﻿@using PagedList.Mvc
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Models
+@model Inbox
+
+<link href="~/Content/bootstrap-fileinput/css/fileinput.min.css" rel="stylesheet" />
+<script src="~/Scripts/fileinput.min.js"></script>
+@{
+
+    ViewBag.Title = "Index";
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<Inbox>;
+
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+
+    List<Inboxv> list1 = DomainService.Instance.vList(user.Username.ToString().ToLower());
+    List<Inboxv1> list2 = DomainService.Instance.vList1(user.Username.ToString().ToLower());
+    // List<UserProfile> list4 =  MemberService.Instance.vList3(Model.ReceiverId.ToString().ToLower());
+
+    Job job = null;
+    Photo photo = null;
+    long photoId = 0;
+    UserProfile profile = MemberService.Instance.Get(user.PermaLink);
+    UserProfile sender = MemberService.Instance.Get(user.Id);
+
+}
+
+<style>
+    .idate {
+        /*width:125px;*/
+    }
+
+    .isubject {
+        /*width:200px;*/
+    }
+
+    .iaction {
+        width: 10%;
+    }
+
+    /*.list-group-item:hover {
+            background-color: #e9e8e8;
+        }*/
+
+    .seemore {
+        text-align: right;
+    }
+
+        .seemore > a {
+            color: #000000;
+            font-family: "Roboto", sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .seemore i {
+            font-size: 16px;
+            padding: 0 0 0 5px;
+            vertical-align: middle;
+        }
+
+    .sponsored {
+        background: #ffffff;
+    }
+
+    .sponsored {
+        background: #fff none repeat scroll 0 0;
+        padding: 0px 15px 0;
+        margin-top: -6px;
+    }
+
+    .abcdesign {
+        margin: 0 0 18px 0;
+    }
+
+        .abcdesign > h3 {
+            color: #333;
+            font-size: 14px;
+            margin: 0 0 11px 0;
+        }
+
+    .sub-heading h2 {
+        color: #000;
+        font-size: 14px;
+        margin: 0 0 20px;
+        padding-bottom: 6px;
+        position: relative;
+        font-weight: bold;
+    }
+
+        .sub-heading h2::after {
+            border-bottom: 2px solid #e93100;
+            bottom: 0;
+            content: "";
+            display: block;
+            left: 0;
+            position: absolute;
+            width: 100%;
+        }
+    .fa-angle-down::before {
+        content: '^';
+        display: block;
+        transition: transform .2s ease;
+        transform: rotate(0);
+        left: 0;
+    }
+
+    .rotate.fa-angle-down::before {
+        transform: rotate(180deg);
+    }
+</style>
+<div class="row">
+    <div class="col-lg-6 col-md-6">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">Inbox</h1>
+            Manage inbox here
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-2">
+        <div class="form-group">
+            @if (user != null && user.Type == 4)
+            {
+                if (user.PromoteDate != null)
+                {
+                    if (user.PromoteDate.Value.Date < DateTime.Now.Date)
+                    {
+                        <a href="/package/promote?id=@user.Id&type=P&returnUrl=@Request.Url.ToString()" class="btn btn-info promote" style="width:165px;">Promote Profile</a>
+                    }
+                }
+                else
+                {
+                    <a href="/package/promote?id=@user.Id&type=P&returnUrl=@Request.Url.ToString()" class="btn btn-info promote" style="width:165px;">Promote Profile</a>
+                }
+            }
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-2">
+        <div class="form-group"></div>
+    </div>
+    <div class="col-lg-2 col-md-2">
+        <div class="form-group">
+            @if (user != null && user.Type == 4)
+            {
+                <div style=" ">
+                    <a href="https://apps.apple.com/in/app/job-listing/id1575724994">
+                        <img src="~/Images/ios.png" style="height:40px;width:40px;" border="0" />
+
+                    </a>
+
+
+                    <a href="https://play.google.com/store/apps/details?id=com.accuracy.joblisting">
+                        <img src="~/Images/android-icon.png" style="height:40px;width:40px;" border="0" />
+
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:30px;"></div>
+<SCRIPT>
+    function ShowAndHide() {
+        var x = document.getElementById('SectionName');
+        if (x.style.display == 'none') {
+            x.style.display = 'block';
+        } else {
+            x.style.display = 'none';
+        }
+    }
+</SCRIPT>
+<style>
+    i.fa-angle-down {
+        float: right;
+        /* position:absolute;
+        right:-0px;
+     */
+        /*  display: inline;
+        justify-content: inline-end;*/
+    }
+
+    a.my-class {
+        color: #34ba08;
+    }
+</style>
+
+
+
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-md-12">
+                @if (list2.Count != 0)
+                {
+                    for (int j = 0; j < list2.Count; j++)
+                    {
+                        UserProfile profile2 = MemberService.Instance.Get(list2[j].ParentId.Value);
+
+                        var links1 = string.Empty;
+
+                        links1 = Html.ActionLink("View", "Show2", "Inbox", new { uname = list2[j].ReceiverName }, new { title = "View", @target = "_blank", @class = "my-class", onclick = "ShowAndHide()" }).ToString();
+
+
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+
+                                        <i class="fa fa-envelope" style="color: #34ba08;font-size:20px;" data-toggle="collapse" data-target="#@list2[j].ParentId"></i>
+                                        &nbsp;&nbsp;&nbsp;
+                                        @*<b>From:</b><text>&nbsp;&nbsp;</text>*@   @profile2.FirstName -
+                                        @*<i><b>Subject:</b></i>*@ <div style="color: #34ba08;">@Html.Raw(list2[j].Subject)&nbsp;</div>
+
+                                        @Html.Raw(list2[j].DateUpdated.ToString("MMM-dd-yyyy hh:mm tt"))
+                                        <i class="fa fa-angle-down" style="color: #34ba08;font-size:26px;" data-toggle="collapse" data-target="#@list2[j].ParentId"></i>
+                                    </div>
+                                </div>
+                                <div id="@list2[j].ParentId" class="collapse">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                         
+
+                                            <div class="list-group-item" style="padding:5px;background-color:#efeeee;">
+                                                <p style="text-align:justify">
+                                                    @Html.Raw(list2[j].Body.Replace("@person", "").Replace("[", "<").Replace("]", ">").Replace("'", "\"").Replace("andnbsp", "&nbsp;"))
+
+
+
+                                                    <br />
+                                                    @Html.Raw(string.Format("<a href='https://www.joblisting.com/{0}/{1}?UserId={2}&&emailv={3}&&edv={4}&&scv={5}&&ftv={6}&&ttv={7}'>CLICK HERE</a> to Verify", "JobSeeker", "InviteViaEmailVerEd", list2[j].ReferenceId, list2[j].ReceiverName, list2[j].Unread, list2[j].SenderName, list2[j].Messages, list2[j].ReceiverName1));
+
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                              
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-md-12">
+                @if (list1.Count != 0)
+                {
+                    for (int i = 0; i < list1.Count; i++)
+                    {
+                        UserProfile profile1 = MemberService.Instance.Get(list1[i].ParentId.Value);
+
+                        var links = string.Empty;
+
+                        links = Html.ActionLink("View", "Show1", "Inbox", new { uname = list1[i].ReceiverName }, new { title = "View", @target = "_blank", @class = "my-class", onclick = "ShowAndHide()" }).ToString();
+
+
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                        <i class="fa fa-envelope" style="color: #34ba08;font-size:20px;" data-toggle="collapse" data-target="#@list1[i].ParentId"></i>
+
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        @*<b>From:</b><text>&nbsp;</text>*@   @profile1.FirstName -
+                                        @*<i><b>Subject:</b></i>*@ <div style="color: #34ba08;">@Html.Raw(list1[i].Subject)&nbsp;</div>
+                                        @Html.Raw(list1[i].DateUpdated.ToString("MMM-dd-yyyy hh:mm tt"))
+
+                                        <i class="fa fa-angle-down" style="color: #34ba08;font-size:26px;" data-toggle="collapse" data-target="#@list1[i].ParentId"></i>
+
+
+                                    </div>
+                                </div>
+                                @*<div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <i><b>Date:</b></i> @Html.Raw(list1[i].DateUpdated.ToString("MMM-dd-yyyy hh:mm tt"))
+                                        </div>
+                                    </div>
+
+                                    <div class="clear" style="height:10px;"></div>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            @Html.Raw(links)
+                                        </div>
+                                    </div>*@
+                                <div id="@list1[i].ParentId" class="collapse">
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            @*<div class="list-group-item" style="padding: 5px;background-color:#efeeee;">
+                                                    <div class="row">
+                                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                                            <b>Date:</b>&nbsp;&nbsp;@list1[i].DateUpdated.ToString("MMM-dd-yyyy hh:mm")
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="list-group-item" style="padding: 5px;background-color:#efeeee;">
+                                                    <b>Subject:</b>&nbsp;&nbsp;@list1[i].Subject
+                                                </div>
+                                                <div class="list-group-item" style="padding: 5px; background-color:#efeeee;">
+                                                    <b>From:</b><text>&nbsp;&nbsp;</text>   @profile1.FirstName
+                                                </div>*@
+
+                                            <div class="list-group-item" style="padding:5px;background-color:#efeeee;">
+                                                <p style="text-align:justify">
+                                                    @Html.Raw(list1[i].Body.Replace("@person", "").Replace("[", "<").Replace("]", ">").Replace("'", "\"").Replace("andnbsp", "&nbsp;"))
+
+
+
+                                                    <br />
+                                                    @Html.Raw(string.Format("<a href='https://www.joblisting.com/{0}/{1}?UserId={2}&&emailv={3}&&comv={4}&&indv={5}&&conv={6}'>CLICK HERE</a> to Verify", "JobSeeker", "InviteViaEmailVer", list1[i].ReferenceId, list1[i].ReceiverName, list1[i].Unread, list1[i].Messages.Replace("&", "and"), list1[i].SenderName));
+
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                }
+            </div>
+        </div>
+
+
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-md-12">
+                @if (ViewBag.Model != null)
+                {
+                    foreach (var item in ViewBag.Model)
+                    {
+                        string slink = Html.ActionLink((string)(item.Subject), "Show", "Inbox", new { Id = item.Id }, new { @target = "_blank", @class = "my-class" }).ToString();
+                        var links = string.Empty;
+                        int inboxItems = 0;
+                        if (item.Unread == false)
+                        {
+                            inboxItems = DomainService.Instance.DashboardInboxItems(User.Id, item.SenderId, item.ReferenceId, item.Id);
+                        }
+                        else
+                        {
+                            inboxItems = 1;
+                        }
+                        if (inboxItems > 0)
+                        {
+                            links += string.Format("<button type=\"button\" class=\"btn btn - default\" data-toggle=\"collapse\" data-target=\"#/" + @item.Id + "/\">View (<span style=\"color:red;font-weight:bold\">" + Convert.ToString(inboxItems) + "</span>)</button>");
+                        }
+                        else
+                        {
+                            // links += Html.ActionLink("View", "Show", "Inbox", new { Id = item.Id }, new { title = "View", @target = "_blank" }).ToString();
+                            // links += string.Format("<button  Id=\"/" + @item.Id + "/\" title=\"View\" target=\"_blank\" onclick=\"toggleText(tem.Id)\">View</button>", new { Id = item.Id });
+                            links += string.Format("<button type=\"button\" class=\"btn btn - default\" data-toggle=\"collapse\"  data-target=\"#/" + @item.Id + "/\"> Dileep</button>", new { Id = item.Id });
+                        }
+
+                        <div class="list-group">
+                            <div class="list-group-item">
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12 col-sm-12">
+
+                                        <i class="fa fa-envelope" style="color: #34ba08; font-size: 20px;" data-toggle="collapse" data-target="#@item.Id"></i>
+                                        &nbsp;&nbsp;&nbsp;
+                                        Support Team -
+                                        @Html.Raw(slink) &nbsp;
+                                        @Html.Raw(item.DateUpdated.ToString("MMM-dd-yyyy hh:mm tt"))<i style="color: #34ba08;font-size:26px;" class="fa fa-angle-down" data-toggle="collapse" data-target="#@item.Id"></i>
+
+
+                                    </div>
+                                </div>
+                                @*<div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            <i><b>Date:</b></i> @Html.Raw(item.DateUpdated.ToString("MMM-dd-yyyy hh:mm tt"))
+                                        </div>
+                                    </div>*@
+
+                                @*<div class="clear" style="height:10px;"></div>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                            @Html.Raw(links)
+                                        </div>
+                                    </div>*@
+
+                                <div id="@item.Id" class="collapse">
+                                    <div class="row" id="Myid">
+
+                                        <div class="clear" style="height:15px;"></div>
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                @*<div class="list-group-item" style="padding: 5px;background-color:#efeeee;">
+                                                        <div class="row">
+                                                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                                                <b>Date:</b>&nbsp;&nbsp;@item.DateUpdated.ToString("MMM-dd-yyyy hh:mm")
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                                                @if (job != null)
+                                                                {
+                                                                    <b>Job Title:</b><text>&nbsp; &nbsp;</text><a href="/job/@job.PermaLink-@job.Id">@job.Title</a>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>*@
+                                                @*@if (sender.Type == (int)(SecurityRoles.SuperUser) || sender.Type == (int)(SecurityRoles.Administrator))
+                                                    {
+                                                        <div class="list-group-item" style="padding: 5px; background-color:#efeeee;">
+                                                            <b>Form:</b><text>&nbsp;&nbsp;</text>Support Team
+                                                        </div>
+                                                    }
+                                                    <div class="list-group-item" style="padding: 5px;background-color:#efeeee;">
+                                                        <b>Subject:</b>&nbsp;&nbsp;@item.Subject
+                                                    </div>*@
+
+
+                                                <div class="list-group-item" style="padding:5px;background-color:#efeeee;">
+                                                    <p style="text-align:justify">
+                                                        @Html.Raw(item.Body)
+                                                        @if (photo != null && photo.IsApproved == true)
+                                                        {
+                                                            @Html.Raw(string.Format("<a href='/{0}'>CLICK HERE</a> to see photo in your profile.", profile.PermaLink));
+                                                        }
+
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-md-12">
+                <div style="text-align:center; margin-top: -15px;">
+                    @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Index",
+            new RouteValueDictionary()
+            {
+                { "pageNumber" , PageNumber}
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js">
+    </script>
+   
+    <script>
+        $('.fa-angle-down').click(function () {
+            $(this).toggleClass('rotate')
+        })
+    </script>
+</div>

@@ -1,0 +1,76 @@
+﻿@model IEnumerable<JobPortal.Data.Job>
+@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Web.Models
+@using JobPortal.Models
+@{
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+}
+<script>
+    $(function () {
+        RecentJobs();
+        setInterval("RecentJobs()", 10000);
+    });
+    var type = Number("@(User != null ? user.Type : 0)");
+    var jobs = Number("@(User != null ? JobService.Instance.CountJobsByCountry(user.CountryId.Value) : 0)");
+    var rows = 0;
+    var pages = 0;
+    var pagesize = 5;
+    var pageNumber = 1;
+    function RecentJobs() {
+        if(pages != 0 && pageNumber < pages){
+            pageNumber ++;
+        }else{
+            pageNumber = 1;
+        }
+        $.post('@Url.Action("RecentJobs", "JsonHelper")', { Id : @(User != null ? user.Id : 0), pageNumber: pageNumber},
+                   function (result) {
+                       $("#RecentJobs").empty();
+                       if (result.length != 0) {
+                           rows = result[0].MaxRows;
+                           pages = Math.ceil(rows/pagesize);                           
+                           $(result).each(function () {
+                               var html = "<div class=\"news\">";                                                              
+                               if(this.EmployerUrl!=null){
+                                   html += "<small><a href=\"/job/" + this.JobUrl + "\" title=\"" + this.Title + "\" target=\"_blank\" style=\"color:#00a6e0\">" + (this.Title.length > 25 ? this.Title.substring(0, 24) + "..." : this.Title) + "</a></small>";
+                                   html += "<br/><small><a href=\"" + this.EmployerUrl + "\" target=\"_blank\" title=\"" + this.Company + "\">" + (this.Company.length > 25 ? this.Company.substring(0, 24) + ".." : this.Company) + "</a></small>";
+                               }else{
+                                   html += "<small><a href=\"" + this.JobUrl + "\" title=\"" + this.Title + "\" target=\"_blank\" style=\"color:#00a6e0\">" + (this.Title.length > 25 ? this.Title.substring(0, 24) + "..." : this.Title) + "</a></small>";
+                                   html += "<br/><small><a title=\"" + this.Company + "\"style=\"text-decoration:none\">" + (this.Company.length > 25 ? this.Company.substring(0, 24) + ".." : this.Company) + "</a></small>";
+                               }
+                               html += "<p><small><span title=\"" + this.Country + "\">" + this.Country + "</span> <br/> <span title=\"Expiry: " + this.ExpiryDate + "\"> Ex: " + this.ExpiryDate + "</span></small></p>";                               
+                               html += "</div>";
+
+                               $("#RecentJobs").append(html);
+                           });
+
+                           if(type != 0){
+                               if(jobs <= 0 && type == 4){
+                                   $("#rj").hide();
+                               }
+                           }
+                       } else if(result.length < 5) {
+                           $("#rj").hide();
+                       }
+                   });
+    }
+</script>
+<div class="connect">
+    <div class="sub-heading">
+        <h2>Suggested Jobs</h2>
+    </div>
+    <div id="RecentJobs">
+    </div>
+    @if (User != null && user.Role == JobPortal.Library.Enumerators.SecurityRoles.Company)
+    {
+        <div class="seemore"><a href="/Employer/Joblist?Id=@User.Id" target="_blank">See more</a><i aria-hidden="true" class="fa fa-angle-right"></i></div>
+    }
+    else if (User != null && user.Role == JobPortal.Library.Enumerators.SecurityRoles.Individual)
+    {       
+        <div class="seemore" id="rj"><a href="@Url.Action("SearchJobs", "Job", new { CountryId = user.CountryId })" target="_blank">See more</a><i aria-hidden="true" class="fa fa-angle-right"></i></div>     
+    }
+</div>

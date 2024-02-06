@@ -1,0 +1,30 @@
+{
+  "base_path": "/assets/json/",
+  "header": {
+    "1": "About",
+    "2": "Service",
+    "3": "Portfolio",
+    "4": "Contact Us",
+    "5": "Case-Studies"
+  },
+  "testimonials": [
+    {
+      "name": "",
+      "message": "",
+      "img-path": "",
+      "service-name": ""
+    },
+    {
+      "name": "",
+      "message": "",
+      "img-path": "",
+      "service-name": ""
+    },
+    {
+      "name": "",
+      "message": "",
+      "img-path": "",
+      "service-name": ""
+    }
+  ]
+}

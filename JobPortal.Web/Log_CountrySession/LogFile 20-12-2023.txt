@@ -1,0 +1,157 @@
+================================================================================================================
+20-12-2023 12:11:45 PM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 152.58.232.59
+GeoLocation Api => https://api.ipapi.com/api/152.58.232.59?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"152.58.232.59","type":"ipv4","continent_code":"AS","continent_name":"Asia","country_code":"IN","country_name":"India","region_code":"KA","region_name":"Karnataka","city":"Thavarekere","zip":"562130","latitude":"12.96399974822998","longitude":"77.4020004272461"}
+Session_Start() => Session: India
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: india
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india
+Controller: Job, Action: Homein => Session: India
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/0
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/account/login
+UrlPrivilegeFilter => Contoller: account, Action: login, Session: india
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/account/login
+--------------------------------------
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/modernizr?v=wBEWDufH_8Md-Pbioxomt90vm6tJN2Pyy9u9zHtWsPo1
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jScripts?v=6-NvxsPEecnoxV4Y2b7HjaEvzQRPeQcqhZbDS7D0l_41
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryall?v=BYtio2DpFhtbjYIRUt0xIz1kJZXf4nw2tAKe_2GLLNg1
+================================================================================================================
+20-12-2023 12:16:55 PM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 152.58.232.59
+GeoLocation Api => https://api.ipapi.com/api/152.58.232.59?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"152.58.232.59","type":"ipv4","continent_code":"AS","continent_name":"Asia","country_code":"IN","country_name":"India","region_code":"KA","region_name":"Karnataka","city":"Thavarekere","zip":"562130","latitude":"12.96399974822998","longitude":"77.4020004272461"}
+Session_Start() => Session: India
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: india
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india
+Controller: Job, Action: Homein => Session: India
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/0
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/account/login
+UrlPrivilegeFilter => Contoller: account, Action: login, Session: india
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/account/login
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/account/login
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/profile/mouni-ch-180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/jobs/
+UrlPrivilegeFilter => Contoller: job, Action: searchjobs, Session: india
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/Jobs
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/0
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/help/countrylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/help/categorylist
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/jobs
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/182413
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/help/qualifications
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/Jobs
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/profile-resume
+================================================================================================================
+20-12-2023 12:21:09 PM
+Initial Url => http://localhost:1515/Home
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 152.58.232.59
+GeoLocation Api => https://api.ipapi.com/api/152.58.232.59?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"152.58.232.59","type":"ipv4","continent_code":"AS","continent_name":"Asia","country_code":"IN","country_name":"India","region_code":"KA","region_name":"Karnataka","city":"Thavarekere","zip":"562130","latitude":"12.96399974822998","longitude":"77.4020004272461"}
+Session_Start() => Session: India
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Home
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: india
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india
+Controller: Job, Action: Homein => Session: India
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/0
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/account/login
+UrlPrivilegeFilter => Contoller: account, Action: login, Session: india
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/account/login
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/profile/mouni-ch-180954
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/profile-resume
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/account/logout
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/account/login
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/account/login
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/profile/macrokare-180980
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/spgcss?v=kROZrSxlbBMrYQgeqI4dOS9rXl6TYyyGI9DUwDDrjdM1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/spg?v=w58CtGj1y8G0ci6kLmv80GpUMfp99roq8UVfG8Fgars1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/bundles/jqueryval?v=liFQDLl2DYXeEfda_Lo9HxMCJUnZ2Adg-vEhq6ZMqpo1
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/0
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/listjob
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Employer/Index
+UrlPrivilegeFilter => Contoller: employer, Action: index, Session: india
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/listed-jobs
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/profile/macrokare-180980
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/0
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/profile/macrokare-180980
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/0
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/profile/macrokare-180980
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/0
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/profile/macrokare-180980
+================================================================================================================
+20-12-2023 12:42:03 PM
+Initial Url => http://localhost:1515/Image/Avtar/0
+GetUser_IP Request.UserHostAddress () => Public Ip: ::1
+GetUser_IP https://api.ipify.org () => Public Ip: 152.58.232.59
+GeoLocation Api => https://api.ipapi.com/api/152.58.232.59?access_key=62ab1a10169b650e2ce46d97e94f7213
+GetUserCountryByIp() => {"ip":"152.58.232.59","type":"ipv4","continent_code":"AS","continent_name":"Asia","country_code":"IN","country_name":"India","region_code":"KA","region_name":"Karnataka","city":"Thavarekere","zip":"562130","latitude":"12.96399974822998","longitude":"77.4020004272461"}
+Session_Start() => Session: India
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/0
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/profile/macrokare-180980
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/Image/Avtar/0
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/india/connections
+--------------------------------------
+Application_PreRequestHandlerExecute() Initial Url => http://localhost:1515/network/index

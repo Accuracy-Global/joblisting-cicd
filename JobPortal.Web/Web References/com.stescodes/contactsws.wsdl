@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetAuthenticationUrl">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="servicename" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ConsumerKey" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ConsumerSecret" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="callbackurl" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAuthenticationUrlResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAuthenticationUrlResult" type="tns:Authentication" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Authentication">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="details" type="tns:AuthDetails" />
+          <s:element minOccurs="0" maxOccurs="1" name="error" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="service" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AuthDetails">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="tokenSecret" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="authUrl" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAccessToken">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="servicename" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ConsumerKey" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ConsumerSecret" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="callbackurl" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TokenSecret" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TokenVerifier" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAccessTokenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAccessTokenResult" type="tns:AccessToken" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AccessToken">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="details" type="tns:AccessTokenDetails" />
+          <s:element minOccurs="0" maxOccurs="1" name="error" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="service" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="AccessTokenDetails">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="token" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="tokenSecret" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Id" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GrabContactsOAuth">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ServiceName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Token" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TokenSecret" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="TokenVerifier" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="UID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Signature" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ConsumerKey" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ConsumerSecret" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GrabContactsOAuthResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GrabContactsOAuthResult" type="tns:Contacts" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Contacts">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="error" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="service" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="list" type="tns:ArrayOfContactdetails" />
+          <s:element minOccurs="0" maxOccurs="1" name="uInfo" type="tns:userInfo" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfContactdetails">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="contactdetails" nillable="true" type="tns:contactdetails" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="contactdetails">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="userInfo">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GrabContacts">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="servicename" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strUserName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="signature" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GrabContactsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GrabContactsResult" type="tns:Contacts" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetAuthenticationUrlSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAuthenticationUrl" />
+  </wsdl:message>
+  <wsdl:message name="GetAuthenticationUrlSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAuthenticationUrlResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAccessTokenSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAccessToken" />
+  </wsdl:message>
+  <wsdl:message name="GetAccessTokenSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAccessTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="GrabContactsOAuthSoapIn">
+    <wsdl:part name="parameters" element="tns:GrabContactsOAuth" />
+  </wsdl:message>
+  <wsdl:message name="GrabContactsOAuthSoapOut">
+    <wsdl:part name="parameters" element="tns:GrabContactsOAuthResponse" />
+  </wsdl:message>
+  <wsdl:message name="GrabContactsSoapIn">
+    <wsdl:part name="parameters" element="tns:GrabContacts" />
+  </wsdl:message>
+  <wsdl:message name="GrabContactsSoapOut">
+    <wsdl:part name="parameters" element="tns:GrabContactsResponse" />
+  </wsdl:message>
+  <wsdl:portType name="contactswsSoap">
+    <wsdl:operation name="GetAuthenticationUrl">
+      <wsdl:input message="tns:GetAuthenticationUrlSoapIn" />
+      <wsdl:output message="tns:GetAuthenticationUrlSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAccessToken">
+      <wsdl:input message="tns:GetAccessTokenSoapIn" />
+      <wsdl:output message="tns:GetAccessTokenSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GrabContactsOAuth">
+      <wsdl:input message="tns:GrabContactsOAuthSoapIn" />
+      <wsdl:output message="tns:GrabContactsOAuthSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GrabContacts">
+      <wsdl:input message="tns:GrabContactsSoapIn" />
+      <wsdl:output message="tns:GrabContactsSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="contactswsSoap" type="tns:contactswsSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAuthenticationUrl">
+      <soap:operation soapAction="http://tempuri.org/GetAuthenticationUrl" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccessToken">
+      <soap:operation soapAction="http://tempuri.org/GetAccessToken" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GrabContactsOAuth">
+      <soap:operation soapAction="http://tempuri.org/GrabContactsOAuth" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GrabContacts">
+      <soap:operation soapAction="http://tempuri.org/GrabContacts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="contactswsSoap12" type="tns:contactswsSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetAuthenticationUrl">
+      <soap12:operation soapAction="http://tempuri.org/GetAuthenticationUrl" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccessToken">
+      <soap12:operation soapAction="http://tempuri.org/GetAccessToken" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GrabContactsOAuth">
+      <soap12:operation soapAction="http://tempuri.org/GrabContactsOAuth" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GrabContacts">
+      <soap12:operation soapAction="http://tempuri.org/GrabContacts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="contactsws">
+    <wsdl:port name="contactswsSoap" binding="tns:contactswsSoap">
+      <soap:address location="https://stescodes.com/contactsws.asmx" />
+    </wsdl:port>
+    <wsdl:port name="contactswsSoap12" binding="tns:contactswsSoap12">
+      <soap12:address location="https://stescodes.com/contactsws.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

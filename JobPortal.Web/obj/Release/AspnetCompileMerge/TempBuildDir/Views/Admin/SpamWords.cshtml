@@ -1,0 +1,115 @@
+﻿@using PagedList.Mvc
+@using JobPortal.Data
+@{
+    ViewBag.Title = "Spam Words";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">Spam Words</h1>
+            Manage spam words here
+        </div>
+    </div>
+</div>
+@Html.Partial("_MessagePartial")
+<div class="clear" style="height:15px;"></div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 ">
+                <div class="list-group-item">
+                    <h4>High Level Words</h4>
+                </div>
+                <div class="list-group-item">
+                    @*<strong>High Level Words: </strong> @ViewBag.High*@
+                    @using (Html.BeginForm())
+                    {
+                        <div class="row">
+                            <div class="col-lg-9 col-md-9 col-sm-9">
+
+                                <input type="text" id="Word" name="Word" class="form-control" placeholder="SPAM WORD OR PHRASE" required pattern="[a-zA-Z0-9\s\$\%\!#'-_\.]*" title="A-Z, a-z and 0-9!" />
+                                <input type="hidden" id="hlevel" name="hlevel" value="1" />
+                            </div>
+                            @*<div class="col-lg-5 col-md-5 col-sm-5">
+                                    <div class="form-group">
+                                        <label>Level</label>
+                                        <select class="form-control" id="Level" name="Level" required>
+                                            <option value="1">High</option>
+                                            <option value="2">Low</option>
+                                        </select>
+                                    </div>
+                                </div>*@
+                            <div class="col-lg-3 col-md-3 col-sm-3 text-right">
+                                <input type="submit" class="btn btn-info" value="Add" style="width:65px;" />
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="list-group-item" style="height:450px;  overflow-x:no-display; overflow-y:scroll">
+                    @if (ViewBag.HighWords != null)
+                    {
+                        <div class="row">
+                            @foreach (Dictionary item in ViewBag.HighWords)
+                            {
+                                <div class="col-lg-10 col-md-10 col-sm-10" style="border-bottom:1px solid #ddd; padding:5px; padding-left:15px;">
+                                    @item.Word
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2" style="border-bottom:1px solid #ddd; padding:5px;">
+                                    @Html.ActionLink("Delete", "DeleteWord", new { Id = item.Id })
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="list-group-item">
+                    <h4>Low Level Words</h4>
+                </div>
+                <div class="list-group-item">
+                    @*<strong>Low Level Words: </strong> @ViewBag.Low*@
+                    @using (Html.BeginForm())
+                    {
+                        <div class="row">
+                            <div class="col-lg-9 col-md-9 col-sm-9">
+
+                                <input type="text" id="Word" name="Word" class="form-control" placeholder="SPAM WORD OR PHRASE" required pattern="[a-zA-Z0-9\s\$\%\!#'-_\.]*" title="A-Z, a-z and 0-9!" />
+                                <input type="hidden" id="llevel" name="llevel" value="2" />
+                            </div>
+                            @*<div class="col-lg-5 col-md-5 col-sm-5">
+                                    <div class="form-group">
+                                        <label>Level</label>
+                                        <select class="form-control" id="Level" name="Level" required>
+                                            <option value="1">High</option>
+                                            <option value="2">Low</option>
+                                        </select>
+                                    </div>
+                                </div>*@
+                            <div class="col-lg-3 col-md-3 col-sm-3 text-right">
+                                <input type="submit" class="btn btn-info" value="Add" style="width:65px;" />
+                            </div>
+                        </div>
+                    }
+                </div>
+                <div class="list-group-item" style="height:450px;  overflow-x:no-display; overflow-y:scroll">
+                    @if (ViewBag.LowWords != null)
+                    {
+                        <div class="row">
+
+                            @foreach (Dictionary item in ViewBag.LowWords)
+                            {
+                                <div class="col-lg-10 col-md-10 col-sm-10" style="border-bottom:1px solid #ddd; padding:5px; padding-left:15px;">
+                                    @item.Word
+                                </div>
+                                <div class="col-lg-2 col-md-2 col-sm-2" style="border-bottom:1px solid #ddd; padding:5px;">
+                                    @Html.ActionLink("Delete", "DeleteWord", new { Id = item.Id })
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

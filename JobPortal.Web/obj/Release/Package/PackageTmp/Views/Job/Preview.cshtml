@@ -1,0 +1,339 @@
+﻿@model JobPortal.Web.Models.PreJobApplyModel
+
+@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Web.Models
+@using JobPortal.Models
+@{
+    ViewBag.Title = "One more step";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+    List country = SharedService.Instance.GetCountry(user.CountryId.Value);
+}
+<script src="~/Scripts/tinymce/tinymce.min.js"></script>
+<div class="section">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="title-login">
+                <h1>One more step!</h1>
+                <h4>Kindly provide following details before applying for the job;</h4>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("_MessagePartial")
+    <div id="divMsgBox" class="message-instruction" style="display:none">
+        <div style="text-align:center; padding:25px;"><i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom" style="font-size: 32px; color: #34ba08;"></i></div>
+    </div>
+    @using (Html.BeginForm("Preview", "Job", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(model => model.ReturnUrl)
+
+        <div class="row">
+            <div class="col-lg-12 col-md-2 col-sm-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Title)
+                    @Html.TextBoxFor(model => model.Title, new { @class = "form-control", placeholder = "TITLE (For example, Software Engineer)" })
+                    @Html.ValidationMessageFor(model => model.Title)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CategoryId)
+                    @Html.DropDownListFor(model => model.CategoryId, new SelectList(SharedService.Instance.GetSpecialisations(), "Id", "Name"), "SELECT CATEGORY", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CategoryId)
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SpecializationId)
+
+                    @Html.DropDownListFor(model => model.SpecializationId, new SelectList(SharedService.Instance.GetSubSpecialisations(null), "Id", "Name"), "SELECT SPECIALIZATION", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.SpecializationId)
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CurrentEmployer)
+                    @Html.TextBoxFor(model => model.CurrentEmployer, new { @class = "form-control", @placeholder = "CURRENT EMPLOYER (For example, Company Inc.)", @maxlength = 100 })
+                    @Html.ValidationMessageFor(model => model.CurrentEmployer)
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="CurrentEmployerFromMonth">From</label>
+                            <div class="input-group" style="width:100%">
+                                <select id="FromMonth" name="FromMonth" class="form-control">
+                                    <option value="">MONTH</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                </select>
+                                <span class="input-group-btn" style="width:0px;"></span>
+                                @Html.DropDownListFor(model => model.FromYear, new SelectList(SharedService.Instance.GetYearList(true, DateTime.Now.Year)), "YEAR", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="CurrentEmployerToYear">To</label>
+                            <div class="input-group" style="width:100%">
+                                <select id="ToYear" name="ToYear" class="form-control">
+                                    <option value="">MONTH</option>
+                                    <option>01</option>
+                                    <option>02</option>
+                                    <option>03</option>
+                                    <option>04</option>
+                                    <option>05</option>
+                                    <option>06</option>
+                                    <option>07</option>
+                                    <option>08</option>
+                                    <option>09</option>
+                                    <option>10</option>
+                                    <option>11</option>
+                                    <option>12</option>
+                                </select>
+                                <span class="input-group-btn" style="width:0px;"></span>
+                                @Html.DropDownListFor(model => model.ToYear, new SelectList(SharedService.Instance.GetYearList(true, DateTime.Now.Year)), "YEAR", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="height:25px;"></div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                    <h4 style="line-height: 0px;">
+                        <b><label for="Summary">Summary of Experience</label></b> <small>(Max. 2000 Characters)</small>
+                    </h4>
+                    @Html.TextAreaFor(model => model.Summary, new { @class = "form-control", @COLS = "100", @ROWS = "5", @WRAP = "HARD", @maxlength = "2000", @style = "resize:vertical", @data_char = "2000", @data_maxchar = "2000" })
+                    @Html.ValidationMessageFor(model => model.Summary)
+                    <div id="chars_left"></div>
+                </div>
+            </div>
+        </div>
+        <div style="height:25px;"></div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                @Html.Label("Mobile Number")
+                <div class="input-group" style="width:100%">
+                    @Html.DropDownListFor(model => model.MobileCountryCode, new SelectList(Model.Countries, "Value", "Value", Model.MobileCountryCode), new { @class = "form-control", @required = "required", @style = "width:30%; height:32px" })
+                    @Html.TextBoxFor(model => model.Telephone, new { @class = "form-control", placeholder = "MOBILE NUMBER", maxlength = "10", @style = "width:70%;; height:32px" })
+                </div>
+                @Html.ValidationMessageFor(model => model.Telephone)
+            </div>
+        </div>
+        <div style="height:25px;"></div>
+        if (string.IsNullOrEmpty(user.Content))
+        {
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        <div style="color:red">
+                            If you have resume ready to upload <a href="#" id="lnkbUploadResume" role="button" data-toggle='modal' data-target='#uploadResumeDialog' class="btn btn-info" style="width: 144px; text-align: center; margin-bottom:5px;">Upload Resume Now</a><br /><br />
+                            If you don't have resume to upload @Html.ActionLink("Build Resume Online", "UpdateProfile1", "Jobseeker", new { type = "build", redirectUrl = Model.ReturnUrl }, new { @class = "btn btn-info", @style = "width:150px;" })<br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div style="height:15px;"></div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group">
+                    <input type="submit" value="Apply" id="SubmitButton" class="btn btn-info" style="width:100px;" />
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="uploadResumeDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            Upload Your Resume
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                @Html.Label("Upload Resume")
+                                (DOC, DOCX or PDF file with maximum size of 550 KB)
+
+                                <input id="Resume" name="Resume" type="file" title="Upload DOC, DOCX  or PDF file with maximum size of 550 KB" />
+                                <div id="divFileError" style="color: red; font-weight: bold;"></div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="modal-footer">
+                        @Html.Hidden("Id", user.Id)
+                        <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px;">Close</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="resumeUpload" style="width:75px;" formnovalidate="formnovalidate">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script>
+    $(document).ready(function () {
+        $("#CountryId").val("@user.CountryId.Value");
+
+        $("#CategoryId").change(function () {
+            $("#SpecializationId").empty();
+            $("#SpecializationId").append("<option value=\"\">SELECT SPECIALIZATION</option>");
+            $.post('@Url.Action("GetSpecializations", "JsonHelper")', { categoryid: $('option:selected', $(this)).val() },
+            function (result) {
+                if (result.length != 0) {
+                    $(result).each(function () {
+                        $("#SpecializationId").append("<option value=" + this.Value + ">" + this.Text + "</option>");
+                    });
+                }
+            });
+        });
+
+        $("#SpecializationId").empty();
+        $("#SpecializationId").append("<option value=\"\">SELECT SPECIALIZATION</option>");
+        $.post('@Url.Action("GetSpecializations", "JsonHelper")', { categoryid: $("#CategoryId").val() },
+        function (result) {
+            if (result.length != 0) {
+                $(result).each(function () {
+                    $("#SpecializationId").append("<option value=" + this.Value + ">" + this.Text + "</option>");
+                });
+            }
+        });
+        $("#Resume").change(function () {
+            var file = document.getElementById('Resume').files[0];
+            var defineSize = 300 * 1024;
+            var fileSize = file.size;
+            var name = file.name;
+            var ext = name.substr(name.lastIndexOf(".") + 1, 4).toLowerCase();
+            var allowed = "doc, docx, pdf, rtf";
+            $("#divFileError").html("");
+            if (name.length > 0) {
+                if (allowed.indexOf(ext) < 0) {
+                    $("#divFileError").html("Only DOC, DOCX, PDF, RTF files are allowed!");
+                    $("#resumeUpload").attr('disabled', true);
+                } else {
+                    if (fileSize > defineSize) {
+                        $("#divFileError").html("File upload failed - Exceeded max file size (300 KB)!");
+                        $("#resumeUpload").attr('disabled', true);
+                    } else {
+                        $("#divFileError").html("");
+                        $("#resumeUpload").attr('disabled', false);
+                    }
+                }
+            } else {
+                $("#divFileError").html("Please select file!");
+                $("#resumeUpload").attr('disabled', true);
+            }
+        });
+
+        $("#resumeUpload").click(function () {
+            var file = document.getElementById('Resume').files[0];
+            if (file != null) {
+                var name = file.name;
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function (e) {
+                    var binaryString = e.target.result.toString();
+                    binaryString = binaryString.replace("data:application/pdf;base64,", "");
+                    binaryString = binaryString.replace("data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,", "");
+                    binaryString = binaryString.replace("data:application/msword;base64,", "");
+
+                    $.post('@Url.Action("ResumeUpload", "JsonHelper")', { Username: "@user.Username", fileName: name, data: binaryString },
+                       function (result) {
+                           toastr.info("Resume uploaded successfully!");
+                       });
+                }
+            } else {
+                $("#divFileError").html("Please select file!");
+                $("#resumeUpload").attr('disabled', true);
+            }
+        });
+
+
+        var max_chars = 2000; //max characters
+        var max_for_html = 2000; //max characters for html tags
+        var allowed_keys = [8, 13, 16, 17, 18, 20, 33, 34, 35, 36, 37, 38, 39, 40, 46];
+        var chars_without_html = 0;
+        $("#divMsgBox").hide();
+        function alarmChars() {
+            if (chars_without_html > (max_chars - 25)) {
+                $('#chars_left').css('color', 'red');
+            } else {
+                $('#chars_left').css('color', 'gray');
+            }
+        }
+
+        tinymce.init({
+            selector: '#Summary', plugins: "link", toolbar: "bullist | numlist | outdent ", menubar: false, statusbar: true, height: "185px",
+            paste_as_text: true,
+            plugins: "paste",
+            cleanup: true,
+            cleanup_on_startup: true,
+            force_p_newlines: false,
+            preformatted: false,
+            convert_fonts_to_spans: false,
+            forced_root_block: ' ',
+            statusbar: false,
+            setup: function (ed) {
+                ed.on('init', function () {
+                    this.execCommand("fontName", false, "Arial");
+                    this.execCommand("fontSize", false, "13.3333px");
+                    $("#Title").focus();
+                });
+                ed.on("KeyDown", function (ed, evt) {
+                    max_chars = $("#" + this.id).data("char");
+                    max_for_html = $("#" + this.id).data("maxchar");
+
+                    chars_without_html = $.trim(tinyMCE.activeEditor.getContent().replace(/(<([^>]+)>)/ig, "")).length;
+                    chars_with_html = tinyMCE.activeEditor.getContent().length;
+                    var key = ed.keyCode;
+
+                    $('#chars_left').html("<b style=\"color:red\">Remaining characters:</b> " + (max_chars - chars_without_html));
+
+                    if (allowed_keys.indexOf(key) != -1) {
+                        alarmChars();
+                        return;
+                    }
+
+                    if (chars_with_html > (max_chars + max_for_html)) {
+                        ed.stopPropagation();
+                        ed.preventDefault();
+                    } else if (chars_without_html > max_chars - 1 && key != 8 && key != 46) {
+                        ed.stopPropagation();
+                        ed.preventDefault();
+                    }
+                    alarmChars();
+                });
+            }
+        });
+        alarmChars();
+    });
+</script>

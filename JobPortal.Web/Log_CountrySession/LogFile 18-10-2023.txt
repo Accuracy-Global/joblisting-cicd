@@ -1,0 +1,25 @@
+18-10-2023 10:56:03 PM 
+GetUserCountryByIp() => {"country_code":"CA","country_name":"Canada","city":"Sherwood Park","postal":"T8H","latitude":53.556,"longitude":-113.2952,"IPv4":"108.181.97.217","state":"Alberta"}
+Session_Start() => Canada
+Controller: Job, Action: Home => Canada
+18-10-2023 11:04:34 PM 
+GetUserCountryByIp() => {"country_code":"CA","country_name":"Canada","city":"Sherwood Park","postal":"T8H","latitude":53.556,"longitude":-113.2952,"IPv4":"108.181.97.217","state":"Alberta"}
+Session_Start() => Canada
+UrlPrivilegeFilter => Contoller: job, Action: home
+Controller: Job, Action: Home => Canada
+Controller: Job, Action: Home => Canada
+18-10-2023 11:09:11 PM 
+GetUserCountryByIp() => {"country_code":"CA","country_name":"Canada","city":"Sherwood Park","postal":"T8H","latitude":53.556,"longitude":-113.2952,"IPv4":"108.181.97.217","state":"Alberta"}
+Session_Start() => Session: Canada
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: Canada
+Controller: Job, Action: Home => Canada
+18-10-2023 11:12:09 PM 
+GetUserCountryByIp() => {"country_code":"MY","country_name":"Malaysia","city":"Kuala Lumpur","postal":"50400","latitude":3.149,"longitude":101.697,"IPv4":"101.78.31.255","state":"Kuala Lumpur"}
+Session_Start() => Session: Malaysia
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: Malaysia
+Controller: Job, Action: Homeml => Session: Malaysia
+18-10-2023 11:32:41 PM 
+GetUserCountryByIp() => {"country_code":"CA","country_name":"Canada","city":"Sherwood Park","postal":"T8H","latitude":53.556,"longitude":-113.2952,"IPv4":"108.181.97.217","state":"Alberta"}
+Session_Start() => Session: Canada
+UrlPrivilegeFilter => Contoller: job, Action: home, Session: Canada
+Controller: Job, Action: Home => Session: Canada

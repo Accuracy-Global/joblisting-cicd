@@ -1,0 +1,107 @@
+﻿@model JobPortal.Web.Models.NewsLetterModel
+
+@{
+    ViewBag.Title = "UpdateNews";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-9 col-md-9 col-sm-9">
+        <div class="title-login">
+            <h1>Update NewsLetters</h1>
+            @Html.Partial("_MessagePartial")
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-3 text-right">
+        @Html.ActionLink("Back", "NewsLetter", "Admin", null, new { @class = "btn btn-info" })
+    </div>
+</div>
+
+
+@using (Html.BeginForm("UpdateNews", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+        @Html.ValidationSummary(false)*@
+
+
+    @Html.HiddenFor(model => model.Id)
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
+                @Html.Label("Sending Frequency")
+                @Html.DropDownList("dropdownlist", new SelectList(Model.Frequencies, "Id", "FrequencyName", Model.Id), new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Frequency)
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Type)
+
+                @using (Html.BeginForm("UpdateNews", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.DropDownList("dropdownlist", new SelectList(Model.Documenttypes, "Id", "DocName", Model.Id), new { @class = "form-control", onclick = "return false;" })
+                }
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
+                @Html.Label("Country")
+                @Html.DropDownListFor(model => Model.CountryId, new SelectList(Model.Countries, "Id", "Text", Model.CountryId), new { @Id = "DrpCountries", @name = "DrpCountries", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CountryId)
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="form-group">
+                @Html.Label("Start Date")
+                @Html.TextBoxFor(model => model.StartDate,"{0:d}", new { value = "", @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.StartDate)
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Content)
+
+        @Html.TextAreaFor(model => model.Content, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Content)
+    </div>
+
+
+    <p>
+        @Html.ActionLink("Back", "NewsLetter", "Admin", null, new { @class = "btn btn-info" })
+        <input type="submit" value="Save" class="btn btn-info" />
+
+    </p>
+
+}
+
+<script>
+    tinymce.init({ selector: 'textarea', toolbar: "bold | italic | underline | strikethrough | alignleft | aligncenter | alignright | alignjustify | styleselect | formatselect | fontselect | fontsizeselect | bullist | numlist | outdent | indent | blockquote | undo | redo | removeformat | subscript | superscript", menubar: false, height:"300px" });
+</script>
+
+<script type="text/javascript">
+    $("#StartDate").datepicker({ dateFormat: 'mm/dd/yy' });
+    $(document).ready(function () {
+
+    });
+
+</script>
+<script type="text/javascript" language="javascript" src="/Scripts/jquery-1.10.2.min.js"></script>
+@section scripts{
+
+    <script type="text/javascript" language="javascript" src="/Scripts/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" language="javascript">
+        $(document).ready(function () {
+            $('.form-control').click(function () {
+                $('#DrpDocType').on('change', function () {
+                    $(this).closest('form').submit();
+                });
+            });
+        });
+        @Scripts.Render("~/bundles/jqueryval")
+    </script>
+}

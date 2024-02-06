@@ -1,0 +1,797 @@
+﻿@using JobPortal.Domain
+@using JobPortal.Data
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using System.Collections
+@using PagedList.Mvc
+@using JobPortal.Web.Models
+@using JobPortal.Models
+
+@{
+    ViewBag.Title = "Manage User Accounts";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<UserByCountryEntity>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+    string username = string.Empty;
+
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        username = User.Username;
+        user = User.Info;
+    }
+}
+<script src="~/Scripts/highcharts.js"></script>
+<script src="~/Scripts/map.js"></script>
+<script src="~/Scripts/world.js"></script>
+<script src="~/Scripts/dataTables.fixedHeader.min.js"></script>
+<style>
+    .cdate {
+        padding-left: 0px;
+        list-style-type: none;
+    }
+
+        .cdate li {
+            display: inline-block;
+            width: auto;
+        }
+
+    .fcountry {
+    }
+
+    .nfield {
+        min-width: 75px;
+        text-align: center;
+    }
+
+    .lbutton {
+        padding: 5px;
+        background-color: white;
+        border: 1px solid green;
+        border-radius: 3px;
+        font-size: 18px;
+        width: 200px;
+        font-family: Calibri;
+    }
+
+    .mainbtn {
+        padding: 5px;
+        font-size: 20px;
+        border: 1px solid black;
+        border-radius: 5px;
+        background-color: #34ba08;
+        color: white;
+        font-weight: bold;
+        width: 200px;
+        font-family: Calibri;
+    }
+</style>
+
+@if (User.Username == "RecruiterCom@joblisting.com" || User.Username == "vani123@accuracy.com.sg" || User.Username == "tasnim@accuracy.com.sg" || User.Username == "ganeshr@joblisting.com" || User.Username == "deepti@accuracy.com.sg" || User.Username == "doli.chauhan123@accuracy.com.sg" || User.Username == "sandhya@accuracy.com.sg" || User.Username == "shreyag1234@accuracy.com.sg" || User.Username == "pallavi123@accuracy.com.sg" || User.Username == "druthi@accuracy.com.sg" || User.Username == "baba@accuracy.com.sg" || User.Username == "anshikagupta@accuracy.com.sg" || User.Username == "dianna@accuracy.com.sg" || User.Username == "haris@joblisting.com" || User.Username == "anilkumar@joblisting.com" || User.Username == "denise@accuracy.com.sg" || User.Username == "lakshmip@accuracy.com.sg" || User.Username == "vanshika@accuracy.com.sg" || User.Username == "sarika123@accuracy.com.sg" || User.Username == "naveena@accuracy.com.sg" || User.Username == "gowthami@accuracy.com.sg"|| user.Username == "chetan@joblisting.com" || User.Username== "recruiter@joblisting.com")
+{
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="card" style="width:100%;  text-align:center">
+                    <div class="card-body" style="padding:20px;">
+                        <button class="card-title text-center mainbtn" style="">MY WORK</button>
+                    </div>
+                    <div id="demo" style="padding-bottom:10px;">
+                        @if (username == "adminCom@joblisting.com" || username == "RecruiterCom@joblisting.com" || username == "recruiter@joblisting.com" || username == "recruiter@joblisting.com" || username == "vani123@accuracy.com.sg" || username == "tasnim@accuracy.com.sg" || User.Username == "ganeshr@joblisting.com" || username == "deepti@accuracy.com.sg" || username == "doli.chauhan123@accuracy.com.sg" || username == "sandhya@accuracy.com.sg" || username == "shreyag1234@accuracy.com.sg" || username == "pallavi123@accuracy.com.sg" || username == "druthi@accuracy.com.sg" || username == "baba@accuracy.com.sg" || username == "anshikagupta@accuracy.com.sg" || username == "dianna@accuracy.com.sg" || username == "haris@joblisting.com" || username == "anilkumar@joblisting.com" || username == "denise@accuracy.com.sg" || username == "lakshmip@accuracy.com.sg" || username == "vanshika@accuracy.com.sg" || username == "sarika123@accuracy.com.sg" || username == "naveena@accuracy.com.sg" || username == "gowthami@accuracy.com.sg")
+                        {
+                        <button class="lbutton">
+                            @Html.ActionLink("List Job", "Addjob", "Admin")
+                        </button><br /><br />
+                        <button class="lbutton">
+                            <a href="/Admin/JobsByCompanyAll?CountryId" target="_blank">Listed Jobs</a>
+                        </button><br /><br />
+                       if(username == "tasnim@accuracy.com.sg" || username == "deepti@accuracy.com.sg" || username == "doli.chauhan123@accuracy.com.sg" || username == "sandhya@accuracy.com.sg")
+                        {
+                            <button class="lbutton">
+                                @Html.ActionLink("Account Manager", "jobs", "Admin")
+                            </button>
+                        }
+
+                        }
+                        else if (username == "chetan@joblisting.com")
+                        {
+                            <button class="lbutton">
+                                @Html.ActionLink("Add Blog", "AddBlog", "Admin")
+                            </button>
+                        }
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card" style="width:100%; text-align:center">
+                    <div class="card-body" style="padding:20px;">
+                        <button class="card-title text-center mainbtn">MY ACCOUNT</button>
+                    </div>
+                    <div style="padding-bottom:10px;">
+
+                        <button class="lbutton">
+                            @Html.ActionLink("My Profile", "MyProfile", "Admin")
+                        </button><br /><br />
+                        <button class="lbutton">
+                            <a role="button" data-toggle="modal" data-target="#ChangePasswordDialog" style="cursor:pointer">Change Password</a>
+                        </button><br /><br />
+                        <button class="lbutton">
+                            @Html.ActionLink("Change Login Email", "ChangeEmailAddress", "Account")
+                        </button><br /><br />
+                        <button class="lbutton">
+                            @Html.ActionLink("Login History", "LoginHistory", "account")
+                        </button><br /><br />
+                        <button class="lbutton">
+                            @Html.ActionLink("Billing and Invoices", "billing", "Payment", new { userId = User.Id }, new { })
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card" style="width:100%; text-align:center">
+                    <div class="card-body" style="padding:20px;">
+                        <button class="card-title text-center mainbtn">CAMPAIGN</button>
+                    </div>
+                    <div style="padding-bottom:10px;">
+
+                        <button class="lbutton">
+                            @Html.ActionLink("Announcements", "Announcements", "Admin")
+                        </button><br /><br />
+                        <button class="lbutton">
+                            @Html.ActionLink("Updates", "Updates", "Admin")
+                        </button><br /><br />
+                        <button class="lbutton">
+                            @Html.ActionLink("Campaign List", "Campaign", "Admin")
+                        </button><br /><br />
+                        <button class="lbutton">
+                            @Html.ActionLink("Alert", "Alerts", "Admin", new { Id = User.Id }, new { target = "_blank" })
+                        </button><br /><br />
+                        <button class="lbutton">
+                            @Html.ActionLink("Tips", "Tips", "Admin")
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+else
+{
+    <div class="section">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="title-login">
+                    <h1 style="margin-top:-15px">User Accounts</h1>
+                    Manage user accounts here
+                </div>
+            </div>
+        </div>
+        <div class="clear" style="height:15px;"></div>
+        @Html.Partial("_MessagePartial")
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <span style="font-size:1em; font-weight:bold">Registrations By Country</span>
+                <div id="container" class="list-group-item">
+
+                </div>
+            </div>
+        </div>
+        <div class="clear" style="height:15px;"></div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <span style="font-size:1em; font-weight:bold">Last 7 days Registrations</span>
+                <div id="container1" class="list-group-item" style="height:240px;">
+
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-6">
+                <span style="font-size:1em; font-weight:bold">Total Registrations</span>
+                <div id="container2" class="list-group-item" style="height:240px;">
+
+                </div>
+            </div>
+        </div>
+        <div class="clear" style="height:15px;"></div>
+        <div class="list-group-item">
+            <label>Search By Name</label>
+            <div class="row">
+                <div class="col-lg-9 col-md-9 col-sm-9">
+                    <input type="text" id="Username" name="Username" placeholder="SEARCH BY NAME" class="form-control" />
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-3">
+                    <label>&nbsp;</label>
+                    <input id="NameSearch" type="button" value="Search" class="btn btn-info pull-right" style="width:105px;" />
+                </div>
+            </div>
+        </div>
+        <div class="clear" style="height:15px;"></div>
+        @using (Html.BeginForm())
+        {
+            <div class="list-group-item">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        @*<div class="form-group">
+                                @Html.Label("Search By Country")
+                                <input type="text" id="Name" name="Name" placeholder="SEARCH BY COUNTRY" class="form-control" />
+                            </div>*@
+                        <div class="form-group">
+                            @Html.Label("Search By Country")
+
+                            @Html.DropDownList("CountryId", new SelectList(SharedService.Instance.GetCountryList(), "Id", "Text"), "SELECT", new { @class = "form-control", @id = "CountryId" })
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    @Html.Label("From Date")
+                                    <ul class="cdate" title="From Date">
+                                        <li>
+                                            @Html.DropDownList("fd", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control", @style = "padding:5px;width:64px;" })
+                                        </li>
+                                        <li>
+                                            @Html.DropDownList("fm", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control", @style = "padding:5px; width:90px;" })
+                                        </li>
+                                        <li>
+                                            @Html.DropDownList("fy", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 1)), "YEAR", new { @class = "form-control", @style = "padding:5px;width:66px;" })
+                                        </li>
+                                    </ul>
+                                    <div id="fromDateError" style="color:red;"></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="form-group">
+                                    @Html.Label("To Date")
+                                    <ul class="cdate" title="To Date">
+                                        <li>
+                                            @Html.DropDownList("td", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control", @style = "padding:5px;width:64px;" })
+                                        </li>
+                                        <li>
+                                            @Html.DropDownList("tm", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control", @style = "padding:5px;width:90px;" })
+                                        </li>
+                                        <li>
+                                            @Html.DropDownList("ty", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 1)), "YEAR", new { @class = "form-control", @style = "padding:5px;width:66px;" })
+                                        </li>
+                                    </ul>
+                                    <div id="toDateError" style="color:red;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="form-group">
+                            <select name="ShowWithValue" id="ShowWithValue" class="form-control">
+                                <option value="">All</option>
+                                <option value="1">With Actions</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8">
+                        <div class="form-group">
+                            <input id="Search" type="submit" value="Search" class="btn btn-info pull-right" style="width:105px;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="clear" style="height:15px;"></div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" style="width:100%">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th colspan="3" style="text-align:center">Individual Accounts</th>
+                        <th colspan="3" style="text-align:center">Jobseeker</th>
+                        <th colspan="3" style="text-align:center">Company Accounts</th>
+                    </tr>
+                    <tr>
+                        <td>Country</td>
+                        <td class="nfield">Registered</td>
+                        <td class="nfield">Verified</td>
+                        <td class="nfield">Action</td>
+                        <td class="nfield">Accounts</td>
+                        <td class="nfield">Resumes</td>
+                        <td class="nfield">Action</td>
+                        <td class="nfield">Registered</td>
+                        <td class="nfield">Verified</td>
+                        <td class="nfield">Action</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.Model)
+                    {
+                        <tr>
+                            <td><a href="/Admin/Users?CountryId=@item.CountryId&fd=@Request["fd"]&fm=@Request["fm"]&fy=@Request["fy"]&td=@Request["td"]&tm=@Request["tm"]&ty=@Request["ty"]" target="_blank">@item.Country</a></td>
+                            <td>
+                                @if (item.Individuals > 0)
+                                {
+                                    <a href="/Admin/Users?CountryId=@item.CountryId&typeid=4&fd=@Request["fd"]&fm=@Request["fm"]&fy=@Request["fy"]&td=@Request["td"]&tm=@Request["tm"]&ty=@Request["ty"]" target="_blank">@item.Individuals</a>
+                                }
+                                else
+                                {
+                                    @item.Individuals
+                                }
+                            </td>
+                            <td>
+                                @if (item.VerifiedIndividuals > 0)
+                                {
+                                    <a href="/Admin/Users?CountryId=@item.CountryId&typeid=4&fd=@Request["fd"]&fm=@Request["fm"]&fy=@Request["fy"]&td=@Request["td"]&tm=@Request["tm"]&ty=@Request["ty"]&confirmed=true" target="_blank">@item.VerifiedIndividuals</a>
+                                }
+                                else
+                                {
+                                    @item.VerifiedIndividuals
+                                }
+                            </td>
+                            <td>
+                                @if (item.PhotoApprovals > 0)
+                                {
+                                    <a href="/Admin/PhotoList?type=4&CountryId=@item.CountryId&fd=@Request["fd"]&fm=@Request["fm"]&fy=@Request["fy"]&td=@Request["td"]&tm=@Request["tm"]&ty=@Request["ty"]" target="_blank">View (<span style="color:red; font-weight:bolder;">@item.PhotoApprovals</span>)</a>
+
+                                }
+                                else
+                                {
+                                    <a href="/Admin/PhotoList?type=4&CountryId=@item.CountryId&fd=@Request["fd"]&fm=@Request["fm"]&fy=@Request["fy"]&td=@Request["td"]&tm=@Request["tm"]&ty=@Request["ty"]" target="_blank">View</a>
+                                }
+                            </td>
+                            <td>
+                                @if (item.Jobseekers > 0)
+                                {
+                                    <a href="/Admin/Jobseekers?CountryId=@item.CountryId&type=J&fd=@Request["fd"]&fm=@Request["fm"]&fy=@Request["fy"]&td=@Request["td"]&tm=@Request["tm"]&ty=@Request["ty"]" target="_blank">@item.Jobseekers</a>
+                                }
+                                else
+                                {
+                                    @item.Jobseekers
+                                }
+                            </td>
+                            <td>
+                                @if (item.Resumes > 0)
+                                {
+                                    <a href="/Admin/Jobseekers?CountryId=@item.CountryId&type=R&fd=@Request["fd"]&fm=@Request["fm"]&fy=@Request["fy"]&td=@Request["td"]&tm=@Request["tm"]&ty=@Request["ty"]" target="_blank">@item.Resumes</a>
+                                }
+                                else
+                                {
+                                    @item.Resumes
+                                }
+                            </td>
+                            @if (item.JPhotoApprovals > 0)
+                            {
+                                <td><a href="/Admin/PhotoList?type=4&CountryId=@item.CountryId&fd=@Request["fd"]&fm=@Request["fm"]&fy=@Request["fy"]&td=@Request["td"]&tm=@Request["tm"]&ty=@Request["ty"]&ut=j" target="_blank">View (<span style="color:red; font-weight:bolder;">@item.JPhotoApprovals</span>)</a></td>
+                            }
+                            else
+                            {
+                                <td><a href="/Admin/PhotoList?type=4&CountryId=@item.CountryId&fd=@Request["fd"]&fm=@Request["fm"]&fy=@Request["fy"]&td=@Request["td"]&tm=@Request["tm"]&ty=@Request["ty"]&ut=j" target="_blank">View</a></td>
+                            }
+                            <td>
+                                @if (item.Companies > 0)
+                                {
+                                    <a href="/Admin/Users?CountryId=@item.CountryId&typeid=5&fd=@Request["fd"]&fm=@Request["fm"]&fy=@Request["fy"]&td=@Request["td"]&tm=@Request["tm"]&ty=@Request["ty"]" target="_blank">@item.Companies</a>
+                                }
+                                else
+                                {
+                                    @item.Companies
+                                }
+                            </td>
+                            <td>
+                                @if (item.VerifiedCompanies > 0)
+                                {
+                                    <a href="/Admin/Users?CountryId=@item.CountryId&typeid=5&fd=@Request["fd"]&fm=@Request["fm"]&fy=@Request["fy"]&td=@Request["td"]&tm=@Request["tm"]&ty=@Request["ty"]&confirmed=true" target="_blank">@item.VerifiedCompanies</a>
+                                }
+                                else
+                                {
+                                    @item.VerifiedCompanies
+                                }
+                            </td>
+
+                            @if (item.LogoApprovals > 0)
+                            {
+                                <td><a href="/Admin/PhotoList?type=5&CountryId=@item.CountryId&fd=@Request["fd"]&fm=@Request["fm"]&fy=@Request["fy"]&td=@Request["td"]&tm=@Request["tm"]&ty=@Request["ty"]" target="_blank">View (<span style="color:red; font-weight:bolder;">@item.LogoApprovals</span>)</a></td>
+                            }
+                            else
+                            {
+                                <td><a href="/Admin/PhotoList?type=5&CountryId=@item.CountryId&fd=@Request["fd"]&fm=@Request["fm"]&fy=@Request["fy"]&td=@Request["td"]&tm=@Request["tm"]&ty=@Request["ty"]" target="_blank">View</a></td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Total</th>
+                        <th>@ViewBag.Individuals</th>
+                        <th>@ViewBag.VerifiedIndividuals</th>
+                        <th></th>
+                        <th>@ViewBag.Jobseekers</th>
+                        <th>@ViewBag.Resumes</th>
+                        <th></th>
+                        <th>@ViewBag.Companies</th>
+                        <th>@ViewBag.VerifiedCompanies</th>
+                        <th>@ViewBag.LogoApprovals</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div style="text-align:center;">
+            @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Index",
+                new RouteValueDictionary()
+                {
+                    { "PageNumber" , PageNumber},
+                    { "CountryId", Request["CountryId"] },
+                    { "type", Request["type"] },
+                    { "confirmed", Request["confirmed"] },
+                    { "fd" , Request["fd"]},
+                    { "fm" , Request["fm"]},
+                    { "fy" , Request["fy"]},
+                    { "td" , Request["td"]},
+                    { "tm" , Request["tm"]},
+                    { "ty" , Request["ty"]},
+                    {"ShowWithValue",Request["ShowWithValue"]}
+                }),
+                PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    </div>
+}
+<script>
+    $(document).ready(function () {
+        var companies = 0;
+        var individuals = 0;
+        var papprovals = 0;
+        var lapprovals = 0;
+        var dataPoints = [];
+
+        $.getJSON("/JsonHelper/GetUserCounts", function (data) {
+
+            dataPoints = [];
+            var total = 0;
+            $.each(data, function (key, value) {
+                dataPoints.push({ name: key, y: value });
+                total += value;
+            });
+
+            $('#container1').highcharts({
+
+                colors: ['#FFB61C', '#87D42E', '#475d8f'],
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                events: {
+                    click: function () {
+                        alert('chart clicked');
+                    }
+                },
+                title: {
+                    text: ''
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.y}</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        depth: 10,
+                        dataLabels: {
+                            enabled: true,
+                            distance: -30,
+                            format: '{point.y}',
+                            shadow: false,
+                            style: {
+                                textShadow: "0 0 0px contrast, 0 0 0px contrast",
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Registrations',
+                    data: dataPoints,
+                    showInLegend: true,
+                    dataLabels: {
+                        enabled: true,
+                        distance: -30,
+                        format: '{point.y}',
+                        shadow: false
+                    }
+                }]
+            });
+            if (total == 0) {
+                $('#container1').html("<div style=\"padding-top:100px; color:red\"><b>No Registrations</b></div>");
+                $('#container1').addClass("text-center");
+            }
+        });
+
+        var url = "/JsonHelper/GetRegisteredUsersByCountry?countryId=" + $("#CountryId").val() + "&type=@(Request["type"]!=null? Request["type"] : "")&confirmed=@(Request["confirmed"] != null ? Request["confirmed"] : "")&active=@(Request["active"] != null ? Request["active"] : "")&fd=@Request["fd"]&fm=@Request["fm"]&fy=@Request["fy"]&td=@Request["td"]&tm=@Request["tm"]&ty=@Request["ty"]";
+        $.getJSON(url, function (data) {
+
+            companies = 0;
+            individuals = 0;
+            vindividuals = 0;
+            jobseekers = 0;
+            papprovals = 0;
+            lapprovals = 0;
+            dataPoints = []
+
+            $.each(data, function (i, item) {
+                individuals += item.Individuals;
+                papprovals += item.PhotoApprovals;
+                lapprovals += item.LogoApprovals;
+                companies += item.Companies;
+                if (item.Code != null || item.Code != "") {
+                    if ((item.Individuals + item.Companies) > 0) {
+                        dataPoints.push({ code: "" + item.Code, value: (item.Individuals + item.Companies), name: item.Country, countryId: item.CountryId });
+                    }
+                }
+            });
+
+            var mapChart = $('#container').highcharts('Map', {
+                title: {
+                    text: ''
+                },
+
+                mapNavigation: {
+                    enabled: true,
+                    buttonOptions: {
+                        verticalAlign: 'bottom'
+                    }
+                },
+
+                colorAxis: {
+                    min: 1,
+                    max: 1000,
+                    type: 'logarithmic'
+                },
+                plotOptions: {
+                    series: {
+                        cursor: 'pointer',
+                        point: {
+                            events: {
+                                click: function () {
+                                    window.open("/Admin/CountryUserList?CountryId=" + this.countryId, "_blank");
+                                }
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    data: dataPoints,
+                    mapData: Highcharts.maps['custom/world'],
+                    joinBy: ['iso-a2', 'code'],
+                    name: 'Registrations',
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    states: {
+                        hover: {
+                            color: '#8CEBF7'
+                        }
+                    },
+                    tooltip: {
+                        valueSuffix: ''
+                    }
+                }]
+            });
+            //colors: ['#FFB61C', '#03bbdc', '#87D42E', '#475d8f'],
+            dataPoints = [];
+            dataPoints.push({ name: "Individuals", y: individuals });
+            //dataPoints.push({ name: "Jobseekers", y: jobseekers });
+            dataPoints.push({ name: "Companies", y: companies });
+            dataPoints.push({ name: "Total", y: (individuals + companies) });
+            $('#container2').highcharts({
+                colors: ['#FFB61C', '#87D42E', '#475d8f'],
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                events: {
+                    click: function () {
+                        alert('chart clicked');
+                    }
+                },
+                title: {
+                    text: ''
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.y}</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        //depth: 10,
+                        dataLabels: {
+                            enabled: true,
+                            distance: -30,
+                            format: '{point.y}',
+                            shadow: false,
+                            style: {
+                                textShadow: "0 0 0px contrast, 0 0 0px contrast",
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Registrations',
+                    data: dataPoints,
+                    showInLegend: true,
+                    dataLabels: {
+                        enabled: true,
+                        distance: -30,
+                        format: '{point.y}',
+                        shadow: false
+                    }
+                }]
+            });
+        });
+
+
+        $("#Search").click(function () {
+            var isValidStartDate = isValidDate($("#fd").val(), $("#fm").val(), $("#fy").val());
+            var isValidEndDate = isValidDate($("#td").val(), $("#tm").val(), $("#ty").val());
+
+            if (isValidStartDate) {
+                $("#fromDateError").html("");
+                $("#fromDateError").show();
+                $("#Search").enabled = true;
+            } else {
+                $("#fromDateError").html("Provide correct from date!");
+                $("#fromDateError").show();
+                $("#Search").enabled = false;
+            }
+
+            if (isValidEndDate) {
+                $("#toDateError").html("");
+                $("#toDateError").show();
+                $("#Search").enabled = true;
+            } else {
+                $("#toDateError").html("Provide correct to date!");
+                $("#toDateError").show();
+                $("#Search").enabled = false;
+            }
+            return (isValidStartDate == true && isValidEndDate == true);
+        })
+
+        $("#NameSearch").click(function () {
+            var name = $("#Username").val();
+            window.open("/Admin/SearchedUserList?name=" + name);
+        });
+
+        $("#Username").keypress(function (event) {
+            var keycode = (event.keyCode ? event.keyCode : event.which);
+            if (keycode == '13') {
+                var name = $(this).val();
+                window.open("/Admin/SearchedUserList?name=" + name);
+            }
+        });
+    });
+</script>
+<div class="modal fade chp" id="ChangePasswordDialog" role="dialog">
+
+    <div class="modal-dialog">
+
+        < !--Modal content-- >
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <button type="button" class="close" data - dismiss="modal"> &times;</button>
+                <h4 class="modal-title" id="title">Change Password</h4>
+            </div>
+            <div class="modal-body">
+                <form id="ChangePasswordForm">
+                    <div id="ErrorBox" class="alert alert-danger hide"></div>
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label for="OldPassword">Old Password</label>
+                                <input type="password" id="OldPassword" name="OldPassword" class="form-control input-sm" placeholder="Old Password" title="Old Password" required oninvalid="this.setCustomValidity('You can\t leave Old Password empty!');" oninput="this.setCustomValidity('');" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label for="NewPassword">New Password</label>
+                                <input type="password" id="NewPassword" name="NewPassword" class="form-control input-sm" placeholder="New Password" title="New Password" pattern="(?=.*\d)(?=.*[a-zA-Z]).{9,}" required oninvalid="this.setCustomValidity('You can\t leave New Password empty!');" oninput="this.setCustomValidity('');" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="form-group">
+                                <label for="ConfirmPassword">Confirm Password</label>
+                                <input type="password" id="ConfirmPassword" name="ConfirmPassword" class="form-control input-sm" placeholder="Confirm Password" title="Confirm Password" pattern="(?=.*\d)(?=.*[a-zA-Z]).{9,}" required oninvalid="this.setCustomValidity('You can\t leave Confirm Password empty!');" oninput="this.setCustomValidity('');" />
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" id="ChangePassword" class="btn btn-primary" value="Change Password" />
+                <a id="btnCancel" class="btn btn-default btn-ok" data-dismiss="modal" style="width:57px">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        $('.nav-pills a').filter(function () { return this.href == location.href }).parent().addClass('highlight').siblings().removeClass('highlight');
+        $('.nav-pills a').click(function () {
+            $(this).parent().addClass('highlight').siblings().removeClass('highlight');
+        });
+
+        $("#btnCancel").click(function () {
+            $("#ErrorBox").removeClass("show");
+            $("#ErrorBox").addClass("hide");
+            $("#OldPassword").val("");
+            $("#NewPassword").val("");
+            $("#ConfirmPassword").val("");
+        });
+
+        $("#ChangePassword").click(function () {
+            $("#ErrorBox").removeClass("show");
+            $("#ErrorBox").addClass("hide");
+            var input = $("#ChangePasswordForm").serializeObject();
+            if ($("#ChangePasswordForm")[0].checkValidity()) {
+                $.post("/account/changepass", input, function (result) {
+                    if (result.Id == 1) {
+                        toastr.info(result.Message);
+                        $("#ChangePasswordDialog").modal("hide");
+                    } else {
+                        $("#ErrorBox").html(result.Message);
+                        $("#ErrorBox").removeClass("hide");
+                        $("#ErrorBox").addClass("show");
+                    }
+                });
+                return false;
+            } else {
+                var err = "";
+                if (input.OldPassword == "") {
+                    err += "You can't leave Old Password empty!" + "<br/>"
+                }
+                if (input.NewPassword == "") {
+                    err += "You can't leave New Password empty!" + " Password Min. 9 numbers & letters mixed.<br/>";
+                }
+
+                if (input.ConfirmPassword == "") {
+                    err += "You can't leave Confirm Password empty!" + " Password Min. 9 numbers & letters mixed.<br/>";
+                }
+
+                if (input.NewPassword != input.ConfirmPassword) {
+                    err += "New Password and Confirm Password does not match!" + "<br/>";
+                }
+
+                if (input.NewPassword.length < 9) {
+                    err += "New Password Min. 9 numbers & letters mixed.<br/>";
+                }
+
+                if (input.ConfirmPassword.length < 9) {
+                    err += "Confirm Password Min. 9 numbers & letters mixed.<br/>";
+                }
+
+                err = err.substr(0, err.length - 5);
+                $("#ErrorBox").removeClass("hide");
+                $("#ErrorBox").addClass("show");
+                $("#ErrorBox").html(err);
+                return true;
+            }
+        });
+    })
+</script>

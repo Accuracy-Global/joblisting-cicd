@@ -1,0 +1,236 @@
+﻿.usr-avtar {
+    border-radius: 50%;
+    border: 4px solid #ede9e9;
+    width: 75px;
+    height: 75px;
+}
+
+.autocomplete {
+    /*the container must be positioned relative:*/
+    position: relative;
+    display: inline-block;
+}
+
+.autocomplete-items {
+    position: absolute;
+    border: 1px solid #d4d4d4;
+    border-bottom: none;
+    border-top: none;
+    z-index: 99;
+    /*position the autocomplete items to be the same width as the container:*/
+    top: 100%;
+    left: 0;
+    right: 0;
+}
+
+    .autocomplete-items div {
+        padding: 10px;
+        cursor: pointer;
+        background-color: #fff;
+        border-bottom: 1px solid #d4d4d4;
+    }
+
+        .autocomplete-items div:hover {
+            /*when hovering an item:*/
+            background-color: #e9e9e9;
+        }
+
+.autocomplete-active {
+    /*when navigating through the items using the arrow keys:*/
+    background-color: DodgerBlue !important;
+    color: #ffffff;
+}
+
+.square110::after {
+    background: url("@Url.Action("Avtar", "Image", new { Id = user.Id })") no-repeat 0 0 / contain;
+    background-position: center center;
+}
+
+.square110 {
+    cursor: pointer;
+    font-size: 75px;
+    font-weight: 700;
+    height: 95px;
+    width: 95px;
+    background-color: #fff;
+}
+
+    .square110::after {
+        content: "";
+        display: block;
+        height: 0;
+        padding-bottom: 100%;
+        width: 100%;
+    }
+
+.star-cb-group {
+    /* remove inline-block whitespace */
+    font-size: 0;
+    /* flip the order so we can use the + and ~ combinators */
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    /* the hidden clearer */
+}
+
+    .star-cb-group * {
+        font-size: 1.5rem;
+    }
+
+    .star-cb-group > input {
+        display: none;
+    }
+
+        .star-cb-group > input + label {
+            /* only enough room for the star */
+            display: inline-block;
+            overflow: hidden;
+            text-indent: 9999px;
+            width: 2em;
+            white-space: nowrap;
+            cursor: pointer;
+        }
+
+            .star-cb-group > input + label:before {
+                display: inline-block;
+                text-indent: -9999px;
+                content: "☆";
+                color: #888;
+            }
+
+            .star-cb-group > input:checked ~ label:before, .star-cb-group > input + label:hover ~ label:before, .star-cb-group > input + label:hover:before {
+                content: "★";
+                color: #e52;
+                text-shadow: 0 0 1px #333;
+            }
+
+    .star-cb-group > .star-cb-clear + label {
+        text-indent: -9999px;
+        width: 1em;
+        margin-left: -.5em;
+    }
+
+        .star-cb-group > .star-cb-clear + label:before {
+            width: 1em;
+        }
+
+    .star-cb-group:hover > input + label:before {
+        content: "☆";
+        color: #888;
+        text-shadow: none;
+    }
+
+    .star-cb-group:hover > input + label:hover ~ label:before, .star-cb-group:hover > input + label:hover:before {
+        content: "★";
+        color: #e52;
+        text-shadow: 0 0 1px #333;
+    }
+
+
+
+.editor {
+    box-shadow: 0 0 2px #CCC;
+    min-height: 150px;
+    overflow: auto;
+    padding: 1em;
+    resize: vertical;
+    outline: none;
+    border: 1px solid #CCC;
+}
+
+.toolbar {
+    border: 1px solid #CCC;
+    text-align: left;
+    background-color: #f2f2f2;
+    padding: 2px;
+}
+
+    .toolbar a,
+    .fore-wrapper,
+    .back-wrapper {
+        font-family: 'Candal';
+        border-radius: 1px;
+        color: black;
+        width: 1.5em;
+        display: inline-block;
+        text-decoration: none;
+    }
+
+        .toolbar a:hover,
+        .fore-wrapper:hover,
+        .back-wrapper:hover {
+            background: #f2f2f2;
+            border-color: #8c8c8c;
+        }
+
+a[data-command='redo'],
+a[data-command='strikeThrough'],
+a[data-command='justifyFull'],
+a[data-command='insertOrderedList'],
+a[data-command='outdent'],
+a[data-command='p'],
+a[data-command='superscript'] {
+    margin-right: 5px;
+    border-radius: 0 3px 3px 0;
+}
+
+a[data-command='undo'],
+.fore-wrapper,
+a[data-command='justifyLeft'],
+a[data-command='insertUnorderedList'],
+a[data-command='indent'],
+a[data-command='h1'],
+a[data-command='subscript'] {
+    border-radius: 3px 0 0 3px;
+}
+
+a.palette-item {
+    height: 1em;
+    border-radius: 3px;
+    margin: 2px;
+    width: 1em;
+    border: 1px solid #CCC;
+}
+
+    a.palette-item:hover {
+        border: 1px solid #CCC;
+        box-shadow: 0 0 3px #333;
+    }
+
+.fore-palette,
+.back-palette {
+    display: none;
+}
+
+.fore-wrapper,
+.back-wrapper {
+    display: inline-block;
+    cursor: pointer;
+}
+
+    .fore-wrapper:hover .fore-palette,
+    .back-wrapper:hover .back-palette {
+        display: block;
+        float: left;
+        position: absolute;
+        padding: 3px;
+        width: 160px;
+        background: #FFF;
+        border: 1px solid #DDD;
+        box-shadow: 0 0 5px #CCC;
+        height: 70px;
+    }
+
+.fore-palette a,
+.back-palette a {
+    background: #FFF;
+    margin-bottom: 2px;
+}
+
+.bday {
+    padding-left: 0px;
+    list-style-type: none;
+}
+
+    .bday li {
+        display: inline-block;
+    }

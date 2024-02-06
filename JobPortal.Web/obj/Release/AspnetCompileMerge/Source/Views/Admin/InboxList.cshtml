@@ -1,0 +1,279 @@
+﻿@using JobPortal.Domain
+
+@{
+    ViewBag.Title = "InboxList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .cdate {
+        padding-left: 0px;
+        list-style-type: none;
+    }
+
+        .cdate li {
+            display: inline-block;
+            width: auto;
+        }
+
+    .fcountry {
+    }
+
+    .nfield {
+        width: 85px;
+        text-align: center;
+    }
+</style>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">Inbox</h1>
+            Manage inbox here
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:15px;"></div>
+@using (Html.BeginForm())
+{
+    <div class="list-group-item">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.Label("Search By Country")
+
+                    @Html.DropDownList("CountryId", new SelectList(SharedService.Instance.GetCountryList(), "Id", "Text"), "SELECT", new { @class = "form-control", @id = "CountryId" })
+                    <div id="countryError" style="color:red;"></div>
+                </div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.Label("From Date")
+                            <ul class="cdate" title="From Date">
+                                <li>
+                                    @Html.DropDownList("fd", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control", @style = "padding:5px;width:64px;" })
+                                </li>
+                                <li>
+                                    @Html.DropDownList("fm", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control", @style = "padding:5px; width:90px;" })
+                                </li>
+                                <li>
+                                    @Html.DropDownList("fy", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 1)), "YEAR", new { @class = "form-control", @style = "padding:5px;width:66px;" })
+                                </li>
+                            </ul>
+                            <div id="fromDateError" style="color:red;"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group">
+                            @Html.Label("To Date")
+                            <ul class="cdate" title="To Date">
+                                <li>
+                                    @Html.DropDownList("td", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control", @style = "padding:5px;width:64px;" })
+                                </li>
+                                <li>
+                                    @Html.DropDownList("tm", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control", @style = "padding:5px;width:90px;" })
+                                </li>
+                                <li>
+                                    @Html.DropDownList("ty", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 1)), "YEAR", new { @class = "form-control", @style = "padding:5px;width:66px;" })
+                                </li>
+                            </ul>
+                            <div id="toDateError" style="color:red;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-8">
+                <div class="form-group">
+                    <input type="text" id="Name" name="Name" class="form-control" placeholder="Search By Name" />
+                </div>
+            </div>
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="form-group">
+                        <input id="Search" type="submit" value="Search" class="btn btn-info pull-right" style="width:105px;" />
+                    </div>
+                </div>
+            </div>
+    </div>
+}
+<div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">&nbsp;</div>
+    </div>
+    <table class="table-bordered table-condensed table-responsive" style="width:100%">
+        <caption id="tableTitle" style="font-size:1.2em; background-color:#ede9e9; padding:4px; text-align:left"></caption>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th id="TypeField" style="display:none">Type</th>
+                <th>Country</th>
+                <th>Register On</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="result"></tbody>
+    </table>
+</div>
+<script>
+    $(function () {
+        var rows = 0;
+        var pages = 0;
+        var pagesize = 20;
+        var pageNumber = 1;
+        //$("#TypeField").hide();
+        $.get("/JsonHelper/InboxList", {CountryId:@Request["CountryId"], type:@Request["type"]}, function (result) {
+            if (result.length > 0) {
+                rows = result[0].MaxRows;
+                pages = Math.ceil(rows / pagesize);
+                $("#result").empty();
+
+                $("#tableTitle").html(result[0].CountryName);
+                $(result).each(function () {
+                    var ghtml = "<tr>";
+                    ghtml += "<td><a href=\"/" + this.PermaLink + "\">" + this.FullName + "</a></td>"
+                    if(this.TypeName != null){
+                        $("#TypeField").show();
+                        ghtml += "<td>" + this.TypeName + "</td>";
+                    }else{
+                        $("#TypeField").hide();
+                    }
+                    ghtml += "<td>" + this.CountryName + "</td>";
+                    ghtml += "<td>" + this.RegisteredOn + "</td>";
+                    if(this.Type= 4){
+                        ghtml += "<td>" + "<a href=\"/admin/ManageCompany?Id=" + this.UserId +"\">Manage</a> | <a href=\"/admin/AdminInbox?Id=" + this.UserId +"&unread=true\">View (<span style=\"color:red\">" + this.Messages +"</span>)</a>" + "</td>";
+                    }else if(this.Type == 5){
+                        ghtml += "<td>" + "<a href=\"/admin/ManageIndividual?Id=" + this.UserId +"\">Manage</a> | <a href=\"/admin/AdminInbox?Id=" + this.UserId +"&unread=true\">View (<span style=\"color:red\">" + this.Messages +"</span>)</a>" + "</td>";
+                    }
+                    ghtml += "</tr>";
+                    $("#result").append(ghtml);
+                });
+            }
+        });
+        $("#Search").click(function () {
+
+            var isValidStartDate = isValidDate($("#fd").val(), $("#fm").val(), $("#fy").val());
+            var isValidEndDate = isValidDate($("#td").val(), $("#tm").val(), $("#ty").val());
+
+            if (isValidStartDate) {
+                $("#fromDateError").html("");
+                $("#fromDateError").hide();
+                $("#Search").enabled = true;
+            } else {
+                $("#fromDateError").html("Provide correct from date!");
+                $("#fromDateError").show();
+                $("#Search").enabled = false;
+            }
+
+            if (isValidEndDate) {
+                $("#toDateError").html("");
+                $("#toDateError").hide();
+                $("#Search").enabled = true;
+            } else {
+                $("#toDateError").html("Provide correct to date!");
+                $("#toDateError").show();
+                $("#Search").enabled = false;
+            }
+            if ((isValidStartDate == true && isValidEndDate == true)) {
+
+                $.get("/JsonHelper/InboxList", {CountryId:@Request["CountryId"], type:@Request["type"], fd: $("#fd").val(), fm: $("#fm").val(), fy: $("#fy").val(), td: $("#td").val(), tm: $("#tm").val(), ty: $("#ty").val(), name: $("#Name").val(), pageNumber: pgn}, function (result) {
+                    if (result.length > 0) {
+                        $("#result").empty();
+                        rows = result[0].MaxRows;
+                        pages = Math.ceil(rows / pagesize);
+                        $(result).each(function () {
+                            var ghtml = "<tr>";
+                            ghtml += "<td><a href=\"/" + this.PermaLink + "\">" + this.FullName + "</a></td>"
+                            if(this.TypeName != null){
+                                $("#TypeField").show();
+                                ghtml += "<td>" + this.TypeName + "</td>";
+                            }else{
+                                $("#TypeField").hide();
+                            }
+                            ghtml += "<td>" + this.CountryName + "</td>";
+                            ghtml += "<td>" + this.RegisteredOn + "</td>";
+                            if(this.Type= 4){
+                                ghtml += "<td>" + "<a href=\"/admin/ManageCompany?Id=" + this.UserId +"\">Manage</a> | <a href=\"/admin/Inbox?Id=" + this.UserId +"&unread=true\">View (<span style=\"color:red\">" + this.Messages +"</span>)</a>" + "</td>";
+                            }else if(this.Type == 5){
+                                ghtml += "<td>" + "<a href=\"/admin/ManageIndividual?Id=" + this.UserId +"\">Manage</a> | <a href=\"/admin/Inbox?Id=" + this.UserId +"&unread=true\">View (<span style=\"color:red\">(" + this.Messages +")</span>)</a>" + "</td>";
+                            }
+                            ghtml += "</tr>";
+                            $("#result").append(ghtml);
+                        });
+                    }
+                });
+
+                var pgn = pageNumber;
+                $(window).scroll(function () {
+                    if (pages >= pgn) {
+                        pgn++;
+                    }
+
+                    if (pages > 0 && pages >= pgn) {
+                        $.get("/JsonHelper/InboxList", {CountryId:@Request["CountryId"], type:@Request["type"], fd: $("#fd").val(), fm: $("#fm").val(), fy: $("#fy").val(), td: $("#td").val(), tm: $("#tm").val(), ty: $("#ty").val(), name: $("#Name").val(), pageNumber: pgn}, function (result) {
+                            if (result.length > 0) {
+                                $(result).each(function () {
+                                    var ghtml = "<tr>";
+                                    ghtml += "<td><a href=\"/" + this.PermaLink + "\">" + this.FullName + "</a></td>"
+                                    if(this.TypeName != null){
+                                        $("#TypeField").show();
+                                        ghtml += "<td>" + this.TypeName + "</td>";
+                                    }else{
+                                        $("#TypeField").hide();
+                                    }
+                                    ghtml += "<td>" + this.CountryName + "</td>";
+                                    ghtml += "<td>" + this.RegisteredOn + "</td>";
+                                    if(this.Type= 4){
+                                        ghtml += "<td>" + "<a href=\"/admin/ManageCompany?Id=" + this.UserId +"\">Manage</a> | <a href=\"/admin/Inbox?Id=" + this.UserId +"&unread=true\">View (<span style=\"color:red\">" + this.Messages +"</span>)</a>" + "</td>";
+                                    }else if(this.Type == 5){
+                                        ghtml += "<td>" + "<a href=\"/admin/ManageIndividual?Id=" + this.UserId +"\">Manage</a> | <a href=\"/admin/Inbox?Id=" + this.UserId +"&unread=true\">View (<span style=\"color:red\">(" + this.Messages +")</span>)</a>" + "</td>";
+                                    }
+                                    ghtml += "</tr>";
+                                    $("#result").append(ghtml);
+                                });
+                            }
+                        });
+                    }
+                });
+
+                return false;
+            } else {
+                return false;
+            }
+        });
+
+        var pgn = pageNumber;
+        $(window).scroll(function () {
+            if (pages >= pgn) {
+                pgn++;
+            }
+
+            if (pages > 0 && pages >= pgn) {
+                $.get("/JsonHelper/InboxList", {CountryId:@Request["CountryId"], type:@Request["type"], fd: $("#fd").val(), fm: $("#fm").val(), fy: $("#fy").val(), td: $("#td").val(), tm: $("#tm").val(), ty: $("#ty").val(), name: $("#Name").val(), pageNumber: pgn}, function (result) {
+                    if (result.length > 0) {
+                        $(result).each(function () {
+                            var ghtml = "<tr>";
+                            ghtml += "<td><a href=\"/" + this.PermaLink + "\">" + this.FullName + "</a></td>"
+                            if(this.TypeName != null){
+                                $("#TypeField").show();
+                                ghtml += "<td>" + this.TypeName + "</td>";
+                            }else{
+                                $("#TypeField").hide();
+                            }
+                            ghtml += "<td>" + this.CountryName + "</td>";
+                            ghtml += "<td>" + this.RegisteredOn + "</td>";
+                            if(this.Type= 4){
+                                ghtml += "<td>" + "<a href=\"/admin/ManageCompany?Id=" + this.UserId +"\">Manage</a> | <a href=\"/admin/Inbox?Id=" + this.UserId +"\">View (<span style=\"color:red\">" + this.Messages +"</span>)</a>" + "</td>";
+                            }else if(this.Type == 5){
+                                ghtml += "<td>" + "<a href=\"/admin/ManageIndividual?Id=" + this.UserId +"\">Manage</a> | <a href=\"/admin/Inbox?Id=" + this.UserId +"\">View (<span style=\"color:red\">(" + this.Messages +")</span>)</a>" + "</td>";
+                            }
+                            ghtml += "</tr>";
+                            $("#result").append(ghtml);
+                        });
+                    }
+                });
+            }
+        });
+    })
+</script>

@@ -1,0 +1,80 @@
+﻿@model JobPortal.Web.Models.SpecializationModel
+@using JobPortal.Data
+
+@{
+    ViewBag.Title = "Add Specialization";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="title-login">
+    <h1>Specialization</h1>
+    Add new specialization here
+</div>
+<div class="clear" style="height:15px"></div>
+@using (Html.BeginForm())
+{
+   Specialization  category = Model.Categories.Where(x => x.Id == Model.CategoryId).SingleOrDefault();
+    <div>
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CategoryId)
+                    @Html.HiddenFor(model => model.CategoryId)
+                    @Html.TextBox("CategoryName", category.Name, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group">
+                    @Html.Label("Specialization Name")
+
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Title) (For SEO)
+
+                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Title)
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Keywords) (For SEO)
+
+                    @Html.TextAreaFor(model => model.Keywords, htmlAttributes: new { @class = "form-control", @style = "width: 100%; height:66px" })
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Description) (For SEO)
+
+                    @Html.TextAreaFor(model => model.Description, htmlAttributes: new { @class = "form-control", @style = "width: 100%; height:66px" })
+                </div>
+            </div>
+        </div>
+
+        <div class="clear" style="height:15px"></div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 text-right">
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-info" style="width:75px" /> @Html.ActionLink("Back", "Index", null, new { @class = "btn btn-info", @style = "width:75px" })
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+
+</div>

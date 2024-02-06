@@ -1,0 +1,113 @@
+﻿@model JobPortal.Models.TransactionEntity
+
+@{
+    ViewBag.Title = "Invoice Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1 style="margin-top: -15px;">Invoice Details</h1>
+            View detail invoice here
+        </div>
+    </div>
+</div>
+@if (ViewBag.Usage != null)
+{
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <h3>Balances</h3>
+            <div class="row" style="padding-left: 15px;padding-right: 15px;">
+                <div class="col-lg-4 col-md-4 col-sm-4" style="border: 1px solid #ddd; padding-top:8px; padding-bottom:8px;">
+                    <b>Status</b>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2" style="border: 1px solid #ddd; padding-top:8px; padding-bottom:8px;">
+                    <b>Profiles</b>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2" style="border: 1px solid #ddd; padding-top:8px; padding-bottom:8px;">
+                    <b>Messages</b>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2" style="border: 1px solid #ddd; padding-top:8px; padding-bottom:8px;">
+                    <b>Interviews</b>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2" style="border: 1px solid #ddd; padding-top:8px; padding-bottom:8px;">
+                    <b>Resumes</b>
+                </div>
+            </div>
+            <div class="row" style="padding-left: 15px;padding-right: 15px;">
+                <div class="col-lg-4 col-md-4 col-sm-4" style="border: 1px solid #ddd; padding-top:8px; padding-bottom:8px;">
+                    Used
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2" style="border: 1px solid #ddd; padding-top:8px; padding-bottom:8px;">
+                    @ViewBag.Usage.UsedProfiles
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2" style="border: 1px solid #ddd; padding-top:8px; padding-bottom:8px;">
+                    @ViewBag.Usage.UsedMessages
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2" style="border: 1px solid #ddd; padding-top:8px; padding-bottom:8px;">
+                    @ViewBag.Usage.UsedInterviews
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2" style="border: 1px solid #ddd; padding-top:8px; padding-bottom:8px;">
+                    @ViewBag.Usage.UsedResumes
+                </div>
+            </div>
+            <div class="row" style="padding-left: 15px;padding-right: 15px;">
+                <div class="col-lg-4 col-md-4 col-sm-4" style="border: 1px solid #ddd; padding-top:8px; padding-bottom:8px;">
+                    Balance
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2" style="border: 1px solid #ddd; padding-top:8px; padding-bottom:8px;">
+                    @ViewBag.Usage.BalanceProfiles
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2" style="border: 1px solid #ddd; padding-top:8px; padding-bottom:8px;">
+                    @ViewBag.Usage.BalanceMessages
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2" style="border: 1px solid #ddd; padding-top:8px; padding-bottom:8px;">
+                    @ViewBag.Usage.BalanceInterviews
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2" style="border: 1px solid #ddd; padding-top:8px; padding-bottom:8px;">
+                    @ViewBag.Usage.BalanceResumes
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<div class="clear" style="height:30px"></div>
+<h3>Package Details</h3>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 text-right">
+        @Html.ActionLink("Download Invoice", "Invoice", "Payment", new { Id = Model.Id }, new { @class = "btn btn-info", @style = "width:200px; margin-top: 10px;" })
+        @*@Html.ActionLink("Purchase Package", "Index", "Payment", new { returnurl = Request.Url.ToString() }, new { @class = "btn btn-info", @style = "width:200px; margin-top: 10px;" })*@
+        @Html.ActionLink("Purchase Package", "Index", "Package", new { @class = "btn btn-info", @style = "width:200px; margin-top: 10px;" })
+
+    </div>
+</div>
+<div class="clear" style="height:30px"></div>
+<div>
+
+    <div class="row" style="padding-left: 15px;padding-right: 15px;">
+        <div class="col-lg-3 col-md-3 col-sm-3" style="border: 1px solid #ddd; padding-top:8px; padding-bottom:8px;">
+            <b>Package Name:</b>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-9" style="border: 1px solid #ddd; padding-top:8px; padding-bottom:8px;">
+            <b>@Model.PackageName</b> - @Model.Profiles Profiles, @Model.Messages Messages, @Model.Interviews Interviews and @Model.Resumes Resumes
+        </div>
+    </div>
+    <div class="row" style="padding-left: 15px;padding-right: 15px;">
+        <div class="col-lg-3 col-md-3 col-sm-3" style="border: 1px solid #ddd; padding-top:8px; padding-bottom:8px;">
+            <b>Transaction Date:</b>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-9" style="border: 1px solid #ddd; padding-top:8px; padding-bottom:8px;">
+            @Model.TransactionDate.ToLongDateString()
+        </div>
+    </div>
+
+    <div class="row" style="padding-left: 15px;padding-right: 15px;">
+        <div class="col-lg-3 col-md-3 col-sm-3" style="border: 1px solid #ddd; padding-top:8px; padding-bottom:8px;">
+            <b>Amount (USD):</b>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-9" style="border: 1px solid #ddd; padding-top:8px; padding-bottom:8px;">
+            @Model.Price
+        </div>
+    </div>
+</div>

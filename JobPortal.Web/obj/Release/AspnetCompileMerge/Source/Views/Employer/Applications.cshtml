@@ -1,0 +1,314 @@
+﻿@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Web.Models
+@using PagedList.Mvc
+@using JobPortal.Models
+@{
+    ViewBag.Title = "Job Applications";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<ApplicationListModel>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+
+    WebGrid grid = new WebGrid(ViewBag.Model, ajaxUpdateContainerId: "grid");
+
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+}
+<style>
+    .cdate {
+        padding-left: 0px;
+        list-style-type: none;
+    }
+
+        .cdate li {
+            display: inline-block;
+            width: auto;
+        }
+
+    .seemore {
+        text-align: right;
+    }
+
+        .seemore > a {
+            color: #000000;
+            font-family: "Roboto", sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .seemore i {
+            font-size: 16px;
+            padding: 0 0 0 5px;
+            vertical-align: middle;
+        }
+
+    .sponsored {
+        background: #ffffff;
+    }
+
+    .sponsored {
+        background: #fff none repeat scroll 0 0;
+        padding: 0px 15px 0;
+        margin-top: -6px;
+    }
+
+    .abcdesign {
+        margin: 0 0 18px 0;
+    }
+
+        .abcdesign > h3 {
+            color: #333;
+            font-size: 14px;
+            margin: 0 0 11px 0;
+        }
+
+    .sub-heading h2 {
+        color: #000;
+        font-size: 14px;
+        margin: 0 0 20px;
+        padding-bottom: 6px;
+        position: relative;
+        font-weight: bold;
+    }
+
+        .sub-heading h2::after {
+            border-bottom: 2px solid #e93100;
+            bottom: 0;
+            content: "";
+            display: block;
+            left: 0;
+            position: absolute;
+            width: 100%;
+        }
+
+    .datefield {
+        width: 90px;
+    }
+
+    .cstatus {
+        width: 85px;
+    }
+
+    .astatus {
+        width: 90px;
+    }
+
+    .actionLinks {
+        width: 100px;
+    }
+
+    .jtitle {
+        width: 175px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-10 col-md-10 col-sm-10">
+        <div class="title-login">
+            <h1 style="margin-top:-15px;">Job Applications</h1>
+            Manage job applications here
+        </div>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-2" style="text-align:right">
+        @Html.ActionLink("List Job", "ListJob", null, new { title = "List Job", @class = "btn btn-info", @style = "width:75px; margin-top:10px;" })
+    </div>
+</div>
+@Html.Partial("_MessagePartial")
+<div class="clear" style="height:15px"></div>
+<div class="row">
+    <div class="col-lg-8 col-md-8 col-sm-12">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                @using (Html.BeginForm())
+                {
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                @Html.Label("Job Title")
+                                @Html.DropDownList("Title", ViewBag.JobList as SelectList, "SELECT JOB TITLE", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                @Html.Label("Country")
+                                @Html.DropDownList("CountryId", ViewBag.CountryList as SelectList, "SELECT COUNTRY", new { @class = "form-control" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                @Html.Label("From Date")
+                                <div class="input-group" style="width:100%">
+                                    @Html.DropDownList("FromDay", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control", @style = "padding:5px;" })
+                                    <span class="input-group-btn" style="width:0px;"></span>
+                                    @Html.DropDownList("FromMonth", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control", @style = "padding:5px;" })
+                                    <span class="input-group-btn" style="width:0px;"></span>
+                                    @Html.DropDownList("FromYear", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year)), "YEAR", new { @class = "form-control", @style = "padding:5px;" })
+                                </div>
+                                <div id="fromDateError" style="color:red;"></div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                @Html.Label("To Date")
+                                <div class="input-group" style="width:100%">
+                                    @Html.DropDownList("ToDay", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control", @style = "padding:5px;" })
+                                    <span class="input-group-btn" style="width:0px;"></span>
+                                    @Html.DropDownList("ToMonth", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control", @style = "padding:5px;" })
+                                    <span class="input-group-btn" style="width:0px;"></span>
+                                    @Html.DropDownList("ToYear", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year)), "YEAR", new { @class = "form-control", @style = "padding:5px;" })
+                                </div>
+                                <div id="toDateError" style="color:red;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group">
+                                @Html.DropDownList("Status", UIHelper.DropDown<TrackingTypes>(new List<int>() { 0, 6, 7 }), "SELECT STATUS", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-lg-offset-2 col-md-offset-2">
+                            <div class="form-group">
+                                <input id="Search" type="submit" value="Search" class="btn btn-info btn-block" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear" style="height:25px"></div>
+                }
+            </div>
+        </div>
+
+        <div class="clear" style="height:5px"></div>
+
+        <div id="container-grid" class="table-responsive">
+            @grid.GetHtml(htmlAttributes: new { id = "grid", @style = "width:100%" }, tableStyle: "table table-bordered table-hover",
+    columns: new[]
+    {
+        grid.Column("Job Title",canSort:false,  format: (item) =>
+        {
+            string link = string.Empty;
+
+                Job job = JobService.Instance.Get(item.JobId);
+                if (job.IsDeleted)
+                {
+                    link = job.Title;
+                }
+                else
+                {
+                    link = string.Format("<a href=\"/job/{0}-{1}\" target=\"_blank\">{2}</>", item.PermaLink, item.JobId, item.Title);
+                }
+                return Html.Raw(link);
+        }),
+        grid.Column("Actions",canSort:false, style:"actionLinks", format: (item) =>
+        {
+            var links = "";
+            if (item.Counts > 0)
+            {
+                links += string.Format("<b><a href=\"{0}\" title=\"View Details\">View (<span style=\"font-weight:bold; color:red\">{1}</span>)</a></b>", Url.Action("ApplicationDetails", "Employer", new { Id = item.JobId }), item.Counts);
+            }
+            else
+            {
+                links += "<b>" + Html.ActionLink("View", "ApplicationDetails", "Employer", new { Id = item.JobId }, new { title = "View Details" }) + "</b>";
+            }
+            return Html.Raw(links);
+        }
+      )
+    })
+        </div>
+        <div style="text-align:center; margin-top: -15px;">
+
+            @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Applications",
+            new RouteValueDictionary()
+            {
+                { "PageNumber" , PageNumber},
+                { "CountryId" , Request["CountryId"]},
+                { "Title" , Request["Title"]},
+                { "StartDate" , Request["StartDate"]},
+                { "EndDate" , Request["EndDate"]}
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-12"></div>
+    <div class="col-lg-3 col-md-3 col-sm-12" style="background-color:#fff; padding-bottom:15px; min-height:590px">
+        <div class="sponsored">
+            <div class="sub-heading">
+                <h2>Sponsored Ads</h2>
+            </div>
+            <div class="abcdesign">
+                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                <!-- Right-column-Ad-1 -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-8925328521448849"
+                     data-ad-slot="8709143016"
+                     data-ad-format="rectangle"></ins>
+                <script>
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+        <div class="sponsored">
+            @if ((User != null && user.Role == SecurityRoles.Individual))
+            {
+                @Html.Action("RecentJobsWithoutLogo", "Home", new { Id = user.Id })
+            }
+            else if (User != null && user.Role == SecurityRoles.Company)
+            {
+                @Html.Partial("_SearchPromotedJobSeekers")
+            }
+            else if (User == null)
+            {
+                @Html.Action("RecentJobsWithoutLogo", "Home", new { Id = 0 })
+            }
+        </div>
+
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#Search").click(function () {
+            var isValidStartDate = isValidDate($("#FromDay").val(), $("#FromMonth").val(), $("#FromYear").val());
+            var isValidEndDate = isValidDate($("#ToDay").val(), $("#ToMonth").val(), $("#ToYear").val());
+
+            if (isValidStartDate) {
+                $("#fromDateError").html("");
+                $("#fromDateError").show();
+                $("#Search").enabled = true;
+            } else {
+                $("#fromDateError").html("Provide correct from date!");
+                $("#fromDateError").show();
+                $("#Search").enabled = false;
+            }
+
+            if (isValidEndDate) {
+                $("#toDateError").html("");
+                $("#toDateError").show();
+                $("#Search").enabled = true;
+            } else {
+                $("#toDateError").html("Provide correct to date!");
+                $("#toDateError").show();
+                $("#Search").enabled = false;
+            }
+
+            return (isValidStartDate == true && isValidEndDate == true);
+        });
+    })
+</script>

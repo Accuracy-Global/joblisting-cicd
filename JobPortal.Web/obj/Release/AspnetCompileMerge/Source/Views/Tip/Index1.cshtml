@@ -1,0 +1,99 @@
+﻿@using JobPortal.Domain
+@using JobPortal.Data
+@using JobPortal.Library.Enumerators;
+@using JobPortal.Library.Helpers;
+@using System.Collections
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Tips";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<JobPortal.Data.Tip>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+}
+
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">Tips</h1>
+            Career tips here
+        </div>
+    </div>
+</div>
+@Html.Partial("_MessagePartial")
+<div class="clear" style="height:15px;"></div>
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-lg-10 col-md-10 col-sm-10">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        <div class='input-group date'>
+                            @Html.TextBox("StartDate", null, new { @class = "form-control", placeholder = "FROM DATE", @title = "FROM DATE", @readonly = "readonly" })
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <div class='input-group date'>
+                                @Html.TextBox("EndDate", null, new { @class = "form-control", placeholder = "TO DATE", @title = "TO DATE", @readonly = "readonly" })
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 text-right">
+            <input type="submit" value="Search" class="btn btn-info btn-block" />
+        </div>
+    </div>
+}
+<div class="clear" style="height:15px;"></div>
+@{
+    WebGrid grid = new WebGrid(@ViewBag.Model, ajaxUpdateContainerId: "grid");
+}
+<div id="container-grid" class="table-responsive">
+    @grid.GetHtml(htmlAttributes: new { id = "grid", @style = "width:100%" }, tableStyle: "table table-bordered table-hover",
+        columns: new[]
+        {
+            grid.Column("Title", header:"Title", canSort:false, format: (item) =>
+            {
+                string links = string.Empty;
+                links = string.Format("<b>{0}</b>", Html.ActionLink((string)item.Title, "Show", new { id = item.Id }, new { title = item.Title , @target = "_blank" }).ToString());
+                return Html.Raw(links);
+            }),
+            grid.Column(columnName: "DateCreated", header: "Date", canSort:false, format: p => p.DateCreated.ToString("MMM-dd-yyyy")),
+            grid.Column("Actions", canSort:false, format: (item) =>
+            {
+                string links = string.Empty;
+                links = string.Format("<b>{0}</b>", Html.ActionLink("View", "Show", new { id = item.Id }, new { title = "View", @target = "_blank" }).ToString());
+                return Html.Raw(links);
+            })
+        })
+    <div style="text-align:center; margin-top: -15px;">
+
+        @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Index",
+            new RouteValueDictionary()
+            {
+                { "PageNumber" , PageNumber},
+                { "StartDate" , Request["StartDate"]},
+                { "EndDate" , Request["EndDate"]},
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+    </div>
+</div>

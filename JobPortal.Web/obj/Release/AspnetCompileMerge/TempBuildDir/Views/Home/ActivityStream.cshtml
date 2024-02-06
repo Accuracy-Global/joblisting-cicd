@@ -1,0 +1,1511 @@
+﻿@model IEnumerable<JobPortal.Web.Models.ActivityStreamModel>
+@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Web.Models
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@{
+    Layout = null;
+    UserInfo defaultUserInfo = ViewBag.Default;
+    UserProfile member = ViewBag.Member;
+    string username = User.Username;
+    string links = string.Empty;
+
+    if (!Request.IsAuthenticated)
+    {
+        links += "<a href=\"javascript:void();\"  style=\"color:#aaaaaa\">Connect</a> | ";
+        links += "<a href=\"javascript:void();\"  style=\"color:#aaaaaa\">Message</a> | ";
+        links += "<a href=\"javascript:void();\"  style=\"color:#aaaaaa\">Share</a> | ";
+        links += "<a href=\"javascript:void();\"  style=\"color:#aaaaaa\">Download</a> | ";
+    }
+    else
+    {
+        if (!string.IsNullOrEmpty(username))
+        {
+            if (username != member.Username)
+            {
+                if (!defaultUserInfo.IsConnected)
+                {
+                    links += string.Format("<a href=\"{0}\" target=\"_blank\">Connect</a> | ", defaultUserInfo.ConnectUrl);
+                }
+                links += string.Format("<a href=\"{0}\" target=\"_blank\">Message</a> | ", defaultUserInfo.MessageUrl);
+            }
+        }
+        else
+        {
+            links += string.Format("<a href=\"{0}\" target=\"_blank\">Connect</a> | ", defaultUserInfo.ConnectUrl);
+            links += string.Format("<a href=\"{0}\" target=\"_blank\">Message</a> | ", defaultUserInfo.MessageUrl);
+        }
+        links += string.Format("<a href=\"{0}\" target=\"_blank\">Share</a>", defaultUserInfo.ShareUrl);
+        if (!string.IsNullOrEmpty(defaultUserInfo.Content) && defaultUserInfo.CategoryId != null && defaultUserInfo.SpecializationId != null)
+        {
+            links += string.Format(" | <a href=\"{0}\" target=\"_blank\">Download</a>", defaultUserInfo.DownloadUrl);
+        }
+        if (username != member.Username)
+        {
+            if (!defaultUserInfo.IsBlockedByMe)
+            {
+                links += string.Format("{0}", defaultUserInfo.BlockLink);
+            }
+            else
+            {
+                links += string.Format(" | <a href=\"{0}\" target=\"_blank\">Unblock</a>", defaultUserInfo.UnblockUrl);
+            }
+        }
+    }
+}
+<script src="/signalr/hubs" type="text/javascript"></script>
+
+<style>
+    .lam {
+        margin-top: 6px;
+    }
+
+        .lam a {
+            /*color: #333;*/
+            color: #00a6e0;
+        }
+
+            .lam a:hover {
+                color: #00a6e0;
+            }
+
+    .lamenu .navbar-default .navbar-toggle {
+        position: relative;
+        float: right;
+        width: 40px;
+        padding: 0 10px 8px;
+        margin-top: 15px;
+        margin-right: 15px;
+        margin-bottom: 8px;
+        background-color: #00BEE9;
+        background-image: none;
+        border-radius: 0;
+        border: 1px solid #fff !important;
+    }
+
+        .lamenu .navbar-default .navbar-toggle .collapsed {
+            background-color: #00BEE9 !important;
+        }
+
+        .lamenu .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+            background-color: #00BEE9;
+        }
+
+        .lamenu .navbar-default .navbar-toggle .icon-bar {
+            background-color: #000;
+            height: 2px;
+        }
+
+        .lamenu .navbar-default .navbar-toggle button {
+            border: 1px solid #fff;
+        }
+
+    #triangle-topright {
+        width: 100%;
+        height: 0;
+        border-top: 25px solid #01a7e1;
+        border-left: 25px solid transparent;
+    }
+
+        #triangle-topright > div > a {
+            color: #333;
+        }
+
+            #triangle-topright > div > a:hover {
+                color: #fff;
+            }
+
+    .custom_navbar {
+        min-height: 0px;
+        background-color: #fff;
+        border: none;
+        margin-top: -10px;
+    }
+
+        .custom_navbar a {
+            color: #01a7e1 !important;
+            height: 22px !important;
+            padding: 0px !important;
+            background-color: transparent !important;
+            padding-left: 15px;
+            padding-right: 15px;
+            border: none;
+        }
+
+        .custom_navbar li {
+            padding-left: 10px !important;
+            padding-right: 10px !important;
+        }
+
+        .custom_navbar button {
+            height: 20px;
+            border: 1px solid #00BEE9;
+        }
+    .defaultAvtar {
+        /*background: url("/image/Avtar?Id=@defaultUserInfo.Id") no-repeat scroll;
+        background-position: top left;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;*/
+
+        background: url("/image/Avtar?Id=@defaultUserInfo.Id") no-repeat 0 0 / contain;
+        background-position: center center;
+        overflow:hidden;
+    }
+</style>
+<div class="middle-block">
+    <div class="latest-activity">
+        <div class="row">
+            <div class="col-sm-3 la-col">
+                <div class="la-heading lam">
+                    <a href="javascript:void(0);" id="lnkLatestActivity">Latest&nbsp;Activity</a>
+                </div>
+            </div>
+            <div class="col-sm-9 lal-col">
+                <div class="lamenu">
+                    <div class="navigation-main" style="min-height:28px">
+                        <nav class="navbar navbar-default">
+                            <!-- Brand and toggle get grouped for better mobile display -->
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2">
+                                    <span class="icon-bar" style="color:black"></span>
+                                    <span class="icon-bar" style="color:black"></span>
+                                    <span class="icon-bar" style="color:black"></span>
+                                </button>
+                                @*<button type="button" class="navbar-toggle collapsed bottom" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2" aria-expanded="false"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>*@
+                            </div>
+
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                                <ul class="nav navbar-nav custom-navmenu">
+                                    <li id="lnkProfile" style="font-size: 17px; padding-left:0px;"><a href="javascript:void(0);">Profile</a></li>
+                                    @if (Request.IsAuthenticated && member.Username == username)
+                                    {
+                                        <li id="lnkEditPageAddress" style="font-size: 17px;"><a href="javascript:void(0);">Edit Page Address</a></li>
+                                    }
+                                </ul>
+                            </div>
+                            <!-- /.navbar-collapse -->
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="height:11px;"></div>
+        <div id="la" class="la-sec">
+            <div id="wall">
+                @foreach (var item in Model)
+                {
+                    string link = string.Empty;
+                    <div class="business-sec @(!Request.IsAuthenticated ? "business-sec-overlay" :"")">
+                        <style>
+                            .c-@item.UserInfo.Id::after
+                            {
+                                background: url("@Url.Action("Avtar", "Image", new { Id = item.UserInfo.Id })") no-repeat 0 0 / contain;
+                                background-position: center center;
+                            }
+                            .b-@item.Id
+                            {
+                                background: url("data:image/jpeg;base64,@item.Image")  no-repeat top left scroll;
+                                -webkit-background-size: cover;
+                                -moz-background-size: cover;
+                                -o-background-size: cover;
+                                background-size: cover;
+                            }
+                        </style>
+                        <a href="/@item.UserInfo.ProfileUrl" target="_blank">
+                            <div class="business b-@item.Id">
+
+                            </div>
+
+                        </a>
+
+
+                        <div class="b-comm">
+                            <a href="/@item.UserInfo.ProfileUrl" target="_blank"><div class="comment-img c-@item.UserInfo.Id">@*<a href="/@item.UserInfo.ProfileUrl" target="_blank"><img alt="..." src="@Url.Action("Avtar", "Image", new { Id = item.UserInfo.Id, height =58, width = 58 })"></a>*@</div></a>
+                            <div class="comment-content">
+                                <small>
+                                    @if (!Request.IsAuthenticated)
+                                    {
+                                        <a href="javascript:void();" target="_blank" style="color:#aaaaaa">@item.UserInfo.Name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/@item.UserInfo.ProfileUrl" target="_blank">@item.UserInfo.Name</a>
+                                    }
+                                </small>
+                                <br />
+
+                                <span>
+                                    @if (item.UserInfo.Type == 4 && item.UserInfo.Age != null)
+                                    {
+                                        @item.UserInfo.Area <text>, @(item.UserInfo.Gender != null ? item.UserInfo.Gender + ", " : "")@item.UserInfo.Age@(item.UserInfo.RelationshipStatus != null ? ", " + ((Relationships)item.UserInfo.RelationshipStatus).GetDescription().TitleCase() : "")</text>
+                                    }
+                                    else
+                                    {
+                                        <text>@item.UserInfo.Area</text>
+                                    }
+                                </span>
+
+                                <div class="actionlinks" style="text-align:right;margin-right:7px;">
+                                    <small>
+                                        @if (!Request.IsAuthenticated)
+                                        {
+                                            <a href="javascript:void();" target="_blank" style="color:#aaaaaa">Connect</a> <text> | </text>
+                                            <a href="javascript:void();" target="_blank" style="color:#aaaaaa">Message</a><text> | </text>
+                                            <a href="javascript:void();" target="_blank" style="color:#aaaaaa">Share</a><text> | </text>
+                                            <a href="javascript:void();" target="_blank" style="color:#aaaaaa">Download</a>
+                                        }
+                                        else
+                                        {
+                                            if (!string.IsNullOrEmpty(username))
+                                            {
+                                                if (username != item.UserInfo.Username)
+                                                {
+                                                    if (!item.UserInfo.IsConnected)
+                                                    {
+                                                        link += string.Format("<a href=\"{0}\" target=\"_blank\">Connect</a> | ", item.UserInfo.ConnectUrl);
+                                                    }
+                                                    link += string.Format("<a href=\"{0}\" target=\"_blank\">Message</a> | ", item.UserInfo.MessageUrl);
+                                                }
+                                            }
+                                            link += string.Format("<a href=\"{0}\" target=\"_blank\">Share</a>", item.UserInfo.ShareUrl);
+
+                                            if (!string.IsNullOrEmpty(item.UserInfo.Content) && item.UserInfo.CategoryId != null && item.UserInfo.SpecializationId != null)
+                                            {
+                                                link += string.Format(" | <a href=\"{0}\" target=\"_blank\">Download</a>", item.UserInfo.DownloadUrl);
+                                            }
+
+
+                                            if (username != item.UserInfo.Username)
+                                            {
+                                                if (!item.UserInfo.IsBlockedByMe)
+                                                {
+                                                    link += item.UserInfo.BlockLink;
+                                                }
+                                                else
+                                                {
+                                                    link += string.Format(" | <a href=\"{0}\" target=\"_blank\">Unblock</a>", item.UserInfo.UnblockUrl);
+                                                }
+                                            }
+                                            @Html.Raw(link)
+                                        }
+
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                @if (Model.Count() == 0)
+                {
+                    <div class="business-sec @(!Request.IsAuthenticated ? "business-sec-overlay" : "")" id="bottomRightSecond">
+                        <div class="business">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><img src="/images/right-side-bottom-2.png" alt="..." /></a>
+                        </div>
+                        <div class="b-comm">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><div class="comment-img defaultAvtar"></div></a>
+                            <div class="comment-content">
+                                <small>
+                                    @if (!Request.IsAuthenticated)
+                                    {
+                                        <a href="javascript:void()" target="_blank" style="color:#aaaaaa">@defaultUserInfo.Name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/@defaultUserInfo.ProfileUrl" target="_blank">@defaultUserInfo.Name</a>
+                                    }
+                                </small>
+                                <br />
+
+                                <span>
+                                    @if (defaultUserInfo.Type == 4 && defaultUserInfo.Age != null)
+                                    {
+                                        @defaultUserInfo.Area <text>, @(defaultUserInfo.Gender != null ? defaultUserInfo.Gender + ", " : "")@defaultUserInfo.Age@(defaultUserInfo.RelationshipStatus != null ? ", " + ((Relationships)defaultUserInfo.RelationshipStatus).GetDescription().TitleCase() : "")</text>
+                                    }
+                                    else
+                                    {
+                                        <text>@defaultUserInfo.Area</text>
+                                    }
+                                </span>
+
+                                <div class="actionlinks" style="text-align:right;margin-right:7px;">
+                                    <small>@Html.Raw(links)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="business-sec @(!Request.IsAuthenticated ? "business-sec-overlay" :"")" id="topRightFirst">
+                        <div class="business">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><img src="/images/right-side-top-1.png" alt="..." /></a>
+                        </div>
+                        <div class="b-comm">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><div class="comment-img defaultAvtar"></div></a>
+                            <div class="comment-content">
+                                <small>
+                                    @if (!Request.IsAuthenticated)
+                                    {
+                                        <a href="javascript:void()" target="_blank" style="color:#aaaaaa">@defaultUserInfo.Name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/@defaultUserInfo.ProfileUrl" target="_blank">@defaultUserInfo.Name</a>
+                                    }
+                                </small>
+                                <br />
+
+                                <span>
+                                    @if (defaultUserInfo.Type == 4 && defaultUserInfo.Age != null)
+                                    {
+                                        @defaultUserInfo.Area <text>, @(defaultUserInfo.Gender != null ? defaultUserInfo.Gender + ", " : "")@defaultUserInfo.Age@(defaultUserInfo.RelationshipStatus != null ? ", " + ((Relationships)defaultUserInfo.RelationshipStatus).GetDescription().TitleCase() : "")</text>
+                                    }
+                                    else
+                                    {
+                                        <text>@defaultUserInfo.Area</text>
+                                    }
+                                </span>
+
+                                <div class="actionlinks" style="text-align:right;margin-right:7px;">
+                                    <small>@Html.Raw(links)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="business-sec @(!Request.IsAuthenticated ? " business-sec-overlay":"")" id="topRightSecond">
+                        <div class="business">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><img src="/images/right-side-top-2.png" alt="..." /></a>
+                        </div>
+                        <div class="b-comm">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><div class="comment-img defaultAvtar"></div></a>
+                            <div class="comment-content">
+                                <small>
+                                    @if (!Request.IsAuthenticated)
+                                    {
+                                        <a href="javascript:void()" target="_blank" style="color:#aaaaaa">@defaultUserInfo.Name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/@defaultUserInfo.ProfileUrl" target="_blank">@defaultUserInfo.Name</a>
+                                    }
+                                </small>
+                                <br />
+
+                                <span>
+                                    @if (defaultUserInfo.Type == 4 && defaultUserInfo.Age != null)
+                                    {
+                                        @defaultUserInfo.Area <text>, @(defaultUserInfo.Gender != null ? defaultUserInfo.Gender + ", " : "")@defaultUserInfo.Age@(defaultUserInfo.RelationshipStatus != null ? ", " + ((Relationships)defaultUserInfo.RelationshipStatus).GetDescription().TitleCase() : "")</text>
+                                    }
+                                    else
+                                    {
+                                        <text>@defaultUserInfo.Area</text>
+                                    }
+                                </span>
+
+                                <div class="actionlinks" style="text-align:right;margin-right:7px;">
+                                    <small>@Html.Raw(links)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="business-sec @(!Request.IsAuthenticated ? "business-sec-overlay" : "")" id="bottomRightFirst">
+                        <div class="business">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><img src="/images/right-side-bottom-1.png" alt="..." /></a>
+                        </div>
+                        <div class="b-comm">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><div class="comment-img defaultAvtar"></div></a>
+                            <div class="comment-content">
+                                <small>
+                                    @if (!Request.IsAuthenticated)
+                                    {
+                                        <a href="javascript:void()" target="_blank" style="color:#aaaaaa">@defaultUserInfo.Name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/@defaultUserInfo.ProfileUrl" target="_blank">@defaultUserInfo.Name</a>
+                                    }
+                                </small>
+                                <br />
+
+                                <span>
+                                    @if (defaultUserInfo.Type == 4 && defaultUserInfo.Age != null)
+                                    {
+                                        @defaultUserInfo.Area <text>, @(defaultUserInfo.Gender != null ? defaultUserInfo.Gender + ", " : "")@defaultUserInfo.Age@(defaultUserInfo.RelationshipStatus != null ? ", " + ((Relationships)defaultUserInfo.RelationshipStatus).GetDescription().TitleCase() : "")</text>
+                                    }
+                                    else
+                                    {
+                                        <text>@defaultUserInfo.Area</text>
+                                    }
+                                </span>
+
+                                <div class="actionlinks" style="text-align:right;margin-right:7px;">
+                                    <small>@Html.Raw(links)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="business-sec @(!Request.IsAuthenticated ? "business-sec-overlay" :"")" id="bgPhoto">
+                        <div class="business">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><img src="/images/slider-img.png" alt="..." /></a>
+                        </div>
+                        <div class="b-comm">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><div class="comment-img defaultAvtar"></div></a>
+                            <div class="comment-content">
+                                <small>
+                                    @if (!Request.IsAuthenticated)
+                                    {
+                                        <a href="javascript:void()" target="_blank" style="color:#aaaaaa">@defaultUserInfo.Name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/@defaultUserInfo.ProfileUrl" target="_blank">@defaultUserInfo.Name</a>
+                                    }
+                                </small>
+                                <br />
+
+                                <span>
+                                    @if (defaultUserInfo.Type == 4 && defaultUserInfo.Age != null)
+                                    {
+                                        @defaultUserInfo.Area <text>, @(defaultUserInfo.Gender != null ? defaultUserInfo.Gender + ", " : "")@defaultUserInfo.Age@(defaultUserInfo.RelationshipStatus != null ? ", " + ((Relationships)defaultUserInfo.RelationshipStatus).GetDescription().TitleCase() : "")</text>
+                                    }
+                                    else
+                                    {
+                                        <text>@defaultUserInfo.Area</text>
+                                    }
+                                </span>
+
+                                <div class="actionlinks" style="text-align:right;margin-right:7px;">
+                                    <small>@Html.Raw(links)</small>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+                else if (Model.Count() == 1)
+                {
+                    <div class="business-sec @(!Request.IsAuthenticated ? "business-sec-overlay" : "")" id="topRightFirst">
+                        <div class="business">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><img src="/images/right-side-top-1.png" alt="..." /></a>
+                        </div>
+                        <div class="b-comm">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><div class="comment-img defaultAvtar"></div></a>
+                            <div class="comment-content">
+                                <small>
+                                    @if (!Request.IsAuthenticated)
+                                    {
+                                        <a href="javascript:void()" target="_blank" style="color:#aaaaaa">@defaultUserInfo.Name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/@defaultUserInfo.ProfileUrl" target="_blank">@defaultUserInfo.Name</a>
+                                    }
+                                </small>
+                                <br />
+
+                                <span>
+                                    @if (defaultUserInfo.Type == 4 && defaultUserInfo.Age != null)
+                                    {
+                                        @defaultUserInfo.Area <text>, @(defaultUserInfo.Gender != null ? defaultUserInfo.Gender + ", " : "")@defaultUserInfo.Age@(defaultUserInfo.RelationshipStatus != null ? ", " + ((Relationships)defaultUserInfo.RelationshipStatus).GetDescription().TitleCase() : "")</text>
+                                    }
+                                    else
+                                    {
+                                        <text>@defaultUserInfo.Area</text>
+                                    }
+                                </span>
+
+                                <div class="actionlinks" style="text-align:right;margin-right:7px;">
+                                    <small>@Html.Raw(links)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="business-sec @(!Request.IsAuthenticated ? "business-sec-overlay" : "")" id="topRightSecond">
+                        <div class="business">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><img src="/images/right-side-top-2.png" alt="..." /></a>
+                        </div>
+                        <div class="b-comm">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><div class="comment-img defaultAvtar"></div></a>
+                            <div class="comment-content">
+                                <small>
+                                    @if (!Request.IsAuthenticated)
+                                    {
+                                        <a href="javascript:void()" target="_blank" style="color:#aaaaaa">@defaultUserInfo.Name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/@defaultUserInfo.ProfileUrl" target="_blank">@defaultUserInfo.Name</a>
+                                    }
+                                </small>
+                                <br />
+
+                                <span>
+                                    @if (defaultUserInfo.Type == 4 && defaultUserInfo.Age != null)
+                                    {
+                                        @defaultUserInfo.Area <text>, @(defaultUserInfo.Gender != null ? defaultUserInfo.Gender + ", " : "")@defaultUserInfo.Age@(defaultUserInfo.RelationshipStatus != null ? ", " + ((Relationships)defaultUserInfo.RelationshipStatus).GetDescription().TitleCase() : "")</text>
+                                    }
+                                    else
+                                    {
+                                        <text>@defaultUserInfo.Area</text>
+                                    }
+                                </span>
+
+                                <div class="actionlinks" style="text-align:right;margin-right:7px;">
+                                    <small>@Html.Raw(links)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="business-sec @(!Request.IsAuthenticated ? "business-sec-overlay" : "")" id="bottomRightFirst">
+                        <div class="business">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><img src="/images/right-side-bottom-1.png" alt="..." /></a>
+                        </div>
+                        <div class="b-comm">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><div class="comment-img defaultAvtar"></div></a>
+                            <div class="comment-content">
+                                <small>
+                                    @if (!Request.IsAuthenticated)
+                                    {
+                                        <a href="javascript:void()" target="_blank" style="color:#aaaaaa">@defaultUserInfo.Name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/@defaultUserInfo.ProfileUrl" target="_blank">@defaultUserInfo.Name</a>
+                                    }
+                                </small>
+                                <br />
+
+                                <span>
+                                    @if (defaultUserInfo.Type == 4 && defaultUserInfo.Age != null)
+                                    {
+                                        @defaultUserInfo.Area <text>, @(defaultUserInfo.Gender != null ? defaultUserInfo.Gender + ", " : "")@defaultUserInfo.Age@(defaultUserInfo.RelationshipStatus != null ? ", " + ((Relationships)defaultUserInfo.RelationshipStatus).GetDescription().TitleCase() : "")</text>
+                                    }
+                                    else
+                                    {
+                                        <text>@defaultUserInfo.Area</text>
+                                    }
+                                </span>
+
+                                <div class="actionlinks" style="text-align:right;margin-right:7px;">
+                                    <small>@Html.Raw(links)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="business-sec @(!Request.IsAuthenticated ? "business-sec-overlay" : "")" id="bottomRightSecond">
+                        <div class="business">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><img src="/images/right-side-bottom-2.png" alt="..." /></a>
+                        </div>
+                        <div class="b-comm">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><div class="comment-img defaultAvtar"></div></a>
+                            <div class="comment-content">
+                                <small>
+                                    @if (!Request.IsAuthenticated)
+                                    {
+                                        <a href="javascript:void()" target="_blank" style="color:#aaaaaa">@defaultUserInfo.Name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/@defaultUserInfo.ProfileUrl" target="_blank">@defaultUserInfo.Name</a>
+                                    }
+                                </small>
+                                <br />
+
+                                <span>
+                                    @if (defaultUserInfo.Type == 4 && defaultUserInfo.Age != null)
+                                    {
+                                        @defaultUserInfo.Area <text>, @(defaultUserInfo.Gender != null ? defaultUserInfo.Gender + ", " : "")@defaultUserInfo.Age@(defaultUserInfo.RelationshipStatus != null ? ", " + ((Relationships)defaultUserInfo.RelationshipStatus).GetDescription().TitleCase() : "")</text>
+                                    }
+                                    else
+                                    {
+                                        <text>@defaultUserInfo.Area</text>
+                                    }
+                                </span>
+
+                                <div class="actionlinks" style="text-align:right;margin-right:7px;">
+                                    <small>@Html.Raw(links)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else if (Model.Count() == 2)
+                {
+                    <div class="business-sec @(!Request.IsAuthenticated ? "business-sec-overlay" : "")" id="topRightSecond">
+                        <div class="business">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><img src="/images/right-side-top-2.png" alt="..." /></a>
+                        </div>
+                        <div class="b-comm">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><div class="comment-img defaultAvtar"></div></a>
+                            <div class="comment-content">
+                                <small>
+                                    @if (!Request.IsAuthenticated)
+                                    {
+                                        <a href="javascript:void()" target="_blank" style="color:#aaaaaa">@defaultUserInfo.Name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/@defaultUserInfo.ProfileUrl" target="_blank">@defaultUserInfo.Name</a>
+                                    }
+                                </small>
+                                <br />
+
+                                <span>
+                                    @if (defaultUserInfo.Type == 4 && defaultUserInfo.Age != null)
+                                    {
+                                        @defaultUserInfo.Area <text>, @(defaultUserInfo.Gender != null ? defaultUserInfo.Gender + ", " : "")@defaultUserInfo.Age@(defaultUserInfo.RelationshipStatus != null ? ", " + ((Relationships)defaultUserInfo.RelationshipStatus).GetDescription().TitleCase() : "")</text>
+                                    }
+                                    else
+                                    {
+                                        <text>@defaultUserInfo.Area</text>
+                                    }
+                                </span>
+
+                                <div class="actionlinks" style="text-align:right;margin-right:7px;">
+                                    <small>@Html.Raw(links)</small>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="business-sec @(!Request.IsAuthenticated ? "business-sec-overlay" : "")" id="bottomRightFirst">
+                        <div class="business">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><img src="/images/right-side-bottom-1.png" alt="..." /></a>
+                        </div>
+                        <div class="b-comm">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><div class="comment-img defaultAvtar"></div></a>
+                            <div class="comment-content">
+                                <small>
+                                    @if (!Request.IsAuthenticated)
+                                    {
+                                        <a href="javascript:void()" target="_blank" style="color:#aaaaaa">@defaultUserInfo.Name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/@defaultUserInfo.ProfileUrl" target="_blank">@defaultUserInfo.Name</a>
+                                    }
+                                </small>
+                                <br />
+
+                                <span>
+                                    @if (defaultUserInfo.Type == 4 && defaultUserInfo.Age != null)
+                                    {
+                                        @defaultUserInfo.Area <text>, @(defaultUserInfo.Gender != null ? defaultUserInfo.Gender + ", " : "")@defaultUserInfo.Age@(defaultUserInfo.RelationshipStatus != null ? ", " + ((Relationships)defaultUserInfo.RelationshipStatus).GetDescription().TitleCase() : "")</text>
+                                    }
+                                    else
+                                    {
+                                        <text>@defaultUserInfo.Area</text>
+                                    }
+                                </span>
+
+                                <div class="actionlinks" style="text-align:right;margin-right:7px;">
+                                    <small>@Html.Raw(links)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="business-sec @(!Request.IsAuthenticated ? "business-sec-overlay" : "")" id="bottomRightSecond">
+                        <div class="business">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><img src="/images/right-side-bottom-2.png" alt="..." /></a>
+                        </div>
+                        <div class="b-comm">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><div class="comment-img defaultAvtar"></div></a>
+                            <div class="comment-content">
+                                <small>
+                                    @if (!Request.IsAuthenticated)
+                                    {
+                                        <a href="javascript:void()" target="_blank" style="color:#aaaaaa">@defaultUserInfo.Name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/@defaultUserInfo.ProfileUrl" target="_blank">@defaultUserInfo.Name</a>
+                                    }
+                                </small>
+                                <br />
+
+                                <span>
+                                    @if (defaultUserInfo.Type == 4 && defaultUserInfo.Age != null)
+                                    {
+                                        @defaultUserInfo.Area <text>, @(defaultUserInfo.Gender != null ? defaultUserInfo.Gender + ", " : "")@defaultUserInfo.Age@(defaultUserInfo.RelationshipStatus != null ? ", " + ((Relationships)defaultUserInfo.RelationshipStatus).GetDescription().TitleCase() : "")</text>
+                                    }
+                                    else
+                                    {
+                                        <text>@defaultUserInfo.Area</text>
+                                    }
+                                </span>
+
+                                <div class="actionlinks" style="text-align:right;margin-right:7px;">
+                                    <small>@Html.Raw(links)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+                else if (Model.Count() == 3)
+                {
+                    <div class="business-sec @(!Request.IsAuthenticated ? "business-sec-overlay" : "")" id="bottomRightFirst">
+                        <div class="business">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><img src="/images/right-side-bottom-1.png" alt="..." /></a>
+                        </div>
+                        <div class="b-comm">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><div class="comment-img defaultAvtar"></div></a>
+                            <div class="comment-content">
+                                <small>
+                                    @if (!Request.IsAuthenticated)
+                                    {
+                                        <a href="javascript:void()" target="_blank" style="color:#aaaaaa">@defaultUserInfo.Name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/@defaultUserInfo.ProfileUrl" target="_blank">@defaultUserInfo.Name</a>
+                                    }
+                                </small>
+                                <br />
+
+                                <span>
+                                    @if (defaultUserInfo.Type == 4 && defaultUserInfo.Age != null)
+                                    {
+                                        @defaultUserInfo.Area <text>, @(defaultUserInfo.Gender != null ? defaultUserInfo.Gender + ", " : "")@defaultUserInfo.Age@(defaultUserInfo.RelationshipStatus != null ? ", " + ((Relationships)defaultUserInfo.RelationshipStatus).GetDescription().TitleCase() : "")</text>
+                                    }
+                                    else
+                                    {
+                                        <text>@defaultUserInfo.Area</text>
+                                    }
+                                </span>
+
+                                <div class="actionlinks" style="text-align:right;margin-right:7px;">
+                                    <small>@Html.Raw(links)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="business-sec @(!Request.IsAuthenticated ? "business-sec-overlay" : "")" id="bottomRightSecond">
+                        <div class="business">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><img src="/images/right-side-bottom-2.png" alt="..." /></a>
+                        </div>
+                        <div class="b-comm">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><div class="comment-img defaultAvtar"></div></a>
+                            <div class="comment-content">
+                                <small>
+                                    @if (!Request.IsAuthenticated)
+                                    {
+                                        <a href="javascript:void()" target="_blank" style="color:#aaaaaa">@defaultUserInfo.Name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/@defaultUserInfo.ProfileUrl" target="_blank">@defaultUserInfo.Name</a>
+                                    }
+                                </small>
+                                <br />
+
+                                <span>
+                                    @if (defaultUserInfo.Type == 4 && defaultUserInfo.Age != null)
+                                    {
+                                        @defaultUserInfo.Area <text>, @(defaultUserInfo.Gender != null ? defaultUserInfo.Gender + ", " : "")@defaultUserInfo.Age@(defaultUserInfo.RelationshipStatus != null ? ", " + ((Relationships)defaultUserInfo.RelationshipStatus).GetDescription().TitleCase() : "")</text>
+                                    }
+                                    else
+                                    {
+                                        <text>@defaultUserInfo.Area</text>
+                                    }
+                                </span>
+
+                                <div class="actionlinks" style="text-align:right;margin-right:7px;">
+                                    <small>@Html.Raw(links)</small>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                }
+                else if (Model.Count() == 4)
+                {
+                    <div class="business-sec @(!Request.IsAuthenticated ? "business-sec-overlay" : "")" id="bottomRightSecond">
+                        <div class="business">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><img src="/images/right-side-bottom-2.png" alt="..." /></a>
+                        </div>
+                        <div class="b-comm">
+                            <a href="/@defaultUserInfo.ProfileUrl" target="_blank"><div class="comment-img defaultAvtar"></div></a>
+                            <div class="comment-content">
+                                <small>
+                                    @if (!Request.IsAuthenticated)
+                                    {
+                                        <a href="javascript:void()" target="_blank" style="color:#aaaaaa">@defaultUserInfo.Name</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/@defaultUserInfo.ProfileUrl" target="_blank">@defaultUserInfo.Name</a>
+                                    }
+                                </small>
+                                <br />
+
+                                <span>
+                                    @if (defaultUserInfo.Type == 4 && defaultUserInfo.Age != null)
+                                    {
+                                        @defaultUserInfo.Area <text>, @(defaultUserInfo.Gender != null ? defaultUserInfo.Gender + ", " : "")@defaultUserInfo.Age@(defaultUserInfo.RelationshipStatus != null ? ", " + ((Relationships)defaultUserInfo.RelationshipStatus).GetDescription().TitleCase() : "")</text>
+                                    }
+                                    else
+                                    {
+                                        <text>@defaultUserInfo.Area</text>
+                                    }
+                                </span>
+                                <div class="actionlinks" style="text-align:right;margin-right:7px;">
+                                    <small>@Html.Raw(links)</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div id="up" class="up-sec" style="display:none; min-height:100px; padding-bottom:15px;">
+            @{
+                List country = new List();
+                if (member.CountryId != null)
+                {
+                    country = SharedService.Instance.GetCountry(member.CountryId.Value);
+                }
+                Specialization category = new Specialization();
+                if (member.CategoryId != null)
+                {
+                    category = SharedService.Instance.GetCategory(member.CategoryId.Value);
+                }
+
+                string PermaLink = member.PermaLink;
+                string address = string.Empty;
+                if (!string.IsNullOrEmpty(member.Address))
+                {
+                    address = member.Address;
+                }
+
+                if (!string.IsNullOrEmpty(member.City))
+                {
+                    List oCountry = SharedService.Instance.GetCountry(member.CountryId.Value);
+                    if (!string.IsNullOrEmpty(address))
+                    {
+                        address = string.Format("{0}, {1}", address, member.City);
+                    }
+                    else
+                    {
+                        address = string.Format("{0}", member.City);
+                    }
+                }
+
+                if (member.StateId != null)
+                {
+                    List oState = SharedService.Instance.GetState(member.StateId.Value);
+                    if (!string.IsNullOrEmpty(address))
+                    {
+                        address = string.Format("{0}, {1}", address, oState.Text);
+                    }
+                    else
+                    {
+                        address = string.Format("{0}", oState.Text);
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(member.Zip))
+                {
+                    if (!string.IsNullOrEmpty(address))
+                    {
+                        address = string.Format("{0} - {1}", address, member.Zip);
+                    }
+                    else
+                    {
+                        address = string.Format("{0}", member.Zip);
+                    }
+                }
+
+                if (country != null)
+                {
+                    if (!string.IsNullOrEmpty(address))
+                    {
+                        address = string.Format("{0}  {1}", address, country.Text);
+                    }
+                    else
+                    {
+                        address = string.Format("{0}", country.Text);
+                    }
+                }
+
+            }
+            @if (member.Type == 4)
+            {
+                <div class="list-group-item" style="min-height:130px;">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div><small><b>Name:</b> @member.FirstName&nbsp;@member.LastName</small></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            @if (!Request.IsAuthenticated)
+                            {
+                                <small><b>Age: </b><label for="" title="Login to see the age.">****************</label></small>
+                            }
+                            else
+                            {
+                                <small><b>Age: </b>@member.Age</small>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            @if (!Request.IsAuthenticated)
+                            {
+                                <small><b>Address: </b><label for="" title="Login to see the address.">****************</label></small>
+                            }
+                            else
+                            {
+                                <small><b>Address: </b>@((!string.IsNullOrEmpty(address) ? address : "Not Available")) </small>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            @if (!Request.IsAuthenticated)
+                            {
+                                <small><b>Email: </b><label for="" title="Login to see the Email.">****************</label></small>
+                            }
+                            else
+                            {
+                                <small><b>Email: </b>@member.Username</small>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            @if (!Request.IsAuthenticated)
+                            {
+                                <small><b>Phone: </b><label for="" title="Login to see the Phone.">****************</label></small>
+                            }
+                            else
+                            {
+                                if (!string.IsNullOrEmpty(member.Phone))
+                                {
+                                    <small><b>Phone: </b>@(member.PhoneCountryCode != null ? member.PhoneCountryCode + " " : "")@(member.Phone != null ? member.Phone : "Not Available")</small>
+                                }
+                                else
+                                {
+                                    <small><b>Phone: </b>Not Available</small>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            @if (!Request.IsAuthenticated)
+                            {
+                                <small><b>Mobile: </b><label for="" title="Login to see the Mobile.">****************</label></small>
+                            }
+                            else
+                            {
+                                if (!string.IsNullOrEmpty(member.Mobile))
+                                {
+                                    <small><b>Mobile: </b>@(member.MobileCountryCode != null ? member.MobileCountryCode + " " : "")@(member.Mobile != null ? member.Mobile : "Not Available")</small>
+                                }
+                                else
+                                {
+                                    <small><b>Mobile: </b>Not Available</small>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            @if (!Request.IsAuthenticated)
+                            {
+                                <small><b>Website: </b><label for="" title="Login to see the Email.">****************</label></small>
+                            }
+                            else
+                            {
+                                <small><b>Website: </b>@Html.Raw((!string.IsNullOrEmpty(member.Website) ? string.Format("<a href=\"{0}\" style=\"color:#00a6e0\" target=\"_blank\">{1}</a>", member.Website, member.Website) : "Not Available"))</small>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            @if (!Request.IsAuthenticated)
+                            {
+                                <small><b>Facebook Page: </b><label for="" title="Login to see the Email.">****************</label></small>
+                            }
+                            else
+                            {
+                                <small><b>Facebook Page: </b>@Html.Raw((!string.IsNullOrEmpty(member.Facebook) ? string.Format("<a href=\"{0}\" style=\"color:#00a6e0\" target=\"_blank\">{1}</a>", member.Facebook, member.Facebook) : "Not Available"))</small>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            @if (!Request.IsAuthenticated)
+                            {
+                                <small><b>Twitter Page: </b><label for="" title="Login to see the Email.">****************</label></small>
+                            }
+                            else
+                            {
+                                <small><b>Twitter Page: </b>@Html.Raw((!string.IsNullOrEmpty(member.Twitter) ? string.Format("<a href=\"{0}\" style=\"color:#00a6e0\" target=\"_blank\">{1}</a>", member.Twitter, member.Twitter) : "Not Available"))</small>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            @if (!Request.IsAuthenticated)
+                            {
+                                <small><b>LinkedIn Page: </b><label for="" title="Login to see the Email.">****************</label></small>
+                            }
+                            else
+                            {
+                                <small><b>LinkedIn Page: </b>@Html.Raw((!string.IsNullOrEmpty(member.LinkedIn) ? string.Format("<a href=\"{0}\" style=\"color:#00a6e0\" target=\"_blank\">{1}</a>", member.LinkedIn, member.LinkedIn) : "Not Available"))</small>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            @if (!Request.IsAuthenticated)
+                            {
+                                <small><b>Google+ Page: </b><label for="" title="Login to see the Email.">****************</label></small>
+                            }
+                            else
+                            {
+                                <small><b>Google+ Page: </b>@Html.Raw((!string.IsNullOrEmpty(member.GooglePlus) ? string.Format("<a href=\"{0}\" style=\"color:#00a6e0\" target=\"_blank\">{1}</a>", member.GooglePlus, member.GooglePlus) : "Not Available"))</small>
+                            }
+                        </div>
+                    </div>
+                    <div id="divWebAddressDisplay" class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <small><b>Page Address: </b><a href="/@member.PermaLink" style="color:#00a6e0" target="_blank">@Request.Url.Scheme://@Request.Url.Authority/@member.PermaLink</a></small>
+                        </div>
+                    </div>
+                    @if (Request.IsAuthenticated && member.Username == username)
+                    {
+                        <div style="height:10px"></div>
+                        <div id="divEditWebAddress" class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <span style="font-size:12px;">(Max. 40 Alphanumeric)</span>
+                                <div class="form-inline">
+                                    @Html.Label("lblUrl", string.Format("{0}://{1}/", Request.Url.Scheme, @Request.Url.Authority), new { @class = "col-md-2 control-label", @style = "padding: 8px 0px 0px 0px;font-size:12px;" })
+                                    <div class="col-md-offset-3" style="padding-left: 40px;">
+                                        @Html.TextBox("PremaLink", PermaLink, new { @class = "form-control", placeholder = "PAGE ADDRESS", title = "PAGE ADDRESS", @maxlength = 40, @style = "font-size:12px;" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <small>
+                                    <a href="javascript:void();" id="btnEditWebAddress" title="Edit Page Address" style="color:#00a6e0; font-size:13px">Edit Page Address</a>
+                                    <span id="btnCancel" style="display:none">&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:void();" style="color:#00a6e0; font-size:13px">Cancel</a></span>
+                                </small>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        @if (!string.IsNullOrEmpty(member.Content) && member.CategoryId != null && member.SpecializationId != null)
+                                        {
+                                            <a href="@defaultUserInfo.DownloadUrl" target="_blank" style="color:#00a6e0; font-size:13px">Download</a>
+                                        }
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <a href="/profile-resume" target="_blank" style="color:#00a6e0; font-size:13px">Edit&nbsp;Profile</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12" style="padding-top:5px;" id="divWebAddressMsg">
+
+                            </div>
+                        </div>
+                    }
+                    else if (Request.IsAuthenticated && member.Username != username)
+                    {
+                        <div style="height:10px"></div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                @if (!string.IsNullOrEmpty(member.Content) && member.CategoryId != null && member.SpecializationId != null)
+                                {
+                                    <a href="@defaultUserInfo.DownloadUrl" target="_blank" style="color:#00a6e0; font-size:13px">Download</a>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+                if (Request.IsAuthenticated)
+                {
+                    <div style="height:15px"></div>
+                    <div class="list-group-item" style="min-height:55px;">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div style="color: #00a6e0; font-size:1em">Summary</div>
+                                <div style="text-align:left; font-size:small">@(member.Summary != null ? member.Summary : "Not Available")</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="height:15px"></div>
+                    <div class="list-group-item" style="min-height:55px;">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div style="color: #00a6e0; font-size:1em">Area of Expertise</div>
+                                <div style="text-align:left; font-size:small">@(member.AreaOfExpertise != null ? member.AreaOfExpertise : "Not Available")</div>
+                            </div>
+                        </div>
+
+                        <div style="height:15px"></div>
+
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div style="color: #00a6e0; font-size:1em">Skills</div>
+                                <div style="text-align:left; font-size:small">@(member.TechnicalSkills != null ? member.TechnicalSkills : "Not Available")</div>
+                            </div>
+                        </div>
+
+                        <div style="height:15px"></div>
+
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div style="color: #00a6e0; font-size:1em">Management Skills</div>
+                                <div style="text-align:left; font-size:small">@(member.ManagementSkills != null ? member.ManagementSkills : "Not Available")</div>
+                            </div>
+                        </div>
+
+                        <div style="height:15px"></div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div style="color: #00a6e0; font-size:1em">Professional Experience</div>
+                                <div style="text-align:left; font-size:small">@(member.ProfessionalExperience != null ? member.ProfessionalExperience : "Not Available")</div>
+                            </div>
+                        </div>
+
+                        <div style="height:15px"></div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div style="color: #00a6e0; font-size:1em">Education & Qualification</div>
+                                <div style="text-align:left; font-size:small">@(member.Education != null ? member.Education : "Not Available")</div>
+                            </div>
+                        </div>
+
+                        <div style="height:15px"></div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div style="color: #00a6e0; font-size:1em">Professional Certification</div>
+                                <div style="text-align:left; font-size:small">@(member.Certifications != null ? member.Certifications : "Not Available")</div>
+                            </div>
+                        </div>
+
+                        <div style="height:15px"></div>
+
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div style="color: #00a6e0; font-size:1em">Professional Bodies Affiliation</div>
+                                <div style="text-align:left; font-size:small">@(member.Affiliations != null ? member.Affiliations : "Not Available")</div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else if (member.Type == 5)
+            {
+                <div class="list-group-item" style="min-height:115px;">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <small><b>Name:</b> @member.Company</small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            @if (!Request.IsAuthenticated)
+                            {
+                                <small><b>Address: </b><label for="" title="Login to see the address.">****************</label></small>
+                            }
+                            else
+                            {
+                                <small><b>Address: </b>@((!string.IsNullOrEmpty(address) ? address : "Not Available"))</small>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            @if (!Request.IsAuthenticated)
+                            {
+                                <small><b>Email: </b><label for="" title="Login to see the Email.">****************</label></small>
+                            }
+                            else
+                            {
+                                <small><b>Email: </b>@member.Username</small>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            @if (!Request.IsAuthenticated)
+                            {
+                                <small><b>Phone: </b><label for="" title="Login to see the Phone.">****************</label></small>
+                            }
+                            else
+                            {
+                                if (!string.IsNullOrEmpty(member.Phone))
+                                {
+                                    <small><b>Phone: </b>@(member.PhoneCountryCode != null ? member.PhoneCountryCode + " " : "")@(member.Phone != null ? member.Phone : "Not Available")</small>
+                                }
+                                else
+                                {
+                                    <small><b>Phone: </b>Not Available</small>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            @if (!Request.IsAuthenticated)
+                            {
+                                <small><b>Mobile: </b><label for="" title="Login to see the Mobile.">****************</label></small>
+                            }
+                            else
+                            {
+                                if (!string.IsNullOrEmpty(member.Mobile))
+                                {
+                                    <small><b>Mobile: </b>@(member.MobileCountryCode != null ? member.MobileCountryCode + " " : "")@(member.Mobile != null ? member.Mobile : "Not Available")</small>
+                                }
+                                else
+                                {
+                                    <small><b>Mobile: </b>Not Available</small>
+                                }
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            @if (!Request.IsAuthenticated)
+                            {
+                                <small><b>Website: </b><label for="" title="Login to see the Email.">****************</label></small>
+                            }
+                            else
+                            {
+                                <small><b>Website: </b>@Html.Raw((!string.IsNullOrEmpty(member.Website) ? string.Format("<a href=\"{0}\" style=\"color:#00a6e0\" target=\"_blank\">{1}</a>", member.Website, member.Website) : "Not Available"))</small>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            @if (!Request.IsAuthenticated)
+                            {
+                                <small><b>Facebook Page: </b><label for="" title="Login to see the Email.">****************</label></small>
+                            }
+                            else
+                            {
+                                <small><b>Facebook Page: </b>@Html.Raw((!string.IsNullOrEmpty(member.Facebook) ? string.Format("<a href=\"{0}\" style=\"color:#00a6e0\" target=\"_blank\">{1}</a>", member.Facebook, member.Facebook) : "Not Available"))</small>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            @if (!Request.IsAuthenticated)
+                            {
+                                <small><b>Twitter Page: </b><label for="" title="Login to see the Email.">****************</label></small>
+                            }
+                            else
+                            {
+                                <small><b>Twitter Page: </b>@Html.Raw((!string.IsNullOrEmpty(member.Twitter) ? string.Format("<a href=\"{0}\" style=\"color:#00a6e0\" target=\"_blank\">{1}</a>", member.Twitter, member.Twitter) : "Not Available"))</small>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            @if (!Request.IsAuthenticated)
+                            {
+                                <small><b>LinkedIn Page: </b><label for="" title="Login to see the Email.">****************</label></small>
+                            }
+                            else
+                            {
+                                <small><b>LinkedIn Page: </b>@Html.Raw((!string.IsNullOrEmpty(member.LinkedIn) ? string.Format("<a href=\"{0}\" style=\"color:#00a6e0\" target=\"_blank\">{1}</a>", member.LinkedIn, member.LinkedIn) : "Not Available"))</small>
+                            }
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            @if (!Request.IsAuthenticated)
+                            {
+                                <small><b>Google+ Page: </b><label for="" title="Login to see the Email.">****************</label></small>
+                            }
+                            else
+                            {
+                                <small><b>Google+ Page: </b>@Html.Raw((!string.IsNullOrEmpty(member.GooglePlus) ? string.Format("<a href=\"{0}\" style=\"color:#00a6e0\" target=\"_blank\">{1}</a>", member.GooglePlus, member.GooglePlus) : "Not Available"))</small>
+                            }
+                        </div>
+                    </div>
+                    <div id="divWebAddressDisplay" class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <small><b>Page Address: </b><a href="/@member.PermaLink" style="color:#00a6e0" target="_blank">@Request.Url.Scheme://@Request.Url.Authority/@member.PermaLink</a></small>
+                        </div>
+                    </div>
+                    @if (Request.IsAuthenticated && member.Username == username)
+                    {
+                        <div style="height:10px"></div>
+                        <div id="divEditWebAddress" class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <span style="font-size:12px;">(Max. 40 Alphanumeric)</span>
+                                <div class="form-inline">
+                                    @Html.Label("lblUrl", string.Format("{0}://{1}/", Request.Url.Scheme, @Request.Url.Authority), new { @class = "col-md-2 control-label", @style = "padding: 8px 0px 0px 0px;font-size:12px;" })
+                                    <div class="col-md-offset-3" style="padding-left: 40px;">
+                                        @Html.TextBox("PremaLink", PermaLink, new { @class = "form-control", placeholder = "PAGE ADDRESS", title = "PAGE ADDRESS", @maxlength = 40, @style = "font-size:12px;" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                <small>
+                                    <a href="javascript:void();" id="btnEditWebAddress" title="Edit Page Address" style="color:#00a6e0; font-size:13px">Edit Page Address</a>
+                                    <span id="btnCancel" style="display:none">&nbsp;&nbsp;|&nbsp;&nbsp;<a href="javascript:void();" style="color:#00a6e0; font-size:13px">Cancel</a></span>
+                                </small>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+
+                                <a href="/company/profile" target="_blank" style="color:#00a6e0; font-size:13px">Edit&nbsp;Profile</a>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12" style="padding-top:5px;" id="divWebAddressMsg">
+
+                            </div>
+                        </div>
+                    }
+                </div>
+                if (Request.IsAuthenticated)
+                {
+                    <div style="height:15px"></div>
+                    <div class="list-group-item" style="min-height:55px;">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <div style="color: #00a6e0; font-size:1em">Summary</div>
+                                <div style="text-align:left; font-size:small">@(member.Summary != null ? member.Summary : "Not Available")</div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<script>
+    var isJobseeker = "@(member.Content != null && member.CategoryId != null && member.SpecializationId != null)";
+    $(document).ready(function () {
+        $("#body").css("min-height", 200);
+        $("#divEditWebAddress").hide();
+
+        if (isJobseeker == "True") {
+            $("#la").hide();
+            $("#la").css('visibility', 'hidden');
+            $("#up").show();
+            $("#up").css('visibility', 'visible');
+            $(".latest-activity").css("border-bottom:", "1px solid #DDD;");
+            $("#body").css("min-height", 200);
+        } else {
+            $("#la").show();
+            $("#la").css('visibility', 'visible');
+            $("#up").hide();
+            $("#up").css('visibility', 'hidden');
+            $(".latest-activity").css("border-bottom:", "none");
+            $("#body").css("min-height", 200);
+        }
+
+        $("#lnkLatestActivity").click(function () {
+            $("#la").show();
+            $("#la").css('visibility', 'visible');
+            $("#up").hide();
+            $("#up").css('visibility', 'hidden');
+            $(".latest-activity").css("border-bottom:", "none");
+            $("#body").css("min-height", 200);
+        });
+
+        $("#lnkProfile").click(function () {
+            $("#la").hide();
+            $("#la").css('visibility', 'hidden');
+            $("#up").show();
+            $("#up").css('visibility', 'visible');
+            $(".latest-activity").css("border-bottom:", "1px solid #DDD;");
+            $("#body").css("min-height", 200);
+        });
+        $("#lnkEditPageAddress").click(function () {
+            $("#la").hide();
+            $("#up").show();
+            $("#body").css("min-height", 200);
+            if ($("#btnEditWebAddress").text() == "Edit Page Address") {
+                $("#btnEditWebAddress").text("Save Page Address");
+                $("#divWebAddressDisplay").hide();
+                $("#divEditWebAddress").show();
+                $("#btnCancel").show();
+
+                $("#PremaLink").focus();
+                $("#PremaLink").attr("required", true);
+            } else {
+                if ($("#PremaLink").val() != "" && $("#PremaLink").val() != null) {
+                    var regex = /^[a-zA-Z0-9-_]+$/;
+                    var flag = regex.test($("#PremaLink").val());
+                    var nanFlag = isNaN(Number($("#PremaLink").val()));
+                    if (flag == true && nanFlag == true) {
+                        $.post('@Url.Action("UpdateWebAddress", "JsonHelper")', { address: $("#PremaLink").val() },
+                          function (result) {
+                              if (result != "NA") {
+                                  window.location.replace((baseUrl + result).toLowerCase());
+                              } else {
+                                  $("#divWebAddressMsg").html("<div style=\"color:red;\">" + $("#PremaLink").val() + " web address not available!</div>");
+                              }
+                          });
+                    } else {
+                        $("#divWebAddressMsg").html("<div style=\"color:red;\">Only alphanumeric and underscore, period and dash is allowed!</div>");
+                    }
+                } else {
+                    $("#divWebAddressMsg").html("<div style=\"color:red;\">Web address must not be empty!</div>");
+                }
+            }
+        });
+        var baseUrl = "@Request.Url.Scheme://@Request.Url.Authority/";
+        $("#btnEditWebAddress").click(function () {
+            if ($("#btnEditWebAddress").text() == "Edit Page Address") {
+                $("#btnEditWebAddress").text("Save Page Address");
+                $("#divWebAddressDisplay").hide();
+                $("#divEditWebAddress").show();
+                $("#btnCancel").show();
+
+                $("#PremaLink").attr("required", true);
+            } else {
+                if ($("#PremaLink").val() != "" && $("#PremaLink").val() != null) {
+                    var regex = /^[a-zA-Z0-9-_]+$/;
+                    var flag = regex.test($("#PremaLink").val());
+                    var nanFlag = isNaN(Number($("#PremaLink").val()));
+                    if (flag == true && nanFlag == true) {
+                        $.post('@Url.Action("UpdateWebAddress", "JsonHelper")', { address: $("#PremaLink").val() },
+                          function (result) {
+                              if (result != "NA") {
+                                  window.location.replace(baseUrl + result);
+                              } else {
+                                  $("#divWebAddressMsg").html("<div style=\"color:red;\">" + $("#PremaLink").val() + " web address not available!</div>");
+                              }
+                          });
+                    } else {
+                        $("#divWebAddressMsg").html("<div style=\"color:red;\">Only alphanumeric and underscore, period and dash is allowed!</div>");
+                    }
+                } else {
+                    $("#divWebAddressMsg").html("<div style=\"color:red;\">Web address must not be empty!</div>");
+                }
+            }
+        });
+        $("#btnCancel").click(function () {
+            $("#btnEditWebAddress").text("Edit Page Address");
+            $("#divWebAddressDisplay").show();
+            $("#divEditWebAddress").hide();
+            $("#PremaLink").attr("required", false);
+            $("#btnCancel").hide();
+        });
+    });
+</script>

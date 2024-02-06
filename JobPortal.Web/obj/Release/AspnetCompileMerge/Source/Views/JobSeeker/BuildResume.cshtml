@@ -1,0 +1,452 @@
+﻿@model JobPortal.Web.Models.BuildResumeModel
+@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Models
+<script src="~/Scripts/tinymce/tinymce.min.js"></script>
+@{
+    ViewBag.Title = "Build Resume Online";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    UserProfile profile = MemberService.Instance.Get(Model.Id);
+    
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }       
+}
+
+@using (Html.BeginForm("BuildResume", "Jobseeker", FormMethod.Post, new { @id = "BuildResumeForm", @autocomplete = "off" }))
+{
+    <div>
+        @*@Html.ValidationSummary(true)*@
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.ReturnUrl)
+        <div class="row">
+            <div class="col-lg-10 col-md-10">
+                <div class="title-login">
+                    <h1 style="margin-top: -15px;">Build Resume Online</h1>
+                    Build Resume online here
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-2">
+                <div class="form-group pull-right">
+                    <label>&nbsp;</label>
+                    <div style="background-color:#b3cb39;width: 92px;padding: 4px;height: 34px;border-radius:4px; display:block">
+                        <a href="https://play.google.com/store/apps/details?id=com.joblisting.joblisting" style="background-color: #b3cb39; color:#ffffff; text-decoration:none" target="_blank">
+                            <table cellpadding="0" style="margin-bottom: 0px;">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <i class="fa fa-android" aria-hidden="true" style="font-size:20px; color:#ffffff"></i>
+                                        </td>
+                                        <td>
+                                            <div style="font-size: 10px;padding-left:2px;line-height: 8px;">
+                                                Download for
+                                            </div>
+                                            <div style="font-size:18px">
+                                                Android
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear" style="height:15px"></div>
+        <div id="divMsgBox" class="message-instruction" style="display:none">
+            <div style="text-align:center; padding:25px;"><i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom" style="font-size: 32px; color: #01a7e1;"></i></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                    <div style="color:red">
+                        @*If you don't have resume to upload, use our this Build Resume Online function to build resume now!<br /><br />*@
+                        @*If you have resume ready to upload <a href="#" id="lnkbUploadResume" role="button" data-toggle='modal' data-target='#uploadResumeDialog' class="btn btn-info" style="width: 144px; text-align: center; margin-bottom:5px;">Upload Resume Now</a>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clear" style="height:15px"></div>
+        <div class="row">
+            <div class="col-lg-9 col-md-9">
+                <div class="form-group">
+                    <div style="color:red">
+                        <b>Note:</b> When you click submit button, your existing resume will be replaced!
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                @if (user.Type == 4 && user.PromoteDate == null || (user.PromoteDate.Value.Date < DateTime.Now.Date))
+                {
+                    <a href="/package/promote?id=@user.Id&type=P&returnUrl=@Request.Url.ToString()" class="btn btn-info promote pull-right" style="width:150px;">Promote Profile</a>
+                }
+            </div>
+        </div>
+        <div class="clear" style="height:15px"></div>
+        @if (!string.IsNullOrEmpty(profile.Content))
+        {
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        @Html.ActionLink("Download Resume", "Download", "Jobseeker", new { id = Model.Id, redirect = Request.Url.ToString() }, new { title = "Download Resume", @class = "btn btn-info", @style = "width:150px", @target = "_blank" })
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        <button type="submit" title="Build Resume" class="btn btn-info pull-right" style="width:150px">Submit</button>
+                        @*<a href="#" title="Build Resume" class="btn btn-info pull-right" style="width:150px">Submit</a>*@
+                        @*<a href="#" role="button" data-toggle='modal' data-target='#buildConfirmDialog' title="Build Resume" class="btn btn-info pull-right" style="width:150px">Submit</a>*@
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="form-group">
+                        <button type="submit" title="Build Resume" class="btn btn-info pull-right" style="width:150px">Submit</button>
+                        @*<a href="#" role="button" data-toggle='modal' data-target='#buildConfirmDialog' title="Build Resume" class="btn btn-info pull-right" style="width:150px">Submit</a>*@
+                    </div>
+                </div>
+            </div>
+        }
+        @Html.Partial("_MessagePartial")
+        <div class="clear" style="height: 15px;"></div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                @Html.Label("Title")
+
+                @Html.TextBoxFor(model => model.Title, new { @class = "form-control", placeholder = "TITLE (For example, Software Engineer)", title = "TITLE (For example, Software Engineer)", @maxlength = 50 })
+                @Html.ValidationMessageFor(model => model.Title)
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CategoryId)
+
+                    @Html.DropDownListFor(model => model.CategoryId, new SelectList(SharedService.Instance.GetSpecialisations(), "Id", "Name", Model.CategoryId), "SELECT CATEGORY", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CategoryId)
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.SpecializationId)
+
+                    @Html.DropDownListFor(model => model.SpecializationId, new SelectList(new List<SelectListItem>(), Model.SpecializationId), "SELECT SPECIALIZATION", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.SpecializationId)
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                    <h4 style="line-height: 0px;">
+                        <b><label for="Summary">Summary of Experience</label></b> <small>(Max. 2000 Characters)</small>
+                    </h4>
+                    @Html.TextAreaFor(model => model.Summary, new { @class = "form-control", @COLS = "100", @ROWS = "5", @WRAP = "HARD", @maxlength = "2000", @style = "resize:vertical", @data_char = "2000", @data_maxchar = "2000" })
+                    @Html.ValidationMessageFor(model => model.Summary)
+                </div>
+                @*<div class="clear" style="height: 10px;"></div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <h4 style="line-height: 0px;">
+                                    <b>@Html.LabelFor(model => model.AreaOfExpertise)</b> <small>(Max. 1500 Characters)</small>
+                                </h4>
+                                @Html.TextAreaFor(model => model.AreaOfExpertise, new { @class = "form-control", @maxlength = "1500", @style = "height:100px; resize:vertical" })
+                                @Html.ValidationMessageFor(model => model.AreaOfExpertise)
+                            </div>
+                        </div>
+                    </div>*@
+                <div class="clear" style="height: 10px;"></div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <h4 style="line-height: 0px;">
+                                <b><label for="Experience">Work Experience</label></b> <small>(Max. 2500 Characters)</small>
+                            </h4>
+                            @Html.TextAreaFor(model => model.Experience, new { @class = "form-control", @maxlength = "2500", @style = "height:100px; resize:vertical", @data_char = "2500", @data_maxchar = "2500" })
+                            @Html.ValidationMessageFor(model => model.Experience)
+                        </div>
+                    </div>
+                </div>
+                <div class="clear" style="height: 10px;"></div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <h4 style="line-height: 0px;">
+                                <b>@Html.Label("Skills")</b> <small>(Max. 2000 Characters)</small>
+                            </h4>
+                            @Html.TextAreaFor(model => model.Skills, new { @class = "form-control", @maxlength = "2000", @style = "height:100px; resize:vertical", @COLS = "50", @ROWS = "5", @WRAP = "HARD", @data_char = "2000", @data_maxchar = "2000" })
+                            @Html.ValidationMessageFor(model => model.Skills)
+                            <div class="chars_left"></div>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="clear" style="height: 10px;"></div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                <h4 style="line-height: 0px;">
+                                    <b>@Html.Label("Management Skills")</b> <small>(Max. 1500 Characters)</small>
+                                </h4>
+                                @Html.TextAreaFor(model => model.ManagementSkills, new { @class = "form-control", @maxlength = "1500", @style = "height:100px; resize:vertical", @COLS = "50", @ROWS = "5", @WRAP = "HARD" })
+                            </div>
+                        </div>
+                    </div>*@
+                <div class="clear" style="height: 10px;"></div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <h4 style="line-height: 0px;">
+                                <b>@Html.LabelFor(model => model.Education)</b> <small>(Max. 1500 Characters)</small>
+                            </h4>
+                            @Html.TextAreaFor(model => model.Education, new { @class = "form-control", @maxlength = "1500", @style = "height:100px; resize:vertical", @data_char = "1500", @data_maxchar = "1500" })
+                            @Html.ValidationMessageFor(model => model.Education)
+                        </div>
+                    </div>
+                </div>
+                <div class="clear" style="height: 10px;"></div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <h4 style="line-height: 0px;">
+                                <b>@Html.Label("Professional Certification")</b> <small>(Max. 1500 Characters)</small>
+                            </h4>
+                            @Html.TextAreaFor(model => model.Certifications, new { @class = "form-control", @maxlength = "1500", @style = "height:100px; resize:vertical", @data_char = "1500", @data_maxchar = "1500" })
+                            @Html.ValidationMessageFor(model => model.Certifications)
+                        </div>
+                    </div>
+                </div>
+                <div class="clear" style="height: 10px;"></div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="form-group">
+                            <h4 style="line-height: 0px;">
+                                <b>@Html.Label("Professional Bodies Affiliation")</b> <small>(Max. 1500 Characters)</small>
+                            </h4>
+                            @Html.TextAreaFor(model => model.Affiliations, new { @class = "form-control", @maxlength = "1500", @style = "height:100px; resize:vertical", @data_char = "1500", @data_maxchar = "1500" })
+                            @Html.ValidationMessageFor(model => model.Affiliations)
+                        </div>
+                    </div>
+                </div>
+                <div class="clear" style="height: 10px;"></div>
+                <div class="form-group" style="text-align: center">
+                    <button type="submit" title="Build Resume" class="btn btn-info pull-right" style="width:150px">Submit</button>
+                    @*<a href="#" role="button" data-toggle='modal' data-target='#buildConfirmDialog' title="Build Resume" class="btn btn-info" style="width:150px">Submit</a>*@
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="buildConfirmDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            Confirm Build Resume
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div style="font-size:1.5em; color:red">Are you sure?<br>Your existing resume will be replaced!</div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px;">No</button>
+                        <button type="button" id="build" class="btn btn-primary" data-dismiss="modal" style="width:75px;">Yes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="uploadResumeDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            Upload Your Resume
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                @Html.Label("Upload Resume")
+                                (DOC, DOCX or PDF file with maximum size of 300 KB)
+
+                                <input id="Resume" name="Resume" type="file" title="Upload DOC, DOCX  or PDF file with maximum size of 300 KB" />
+                                <div id="divFileError" style="color: red; font-weight: bold;"></div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="modal-footer">
+                        @Html.HiddenFor(model => model.Id)
+                        <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px;">Close</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" id="resumeUpload" style="width:75px;" formnovalidate="formnovalidate">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+
+        var max_chars = 2000; //max characters
+        var max_for_html = 2500; //max characters for html tags
+        var allowed_keys = [8, 13, 16, 17, 18, 20, 33, 34, 35, 36, 37, 38, 39, 40, 46];
+        var chars_without_html = 0;
+        $("#divMsgBox").hide();
+        function alarmChars() {
+            if (chars_without_html > (max_chars - 25)) {
+                $('#chars_left').css('color', 'red');
+            } else {
+                $('#chars_left').css('color', 'gray');
+            }
+        }
+
+
+
+        tinymce.init({
+            selector: '#Summary,#AreaOfExpertise,#Experience,#Skills,#ManagementSkills,#Education,#Certifications,#Affiliations', plugins: "link", toolbar: "bullist | numlist | outdent ", menubar: false, statusbar: true, height: "185px",
+            paste_as_text: true,
+            plugins: "paste",
+            cleanup: true,
+            cleanup_on_startup: true,
+            force_p_newlines: false,
+            preformatted: false,
+            convert_fonts_to_spans: false,
+            forced_root_block: ' ',
+            statusbar: false,
+            setup: function (ed) {
+                ed.on('init', function () {
+                    this.execCommand("fontName", false, "Arial");
+                    this.execCommand("fontSize", false, "13.3333px");
+                    $("#Title").focus();
+                });
+                ed.on("KeyDown", function (ed, evt) {
+                    max_chars = $("#" + this.id).data("char");
+                    max_for_html = $("#" + this.id).data("maxchar");
+
+                    chars_without_html = $.trim(tinyMCE.activeEditor.getContent().replace(/(<([^>]+)>)/ig, "")).length;
+                    chars_with_html = tinyMCE.activeEditor.getContent().length;
+                    var key = ed.keyCode;
+
+                    $('#chars_left').html("<b style=\"color:red\">Remaining characters:</b> " + (max_chars - chars_without_html));
+
+                    if (allowed_keys.indexOf(key) != -1) {
+                        alarmChars();
+                        return;
+                    }
+
+                    if (chars_with_html > (max_chars + max_for_html)) {
+                        ed.stopPropagation();
+                        ed.preventDefault();
+                    } else if (chars_without_html > max_chars - 1 && key != 8 && key != 46) {
+                        ed.stopPropagation();
+                        ed.preventDefault();
+                    }
+                    alarmChars();
+                });
+            }
+            //auto_focus: "Title"
+        });
+        //tinymce.execCommand('mceFocus', false, 'Summary');
+        //chars_without_html = $.trim($("#Requirements").text().replace(/(<([^>]+)>)/ig, "")).length;
+        //$('#chars_left').html("<b style=\"color:red\">Remaining characters:</b> " + (max_chars - chars_without_html));
+        alarmChars();
+        //$("#BuildResumeForm").submit(function () {
+
+        //});
+        //$("#build").click(function () {
+        //    $("#BuildResumeForm").submit();
+        //});
+        $("#lnkbUploadResume").click(function () {
+            $("#Resume").val("");
+            $("#divFileError").html("");
+            $("#resumeUpload").attr('disabled', false);
+        });
+        $("#Resume").change(function () {
+            var file = document.getElementById('Resume').files[0];
+            var defineSize = 300 * 1024;
+            var fileSize = file.size;
+            var name = file.name;
+            var ext = name.substr(name.lastIndexOf(".") + 1, 4).toLowerCase();
+            var allowed = "doc, docx, pdf, rtf";
+            $("#divFileError").html("");
+            if (name.length > 0) {
+                if (allowed.indexOf(ext) < 0) {
+                    $("#divFileError").html("Only DOC, DOCX, PDF, RTF files are allowed!");
+                    $("#resumeUpload").attr('disabled', true);
+                } else {
+                    if (fileSize > defineSize) {
+                        $("#divFileError").html("File upload failed - Exceeded max file size (300 KB)!");
+                        $("#resumeUpload").attr('disabled', true);
+                    } else {
+                        $("#divFileError").html("");
+                        $("#resumeUpload").attr('disabled', false);
+                    }
+                }
+            } else {
+                $("#divFileError").html("Please select file!");
+                $("#resumeUpload").attr('disabled', true);
+            }
+        });
+
+        $("#resumeUpload").click(function () {
+            var file = document.getElementById('Resume').files[0];
+            if (file != null) {
+                var name = file.name;
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function (e) {
+                    var binaryString = e.target.result.toString();
+                    binaryString = binaryString.replace("data:application/pdf;base64,", "");
+                    binaryString = binaryString.replace("data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,", "");
+                    binaryString = binaryString.replace("data:application/msword;base64,", "");
+
+                    $.post('@Url.Action("ResumeUpload", "JsonHelper")', { Username: "@User.Username", fileName: name, data: binaryString },
+                       function (result) {
+                           $("#uploadResumeDialog").modal("hide");
+                           toastr.info("Resume uploaded successfully!");
+                       });
+                }
+            } else {
+                $("#divFileError").html("Please select file!");
+                $("#resumeUpload").attr('disabled', true);
+            }
+        });
+
+        $("#CategoryId").change(function () {
+            $("#SpecializationId").empty();
+            $("#SpecializationId").append("<option value =\"\">SELECT</option>");
+            $.post('@Url.Action("GetSpecializations", "JsonHelper")', { categoryid: $('option:selected', $(this)).val() },
+                    function (result) {
+                        if (result.length != 0) {
+                            $("#SpecializationId").empty();
+                            $("#SpecializationId").append("<option value =\"\">SELECT</option>");
+                            $(result).each(function () {
+                                $("#SpecializationId").append("<option value =" + this.Value + ">" + this.Text + "</option>");
+                            });
+                        }
+                    });
+        });
+        $.post('@Url.Action("GetSpecializations", "JsonHelper")', { categoryid: $("#CategoryId").val() },
+        function (result) {
+            if (result.length != 0) {
+                $("#SpecializationId").empty();
+                $("#SpecializationId").append("<option value =\"\">SELECT</option>");
+                $(result).each(function () {
+                    $("#SpecializationId").append("<option value =" + this.Value + ">" + this.Text + "</option>");
+                });
+                $("#SpecializationId").val(@Model.SpecializationId);
+            }
+        });
+    });
+</script>

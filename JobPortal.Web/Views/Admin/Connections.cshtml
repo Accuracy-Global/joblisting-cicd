@@ -1,0 +1,300 @@
+﻿@using PagedList.Mvc
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Data
+@using JobPortal.Domain
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<JobPortal.Data.Connection>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+    UserProfile profile = MemberService.Instance.Get(ViewBag.UserInfo.UserId);
+    int inboxItems = DomainService.Instance.DashboardInboxItems(User.Id, ViewBag.UserInfo.UserId);
+    int appCounts = MemberService.Instance.GetApplicationCount(profile.Username);
+    int intCounts = MemberService.Instance.GetInterviewCount(profile.Username);
+
+    WebGrid grid = new WebGrid(source: ViewBag.Model, ajaxUpdateContainerId: "grid", canPage: false, rowsPerPage: 15);
+ 
+}
+<style>
+    .idate {
+        /*width:125px;*/
+    }
+
+    .isubject {
+        /*width:200px;*/
+    }
+
+    .iaction {
+        width: 10%;
+    }
+</style>
+
+<div class="section">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                <li class="active"><a href="#">QUICK LINKS</a></li>
+                <li>@Html.ActionLink("Connections", "Connections", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                <li>@Html.ActionLink("Messages", "Messages", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                @if (ViewBag.UserInfo.Type == (int)SecurityRoles.Employers)
+                {
+                    <li>@Html.ActionLink("Jobs", "JobsByCompany", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                @if (appCounts > 0)
+                {
+                    <li>@Html.ActionLink(string.Format("Applications ({0})", appCounts), "Applications", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Applications", "Applications", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                @if (intCounts > 0)
+                {
+                    <li>@Html.ActionLink(string.Format("Interviews ({0})", intCounts), "Interviews", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Interviews", "Interviews", "Admin", new { UserId = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+                @if (ViewBag.UserInfo.Type == (int)SecurityRoles.Employers)
+                {
+                    <li>@Html.ActionLink("Downloads", "DownloadHistory", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                }
+
+                @if (inboxItems > 0)
+                {
+                    <li><a href="/Admin/Inbox?Id=@ViewBag.UserInfo.UserId" target="_blank">Inbox (<span style="color:red; font-weight:bold">@inboxItems</span>)</a></li>
+                }
+                else
+                {
+                    <li><a href="/Admin/Inbox?Id=@ViewBag.UserInfo.UserId" target="_blank">Inbox</a></li>
+                }
+                @if (ViewBag.UserInfo.Type == (int)SecurityRoles.Jobseeker)
+                {
+                    <li>@Html.ActionLink("Profile", "ManageIndividual", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { })</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Profile", "ManageCompany", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { })</li>
+                }
+                <li>@Html.ActionLink("Billing & Invoices", "billing", "Payment", new { userId = ViewBag.UserInfo.UserId }, new { })</li>
+                <li>@Html.ActionLink("Reset Password", "ResetPassword", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+                <li>@Html.ActionLink("Login History", "LoginHistory", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { @class = "active" })</li>
+                <li>@Html.ActionLink("Alert Settings", "Alerts", "Admin", new { Id = ViewBag.UserInfo.UserId }, new { target = "_blank" })</li>
+            </ul>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-9">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="title-login">
+                        <h1 style="line-height:0;">Connections</h1>
+                        <div style="padding-top:15px;">
+                            @if (ViewBag.UserInfo.Type == (int)SecurityRoles.Employers)
+                            {
+                                <text>Manage connections  of <b>@ViewBag.UserInfo.Company</b> here</text>
+                            }
+                            else if (ViewBag.UserInfo.Type == (int)SecurityRoles.Jobseeker)
+                            {
+                                <text> Manage connections  of <b>@ViewBag.UserInfo.FirstName  @ViewBag.UserInfo.LastName</b> here</text>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-md-12">
+                    @using (Html.BeginForm())
+                    {
+                        <div class="row">
+                            <div class="col-lg-5 col-md-5 col-sm-5">
+                                <div class="form-group">
+                                    <label>Search By Name</label>
+                                    @Html.TextBox("Name", "", new { @class = "form-control", placeholder = "NAME" })
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-md-5 col-sm-5">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            @Html.Label("Age From")
+                                            @Html.DropDownList("AgeFrom", new SelectList(SharedService.Instance.GetAgeList(), "value", "key"), "--SELECT--", new { title = "From Age", @class = "form-control" })
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6">
+                                            @Html.Label("Age To")
+                                            @Html.DropDownList("AgeTo", new SelectList(SharedService.Instance.GetAgeList(20), "value", "key"), "--SELECT--", new { title = "To Age", @class = "form-control" })
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2">
+                                <div class="form-group">
+                                    <label>&nbsp;</label>
+                                    <input type="submit" value="Search" class="btn btn-info btn-block" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="clear" style="height:15px"></div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-md-12">
+                    <div id="container-grid" class="table-responsive">
+                        @grid.GetHtml(htmlAttributes: new { id = "grid", @style = "width:100%" },
+            tableStyle: "table table-bordered",
+            fillEmptyRows: false,
+            alternatingRowStyle: "alt",
+            columns: new[]
+            {
+                //grid.Column("Name", header: "Name", style:"isubject", canSort:false, format: (item) =>
+                //{
+                //    string link = string.Empty;
+                //    link = Html.ActionLink((string)((ActivityTypes)item.Type).GetDescription().TitleCase(), "Show", "Admin", new { Id = ViewBag.UserInfo.UserId, ItemId = item.Id }, new { @target = "_blank" }).ToString();
+                //    return Html.Raw(link);
+                //}),
+                grid.Column("EmailAddress", header: "Email Address", canSort:false, style:"idate", format: (item) =>
+                {
+                    UserProfile registered = MemberService.Instance.Get(item.EmailAddress);
+                    string link = string.Empty;
+                    if (registered != null)
+                    {
+                        //link = MemberService.Instance.ProfileLink(registered.Username);
+                        link=registered.Username;
+                    }
+                    else
+                    {
+                        link = item.EmailAddress;
+                    }
+                    return Html.Raw(link);
+
+                }),
+                 grid.Column("Type", header: "Type", canSort:false, style:"idate", format: (item) =>
+                {
+                    UserProfile registered = MemberService.Instance.Get(item.EmailAddress);
+                    string link = string.Empty;
+                    if (registered != null)
+                    {
+                        link = ((SecurityRoles)registered.Type).GetDescription().TitleCase();
+                    }
+                    else
+                    {
+                        link = "";
+                    }
+                    return Html.Raw(link);
+                }),
+                 grid.Column("Age", header: "Age", canSort:false, style:"idate", format: (item) =>
+                {
+                    string age = "--";
+                    profile = MemberService.Instance.Get(item.EmailAddress);
+                    if (profile != null)
+                    {
+                        if (profile.Age != null && profile.Type == (int)SecurityRoles.Jobseeker)
+                        {
+                            age = Convert.ToString(profile.Age);
+                        }
+                        else
+                        {
+                            age = "N.A.";
+                        }
+                    }
+                    return Html.Raw(age);
+                }),
+                grid.Column("Gender", header: "Gender", canSort:false, style:"idate", format: (item) =>
+                {
+                    string gender = string.Empty;
+                    profile = MemberService.Instance.Get(item.EmailAddress);
+                    if (profile != null)
+                    {
+                        if (!string.IsNullOrEmpty(profile.Gender))
+                        {
+                            gender = profile.Gender;
+                        }
+                    }
+                    return Html.Raw(gender);
+                }),
+                grid.Column("Relationship", header: "Relationship", canSort:false, style:"idate", format: (item) =>
+                {
+                    string relationship = string.Empty;
+                    profile = MemberService.Instance.Get(item.EmailAddress);
+                    if (profile != null)
+                    {
+                        if (profile.RelationshipStatus != null)
+                        {
+                            relationship = ((Relationships)profile.RelationshipStatus.Value).GetDescription().TitleCase();
+                        }
+                    }
+                    return Html.Raw(relationship);
+                }),
+                grid.Column("Country", header: "Country", canSort:false, style:"idate", format: (item) =>
+                {
+                    string country = string.Empty;
+                    profile = MemberService.Instance.Get(item.EmailAddress);
+                    if (profile != null)
+                    {
+                        if (profile.CountryId != null)
+                        {
+                            country = SharedService.Instance.GetCountry(profile.CountryId.Value).Text;
+                        }
+                    }
+                    return Html.Raw(country);
+                }),
+                grid.Column("Status", header: "Status", canSort:false, format: (item) =>
+                {
+                    string status = string.Empty;
+                    status = ConnectionHelper.Status(item.EmailAddress, ViewBag.UserInfo.Username);
+                    Connection connection = ConnectionHelper.Get(item.Id);
+                    if (connection != null && status.ToLower().Equals("not connected"))
+                    {
+                        status = "Invited";
+                    }
+                    return Html.Raw(status);
+                }),
+                //grid.Column("Actions", style:"iaction", canSort:false, format: (item) =>
+                //{
+                //    var links = string.Empty;
+                //    //if (item.Unread) {
+                //    //    links += Html.ActionLink("View (1)", "Show", "Admin", new { Id =ViewBag.UserInfo.UserId , ItemId = item.Id }, new { title = "View", @target="_blank" }).ToString();
+                //    //}
+                //    //else
+                //    //{
+                //    //    links += Html.ActionLink("View", "Show", "Admin", new { Id = ViewBag.UserInfo.UserId, ItemId = item.Id }, new { title = "View", @target = "_blank" }).ToString();
+                //    //}
+                //    return Html.Raw(links);
+                //})
+            }
+            )
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-md-12">
+                    <div style="text-align:center; margin-top: -15px;">
+                        @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Connections",
+                            new RouteValueDictionary()
+                            {
+                                { "pageNumber" , PageNumber },
+                                { "UserId" , Request["UserId"] }
+                            }),
+                            PagedListRenderOptions.ClassicPlusFirstAndLast)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+    })
+</script>

@@ -1,0 +1,1059 @@
+﻿@model JobPortal.Web.Models.SearchJobModel
+@using JobPortal.Library.Constants
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Domain
+@using JobPortal.Models
+@{
+    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+}
+
+<style>
+    #body {
+        background: #f5f5f5 none repeat scroll 0 0 !important;
+    }
+
+    .right-side-bar {
+        background: #fff none repeat scroll 0 0;
+        border-bottom: 1px solid #e4e4e4;
+    }
+
+    .sponsored {
+        background: #ffffff;
+    }
+
+    .sponsored {
+        background: #fff none repeat scroll 0 0;
+        padding: 15px 15px 0;
+    }
+
+    .abcdesign {
+        margin: 0 0 18px 0;
+    }
+
+        .abcdesign > h3 {
+            color: #333;
+            font-size: 14px;
+            margin: 0 0 11px 0;
+        }
+
+    .sub-heading h2 {
+        color: #000;
+        font-size: 14px;
+        margin: 0 0 20px;
+        padding-bottom: 6px;
+        position: relative;
+        font-weight: bold;
+    }
+
+        .sub-heading h2::after {
+            border-bottom: 2px solid #e93100;
+            bottom: 0;
+            content: "";
+            display: block;
+            left: 0;
+            position: absolute;
+            width: 100%;
+        }
+
+    .news {
+        border-bottom: 2px solid #f5f5f5;
+        margin-bottom: 20px;
+        min-height: 54px;
+        position: relative;
+    }
+
+    .news-img {
+        position: absolute;
+        margin-bottom: 10px;
+        font-size: 75px;
+        font-weight: 700;
+        height: 54px;
+        width: 54px;
+        background-color: #fff;
+    }
+
+        .news-img::after {
+            content: "";
+            display: block;
+            height: 0;
+            padding-bottom: 100%;
+            width: 100%;
+        }
+
+    .news-content {
+        margin-left: 63px;
+    }
+
+        .news-content > h3 {
+            font-size: 13px;
+            margin: 0;
+            color: #222222;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .news-content a {
+            color: #333;
+        }
+
+            .news-content a:hover {
+                color: #00a6e0;
+            }
+
+        .news-content > h4 {
+            color: #999898;
+            font-size: 10px;
+            margin: 7px 0 0 0;
+        }
+
+        .news-content > p {
+            color: #222222;
+            font-family: 'Roboto', sans-serif;
+            font-size: 11px;
+            line-height: 16px;
+            padding: 4px 0 0;
+        }
+
+            .news-content > p:last-child {
+                margin: 0;
+            }
+
+    .left-col {
+        padding-right: 6px;
+        width: 81.25%;
+    }
+
+    .right-col {
+        padding-left: 6px;
+        width: 202px;
+    }
+
+    @@media (max-width: 320px) {
+        .right-col {
+            padding-left: 15px !important;
+            width: 100% !important;
+        }
+
+        .left-col {
+            padding-right: 15px !important;
+            width: 100% !important;
+        }
+    }
+
+    @@media only screen and (max-width:360px) {
+        .right-col {
+            padding-left: 15px !important;
+            width: 100% !important;
+        }
+
+        .left-col {
+            padding-right: 15px !important;
+            width: 100% !important;
+        }
+    }
+
+    @@media only screen and (max-width:384px) {
+        .right-col {
+            padding-left: 15px !important;
+            width: 100% !important;
+        }
+
+        .left-col {
+            padding-right: 15px !important;
+            width: 100% !important;
+        }
+    }
+
+    @@media only screen and (max-width:600px) {
+        .right-col {
+            padding-left: 15px !important;
+            width: 100% !important;
+        }
+
+        .left-col {
+            padding-right: 15px !important;
+            width: 100% !important;
+        }
+    }
+
+    @@media screen and (max-width:800px) {
+        .right-col {
+            padding-left: 6px;
+            width: 202px;
+        }
+
+        .left-col {
+            padding-right: 6px !important;
+            width: 73%;
+        }
+    }
+
+    .seemore {
+        text-align: right;
+    }
+
+        .seemore > a {
+            color: #000000;
+            font-family: "Roboto", sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .seemore i {
+            font-size: 16px;
+            padding: 0 0 0 5px;
+            vertical-align: middle;
+        }
+
+    .cdate {
+        padding-left: 0px;
+        list-style-type: none;
+    }
+
+        .cdate li {
+            display: inline-block;
+            width: auto;
+        }
+</style>
+
+
+<div style="background-color:#fff; padding:20px;">
+    <div class="row">
+        <div class="col-lg-7 col-md-7">
+            <div class="title-login">
+                @if (!string.IsNullOrEmpty(Request.QueryString["type"]))
+                {
+                    <h1>@Request.QueryString["type"].TitleCase() Job Search</h1>
+                }
+                else
+                {
+                    <h1>Search Jobs</h1>
+                }
+                Search jobs here
+            </div>
+
+        </div>
+        <div class="col-lg-2 col-md-2">
+            <div class="form-group" style="padding-top: 12px;">
+                @if (user != null && user.Type == 4)
+                {
+                    if (user.PromoteDate != null)
+                    {
+                        if (user.PromoteDate.Value.Date < DateTime.Now.Date)
+                        {
+                            <a href="/package/promote?id=@user.Id&type=P&returnUrl=@Request.Url.ToString()" class="btn btn-info promote" style="width:165px;">Promote Profile</a>
+                        }
+                    }
+                    else
+                    {
+                        <a href="/package/promote?id=@user.Id&type=P&returnUrl=@Request.Url.ToString()" class="btn btn-info promote" style="width:165px;">Promote Profile</a>
+                    }
+                }
+            </div>
+        </div>
+        <div class="col-lg-1 col-md-1">
+            <div class="form-group"></div>
+        </div>
+        <div class="col-lg-2 col-md-2">
+            <div class="form-group" style="padding-top: 12px;">
+                <div class="pull-right" style="background-color:#b3cb39;width:100px;padding: 4px;height: 34px;border-radius:4px; display:block">
+                    <a href="https://play.google.com/store/apps/details?id=com.joblisting.joblisting" style="background-color: #b3cb39; color:#ffffff; text-decoration:none" target="_blank">
+                        <table cellpadding="0" style="margin-bottom: 0px;">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <i class="fa fa-android" aria-hidden="true" style="font-size:20px; color:#ffffff"></i>
+                                    </td>
+                                    <td>
+                                        <div style="font-size: 10px;padding-left:5px;line-height: 8px;">
+                                            Download for
+                                        </div>
+                                        <div style="font-size:18px;padding-left:5px;">
+                                            Android
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clear" style="height:30px;"></div>
+    @Html.Partial("_MessagePartial")
+
+    <div class="list-group-item" style="padding:15px;">
+        @using (Html.BeginForm("SearchJobs", "Job", method: FormMethod.Post, htmlAttributes: new { id = "BasicSearchForm" }))
+        {
+            <div class="row" id="BasicSearch">
+                <div class="col-lg-8 col-md-8 col-sm-8">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.JobTitle, new { placeholder = "JOB TITLE OR COMPANY NAME", @class = "form-control _basic", @maxlength = 50 })
+                                @Html.ValidationMessageFor(model => model.JobTitle)
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.Where, new { placeholder = "WHERE (For example, United States)", @class = "form-control _basic", @maxlength = 50 })
+                                @Html.ValidationMessageFor(model => model.Where)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    <div class=" form-group">
+                        <input id="AdvanceSearchButton" type="button" value="Advance Search" class="btn btn-default btn-block" style="color: #01a7e1;" />
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                    <div class=" form-group">
+                        <input id="SearchBasic" type="submit" value="Search" class="btn btn-info btn-block jsearch" />
+                    </div>
+                </div>
+            </div>
+        }
+        @using (Html.BeginForm("SearchJobs", "Job", method: FormMethod.Post, htmlAttributes: new { id = "AdvanceSearchForm" }))
+        {
+            <div id="AdvanceSearch" class="controlhide">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.JobTitle)
+
+                            @Html.TextBoxFor(model => model.JobTitle, new { @class = "form-control typeahead tt-query", placeholder = "JOB TITLE OR COMPANY NAME", @maxlength = 50 })
+                            @Html.ValidationMessageFor(model => model.JobTitle)
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CategoryId)
+                            <select id="CategoryId" name="CategoryId" class="form-control _advanceddl">
+                                <option>SELECT</option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.CategoryId)
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SpecializationId)
+                            <select id="SpecializationId" name="SpecializationId" class="form-control _advanceddl">
+                                <option>SELECT</option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.SpecializationId)
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CountryId)
+                            <select id="CountryId" name="CountryId" class="form-control _advanceddl">
+                                <option>SELECT</option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.CountryId)
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.State)
+                            @Html.TextBoxFor(model => model.State, new { @class = "form-control", placeholder = "State/City (For example, New York)", @maxlength = 50 })
+                            @Html.ValidationMessageFor(model => model.State)
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ZipCode)
+
+                            @Html.TextBoxFor(model => model.ZipCode, new { @class = "form-control", placeholder = "ZIP (For example, 91789)", @maxlength = 6 })
+                            @Html.ValidationMessageFor(model => model.ZipCode)
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.EmploymentTypeId)
+
+                            @Html.DropDownListFor(model => model.EmploymentTypeId, new SelectList(Model.EmploymentTypes, "Id", "Text", Model.EmploymentTypeId), "SELECT", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.EmploymentTypeId)
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.QualificationId)
+                            <select id="QualificationId" name="QualificationId" class="form-control _advanceddl">
+                                <option>SELECT</option>
+                            </select>
+                            @Html.ValidationMessageFor(model => model.QualificationId)
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <div class="form-group">
+                            @Html.Label("From Date")
+                            <ul class="cdate" title="From Date">
+                                <li>
+                                    @Html.DropDownList("FromDay", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control", @style = "padding:4px;" })
+                                </li>
+                                <li>
+                                    @Html.DropDownList("FromMonth", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control", @style = "padding:4px;" })
+
+                                </li>
+                                <li>
+                                    @Html.DropDownList("FromYear", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 1)), "YEAR", new { @class = "form-control", @style = "padding:4px;" })
+                                </li>
+                            </ul>
+                            <div id="fromDateError" style="color:red;"></div>
+                        </div>
+
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ToDate)
+                            <ul class="cdate" title="From Date">
+                                <li>
+                                    @Html.DropDownList("ToDay", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control", @style = "padding:4px;" })
+                                </li>
+                                <li>
+                                    @Html.DropDownList("ToMonth", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control", @style = "padding:4px;" })
+                                </li>
+                                <li>
+                                    @Html.DropDownList("ToYear", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 1)), "YEAR", new { @class = "form-control", @style = "padding:4px;" })
+                                </li>
+                            </ul>
+                            <div id="toDateError" style="color:red;"></div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                        <div class=" form-group">
+                            <label>&nbsp;</label>
+                            <input id="BasicSearchButton" type="button" value="Basic Search" class="btn btn-default btn-block" style="color: #01a7e1;" />
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                        <div class=" form-group">
+                            <label>&nbsp;</label>
+                            <input id="SearchAdvance" type="submit" value="Search" class="btn btn-info btn-block jsearch" />
+                        </div>
+                    </div>
+                </div>
+                <div class="clear" style="height:15px;"></div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="clear" style="height:15px;"></div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="row">
+            <div class="col-sm-9 left-col">
+                <div style="background-color:#fff; padding:20px; min-height:806px">
+                    <div id="noresult" class="noresult">
+                        <div class="nodata">Your search did not match any job.</div>
+                        <b>Suggestions:</b>
+                        <ul>
+                            <li>Make sure all words are spelled correctly.</li>
+                            <li>Try different keywords.</li>
+                            <li>Try more general keywords.</li>
+                            <li>Try fewer keywords.</li>
+                            <li>Try entire word.</li>
+                        </ul>
+                    </div>
+                    <div id="PaidArea">
+                        <div id="PaidResultArea"></div>
+                    </div>
+                    <div id="DisplayArea" class="hide">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">&nbsp;</div>
+                        </div>
+                        <div id="ResultArea"></div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">&nbsp;</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">&nbsp;</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <a id="ViewMore" class="btn btn-primary btn-block hide" style="width:100%;">View More</a>
+                                <a id="JoinSeeMore" class="btn btn-info hide" style="width:100%;">Join to See More</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 right-col">
+                <div style="background-color:#fff; padding-bottom:15px; min-height:806px">
+                    <div class="sponsored">
+                        <div class="sub-heading">
+                            <h2>Sponsored Ads</h2>
+                        </div>
+                        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                        <!-- Right-column-Ad-1 -->
+                        <ins class="adsbygoogle"
+                             style="display:block"
+                             data-ad-client="ca-pub-8925328521448849"
+                             data-ad-slot="8709143016"
+                             data-ad-format="rectangle"></ins>
+                        <script>
+                            (adsbygoogle = window.adsbygoogle || []).push({});
+                        </script>
+                    </div>
+                    <div class="sponsored">
+                        @if (User != null)
+                        {
+                            @Html.Action("RecentJobsWithoutLogo", "Home", new { Id = user.Id })
+                        }
+                        else
+                        {
+                            @Html.Action("RecentJobsWithoutLogo", "Home", new { Id = 0 })
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/Search.js"></script>
+<script type="text/javascript">
+    var formId = "";
+    $(document).ready(function () {
+        $("#noresult").show();
+
+        var country = "@(Model.Where!=null?Model.Where:"")";
+        var countryId = Number("@(Request.QueryString["CountryId"] != null ? Request.QueryString["CountryId"] : "0")");
+        var rows = 0;
+        var pages = 0;
+        var offset = 1;
+        $('#Save').click(function () {
+            alert('button click')
+            $.post('@Url.Action("BookMarkedJob", "JsonHelper")', { jobId: 52 }, function (data) {
+                $("#msg").html(data);
+            });
+        })
+        if (countryId > 0) {
+            $("#waitDialog").modal("show");
+            $("#divMsg").removeClass("show");
+            $("#divMsg").addClass("hide");
+            offset = 1;
+            var jsonForm = { CountryId: countryId, PageNumber: offset };
+            $.post("/jobs", jsonForm, function (result) {
+                $("#waitDialog").modal("hide");
+                if (result.length > 0) {
+                    rows = result[0].MaxRows;
+                    pages = Math.ceil(rows / 20);
+                    $("#noresult").hide();
+                    $("#DisplayArea").removeClass("hide");
+                    $("#DisplayArea").addClass("show");
+                    $(result).each(function () {
+                        if (this.ExpiryStatus == null || this.ExpiryStatus == '') {
+                            this.ExpiryStatus = this.ClosedOn;
+                        }
+                        this.authflag = "@Request.IsAuthenticated";
+                        this.Role = "@(user!= null?user.Role.GetDescription():"")";
+                        $("#ResultItem").tmpl(this).appendTo("#ResultArea");
+                    });
+                    if ((offset < pages)) {
+                        if (authenticated == "True") {
+
+                            $("#JoinSeeMore").removeClass("show");
+                            $("#JoinSeeMore").addClass("hide");
+                            $("#ViewMore").removeClass("hide");
+                            $("#ViewMore").addClass("show");
+
+                        } else {
+                            $("#JoinSeeMore").removeClass("hide");
+                            $("#JoinSeeMore").addClass("show");
+                            $("#ViewMore").removeClass("show");
+                            $("#ViewMore").addClass("hide");
+                        }
+                    } else {
+                        $("#JoinSeeMore").removeClass("show");
+                        $("#JoinSeeMore").addClass("hide");
+                        $("#ViewMore").removeClass("show");
+                        $("#ViewMore").addClass("hide");
+                    }
+                } else {
+                    $("#JoinSeeMore").removeClass("show");
+                    $("#JoinSeeMore").addClass("hide");
+                    $("#ViewMore").removeClass("show");
+                    $("#ViewMore").addClass("hide");
+                    $("#noresult").show();
+                    $("#JobArea").removeClass("show");
+                    $("#JobArea").addClass("hide");
+                }
+            });
+        }
+        if (country !== "") {
+            $("#waitDialog").modal("show");
+            $("#divMsg").removeClass("show");
+            $("#divMsg").addClass("hide");
+            offset = 1;
+            var jsonForm = { Where: country, PageNumber: offset };
+            $.post("/jobs", jsonForm, function (result) {
+                $("#waitDialog").modal("hide");
+                if (result.length > 0) {
+                    rows = result[0].MaxRows;
+                    pages = Math.ceil(rows / 20);
+                    $("#noresult").hide();
+                    $("#DisplayArea").removeClass("hide");
+                    $("#DisplayArea").addClass("show");
+                    $(result).each(function () {
+                        if (this.ExpiryStatus == null || this.ExpiryStatus == '') {
+                            this.ExpiryStatus = this.ClosedOn;
+                        }
+                        this.authflag = "@Request.IsAuthenticated";
+                        this.Role = "@(user!= null?user.Role.GetDescription():"")";
+                        $("#ResultItem").tmpl(this).appendTo("#ResultArea");
+                    });
+                    if ((offset < pages)) {
+                        if (authenticated == "True") {
+
+                            $("#JoinSeeMore").removeClass("show");
+                            $("#JoinSeeMore").addClass("hide");
+                            $("#ViewMore").removeClass("hide");
+                            $("#ViewMore").addClass("show");
+
+                        } else {
+                            $("#JoinSeeMore").removeClass("hide");
+                            $("#JoinSeeMore").addClass("show");
+                            $("#ViewMore").removeClass("show");
+                            $("#ViewMore").addClass("hide");
+                        }
+                    } else {
+                        $("#JoinSeeMore").removeClass("show");
+                        $("#JoinSeeMore").addClass("hide");
+                        $("#ViewMore").removeClass("show");
+                        $("#ViewMore").addClass("hide");
+                    }
+                } else {
+                    $("#JoinSeeMore").removeClass("show");
+                    $("#JoinSeeMore").addClass("hide");
+                    $("#ViewMore").removeClass("show");
+                    $("#ViewMore").addClass("hide");
+                    $("#noresult").show();
+                    $("#JobArea").removeClass("show");
+                    $("#JobArea").addClass("hide");
+                }
+            });
+        }
+
+        var sender = "@(Request.UrlReferrer != null ? Request.UrlReferrer.GetLeftPart(UriPartial.Path) : string.Empty)";
+        var current = "@Request.Url.GetLeftPart(UriPartial.Path)";
+
+        if (current == sender) {
+            var flag = $.cookie('searchjob');
+            if (flag == 'advance') {
+                $('#AdvanceSearch').show();
+                $('#BasicSearch').hide();
+                $("#JobTitle").val("");
+                $("#Where").val("");
+            } else if (flag == 'basic') {
+                $('#AdvanceSearch').hide();
+                $('#BasicSearch').show();
+
+                $("#JobTitle").val("");
+                $("#CategoryId").val("");
+                $("#SpecializationId").val("");
+                $("#CountryId").val("");
+                $("#State").val("");
+                $("#City").val("");
+                $("#FromDay").val("");
+                $("#FromMonth").val("");
+                $("#FromYear").val("");
+                $("#ToDay").val("");
+                $("#ToMonth").val("");
+                $("#ToYear").val("");
+                $("#QualificationId").val("");
+                $("#EmploymentTypeId").val("");
+                $("#ZipCode").val("");
+            }
+        }
+
+        $("#AdvanceSearchButton").click(function () {
+            $.cookie('searchjob', 'advance');
+            $('#AdvanceSearch').show();
+            $('#BasicSearch').hide();
+            $("#JobTitle").val("");
+            $("#Where").val("");
+            return false;
+        })
+
+        $("#BasicSearchButton").click(function () {
+            $.cookie('searchjob', 'basic');
+            $('#AdvanceSearch').hide();
+            $('#BasicSearch').show();
+
+            $("#JobTitle").val("");
+            $("#CategoryId").val("");
+            $("#SpecializationId").val("");
+            $("#CountryId").val("");
+            $("#State").val("");
+            $("#City").val("");
+            $("#FromDay").val("");
+            $("#FromMonth").val("");
+            $("#FromYear").val("");
+            $("#ToDay").val("");
+            $("#ToMonth").val("");
+            $("#ToYear").val("");
+            $("#QualificationId").val("");
+            $("#EmploymentTypeId").val("");
+            $("#ZipCode").val("");
+
+            return false;
+        });
+
+        $("#SearchAdvance").click(function () {
+            var isValidStartDate = isValidDate($("#FromDay").val(), $("#FromMonth").val(), $("#FromYear").val());
+            var isValidEndDate = isValidDate($("#ToDay").val(), $("#ToMonth").val(), $("#ToYear").val());
+
+            if (isValidStartDate) {
+                $("#fromDateError").html("");
+                $("#fromDateError").show();
+                $("#Search").enabled = true;
+            } else {
+                $("#fromDateError").html("Provide correct from date!");
+                $("#fromDateError").show();
+                $("#Search").enabled = false;
+            }
+
+            if (isValidEndDate) {
+                $("#toDateError").html("");
+                $("#toDateError").show();
+                $("#Search").enabled = true;
+            } else {
+                $("#toDateError").html("Provide correct to date!");
+                $("#toDateError").show();
+                $("#Search").enabled = false;
+            }
+
+            return (isValidStartDate == true && isValidEndDate == true);
+        });
+        var authenticated = "@Request.IsAuthenticated";
+        $(".jsearch").click(function () {
+            $("#waitDialog").modal("show");
+            $("#divMsg").removeClass("show");
+            $("#divMsg").addClass("hide");
+            formId = $(this).closest("form").attr("id");
+            var jsonForm = $(this).closest("form").serializeObject();
+            $("#noresult").hide();
+            offset = 1;
+            jsonForm.PageNumber = offset;
+            $.post("/jobs", jsonForm, function (result) {
+                $("#waitDialog").modal("hide");
+                DisplayPaidJobs();
+                setInterval("DisplayPaidJobs()", 11000);
+                if (result.length > 0) {
+                    $("#PaidResultArea").show();
+
+                    rows = result[0].MaxRows;
+                    pages = Math.ceil(rows / 20);
+                    $("#noresult").hide();
+                    $("#DisplayArea").removeClass("hide");
+                    $("#DisplayArea").addClass("show");
+                    $("#ResultArea").empty();
+                    $(result).each(function () {
+                        if (this.ExpiryStatus == null || this.ExpiryStatus == '') {
+                            this.ExpiryStatus = this.ClosedOn;
+                        }
+                        this.authflag = "@Request.IsAuthenticated";
+                        this.Role = "@(user!= null?user.Role.GetDescription():"")";
+                        $("#ResultItem").tmpl(this).appendTo("#ResultArea");
+                    });
+                    if ((offset < pages)) {
+                        if (authenticated == "True") {
+                            $("#JoinSeeMore").removeClass("show");
+                            $("#JoinSeeMore").addClass("hide");
+                            $("#ViewMore").removeClass("hide");
+                            $("#ViewMore").addClass("show");
+                        } else {
+                            $("#JoinSeeMore").removeClass("hide");
+                            $("#JoinSeeMore").addClass("show");
+                            $("#ViewMore").removeClass("show");
+                            $("#ViewMore").addClass("hide");
+                        }
+                    } else {
+                        $("#JoinSeeMore").removeClass("show");
+                        $("#JoinSeeMore").addClass("hide");
+                        $("#ViewMore").removeClass("show");
+                        $("#ViewMore").addClass("hide");
+                    }
+                } else {
+                    $("#PaidJobResultArea").hide();
+                    $("#JoinSeeMore").removeClass("show");
+                    $("#JoinSeeMore").addClass("hide");
+                    $("#ViewMore").removeClass("show");
+                    $("#ViewMore").addClass("hide");
+                    $("#noresult").show();
+
+                    $("#DisplayArea").removeClass("show");
+                    $("#DisplayArea").addClass("hide");
+                }
+            });
+
+            return false;
+        });
+
+        $("#ViewMore").click(function () {
+            $("#waitDialog").modal("show");
+            var jsonForm = $("#" + formId).serializeObject();
+            if (offset < pages) {
+                offset = offset + 1;
+            }
+            jsonForm.PageNumber = offset;
+            $.post("/jobs", jsonForm, function (result) {
+                $("#waitDialog").modal("hide");
+                if (result.length > 0) {
+                    $("#noresult").hide();
+                    $(result).each(function () {
+                        if (this.ExpiryStatus == null || this.ExpiryStatus == '') {
+                            this.ExpiryStatus = this.ClosedOn;
+                        }
+                        this.authflag = "@Request.IsAuthenticated";
+                        this.Role = "@(user!= null?user.Role.GetDescription():"")";
+                        this.authenticated = "@Request.IsAuthenticated";
+                        $("#ResultItem").tmpl(this).appendTo("#ResultArea");
+                    });
+
+                    if ((offset < pages)) {
+                        if (authenticated == "True") {
+                            $("#JoinSeeMore").removeClass("show");
+                            $("#JoinSeeMore").addClass("hide");
+                            $("#ViewMore").removeClass("hide");
+                            $("#ViewMore").addClass("show");
+                        } else {
+                            $("#JoinSeeMore").removeClass("hide");
+                            $("#JoinSeeMore").addClass("show");
+                            $("#ViewMore").removeClass("show");
+                            $("#ViewMore").addClass("hide");
+                        }
+                    } else {
+                        $("#JoinSeeMore").removeClass("show");
+                        $("#JoinSeeMore").addClass("hide");
+                        $("#ViewMore").removeClass("show");
+                        $("#ViewMore").addClass("hide");
+                    }
+
+                } else {
+                    $("#ViewMore").removeClass("show");
+                    $("#ViewMore").addClass("hide");
+                    $("#noresult").hide();
+                }
+            });
+            return false;
+        });
+
+        $("#JoinSeeMore").click(function () {
+            var jsonForm = $(formId).serializeObject();
+            console.log(jsonForm);
+            var qs = "@Request.Url.ToString()?" + $.param(jsonForm);
+            var url = "/account/register?returnurl=" + encodeURIComponent(qs);
+            window.location.href = url;
+        });
+    });
+
+    var pjOffset = 0;
+    var pjPages = 1;
+
+    function DisplayPaidJobs() {
+        var jsonForm = $("#" + formId).serializeObject();
+        if (pjOffset < pjPages) {
+            pjOffset = pjOffset + 1;
+        } else {
+            pjOffset = 1;
+        }
+
+        jsonForm.PageNumber = pjOffset;
+
+        $.post("/job/paidjobs", jsonForm, function (result) {
+            $("#PaidResultArea").empty();
+            if (result.length > 0) {
+                $("#PaidResultArea").show();
+                $("#noresult").hide();
+                var rows = result[0].MaxRows;
+                pjPages = Math.ceil(rows / 2);
+                $(result).each(function () {
+                    if (this.ExpiryStatus == null || this.ExpiryStatus == '') {
+                        this.ExpiryStatus = this.ClosedOn;
+                    }
+                    this.authflag = "@Request.IsAuthenticated";
+                    this.Role = "@(user!= null?user.Role.GetDescription():"")";
+                    this.authenticated = "@Request.IsAuthenticated";
+                    $("#PaidResultItem").tmpl(this).appendTo("#PaidResultArea");
+                });
+            } else {
+                $("#PaidResultArea").hide();
+            }
+        });
+    }
+</script>
+
+<script type="text/x-jquery-tmpl" id="ResultItem">
+    <div class="list-group">
+        <div class="list-group-item">
+            <div class="row listing_text">
+                <div class="col-lg-12 col-md-12">
+                    <div id="jtitle" class="checkbox-inline" style="margin-left:0; padding-left:0px;">
+                        @if (Request.IsAuthenticated)
+                        {
+                            <text>
+                                {{if Source == "Joblisting"}}
+                                <a href="${JobUrl}" target="_blank">${Title}</a>
+                                {{else}}
+                                @if (user != null && user.IsJobseeker)
+                                {
+                                    <a href="https://www.joblisting.com/account/login?returnUrl=${JobUrl}&userip=@Request.UserHostAddress" target="_blank">${Title}</a>
+                                }
+                                else
+                                {
+                                    <a href="/job/preview?returnUrl=${JobUrl}" target="_blank">${Title}</a>
+                                }
+                                {{/if}}
+                            </text>
+                        }
+                        else
+                        {
+                            <text>
+                                {{if Source == "Joblisting"}}
+                                <a href="${JobUrl}" target="_blank">${Title}</a>
+                                {{else}}
+                                <a href="https://www.joblisting.com/account/login?returnUrl=${JobUrl}&userip=@Request.UserHostAddress" target="_blank">${Title}</a>
+                                {{/if}}
+                            </text>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            <div class="row listing_text">
+                <div class="col-lg-12 col-md-12 col-sm-12" style="font-size:12pt;">
+                    {{if Source == "Joblisting"}}
+                    <a href="${EmployerUrl}" target="_blank">${Company}</a><br />
+                    {{else}}
+                    ${Company}
+                    {{/if}}
+                </div>
+            </div>
+            <div class="row listing_text">
+                <div class="col-lg-12 col-md-12 col-sm-12" style="font-size:11pt;">
+                    ${Summary}<br />
+                </div>
+            </div>
+            <div class="row listing_text">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="clear" style="height:2px;"></div>
+                    <div id="jobmenu" class="text-left listing_text1">
+                        <small>
+                            Country: ${Country}
+                            <span>&nbsp;&nbsp;</span>
+                            State: ${State}
+                            <span>&nbsp;&nbsp;</span>
+                            Job Listed: ${PostedOn}
+                            <span>&nbsp;&nbsp;&nbsp;</span>
+                            Job Expiry: ${ExpiryStatus}
+                        </small>
+                    </div>
+                </div>
+            </div>
+            {{if Source == "Joblisting"}}
+            <div class="row" style="height:5px;"></div>
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <a href="/job/bookmark?Id=${Id}&redirect=@Request.Url.ToString()" target="_blank" style="font-weight:normal;">Bookmark Job</a>&nbsp;|&nbsp;
+                    <a href="/job/email?Id=${Id}" target="_blank" style="font-weight:normal;">Email Job</a>&nbsp;|&nbsp;
+                    <a href="/Employer/Joblist?Id=${EmployerId}" target="_blank" style="font-weight:normal;">All jobs of this company</a>
+                </div>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</script>
+<script type="text/x-jquery-tmpl" id="PaidResultItem">
+    <div class="list-group-item" style="background-color:#f7eedc">
+        <div class="row listing_text">
+            <div class="col-lg-12 col-md-12">
+                <div id="jtitle" class="checkbox-inline" style="margin-left:0; padding-left:0px;">
+                    @if (Request.IsAuthenticated)
+                    {
+                        <text>
+                            {{if Source == "Joblisting"}}
+                            <a href="${JobUrl}" target="_blank">${Title}</a>
+                            {{else}}
+                            @if (user != null && user.IsJobseeker)
+                            {
+                                <a href="https://www.joblisting.com/account/login?returnUrl=${JobUrl}&userip=@Request.UserHostAddress" target="_blank">${Title}</a>
+                            }
+                            else
+                            {
+                                <a href="/job/preview?returnUrl=${JobUrl}" target="_blank">${Title}</a>
+                            }
+                            {{/if}}
+                        </text>
+                    }
+                    else
+                    {
+                        <text>
+                            {{if Source == "Joblisting"}}
+                            <a href="${JobUrl}" target="_blank">${Title}</a>
+                            {{else}}
+                            <a href="https://www.joblisting.com/account/login?returnUrl=${JobUrl}&userip=@Request.UserHostAddress" target="_blank">${Title}</a>
+                            {{/if}}
+                        </text>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="row listing_text">
+            <div class="col-lg-12 col-md-12 col-sm-12" style="font-size:12pt;">
+                {{if Source == "Joblisting"}}
+                <a href="${EmployerUrl}" target="_blank">${Company}</a><br />
+                {{else}}
+                ${Company}
+                {{/if}}
+            </div>
+        </div>
+        <div class="row listing_text">
+            <div class="col-lg-12 col-md-12 col-sm-12" style="font-size:11pt;">
+                ${Summary}<br />
+            </div>
+        </div>
+        <div class="row listing_text">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="clear" style="height:2px;"></div>
+                <div id="jobmenu" class="text-left listing_text1">
+                    <small>
+                        Country: ${Country}
+                        <span>&nbsp;&nbsp;</span>
+                        State: ${State}
+                        <span>&nbsp;&nbsp;</span>
+                        Job Listed: ${PostedOn}
+                        <span>&nbsp;&nbsp;&nbsp;</span>
+                        Job Expiry: ${ExpiryStatus}
+                    </small>
+                </div>
+            </div>
+        </div>
+        {{if Source == "Joblisting"}}
+        <div class="row" style="height:5px;"></div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <a href="/job/bookmark?Id=${Id}&redirect=@Request.Url.ToString()" target="_blank" style="font-weight:normal; color:#000000">Bookmark Job</a>&nbsp;|&nbsp;
+                <a href="/job/email?Id=${Id}" target="_blank" style="font-weight: normal; color: #000000">Email Job</a>&nbsp;|&nbsp;
+                <a href="/Employer/Joblist?Id=${EmployerId}" target="_blank" style="font-weight: normal; color: #000000">All jobs of this company</a>
+            </div>
+        </div>
+        {{/if}}
+    </div>
+</script>

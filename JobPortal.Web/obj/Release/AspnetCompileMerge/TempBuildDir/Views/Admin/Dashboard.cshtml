@@ -1,0 +1,112 @@
+﻿@{
+    ViewBag.Title = "Users Status";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/highcharts.js"></script>
+<script src="~/Scripts/map.js"></script>
+<script src="~/Scripts/world.js"></script>
+<div class="section">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="title-login">
+                <h1 style="margin-top:-15px">Overall Status</h1>
+                Manage Overall status here
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <span style="font-size:1em; font-weight:bold">User Accounts Statistics</span>
+            <div id="container" class="list-group-item" style="color:#e4a4eb">
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $.getJSON("/JsonHelper/AccountStatistics", function (data) {
+            var today = new Date();
+            var yesterday = new Date();
+            yesterday.setDate(today.getDate() - 1);
+            var before = new Date();
+            before.setDate(today.getDate() - 7);
+
+            var todays = "/admin/users?fd=@DateTime.Now.Day&fm=@DateTime.Now.Month&fy=@DateTime.Now.Year&td=@DateTime.Now.Day&tm=@DateTime.Now.Month&ty=@DateTime.Now.Year&c=d"
+            var sevendays = "/admin/users?fd=@(DateTime.Now.AddDays(-7).Day)&fm=@(DateTime.Now.AddDays(-7).Month)&fy=@(DateTime.Now.AddDays(-7).Year)&td=@(DateTime.Now.AddDays(-1).Day)&tm=@(DateTime.Now.AddDays(-1).Month)&ty=@(DateTime.Now.AddDays(-1).Year)&c=d"
+
+            dataPoints = [];
+            var total = 0;
+            dataPoints.push({ name: "Total Accounts", y: data.TotalAccounts, url: "/admin/users?c=d" });
+            dataPoints.push({ name: "Total Verified Accounts", y: data.TotalVerifiedAccounts, url: "/admin/users?confirmed=true&c=d" });
+            dataPoints.push({ name: "Total Not Verified Accounts", y: (data.IndividualAccounts + data.CompanyAccounts), url: "/admin/users?confirmed=false&c=d" });
+            dataPoints.push({ name: "Total Jobseeker Accounts", y: (data.JobseekerAccounts), url: "/admin/Jobseekers?type=J&c=d" });
+            dataPoints.push({ name: "Total Resumes", y: (data.Resumes), url: "/admin/Jobseekers?type=R&c=d" });
+            dataPoints.push({ name: "Verified Individual Accounts", y: data.VerifiedIndividualAccounts, url: "/admin/users?typeId=4&confirmed=true&c=d" });
+            dataPoints.push({ name: "Verified Company Accounts", y: data.VerifiedCompanyAccounts, url: "/admin/users?typeId=5&confirmed=true&c=d" });
+            dataPoints.push({ name: "Not Verified Individual Accounts", y: data.IndividualAccounts, url: "/admin/users?typeId=4&confirmed=false&c=d" });
+            dataPoints.push({ name: "Not Varified Company Accounts", y: data.CompanyAccounts, url: "/admin/users?typeId=5&confirmed=false&c=d" });
+            dataPoints.push({ name: "Inactive Accounts", y: data.InactiveAccounts, url: "/admin/users?active=false&c=d" });
+            dataPoints.push({ name: "Today's Accounts", y: data.Todays, url: todays });
+            dataPoints.push({ name: "7 Days Accounts", y: data.SevenDays, url: sevendays });
+            /* Job Section */
+            dataPoints.push({ name: "Total Jobs", y: (data.DeletedJobs + data.DeactivatedJobs + data.RejectedJobs + data.ExpiredJobs + data.ActiveJobs + data.JobsInApproval), url: "/admin/jobsstatus" });
+            dataPoints.push({ name: "Deleted Jobs", y: data.DeletedJobs, url: "/admin/jobsstatus?status=deleted" });
+            dataPoints.push({ name: "Deactivated Jobs", y: data.DeactivatedJobs, url: "/admin/jobsstatus?status=deactivated" });
+            dataPoints.push({ name: "Rejected Jobs", y: data.RejectedJobs, url: "/admin/jobsstatus?status=rejected" });
+            dataPoints.push({ name: "Expired Jobs", y: data.ExpiredJobs, url: "/admin/jobsstatus?status=expired" });
+            dataPoints.push({ name: "Live Jobs", y: data.ActiveJobs, url: "/admin/jobsstatus?status=active" });
+            dataPoints.push({ name: "Jobs In Approval", y: data.JobsInApproval, url: "/admin/jobsstatus?status=inapproval" });
+
+            var jtodays = "/admin/jobsstatus?fd=@DateTime.Now.Day&fm=@DateTime.Now.Month&fy=@DateTime.Now.Year&td=@DateTime.Now.Day&tm=@DateTime.Now.Month&ty=@DateTime.Now.Year"
+            var jsevendays = "/admin/jobsstatus?fd=@(DateTime.Now.AddDays(-7).Day)&fm=@(DateTime.Now.AddDays(-7).Month)&fy=@(DateTime.Now.AddDays(-7).Year)&td=@(DateTime.Now.AddDays(-1).Day)&tm=@(DateTime.Now.AddDays(-1).Month)&ty=@(DateTime.Now.AddDays(-1).Year)"
+
+            dataPoints.push({ name: "Today's Jobs", y: data.TodaysJobs, url: jtodays });
+            dataPoints.push({ name: "7 Days Jobs", y: data.SevenDaysJobs, url: jsevendays });
+
+            $('#container').highcharts({
+                colors: ['#FFB61C', '#9cb262', '#434348', '#DFD6D5', '#475d8f', '#0924fa', '#ff0002', '#e4a4eb', '#ff6a00', '#626460', '#ff037e', '#03bbdc', '#b48c62', '#b45354', '#8ea176', '#fcb0b0', '#fa6061', '#87D42E', '#859bcc', '#35a3b7', '#bfe593'],
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: ''
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.y}</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        depth: 10,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name} ({point.y})'
+                        }
+                    },
+                    series: {
+                        cursor: 'pointer',
+                        point: {
+                            events: {
+                                click: function () {
+                                    window.open(this.url, "_blank");
+                                }
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Overall Status',
+                    data: dataPoints,
+                    showInLegend: false,
+                    colorByPoint: true
+                }]
+            });
+        });
+    });
+</script>

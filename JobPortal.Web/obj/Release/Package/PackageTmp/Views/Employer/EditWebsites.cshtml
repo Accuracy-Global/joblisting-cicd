@@ -1,0 +1,115 @@
+﻿@model JobPortal.Web.Models.WebScrapModel
+@using JobPortal.Domain
+@{
+    ViewBag.Title = "Edit - Website";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/tinymce/tinymce.min.js"></script>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">Edit</h1>
+            Update Website  here
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:15px;"></div>
+
+@using (Html.BeginForm("EditWebsites", "Employer", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        @Html.ValidationSummary(false, "correct")
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group">
+                    @*@Html.LabelFor(model => model.CountryName)*@
+                    <label>Select the country</label>
+
+                    @Html.DropDownListFor(model => model.CountryName, new SelectList(SharedService.Instance.GetCountryList(), "Text", "Text"), "--SELECT--", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CountryName)
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CompanyName)
+
+                    @Html.TextBoxFor(model => model.CompanyName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CompanyName)
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Website)
+
+                    @Html.TextBoxFor(model => model.Website, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Website)
+
+                </div>
+            </div>
+        </div>
+        @*<div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name)
+
+                        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
+
+                    </div>
+                </div>
+
+            </div>*@
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.companylogoslink)
+
+                    @Html.TextBoxFor(model => model.companylogoslink, new { @class = "form-control" })
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group">
+
+                    <div>
+                        @if (Model.Logo != null)
+                        {
+                            @Html.Raw(string.Format("<text><img id='imgpreview' height='70' width='50' src=\"data:image/jpg;base64," + (Model.Logo) + " \" /> </text>"));
+                        }
+                        else
+                        {
+                            @Html.Raw(string.Format("<text><img id='imgpreview' height='60' width='60' src=\"data:image/png;base64,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\" alt=\"Image\" /></text>", Url.Content("~/Content/images/non-preview-photo.gif")));
+                        }
+                    </div>
+                    <input type="file" name="FileUpload" onchange="previewimage(event)" />
+
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 text-right">
+                <div class="form-group">
+                    @Html.ActionLink("Back", "Websites1", null, new { @class = "btn btn-default", @style = "width:75px;" }) &nbsp;<input type="submit" value="Submit" class="btn btn-info" style="width:75px;" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+<script>
+    var previewimage = function (event) {
+        var result = document.getElementById('imgpreview');
+        result.src = URL.createObjectURL(event.target.files[0]);
+    };
+    tinymce.init({ selector: '#Body', plugins: "link", toolbar: "bold | italic | underline | strikethrough | alignleft | aligncenter | alignright | alignjustify | styleselect | formatselect | fontselect | fontsizeselect | bullist | numlist | outdent | indent | blockquote | undo | redo | removeformat | subscript | superscript | link", menubar: false, height: "285px" });
+</script>

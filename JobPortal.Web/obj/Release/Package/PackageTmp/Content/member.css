@@ -1,0 +1,2585 @@
+﻿.tooltip-inner {
+    min-width: 50px !important;
+    font-weight: bold;
+}
+
+.alertmsg {
+    position: absolute;
+    top: 172px;
+    width: auto;
+    display: none;
+    z-index: 10000;
+}
+
+ul.review a {
+    color: #34ba08 !important;
+}
+
+ul.review li {
+    padding-right: 4px;
+    padding-left: 4px;
+}
+
+.camera {
+    color: red;
+    font-size: 45px;
+}
+
+#ProfileName {
+    position:absolute;
+    padding-top: 0px;
+    height: 95px;
+    bottom: 0%;
+    left: 1.5%;
+    width: 100%;
+    font-weight: normal;
+    background: -webkit-linear-gradient(bottom, rgba(211,211,211,0), rgba(211,211,211,0));
+    background: -o-linear-gradient(bottom, rgba(211,211,211,0), rgba(211,211,211,0));
+    background: -moz-linear-gradient(bottom, rgba(211,211,211,0), rgba(211,211,211,3));
+    background: linear-gradient(to bottom, rgba(211,211,211,0), #000);
+}
+
+.grad1 {
+    padding-left: 21%;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+    .grad1 a {
+        color: #fff;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+        .grad1 a:hover {
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+.grad2 {
+    color: #fff;
+}
+
+    .grad2 a {
+        font-size: 13px;
+        color: #fff;
+        font-weight: bold;
+    }
+
+        .grad2 a:hover {
+            font-size: 13px;
+            color: #fff;
+            font-weight: bold;
+        }
+
+.logo {
+    height: 50px;
+    position: absolute;
+    width: 50px;
+    left: 50%;
+    top: 20%;
+    margin-left: -25px;
+    z-Index: 100;
+}
+
+.sliderimage {
+    /*height: 202px !important;
+    min-width: 400px !important;*/
+}
+
+.actionlinks {
+    text-align: right;
+    margin-top: 5px;
+    margin-right: 7px;
+}
+
+.carousel {
+    height: 100%;
+}
+
+#photoGallery .modal-lg {
+    width: 900px;
+    height: 560px;
+}
+
+#photoGallery .modal-body {
+    width: 900px;
+    height: 560px;
+    padding: 10px;
+}
+
+#photoGallery .modal-lg img {
+    object-fit: contain;
+    width: 900px;
+}
+
+#AddPhotoBackground {
+    position: absolute;
+    z-index: 100;
+    top: 50%;
+    left: 65%;
+    padding: 5px;
+    width: auto;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+#AddPhoto {
+    position: absolute;
+    z-index: 100;
+    padding: 5px;
+    top: 35%;
+    left: 30%;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+#AddPhotoTopRight {
+    height: 50px;
+    position: absolute;
+    width: 50px;
+    left: 50%;
+    top: 36%;
+    margin-left: -25px;
+    z-Index: 100;
+    cursor: pointer;
+}
+
+#AddPhotoTopBottom {
+    position: absolute;
+    z-index: 100;
+    padding: 5px;
+    top: 71%;
+    left: 42%;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.overlay {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.498039);
+    text-align: center;
+    bottom: 13%;
+    width: 90%;
+    left: 3.5%;
+    /*opacity: 0.95;
+    filter: alpha(opacity=95);*/
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 2px 50px 0 rgba(0,0,0,.2), 0 0 0 1px rgba(0,0,0,.1);
+    /*background: #fff;
+    box-shadow: 0 2px 50px 0 rgba(0,0,0,.2), 0 0 0 1px rgba(0,0,0,.1);
+    font-family: helvetica, arial, sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    height: 201px;
+    line-height: 2;
+    margin-bottom: 13px;
+    margin-left: 5%;
+    margin-right: 5%;
+    min-width: 800px;
+    text-align: center;
+    width: 90%;
+    z-index: 400;*/
+}
+
+
+.overlay-content {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    margin-top: 30px;
+    background-color: #fff;
+    height: 300px;
+    padding: 15px;
+    color: #000;
+}
+
+/*.overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+}*/
+.modal-open {
+    overflow: scroll !important;
+}
+
+.popover {
+    margin-left: 10px !important;
+    margin-right: 15px !important;
+    background-color: #00b22d;
+    color: #fff;
+    font-size: 13px;
+    font-weight: normal;
+    left: 0px !important;
+    top: 10px !important;
+    border: 1px solid #819486;
+}
+
+.popover-title {
+    background-color: #819486;
+    color: #fff;
+    border: 1px solid #819486;
+}
+
+.arrow {
+    left: 10% !important;
+    display: none;
+    visibility: hidden;
+}
+
+.popover.top .arrow:after {
+    border-top-color: transparent;
+}
+
+button.close {
+    margin-right: 5px;
+    margin-top: 5px;
+}
+
+.affix {
+    top: 92px;
+    /*width: 16.15%;*/
+    /*position:absolute !important;*/
+    height: 1450px;
+}
+
+.pview {
+    min-height: 54px;
+}
+ul.peopleyou-img li {
+        margin: 0 5px 9px 0;
+    }
+@media (min-width: 1600px) {
+    .grad1 {
+        padding-left: 21% !important;
+    }
+}
+
+@media (min-width: 1024px) {
+
+    .pview {
+        min-height: 54px;
+    }
+
+    .left_down_fixed {
+        position: fixed;
+        /*width: 240px;*/
+    }
+
+    .left_up_fixed {
+        position: fixed;
+        /*width: 240px;*/
+    }
+
+    .right_down_fixed {
+        position: fixed;
+        width: 240px;
+        top: -10%;
+    }
+
+    .right_up_fixed {
+        position: fixed;
+        width: 240px;
+        top: 0%;
+    }
+
+    .logo {
+        height: 50px;
+        position: absolute;
+        width: 50px;
+        left: 50%;
+        top: 20%;
+        margin-left: -25px;
+        z-Index: 100;
+    }
+
+    .actionlinks {
+        text-align: right;
+        margin-top: 5px;
+        margin-right: 10px;
+    }
+
+    #photoGallery .modal-lg {
+        width: 900px;
+        height: 560px;
+    }
+
+    #photoGallery .modal-body {
+        width: 900px;
+        height: 560px;
+        padding: 10px;
+    }
+
+    #photoGallery .modal-lg img {
+        object-fit: contain;
+        width: 900px;
+    }
+
+    .sliderimage {
+        min-height: 202px !important;
+        /*max-width: initial !important;*/
+        min-width: 400px !important;
+    }
+
+    .pro-file-sec {
+        height: 472px;
+        width: 758px;
+        overflow: hidden;
+    }
+
+        .pro-file-sec img {
+            height: 472px;
+            width: 758px;
+            object-fit: cover;
+            -ms-object-fit: cover;
+            -moz-object-fit: cover;
+            -o-object-fit: cover;
+            -webkit-object-fit: cover;
+            object-position: left top;
+        }
+
+    .jbusiness-sec {
+        border-bottom: 1px solid #DDD;
+        content: "";
+        display: block;
+        margin: 0 0 20px;
+        /*padding: 0 0 12px;*/
+    }
+
+    .jbusiness {
+        border: 1px solid lightgray;
+        /*font-size: 75px;
+        font-weight: 700;*/
+        /*height: 125px;*/
+        /*width: 475px;*/
+        background-color: #fff;
+        /*margin-bottom: 20px;*/
+        overflow: hidden;
+    }
+
+    .jbusiness-sec-overlay {
+        background-color: rgba(0, 0, 0, 0.66);
+    }
+
+        .jbusiness-sec-overlay img {
+            -webkit-filter: blur(1px);
+            -moz-filter: blur(1px);
+            -o-filter: blur(1px);
+            -ms-filter: blur(1px);
+            filter: blur(1px);
+            opacity: 0.30;
+            background-color: #000;
+        }
+
+    .business {
+        border: 1px solid lightgray;
+        font-size: 75px;
+        font-weight: 700;
+        height: 296px;
+        /*width: 475px;*/
+        background-color: #fff;
+        /*margin-bottom: 20px;*/
+        overflow: hidden;
+    }
+
+        .business img {
+            height: 296px;
+            width: 612px;
+            object-fit: cover;
+            -ms-object-fit: cover;
+            -moz-object-fit: cover;
+            -o-object-fit: cover;
+            -webkit-object-fit: cover;
+            object-position: left top;
+        }
+
+    .responsive-circle {
+        bottom: 20px;
+        left: 20px;
+        position: absolute;
+        font-size: 75px;
+        font-weight: 700;
+        height: 135px;
+        min-width: 135px;
+        background-color: #fff;
+        border-radius: 50%;
+    }
+
+        .responsive-circle::after {
+            border-radius: 50%;
+            content: "";
+            display: block;
+            height: 0;
+            margin-bottom: 20px;
+            padding-bottom: 100%;
+            width: 100%;
+        }
+
+
+    .top_slider_item {
+        overflow: hidden;
+        height: 236px;
+        width: 282px;
+    }
+
+    .carousel-inner > .top_slider_item > img {
+        height: 236px;
+        width: 282px;
+        object-fit: cover;
+        -ms-object-fit: cover;
+        -moz-object-fit: cover;
+        -o-object-fit: cover;
+        -webkit-object-fit: cover;
+        object-position: left top;
+        overflow: hidden;
+    }
+
+        .carousel-inner > .top_slider_item > img:hover {
+            transform: scale(1.1);
+            transition: transform 500ms ease-in-out 0s;
+        }
+
+    .bottom_slider_item {
+        overflow: hidden;
+        height: 236px;
+        width: 282px;
+    }
+
+    .carousel-inner > .bottom_slider_item > img {
+        height: 236px;
+        width: 282px;
+        object-fit: cover;
+        -ms-object-fit: cover;
+        -moz-object-fit: cover;
+        -o-object-fit: cover;
+        -webkit-object-fit: cover;
+        object-position: left top;
+    }
+}
+
+@media (max-width: 800px) {
+     .pview {
+        min-height: 70px;
+    }
+    ul.review li {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .actionlinks {
+        text-align: right;
+        margin-top: 5px;
+        margin-right: 7px;
+    }
+
+    #photoGallery .modal-lg {
+        width: 770px;
+        height: 400px;
+    }
+
+    #photoGallery .modal-body {
+        width: 770px;
+        height: 400px;
+        padding: 10px;
+    }
+
+    #photoGallery .modal-lg img {
+        object-fit: contain;
+        width: 770px;
+    }
+
+    .sliderimage {
+        height: 225px !important;
+        width: 400px !important;
+    }
+
+    #AddPhotoBackground {
+        position: absolute;
+        z-index: 100;
+        top: 45%;
+        left: 65%;
+        padding: 5px;
+        width: auto;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    #AddPhoto {
+        position: absolute;
+        z-index: 100;
+        padding: 5px;
+        top: 35%;
+        left: 30%;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    #AddPhotoTopRight {
+        height: 50px;
+        position: absolute;
+        width: 50px;
+        left: 28%;
+        top: 58%;
+        margin-left: -25px;
+        z-Index: 100;
+        cursor: pointer;
+    }
+
+    #AddPhotoTopBottom {
+        position: absolute;
+        z-index: 100;
+        padding: 5px;
+        top: 62%;
+        left: 45%;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    .business {
+        border: 1px solid lightgray;
+        font-size: 75px;
+        font-weight: 700;
+        height: 440px;
+        width: 706px;
+        background-color: #fff;
+        /*margin-bottom: 20px;*/
+        overflow: hidden;
+    }
+
+        .business img {
+            height: 440px;
+            width: 911px;
+            object-fit: cover;
+            -ms-object-fit: cover;
+            -moz-object-fit: cover;
+            -o-object-fit: cover;
+            -webkit-object-fit: cover;
+            object-position: left top;
+        }
+
+    .pro-file-sec {
+        height: 448px;
+        width: 720px;
+        overflow: hidden;
+    }
+
+        .pro-file-sec img {
+            height: 448px;
+            width: 720px;
+            object-fit: cover;
+            -ms-object-fit: cover;
+            -moz-object-fit: cover;
+            -o-object-fit: cover;
+            -webkit-object-fit: cover;
+            object-position: left top;
+        }
+
+    .responsive-circle {
+        bottom: 20px;
+        left: 20px;
+        position: absolute;
+        font-size: 75px;
+        font-weight: 700;
+        height: 135px;
+        min-width: 135px;
+        background-color: #fff;
+        border-radius: 50%;
+    }
+
+        .responsive-circle::after {
+            border-radius: 50%;
+            content: "";
+            display: block;
+            height: 0;
+            margin-bottom: 20px;
+            padding-bottom: 100%;
+            width: 100%;
+        }
+
+    .top_slider_item {
+        overflow: hidden;
+        height: 224px;
+        width: 360px;
+    }
+
+    .carousel-inner > .top_slider_item > img {
+        height: 224px;
+        width: 360px;
+        object-fit: cover;
+        -ms-object-fit: cover;
+        -moz-object-fit: cover;
+        -o-object-fit: cover;
+        -webkit-object-fit: cover;
+        object-position: left top;
+    }
+
+        .carousel-inner > .top_slider_item > img:hover {
+            transform: scale(1.1);
+            transition: transform 500ms ease-in-out 0s;
+        }
+
+    .bottom_slider_item {
+        overflow: hidden;
+        height: 224px;
+        width: 360px;
+    }
+
+    .carousel-inner > .bottom_slider_item > img {
+        height: 224px;
+        width: 360px;
+        object-fit: cover;
+        -ms-object-fit: cover;
+        -moz-object-fit: cover;
+        -o-object-fit: cover;
+        -webkit-object-fit: cover;
+        object-position: left top;
+    }
+
+    /*ul.peopleyou-img li {
+        margin: 0 11px 13px 0;
+    }*/
+}
+
+@media (max-width: 768px) {
+    .pview {
+        min-height: 65px;
+    }
+    .logo {
+        height: 50px;
+        position: absolute;
+        width: 50px;
+        left: 50%;
+        top: 20%;
+        margin-left: -25px;
+        z-Index: 100;
+    }
+
+    .actionlinks {
+        text-align: right;
+        margin-top: 5px;
+        margin-right: 7px;
+    }
+
+    #photoGallery .modal-lg {
+        width: 748px;
+        height: 400px;
+    }
+
+    #photoGallery .modal-body {
+        width: 748px;
+        height: 400px;
+        padding: 10px;
+    }
+
+    #photoGallery .modal-lg img {
+        object-fit: contain;
+        width: 748px;
+    }
+
+    .sliderimage {
+        height: 225px !important;
+        width: 400px !important;
+    }
+
+    #AddPhoto {
+        position: absolute;
+        z-index: 100;
+        padding: 5px;
+        top: 35%;
+        left: 28%;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    #AddPhotoTopRight {
+        height: 50px;
+        position: absolute;
+        width: 50px;
+        left: 28%;
+        top: 70%;
+        margin-left: -25px;
+        z-Index: 100;
+        cursor: pointer;
+    }
+
+    #AddPhotoTopBottom {
+        position: absolute;
+        z-index: 100;
+        padding: 5px;
+        top: 68%;
+        left: 45%;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    .business {
+        border: 1px solid lightgray;
+        font-size: 75px;
+        font-weight: 700;
+        height: 440px;
+        width: 706px;
+        background-color: #fff;
+        /*margin-bottom: 20px;*/
+        overflow: hidden;
+    }
+
+        .business img {
+            object-fit: cover;
+            -ms-object-fit: cover;
+            -moz-object-fit: cover;
+            -o-object-fit: cover;
+            -webkit-object-fit: cover;
+            object-position: left top;
+        }
+
+    .pro-file-sec {
+        height: 448px;
+        width: 720px;
+        overflow: hidden;
+    }
+
+        .pro-file-sec img {
+            height: 448px;
+            width: 720px;
+            object-fit: cover;
+            -ms-object-fit: cover;
+            -moz-object-fit: cover;
+            -o-object-fit: cover;
+            -webkit-object-fit: cover;
+            object-position: left top;
+        }
+
+    .responsive-circle {
+        bottom: 20px;
+        left: 20px;
+        position: absolute;
+        font-size: 75px;
+        font-weight: 700;
+        height: 135px;
+        min-width: 135px;
+        background-color: #fff;
+        border-radius: 50%;
+    }
+
+        .responsive-circle::after {
+            border-radius: 50%;
+            content: "";
+            display: block;
+            height: 0;
+            margin-bottom: 20px;
+            padding-bottom: 100%;
+            width: 100%;
+        }
+
+    .top_slider_item {
+        overflow: hidden;
+        height: 224px;
+        width: 360px;
+    }
+
+    .carousel-inner > .top_slider_item > img {
+        height: 224px;
+        width: 360px;
+        object-fit: cover;
+        -ms-object-fit: cover;
+        -moz-object-fit: cover;
+        -o-object-fit: cover;
+        -webkit-object-fit: cover;
+        object-position: left top;
+    }
+
+        .carousel-inner > .top_slider_item > img:hover {
+            transform: scale(1.1);
+            transition: transform 500ms ease-in-out 0s;
+        }
+
+    .bottom_slider_item {
+        overflow: hidden;
+        height: 224px;
+        width: 360px;
+    }
+
+    .carousel-inner > .bottom_slider_item > img {
+        height: 224px;
+        width: 360px;
+        object-fit: cover;
+        -ms-object-fit: cover;
+        -moz-object-fit: cover;
+        -o-object-fit: cover;
+        -webkit-object-fit: cover;
+        object-position: left top;
+    }
+}
+
+
+@media (max-width: 600px) {
+    .pview {
+        min-height: 54px;
+    }
+    ul.review li {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .grad1 {
+        padding-left: 27%;
+    }
+
+    .actionlinks {
+        text-align: right;
+        margin-top: 5px;
+        margin-right: 7px;
+    }
+
+    #photoGallery .modal-lg {
+        width: 570px;
+        height: 300px;
+    }
+
+    #photoGallery .modal-body {
+        width: 570px;
+        height: 300px;
+        padding: 10px;
+    }
+
+    #photoGallery .modal-lg img {
+        object-fit: contain;
+        width: 570px;
+    }
+
+    .sliderimage {
+        height: 180px;
+        width: 400px;
+    }
+
+    #AddPhotoBackground {
+        position: absolute;
+        z-index: 100;
+        top: 45%;
+        left: 65%;
+        padding: 5px;
+        width: auto;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    #AddPhoto {
+        position: absolute;
+        z-index: 100;
+        padding: 5px;
+        top: 35%;
+        left: 30%;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    #AddPhotoTopRight {
+        height: 50px;
+        position: absolute;
+        width: 50px;
+        left: 28%;
+        top: 50%;
+        margin-left: -25px;
+        z-Index: 100;
+        cursor: pointer;
+    }
+
+    #AddPhotoTopBottom {
+        position: absolute;
+        z-index: 100;
+        padding: 5px;
+        top: 51%;
+        left: 45%;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    .pro-file-sec {
+        height: 329px;
+        width: 570px;
+        overflow: hidden;
+    }
+
+        .pro-file-sec img {
+            height: 329px;
+            width: 558px;
+            object-fit: cover;
+            -ms-object-fit: cover;
+            -moz-object-fit: cover;
+            -o-object-fit: cover;
+            -webkit-object-fit: cover;
+            object-position: left top;
+        }
+
+    .responsive-circle {
+        bottom: 20px;
+        left: 20px;
+        position: absolute;
+        font-size: 75px;
+        font-weight: 700;
+        height: 135px;
+        min-width: 135px;
+        background-color: #fff;
+        border-radius: 50%;
+    }
+
+        .responsive-circle::after {
+            border-radius: 50%;
+            content: "";
+            display: block;
+            height: 0;
+            margin-bottom: 20px;
+            padding-bottom: 100%;
+            width: 100%;
+        }
+
+    .business {
+        height: 440px;
+        width: 541px;
+    }
+
+        .business img {
+            height: 329px;
+            width: 680px;
+            object-fit: cover;
+            -ms-object-fit: cover;
+            -moz-object-fit: cover;
+            -o-object-fit: cover;
+            -webkit-object-fit: cover;
+            object-position: left top;
+        }
+
+    .top_slider_item {
+        overflow: hidden;
+        height: 173px;
+        width: 286px;
+    }
+
+    .carousel-inner > .top_slider_item > img {
+        height: 173px;
+        width: 279px;
+        object-fit: cover;
+        -ms-object-fit: cover;
+        -moz-object-fit: cover;
+        -o-object-fit: cover;
+        -webkit-object-fit: cover;
+        object-position: left top;
+    }
+
+        .carousel-inner > .top_slider_item > img:hover {
+            transform: scale(1.1);
+            transition: transform 500ms ease-in-out 0s;
+        }
+
+    .bottom_slider_item {
+        overflow: hidden;
+        height: 173px;
+        width: 286px;
+    }
+
+    .carousel-inner > .bottom_slider_item > img {
+        height: 173px;
+        width: 279px;
+        object-fit: cover;
+        -ms-object-fit: cover;
+        -moz-object-fit: cover;
+        -o-object-fit: cover;
+        -webkit-object-fit: cover;
+        object-position: left top;
+    }
+
+    /*ul.peopleyou-img li {
+        margin: 0 10px 13px 0;
+    }*/
+}
+
+@media (max-width: 435px) {
+    .responsive-circle {
+        bottom: 20px;
+        left: 5px;
+    }
+
+    .camera {
+        color: red;
+        font-size: 28px;
+    }
+
+    ul.review li {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .actionlinks {
+        text-align: right;
+        margin-top: 0px;
+        margin-right: 7px;
+    }
+
+    .grad1 {
+        padding-left: 29% !important;
+        font-size: medium;
+    }
+
+    #photoGallery .modal-lg {
+        width: 405px;
+        height: 225px;
+    }
+
+    #photoGallery .modal-body {
+        width: 405px;
+        height: 225px;
+        padding: 10px;
+    }
+
+    .modal-lg img {
+        object-fit: contain;
+        width: 405px;
+    }
+
+    .sliderimage {
+        height: 125px !important;
+        width: 400px !important;
+    }
+
+    #AddPhoto {
+        position: absolute;
+        z-index: 100;
+        padding: 5px;
+        top: 35%;
+        left: 35%;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    #AddPhotoTopRight {
+        height: 50px;
+        position: absolute;
+        width: 50px;
+        left: 28%;
+        top: 58%;
+        margin-left: -25px;
+        z-Index: 100;
+        cursor: pointer;
+    }
+
+    #AddPhotoTopBottom {
+        position: absolute;
+        z-index: 100;
+        padding: 5px;
+        top: 62%;
+        left: 45%;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    #ProfileName {
+        position: absolute;
+        padding-top: 10px;
+        height: 50px;
+        bottom: 0%;
+        left: 0%;
+        width: 100%;
+        font-weight: normal;
+        background: -webkit-linear-gradient(bottom, rgba(211,211,211,0), rgba(211,211,211,0));
+        background: -o-linear-gradient(bottom, rgba(211,211,211,0), rgba(211,211,211,0));
+        background: -moz-linear-gradient(bottom, rgba(211,211,211,0), rgba(211,211,211,3));
+        background: linear-gradient(to bottom, rgba(211,211,211,0), #000);
+    }
+
+    .business {
+        border: 1px solid lightgray;
+        font-size: 75px;
+        font-weight: 700;
+        height: 226px;
+        width: 364px;
+        background-color: #fff;
+        /*margin-bottom: 20px;*/
+        overflow: hidden;
+    }
+
+        .business img {
+            height: 224px;
+            width: 680px;
+            object-fit: cover;
+            -ms-object-fit: cover;
+            -moz-object-fit: cover;
+            -o-object-fit: cover;
+            -webkit-object-fit: cover;
+            object-position: left top;
+        }
+
+    .pro-file-sec {
+        height: 239px;
+        width: 393px;
+        overflow: hidden;
+    }
+
+        .pro-file-sec img {
+            height: 239px;
+            width: 393px;
+            object-fit: cover;
+            -ms-object-fit: cover;
+            -moz-object-fit: cover;
+            -o-object-fit: cover;
+            -webkit-object-fit: cover;
+            object-position: left top;
+        }
+
+    .responsive-circle {
+        bottom: 20px;
+        left: 20px;
+        position: absolute;
+        font-size: 75px;
+        font-weight: 700;
+        height: 90px;
+        min-width: 90px;
+        background-color: #fff;
+        border-radius: 50%;
+    }
+
+        .responsive-circle::after {
+            border-radius: 50%;
+            content: "";
+            display: block;
+            height: 0;
+            margin-bottom: 20px;
+            padding-bottom: 100%;
+            width: 100%;
+        }
+
+    .top_slider_item {
+        overflow: hidden;
+        height: 122px;
+        width: 197px;
+    }
+
+    .carousel-inner > .top_slider_item > img {
+        height: 122px;
+        width: 197px;
+        object-fit: cover;
+        -ms-object-fit: cover;
+        -moz-object-fit: cover;
+        -o-object-fit: cover;
+        -webkit-object-fit: cover;
+        object-position: left top;
+    }
+
+        .carousel-inner > .top_slider_item > img:hover {
+            transform: scale(1.1);
+            transition: transform 500ms ease-in-out 0s;
+        }
+
+    .bottom_slider_item {
+        overflow: hidden;
+        height: 122px;
+        width: 197px;
+    }
+
+    .carousel-inner > .bottom_slider_item > img {
+        height: 122px;
+        width: 197px;
+        object-fit: cover;
+        -ms-object-fit: cover;
+        -moz-object-fit: cover;
+        -o-object-fit: cover;
+        -webkit-object-fit: cover;
+        object-position: left top;
+    }
+}
+
+@media (max-width: 414px) {
+    .pview {
+        min-height: 80px;
+    }
+
+    .responsive-circle {
+        bottom: 20px;
+        left: 5px;
+    }
+
+    ul.review li {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .actionlinks {
+        text-align: right;
+        margin-top: 5px;
+        margin-right: 7px !important;
+    }
+
+    .grad1 {
+        padding-left: 31% !important;
+        font-size: medium;
+    }
+
+    #photoGallery .modal-lg {
+        width: 380px;
+        height: 200px;
+    }
+
+    #photoGallery .modal-body {
+        width: 380px;
+        height: 200px;
+        padding: 10px;
+    }
+
+    #photoGallery .modal-lg img {
+        object-fit: contain;
+        width: 380px;
+    }
+
+    .sliderimage {
+        height: 125px !important;
+        width: 400px !important;
+    }
+
+    #AddPhoto {
+        position: absolute;
+        z-index: 100;
+        padding: 5px;
+        top: 6%;
+        left: 28%;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    #AddPhotoTopRight {
+        height: 50px;
+        position: absolute;
+        width: 50px;
+        left: 28%;
+        top: 50%;
+        margin-left: -25px;
+        z-Index: 100;
+        cursor: pointer;
+    }
+
+    #AddPhotoTopBottom {
+        position: absolute;
+        z-index: 100;
+        padding: 5px;
+        top: 52%;
+        left: 45%;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    #ProfileName {
+        position: absolute;
+        padding-top: 10px;
+        height: 50px;
+        bottom: 0%;
+        left: 0%;
+        width: 100%;
+        font-weight: normal;
+        background: -webkit-linear-gradient(bottom, rgba(211,211,211,0), rgba(211,211,211,0));
+        background: -o-linear-gradient(bottom, rgba(211,211,211,0), rgba(211,211,211,0));
+        background: -moz-linear-gradient(bottom, rgba(211,211,211,0), rgba(211,211,211,3));
+        background: linear-gradient(to bottom, rgba(211,211,211,0), #000);
+    }
+
+    .business {
+        border: 1px solid lightgray;
+        font-size: 75px;
+        font-weight: 700;
+        height: 212px;
+        width: 355px;
+        background-color: #fff;
+        /*margin-bottom: 20px;*/
+        overflow: hidden;
+    }
+
+        .business img {
+            object-fit: cover;
+            -ms-object-fit: cover;
+            -moz-object-fit: cover;
+            -o-object-fit: cover;
+            -webkit-object-fit: cover;
+            object-position: left top;
+        }
+
+    .pro-file-sec {
+        height: 231px;
+        width: 384px;
+        overflow: hidden;
+    }
+
+        .pro-file-sec img {
+            height: 231px;
+            width: 372px;
+            object-fit: cover;
+            -ms-object-fit: cover;
+            -moz-object-fit: cover;
+            -o-object-fit: cover;
+            -webkit-object-fit: cover;
+            object-position: left top;
+        }
+
+    .responsive-circle {
+        bottom: 20px;
+        left: 20px;
+        position: absolute;
+        font-size: 75px;
+        font-weight: 700;
+        height: 90px;
+        min-width: 90px;
+        background-color: #fff;
+        border-radius: 50%;
+    }
+
+        .responsive-circle::after {
+            border-radius: 50%;
+            content: "";
+            display: block;
+            height: 0;
+            margin-bottom: 20px;
+            padding-bottom: 100%;
+            width: 100%;
+        }
+
+    .top_slider_item {
+        overflow: hidden;
+        height: 118px;
+        width: 192px;
+    }
+
+    .carousel-inner > .top_slider_item > img {
+        height: 118px;
+        width: 191px;
+        object-fit: cover;
+        -ms-object-fit: cover;
+        -moz-object-fit: cover;
+        -o-object-fit: cover;
+        -webkit-object-fit: cover;
+        object-position: left top;
+    }
+
+        .carousel-inner > .top_slider_item > img:hover {
+            transform: scale(1.1);
+            transition: transform 500ms ease-in-out 0s;
+        }
+
+    .bottom_slider_item {
+        overflow: hidden;
+        height: 118px;
+        width: 192px;
+    }
+
+    .carousel-inner > .bottom_slider_item > img {
+        height: 118px;
+        width: 191px;
+        object-fit: cover;
+        -ms-object-fit: cover;
+        -moz-object-fit: cover;
+        -o-object-fit: cover;
+        -webkit-object-fit: cover;
+        object-position: left top;
+    }
+
+    /*ul.peopleyou-img li {
+        margin: 0 11px 13px 0;
+    }*/
+}
+
+@media (max-width: 412px) {
+    .pview {
+        min-height: 80px;
+    }
+    ul.review li {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .actionlinks {
+        text-align: right;
+        margin-top: 5px;
+        margin-right: 7px;
+    }
+
+    .grad1 {
+        padding-left: 31% !important;
+    }
+
+    #photoGallery .modal-lg {
+        width: auto;
+        height: 200px;
+    }
+
+    #photoGallery .modal-body {
+        width: auto;
+        height: 200px;
+        padding: 10px;
+    }
+
+    #photoGallery .modal-lg img {
+        object-fit: contain;
+        width: auto;
+    }
+
+    .sliderimage {
+        height: 125px !important;
+        width: 400px !important;
+    }
+
+    #AddPhoto {
+        position: absolute;
+        z-index: 100;
+        padding: 5px;
+        top: 6%;
+        left: 28%;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    #AddPhotoTopRight {
+        height: 50px;
+        position: absolute;
+        width: 50px;
+        left: 28%;
+        top: 65%;
+        margin-left: -25px;
+        z-Index: 100;
+        cursor: pointer;
+    }
+
+    #ProfileName {
+        position: absolute;
+        padding-top: 10px;
+        height: 50px;
+        bottom: 0%;
+        left: 0%;
+        width: 100%;
+        font-weight: normal;
+        background: -webkit-linear-gradient(bottom, rgba(211,211,211,0), rgba(211,211,211,0));
+        background: -o-linear-gradient(bottom, rgba(211,211,211,0), rgba(211,211,211,0));
+        background: -moz-linear-gradient(bottom, rgba(211,211,211,0), rgba(211,211,211,3));
+        background: linear-gradient(to bottom, rgba(211,211,211,0), #000);
+    }
+
+    .business {
+        border: 1px solid lightgray;
+        font-size: 75px;
+        font-weight: 700;
+        height: 212px;
+        width: 353px;
+        background-color: #fff;
+        /*margin-bottom: 20px;*/
+        overflow: hidden;
+    }
+
+        .business img {
+            height: 210px;
+            width: 340px;
+            object-fit: cover;
+            -ms-object-fit: cover;
+            -moz-object-fit: cover;
+            -o-object-fit: cover;
+            -webkit-object-fit: cover;
+            object-position: left top;
+        }
+
+    .pro-file-sec {
+        height: 230px;
+        width: 382px;
+        overflow: hidden;
+    }
+
+        .pro-file-sec img {
+            height: 230px;
+            width: 370px;
+            object-fit: cover;
+            -ms-object-fit: cover;
+            -moz-object-fit: cover;
+            -o-object-fit: cover;
+            -webkit-object-fit: cover;
+            object-position: left top;
+        }
+
+    .responsive-circle {
+        bottom: 20px;
+        left: 20px;
+        position: absolute;
+        font-size: 75px;
+        font-weight: 700;
+        height: 85px;
+        min-width: 85px;
+        background-color: #fff;
+        border-radius: 50%;
+    }
+
+        .responsive-circle::after {
+            border-radius: 50%;
+            content: "";
+            display: block;
+            height: 0;
+            margin-bottom: 20px;
+            padding-bottom: 100%;
+            width: 100%;
+        }
+
+    .top_slider_item {
+        overflow: hidden;
+        height: 118px;
+        width: 191px;
+    }
+
+    .carousel-inner > .top_slider_item > img {
+        height: 118px;
+        width: 191px;
+        object-fit: cover;
+        -ms-object-fit: cover;
+        -moz-object-fit: cover;
+        -o-object-fit: cover;
+        -webkit-object-fit: cover;
+        object-position: left top;
+    }
+
+        .carousel-inner > .top_slider_item > img:hover {
+            transform: scale(1.1);
+            transition: transform 500ms ease-in-out 0s;
+        }
+
+    .bottom_slider_item {
+        overflow: hidden;
+        height: 118px;
+        width: 191px;
+    }
+
+    .carousel-inner > .bottom_slider_item > img {
+        height: 118px;
+        width: 191px;
+        object-fit: cover;
+        -ms-object-fit: cover;
+        -moz-object-fit: cover;
+        -o-object-fit: cover;
+        -webkit-object-fit: cover;
+        object-position: left top;
+    }
+
+    /*ul.peopleyou-img li {
+        margin: 0 11px 13px 0;
+    }*/
+}
+
+@media (max-width: 411px) {
+    .pview {
+        min-height: 80px;
+    }
+    .responsive-circle {
+        bottom: 20px;
+        left: 5px;
+    }
+
+    .camera {
+        color: red;
+        font-size: 28px;
+    }
+
+    ul.review li {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .actionlinks {
+        margin-top: 5px;
+        text-align: right;
+        margin-right: 7px;
+        font-size: 9pt;
+    }
+
+    .grad1 {
+        padding-left: 31% !important;
+        font-size: medium;
+    }
+
+    .grad2 a {
+        font-size: 11px !important;
+    }
+
+    #photoGallery .modal-lg {
+        width: 380px;
+        height: 200px;
+    }
+
+    #photoGallery .modal-body {
+        width: 380px;
+        height: 200px;
+        padding: 10px;
+    }
+
+    #photoGallery .modal-lg img {
+        object-fit: contain;
+        width: 380px;
+    }
+
+    #AddPhotoBackground {
+        position: absolute;
+        z-index: 100;
+        top: 45%;
+        left: 65%;
+        padding: 5px;
+        width: auto;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    #AddPhoto {
+        position: absolute;
+        z-index: 100;
+        padding: 5px;
+        top: 6%;
+        left: 28%;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    #AddPhotoTopRight {
+        height: 50px;
+        position: absolute;
+        width: 50px;
+        left: 28%;
+        top: 58%;
+        margin-left: -25px;
+        z-Index: 100;
+        cursor: pointer;
+    }
+
+    #AddPhotoTopBottom {
+        position: absolute;
+        z-index: 100;
+        padding: 5px;
+        top: 62%;
+        left: 45%;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    #ProfileName {
+        position: absolute;
+        padding-top: 10px;
+        height: 50px;
+        bottom: 0%;
+        left: 0%;
+        width: 100%;
+        font-weight: normal;
+        background: -webkit-linear-gradient(bottom, rgba(211,211,211,0), rgba(211,211,211,0));
+        background: -o-linear-gradient(bottom, rgba(211,211,211,0), rgba(211,211,211,0));
+        background: -moz-linear-gradient(bottom, rgba(211,211,211,0), rgba(211,211,211,3));
+        background: linear-gradient(to bottom, rgba(211,211,211,0), #000);
+    }
+
+    .business {
+        border: 1px solid lightgray;
+        font-size: 75px;
+        font-weight: 700;
+        height: 212px;
+        width: 339px;
+        background-color: #fff;
+        /*margin-bottom: 20px;*/
+        overflow: hidden;
+    }
+
+        .business img {
+            object-fit: cover;
+            -ms-object-fit: cover;
+            -moz-object-fit: cover;
+            -o-object-fit: cover;
+            -webkit-object-fit: cover;
+            object-position: left top;
+        }
+
+    .pro-file-sec {
+        height: 229px;
+        width: 369px;
+        overflow: hidden;
+    }
+
+        .pro-file-sec img {
+            height: 229px;
+            width: 369px;
+            object-fit: cover;
+            -ms-object-fit: cover;
+            -moz-object-fit: cover;
+            -o-object-fit: cover;
+            -webkit-object-fit: cover;
+            object-position: left top;
+        }
+
+    .responsive-circle {
+        bottom: 20px;
+        left: 20px;
+        position: absolute;
+        font-size: 75px;
+        font-weight: 700;
+        height: 85px;
+        min-width: 85px;
+        background-color: #fff;
+        border-radius: 50%;
+    }
+
+        .responsive-circle::after {
+            border-radius: 50%;
+            content: "";
+            display: block;
+            height: 0;
+            margin-bottom: 20px;
+            padding-bottom: 100%;
+            width: 100%;
+        }
+
+    .top_slider_item {
+        overflow: hidden;
+        height: 118px;
+        width: 191px;
+    }
+
+    .carousel-inner > .top_slider_item > img {
+        height: 106px;
+        width: 171px;
+        object-fit: cover;
+        -ms-object-fit: cover;
+        -moz-object-fit: cover;
+        -o-object-fit: cover;
+        -webkit-object-fit: cover;
+        object-position: left top;
+    }
+
+        .carousel-inner > .top_slider_item > img:hover {
+            transform: scale(1.1);
+            transition: transform 500ms ease-in-out 0s;
+        }
+
+    .bottom_slider_item {
+        overflow: hidden;
+        height: 118px;
+        width: 191px;
+    }
+
+    .carousel-inner > .bottom_slider_item > img {
+        height: 118px;
+        width: 191px;
+        object-fit: cover;
+        -ms-object-fit: cover;
+        -moz-object-fit: cover;
+        -o-object-fit: cover;
+        -webkit-object-fit: cover;
+        object-position: left top;
+    }
+}
+
+@media (max-width: 384px) {
+    ul.review li {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .grad1 {
+        padding-left: 32% !important;
+        font-size: small;
+    }
+
+    .grad2 a {
+        font-size: 11px !important;
+    }
+
+    .actionlinks {
+        text-align: right;
+        margin-top: 5px;
+        margin-right: 7px;
+        font-size: 9pt;
+    }
+
+    #photoGallery .modal-lg {
+        width: 350px;
+        height: 190px;
+    }
+
+    #photoGallery .modal-body {
+        width: 350px;
+        height: 190px;
+        padding: 10px;
+    }
+
+    #photoGallery .modal-lg img {
+        object-fit: contain;
+        width: 350px;
+    }
+
+    .sliderimage {
+        height: 100px !important;
+        width: 400px !important;
+    }
+
+    #AddPhotoBackground {
+        position: absolute;
+        z-index: 100;
+        top: 45%;
+        left: 65%;
+        padding: 5px;
+        width: auto;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    #AddPhoto {
+        position: absolute;
+        z-index: 100;
+        padding: 5px;
+        top: 10%;
+        left: 29%;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    #AddPhotoTopRight {
+        height: 50px;
+        position: absolute;
+        width: 50px;
+        left: 28%;
+        top: 58%;
+        margin-left: -25px;
+        z-Index: 100;
+        cursor: pointer;
+    }
+
+    #AddPhotoTopBottom {
+        position: absolute;
+        z-index: 100;
+        padding: 5px;
+        top: 62%;
+        left: 45%;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    #ProfileName {
+        position: absolute;
+        padding-top: 10px;
+        height: 50px;
+        bottom: 0%;
+        left: 0%;
+        width: 100%;
+        font-weight: normal;
+        background: -webkit-linear-gradient(bottom, rgba(211,211,211,0), rgba(211,211,211,0));
+        background: -o-linear-gradient(bottom, rgba(211,211,211,0), rgba(211,211,211,0));
+        background: -moz-linear-gradient(bottom, rgba(211,211,211,0), rgba(211,211,211,3));
+        background: linear-gradient(to bottom, rgba(211,211,211,0), #000);
+    }
+
+    .business {
+        height: 212px;
+        width: 324px;
+    }
+
+        .business img {
+            height: 195px;
+            width: 402px;
+            object-fit: cover;
+            -ms-object-fit: cover;
+            -moz-object-fit: cover;
+            -o-object-fit: cover;
+            -webkit-object-fit: cover;
+            object-position: left top;
+        }
+
+    .responsive-circle {
+        bottom: 40px;
+        left: 20px;
+        position: absolute;
+        font-size: 75px;
+        font-weight: 700;
+        height: 90px;
+        min-width: 90px;
+        background-color: #fff;
+        border-radius: 50%;
+    }
+
+        .responsive-circle::after {
+            border-radius: 50%;
+            content: "";
+            display: block;
+            height: 0;
+            margin-bottom: 20px;
+            padding-bottom: 100%;
+            width: 100%;
+        }
+
+    .pro-file-sec {
+        height: 212px;
+        width: 354px;
+        overflow: hidden;
+    }
+
+        .pro-file-sec img {
+            height: 212px;
+            width: 342px;
+            object-fit: cover;
+            -ms-object-fit: cover;
+            -moz-object-fit: cover;
+            -o-object-fit: cover;
+            -webkit-object-fit: cover;
+            object-position: left top;
+        }
+
+    .top_slider_item {
+        overflow: hidden;
+        height: 106px;
+        width: 177px;
+    }
+
+    .carousel-inner > .top_slider_item > img {
+        height: 106px;
+        width: 171px;
+        object-fit: cover;
+        -ms-object-fit: cover;
+        -moz-object-fit: cover;
+        -o-object-fit: cover;
+        -webkit-object-fit: cover;
+        object-position: left top;
+    }
+
+        .carousel-inner > .top_slider_item > img:hover {
+            transform: scale(1.1);
+            transition: transform 500ms ease-in-out 0s;
+        }
+
+    .bottom_slider_item {
+        overflow: hidden;
+        height: 106px;
+        width: 177px;
+    }
+
+    .carousel-inner > .bottom_slider_item > img {
+        height: 106px;
+        width: 171px;
+        object-fit: cover;
+        -ms-object-fit: cover;
+        -moz-object-fit: cover;
+        -o-object-fit: cover;
+        -webkit-object-fit: cover;
+        object-position: left top;
+    }
+
+
+    /*ul.peopleyou-img li {
+        margin: 0 12px 13px 0;
+    }*/
+}
+
+@media (max-width: 375px) {
+    .pview {
+        min-height: 76px;
+    }
+    .responsive-circle {
+        bottom: 20px;
+        left: 5px;
+    }
+
+    .camera {
+        color: red;
+        font-size: 28px;
+    }
+
+    ul.review li {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .grad1 {
+        padding-left: 31% !important;
+    }
+
+    .grad2 a {
+        font-size: 11px !important;
+    }
+
+    .actionlinks {
+        text-align: right;
+        margin-top: 5px;
+        margin-right: 7px;
+        font-size: 9pt;
+    }
+
+    #photoGallery .modal-lg {
+        width: 330px;
+        height: 180px;
+    }
+
+    #photoGallery .modal-body {
+        width: 330px;
+        height: 180px;
+        padding: 10px;
+    }
+
+    #photoGallery .modal-lg img {
+        object-fit: contain;
+        width: 330px;
+    }
+
+    .sliderimage {
+        height: 100px !important;
+        width: 400px !important;
+    }
+
+    #AddPhoto {
+        position: absolute;
+        z-index: 100;
+        padding: 5px;
+        top: 5%;
+        left: 28%;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    #AddPhotoTopRight {
+        height: 50px;
+        position: absolute;
+        width: 50px;
+        left: 28%;
+        top: 40%;
+        margin-left: -25px;
+        z-Index: 100;
+        cursor: pointer;
+    }
+
+    #AddPhotoTopBottom {
+        position: absolute;
+        z-index: 100;
+        padding: 5px;
+        top: 40%;
+        left: 45%;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    #ProfileName {
+        position: absolute;
+        padding-top: 10px;
+        height: 50px;
+        bottom: 0%;
+        left: 0%;
+        width: 100%;
+        font-weight: normal;
+        background: -webkit-linear-gradient(bottom, rgba(211,211,211,0), rgba(211,211,211,0));
+        background: -o-linear-gradient(bottom, rgba(211,211,211,0), rgba(211,211,211,0));
+        background: -moz-linear-gradient(bottom, rgba(211,211,211,0), rgba(211,211,211,3));
+        background: linear-gradient(to bottom, rgba(211,211,211,0), #000);
+    }
+
+    .business {
+        height: 189px;
+        width: 316px;
+    }
+
+        .business img {
+            height: 189px;
+            width: 390px;
+            object-fit: cover;
+            -ms-object-fit: cover;
+            -moz-object-fit: cover;
+            -o-object-fit: cover;
+            -webkit-object-fit: cover;
+            object-position: left top;
+        }
+
+    .responsive-circle {
+        bottom: 20px;
+        left: 20px;
+        position: absolute;
+        font-size: 75px;
+        font-weight: 700;
+        height: 85px;
+        min-width: 85px;
+        background-color: #fff;
+        border-radius: 50%;
+    }
+
+        .responsive-circle::after {
+            border-radius: 50%;
+            content: "";
+            display: block;
+            height: 0;
+            margin-bottom: 20px;
+            padding-bottom: 100%;
+            width: 100%;
+        }
+
+    .pro-file-sec {
+        height: 207px;
+        width: 345px;
+        overflow: hidden;
+    }
+
+        .pro-file-sec img {
+            height: 207px;
+            width: 333px;
+            object-fit: cover;
+            -ms-object-fit: cover;
+            -moz-object-fit: cover;
+            -o-object-fit: cover;
+            -webkit-object-fit: cover;
+            object-position: left top;
+        }
+
+    .top_slider_item {
+        overflow: hidden;
+        height: 106px;
+        width: 173px;
+    }
+
+    .carousel-inner > .top_slider_item > img {
+        height: 106px;
+        width: 171px;
+        object-fit: cover;
+        -ms-object-fit: cover;
+        -moz-object-fit: cover;
+        -o-object-fit: cover;
+        -webkit-object-fit: cover;
+        object-position: left top;
+    }
+
+        .carousel-inner > .top_slider_item > img:hover {
+            transform: scale(1.1);
+            transition: transform 500ms ease-in-out 0s;
+        }
+
+    .bottom_slider_item {
+        overflow: hidden;
+        height: 106px;
+        width: 173px;
+    }
+
+    .carousel-inner > .bottom_slider_item > img {
+        height: 106px;
+        width: 171px;
+        object-fit: cover;
+        -ms-object-fit: cover;
+        -moz-object-fit: cover;
+        -o-object-fit: cover;
+        -webkit-object-fit: cover;
+        object-position: left top;
+    }
+
+    /*ul.peopleyou-img li {
+        margin: 0 12px 13px 0;
+    }*/
+}
+
+@media (max-width: 360px) {
+    .pview {
+        min-height: 65px;
+    }
+    .business {
+        height: 189px !important;
+        width: 300px !important;
+    }
+
+        .business img {
+            object-fit: cover;
+            -ms-object-fit: cover;
+            -moz-object-fit: cover;
+            -o-object-fit: cover;
+            -webkit-object-fit: cover;
+            object-position: left top;
+        }
+
+    ul.review li {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .grad1 {
+        padding-left: 32% !important;
+        font-size: small;
+    }
+
+    .grad2 a {
+        font-size: 11px !important;
+    }
+
+    .actionlinks {
+        text-align: right;
+        margin-top: 5px;
+        margin-right: 7px;
+        font-size: 9pt;
+    }
+
+    #photoGallery .modal-lg {
+        width: 330px;
+        height: 180px;
+    }
+
+    #photoGallery .modal-body {
+        width: 330px;
+        height: 180px;
+        padding: 10px;
+    }
+
+    #photoGallery .modal-lg img {
+        object-fit: contain;
+        width: 330px;
+    }
+
+    .sliderimage {
+        height: 100px !important;
+        width: 400px !important;
+    }
+
+    #AddPhotoBackground {
+        position: absolute;
+        z-index: 100;
+        top: 45%;
+        left: 65%;
+        padding: 5px;
+        width: auto;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    #AddPhoto {
+        position: absolute;
+        z-index: 100;
+        padding: 5px;
+        top: -1%;
+        left: 26%;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    #AddPhotoTopRight {
+        height: 50px;
+        position: absolute;
+        width: 50px;
+        left: 28%;
+        top: 58%;
+        margin-left: -25px;
+        z-Index: 100;
+        cursor: pointer;
+    }
+
+    #AddPhotoTopBottom {
+        position: absolute;
+        z-index: 100;
+        padding: 5px;
+        top: 62%;
+        left: 45%;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    #ProfileName {
+        position: absolute;
+        padding-top: 10px;
+        height: 46px;
+        bottom: 0%;
+        left: 0%;
+        width: 100%;
+        font-weight: normal;
+        background: -webkit-linear-gradient(bottom, rgba(211,211,211,0), rgba(211,211,211,0));
+        background: -o-linear-gradient(bottom, rgba(211,211,211,0), rgba(211,211,211,0));
+        background: -moz-linear-gradient(bottom, rgba(211,211,211,0), rgba(211,211,211,3));
+        background: linear-gradient(to bottom, rgba(211,211,211,0), #000);
+    }
+
+    .responsive-circle {
+        bottom: 20px;
+        left: 20px;
+        position: absolute;
+        font-size: 75px;
+        font-weight: 700;
+        height: 80px;
+        min-width: 80px;
+        background-color: #fff;
+        border-radius: 50%;
+    }
+
+        .responsive-circle::after {
+            border-radius: 50%;
+            content: "";
+            display: block;
+            height: 0;
+            margin-bottom: 20px;
+            padding-bottom: 100%;
+            width: 100%;
+        }
+
+    .pro-file-sec {
+        height: 197px;
+        width: 330px;
+        overflow: hidden;
+    }
+
+        .pro-file-sec img {
+            height: 197px;
+            width: 318px;
+            object-fit: cover;
+            -ms-object-fit: cover;
+            -moz-object-fit: cover;
+            -o-object-fit: cover;
+            -webkit-object-fit: cover;
+            object-position: left top;
+        }
+
+    .top_slider_item {
+        overflow: hidden;
+        height: 125px;
+        width: 165px;
+    }
+
+    .carousel-inner > .top_slider_item > img {
+        height: 125px;
+        width: 159px;
+        object-fit: cover;
+        -ms-object-fit: cover;
+        -moz-object-fit: cover;
+        -o-object-fit: cover;
+        -webkit-object-fit: cover;
+        object-position: left top;
+    }
+
+        .carousel-inner > .top_slider_item > img:hover {
+            transform: scale(1.1);
+            transition: transform 500ms ease-in-out 0s;
+        }
+
+    .bottom_slider_item {
+        overflow: hidden;
+        height: 125px;
+        width: 165px;
+    }
+
+    .carousel-inner > .bottom_slider_item > img {
+        height: 125px;
+        width: 159px;
+        object-fit: cover;
+        -ms-object-fit: cover;
+        -moz-object-fit: cover;
+        -o-object-fit: cover;
+        -webkit-object-fit: cover;
+        object-position: left top;
+    }
+
+    /*ul.peopleyou-img li {
+        margin: 0 11px 13px 0;
+    }*/
+}
+
+@media (max-width: 320px) {
+    .pview {
+        min-height: 54px;
+    }
+    ul.review li {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .grad1 {
+        padding-left: 32% !important;
+        font-size: 11px !important;
+    }
+
+    .grad2 {
+        padding-left: 1px;
+        padding-right: 4px;
+    }
+
+        .grad2 a {
+            font-size: 11px !important;
+        }
+
+    .b-comm {
+        font-size: 12px;
+    }
+
+        .b-comm .comment-img {
+            height: 50px;
+            width: 50px;
+        }
+
+    .actionlinks {
+        text-align: right;
+        margin-top: 10px;
+        margin-right: 7px;
+        font-size: 9pt;
+    }
+
+    #photoGallery .modal-lg {
+        width: 290px;
+        height: 155px;
+    }
+
+    #photoGallery .modal-body {
+        width: 290px;
+        height: 155px;
+        padding: 10px;
+    }
+
+    #photoGallery .modal-lg img {
+        object-fit: contain;
+        width: 290px;
+    }
+
+    #AddPhoto {
+        position: absolute;
+        z-index: 100;
+        padding: 5px;
+        top: -1%;
+        left: 28%;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    #AddPhotoTopRight {
+        height: 50px;
+        position: absolute;
+        width: 50px;
+        left: 28%;
+        top: 58%;
+        margin-left: -25px;
+        z-Index: 100;
+        cursor: pointer;
+    }
+
+    #AddPhotoTopBottom {
+        position: absolute;
+        z-index: 100;
+        padding: 5px;
+        top: 62%;
+        left: 45%;
+        font-weight: normal;
+        cursor: pointer;
+    }
+
+    #ProfileName {
+        position: absolute;
+        padding-top: 10px;
+        height: 45px;
+        bottom: 0%;
+        left: 0%;
+        width: 100%;
+        font-weight: normal;
+        background: -webkit-linear-gradient(bottom, rgba(211,211,211,0), rgba(211,211,211,0));
+        background: -o-linear-gradient(bottom, rgba(211,211,211,0), rgba(211,211,211,0));
+        background: -moz-linear-gradient(bottom, rgba(211,211,211,0), rgba(211,211,211,3));
+        background: linear-gradient(to bottom, rgba(211,211,211,0), #000);
+    }
+
+    .business {
+        height: 189px !important;
+        width: 261px !important;
+    }
+
+        .business img {
+            object-fit: cover;
+            -ms-object-fit: cover;
+            -moz-object-fit: cover;
+            -o-object-fit: cover;
+            -webkit-object-fit: cover;
+            object-position: left top;
+        }
+
+    .responsive-circle {
+        bottom: 20px;
+        left: 8px;
+        position: absolute;
+        font-size: 75px;
+        font-weight: 700;
+        height: 80px;
+        min-width: 80px;
+        background-color: #fff;
+        border-radius: 50%;
+    }
+
+        .responsive-circle::after {
+            border-radius: 50%;
+            content: "";
+            display: block;
+            height: 0;
+            margin-bottom: 20px;
+            padding-bottom: 100%;
+            width: 100%;
+        }
+
+    .pro-file-sec {
+        height: 173px;
+        width: 290px;
+        overflow: hidden;
+    }
+
+        .pro-file-sec img {
+            height: 173px;
+            width: 278px;
+            object-fit: cover;
+            -ms-object-fit: cover;
+            -moz-object-fit: cover;
+            -o-object-fit: cover;
+            -webkit-object-fit: cover;
+            object-position: left top;
+        }
+
+    .top_slider_item {
+        overflow: hidden;
+        height: 99px;
+        width: 145px;
+    }
+
+    .carousel-inner > .top_slider_item > img {
+        height: 99px;
+        width: 139px;
+        object-fit: cover;
+        -ms-object-fit: cover;
+        -moz-object-fit: cover;
+        -o-object-fit: cover;
+        -webkit-object-fit: cover;
+        object-position: left top;
+        overflow: hidden;
+    }
+
+        .carousel-inner > .top_slider_item > img:hover {
+            transform: scale(1.1);
+            transition: transform 500ms ease-in-out 0s;
+        }
+
+    .bottom_slider_item {
+        overflow: hidden;
+        height: 99px;
+        width: 145px;
+    }
+
+    .carousel-inner > .bottom_slider_item > img {
+        height: 99px;
+        width: 139px;
+        object-fit: cover;
+        -ms-object-fit: cover;
+        -moz-object-fit: cover;
+        -o-object-fit: cover;
+        -webkit-object-fit: cover;
+        object-position: left top;
+        overflow: hidden;
+    }
+
+    /*ul.peopleyou-img li {
+        margin: 0 6px 9px 0;
+    }*/
+}
+
+@media(max-width:285px) {
+    ul.review li {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .grad1 {
+        padding-left: 40% !important;
+    }
+}

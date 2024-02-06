@@ -1,0 +1,175 @@
+﻿@model JobPortal.Web.Models.SearchJobModel
+@using PagedList.Mvc;
+
+@{
+    var pagedModel = Model.SearchJobs as PagedList.IPagedList<JobPortal.Data.SearchJobsResult>;
+    int minRowSize = ((pagedModel.PageNumber - 1) * Model.PageSize) + 1;
+    int totalRecord = pagedModel.FirstOrDefault().TotalRecord;
+    int maxRowSize = pagedModel.PageNumber * Model.PageSize;
+    if (totalRecord <= Model.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+}
+
+<script type="text/javascript">
+    BookMarkedJob = function (jobId) {
+        $.post('@Url.Action("BookMarkedJob", "JsonHelper")', { jobId: jobId },
+                    function (result) {
+                        if (result.length != 0) {
+                            $("#MessageDialog").siblings('div.ui-dialog-titlebar').remove();
+                            $("#MessageDialog").dialog("open");
+                        }
+                    });
+
+        return false;
+    }
+
+    EmailJob = function (jobid) {
+        alert(jobid);
+        $.post('@Url.Action("GetJob", "JsonHelper")', { jobid: jobid },
+            function (result) {
+                //alert(JSON.stringify(result));
+                //if (result.length != 0) {
+                //
+                //}
+            });
+
+        $("#dialog").dialog("open");
+        return false;
+    }
+</script>
+
+<div>
+
+    @if (pagedModel.Any())
+    {
+        <div class="pagersummary">
+            @{
+        if (maxRowSize > totalRecord)
+        {
+            <h3>Showing @minRowSize - @totalRecord of @totalRecord Job(s)</h3>
+        }
+        else if (maxRowSize == totalRecord)
+        {
+            <h3>Showing @totalRecord of @totalRecord Job(s)</h3>
+        }
+        else if (totalRecord == 0)
+        {
+
+        }
+        else
+        {
+            <h3>Showing @minRowSize - @maxRowSize of @totalRecord Job(s)</h3>
+        }
+            }
+        </div>
+
+        <div style="text-align: right;width:100%;">
+            <div style="float: left;width:50%;text-align:left;">
+                @Html.ActionLink("Back", "Index", "Jobseeker", null, new { @class = "linkButton" })
+                @if (Request.IsAuthenticated && User.IsInRole("Individual"))
+                {
+                    <input type="button" value="Select All" name="selectall" id="selectall" class="signin-button" />
+                    <input type="submit" value="Apply Job(s)" name="applyjob" onclick="return ValidateCheckBoxes();" />
+                }
+            </div>
+
+        </div>
+
+        <input type="hidden" value="" name="hdnSelectedContacts" />
+
+        @*@Html.HiddenFor(model => pagedModel.FirstOrDefault().JobId, new { id = "hdnSelectedContacts" })*@
+        <div class="clear"></div>
+        <ul style="list-style-type:none; border:solid 1px #d0cccc; padding-left:0; width:100%">
+            @foreach (var item in pagedModel)
+            {
+                <li style="padding:10px;" id="JobItem">
+                    <div>
+                        <div class="float-left">
+                            <div id="jtitle" class="ChkBox">
+                                @if (Request.IsAuthenticated)
+                                {
+                                    @Html.CheckBox("chkJb", false, new { value = item.JobId, @class = "chkJob" })<a href="/@(@item.Permalink).html">@item.Title </a>
+                                }
+                                else
+                                {
+                                    <a href="/@(@item.Permalink).html">@item.Title </a>
+                                }
+
+                            </div>
+                            <div>
+                                <b> @item.CompanyName</b>
+                            </div>
+                        </div>
+                        <div class="float-right">
+                            <img style="height:29px; width:29px; border:solid 1px #d0cccc; border-radius:4px; padding:2px; " src="/Employer/ShowLogo/@item.EmployerId" />
+                        </div>
+                        <div class="clear"></div>
+                        <div class="jdetail">
+                            @item.Summary
+                        </div>
+                        <div class="subdetail">
+                            <ul id="jobmenu">
+                                <li>
+                                    Listed on: @item.PublishedDate.ToString("MMM-dd-yyyy")
+                                </li>
+                                @if (User.IsInRole("Individual"))
+                                {
+                                    <li class="tag3"><a id="@item.JobId" href="#" onclick="return BookMarkedJob(@item.JobId);">Bookmark job</a></li>
+                                
+
+                                <li class="tag3"><a id="@item.JobId" href="#" class="emaillink" onclick="return EmailJob(@item.JobId)">Email Job</a></li>
+
+                                <li class="tag3">
+                                    <a href="/@item.Permalink">All jobs of this company</a>
+                                </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+            }
+        </ul>
+        <div style="text-align:center">
+            @*Page @(pagedModel.PageCount < pagedModel.PageNumber ? 0 : pagedModel.PageNumber) of @pagedModel.PageCount*@
+            @Html.PagedListPager(pagedModel, PageNumber => Url.Action("SearchJobs",
+                                                                      new RouteValueDictionary()
+                                                                      {
+                                                                          { "PageNumber" , PageNumber },
+                                                                          { "CategoryId" , Model.CategoryId },
+                                                                          { "SpecializationId" , Model.SpecializationId },
+                                                                          { "CountryId" , Model.CountryId },
+                                                                          { "EmploymentTypeId" , Model.EmploymentTypeId },
+                                                                          { "QualificationId" , Model.QualificationId },
+                                                                          { "ZipCode" , Model.ZipCode },
+                                                                          { "State" , Model.State },
+                                                                          { "FromDate" , Model.FromDate },
+                                                                          { "ToDate" , Model.ToDate }
+                                                                      }),
+                                                                      PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    }
+</div>
+<div id="MessageDialog" style="background-color:aliceblue; border:solid 1px #0094ff">
+    <p>Successfully bookmrked job.</p>
+</div>
+
+<script>
+    setInterval(function () { AutoClose() }, 3000);//JQuery UI Dialog box will auto close after 5 seconds.
+    function AutoClose() {
+        $(function () {
+            $("#MessageDialog").dialog("close");// //Auto Close Dialog Box.
+        });
+    }
+
+    $(function () {
+        $("#MessageDialog").dialog({
+            autoOpen: false,
+            modal: true,
+            width: 400,
+            height: 50,
+        });
+    });
+
+</script>

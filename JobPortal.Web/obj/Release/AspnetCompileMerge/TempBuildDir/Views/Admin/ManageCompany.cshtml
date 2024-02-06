@@ -1,0 +1,585 @@
+﻿@model JobPortal.Web.Models.EmployerModel
+@using JobPortal.Data
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@{
+    ViewBag.Title = "User Profile";
+    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+    UserProfile profile = MemberService.Instance.Get(Model.Id);
+    int inboxItems = DomainService.Instance.DashboardInboxItems(Model.Id);
+    int appCounts = MemberService.Instance.GetApplicationCount(profile.Username);
+    int intCounts = MemberService.Instance.GetInterviewCount(profile.Username);
+    Photo photo = MemberService.Instance.GetPhoto("Profile", profile.Username);
+}
+<div class="section">
+    <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-3">
+            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+                <li class="active"><a href="#">QUICK LINKS</a></li>
+                <li>@Html.ActionLink("Connections", "Connections", "Admin", new { UserId = Model.Id }, new { target = "_blank" })</li>
+                <li>@Html.ActionLink("Messages", "Messages", "Admin", new { Id = Model.Id }, new { target = "_blank" })</li>
+                <li>@Html.ActionLink("Jobs", "JobsByCompany", "Admin", new { Id = Model.Id }, new { target = "_blank" })</li>
+                @if (appCounts > 0)
+                {
+                    <li>@Html.ActionLink(string.Format("Applications ({0})", appCounts), "Applications", "Admin", new { UserId = Model.Id }, new { target = "_blank" })</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Applications", "Applications", "Admin", new { UserId = Model.Id }, new { target = "_blank" })</li>
+                }
+                @if (intCounts > 0)
+                {
+                    <li>@Html.ActionLink(string.Format("Interviews ({0})", intCounts), "Interviews", "Admin", new { UserId = Model.Id }, new { target = "_blank" })</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Interviews", "Interviews", "Admin", new { UserId = Model.Id }, new { target = "_blank" })</li>
+                }
+                <li>@Html.ActionLink("Downloads", "DownloadHistory", "Admin", new { Id = Model.Id }, new { target = "_blank" })</li>
+
+                @if (inboxItems > 0)
+                {
+                    <li><a href="/Admin/Inbox?Id=@Model.Id" target="_blank">Inbox (<span style="color:red; font-weight:bold">@inboxItems</span>)</a></li>
+                }
+                else
+                {
+                    <li><a href="/Admin/Inbox?Id=@Model.Id" target="_blank">Inbox</a></li>
+                }
+                <li>@Html.ActionLink("Profile", "ManageCompany", "Admin", new { Id = Model.Id }, new { })</li>
+                <li>@Html.ActionLink("Purchased Profiles", "PaidProfiles", "Payment", new { userId = Model.Id }, null)</li>
+                <li>@Html.ActionLink("Billing & Invoices", "billing", "Payment", new { userId = Model.Id }, new { })</li>
+                <li>@Html.ActionLink("Reset Password", "ResetPassword", "Admin", new { Id = Model.Id }, new { target = "_blank" })</li>
+                <li>@Html.ActionLink("Login History", "LoginHistory", "Admin", new { Id = Model.Id }, new { target = "_blank" })</li>
+                <li>@Html.ActionLink("Alert Settings", "Alerts", "Admin", new { Id = Model.Id }, new { target = "_blank" })</li>
+            </ul>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-9">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="title-login">
+                        <h1 style="margin-top:-15px">User Profile</h1>
+                        Manage <b>@profile.Company</b> profile here
+                    </div>
+                </div>
+            </div>
+            <div class="clear" style="height:15px;"></div>
+            <div class="list-group-item">
+                @using (Html.BeginForm("ManageCompany", "Admin", FormMethod.Post))
+                {
+                    @Html.ValidationSummary(true)
+                    <div id="divMsgBox" class="message-instruction" style="display:none">
+                        <div style="text-align:center; padding:25px;"><i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom" style="font-size: 32px; color: #01a7e1;"></i></div>
+                    </div>
+                    @Html.Partial("_MessagePartial")
+                    <div class="clear" style="height:15px"></div>
+
+                    <div class="row">
+                        <div class="col-lg-2 col-md-2 col-sm-2 text-center">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class=" form-group">
+                                        <div class="list-group-item text-center" style="min-height:184px;height: 184px; width:172px; display: table-cell; vertical-align: middle; text-align: center;">
+                                            <div style="height: 130px; width:145px; display: table-cell; vertical-align: middle; text-align: center;">
+                                                <div style="height: 135px; width:135px;background:url(/Image/Avtar?Id=@Model.Id&height=135&width=135); background-repeat:no-repeat; background-size:contain; background-position:center top;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class=" form-group">
+                                        <a href="#" id="lnkbUploadPhoto" role="button" data-id="@Model.Id" data-toggle='modal' data-target='#uploadDialog' title="Upload Photo">Upload</a>
+                                        @if (photo != null && photo.IsApproved)
+                                        {
+                                            <text> | </text><a href="#" id="lnkbDeletePhoto" role="button" data-id="@Model.Id" data-toggle='modal' data-target='#deleteDialog' title="Delete Photo">Delete</a>
+                                        }
+                                        else
+                                        {
+                                            <text> | </text><a id="deletePhoto" title="Delete Photo">Delete</a>
+                                            <script>
+                                                $("#deletePhoto").attr("disabled", true);
+                                            </script>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-10 col-md-10 col-sm-10 ">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-lg-push-10">
+                                    <button value="Save" class="btn btn-info save" style="width: 80px">Submit</button>
+                                </div>
+                            </div>
+                            <div class="clear" style="height:15px"></div>
+                            <div class="row">
+                                <div class="col-lg-10 col-md-10 col-sm-10 col-lg-push-2">
+                                    <div class="form-group">
+                                        <div class="clear" style="height: 15px;"></div>
+                                        @if (!string.IsNullOrEmpty(Model.PremaLink))
+                                        {
+                                            <div style="padding: 5px; text-align:left; border: #c9cacc 1px solid; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;">
+                                                Profile Url:&nbsp;&nbsp;<a href="/@Model.PremaLink" target="_blank">@Request.Url.Scheme://@Request.Url.Authority/@Model.PremaLink</a>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear" style="height:15px"></div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                @Html.Label("Overview")
+                                @Html.TextAreaFor(model => model.Overview, new { @class = "form-control", @maxlength = 700, @style = "height:100px;" })
+                                @Html.ValidationMessageFor(model => model.Overview)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Company)
+
+                                @Html.TextBoxFor(model => model.Company, new { @class = "form-control", @maxlength = 50 })
+                                @Html.ValidationMessageFor(model => model.Company)
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.CategoryId)
+                                <select id="CategoryId" name="CategoryId" class="form-control">
+                                    <option value="">SELECT CATEGORY</option>
+                                </select>                                
+                                @Html.ValidationMessageFor(model => model.CategoryId)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.FirstName)
+                                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", placeholder = "FIRST NAME", @maxlength = 20 })
+                                @Html.ValidationMessageFor(model => model.FirstName)
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.LastName)
+                                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control", placeholder = "LAST NAME", @maxlength = 20 })
+                                @Html.ValidationMessageFor(model => model.LastName)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Address)
+
+                                @Html.TextAreaFor(model => model.Address, new { @class = "form-control", placeholder = "ADDRESS", @maxlength = 150, @style = "height:100px;" })
+                                @Html.ValidationMessageFor(model => model.Address)
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.CountryId)
+                                        <select id="CountryId" name="CountryId" class="form-control">
+                                            <option value="">SELECT COUNTRY</option>
+                                        </select>                                       
+                                        @Html.ValidationMessageFor(model => model.CountryId)
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        @Html.LabelFor(model => model.StateId)
+                                        <select id="StateId" name="StateId" class="form-control">
+                                            <option value="">SELECT STATE</option>
+                                        </select>                                        
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.City)
+
+                                @Html.TextBoxFor(model => model.City, new { @class = "form-control", placeholder = "CITY", @maxlength = 50 })
+                                @Html.ValidationMessageFor(model => model.City)
+                            </div>
+
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Zip)
+
+                                @Html.TextBoxFor(model => model.Zip, new { @class = "form-control", placeholder = "ZIP", @maxlength = 15 })
+                                @Html.ValidationMessageFor(model => model.Zip)
+                            </div>
+                            <div id="divzip" style="color:red;font-weight:bold;"></div>
+
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="form-group">
+                                @Html.Label("Mobile Number")
+
+                                <div class="input-group">
+                                    @if (!string.IsNullOrEmpty(Model.MobileCountryCode)) { 
+                                        @Html.DropDownListFor(model => model.MobileCountryCode, new SelectList(Model.CountryWithCodes, "Value", "Value", Model.MobileCountryCode), new { @class = "form-control", @required = "required", @style = "height:31px" })
+                                    }
+                                    else
+                                    {
+                                        @Html.DropDownListFor(model => model.MobileCountryCode, new SelectList(Model.CountryWithCodes, "Value", "Value", "+1"), new { @class = "form-control", @required = "required", @style = "height:31px" })
+                                    }
+                                    <span class="input-group-btn" style="width:0px;"></span>
+                                    @Html.TextBoxFor(model => model.Mobile, new { @class = "form-control", placeholder = "MOBILE NUMBER", maxlength = "10", @style = "height:31px" })
+                                </div>
+
+                                @Html.ValidationMessageFor(model => model.Mobile)
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="form-group">
+                                @Html.Label("Phone Number")
+
+                                <div class="input-group">
+                                    @Html.DropDownListFor(model => model.PhoneCountryCode, new SelectList(Model.CountryWithCodes, "Value", "Value", Model.PhoneCountryCode), new { @class = "form-control", @required = "required", @style = "height:31px" })
+                                    <span class="input-group-btn" style="width:0px;"></span>
+                                    @Html.TextBoxFor(model => model.Phone, new { @class = "form-control", placeholder = "PHONE NUMBER", maxlength = "15", @style = "height:31px" })
+                                </div>
+
+                                @Html.ValidationMessageFor(model => model.Phone)
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.Website)
+
+                                @Html.TextBoxFor(model => model.Website, new { @class = "form-control", @maxlength = 80 })
+                                @Html.ValidationMessageFor(model => model.Website)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                @Html.Label("Facebook Page") (Optional)
+
+                                @Html.TextBoxFor(model => model.Facebook, new { @class = "form-control", placeholder = "FACEBOOK PAGE" })
+                                @Html.ValidationMessageFor(model => model.Facebook)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                @Html.Label("Twitter Page") (Optional)
+
+                                @Html.TextBoxFor(model => model.Twitter, new { @class = "form-control", placeholder = "TWITTER PAGE" })
+                                @Html.ValidationMessageFor(model => model.Twitter)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                @Html.Label("LinkedIn Page") (Optional)
+
+                                @Html.TextBoxFor(model => model.LinkedIn, new { @class = "form-control", placeholder = "LINKEDIN PAGE" })
+                                @Html.ValidationMessageFor(model => model.LinkedIn)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="form-group">
+                                @Html.Label("GooglePlus Page") (Optional)
+
+                                @Html.TextBoxFor(model => model.GooglePlus, new { @class = "form-control", placeholder = "GOOGLEPLUS PAGE" })
+                                @Html.ValidationMessageFor(model => model.GooglePlus)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear" style="height:10px;"></div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 text-center">
+                            @Html.HiddenFor(model => model.Id)
+                            <input type="submit" value="Submit" class="btn btn-info" style="width:75px;" />
+                        </div>
+                    </div>
+                    <div class="clear" style="height:30px;"></div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="uploadDialog" tabindex="-1" role="dialog" aria-labelledby="uploadDialogLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="uploadDialogLabel">
+                    Upload Photo
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    @Html.Label("Upload Photo")
+                    (JPG, PNG or GIF up to size of 500 KB.)
+                    <input type="hidden" id="Id" name="Id" />
+                    <input id="Photo" name="Photo" type="file" title="JPG, PNG or GIF up to size of 500 KB." placeholder="UPLOAD LOGO" class="form-control" required />
+                    <div id="divPhotoError" style="color: red; font-weight: bold;"></div>
+                    <div class="clear"></div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="photoUploadCancel" class="btn btn-default" data-dismiss="modal" style="width:75px;">Cancel</button>
+                <button type="button" id="photoUpload" data-dismiss="modal" class="btn btn-primary" style="width:75px;">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Write reason for Deleting Photo
+                </h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <textarea id="Reason" name="Reason" class="form-control" style="height:100px;" maxlength="400" required></textarea>
+                    <input type="hidden" id="Id" name="Id" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="deleteUpload" class="btn btn-primary" data-dismiss="modal" style="width:75px;" formnovalidate="formnovalidate">Submit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px;">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $("#logoUpload").attr('disabled', true);
+        $("#MinimumAge").change(function () {
+            $("#MaximumAge").empty();
+            $("#MaximumAge").append("<option value =\"\">SELECT</option>");
+            if ($("#MinimumAge option:selected").text() == "SELECT") {
+                return;
+            }
+            $.post('@Url.Action("GetAgeList", "JsonHelper")', { age: $('option:selected', $(this)).val() },
+                        function (result) {
+                            if (result.length != 0) {
+                                $("#MaximumAge").empty();
+                                $("#MaximumAge").append("<option value =\"\">SELECT</option>");
+                                $(result).each(function () {
+                                    $("#MaximumAge").append("<option value =" + this.Value + ">" + this.Text + "</option>");
+                                });
+                            }
+                        });
+        });
+
+        $.getJSON("/help/categorylist", {}, function (list) {
+            $("#CategoryId").empty();
+            $("#CategoryId").append("<option value = ''>SELECT</option>");
+
+            if (list.length != 0) {
+                $(list).each(function () {
+                    $("#CategoryId").append("<option value =" + this.Id + ">" + this.Name + "</option>");
+                });
+                $("#CategoryId").val($("#CategoryId").data("value"));
+            }
+        });
+
+
+        $.getJSON("/help/countrylist", {}, function (list) {
+            $("#CountryId").empty();
+            $("#CountryId").append("<option value = ''>SELECT</option>");
+
+            if (list.length != 0) {
+                $(list).each(function () {
+                    $("#CountryId").append("<option value =" + this.Id + ">" + this.Name + "</option>");
+                });
+                $("#CountryId").val($("#CountryId").data("value"));
+                $("#StateId").empty();
+                $.getJSON("/help/statelist", { countryId: $("#CountryId").val() }, function (result) {
+                    $("#StateId").append("<option value =" + '' + ">" + 'SELECT' + "</option>");
+                    if (result.length != 0) {
+                        $(result).each(function () {
+                            $("#StateId").append("<option value =" + this.Id + ">" + this.Name + "</option>");
+                        });
+                        $("#StateId").val($("#StateId").data("value"));
+                    }
+                });
+            }
+        });
+
+        $("#CountryId").change(function () {
+            if ($(this).val() != "") {
+                $.post('@Url.Action("GetDialingCode", "JsonHelper")', { countryId: $(this).val() },
+                   function (result) {
+                       $("#MobileCountryCode").val(result);
+                       $("#PhoneCountryCode").val(result);
+                   });
+
+                $("#StateId").empty();
+                $.getJSON("/help/statelist", { countryId: $(this).val() }, function (result) {
+                    $("#StateId").append("<option value =" + '' + ">" + 'SELECT' + "</option>");
+                    if (result.length != 0) {
+                        $(result).each(function () {
+                            $("#StateId").append("<option value =" + this.Id + ">" + this.Name + "</option>");
+                        });
+                        $("#StateId").val($("#StateId").data("value"));
+                    }
+                });
+
+            }
+        });
+        $("#CountryId").change(function () {
+            if ($(this).val() != "") {
+                $.post('@Url.Action("GetDialingCode", "JsonHelper")', { countryId: $(this).val() },
+                   function (result) {
+                       $("#MobileCountryCode").val(result);
+                       $("#PhoneCountryCode").val(result);
+                   });
+            }
+        });
+
+        if ($("#CountryId").val() != "") {
+            $.post('@Url.Action("GetDialingCode", "JsonHelper")', { countryId: $("#CountryId").val() },
+            function (result) {
+                $("#MobileCountryCode").val(result);
+                $("#PhoneCountryCode").val(result);
+            });
+        }
+
+        $('.nav-pills a').filter(function () { return this.href == location.href }).parent().addClass('highlight').siblings().removeClass('highlight');
+        $('.nav-pills a').click(function () {
+            $(this).parent().addClass('highlight').siblings().removeClass('highlight');
+        });
+
+        $("#Photo").change(function () {
+            var file = document.getElementById('Photo').files[0];
+            var defineSize = 500 * 1024;
+            var fileSize = file.size;
+            var name = file.name;
+            var ext = name.substr(name.lastIndexOf(".") + 1, 4).toLowerCase();
+            var allowed = "png, jpg, jpeg, gif";
+
+            if (name.length > 0) {
+                if (allowed.indexOf(ext) < 0) {
+                    $("#divPhotoError").html("Only JPG,JPEG, PNG, GIF files are allowed!");
+                    $("#photoUpload").attr('disabled', true);
+                } else {
+                    $("#photoUpload").attr('disabled', false);
+                }
+            } else {
+                $("#divPhotoError").html("Please select file!");
+                $("#photoUpload").attr('disabled', true);
+            }
+        });
+
+        $("#photoUploadCancel").click(function () {
+            $("#divPhotoError").html("");
+            $("#Photo").val("");
+        });
+
+        $("#lnkbUploadPhoto").click(function () {
+            id = $(this).data('id');
+            $(".modal-body #Id").val(id);
+        });
+
+        $("#lnkbDeletePhoto").click(function () {
+            id = $(this).data('id');
+            $(".modal-body #Id").val(id);
+        });
+
+        $("#photoUpload").click(function () {
+
+            var file = document.getElementById('Photo').files[0];
+            var defineSize = 500 * 1024;
+            var fileSize = file.size;
+            var name = file.name;
+            var ext = name.substr(name.lastIndexOf(".") + 1, 4).toLowerCase();
+            var allowed = "png, jpg, jpeg, gif";
+
+            if (name.length > 0) {
+                if (allowed.indexOf(ext) >= 0) {
+                    if (parseInt(defineSize) > parseInt(fileSize)) {
+                        if (file) {
+                            $("#divMsgBox").show();
+                            var reader = new FileReader();
+                            reader.readAsDataURL(file);
+                            reader.onload = function (e) {
+                                var binaryString = e.target.result.toString();
+                                binaryString = binaryString.replace("data:image/png;base64,", "");
+                                binaryString = binaryString.replace("data:image/jpeg;base64,", "");
+                                binaryString = binaryString.replace("data:image/gif;base64,", "");
+                                binaryString = binaryString.replace("data:image/jpg;base64,", "");
+
+                                var type = "";
+                                if (ext == "jpg") {
+                                    type = "data:image/jpg;base64";
+                                } else if (ext == "jpeg") {
+                                    type = "data:image/jpeg;base64";
+                                } else if (ext == "png") {
+                                    type = "data:image/png;base64";
+                                } else if (ext == "gif") {
+                                    type = "data:image/gif;base64";
+                                }
+
+                                $.post('@Url.Action("PictureUpload", "JsonHelper")', { Username: "@profile.Username", data: binaryString, area: "Profile", type: type },
+                                   function (result) {
+                                       $("#divMsgBox").show();
+                                       $("#divMsgBox").html(result);
+                                       $("#divMsgBox").removeClass("message-instruction");
+                                       $("#divMsgBox").addClass("message-info");
+                                       setTimeout(window.location.reload(), 5);
+                                   });
+                            };
+                        }
+                    }
+                    else {
+                        $("#divPhotoError").html("File upload failed - Exceeded max file size (300 KB)!");
+                    }
+                } else {
+                    $("#divPhotoError").html("Only JPG,JPEG, PNG, GIF files are allowed!");
+                }
+            } else {
+                $("#divPhotoError").html("Please select file!");
+
+            }
+        });
+
+        $("#deleteUpload").click(function () {
+
+            $(".profileError").show();
+            $.post('@Url.Action("DeleteImage", "JsonHelper")', { Username: "@profile.Username", Reason: $("#Reason").val() },
+              function (result) {
+                  $("#divMsgBox").html(result);
+                  $("#divMsgBox").removeClass("message-instruction");
+                  $("#divMsgBox").addClass("message-info");
+                  $("#divMsgBox").show();
+
+                  setTimeout(window.location.reload(), 5);
+              });
+        });
+        $("#Overview").focus();
+    });
+</script>

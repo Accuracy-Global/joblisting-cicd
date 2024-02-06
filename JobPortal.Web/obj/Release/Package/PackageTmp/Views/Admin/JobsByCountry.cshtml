@@ -1,0 +1,379 @@
+﻿@using JobPortal.Domain
+@using JobPortal.Data
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using System.Collections
+@using PagedList.Mvc
+@using JobPortal.Web.Models
+@using JobPortal.Models
+
+@{
+    ViewBag.Title = ViewBag.Country.Text + " Jobs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<JobDetailByCountryEntity>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+}
+<style>
+    .cdate {
+        padding-left: 0px;
+        list-style-type: none;
+    }
+
+        .cdate li {
+            display: inline-block;
+            width: auto;
+        }
+    .place {
+        width: 50px;
+        height: 50px;
+        color: black;
+    }
+
+        .place:hover, .place.green {
+            color: #34ba08;
+        }
+</style>
+<script>
+    $(".place").click(function () {
+        $(this).toggleClass("green");
+    });
+</script>
+<script src="~/Scripts/highcharts.js"></script>
+<script src="~/Scripts/map.js"></script>
+<script src="~/Scripts/dataTables.fixedHeader.min.js"></script>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">Jobs</h1>
+            Manage Jobs here
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:15px;"></div>
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <span style="font-size:1em; font-weight:bold">Last 7 Days Jobs for @ViewBag.Country.Text</span>
+        <div id="container1" class="list-group-item" style="height:300px;">
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <span style="font-size:1em; font-weight:bold">Jobs Status for @ViewBag.Country.Text</span>
+        <div id="container" class="list-group-item" style="height:300px;">
+
+        </div>
+    </div>
+</div>
+
+<div class="clear" style="height:15px;"></div>
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="form-group">
+                @Html.Label("Search By Company")
+                <input type="text" id="Name" name="Name" placeholder="SEARCH BY COMPANY" class="form-control" />
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-8">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        @Html.Label("From Date")
+                        <ul class="cdate" title="From Date">
+                            <li>
+                                @Html.DropDownList("fd", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control", @style = "padding:5px;width:64px;" })
+                            </li>
+                            <li>
+                                @Html.DropDownList("fm", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control", @style = "padding:5px;" })
+                            </li>
+                            <li>
+                                @Html.DropDownList("fy", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 1)), "YEAR", new { @class = "form-control", @style = "padding:5px;width:70px;" })
+                            </li>
+                        </ul>
+                        <div id="fromDateError" style="color:red;"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        @Html.Label("To Date")
+                        <ul class="cdate" title="To Date">
+                            <li>
+                                @Html.DropDownList("td", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control", @style = "padding:5px;width:64px;" })
+                            </li>
+                            <li>
+                                @Html.DropDownList("tm", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control", @style = "padding:5px;" })
+                            </li>
+                            <li>
+                                @Html.DropDownList("ty", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 1)), "YEAR", new { @class = "form-control", @style = "padding:5px;width:70px;" })
+                            </li>
+                        </ul>
+                        <div id="toDateError" style="color:red;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <select name="ShowWithValue" id="ShowWithValue" class="form-control">
+                    <option value="">All</option>
+                    <option value="1">With Actions</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-8 col-xs-push-6">
+            <div class="form-group">
+                <input id="Search" type="submit" value="Search" class="btn btn-info" style="width:105px;" />
+            </div>
+        </div>
+    </div>
+}
+<div class="clear" style="height:15px;"></div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div style="font-size:1.2em; background-color:#ede9e9; padding:4px;">@ViewBag.Country.Text</div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" style="width:100%">
+                <thead>
+                    <tr>
+                        <th style="color:#34ba08">Company</th>
+                        <th class="nfield" style="color:#34ba08">Live</th>
+                        <th class="nfield" style="color:#34ba08">Expired</th>
+                        <th class="nfield" style="color:#34ba08">Waiting</th>
+                        <th class="nfield" style="color:#34ba08">Rejected</th>
+                        <th class="nfield" style="color:#34ba08">Deactivated</th>
+                        <th class="nfield" style="color:#34ba08" >Deleted</th>
+                        <th class="nfield" style="color:#34ba08">Applications</th>
+                        <th class="nfield" style="color:#34ba08">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.Model)
+                    {
+                        string user_status = string.Empty;
+                        string status_color = AdministratorService.Instance.GetUserStatus(item.CompanyId, out user_status);
+                        
+                        <tr>
+                            <td><a class="place" href="/Admin/ManageCompany?Id=@item.CompanyId" target="_blank">@item.CompanyName</a></td>
+                            <td><a class="place" href="/Admin/JobsByCompany?CountryId=@ViewBag.Country.Id&Id=@item.CompanyId&TypeId=1&fd=@Request["fd"]&fm=@Request["fm"]&fy=@Request["fy"]&td=@Request["td"]&tm=@Request["tm"]&ty=@Request["ty"]" target="_blank">@item.Live</a></td>
+                            <td><a class="place" href="/Admin/JobsByCompany?CountryId=@ViewBag.Country.Id&Id=@item.CompanyId&TypeId=2&fd=@Request["fd"]&fm=@Request["fm"]&fy=@Request["fy"]&td=@Request["td"]&tm=@Request["tm"]&ty=@Request["ty"]" target="_blank">@item.Expired</a></td>
+                            <td><a class="place" href="/Admin/JobsByCompany?CountryId=@ViewBag.Country.Id&Id=@item.CompanyId&TypeId=4&fd=@Request["fd"]&fm=@Request["fm"]&fy=@Request["fy"]&td=@Request["td"]&tm=@Request["tm"]&ty=@Request["ty"]" target="_blank">@item.Waiting</a></td>
+                            <td><a class="place" href="/Admin/JobsByCompany?CountryId=@ViewBag.Country.Id&Id=@item.CompanyId&TypeId=5&fd=@Request["fd"]&fm=@Request["fm"]&fy=@Request["fy"]&td=@Request["td"]&tm=@Request["tm"]&ty=@Request["ty"]" target="_blank">@item.Rejected</a></td>
+                            <td><a class="place" href="/Admin/JobsByCompany?CountryId=@ViewBag.Country.Id&Id=@item.CompanyId&TypeId=6&fd=@Request["fd"]&fm=@Request["fm"]&fy=@Request["fy"]&td=@Request["td"]&tm=@Request["tm"]&ty=@Request["ty"]" target="_blank">@item.Deactivated</a></td>
+                            <td><a class="place" href="/Admin/JobsByCompany?CountryId=@ViewBag.Country.Id&Id=@item.CompanyId&TypeId=1&fd=@Request["fd"]&fm=@Request["fm"]&fy=@Request["fy"]&td=@Request["td"]&tm=@Request["tm"]&ty=@Request["ty"]" target="_blank">@item.Deleted</a></td>
+                            @if (@item.Applications > 0) { 
+                                <td><a class="place" href="@Url.Action("Applications", "Admin", new { UserId = item.CompanyId, countryId = ViewBag.Country.Id })" target="_blank">@item.Applications</a></td>
+                            }
+                            else
+                            {
+                                <td>@item.Applications</td>
+                            }
+                            @if (item.Waiting > 0)
+                            {
+                                <td>
+                                    <a class="place" href="/Admin/JobsByCompany?CountryId=@ViewBag.Country.Id&Id=@item.CompanyId&TypeId=1&fd=@Request["fd"]&fm=@Request["fm"]&fy=@Request["fy"]&td=@Request["td"]&tm=@Request["tm"]&ty=@Request["ty"]">View (<span style="color:red; font-weight:bolder;">@item.Waiting</span>)</a>
+                                    @if (!string.IsNullOrEmpty(user_status)) { 
+                                        <text> | </text><i title="@user_status" style='padding-top:2px;'><svg viewBox='0 0 60 60' width='16' height='16'><polygon style='fill:@status_color;' points='52,23.5 10,40 10,22 10,4' /><path style='fill:#000000;' d='M9,0C8.448,0,8,0.447,8,1v3v55c0,0.553,0.448,1,1,1s1-0.447,1-1V4V1C10,0.447,9.552,0,9,0z' /></svg></i>
+                                    }
+                            </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    <a class="place" href="/Admin/JobsByCompany?CountryId=@ViewBag.Country.Id&Id=@item.CompanyId&TypeId=1&fd=@Request["fd"]&fm=@Request["fm"]&fy=@Request["fy"]&td=@Request["td"]&tm=@Request["tm"]&ty=@Request["ty"]">View</a> 
+                                    @if (!string.IsNullOrEmpty(user_status)) { 
+                                        <text> | </text><i title="@user_status" style='padding-top:2px;'><svg viewBox='0 0 60 60' width='16' height='16'><polygon style='fill:@status_color;' points='52,23.5 10,40 10,22 10,4' /><path style='fill:#000000;' d='M9,0C8.448,0,8,0.447,8,1v3v55c0,0.553,0.448,1,1,1s1-0.447,1-1V4V1C10,0.447,9.552,0,9,0z' /></svg></i>
+                                    }
+</td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Total</th>
+                        <th class="nfield">@ViewBag.Live</th>
+                        <th class="nfield">@ViewBag.Expired</th>
+                        <th class="nfield">@ViewBag.Waiting</th>
+                        <th class="nfield">@ViewBag.Rejected</th>
+                        <th class="nfield">@ViewBag.Deactivated</th>
+                        <th class="nfield">@ViewBag.Deleted</th>
+                        <th class="nfield">@ViewBag.Applications</th>
+                        <th class="nfield">@ViewBag.Waiting</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div style="text-align:center;">
+            @Html.PagedListPager(pagedModel, PageNumber => Url.Action("JobsByCountry",
+            new RouteValueDictionary()
+            {
+                { "PageNumber" , PageNumber},
+                { "CountryId", ViewBag.Country.Id },
+                { "Name", Request["Name"] },
+                { "fd" , Request["fd"]},
+                { "fm" , Request["fm"]},
+                { "fy" , Request["fy"]},
+                { "td" , Request["td"]},
+                { "tm" , Request["tm"]},
+                { "ty" , Request["ty"]},
+                {"ShowWithValue", Request["ShowWithValue"]}
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    </div>
+</div>
+<div id="tableContainer"></div>
+<script>
+    $(document).ready(function () {
+        var dataPoints = [];
+
+        $.getJSON("/JsonHelper/GetJobCounts?CountryId=" + @ViewBag.Country.Id, function (data) {
+            dataPoints = [];
+            var total = 0;
+            $.each(data, function (key, value) {
+                dataPoints.push({ name: key, y: value });
+                total += value;
+            });
+
+            $('#container1').highcharts({
+                colors: ['#FFB61C', '#87D42E', '#475d8f'],
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: ''
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.y}</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        depth: 35,
+                        dataLabels: {
+                            enabled: true,
+                            distance: -30,
+                            format: '{point.y}',
+                            shadow: false,
+                            style: {
+                                fontSize: "14px",
+                                textShadow: "0 0 0px contrast, 0 0 0px contrast",
+                            }
+                        },
+                        size: 165
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Jobs',
+                    data: dataPoints,
+                    showInLegend: true
+                }]
+            });
+
+            if (total == 0) {
+                $('#container1').html("<div style=\"padding-top:100px; color:red\"><b>No Jobs</b></div>");
+                $('#container1').addClass("text-center");
+            }
+        });
+
+        $.getJSON("/JsonHelper/GetCountryJobs?CountryId=" + @ViewBag.Country.Id, function (data) {
+            dataPoints = [];
+
+            $.each(data, function (i, item) {
+                dataPoints.push({ name: "Live", y: item.ActiveJobs, typeId: 1 });
+                dataPoints.push({ name: "Expired", y: item.ExpiredJobs, typeId:2 });
+                dataPoints.push({ name: "Waiting", y: item.JobsInApproval, typeId:4 });
+                dataPoints.push({ name: "Rejected", y: item.RejectedJobs, typeId:5 });
+                dataPoints.push({ name: "Deactivated", y: item.DeactiveJobs, typeId:6 });
+                dataPoints.push({ name: "Deleted", y: item.DeletedJobs, typeId:3 });
+            });
+
+            $('#container').highcharts({
+                colors: ['#008000', '#FF0000', '#0000FF','#ADD8E6', '#800080','#FFA500'],
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: ''
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.y}</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        depth: 10,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name}'
+                        }
+                    },
+                    series: {
+                        cursor: 'pointer',
+                        point: {
+                            events: {
+                                click: function () {
+                                    window.open("/Admin/JobsByCompany?CountryId=" + @ViewBag.Country.Id + "&TypeId=" + this.typeId, "_blank");
+                                }
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Jobs',
+                    data: dataPoints
+                }]
+            });
+        });
+
+        $("#Search").click(function () {
+            var isValidStartDate = isValidDate($("#fd").val(), $("#fm").val(), $("#fy").val());
+            var isValidEndDate = isValidDate($("#td").val(), $("#tm").val(), $("#ty").val());
+
+            if (isValidStartDate) {
+                $("#fromDateError").html("");
+                $("#fromDateError").show();
+                $("#Search").enabled = true;
+            } else {
+                $("#fromDateError").html("Provide correct from date!");
+                $("#fromDateError").show();
+                $("#Search").enabled = false;
+            }
+
+            if (isValidEndDate) {
+                $("#toDateError").html("");
+                $("#toDateError").show();
+                $("#Search").enabled = true;
+            } else {
+                $("#toDateError").html("Provide correct to date!");
+                $("#toDateError").show();
+                $("#Search").enabled = false;
+            }
+            return (isValidStartDate == true && isValidEndDate == true);
+        })
+    });
+</script>

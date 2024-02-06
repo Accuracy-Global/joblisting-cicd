@@ -1,0 +1,146 @@
+﻿@model JobPortal.Data.Interview
+
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Data
+@{
+    ViewBag.Title = "Interview";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int idx = 0;
+    Tracking record = new Tracking();
+    Job job = new Job();
+    UserProfile profile = MemberService.Instance.Get(User.Username);
+    UserProfile employer = new UserProfile();
+    UserProfile jobSeeker = new UserProfile();
+    if (Model.TrackingId != null)
+    {
+        record = TrackingService.Instance.Get(Model.TrackingId);
+    }
+    if (record != null)
+    {
+        job = JobService.Instance.Get(record.JobId.Value);
+        if (job != null)
+        {
+            employer = MemberService.Instance.Get(job.EmployerId.Value);
+        }
+        jobSeeker = MemberService.Instance.Get(record.JobseekerId.Value);
+    }
+}
+<script src="~/Scripts/moment.js"></script>
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1>Interview Initiation</h1>
+            Manage interview initiation here.
+        </div>
+    </div>
+</div>
+<div style="padding-left:15px;padding-right:15px;">
+
+    @if (ViewBag.FollowUpList != null)
+    {
+        foreach (FollowUp item in ViewBag.FollowUpList)
+        {
+            System.Text.StringBuilder sbHtml = new System.Text.StringBuilder();
+            UserProfile sender = MemberService.Instance.Get(item.UserId);
+            <div class="clear" style="height:15px;"></div>
+            <div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                        @if (record.JobId != null)
+                        {
+                            <strong>Job Title: </strong><a href="@(string.Format("/{0}-{1}", job.PermaLink, job.Id))" target="_blank">@job.Title</a>
+                        }
+                        else
+                        {
+                            <strong>Job Title: </strong><span>Not Applicable</span>
+                        }
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                        <strong>Jobseeker: </strong><a href="@(string.Format("/{0}", jobSeeker.PermaLink))" target="_blank">@jobSeeker.FirstName @jobSeeker.LastName</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                        <strong>Interview Date: </strong>@item.NewDate.Value.ToString("MMM-dd-yyyy")
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                        <strong>Interview Time: </strong>@item.NewTime
+                    </div>
+                </div>
+                @if (sender.Type == (int)SecurityRoles.Employers)
+                {
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                            <strong>Sender: </strong><a href="@(string.Format("/{0}", sender.PermaLink))" target="_blank">@sender.Company</a>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                            <strong>Interviewer: </strong> @Model.Interviewer
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                            <strong>Sender: </strong><a href="@(string.Format("/{0}", sender.PermaLink))" target="_blank">@sender.FirstName @sender.LastName</a>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                            <strong>Interviewer: </strong> @Model.Interviewer
+                        </div>
+                    </div>
+                }
+                <div class="row">
+
+                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                        <strong>Status: </strong>@(((FeedbackStatus)item.Status).GetDescription())
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                        <strong>Round: </strong>@(((InterviewRounds)Model.Round).GetDescription())
+                    </div>
+                </div>
+
+                @if (idx == (ViewBag.FollowUpList.Count - 1))
+                {
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 list-group-item text-right">
+                            @if (item.UserId != profile.UserId)
+                            {
+                                @Html.ActionLink("Accept", "SelectJobseeker", "Interview", new { Id = Model.Id }, new { @class = "btn btn-info", style = "color:#fff" }) <text>&nbsp;</text>
+                            }
+                            @Html.ActionLink("Reject", "SelectJobseeker", "Interview", new { Id = Model.Id }, new { @class = "btn btn-info", style = "color:#fff" }) <text>&nbsp;</text>
+                            @Html.ActionLink("Reschedule", "SelectJobseeker", "Interview", new { Id = Model.Id }, new { @class = "btn btn-info", style = "color:#fff" })
+                        </div>
+                    </div>
+                }
+            </div>
+
+                idx++;
+        }
+    }
+</div>
+
+
+<div class="clear" style="height:15px;"></div>
+<script>
+    $(document).ready(function () {
+        $(".nav-tabs a").click(function () {
+            $(this).tab('show');
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(function () {
+        $("#NewDate").datepicker({
+            dateFormat: 'mm/dd/yy', autoclose: true,
+            changeMonth: true,
+            changeYear: true
+        });
+
+        $('#NewTime').datetimepicker({
+            pickDate: false
+        });
+    });
+</script>

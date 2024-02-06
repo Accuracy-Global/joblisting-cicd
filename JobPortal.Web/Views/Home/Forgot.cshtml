@@ -1,0 +1,9 @@
+﻿
+@{
+    ViewBag.Title = "Forgot";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div style="font-size:20px; font-weight:lighter">@ViewBag.Email already exist in our records!</div>
+<div style="font-size:20px; font-weight:lighter">If are forgot your password then <a href="/home/Forgot?email=@ViewBag.Email">CLICK HERE</a>.</div>
+<div style="font-size:20px; font-weight:lighter">If remember your password then <a href="/account/login">CLICK HERE</a> to login.</div>
+

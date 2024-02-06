@@ -1,0 +1,321 @@
+﻿@model JobPortal.Models.PackageSelect
+@using JobPortal.Models
+@{
+    ViewBag.Title = "Choose Package";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+    }
+}
+<script src="~/Scripts/jquery.tmpl.min.js"></script>
+<script src="~/Scripts/jquery.tmplPlus.min.js"></script>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    .icolumns {
+        /*float: left;*/
+        /*width: 33.33%;*/
+        /*padding: 0px;*/
+        /*border-right:solid #fff 2px;*/
+        /*background-color: #eee;*/
+    }
+
+    .ecolumns {
+        float: left;
+        /*width: 25%;*/
+        width: 33.33%;
+        padding: 1px;
+        /*border:solid #bab9b9 1px;*/
+    }
+
+    .price {
+        list-style-type: none;
+        /*border: 1px solid #eee;*/
+        margin: 0;
+        padding: 0;
+        -webkit-transition: 0.3s;
+        transition: 0.3s;
+        background-color: #eee;
+        min-height: 75px;
+    }
+
+        /*.price:hover {
+        box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2)
+    }*/
+
+        .price .header {
+            background-color: #aaa9ae;
+            color: white;
+            font-size: 20px;
+            padding: 2px;
+            text-align: center;
+        }
+
+        .price .footer {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            text-align: center;
+            padding-left: 24%;
+            padding-right: 20%;
+        }
+
+        .price li {
+            /*border-bottom: 1px solid #eee;*/
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-right: 8px;
+            text-align: left;
+            padding-left: 5%;
+            font-size: 14px;
+        }
+
+            .price li:nth-child(3) {
+                /*border-bottom: 1px solid #eee;*/
+                padding-top: 15px;
+                padding-bottom: 5px;
+                padding-left: 8px;
+                padding-right: 8px;
+                text-align: left;
+                padding-left: 5%;
+                font-size: 14px;
+            }
+
+        .price .grey {
+            background-color: #00a0d9;
+            font-size: 20px;
+            color: #fff;
+            font-size: 20px;
+            padding: 5px;
+            text-align: center;
+        }
+
+    /*.price .grey {
+        background-color: #2f88bc;
+        font-size: 20px;
+        color:#fff;
+        font-size: 20px;
+        padding:8px;
+        text-align:center;
+    }*/
+    .buttonfree {
+        background-color: #eee;
+        border: none;
+        color: white;
+        padding: 5px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 18px;
+        display: block;
+        width: 100px;
+        text-align: center;
+    }
+
+    .button {
+        background-color: #00a6e0;
+        border: none;
+        color: white;
+        padding: 5px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 18px;
+        display: block;
+        width: 100px;
+        text-align: center;
+    }
+
+        .button:hover {
+            text-decoration: none;
+            color: #fff;
+        }
+
+    @@media only screen and (max-width: 600px) {
+        .columns {
+            width: 100%;
+        }
+    }
+
+    .tooltip > .tooltip-inner {
+        background-color: #ffffff;
+        color: #000000;
+        border: 1px solid #000000;
+        padding: 10px;
+        font-size: 14px;
+        font-weight: bold;
+        opacity: 10;
+    }
+    /* Tooltip on top */
+    .tooltip.top > .tooltip-arrow {
+        border-top: 5px solid #000000;
+    }
+    /* Tooltip on bottom */
+    .tooltip.bottom > .tooltip-arrow {
+        border-bottom: 5px solid #000000;
+    }
+    /* Tooltip on left */
+    .tooltip.left > .tooltip-arrow {
+        border-left: 5px solid #000000;
+    }
+    /* Tooltip on right */
+    .tooltip.right > .tooltip-arrow {
+        border-right: 5px solid #000000;
+    }
+</style>
+
+@Html.Partial("_MessagePartial")
+
+<div>
+    <form id="SelectForm" action="Select" method="post">
+        <input type="hidden" id="ReturnUrl" name="ReturnUrl" value="@Model.ReturnUrl" />
+        <input type="hidden" id="RedirectUrl" name="RedirectUrl" value="@Model.RedirectUrl" />
+        <input type="hidden" id="Type" name="Type" value="@Model.Type" />
+        <input type="hidden" id="Id" name="Id" value="@Model.SessionId" />
+        <input type="hidden" id="CountryId" name="Id" value="@Model.CountryId" />
+        
+        <div class="row" id="eArea" style="margin-left:-5px;margin-right:-5px;">
+        </div>
+
+        <div class="clear" style="height:25px;"></div>
+        <div class="text-center" style="font-weight:500; font-size:18px;">
+            Advertise your job to multiple social network sites and reach to large number of users!
+        </div>
+        <div class="clear" style="height:50px;"></div>
+
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12 text-center">
+                <div class="form-group" style="margin-bottom:30px;">
+                    <img src="~/Images/job-promote-to-jobseekers.png" id="Example" style="height:60px; cursor:pointer" title="Click & View" />
+                    <span class="help-block"><small>Click &amp; View</small></span>
+                    <div style="padding-left:45px; padding-right:22px; padding-top:0px; text-align:left">
+                        Your job will be shown in our searches and to relevant jobseekers to reach large number of users!
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 text-center">
+                <div class="form-group" style="margin-bottom:30px;">
+                    <a href="https://www.facebook.com/joblistingcom" target="_blank" title="Click & View"><img src="~/Images/facebook_payment.png" /></a>
+                    <span class="help-block"><small>Click &amp; View</small></span>
+                    <div style="padding-left:45px; padding-right:22px; padding-top:0px; text-align:left">
+                        Your job will be sent to Facebook to show to 156000 of users for maximum response!
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 text-center">
+                <div class="form-group" style="margin-bottom:30px;">
+                    <a href="https://twitter.com/joblistingcom" target="_blank" title="Click & View"><img src="~/Images/twitter_payment.png" /></a>
+                    <span class="help-block"><small>Click &amp; View</small></span>
+                    <div style="padding-left:45px; padding-right:22px; padding-top:0px; text-align:left">
+                        Your job will be sent to Twitter to show to 65000 of users for maximum response!
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="clear" style="height:60px;"></div>
+        <div class="text-center">
+            <a href="/@Model.ReturnUrl" class="btn btn-default" style="width:100px">CANCEL</a>
+        </div>
+        <div class="clear" style="height:25px;"></div>
+    </form>
+</div>
+<div class="modal fade" id="exampleDialog" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        <div class="item active">
+                            <img class="img-responsive" src="~/Images/job-promote-to-jobseekers.png" alt="...">
+                        </div>
+                        <div class="item">
+                            <img class="img-responsive" src="~/Images/job-promote-to-searches.png" alt="...">
+                        </div>
+                    </div>
+                    <!-- Controls -->
+                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    var utype = @user.Type;
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip({ placement: "bottom" });
+
+        filter();
+
+        $("#Example").click(function () {
+            $("#exampleDialog").modal("show");
+        });
+    });
+
+    function filter(){
+        var jsonForm = $("#SelectForm").serializeObject();
+        $("#waitDialog").modal("show");
+        var flag=false;
+        jsonForm.CountryId = @Model.CountryId;
+        $.post("/package/select", jsonForm, function (result) {
+            if (result.Id > 0) {
+                $("#waitDialog").modal("hide");
+                $("#iArea").empty();
+                $("#eArea").empty();
+                var list = result.Data.List;
+                $(list).each(function () {
+                    if (utype == 4) {
+                        this.RedirectUrl = result.Data.RedirectUrl;
+                        this.ReturnUrl = result.Data.ReturnUrl;
+                        $("#iResultItem").tmpl(this).appendTo("#iArea");
+
+                    } else {
+                        this.RedirectUrl = result.Data.RedirectUrl;
+                        this.ReturnUrl = result.Data.ReturnUrl;
+                        $("#eResultItem").tmpl(this).appendTo("#eArea");
+                    }
+                });
+            }
+        });
+    }
+</script>
+<script id="eResultItem" type="text/x-jquery-tmpl">
+    <div class="col-lg-4 col-md-4" style="padding-left:5px; padding-right:5px;margin-bottom:30px;">
+        <div class="icolumns" style="background-color:#eee; padding-bottom:15px;">
+            <ul class="price" style="min-height:250px;">
+                <li class="header">${Name}</li>
+                <li class="grey">$ ${Rate}</li>
+                {{if Jobs != null}}
+                {{if (Name == "Free")}}
+                <li>${Jobs} Job List</li>
+                {{else}}
+                <li>${Jobs} Job List with <a href="#" data-toggle="tooltip" title="Job will be distributed to @ViewBag.DistributeNumbers Facebook, Twitter, Google and others! See list below!">Social Network</a></li>
+                {{/if}}
+                {{/if}}
+                <li>${Profiles} Profiles View</li>
+                <li>${Messages} Messages</li>
+                <li>${Interviews} Interviews</li>
+                <li>${Downloads} Resumes Download</li>
+
+                {{if Days != null}}
+                <li>Promote Job for ${Days} days</li>
+                {{/if}}
+            </ul>
+            {{if Name != "Fee"}}
+                <div style="text-align:center"><a href="/package/process?returnUrl=${ReturnUrl}&PackageId=${Id}&Amount=${Rate}&type=@Model.Type&id=@Model.SessionId" class="btn btn-info" style="width:75px;font-size: 13px;">Buy&nbsp;Now</a></div>            
+            {{else}}
+                <div style="text-align:center"><a href="/package/process?returnUrl=${ReturnUrl}&PackageId=${Id}&Amount=${Rate}&type=@Model.Type&id=@Model.SessionId" class="btn btn-info" style="width:75px;font-size: 13px;">Buy&nbsp;Now</a></div>
+            {{/if}}
+        </div>
+    </div>
+</script>

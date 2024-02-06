@@ -1,0 +1,53 @@
+﻿@{
+    ViewBag.Title = "Email confirmation required!";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<div class="clear" style="height:25px;"></div>*@
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="message-info">
+            <div style="font-size:1.5em;">
+                One more step!
+            </div>
+            <div style="font-size:1em;">
+                Kindly confirm your email <b>@(User != null ? User.Username : "")</b>
+                <br />
+                <a href="/account/resend">CLICK HERE</a> to resend confirmation link.
+                <br />
+                <a href="/account/changeemailaddress">CLICK HERE</a> to change your email address.
+            </div>
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:25px;"></div>
+
+<div class="row">
+    <div class="col-lg-5 col-md-5"></div>
+    <div class="col-lg-2 col-md-2">
+        <div class="form-group">
+            <div style="background-color:#b3cb39;width: 92px;padding: 4px;height: 34px;border-radius:4px; display:block">
+                <a href="https://play.google.com/store/apps/details?id=com.joblisting.joblisting" style="background-color: #b3cb39; color:#ffffff; text-decoration:none" target="_blank">
+                    <table cellpadding="0" style="margin-bottom: 0px;">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <i class="fa fa-android" aria-hidden="true" style="font-size:20px; color:#ffffff"></i>
+                                </td>
+                                <td>
+                                    <div style="font-size: 10px;padding-left:2px;line-height: 8px;">
+                                        Download for
+                                    </div>
+                                    <div style="font-size:18px">
+                                        Android
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5 col-md-5"></div>
+</div>

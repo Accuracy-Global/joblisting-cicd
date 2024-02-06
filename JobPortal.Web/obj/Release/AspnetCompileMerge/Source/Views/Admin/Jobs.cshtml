@@ -1,0 +1,373 @@
+﻿@using JobPortal.Domain
+@using JobPortal.Data
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Models
+@using System.Collections
+@using PagedList.Mvc
+@using JobPortal.Web.Models
+@{
+    ViewBag.Title = "Manage Jobs";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var pagedModel = ViewBag.Model as PagedList.IPagedList<JobsByCountryEntity>;
+
+    int minRowSize = ((pagedModel.PageNumber - 1) * pagedModel.PageSize) + 1;
+    int totalRecord = (int)ViewBag.Rows;
+    int maxRowSize = (pagedModel.PageNumber - 1) * pagedModel.PageSize + pagedModel.Count;
+    if (totalRecord <= pagedModel.PageSize)
+    {
+        maxRowSize = totalRecord;
+    }
+}
+<script src="~/Scripts/highcharts.js"></script>
+<script src="~/Scripts/map.js"></script>
+<script src="~/Scripts/world.js"></script>
+<script src="~/Scripts/dataTables.fixedHeader.min.js"></script>
+<style>
+    .cdate {
+        padding-left: 0px;
+        list-style-type: none;
+    }
+
+        .cdate li {
+            display: inline-block;
+            width: auto;
+        }
+        .nfield{
+            width:100px;
+        }
+</style>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="title-login">
+            <h1 style="margin-top:-15px">Jobs</h1>
+            Manage Jobs here
+        </div>
+    </div>
+</div>
+@Html.Partial("_MessagePartial")
+<div class="clear" style="height:15px;"></div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <span style="font-size:1em; font-weight:bold">Jobs By Country</span>
+        <div id="container" class="list-group-item">
+
+        </div>
+    </div>
+</div>
+<div class="clear" style="height:15px;"></div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <span style="font-size:1em; font-weight:bold">Last 7 Days Jobs</span>
+        <div id="container1" class="list-group-item" style="height:240px;">
+
+        </div>
+    </div>
+</div>
+
+<div class="clear" style="height:15px;"></div>
+@using (Html.BeginForm())
+{
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="form-group">
+                @Html.Label("Search By Country")
+                @Html.DropDownList("countryId", new SelectList(SharedService.Instance.GetCountryList(), "Id", "Text"), "SELECT", new { @class = "form-control", @id = "CountryId" })
+            </div>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-8">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        @Html.Label("From Date")
+                        <ul class="cdate" title="From Date">
+                            <li>
+                                @Html.DropDownList("fd", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control", @style = "padding:5px;width:64px;" })
+                            </li>
+                            <li>
+                                @Html.DropDownList("fm", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control", @style = "padding:5px;" })
+                            </li>
+                            <li>
+                                @Html.DropDownList("fy", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 1)), "YEAR", new { @class = "form-control", @style = "padding:5px;width:70px;" })
+                            </li>
+                        </ul>
+                        <div id="fromDateError" style="color:red;"></div>
+                    </div>
+
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        @Html.Label("To Date")
+                        <ul class="cdate" title="To Date">
+                            <li>
+                                @Html.DropDownList("td", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control", @style = "padding:5px;width:64px;" })
+                            </li>
+                            <li>
+                                @Html.DropDownList("tm", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control", @style = "padding:5px;" })
+                            </li>
+                            <li>
+                                @Html.DropDownList("ty", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 1)), "YEAR", new { @class = "form-control", @style = "padding:5px;width:70px;" })
+                            </li>
+                        </ul>
+                        <div id="toDateError" style="color:red;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <select name="ShowWithValue" id="ShowWithValue" class="form-control">
+                    <option value="">All</option>
+                    <option value="1">With Actions</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-8 col-xs-push-6">
+            <div class="form-group">
+                <input id="Search" type="submit" value="Search" class="btn btn-info" style="width:105px;" />
+            </div>
+        </div>
+    </div>
+}
+<div class="clear" style="height:15px;"></div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Country</th>
+                        <th class="nfield">Jobs</th>
+                        <th class="nfield">Applications</th>
+                        <th class="nfield">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in ViewBag.Model)
+                    {
+                        <tr>
+                            <td><a href="/Admin/JobsByCountry?CountryId=@item.Id&fd=@Request["fd"]&fm=@Request["fm"]&fy=@Request["fy"]&td=@Request["td"]&tm=@Request["tm"]&ty=@Request["ty"]" target="_blank">@item.Name</a></td>
+                            @if (@item.Jobs > 0) { 
+                                <td><a href="/Admin/JobsByCountry?CountryId=@item.Id&fd=@Request["fd"]&fm=@Request["fm"]&fy=@Request["fy"]&td=@Request["td"]&tm=@Request["tm"]&ty=@Request["ty"]" target="_blank">@item.Jobs</a></td>
+                            }
+                            else
+                            {
+                                <td>@item.Jobs</td>
+                            }
+                            @if (item.Applications > 0) { 
+                                <td><a href="/Admin/JobsByCountry?CountryId=@item.Id&fd=@Request["fd"]&fm=@Request["fm"]&fy=@Request["fy"]&td=@Request["td"]&tm=@Request["tm"]&ty=@Request["ty"]" target="_blank">@item.Applications</a></td>
+                            }
+                            else
+                            {
+                                <td>@item.Applications</td>
+                            }
+
+                            @if (item.JobsInApproval > 0) 
+                            { 
+                                <td><a href="/Admin/JobsForAction?CountryId=@item.Id&TypeId=4&fd=@Request["fd"]&fm=@Request["fm"]&fy=@Request["fy"]&td=@Request["td"]&tm=@Request["tm"]&ty=@Request["ty"]" target="_blank">View (<span style="color:red; font-weight:bolder;">@item.JobsInApproval</span>)</a></td>
+                            }
+                            else
+                            {
+                                <td><a href="/Admin/JobsForAction?CountryId=@item.Id&TypeId=4&fd=@Request["fd"]&fm=@Request["fm"]&fy=@Request["fy"]&td=@Request["td"]&tm=@Request["tm"]&ty=@Request["ty"]" target="_blank">View</a></td>
+                            }
+                        </tr>
+                    }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Total</th>
+                        <th>@ViewBag.Jobs</th>
+                        <th>@ViewBag.Applications</th>
+                        <th>@ViewBag.JobsInApproval</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div style="text-align:center;">
+            @Html.PagedListPager(pagedModel, PageNumber => Url.Action("Jobs",
+            new RouteValueDictionary()
+            {
+                { "PageNumber" , PageNumber},
+                { "countryId", Request["countryId"] },
+                { "fd" , Request["fd"]},
+                { "fm" , Request["fm"]},
+                { "fy" , Request["fy"]},
+                { "td" , Request["td"]},
+                { "tm" , Request["tm"]},
+                { "ty" , Request["ty"]},
+                {"ShowWithValue",Request["ShowWithValue"]}
+            }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
+        </div>
+    </div>
+</div>
+<script>
+
+    $(document).ready(function () {
+
+        var dataPoints = [];
+        var dataPointsMales = [];
+        var dataPointsFemales = [];
+        var dataPointsAll = [];
+
+        $.getJSON("/JsonHelper/GetJobCounts", function (data) {
+            dataPoints = [];
+            var total = 0;
+            $.each(data, function (key, value) {
+                dataPoints.push({ name: key, y: value });
+                total += value;
+            });
+
+            $('#container1').highcharts({
+                colors: ['#FFB61C', '#87D42E', '#475d8f'],
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                events: {
+                    click: function () {
+                        alert('chart clicked');
+                    }
+                },
+                title: {
+                    text: ''
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.y}</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        depth: 10,
+                        dataLabels: {
+                            enabled: true,
+                            distance: -30,
+                            format: '{point.y}',
+                            shadow: false,
+                            style: {
+                                textShadow: "0 0 0px contrast, 0 0 0px contrast",
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Jobs',
+                    data: dataPoints,
+                    showInLegend: true,
+                    dataLabels: {
+                        enabled: true,
+                        distance: -30,
+                        format: '{point.y}',
+                        shadow: false
+                    }
+                }]
+            });
+
+            if (total == 0) {
+                $('#container1').html("<div style=\"padding-top:100px; color:red\"><b>No Jobs</b></div>");
+                $('#container1').addClass("text-center");
+            }
+        });
+      
+        var url = "/JsonHelper/GetJobs?countryId=" + $("#countryId").val()
+            + "&fd=" + ($("#fd").val() == undefined ? "" : $("#fd").val())
+            + "&fm=" + ($("#fm").val() == undefined ? "" : $("#fm").val())
+            + "&fy=" + ($("#fy").val() == undefined ? "" : $("#fy").val())
+            + "&td=" + ($("#td").val() == undefined ? "" : $("#td").val())
+            + "&tm=" + ($("#tm").val() == undefined ? "" : $("#tm").val())
+            + "&ty=" + ($("#ty").val() == undefined ? "" : $("#ty").val());
+        $.getJSON(url, function (data) {
+            var tjobs = 0;
+            var ajobs = 0;
+            dataPoints = [];
+
+            $.each(data, function (i, item) {
+                tjobs += item.Jobs;
+                ajobs += item.JobsInApproval;
+                if (item.Jobs > 0) {
+                    dataPoints.push({ code: "" + item.Code, value: item.Jobs, name: item.Name, countryId: item.Id });
+                }
+            });
+
+            var mapChart = $('#container').highcharts('Map', {
+                title: {
+                    text: ''
+                },
+
+                mapNavigation: {
+                    enabled: true,
+                    buttonOptions: {
+                        verticalAlign: 'bottom'
+                    }
+                },
+
+                colorAxis: {
+                    min: 1,
+                    max: 1000,
+                    type: 'logarithmic'
+                },
+                plotOptions: {
+                    series: {
+                        cursor: 'pointer',
+                        point: {
+                            events: {
+                                click: function () {
+                                    window.open("/Admin/JobsByCountry?CountryId=" + this.countryId, "_blank");
+                                }
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    data: dataPoints,
+                    mapData: Highcharts.maps['custom/world'],
+                    joinBy: ['iso-a2', 'code'],
+                    name: 'Job By Country',
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    states: {
+                        hover: {
+                            color: '#8CEBF7'
+                        }
+                    },
+                    tooltip: {
+                        valueSuffix: ' Jobs'
+                    }
+                }]
+            });
+        });
+
+        $("#Search").click(function () {
+            var isValidStartDate = isValidDate($("#fd").val(), $("#fm").val(), $("#fy").val());
+            var isValidEndDate = isValidDate($("#td").val(), $("#tm").val(), $("#ty").val());
+
+            if (isValidStartDate) {
+                $("#fromDateError").html("");
+                $("#fromDateError").show();
+                $("#Search").enabled = true;
+            } else {
+                $("#fromDateError").html("Provide correct from date!");
+                $("#fromDateError").show();
+                $("#Search").enabled = false;
+            }
+
+            if (isValidEndDate) {
+                $("#toDateError").html("");
+                $("#toDateError").show();
+                $("#Search").enabled = true;
+            } else {
+                $("#toDateError").html("Provide correct to date!");
+                $("#toDateError").show();
+                $("#Search").enabled = false;
+            }
+            return (isValidStartDate == true && isValidEndDate == true);
+        });
+    });
+</script>

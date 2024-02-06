@@ -1,0 +1,39 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>getlocation</title>
+</head>
+<body>
+    <div>
+        <script>
+                    async function fetchText() {
+                        let url = 'https://ipinfo.io/json?token=18061b6ccf594f'
+                        let response = await fetch(url);
+                        let data = await response.json();
+                        //document.getElementById('country').innerHTML = data.country; // for country
+                       
+                        //document.getElementById('state').innerHTML = data.region; // for state
+                        //document.getElementById('city').innerHTML = data.city; // for city
+                        $.ajax(
+                            {
+                                type: "POST", //HTTP POST Method
+                                url: "Job/getlocation", // Controller/View 
+                                data: { //Passing data
+                                    State: $data.region //Reading text box values using Jquery
+                                    
+                                }
+
+                            });
+                    }
+                    fetchText()
+        </script>
+    </div>
+</body>
+</html>
