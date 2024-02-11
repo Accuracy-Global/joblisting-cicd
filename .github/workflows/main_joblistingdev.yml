@@ -25,13 +25,13 @@ jobs:
       - name: Restore NuGet packages
         run: nuget restore
 
-      - name: build project
-        run: |
-          dir
-          dotnet build JobPortal.sln
+      # - name: build project
+      #   run: |
+      #     dir
+      #     dotnet build JobPortal.sln
         
-      # - name: Publish to folder
-        # run: msbuild /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="\published\" Joblisting-cicd/JobPortal.Web/JobPortal.Web.csproj
+      - name: Publish to folder
+        run: msbuild /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="\published\" JobPortal.sln
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
