@@ -1,0 +1,1 @@
+C:\Workspace\JobPortal\JobPortal.BackgroundServices\obj\Release\JobPortal.BackgroundServices.csprojResolveAssemblyReference.cache

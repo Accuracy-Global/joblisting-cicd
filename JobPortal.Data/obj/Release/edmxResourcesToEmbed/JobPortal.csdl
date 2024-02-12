@@ -1,0 +1,2038 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="JobPortalDBNewModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="JobPortalEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+    <EntitySet Name="ConfigParameters" EntityType="JobPortalDBNewModel.ConfigParameter" />
+    <EntitySet Name="FrequencyTypes" EntityType="JobPortalDBNewModel.FrequencyType" />
+    <EntitySet Name="Interviews" EntityType="JobPortalDBNewModel.Interview" />
+    <EntitySet Name="Lists" EntityType="JobPortalDBNewModel.List" />
+    <EntitySet Name="LoginHistories" EntityType="JobPortalDBNewModel.LoginHistory" />
+    <EntitySet Name="Newsletters" EntityType="JobPortalDBNewModel.Newsletter" />
+    <EntitySet Name="SitePages" EntityType="JobPortalDBNewModel.SitePage" />
+    <EntitySet Name="Specializations" EntityType="JobPortalDBNewModel.Specialization" />
+    <EntitySet Name="SubSpecializations" EntityType="JobPortalDBNewModel.SubSpecialization" />
+    <EntitySet Name="UserProfiles" EntityType="JobPortalDBNewModel.UserProfile" />
+    <EntitySet Name="webpages_Membership" EntityType="JobPortalDBNewModel.webpages_Membership" />
+    <EntitySet Name="webpages_OAuthMembership" EntityType="JobPortalDBNewModel.webpages_OAuthMembership" />
+    <EntitySet Name="webpages_Roles" EntityType="JobPortalDBNewModel.webpages_Roles" />
+    <EntitySet Name="webpages_UsersInRoles" EntityType="JobPortalDBNewModel.webpages_UsersInRoles" />
+    <AssociationSet Name="FK_UserProfiles_Country" Association="JobPortalDBNewModel.FK_UserProfiles_Country">
+      <End Role="List" EntitySet="Lists" />
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserProfiles_State" Association="JobPortalDBNewModel.FK_UserProfiles_State">
+      <End Role="List" EntitySet="Lists" />
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+    </AssociationSet>
+    <AssociationSet Name="fk_RoleId" Association="JobPortalDBNewModel.fk_RoleId">
+      <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+      <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+    </AssociationSet>
+    <EntitySet Name="OnlineUsers" EntityType="JobPortalDBNewModel.OnlineUser" />
+    <AssociationSet Name="FK_OnlineUsers_UserProfiles" Association="JobPortalDBNewModel.FK_OnlineUsers_UserProfiles">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="OnlineUser" EntitySet="OnlineUsers" />
+    </AssociationSet>
+    <EntitySet Name="Resumes" EntityType="JobPortalDBNewModel.Resume" />
+    <AssociationSet Name="FK_Resumes_Countries" Association="JobPortalDBNewModel.FK_Resumes_Countries">
+      <End Role="List" EntitySet="Lists" />
+      <End Role="Resume" EntitySet="Resumes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Resumes_States" Association="JobPortalDBNewModel.FK_Resumes_States">
+      <End Role="List" EntitySet="Lists" />
+      <End Role="Resume" EntitySet="Resumes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Resumes_Specializations" Association="JobPortalDBNewModel.FK_Resumes_Specializations">
+      <End Role="Specialization" EntitySet="Specializations" />
+      <End Role="Resume" EntitySet="Resumes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Resumes_SubSpecializations" Association="JobPortalDBNewModel.FK_Resumes_SubSpecializations">
+      <End Role="SubSpecialization" EntitySet="SubSpecializations" />
+      <End Role="Resume" EntitySet="Resumes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Resumes_Qualifications" Association="JobPortalDBNewModel.FK_Resumes_Qualifications">
+      <End Role="List" EntitySet="Lists" />
+      <End Role="Resume" EntitySet="Resumes" />
+    </AssociationSet>
+    <EntitySet Name="Messages" EntityType="JobPortalDBNewModel.Message" />
+    <AssociationSet Name="FK_Messages_Recipients" Association="JobPortalDBNewModel.FK_Messages_Recipients">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="Message" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Messages_Senders" Association="JobPortalDBNewModel.FK_Messages_Senders">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="Message" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Newsletters_Countries" Association="JobPortalDBNewModel.FK_Newsletters_Countries">
+      <End Role="List" EntitySet="Lists" />
+      <End Role="Newsletter" EntitySet="Newsletters" />
+    </AssociationSet>
+    <EntitySet Name="Trackings" EntityType="JobPortalDBNewModel.Tracking" />
+    <AssociationSet Name="FK_ResumeTracking_Resumes" Association="JobPortalDBNewModel.FK_ResumeTracking_Resumes">
+      <End Role="Resume" EntitySet="Resumes" />
+      <End Role="Tracking" EntitySet="Trackings" />
+    </AssociationSet>
+    <EntitySet Name="TrackingDetails" EntityType="JobPortalDBNewModel.TrackingDetail" />
+    <AssociationSet Name="FK_TrackingDetails_Trackings" Association="JobPortalDBNewModel.FK_TrackingDetails_Trackings">
+      <End Role="Tracking" EntitySet="Trackings" />
+      <End Role="TrackingDetail" EntitySet="TrackingDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TrackingDetails_Countries" Association="JobPortalDBNewModel.FK_TrackingDetails_Countries">
+      <End Role="List" EntitySet="Lists" />
+      <End Role="TrackingDetail" EntitySet="TrackingDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TrackingDetails_States" Association="JobPortalDBNewModel.FK_TrackingDetails_States">
+      <End Role="List" EntitySet="Lists" />
+      <End Role="TrackingDetail" EntitySet="TrackingDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TrackingDetails_Categories" Association="JobPortalDBNewModel.FK_TrackingDetails_Categories">
+      <End Role="Specialization" EntitySet="Specializations" />
+      <End Role="TrackingDetail" EntitySet="TrackingDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TrackingDetails_Specializations" Association="JobPortalDBNewModel.FK_TrackingDetails_Specializations">
+      <End Role="SubSpecialization" EntitySet="SubSpecializations" />
+      <End Role="TrackingDetail" EntitySet="TrackingDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Interviews_Trackings" Association="JobPortalDBNewModel.FK_Interviews_Trackings">
+      <End Role="Tracking" EntitySet="Trackings" />
+      <End Role="Interview" EntitySet="Interviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Trackings_UserProfiles" Association="JobPortalDBNewModel.FK_Trackings_UserProfiles">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="Tracking" EntitySet="Trackings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Interviews_UserProfiles" Association="JobPortalDBNewModel.FK_Interviews_UserProfiles">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="Interview" EntitySet="Interviews" />
+    </AssociationSet>
+    <EntitySet Name="FollowUps" EntityType="JobPortalDBNewModel.FollowUp" />
+    <AssociationSet Name="FK_JobInterviewFeedBack_JobInterviews1" Association="JobPortalDBNewModel.FK_JobInterviewFeedBack_JobInterviews1">
+      <End Role="Interview" EntitySet="Interviews" />
+      <End Role="FollowUp" EntitySet="FollowUps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_FollowUps_UserProfiles" Association="JobPortalDBNewModel.FK_FollowUps_UserProfiles">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="FollowUp" EntitySet="FollowUps" />
+    </AssociationSet>
+    <EntitySet Name="AlertHistories" EntityType="JobPortalDBNewModel.AlertHistory" />
+    <EntitySet Name="Alerts" EntityType="JobPortalDBNewModel.Alert" />
+    <EntitySet Name="Unsubscriptions" EntityType="JobPortalDBNewModel.Unsubscription" />
+    <AssociationSet Name="FK_AlertHistories_Alerts" Association="JobPortalDBNewModel.FK_AlertHistories_Alerts">
+      <End Role="Alert" EntitySet="Alerts" />
+      <End Role="AlertHistory" EntitySet="AlertHistories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Unsubscriptions_Alerts" Association="JobPortalDBNewModel.FK_Unsubscriptions_Alerts">
+      <End Role="Alert" EntitySet="Alerts" />
+      <End Role="Unsubscription" EntitySet="Unsubscriptions" />
+    </AssociationSet>
+    <EntitySet Name="DocumentTypes" EntityType="JobPortalDBNewModel.DocumentType" />
+    <EntitySet Name="BlockedPeoples" EntityType="JobPortalDBNewModel.BlockedPeople" />
+    <AssociationSet Name="FK_BlockedMembers_BlockedUsers" Association="JobPortalDBNewModel.FK_BlockedMembers_BlockedUsers">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="BlockedPeople" EntitySet="BlockedPeoples" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BlockedMembers_Blockers" Association="JobPortalDBNewModel.FK_BlockedMembers_Blockers">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="BlockedPeople" EntitySet="BlockedPeoples" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserProfiles_Categories" Association="JobPortalDBNewModel.FK_UserProfiles_Categories">
+      <End Role="Specialization" EntitySet="Specializations" />
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserProfiles_Specializations" Association="JobPortalDBNewModel.FK_UserProfiles_Specializations">
+      <End Role="SubSpecialization" EntitySet="SubSpecializations" />
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+    </AssociationSet>
+    <EntitySet Name="Connections" EntityType="JobPortalDBNewModel.Connection" />
+    <AssociationSet Name="FK_NetworkContacts_UserProfiles" Association="JobPortalDBNewModel.FK_NetworkContacts_UserProfiles">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="Connection" EntitySet="Connections" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Trackings_Jobseekers" Association="JobPortalDBNewModel.FK_Trackings_Jobseekers">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="Tracking" EntitySet="Trackings" />
+    </AssociationSet>
+    <EntitySet Name="EmailAddresses" EntityType="JobPortalDBNewModel.EmailAddress" />
+    <EntitySet Name="InterviewDiscussions" EntityType="JobPortalDBNewModel.InterviewDiscussion" />
+    <EntitySet Name="InterviewNotes" EntityType="JobPortalDBNewModel.InterviewNote" />
+    <AssociationSet Name="FK_InterviewDiscussions_Interviews" Association="JobPortalDBNewModel.FK_InterviewDiscussions_Interviews">
+      <End Role="Interview" EntitySet="Interviews" />
+      <End Role="InterviewDiscussion" EntitySet="InterviewDiscussions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InterviewDiscussions_UserProfiles" Association="JobPortalDBNewModel.FK_InterviewDiscussions_UserProfiles">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="InterviewDiscussion" EntitySet="InterviewDiscussions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InterviewNotes_JobInterviews" Association="JobPortalDBNewModel.FK_InterviewNotes_JobInterviews">
+      <End Role="Interview" EntitySet="Interviews" />
+      <End Role="InterviewNote" EntitySet="InterviewNotes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InterviewNotes_UserProfiles" Association="JobPortalDBNewModel.FK_InterviewNotes_UserProfiles">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="InterviewNote" EntitySet="InterviewNotes" />
+    </AssociationSet>
+    <EntitySet Name="Announcements" EntityType="JobPortalDBNewModel.Announcement" />
+    <EntitySet Name="UserAnnouncements" EntityType="JobPortalDBNewModel.UserAnnouncement" />
+    <AssociationSet Name="FK_UserAnnouncements_Announcements" Association="JobPortalDBNewModel.FK_UserAnnouncements_Announcements">
+      <End Role="Announcement" EntitySet="Announcements" />
+      <End Role="UserAnnouncement" EntitySet="UserAnnouncements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserAnnouncements_UserProfiles" Association="JobPortalDBNewModel.FK_UserAnnouncements_UserProfiles">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="UserAnnouncement" EntitySet="UserAnnouncements" />
+    </AssociationSet>
+    <EntitySet Name="Communications" EntityType="JobPortalDBNewModel.Communication" />
+    <AssociationSet Name="FK_Communications_Receivers" Association="JobPortalDBNewModel.FK_Communications_Receivers">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="Communication" EntitySet="Communications" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Communications_Senders" Association="JobPortalDBNewModel.FK_Communications_Senders">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="Communication" EntitySet="Communications" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Communications_Messages" Association="JobPortalDBNewModel.FK_Communications_Messages">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="Communication" EntitySet="Communications" />
+    </AssociationSet>
+    <EntitySet Name="Hits" EntityType="JobPortalDBNewModel.Hit" />
+    <EntitySet Name="Tips" EntityType="JobPortalDBNewModel.Tip" />
+    <EntitySet Name="Dictionaries" EntityType="JobPortalDBNewModel.Dictionary" />
+    <EntitySet Name="Activities" EntityType="JobPortalDBNewModel.Activity" />
+    <AssociationSet Name="FK_Activities_UserProfiles" Association="JobPortalDBNewModel.FK_Activities_UserProfiles">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="Activity" EntitySet="Activities" />
+    </AssociationSet>
+    <EntitySet Name="AlertSettings" EntityType="JobPortalDBNewModel.AlertSetting" />
+    <AssociationSet Name="FK_AlertSettings_Alerts" Association="JobPortalDBNewModel.FK_AlertSettings_Alerts">
+      <End Role="Alert" EntitySet="Alerts" />
+      <End Role="AlertSetting" EntitySet="AlertSettings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlertSettings_UserProfiles" Association="JobPortalDBNewModel.FK_AlertSettings_UserProfiles">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="AlertSetting" EntitySet="AlertSettings" />
+    </AssociationSet>
+    <FunctionImport Name="USP_UpdateEmailAddress">
+      <Parameter Name="OldEmail" Mode="In" Type="String" />
+      <Parameter Name="NewEmail" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="USP_ValidateEmails">
+      <Parameter Name="Body" Mode="In" Type="String" />
+      <Parameter Name="Delete" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <EntitySet Name="Invites" EntityType="JobPortalDBNewModel.Invite" />
+    <EntitySet Name="Photos" EntityType="JobPortalDBNewModel.Photo" />
+    <AssociationSet Name="FK_Photos_UserProfiles" Association="JobPortalDBNewModel.FK_Photos_UserProfiles">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="Photo" EntitySet="Photos" />
+    </AssociationSet>
+    <EntitySet Name="ProfileViews" EntityType="JobPortalDBNewModel.ProfileView" />
+    <AssociationSet Name="FK_ProfileViews_UserProfiles" Association="JobPortalDBNewModel.FK_ProfileViews_UserProfiles">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="ProfileView" EntitySet="ProfileViews" />
+    </AssociationSet>
+    <EntitySet Name="PeopleMatches" EntityType="JobPortalDBNewModel.PeopleMatch" />
+    <EntitySet Name="Jobs" EntityType="JobPortalDBNewModel.Job" />
+    <AssociationSet Name="FK_Jobs_Countries" Association="JobPortalDBNewModel.FK_Jobs_Countries">
+      <End Role="List" EntitySet="Lists" />
+      <End Role="Job" EntitySet="Jobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Jobs_Employers" Association="JobPortalDBNewModel.FK_Jobs_Employers">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="Job" EntitySet="Jobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Jobs_JobTypes" Association="JobPortalDBNewModel.FK_Jobs_JobTypes">
+      <End Role="List" EntitySet="Lists" />
+      <End Role="Job" EntitySet="Jobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Jobs_Qualifications" Association="JobPortalDBNewModel.FK_Jobs_Qualifications">
+      <End Role="List" EntitySet="Lists" />
+      <End Role="Job" EntitySet="Jobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Jobs_Specializations" Association="JobPortalDBNewModel.FK_Jobs_Specializations">
+      <End Role="Specialization" EntitySet="Specializations" />
+      <End Role="Job" EntitySet="Jobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Jobs_States" Association="JobPortalDBNewModel.FK_Jobs_States">
+      <End Role="List" EntitySet="Lists" />
+      <End Role="Job" EntitySet="Jobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Jobs_SubSpecializations" Association="JobPortalDBNewModel.FK_Jobs_SubSpecializations">
+      <End Role="SubSpecialization" EntitySet="SubSpecializations" />
+      <End Role="Job" EntitySet="Jobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ResumeTracking_Jobs" Association="JobPortalDBNewModel.FK_ResumeTracking_Jobs">
+      <End Role="Job" EntitySet="Jobs" />
+      <End Role="Tracking" EntitySet="Trackings" />
+    </AssociationSet>
+    <EntitySet Name="User_Certificate" EntityType="JobPortalDBNewModel.User_Certificate" />
+    <EntitySet Name="User_Education" EntityType="JobPortalDBNewModel.User_Education" />
+    <EntitySet Name="User_Skills" EntityType="JobPortalDBNewModel.User_Skills" />
+    <AssociationSet Name="FK_User_Certificate_UserProfiles" Association="JobPortalDBNewModel.FK_User_Certificate_UserProfiles">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="User_Certificate" EntitySet="User_Certificate" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Education_UserProfiles" Association="JobPortalDBNewModel.FK_User_Education_UserProfiles">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="User_Education" EntitySet="User_Education" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Skills_UserProfiles" Association="JobPortalDBNewModel.FK_User_Skills_UserProfiles">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="User_Skills" EntitySet="User_Skills" />
+    </AssociationSet>
+    <EntitySet Name="User_Experience" EntityType="JobPortalDBNewModel.User_Experience" />
+    <AssociationSet Name="FK_User_Experience_UserProfiles" Association="JobPortalDBNewModel.FK_User_Experience_UserProfiles">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="User_Experience" EntitySet="User_Experience" />
+    </AssociationSet>
+    <EntitySet Name="Campaigns" EntityType="JobPortalDBNewModel.Campaign" />
+    <EntitySet Name="UserCampaigns" EntityType="JobPortalDBNewModel.UserCampaign" />
+    <AssociationSet Name="FK_UserCampaign_Campaign" Association="JobPortalDBNewModel.FK_UserCampaign_Campaign">
+      <End Role="UserCampaign" EntitySet="UserCampaigns" />
+      <End Role="UserCampaign1" EntitySet="UserCampaigns" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserCampaign_UserProfiles" Association="JobPortalDBNewModel.FK_UserCampaign_UserProfiles">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="UserCampaign" EntitySet="UserCampaigns" />
+    </AssociationSet>
+    <EntitySet Name="ListJob1C" EntityType="JobPortalDBNewModel.ListJob1C" />
+    <EntitySet Name="SMJobLists" EntityType="JobPortalDBNewModel.SMJobList" />
+    <EntitySet Name="WebsiteLists" EntityType="JobPortalDBNewModel.WebsiteList" />
+    <EntitySet Name="Blogs" EntityType="JobPortalDBNewModel.Blog" />
+  </EntityContainer>
+  <EntityType Name="ConfigParameter">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="FrequencyType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FrequencyName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="IsPause" Type="Int32" />
+    <Property Name="IsDelete" Type="Int32" />
+    <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="Interview">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="DateCreated" Type="DateTime" Precision="3" Nullable="false" />
+    <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="TrackingId" Type="Guid" Nullable="false" />
+    <NavigationProperty Name="Tracking" Relationship="JobPortalDBNewModel.FK_Interviews_Trackings" FromRole="Interview" ToRole="Tracking" />
+    <Property Name="UserId" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="UserProfile" Relationship="JobPortalDBNewModel.FK_Interviews_UserProfiles" FromRole="Interview" ToRole="UserProfile" />
+    <NavigationProperty Name="FollowUps" Relationship="JobPortalDBNewModel.FK_JobInterviewFeedBack_JobInterviews1" FromRole="Interview" ToRole="FollowUp" />
+    <Property Name="InterviewDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="InterviewTime" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Interviewer" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Round" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="InterviewDiscussions" Relationship="JobPortalDBNewModel.FK_InterviewDiscussions_Interviews" FromRole="Interview" ToRole="InterviewDiscussion" />
+    <NavigationProperty Name="InterviewNotes" Relationship="JobPortalDBNewModel.FK_InterviewNotes_JobInterviews" FromRole="Interview" ToRole="InterviewNote" />
+  </EntityType>
+  <EntityType Name="List">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ParentList" Type="Int64" />
+    <Property Name="Text" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Value" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="IsDefault" Type="Boolean" Nullable="false" />
+    <Property Name="contientId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="UserCountries" Relationship="JobPortalDBNewModel.FK_UserProfiles_Country" FromRole="List" ToRole="UserProfile" />
+    <NavigationProperty Name="UserStates" Relationship="JobPortalDBNewModel.FK_UserProfiles_State" FromRole="List" ToRole="UserProfile" />
+    <NavigationProperty Name="ResumeCountries" Relationship="JobPortalDBNewModel.FK_Resumes_Countries" FromRole="List" ToRole="Resume" />
+    <NavigationProperty Name="ResumeStates" Relationship="JobPortalDBNewModel.FK_Resumes_States" FromRole="List" ToRole="Resume" />
+    <NavigationProperty Name="QualifiedResumes" Relationship="JobPortalDBNewModel.FK_Resumes_Qualifications" FromRole="List" ToRole="Resume" />
+    <NavigationProperty Name="Newsletters" Relationship="JobPortalDBNewModel.FK_Newsletters_Countries" FromRole="List" ToRole="Newsletter" />
+    <NavigationProperty Name="CountryTrackingDetails" Relationship="JobPortalDBNewModel.FK_TrackingDetails_Countries" FromRole="List" ToRole="TrackingDetail" />
+    <NavigationProperty Name="StateTrackingDetails" Relationship="JobPortalDBNewModel.FK_TrackingDetails_States" FromRole="List" ToRole="TrackingDetail" />
+    <Property Name="Code" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="JobCountries" Relationship="JobPortalDBNewModel.FK_Jobs_Countries" FromRole="List" ToRole="Job" />
+    <NavigationProperty Name="Jobs1" Relationship="JobPortalDBNewModel.FK_Jobs_JobTypes" FromRole="List" ToRole="Job" />
+    <NavigationProperty Name="Jobs2" Relationship="JobPortalDBNewModel.FK_Jobs_Qualifications" FromRole="List" ToRole="Job" />
+    <NavigationProperty Name="JobsStates" Relationship="JobPortalDBNewModel.FK_Jobs_States" FromRole="List" ToRole="Job" />
+    <Property Name="IsDeveloped" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LoginHistory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="IPAddress" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="LoginDateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Browser" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Comments" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="MaxRows" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Newsletter">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Frequency" Type="Int32" Nullable="false" />
+    <Property Name="Type" Type="Int32" Nullable="false" />
+    <Property Name="CountryId" Type="Int64" Nullable="false" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="IsSent" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Country" Relationship="JobPortalDBNewModel.FK_Newsletters_Countries" FromRole="Newsletter" ToRole="List" />
+  </EntityType>
+  <EntityType Name="SitePage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PageUrl" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+    <Property Name="PageTitle" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="PageKeywords" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="PageDescription" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CreateBy" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifyBy" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="ModifyDate" Type="DateTime" Precision="3" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="PageContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="PageText" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PageId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Specialization">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="FullName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Keywords" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Resumes" Relationship="JobPortalDBNewModel.FK_Resumes_Specializations" FromRole="Specialization" ToRole="Resume" />
+    <NavigationProperty Name="TrackingDetails" Relationship="JobPortalDBNewModel.FK_TrackingDetails_Categories" FromRole="Specialization" ToRole="TrackingDetail" />
+    <NavigationProperty Name="UserProfiles" Relationship="JobPortalDBNewModel.FK_UserProfiles_Categories" FromRole="Specialization" ToRole="UserProfile" />
+    <NavigationProperty Name="Jobs" Relationship="JobPortalDBNewModel.FK_Jobs_Specializations" FromRole="Specialization" ToRole="Job" />
+  </EntityType>
+  <EntityType Name="SubSpecialization">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Content" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Title" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Keywords" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Resumes" Relationship="JobPortalDBNewModel.FK_Resumes_SubSpecializations" FromRole="SubSpecialization" ToRole="Resume" />
+    <NavigationProperty Name="TrackingDetails" Relationship="JobPortalDBNewModel.FK_TrackingDetails_Specializations" FromRole="SubSpecialization" ToRole="TrackingDetail" />
+    <NavigationProperty Name="UserProfiles" Relationship="JobPortalDBNewModel.FK_UserProfiles_Specializations" FromRole="SubSpecialization" ToRole="UserProfile" />
+    <NavigationProperty Name="Jobs" Relationship="JobPortalDBNewModel.FK_Jobs_SubSpecializations" FromRole="SubSpecialization" ToRole="Job" />
+  </EntityType>
+  <EntityType Name="UserProfile">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="Int32" Nullable="false" />
+    <Property Name="Company" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="CountryId" Type="Int64" />
+    <Property Name="StateId" Type="Int64" />
+    <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Zip" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="DateOfBirth" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+    <Property Name="Website" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DateDeleted" Type="DateTime" Precision="3" />
+    <Property Name="DeletedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="IsFeatured" Type="Boolean" Nullable="false" />
+    <Property Name="PermaLink" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Country" Relationship="JobPortalDBNewModel.FK_UserProfiles_Country" FromRole="UserProfile" ToRole="List" />
+    <NavigationProperty Name="State" Relationship="JobPortalDBNewModel.FK_UserProfiles_State" FromRole="UserProfile" ToRole="List" />
+    <NavigationProperty Name="OnlineUsers" Relationship="JobPortalDBNewModel.FK_OnlineUsers_UserProfiles" FromRole="UserProfile" ToRole="OnlineUser" />
+    <NavigationProperty Name="Trackings" Relationship="JobPortalDBNewModel.FK_Trackings_UserProfiles" FromRole="UserProfile" ToRole="Tracking" />
+    <NavigationProperty Name="Interviews" Relationship="JobPortalDBNewModel.FK_Interviews_UserProfiles" FromRole="UserProfile" ToRole="Interview" />
+    <NavigationProperty Name="FollowUps" Relationship="JobPortalDBNewModel.FK_FollowUps_UserProfiles" FromRole="UserProfile" ToRole="FollowUp" />
+    <Property Name="Provider" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ProviderId" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="ProviderUsername" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ProviderAccessToken" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BlockedPeoples" Relationship="JobPortalDBNewModel.FK_BlockedMembers_BlockedUsers" FromRole="UserProfile" ToRole="BlockedPeople" />
+    <NavigationProperty Name="Blockers" Relationship="JobPortalDBNewModel.FK_BlockedMembers_Blockers" FromRole="UserProfile" ToRole="BlockedPeople" />
+    <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CategoryId" Type="Int32" />
+    <Property Name="SpecializationId" Type="Int32" />
+    <Property Name="Age" Type="Byte" />
+    <Property Name="CurrentEmployer" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Experience" Type="Byte" />
+    <Property Name="CurrentCurrency" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="DrawingSalary" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="ExpectedCurrency" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="ExpectedSalary" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="AreaOfExpertise" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ProfessionalExperience" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TechnicalSkills" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ManagementSkills" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Education" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FileName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="School" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="University" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="QualificationId" Type="Int64" />
+    <Property Name="EmploymentTypeId" Type="Int64" />
+    <Property Name="Certifications" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Affiliations" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Category" Relationship="JobPortalDBNewModel.FK_UserProfiles_Categories" FromRole="UserProfile" ToRole="Specialization" />
+    <NavigationProperty Name="Specialization" Relationship="JobPortalDBNewModel.FK_UserProfiles_Specializations" FromRole="UserProfile" ToRole="SubSpecialization" />
+    <NavigationProperty Name="Connections" Relationship="JobPortalDBNewModel.FK_NetworkContacts_UserProfiles" FromRole="UserProfile" ToRole="Connection" />
+    <Property Name="PreviousEmployer" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="TrackedJobseekers" Relationship="JobPortalDBNewModel.FK_Trackings_Jobseekers" FromRole="UserProfile" ToRole="Tracking" />
+    <NavigationProperty Name="InterviewDiscussions" Relationship="JobPortalDBNewModel.FK_InterviewDiscussions_UserProfiles" FromRole="UserProfile" ToRole="InterviewDiscussion" />
+    <NavigationProperty Name="InterviewNotes" Relationship="JobPortalDBNewModel.FK_InterviewNotes_UserProfiles" FromRole="UserProfile" ToRole="InterviewNote" />
+    <Property Name="Gender" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="RelationshipStatus" Type="Int32" />
+    <NavigationProperty Name="Announcements" Relationship="JobPortalDBNewModel.FK_UserAnnouncements_UserProfiles" FromRole="UserProfile" ToRole="UserAnnouncement" />
+    <NavigationProperty Name="Receivers" Relationship="JobPortalDBNewModel.FK_Communications_Receivers" FromRole="UserProfile" ToRole="Communication" />
+    <NavigationProperty Name="Senders" Relationship="JobPortalDBNewModel.FK_Communications_Senders" FromRole="UserProfile" ToRole="Communication" />
+    <NavigationProperty Name="Communications" Relationship="JobPortalDBNewModel.FK_Communications_Messages" FromRole="UserProfile" ToRole="Communication" />
+    <Property Name="ConfirmationToken" Type="String" MaxLength="10" Unicode="true" FixedLength="false" />
+    <Property Name="IsConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="NewUsername" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="EmailCorrectionTries" Type="Int32" Nullable="false" />
+    <Property Name="IsValidUsername" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Activities" Relationship="JobPortalDBNewModel.FK_Activities_UserProfiles" FromRole="UserProfile" ToRole="Activity" />
+    <NavigationProperty Name="AlertSettings" Relationship="JobPortalDBNewModel.FK_AlertSettings_UserProfiles" FromRole="UserProfile" ToRole="AlertSetting" />
+    <NavigationProperty Name="Photos" Relationship="JobPortalDBNewModel.FK_Photos_UserProfiles" FromRole="UserProfile" ToRole="Photo" />
+    <NavigationProperty Name="ProfileViews" Relationship="JobPortalDBNewModel.FK_ProfileViews_UserProfiles" FromRole="UserProfile" ToRole="ProfileView" />
+    <Property Name="Mobile" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneCountryCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="MobileCountryCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Facebook" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Twitter" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LinkedIn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="GooglePlus" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Jobs" Relationship="JobPortalDBNewModel.FK_Jobs_Employers" FromRole="UserProfile" ToRole="Job" />
+    <Property Name="IsBuild" Type="Boolean" Nullable="false" />
+    <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+    <Property Name="CurrentEmployerFromMonth" Type="String" MaxLength="4" FixedLength="false" Unicode="true" a:SetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+    <Property Name="CurrentEmployerFromYear" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="PreviousEmployerFromMonth" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Name="PreviousEmployerFromYear" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="CurrentEmployerToMonth" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Name="CurrentEmployerToYear" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+    <Property Name="PreviousEmployerToMonth" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
+    <Property Name="PreviousEmployerToYear" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="User_Certificate" Relationship="JobPortalDBNewModel.FK_User_Certificate_UserProfiles" FromRole="UserProfile" ToRole="User_Certificate" />
+    <NavigationProperty Name="User_Education" Relationship="JobPortalDBNewModel.FK_User_Education_UserProfiles" FromRole="UserProfile" ToRole="User_Education" />
+    <NavigationProperty Name="User_Skills" Relationship="JobPortalDBNewModel.FK_User_Skills_UserProfiles" FromRole="UserProfile" ToRole="User_Skills" />
+    <NavigationProperty Name="User_Experience" Relationship="JobPortalDBNewModel.FK_User_Experience_UserProfiles" FromRole="UserProfile" ToRole="User_Experience" />
+    <NavigationProperty Name="UserCampaigns" Relationship="JobPortalDBNewModel.FK_UserCampaign_UserProfiles" FromRole="UserProfile" ToRole="UserCampaign" />
+  </EntityType>
+  <EntityType Name="webpages_Membership">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="ConfirmationToken" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="IsConfirmed" Type="Boolean" />
+    <Property Name="LastPasswordFailureDate" Type="DateTime" Precision="3" />
+    <Property Name="PasswordFailuresSinceLastSuccess" Type="Int32" Nullable="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="PasswordChangedDate" Type="DateTime" Precision="3" />
+    <Property Name="PasswordSalt" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="PasswordVerificationToken" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="PasswordVerificationTokenExpirationDate" Type="DateTime" Precision="3" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="webpages_OAuthMembership">
+    <Key>
+      <PropertyRef Name="Provider" />
+      <PropertyRef Name="ProviderUserId" />
+    </Key>
+    <Property Name="Provider" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="ProviderUserId" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="Int64" Nullable="false" />
+  </EntityType>
+  <EntityType Name="webpages_Roles">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="webpages_UsersInRoles" Relationship="JobPortalDBNewModel.fk_RoleId" FromRole="webpages_Roles" ToRole="webpages_UsersInRoles" />
+  </EntityType>
+  <EntityType Name="webpages_UsersInRoles">
+    <Key>
+      <PropertyRef Name="RoleId" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="webpages_Roles" Relationship="JobPortalDBNewModel.fk_RoleId" FromRole="webpages_UsersInRoles" ToRole="webpages_Roles" />
+    <Property Name="UserId" Type="Int64" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_UserProfiles_Country">
+    <End Type="JobPortalDBNewModel.List" Role="List" Multiplicity="0..1" />
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="List">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserProfile">
+        <PropertyRef Name="CountryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserProfiles_State">
+    <End Type="JobPortalDBNewModel.List" Role="List" Multiplicity="0..1" />
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="List">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserProfile">
+        <PropertyRef Name="StateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_RoleId">
+    <End Type="JobPortalDBNewModel.webpages_Roles" Role="webpages_Roles" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.webpages_UsersInRoles" Role="webpages_UsersInRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="webpages_Roles">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="webpages_UsersInRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="OnlineUser">
+    <Key>
+      <PropertyRef Name="UniqueId" />
+    </Key>
+    <Property Name="UniqueId" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="OnlineSince" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="UserProfile" Relationship="JobPortalDBNewModel.FK_OnlineUsers_UserProfiles" FromRole="OnlineUser" ToRole="UserProfile" />
+  </EntityType>
+  <Association Name="FK_OnlineUsers_UserProfiles">
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.OnlineUser" Role="OnlineUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="OnlineUser">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Resume">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CategoryId" Type="Int32" />
+    <Property Name="SpecializationId" Type="Int32" />
+    <Property Name="CountryId" Type="Int64" />
+    <Property Name="StateId" Type="Int64" />
+    <Property Name="City" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Experience" Type="Byte" />
+    <Property Name="MinimumAge" Type="Byte" />
+    <Property Name="MaximumAge" Type="Byte" />
+    <Property Name="DrawingSalary" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="ExpectedSalary" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ProfessionalExperience" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Education" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="String" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="QualificationId" Type="Int64" />
+    <Property Name="ProfessionalCertification" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+    <Property Name="ProfessionalAffiliation" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Country" Relationship="JobPortalDBNewModel.FK_Resumes_Countries" FromRole="Resume" ToRole="List" />
+    <NavigationProperty Name="State" Relationship="JobPortalDBNewModel.FK_Resumes_States" FromRole="Resume" ToRole="List" />
+    <NavigationProperty Name="Category" Relationship="JobPortalDBNewModel.FK_Resumes_Specializations" FromRole="Resume" ToRole="Specialization" />
+    <NavigationProperty Name="SubSpecialization" Relationship="JobPortalDBNewModel.FK_Resumes_SubSpecializations" FromRole="Resume" ToRole="SubSpecialization" />
+    <NavigationProperty Name="Qualification" Relationship="JobPortalDBNewModel.FK_Resumes_Qualifications" FromRole="Resume" ToRole="List" />
+    <Property Name="Zip" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="EmploymentTypeId" Type="Int64" />
+    <Property Name="CurrentCurrency" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="ExpectedCurrency" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="TechnicalSkills" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ManagementSkills" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FileName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="AreaOfExpertise" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Trackings" Relationship="JobPortalDBNewModel.FK_ResumeTracking_Resumes" FromRole="Resume" ToRole="Tracking" />
+  </EntityType>
+  <Association Name="FK_Resumes_Countries">
+    <End Type="JobPortalDBNewModel.List" Role="List" Multiplicity="0..1" />
+    <End Type="JobPortalDBNewModel.Resume" Role="Resume" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="List">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Resume">
+        <PropertyRef Name="CountryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Resumes_States">
+    <End Type="JobPortalDBNewModel.List" Role="List" Multiplicity="0..1" />
+    <End Type="JobPortalDBNewModel.Resume" Role="Resume" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="List">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Resume">
+        <PropertyRef Name="StateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Resumes_Specializations">
+    <End Type="JobPortalDBNewModel.Specialization" Role="Specialization" Multiplicity="0..1" />
+    <End Type="JobPortalDBNewModel.Resume" Role="Resume" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Specialization">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Resume">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Resumes_SubSpecializations">
+    <End Type="JobPortalDBNewModel.SubSpecialization" Role="SubSpecialization" Multiplicity="0..1" />
+    <End Type="JobPortalDBNewModel.Resume" Role="Resume" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubSpecialization">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Resume">
+        <PropertyRef Name="SpecializationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Resumes_Qualifications">
+    <End Type="JobPortalDBNewModel.List" Role="List" Multiplicity="0..1" />
+    <End Type="JobPortalDBNewModel.Resume" Role="Resume" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="List">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Resume">
+        <PropertyRef Name="QualificationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Message">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SenderId" Type="Int64" Nullable="false" />
+    <Property Name="RecipientId" Type="Int64" Nullable="false" />
+    <Property Name="StartTimeStamp" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EndTimeStamp" Type="DateTime" Precision="3" />
+    <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Recipient" Relationship="JobPortalDBNewModel.FK_Messages_Recipients" FromRole="Message" ToRole="UserProfile" />
+    <NavigationProperty Name="Sender" Relationship="JobPortalDBNewModel.FK_Messages_Senders" FromRole="Message" ToRole="UserProfile" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Sent" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Messages_Recipients">
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.Message" Role="Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="RecipientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Messages_Senders">
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.Message" Role="Message" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Message">
+        <PropertyRef Name="SenderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Newsletters_Countries">
+    <End Type="JobPortalDBNewModel.List" Role="List" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.Newsletter" Role="Newsletter" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="List">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Newsletter">
+        <PropertyRef Name="CountryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Tracking">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="ResumeId" Type="Int64" />
+    <Property Name="JobId" Type="Int64" />
+    <Property Name="Type" Type="Int32" Nullable="false" />
+    <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Weightage" Type="Decimal" Precision="6" Scale="2" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="UserId" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="Resume" Relationship="JobPortalDBNewModel.FK_ResumeTracking_Resumes" FromRole="Tracking" ToRole="Resume" />
+    <NavigationProperty Name="TrackingDetail" Relationship="JobPortalDBNewModel.FK_TrackingDetails_Trackings" FromRole="Tracking" ToRole="TrackingDetail" />
+    <NavigationProperty Name="Interviews" Relationship="JobPortalDBNewModel.FK_Interviews_Trackings" FromRole="Tracking" ToRole="Interview" />
+    <NavigationProperty Name="UserProfile" Relationship="JobPortalDBNewModel.FK_Trackings_UserProfiles" FromRole="Tracking" ToRole="UserProfile" />
+    <Property Name="JobseekerId" Type="Int64" />
+    <NavigationProperty Name="Jobseeker" Relationship="JobPortalDBNewModel.FK_Trackings_Jobseekers" FromRole="Tracking" ToRole="UserProfile" />
+    <Property Name="IsDownloaded" Type="Boolean" Nullable="false" />
+    <Property Name="IsMessageSent" Type="Boolean" Nullable="false" />
+    <Property Name="IsInvited" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Job" Relationship="JobPortalDBNewModel.FK_ResumeTracking_Jobs" FromRole="Tracking" ToRole="Job" />
+    <Property Name="IsViewed" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_ResumeTracking_Resumes">
+    <End Type="JobPortalDBNewModel.Resume" Role="Resume" Multiplicity="0..1" />
+    <End Type="JobPortalDBNewModel.Tracking" Role="Tracking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Resume">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tracking">
+        <PropertyRef Name="ResumeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="TrackingDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <Property Name="SpecializationId" Type="Int32" Nullable="false" />
+    <Property Name="CountryId" Type="Int64" Nullable="false" />
+    <Property Name="StateId" Type="Int64" />
+    <NavigationProperty Name="Tracking" Relationship="JobPortalDBNewModel.FK_TrackingDetails_Trackings" FromRole="TrackingDetail" ToRole="Tracking" />
+    <NavigationProperty Name="Country" Relationship="JobPortalDBNewModel.FK_TrackingDetails_Countries" FromRole="TrackingDetail" ToRole="List" />
+    <NavigationProperty Name="State" Relationship="JobPortalDBNewModel.FK_TrackingDetails_States" FromRole="TrackingDetail" ToRole="List" />
+    <NavigationProperty Name="Category" Relationship="JobPortalDBNewModel.FK_TrackingDetails_Categories" FromRole="TrackingDetail" ToRole="Specialization" />
+    <NavigationProperty Name="Specialization" Relationship="JobPortalDBNewModel.FK_TrackingDetails_Specializations" FromRole="TrackingDetail" ToRole="SubSpecialization" />
+    <Property Name="FileName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_TrackingDetails_Trackings">
+    <End Type="JobPortalDBNewModel.Tracking" Role="Tracking" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.TrackingDetail" Role="TrackingDetail" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Tracking">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TrackingDetail">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TrackingDetails_Countries">
+    <End Type="JobPortalDBNewModel.List" Role="List" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.TrackingDetail" Role="TrackingDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="List">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TrackingDetail">
+        <PropertyRef Name="CountryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TrackingDetails_States">
+    <End Type="JobPortalDBNewModel.List" Role="List" Multiplicity="0..1" />
+    <End Type="JobPortalDBNewModel.TrackingDetail" Role="TrackingDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="List">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TrackingDetail">
+        <PropertyRef Name="StateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TrackingDetails_Categories">
+    <End Type="JobPortalDBNewModel.Specialization" Role="Specialization" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.TrackingDetail" Role="TrackingDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Specialization">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TrackingDetail">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TrackingDetails_Specializations">
+    <End Type="JobPortalDBNewModel.SubSpecialization" Role="SubSpecialization" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.TrackingDetail" Role="TrackingDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubSpecialization">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TrackingDetail">
+        <PropertyRef Name="SpecializationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Interviews_Trackings">
+    <End Type="JobPortalDBNewModel.Tracking" Role="Tracking" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.Interview" Role="Interview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tracking">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Interview">
+        <PropertyRef Name="TrackingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Trackings_UserProfiles">
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.Tracking" Role="Tracking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Tracking">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Interviews_UserProfiles">
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.Interview" Role="Interview" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Interview">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="FollowUp">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InterviewId" Type="Int64" />
+    <Property Name="NewDate" Type="DateTime" Precision="3" />
+    <Property Name="NewTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Interview" Relationship="JobPortalDBNewModel.FK_JobInterviewFeedBack_JobInterviews1" FromRole="FollowUp" ToRole="Interview" />
+    <Property Name="UserId" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="UserProfile" Relationship="JobPortalDBNewModel.FK_FollowUps_UserProfiles" FromRole="FollowUp" ToRole="UserProfile" />
+    <Property Name="Unread" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_JobInterviewFeedBack_JobInterviews1">
+    <End Type="JobPortalDBNewModel.Interview" Role="Interview" Multiplicity="0..1" />
+    <End Type="JobPortalDBNewModel.FollowUp" Role="FollowUp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Interview">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="FollowUp">
+        <PropertyRef Name="InterviewId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_FollowUps_UserProfiles">
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.FollowUp" Role="FollowUp" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="FollowUp">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="AlertHistory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AlertId" Type="Int32" Nullable="false" />
+    <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Receiver" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Alert" Relationship="JobPortalDBNewModel.FK_AlertHistories_Alerts" FromRole="AlertHistory" ToRole="Alert" />
+    <Property Name="Sender" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ReferenceId" Type="Int64" />
+  </EntityType>
+  <EntityType Name="Alert">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Daily" Type="Boolean" Nullable="false" />
+    <Property Name="Weekly" Type="Boolean" Nullable="false" />
+    <Property Name="Monthly" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="AlertHistories" Relationship="JobPortalDBNewModel.FK_AlertHistories_Alerts" FromRole="Alert" ToRole="AlertHistory" />
+    <NavigationProperty Name="Unsubscriptions" Relationship="JobPortalDBNewModel.FK_Unsubscriptions_Alerts" FromRole="Alert" ToRole="Unsubscription" />
+    <Property Name="Times" Type="Int32" Nullable="false" />
+    <Property Name="Hourly" Type="Boolean" Nullable="false" />
+    <Property Name="Configurable" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="AlertSettings" Relationship="JobPortalDBNewModel.FK_AlertSettings_Alerts" FromRole="Alert" ToRole="AlertSetting" />
+    <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Unsubscription">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AlertId" Type="Int32" Nullable="false" />
+    <Property Name="Unsubscribed" Type="Boolean" Nullable="false" />
+    <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Alert" Relationship="JobPortalDBNewModel.FK_Unsubscriptions_Alerts" FromRole="Unsubscription" ToRole="Alert" />
+    <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <Association Name="FK_AlertHistories_Alerts">
+    <End Type="JobPortalDBNewModel.Alert" Role="Alert" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.AlertHistory" Role="AlertHistory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Alert">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AlertHistory">
+        <PropertyRef Name="AlertId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Unsubscriptions_Alerts">
+    <End Type="JobPortalDBNewModel.Alert" Role="Alert" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.Unsubscription" Role="Unsubscription" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Alert">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Unsubscription">
+        <PropertyRef Name="AlertId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="DocumentType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DocName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="IsPause" Type="Int32" />
+    <Property Name="IsDelete" Type="Int32" />
+    <Property Name="CreatedBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="BlockedPeople">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="BlockedId" Type="Int64" Nullable="false" />
+    <Property Name="BlockerId" Type="Int64" Nullable="false" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="BlockedUser" Relationship="JobPortalDBNewModel.FK_BlockedMembers_BlockedUsers" FromRole="BlockedPeople" ToRole="UserProfile" />
+    <NavigationProperty Name="Blocker" Relationship="JobPortalDBNewModel.FK_BlockedMembers_Blockers" FromRole="BlockedPeople" ToRole="UserProfile" />
+  </EntityType>
+  <Association Name="FK_BlockedMembers_BlockedUsers">
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.BlockedPeople" Role="BlockedPeople" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="BlockedPeople">
+        <PropertyRef Name="BlockedId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BlockedMembers_Blockers">
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.BlockedPeople" Role="BlockedPeople" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="BlockedPeople">
+        <PropertyRef Name="BlockerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserProfiles_Categories">
+    <End Type="JobPortalDBNewModel.Specialization" Role="Specialization" Multiplicity="0..1" />
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Specialization">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserProfile">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserProfiles_Specializations">
+    <End Type="JobPortalDBNewModel.SubSpecialization" Role="SubSpecialization" Multiplicity="0..1" />
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubSpecialization">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserProfile">
+        <PropertyRef Name="SpecializationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Connection">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int64" Nullable="false" />
+    <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="DateDeleted" Type="DateTime" Precision="3" />
+    <Property Name="DeletedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="UserProfile" Relationship="JobPortalDBNewModel.FK_NetworkContacts_UserProfiles" FromRole="Connection" ToRole="UserProfile" />
+    <Property Name="IsAccepted" Type="Boolean" Nullable="false" />
+    <Property Name="IsConnected" Type="Boolean" Nullable="false" />
+    <Property Name="IsBlocked" Type="Boolean" Nullable="false" />
+    <Property Name="Initiated" Type="Boolean" Nullable="false" />
+    <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Sent" Type="Boolean" Nullable="false" />
+    <Property Name="DateSent" Type="DateTime" Precision="3" />
+    <Property Name="Unsubscribed" Type="Boolean" Nullable="false" />
+    <Property Name="LastReminderDate" Type="DateTime" Precision="3" />
+    <Property Name="IsValid" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_NetworkContacts_UserProfiles">
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.Connection" Role="Connection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Connection">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Trackings_Jobseekers">
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="0..1" />
+    <End Type="JobPortalDBNewModel.Tracking" Role="Tracking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Tracking">
+        <PropertyRef Name="JobseekerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="EmailAddress">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="InterviewDiscussion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InterviewId" Type="Int64" Nullable="false" />
+    <Property Name="Message" Type="String" Nullable="false" MaxLength="350" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="Int64" Nullable="false" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Interview" Relationship="JobPortalDBNewModel.FK_InterviewDiscussions_Interviews" FromRole="InterviewDiscussion" ToRole="Interview" />
+    <NavigationProperty Name="UserProfile" Relationship="JobPortalDBNewModel.FK_InterviewDiscussions_UserProfiles" FromRole="InterviewDiscussion" ToRole="UserProfile" />
+    <Property Name="Unread" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InterviewNote">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="InterviewId" Type="Int64" Nullable="false" />
+    <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+    <Property Name="UserId" Type="Int64" Nullable="false" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Interview" Relationship="JobPortalDBNewModel.FK_InterviewNotes_JobInterviews" FromRole="InterviewNote" ToRole="Interview" />
+    <NavigationProperty Name="UserProfile" Relationship="JobPortalDBNewModel.FK_InterviewNotes_UserProfiles" FromRole="InterviewNote" ToRole="UserProfile" />
+    <Property Name="NoteTaker" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_InterviewDiscussions_Interviews">
+    <End Type="JobPortalDBNewModel.Interview" Role="Interview" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.InterviewDiscussion" Role="InterviewDiscussion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Interview">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InterviewDiscussion">
+        <PropertyRef Name="InterviewId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InterviewDiscussions_UserProfiles">
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.InterviewDiscussion" Role="InterviewDiscussion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="InterviewDiscussion">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InterviewNotes_JobInterviews">
+    <End Type="JobPortalDBNewModel.Interview" Role="Interview" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.InterviewNote" Role="InterviewNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Interview">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InterviewNote">
+        <PropertyRef Name="InterviewId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InterviewNotes_UserProfiles">
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.InterviewNote" Role="InterviewNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="InterviewNote">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Announcement">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="Int32" Nullable="false" />
+    <Property Name="Subject" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Body" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="UserAnnouncements" Relationship="JobPortalDBNewModel.FK_UserAnnouncements_Announcements" FromRole="Announcement" ToRole="UserAnnouncement" />
+    <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+    <Property Name="Sent" Type="Boolean" Nullable="false" />
+    <Property Name="CountryId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="UserAnnouncement">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AnnouncementId" Type="Int64" Nullable="false" />
+    <Property Name="UserId" Type="Int64" Nullable="false" />
+    <Property Name="Unread" Type="Boolean" Nullable="false" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Announcement" Relationship="JobPortalDBNewModel.FK_UserAnnouncements_Announcements" FromRole="UserAnnouncement" ToRole="Announcement" />
+    <NavigationProperty Name="UserProfile" Relationship="JobPortalDBNewModel.FK_UserAnnouncements_UserProfiles" FromRole="UserAnnouncement" ToRole="UserProfile" />
+    <Property Name="Sent" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_UserAnnouncements_Announcements">
+    <End Type="JobPortalDBNewModel.Announcement" Role="Announcement" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.UserAnnouncement" Role="UserAnnouncement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Announcement">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserAnnouncement">
+        <PropertyRef Name="AnnouncementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserAnnouncements_UserProfiles">
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.UserAnnouncement" Role="UserAnnouncement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserAnnouncement">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Communication">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Message" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="Unread" Type="Boolean" Nullable="false" />
+    <Property Name="IsSent" Type="Boolean" Nullable="false" />
+    <Property Name="IsReply" Type="Boolean" Nullable="false" />
+    <Property Name="IsInitial" Type="Boolean" Nullable="false" />
+    <Property Name="SenderId" Type="Int64" Nullable="false" />
+    <Property Name="ReceiverId" Type="Int64" Nullable="false" />
+    <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Receiver" Relationship="JobPortalDBNewModel.FK_Communications_Receivers" FromRole="Communication" ToRole="UserProfile" />
+    <NavigationProperty Name="Sender" Relationship="JobPortalDBNewModel.FK_Communications_Senders" FromRole="Communication" ToRole="UserProfile" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="Int64" Nullable="false" />
+    <NavigationProperty Name="UserProfile" Relationship="JobPortalDBNewModel.FK_Communications_Messages" FromRole="Communication" ToRole="UserProfile" />
+  </EntityType>
+  <Association Name="FK_Communications_Receivers">
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.Communication" Role="Communication" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Communication">
+        <PropertyRef Name="ReceiverId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Communications_Senders">
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.Communication" Role="Communication" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Communication">
+        <PropertyRef Name="SenderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Communications_Messages">
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.Communication" Role="Communication" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Communication">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Hit">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" />
+    <Property Name="Url" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IPAddress" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="Browser" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="Tip">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Body" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Type" Type="Int32" Nullable="false" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Dictionary">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="Word" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Level" Type="Int16" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Activity">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="Int64" Nullable="false" />
+    <Property Name="ActivityDate" Type="DateTime" Precision="3" Nullable="false" />
+    <Property Name="ReferenceId" Type="Int64" />
+    <NavigationProperty Name="UserProfile" Relationship="JobPortalDBNewModel.FK_Activities_UserProfiles" FromRole="Activity" ToRole="UserProfile" />
+    <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Unread" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Activities_UserProfiles">
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.Activity" Role="Activity" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Activity">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="AlertSetting">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" />
+    <Property Name="UserId" Type="Int64" />
+    <Property Name="AlertId" Type="Int32" />
+    <Property Name="Enabled" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Alert" Relationship="JobPortalDBNewModel.FK_AlertSettings_Alerts" FromRole="AlertSetting" ToRole="Alert" />
+    <NavigationProperty Name="UserProfile" Relationship="JobPortalDBNewModel.FK_AlertSettings_UserProfiles" FromRole="AlertSetting" ToRole="UserProfile" />
+    <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <Association Name="FK_AlertSettings_Alerts">
+    <End Type="JobPortalDBNewModel.Alert" Role="Alert" Multiplicity="0..1" />
+    <End Type="JobPortalDBNewModel.AlertSetting" Role="AlertSetting" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Alert">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AlertSetting">
+        <PropertyRef Name="AlertId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AlertSettings_UserProfiles">
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="0..1" />
+    <End Type="JobPortalDBNewModel.AlertSetting" Role="AlertSetting" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="AlertSetting">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Invite">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Mobile" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Invited" Type="Boolean" Nullable="false" />
+    <Property Name="UserId" Type="Int64" Nullable="false" />
+    <Property Name="MessageSID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Token" Type="Guid" />
+    <Property Name="IsConnected" Type="Boolean" Nullable="false" />
+    <Property Name="DateInvited" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LastReminderDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="Photo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int64" Nullable="false" />
+    <Property Name="Image" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Area" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+    <Property Name="IsRejected" Type="Boolean" Nullable="false" />
+    <Property Name="Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="UserProfile" Relationship="JobPortalDBNewModel.FK_Photos_UserProfiles" FromRole="Photo" ToRole="UserProfile" />
+    <Property Name="NewImage" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="ImageSize" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="NewImageSize" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="InEditMode" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Photos_UserProfiles">
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.Photo" Role="Photo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Photo">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ProfileView">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProfileId" Type="Int64" Nullable="false" />
+    <Property Name="UserId" Type="Int64" />
+    <Property Name="DateUpdated" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="UserProfile" Relationship="JobPortalDBNewModel.FK_ProfileViews_UserProfiles" FromRole="ProfileView" ToRole="UserProfile" />
+    <Property Name="Unread" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_ProfileViews_UserProfiles">
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="0..1" />
+    <End Type="JobPortalDBNewModel.ProfileView" Role="ProfileView" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="ProfileView">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="PeopleMatch">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MatchId" Type="Int64" Nullable="false" />
+    <Property Name="UserId" Type="Int64" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Job">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmployerId" Type="Int64" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Summary" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PublishedDate" Type="DateTime" Precision="3" Nullable="false" />
+    <Property Name="ClosingDate" Type="DateTime" Precision="3" Nullable="false" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Keywords" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CountryId" Type="Int64" />
+    <Property Name="StateId" Type="Int64" />
+    <Property Name="City" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Zip" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="IsFeaturedJob" Type="Boolean" />
+    <Property Name="IsSiteJob" Type="Boolean" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="IsExpired" Type="Boolean" annotation:StoreGeneratedPattern="Computed" a:SetterAccess="Private" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+    <Property Name="IsPublished" Type="Boolean" />
+    <Property Name="PermaLink" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="MinimumAge" Type="Byte" />
+    <Property Name="MaximumAge" Type="Byte" />
+    <Property Name="MinimumExperience" Type="Byte" />
+    <Property Name="MaximumExperience" Type="Byte" />
+    <Property Name="Currency" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="MinimumSalary" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="MaximumSalary" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="CategoryId" Type="Int32" />
+    <Property Name="EmploymentTypeId" Type="Int64" />
+    <Property Name="SpecializationId" Type="Int32" />
+    <Property Name="QualificationId" Type="Int64" />
+    <Property Name="Openings" Type="Int32" />
+    <Property Name="IsRejected" Type="Boolean" Nullable="false" />
+    <Property Name="IsPostedOnTwitter" Type="Boolean" Nullable="false" />
+    <Property Name="NewDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NewSummary" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="InEditMode" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Country" Relationship="JobPortalDBNewModel.FK_Jobs_Countries" FromRole="Job" ToRole="List" />
+    <NavigationProperty Name="Employer" Relationship="JobPortalDBNewModel.FK_Jobs_Employers" FromRole="Job" ToRole="UserProfile" />
+    <NavigationProperty Name="JobType" Relationship="JobPortalDBNewModel.FK_Jobs_JobTypes" FromRole="Job" ToRole="List" />
+    <NavigationProperty Name="Qualification" Relationship="JobPortalDBNewModel.FK_Jobs_Qualifications" FromRole="Job" ToRole="List" />
+    <NavigationProperty Name="Category" Relationship="JobPortalDBNewModel.FK_Jobs_Specializations" FromRole="Job" ToRole="Specialization" />
+    <NavigationProperty Name="State" Relationship="JobPortalDBNewModel.FK_Jobs_States" FromRole="Job" ToRole="List" />
+    <NavigationProperty Name="Specialization" Relationship="JobPortalDBNewModel.FK_Jobs_SubSpecializations" FromRole="Job" ToRole="SubSpecialization" />
+    <NavigationProperty Name="Trackings" Relationship="JobPortalDBNewModel.FK_ResumeTracking_Jobs" FromRole="Job" ToRole="Tracking" />
+    <Property Name="NewEmploymentTypeId" Type="Int64" />
+    <Property Name="NewQualificationId" Type="Int64" />
+    <Property Name="NewMinimumAge" Type="Byte" />
+    <Property Name="NewMaximumAge" Type="Byte" />
+    <Property Name="NewMinimumExperience" Type="Byte" />
+    <Property Name="NewMaximumExperience" Type="Byte" />
+    <Property Name="NewCurrency" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="NewMinimumSalary" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="NewMaximumSalary" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="Requirements" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NewRequirements" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Distribute" Type="Boolean" Nullable="false" />
+    <Property Name="IsPaid" Type="Boolean" Nullable="false" />
+    <Property Name="PackageId" Type="Int32" />
+    <Property Name="Responsilibies" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NewResponsilibies" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NoticePeriod" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="AdharNumber" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="OptionalSkills" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DateOfBirth" Type="DateTime" Precision="3" />
+    <Property Name="CompanyName1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_Jobs_Countries">
+    <End Type="JobPortalDBNewModel.List" Role="List" Multiplicity="0..1" />
+    <End Type="JobPortalDBNewModel.Job" Role="Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="List">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="CountryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Jobs_Employers">
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="0..1" />
+    <End Type="JobPortalDBNewModel.Job" Role="Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="EmployerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Jobs_JobTypes">
+    <End Type="JobPortalDBNewModel.List" Role="List" Multiplicity="0..1" />
+    <End Type="JobPortalDBNewModel.Job" Role="Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="List">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="EmploymentTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Jobs_Qualifications">
+    <End Type="JobPortalDBNewModel.List" Role="List" Multiplicity="0..1" />
+    <End Type="JobPortalDBNewModel.Job" Role="Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="List">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="QualificationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Jobs_Specializations">
+    <End Type="JobPortalDBNewModel.Specialization" Role="Specialization" Multiplicity="0..1" />
+    <End Type="JobPortalDBNewModel.Job" Role="Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Specialization">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Jobs_States">
+    <End Type="JobPortalDBNewModel.List" Role="List" Multiplicity="0..1" />
+    <End Type="JobPortalDBNewModel.Job" Role="Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="List">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="StateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Jobs_SubSpecializations">
+    <End Type="JobPortalDBNewModel.SubSpecialization" Role="SubSpecialization" Multiplicity="0..1" />
+    <End Type="JobPortalDBNewModel.Job" Role="Job" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubSpecialization">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Job">
+        <PropertyRef Name="SpecializationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ResumeTracking_Jobs">
+    <End Type="JobPortalDBNewModel.Job" Role="Job" Multiplicity="0..1" />
+    <End Type="JobPortalDBNewModel.Tracking" Role="Tracking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Job">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tracking">
+        <PropertyRef Name="JobId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="User_Certificate">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int64" Nullable="false" />
+    <Property Name="Certificate" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="Institute" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="Logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LogoType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UType" Type="Int32" />
+    <NavigationProperty Name="UserProfile" Relationship="JobPortalDBNewModel.FK_User_Certificate_UserProfiles" FromRole="User_Certificate" ToRole="UserProfile" />
+  </EntityType>
+  <EntityType Name="User_Education">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="UType" />
+    </Key>
+    <Property Name="UserId" Type="Int64" Nullable="false" />
+    <Property Name="Education" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="FromYr" Type="Int64" />
+    <Property Name="ToYr" Type="Int64" />
+    <Property Name="School" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="Grade" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="UType" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="UserProfile" Relationship="JobPortalDBNewModel.FK_User_Education_UserProfiles" FromRole="User_Education" ToRole="UserProfile" />
+  </EntityType>
+  <EntityType Name="User_Skills">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="UType" />
+    </Key>
+    <Property Name="UserId" Type="Int64" Nullable="false" />
+    <Property Name="SkillName" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="Rating" Type="Int64" />
+    <Property Name="Percentage_Cal" Type="Decimal" Precision="18" Scale="4" />
+    <Property Name="UType" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="UserProfile" Relationship="JobPortalDBNewModel.FK_User_Skills_UserProfiles" FromRole="User_Skills" ToRole="UserProfile" />
+  </EntityType>
+  <Association Name="FK_User_Certificate_UserProfiles">
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.User_Certificate" Role="User_Certificate" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="User_Certificate">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Education_UserProfiles">
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.User_Education" Role="User_Education" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="User_Education">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Skills_UserProfiles">
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.User_Skills" Role="User_Skills" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="User_Skills">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="User_Experience">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="UType" />
+    </Key>
+    <Property Name="UserId" Type="Int64" Nullable="false" />
+    <Property Name="Employer" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="Industry" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="Roles" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="FromMonth" Type="Int32" />
+    <Property Name="ToMonth" Type="Int32" />
+    <Property Name="FromYr" Type="Int64" />
+    <Property Name="ToYr" Type="Int64" />
+    <Property Name="Responsibilities" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="UType" Type="Int32" Nullable="false" />
+    <Property Name="CountryId" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="Category" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UserProfile" Relationship="JobPortalDBNewModel.FK_User_Experience_UserProfiles" FromRole="User_Experience" ToRole="UserProfile" />
+  </EntityType>
+  <Association Name="FK_User_Experience_UserProfiles">
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.User_Experience" Role="User_Experience" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="User_Experience">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Campaign">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Type" Type="Int32" Nullable="false" />
+    <Property Name="CountryId" Type="Int32" Nullable="false" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Subject" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Body" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+    <Property Name="Sent" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserCampaign">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CampaignId" Type="Int64" Nullable="false" />
+    <Property Name="UserId" Type="Int64" Nullable="false" />
+    <Property Name="Unread" Type="Boolean" Nullable="false" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Sent" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="UserCampaign1" Relationship="JobPortalDBNewModel.FK_UserCampaign_Campaign" FromRole="UserCampaign" ToRole="UserCampaign1" />
+    <NavigationProperty Name="UserCampaign2" Relationship="JobPortalDBNewModel.FK_UserCampaign_Campaign" FromRole="UserCampaign1" ToRole="UserCampaign" />
+    <NavigationProperty Name="UserProfile" Relationship="JobPortalDBNewModel.FK_UserCampaign_UserProfiles" FromRole="UserCampaign" ToRole="UserProfile" />
+  </EntityType>
+  <Association Name="FK_UserCampaign_Campaign">
+    <End Type="JobPortalDBNewModel.UserCampaign" Role="UserCampaign" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.UserCampaign" Role="UserCampaign1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserCampaign">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserCampaign1">
+        <PropertyRef Name="CampaignId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserCampaign_UserProfiles">
+    <End Type="JobPortalDBNewModel.UserProfile" Role="UserProfile" Multiplicity="1" />
+    <End Type="JobPortalDBNewModel.UserCampaign" Role="UserCampaign" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserCampaign">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ListJob1C">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="CompanyName" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" />
+    <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="AboutCompany" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="job_id" Type="Int32" />
+    <Property Name="CompanyLogos" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="SMJobList">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Email" />
+      <PropertyRef Name="DateCreated" />
+      <PropertyRef Name="EmailSent" />
+      <PropertyRef Name="Accepted" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CountryName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="JobTitle" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MSkills" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="JobDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="JobResponsibility" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="JobRequirement" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="JobLink" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ContactNo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+    <Property Name="EmailSent" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="Accepted" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="JobSource" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Source" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Summary" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Overview" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="PublishedDate" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ClosingDate" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="EmployerId" Type="Int64" />
+    <Property Name="EmployerUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="City" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="JobUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Category" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Specialization" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Qualification" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="MinimumExperience" Type="String" MaxLength="1500" FixedLength="false" Unicode="true" />
+    <Property Name="MaximumExperienc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Currencye" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="MaximumExperience" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="MinimumSalary" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="MaximumSalary" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="JobType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CategoryId" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="SpecializationId" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="QualificationId" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="EmploymentTypeId" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ImageType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Currency" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="JobID" Type="String" MaxLength="27" FixedLength="false" Unicode="false" />
+    <Property Name="Zip" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="TotalViews" Type="Int64" />
+    <Property Name="JobLevel" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="WebsiteList">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CountryName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Website" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="DateUpdated" Type="DateTime" Precision="3" />
+    <Property Name="EmailSent" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="Accepted" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CompanyLogo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Logo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Category" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="companylogoslink" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="Company_Mail" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Blog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="descriptions" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Images" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="categories" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Createddate" Type="DateTime" Precision="3" />
+  </EntityType>
+</Schema>

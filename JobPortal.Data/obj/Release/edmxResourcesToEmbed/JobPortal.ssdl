@@ -1,0 +1,1792 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="JobPortalDBNewModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Activities">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="Comments" Type="nvarchar(max)" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="ActivityDate" Type="datetime" Nullable="false" />
+    <Property Name="ReferenceId" Type="bigint" />
+    <Property Name="DateUpdated" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Unread" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AlertHistories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AlertId" Type="int" Nullable="false" />
+    <Property Name="DateUpdated" Type="datetime" Nullable="false" />
+    <Property Name="Receiver" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="Sender" Type="nvarchar" MaxLength="255" />
+    <Property Name="ReferenceId" Type="bigint" />
+  </EntityType>
+  <EntityType Name="Alerts">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="100" />
+    <Property Name="Hourly" Type="bit" Nullable="false" />
+    <Property Name="Daily" Type="bit" Nullable="false" />
+    <Property Name="Weekly" Type="bit" Nullable="false" />
+    <Property Name="Monthly" Type="bit" Nullable="false" />
+    <Property Name="Times" Type="int" Nullable="false" />
+    <Property Name="Configurable" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AlertSettings">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" />
+    <Property Name="AlertId" Type="int" />
+    <Property Name="Enabled" Type="bit" Nullable="false" />
+    <Property Name="DateUpdated" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Announcements">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="DateUpdated" Type="datetime" />
+    <Property Name="Sent" Type="bit" Nullable="false" />
+    <Property Name="CountryId" Type="int" />
+  </EntityType>
+  <EntityType Name="BlockedPeoples">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="BlockedId" Type="bigint" Nullable="false" />
+    <Property Name="BlockerId" Type="bigint" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Blog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="255" />
+    <Property Name="descriptions" Type="varchar" MaxLength="255" />
+    <Property Name="Images" Type="varbinary(max)" />
+    <Property Name="Name" Type="varchar" MaxLength="255" />
+    <Property Name="categories" Type="varchar" MaxLength="255" />
+    <Property Name="Createddate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Campaign">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="CountryId" Type="int" Nullable="false" />
+    <Property Name="CategoryId" Type="int" Nullable="false" />
+    <Property Name="Username" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Subject" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="DateUpdated" Type="datetime" />
+    <Property Name="Sent" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Communications">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Message" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Unread" Type="bit" Nullable="false" />
+    <Property Name="IsSent" Type="bit" Nullable="false" />
+    <Property Name="IsReply" Type="bit" Nullable="false" />
+    <Property Name="IsInitial" Type="bit" Nullable="false" />
+    <Property Name="SenderId" Type="bigint" Nullable="false" />
+    <Property Name="ReceiverId" Type="bigint" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="DateUpdated" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ConfigParameters">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" />
+    <Property Name="Value" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Connections">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="EmailAddress" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="255" />
+    <Property Name="DateUpdated" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="255" />
+    <Property Name="DateDeleted" Type="datetime" />
+    <Property Name="DeletedBy" Type="nvarchar" MaxLength="255" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="IsAccepted" Type="bit" Nullable="false" />
+    <Property Name="IsConnected" Type="bit" Nullable="false" />
+    <Property Name="IsBlocked" Type="bit" Nullable="false" />
+    <Property Name="Initiated" Type="bit" Nullable="false" />
+    <Property Name="Sent" Type="bit" Nullable="false" />
+    <Property Name="DateSent" Type="datetime" />
+    <Property Name="Unsubscribed" Type="bit" Nullable="false" />
+    <Property Name="LastReminderDate" Type="datetime" />
+    <Property Name="IsValid" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Dictionary">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Word" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Level" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DocumentType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DocName" Type="nvarchar" MaxLength="250" />
+    <Property Name="IsPause" Type="int" />
+    <Property Name="IsDelete" Type="int" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="EmailAddresses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FollowUps">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InterviewId" Type="bigint" />
+    <Property Name="NewDate" Type="datetime" />
+    <Property Name="NewTime" Type="nvarchar" MaxLength="50" />
+    <Property Name="Message" Type="nvarchar(max)" />
+    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="DateUpdated" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="Unread" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="FrequencyType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FrequencyName" Type="nvarchar" MaxLength="250" />
+    <Property Name="IsPause" Type="int" />
+    <Property Name="IsDelete" Type="int" />
+    <Property Name="CreatedBy" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Hits">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Url" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IPAddress" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="Browser" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InterviewDiscussions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InterviewId" Type="bigint" Nullable="false" />
+    <Property Name="Message" Type="nvarchar" MaxLength="350" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="DateUpdated" Type="datetime" Nullable="false" />
+    <Property Name="Unread" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="InterviewNotes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="InterviewId" Type="bigint" Nullable="false" />
+    <Property Name="Comments" Type="nvarchar(max)" />
+    <Property Name="DateUpdated" Type="datetime" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="NoteTaker" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Interviews">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TrackingId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="InterviewDate" Type="datetime" Nullable="false" />
+    <Property Name="InterviewTime" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Interviewer" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" />
+    <Property Name="Round" Type="int" Nullable="false" />
+    <Property Name="Status" Type="int" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="DateUpdated" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="255" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Invites">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Invited" Type="bit" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="MessageSID" Type="nvarchar(max)" />
+    <Property Name="Token" Type="uniqueidentifier" />
+    <Property Name="IsConnected" Type="bit" Nullable="false" />
+    <Property Name="DateInvited" Type="datetime" Nullable="false" />
+    <Property Name="LastReminderDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Jobs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EmployerId" Type="bigint" />
+    <Property Name="Title" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Summary" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Requirements" Type="nvarchar(max)" />
+    <Property Name="PublishedDate" Type="datetime" Nullable="false" />
+    <Property Name="ClosingDate" Type="datetime" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="DateUpdated" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="255" />
+    <Property Name="Keywords" Type="nvarchar" MaxLength="200" />
+    <Property Name="CountryId" Type="bigint" />
+    <Property Name="StateId" Type="bigint" />
+    <Property Name="City" Type="nvarchar" MaxLength="255" />
+    <Property Name="Zip" Type="varchar" MaxLength="15" />
+    <Property Name="IsFeaturedJob" Type="bit" />
+    <Property Name="IsSiteJob" Type="bit" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="IsPublished" Type="bit" />
+    <Property Name="PermaLink" Type="nvarchar" MaxLength="255" />
+    <Property Name="MinimumAge" Type="tinyint" />
+    <Property Name="MaximumAge" Type="tinyint" />
+    <Property Name="MinimumExperience" Type="tinyint" />
+    <Property Name="MaximumExperience" Type="tinyint" />
+    <Property Name="Currency" Type="nvarchar" MaxLength="100" />
+    <Property Name="MinimumSalary" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="MaximumSalary" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="EmploymentTypeId" Type="bigint" />
+    <Property Name="SpecializationId" Type="int" />
+    <Property Name="QualificationId" Type="bigint" />
+    <Property Name="Openings" Type="int" />
+    <Property Name="IsRejected" Type="bit" Nullable="false" />
+    <Property Name="IsPostedOnTwitter" Type="bit" Nullable="false" />
+    <Property Name="NewDescription" Type="nvarchar(max)" />
+    <Property Name="NewSummary" Type="nvarchar(max)" />
+    <Property Name="NewRequirements" Type="nvarchar(max)" />
+    <Property Name="NewEmploymentTypeId" Type="bigint" />
+    <Property Name="NewQualificationId" Type="bigint" />
+    <Property Name="NewMinimumAge" Type="tinyint" />
+    <Property Name="NewMaximumAge" Type="tinyint" />
+    <Property Name="NewMinimumExperience" Type="tinyint" />
+    <Property Name="NewMaximumExperience" Type="tinyint" />
+    <Property Name="NewCurrency" Type="nvarchar" MaxLength="100" />
+    <Property Name="NewMinimumSalary" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="NewMaximumSalary" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="InEditMode" Type="bit" Nullable="false" />
+    <Property Name="IsExpired" Type="bit" StoreGeneratedPattern="Computed" />
+    <Property Name="Distribute" Type="bit" Nullable="false" />
+    <Property Name="IsPaid" Type="bit" Nullable="false" />
+    <Property Name="PackageId" Type="int" />
+    <Property Name="Responsilibies" Type="nvarchar(max)" />
+    <Property Name="NewResponsilibies" Type="nvarchar(max)" />
+    <Property Name="NoticePeriod" Type="nvarchar" MaxLength="100" />
+    <Property Name="AdharNumber" Type="nvarchar" MaxLength="100" />
+    <Property Name="OptionalSkills" Type="nvarchar" MaxLength="100" />
+    <Property Name="DateOfBirth" Type="datetime" />
+    <Property Name="CompanyName1" Type="nvarchar(max)" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Joblisting.dbo.ListJob1C' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="ListJob1C">
+    <Key>
+      <PropertyRef Name="id" />
+      <PropertyRef Name="CompanyName" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="CompanyName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="AboutCompany" Type="varchar" MaxLength="500" />
+    <Property Name="job_id" Type="int" />
+    <Property Name="CompanyLogos" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Lists">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ParentList" Type="bigint" />
+    <Property Name="Text" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="Value" Type="nvarchar" MaxLength="255" />
+    <Property Name="IsDefault" Type="bit" Nullable="false" />
+    <Property Name="contientId" Type="int" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="10" />
+    <Property Name="IsDeveloped" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LoginHistories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="IPAddress" Type="nvarchar" MaxLength="15" />
+    <Property Name="LoginDateTime" Type="datetime" Nullable="false" />
+    <Property Name="Browser" Type="nvarchar" MaxLength="20" />
+    <Property Name="Comments" Type="nvarchar" MaxLength="100" />
+    <Property Name="MaxRows" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Messages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" />
+    <Property Name="SenderId" Type="bigint" Nullable="false" />
+    <Property Name="RecipientId" Type="bigint" Nullable="false" />
+    <Property Name="StartTimeStamp" Type="datetime" Nullable="false" />
+    <Property Name="EndTimeStamp" Type="datetime" />
+    <Property Name="TimeStamp" Type="datetime" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="Sent" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Newsletters">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Frequency" Type="int" Nullable="false" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="CountryId" Type="bigint" Nullable="false" />
+    <Property Name="StartDate" Type="datetime" Nullable="false" />
+    <Property Name="Content" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="DateUpdated" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="IsSent" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OnlineUsers">
+    <Key>
+      <PropertyRef Name="UniqueId" />
+    </Key>
+    <Property Name="UniqueId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id" Type="bigint" Nullable="false" />
+    <Property Name="OnlineSince" Type="datetime" Nullable="false" />
+    <Property Name="Status" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PeopleMatches">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MatchId" Type="bigint" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Photos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="Image" Type="varbinary(max)" Nullable="false" />
+    <Property Name="Type" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Area" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="DateUpdated" Type="datetime" Nullable="false" />
+    <Property Name="IsApproved" Type="bit" Nullable="false" />
+    <Property Name="IsRejected" Type="bit" Nullable="false" />
+    <Property Name="Reason" Type="nvarchar(max)" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="NewImage" Type="varbinary(max)" />
+    <Property Name="ImageSize" Type="nvarchar" MaxLength="10" />
+    <Property Name="NewImageSize" Type="nvarchar" MaxLength="10" />
+    <Property Name="InEditMode" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProfileViews">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProfileId" Type="bigint" Nullable="false" />
+    <Property Name="UserId" Type="bigint" />
+    <Property Name="DateUpdated" Type="datetime" Nullable="false" />
+    <Property Name="Unread" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Resumes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="SpecializationId" Type="int" />
+    <Property Name="CountryId" Type="bigint" />
+    <Property Name="StateId" Type="bigint" />
+    <Property Name="City" Type="nvarchar" MaxLength="150" />
+    <Property Name="Zip" Type="nvarchar" MaxLength="15" />
+    <Property Name="Experience" Type="tinyint" />
+    <Property Name="MinimumAge" Type="tinyint" />
+    <Property Name="MaximumAge" Type="tinyint" />
+    <Property Name="CurrentCurrency" Type="nvarchar" MaxLength="20" />
+    <Property Name="DrawingSalary" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="ExpectedCurrency" Type="nvarchar" MaxLength="20" />
+    <Property Name="ExpectedSalary" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Summary" Type="nvarchar(max)" />
+    <Property Name="AreaOfExpertise" Type="nvarchar(max)" />
+    <Property Name="ProfessionalExperience" Type="nvarchar(max)" />
+    <Property Name="TechnicalSkills" Type="nvarchar(max)" />
+    <Property Name="ManagementSkills" Type="nvarchar(max)" />
+    <Property Name="Education" Type="nvarchar(max)" />
+    <Property Name="Type" Type="nvarchar" MaxLength="5" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="255" />
+    <Property Name="DateUpdated" Type="datetime" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="FileName" Type="nvarchar" MaxLength="30" />
+    <Property Name="Content" Type="nvarchar(max)" />
+    <Property Name="QualificationId" Type="bigint" />
+    <Property Name="EmploymentTypeId" Type="bigint" />
+    <Property Name="ProfessionalCertification" Type="varchar" MaxLength="4000" />
+    <Property Name="ProfessionalAffiliation" Type="varchar" MaxLength="4000" />
+  </EntityType>
+  <EntityType Name="SitePages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PageUrl" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="PageTitle" Type="nvarchar" MaxLength="500" />
+    <Property Name="PageKeywords" Type="nvarchar" MaxLength="500" />
+    <Property Name="PageDescription" Type="nvarchar" MaxLength="500" />
+    <Property Name="CreateBy" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifyBy" Type="nvarchar" MaxLength="256" />
+    <Property Name="ModifyDate" Type="datetime" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="PageContent" Type="text" />
+    <Property Name="PageText" Type="nvarchar" MaxLength="50" />
+    <Property Name="PageId" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Joblisting.dbo.SMJobList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="SMJobList">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Email" />
+      <PropertyRef Name="EmailSent" />
+      <PropertyRef Name="Accepted" />
+      <PropertyRef Name="DateCreated" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CountryName" Type="nvarchar(max)" />
+    <Property Name="CompanyName" Type="nvarchar(max)" />
+    <Property Name="JobTitle" Type="nvarchar(max)" />
+    <Property Name="MSkills" Type="nvarchar(max)" />
+    <Property Name="JobDescription" Type="nvarchar(max)" />
+    <Property Name="JobResponsibility" Type="nvarchar(max)" />
+    <Property Name="JobRequirement" Type="nvarchar(max)" />
+    <Property Name="JobLink" Type="nvarchar(max)" />
+    <Property Name="ContactNo" Type="nvarchar" MaxLength="100" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="DateUpdated" Type="datetime" />
+    <Property Name="EmailSent" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="Accepted" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="JobSource" Type="nvarchar(max)" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="Source" Type="varchar(max)" />
+    <Property Name="Summary" Type="varchar(max)" />
+    <Property Name="Overview" Type="varchar(max)" />
+    <Property Name="PublishedDate" Type="varchar(max)" />
+    <Property Name="ClosingDate" Type="varchar(max)" />
+    <Property Name="EmployerId" Type="bigint" />
+    <Property Name="EmployerUrl" Type="varchar(max)" />
+    <Property Name="State" Type="varchar(max)" />
+    <Property Name="City" Type="varchar(max)" />
+    <Property Name="JobUrl" Type="varchar(max)" />
+    <Property Name="Category" Type="varchar(max)" />
+    <Property Name="Specialization" Type="varchar(max)" />
+    <Property Name="Qualification" Type="varchar(max)" />
+    <Property Name="MinimumExperience" Type="nvarchar" MaxLength="1500" />
+    <Property Name="MaximumExperienc" Type="varchar(max)" />
+    <Property Name="Currencye" Type="varchar(max)" />
+    <Property Name="MaximumExperience" Type="varchar(max)" />
+    <Property Name="MinimumSalary" Type="varchar(max)" />
+    <Property Name="MaximumSalary" Type="varchar(max)" />
+    <Property Name="JobType" Type="varchar(max)" />
+    <Property Name="CategoryId" Type="varchar(max)" />
+    <Property Name="SpecializationId" Type="varchar(max)" />
+    <Property Name="QualificationId" Type="varchar(max)" />
+    <Property Name="EmploymentTypeId" Type="varchar(max)" />
+    <Property Name="ImageType" Type="varchar(max)" />
+    <Property Name="Description" Type="varchar(max)" />
+    <Property Name="Currency" Type="varchar(max)" />
+    <Property Name="JobID" Type="varchar" MaxLength="27" />
+    <Property Name="Zip" Type="varchar" MaxLength="25" />
+    <Property Name="Status" Type="varchar" MaxLength="25" />
+    <Property Name="TotalViews" Type="bigint" />
+    <Property Name="JobLevel" Type="varchar" MaxLength="25" />
+    <Property Name="Image" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Specializations">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="500" />
+    <Property Name="Keywords" Type="nvarchar" MaxLength="500" />
+    <Property Name="Description" Type="nvarchar" MaxLength="500" />
+    <Property Name="Content" Type="nvarchar(max)" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="DateUpdated" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="250" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SubSpecializations">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="CategoryId" Type="int" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="DateUpdated" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="250" Nullable="false" />
+    <Property Name="Content" Type="nvarchar" MaxLength="500" />
+    <Property Name="Title" Type="nvarchar" MaxLength="500" />
+    <Property Name="Keywords" Type="nvarchar" MaxLength="500" />
+    <Property Name="Description" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="Tips">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="DateUpdated" Type="datetime" />
+  </EntityType>
+  <EntityType Name="TrackingDetails">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="CategoryId" Type="int" Nullable="false" />
+    <Property Name="SpecializationId" Type="int" Nullable="false" />
+    <Property Name="CountryId" Type="bigint" Nullable="false" />
+    <Property Name="StateId" Type="bigint" />
+    <Property Name="FileName" Type="nvarchar" MaxLength="30" />
+    <Property Name="Content" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Trackings">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ResumeId" Type="bigint" />
+    <Property Name="JobId" Type="bigint" />
+    <Property Name="JobseekerId" Type="bigint" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="Comments" Type="nvarchar(max)" />
+    <Property Name="Weightage" Type="decimal" Precision="6" Scale="2" />
+    <Property Name="DateUpdated" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="IsDownloaded" Type="bit" Nullable="false" />
+    <Property Name="IsMessageSent" Type="bit" Nullable="false" />
+    <Property Name="IsInvited" Type="bit" Nullable="false" />
+    <Property Name="IsViewed" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Unsubscriptions">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AlertId" Type="int" Nullable="false" />
+    <Property Name="Unsubscribed" Type="bit" Nullable="false" />
+    <Property Name="EmailAddress" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="DateUpdated" Type="datetime" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Joblisting.dbo.User_Certificate' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="User_Certificate">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="Certificate" Type="nvarchar" MaxLength="2000" />
+    <Property Name="Institute" Type="nvarchar" MaxLength="2000" />
+    <Property Name="Logo" Type="nvarchar(max)" />
+    <Property Name="LogoType" Type="nvarchar" MaxLength="50" />
+    <Property Name="UType" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Joblisting.dbo.User_Education' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="User_Education">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="UType" />
+    </Key>
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="Education" Type="nvarchar" MaxLength="2000" />
+    <Property Name="FromYr" Type="bigint" />
+    <Property Name="ToYr" Type="bigint" />
+    <Property Name="School" Type="nvarchar" MaxLength="2000" />
+    <Property Name="Grade" Type="nvarchar" MaxLength="20" />
+    <Property Name="UType" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Joblisting.dbo.User_Experience' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="User_Experience">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="UType" />
+    </Key>
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="Employer" Type="nvarchar" MaxLength="2000" />
+    <Property Name="Industry" Type="nvarchar" MaxLength="2000" />
+    <Property Name="Roles" Type="nvarchar" MaxLength="2000" />
+    <Property Name="FromMonth" Type="int" />
+    <Property Name="ToMonth" Type="int" />
+    <Property Name="FromYr" Type="bigint" />
+    <Property Name="ToYr" Type="bigint" />
+    <Property Name="Responsibilities" Type="nvarchar" MaxLength="2000" />
+    <Property Name="UType" Type="int" Nullable="false" />
+    <Property Name="CountryId" Type="nvarchar" MaxLength="2000" />
+    <Property Name="Category" Type="nvarchar" MaxLength="2000" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Joblisting.dbo.User_Skills' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="User_Skills">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="UType" />
+    </Key>
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="SkillName" Type="nvarchar" MaxLength="2000" />
+    <Property Name="Rating" Type="bigint" />
+    <Property Name="Percentage_Cal" Type="decimal" Precision="18" Scale="4" />
+    <Property Name="UType" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserAnnouncements">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AnnouncementId" Type="bigint" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="Unread" Type="bit" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="Sent" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserCampaign">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CampaignId" Type="bigint" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="Unread" Type="bit" Nullable="false" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="Sent" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserProfiles">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Type" Type="int" Nullable="false" />
+    <Property Name="Company" Type="nvarchar" MaxLength="100" />
+    <Property Name="Title" Type="nvarchar" MaxLength="100" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+    <Property Name="Summary" Type="nvarchar(max)" />
+    <Property Name="Address" Type="nvarchar" MaxLength="255" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="SpecializationId" Type="int" />
+    <Property Name="CountryId" Type="bigint" />
+    <Property Name="StateId" Type="bigint" />
+    <Property Name="City" Type="nvarchar" MaxLength="100" />
+    <Property Name="Zip" Type="nvarchar" MaxLength="15" />
+    <Property Name="PhoneCountryCode" Type="nvarchar" MaxLength="10" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="20" />
+    <Property Name="MobileCountryCode" Type="nvarchar" MaxLength="10" />
+    <Property Name="Mobile" Type="nvarchar" MaxLength="20" />
+    <Property Name="Gender" Type="nvarchar" MaxLength="15" />
+    <Property Name="RelationshipStatus" Type="int" />
+    <Property Name="Age" Type="tinyint" />
+    <Property Name="CurrentEmployer" Type="nvarchar" MaxLength="150" />
+    <Property Name="PreviousEmployer" Type="nvarchar" MaxLength="150" />
+    <Property Name="Experience" Type="tinyint" />
+    <Property Name="CurrentCurrency" Type="nvarchar" MaxLength="20" />
+    <Property Name="DrawingSalary" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="ExpectedCurrency" Type="nvarchar" MaxLength="20" />
+    <Property Name="ExpectedSalary" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="AreaOfExpertise" Type="nvarchar(max)" />
+    <Property Name="ProfessionalExperience" Type="nvarchar(max)" />
+    <Property Name="TechnicalSkills" Type="nvarchar(max)" />
+    <Property Name="ManagementSkills" Type="nvarchar(max)" />
+    <Property Name="Education" Type="nvarchar(max)" />
+    <Property Name="FileName" Type="nvarchar" MaxLength="30" />
+    <Property Name="Content" Type="nvarchar(max)" />
+    <Property Name="School" Type="nvarchar" MaxLength="150" />
+    <Property Name="University" Type="nvarchar" MaxLength="150" />
+    <Property Name="QualificationId" Type="bigint" />
+    <Property Name="EmploymentTypeId" Type="bigint" />
+    <Property Name="Certifications" Type="nvarchar(max)" />
+    <Property Name="Affiliations" Type="nvarchar(max)" />
+    <Property Name="Website" Type="nvarchar" MaxLength="100" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="DateUpdated" Type="datetime" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="DateDeleted" Type="datetime" />
+    <Property Name="DeletedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="IsFeatured" Type="bit" Nullable="false" />
+    <Property Name="PermaLink" Type="nvarchar" MaxLength="255" />
+    <Property Name="IsApproved" Type="bit" Nullable="false" />
+    <Property Name="Provider" Type="nvarchar" MaxLength="50" />
+    <Property Name="ProviderId" Type="nvarchar" MaxLength="30" />
+    <Property Name="ProviderUsername" Type="nvarchar" MaxLength="100" />
+    <Property Name="ProviderAccessToken" Type="nvarchar(max)" />
+    <Property Name="IsConfirmed" Type="bit" Nullable="false" />
+    <Property Name="NewUsername" Type="nvarchar" MaxLength="100" />
+    <Property Name="EmailCorrectionTries" Type="int" Nullable="false" />
+    <Property Name="IsValidUsername" Type="bit" Nullable="false" />
+    <Property Name="Facebook" Type="nvarchar(max)" />
+    <Property Name="Twitter" Type="nvarchar(max)" />
+    <Property Name="LinkedIn" Type="nvarchar(max)" />
+    <Property Name="GooglePlus" Type="nvarchar(max)" />
+    <Property Name="DateOfBirth" Type="nvarchar" MaxLength="10" />
+    <Property Name="ConfirmationToken" Type="nvarchar" MaxLength="10" />
+    <Property Name="IsBuild" Type="bit" Nullable="false" />
+    <Property Name="CurrentEmployerFromMonth" Type="nvarchar" MaxLength="4" />
+    <Property Name="CurrentEmployerFromYear" Type="nvarchar" MaxLength="8" />
+    <Property Name="PreviousEmployerFromMonth" Type="nvarchar" MaxLength="4" />
+    <Property Name="PreviousEmployerFromYear" Type="nvarchar" MaxLength="8" />
+    <Property Name="CurrentEmployerToMonth" Type="nvarchar" MaxLength="4" />
+    <Property Name="CurrentEmployerToYear" Type="nvarchar" MaxLength="8" />
+    <Property Name="PreviousEmployerToMonth" Type="nvarchar" MaxLength="4" />
+    <Property Name="PreviousEmployerToYear" Type="nvarchar" MaxLength="8" />
+  </EntityType>
+  <EntityType Name="webpages_Membership">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" />
+    <Property Name="ConfirmationToken" Type="nvarchar" MaxLength="128" />
+    <Property Name="IsConfirmed" Type="bit" />
+    <Property Name="LastPasswordFailureDate" Type="datetime" />
+    <Property Name="PasswordFailuresSinceLastSuccess" Type="int" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="PasswordChangedDate" Type="datetime" />
+    <Property Name="PasswordSalt" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="PasswordVerificationToken" Type="nvarchar" MaxLength="128" />
+    <Property Name="PasswordVerificationTokenExpirationDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="webpages_OAuthMembership">
+    <Key>
+      <PropertyRef Name="Provider" />
+      <PropertyRef Name="ProviderUserId" />
+    </Key>
+    <Property Name="Provider" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="ProviderUserId" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="webpages_Roles">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RoleName" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="webpages_UsersInRoles">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="bigint" Nullable="false" />
+    <Property Name="RoleId" Type="int" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Joblisting.dbo.WebsiteList' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="WebsiteList">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CountryName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="CompanyName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Website" Type="varchar" MaxLength="300" />
+    <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="CreatedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="DateCreated" Type="datetime" Nullable="false" />
+    <Property Name="UpdatedBy" Type="nvarchar" MaxLength="100" />
+    <Property Name="DateUpdated" Type="datetime" />
+    <Property Name="EmailSent" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="Accepted" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" />
+    <Property Name="CompanyLogo" Type="nvarchar(max)" />
+    <Property Name="Logo" Type="nvarchar(max)" />
+    <Property Name="Category" Type="varchar" MaxLength="255" />
+    <Property Name="companylogoslink" Type="varchar" MaxLength="300" />
+    <Property Name="Company_Mail" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <Association Name="FK_Activities_UserProfiles">
+    <End Role="UserProfiles" Type="Self.UserProfiles" Multiplicity="1" />
+    <End Role="Activities" Type="Self.Activities" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfiles">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Activities">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AlertHistories_Alerts">
+    <End Role="Alerts" Type="Self.Alerts" Multiplicity="1" />
+    <End Role="AlertHistories" Type="Self.AlertHistories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Alerts">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AlertHistories">
+        <PropertyRef Name="AlertId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AlertSettings_Alerts">
+    <End Role="Alerts" Type="Self.Alerts" Multiplicity="0..1" />
+    <End Role="AlertSettings" Type="Self.AlertSettings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Alerts">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AlertSettings">
+        <PropertyRef Name="AlertId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AlertSettings_UserProfiles">
+    <End Role="UserProfiles" Type="Self.UserProfiles" Multiplicity="0..1" />
+    <End Role="AlertSettings" Type="Self.AlertSettings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfiles">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="AlertSettings">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InterviewDiscussions_Interviews">
+    <End Role="Interviews" Type="Self.Interviews" Multiplicity="1" />
+    <End Role="InterviewDiscussions" Type="Self.InterviewDiscussions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Interviews">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InterviewDiscussions">
+        <PropertyRef Name="InterviewId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InterviewDiscussions_UserProfiles">
+    <End Role="UserProfiles" Type="Self.UserProfiles" Multiplicity="1" />
+    <End Role="InterviewDiscussions" Type="Self.InterviewDiscussions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfiles">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="InterviewDiscussions">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InterviewNotes_JobInterviews">
+    <End Role="Interviews" Type="Self.Interviews" Multiplicity="1" />
+    <End Role="InterviewNotes" Type="Self.InterviewNotes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Interviews">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="InterviewNotes">
+        <PropertyRef Name="InterviewId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_InterviewNotes_UserProfiles">
+    <End Role="UserProfiles" Type="Self.UserProfiles" Multiplicity="1" />
+    <End Role="InterviewNotes" Type="Self.InterviewNotes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfiles">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="InterviewNotes">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Interviews_Trackings">
+    <End Role="Trackings" Type="Self.Trackings" Multiplicity="1" />
+    <End Role="Interviews" Type="Self.Interviews" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Trackings">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Interviews">
+        <PropertyRef Name="TrackingId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Interviews_UserProfiles">
+    <End Role="UserProfiles" Type="Self.UserProfiles" Multiplicity="1" />
+    <End Role="Interviews" Type="Self.Interviews" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfiles">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Interviews">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Jobs_Countries">
+    <End Role="Lists" Type="Self.Lists" Multiplicity="0..1" />
+    <End Role="Jobs" Type="Self.Jobs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lists">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Jobs">
+        <PropertyRef Name="CountryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Jobs_Employers">
+    <End Role="UserProfiles" Type="Self.UserProfiles" Multiplicity="0..1" />
+    <End Role="Jobs" Type="Self.Jobs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfiles">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Jobs">
+        <PropertyRef Name="EmployerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Jobs_JobTypes">
+    <End Role="Lists" Type="Self.Lists" Multiplicity="0..1" />
+    <End Role="Jobs" Type="Self.Jobs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lists">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Jobs">
+        <PropertyRef Name="EmploymentTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Jobs_Qualifications">
+    <End Role="Lists" Type="Self.Lists" Multiplicity="0..1" />
+    <End Role="Jobs" Type="Self.Jobs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lists">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Jobs">
+        <PropertyRef Name="QualificationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Jobs_Specializations">
+    <End Role="Specializations" Type="Self.Specializations" Multiplicity="0..1" />
+    <End Role="Jobs" Type="Self.Jobs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Specializations">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Jobs">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Jobs_States">
+    <End Role="Lists" Type="Self.Lists" Multiplicity="0..1" />
+    <End Role="Jobs" Type="Self.Jobs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lists">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Jobs">
+        <PropertyRef Name="StateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Jobs_SubSpecializations">
+    <End Role="SubSpecializations" Type="Self.SubSpecializations" Multiplicity="0..1" />
+    <End Role="Jobs" Type="Self.Jobs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubSpecializations">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Jobs">
+        <PropertyRef Name="SpecializationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Messages_Recipients">
+    <End Role="UserProfiles" Type="Self.UserProfiles" Multiplicity="1" />
+    <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfiles">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Messages">
+        <PropertyRef Name="RecipientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Messages_Senders">
+    <End Role="UserProfiles" Type="Self.UserProfiles" Multiplicity="1" />
+    <End Role="Messages" Type="Self.Messages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfiles">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Messages">
+        <PropertyRef Name="SenderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Newsletters_Countries">
+    <End Role="Lists" Type="Self.Lists" Multiplicity="1" />
+    <End Role="Newsletters" Type="Self.Newsletters" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lists">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Newsletters">
+        <PropertyRef Name="CountryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OnlineUsers_UserProfiles">
+    <End Role="UserProfiles" Type="Self.UserProfiles" Multiplicity="1" />
+    <End Role="OnlineUsers" Type="Self.OnlineUsers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfiles">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="OnlineUsers">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Photos_UserProfiles">
+    <End Role="UserProfiles" Type="Self.UserProfiles" Multiplicity="1" />
+    <End Role="Photos" Type="Self.Photos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfiles">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Photos">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProfileViews_UserProfiles">
+    <End Role="UserProfiles" Type="Self.UserProfiles" Multiplicity="0..1" />
+    <End Role="ProfileViews" Type="Self.ProfileViews" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfiles">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="ProfileViews">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Resumes_Specializations">
+    <End Role="Specializations" Type="Self.Specializations" Multiplicity="0..1" />
+    <End Role="Resumes" Type="Self.Resumes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Specializations">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Resumes">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Resumes_SubSpecializations">
+    <End Role="SubSpecializations" Type="Self.SubSpecializations" Multiplicity="0..1" />
+    <End Role="Resumes" Type="Self.Resumes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubSpecializations">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Resumes">
+        <PropertyRef Name="SpecializationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ResumeTracking_Jobs">
+    <End Role="Jobs" Type="Self.Jobs" Multiplicity="0..1" />
+    <End Role="Trackings" Type="Self.Trackings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Jobs">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Trackings">
+        <PropertyRef Name="JobId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_RoleId">
+    <End Role="webpages_Roles" Type="Self.webpages_Roles" Multiplicity="1" />
+    <End Role="webpages_UsersInRoles" Type="Self.webpages_UsersInRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="webpages_Roles">
+        <PropertyRef Name="RoleId" />
+      </Principal>
+      <Dependent Role="webpages_UsersInRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TrackingDetails_Categories">
+    <End Role="Specializations" Type="Self.Specializations" Multiplicity="1" />
+    <End Role="TrackingDetails" Type="Self.TrackingDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Specializations">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TrackingDetails">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TrackingDetails_Countries">
+    <End Role="Lists" Type="Self.Lists" Multiplicity="1" />
+    <End Role="TrackingDetails" Type="Self.TrackingDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lists">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TrackingDetails">
+        <PropertyRef Name="CountryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TrackingDetails_Specializations">
+    <End Role="SubSpecializations" Type="Self.SubSpecializations" Multiplicity="1" />
+    <End Role="TrackingDetails" Type="Self.TrackingDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SubSpecializations">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TrackingDetails">
+        <PropertyRef Name="SpecializationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TrackingDetails_States">
+    <End Role="Lists" Type="Self.Lists" Multiplicity="0..1" />
+    <End Role="TrackingDetails" Type="Self.TrackingDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lists">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TrackingDetails">
+        <PropertyRef Name="StateId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TrackingDetails_Trackings">
+    <End Role="Trackings" Type="Self.Trackings" Multiplicity="1" />
+    <End Role="TrackingDetails" Type="Self.TrackingDetails" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Trackings">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TrackingDetails">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Trackings_Jobseekers">
+    <End Role="UserProfiles" Type="Self.UserProfiles" Multiplicity="0..1" />
+    <End Role="Trackings" Type="Self.Trackings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfiles">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Trackings">
+        <PropertyRef Name="JobseekerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Trackings_UserProfiles">
+    <End Role="UserProfiles" Type="Self.UserProfiles" Multiplicity="1" />
+    <End Role="Trackings" Type="Self.Trackings" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfiles">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Trackings">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Unsubscriptions_Alerts">
+    <End Role="Alerts" Type="Self.Alerts" Multiplicity="1" />
+    <End Role="Unsubscriptions" Type="Self.Unsubscriptions" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Alerts">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Unsubscriptions">
+        <PropertyRef Name="AlertId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Certificate_UserProfiles">
+    <End Role="UserProfiles" Type="Self.UserProfiles" Multiplicity="1" />
+    <End Role="User_Certificate" Type="Self.User_Certificate" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfiles">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="User_Certificate">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Education_UserProfiles">
+    <End Role="UserProfiles" Type="Self.UserProfiles" Multiplicity="1" />
+    <End Role="User_Education" Type="Self.User_Education" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfiles">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="User_Education">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Experience_UserProfiles">
+    <End Role="UserProfiles" Type="Self.UserProfiles" Multiplicity="1" />
+    <End Role="User_Experience" Type="Self.User_Experience" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfiles">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="User_Experience">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Skills_UserProfiles">
+    <End Role="UserProfiles" Type="Self.UserProfiles" Multiplicity="1" />
+    <End Role="User_Skills" Type="Self.User_Skills" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfiles">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="User_Skills">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserAnnouncements_Announcements">
+    <End Role="Announcements" Type="Self.Announcements" Multiplicity="1" />
+    <End Role="UserAnnouncements" Type="Self.UserAnnouncements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Announcements">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserAnnouncements">
+        <PropertyRef Name="AnnouncementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserAnnouncements_UserProfiles">
+    <End Role="UserProfiles" Type="Self.UserProfiles" Multiplicity="1" />
+    <End Role="UserAnnouncements" Type="Self.UserAnnouncements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfiles">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserAnnouncements">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserCampaign_Campaign">
+    <End Role="UserCampaign" Type="Self.UserCampaign" Multiplicity="1" />
+    <End Role="UserCampaign1" Type="Self.UserCampaign" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserCampaign">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserCampaign1">
+        <PropertyRef Name="CampaignId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserCampaign_UserProfiles">
+    <End Role="UserProfiles" Type="Self.UserProfiles" Multiplicity="1" />
+    <End Role="UserCampaign" Type="Self.UserCampaign" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfiles">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UserCampaign">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="usp_SitePages_byId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="pageId" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="usp_update_content" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="catid" Type="bigint" Mode="In" />
+    <Parameter Name="pgContent" Type="varchar" Mode="In" />
+    <Parameter Name="chkval" Type="varchar" Mode="In" />
+    <Parameter Name="seplz" Type="bigint" Mode="In" />
+  </Function>
+  <Function Name="usp_update_seo_Content" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="catid" Type="bigint" Mode="In" />
+    <Parameter Name="seplz" Type="bigint" Mode="In" />
+    <Parameter Name="pgTitle" Type="varchar" Mode="In" />
+    <Parameter Name="pgkey" Type="varchar" Mode="In" />
+    <Parameter Name="pgDescs" Type="varchar" Mode="In" />
+    <Parameter Name="chkval" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="USP_UpdateEmailAddress" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="OldEmail" Type="nvarchar" Mode="In" />
+    <Parameter Name="NewEmail" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="USP_ValidateEmails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Body" Type="nvarchar(max)" Mode="In" />
+    <Parameter Name="Delete" Type="bit" Mode="In" />
+  </Function>
+  <EntityContainer Name="JobPortalDBNewModelStoreContainer">
+    <EntitySet Name="Activities" EntityType="Self.Activities" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AlertHistories" EntityType="Self.AlertHistories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Alerts" EntityType="Self.Alerts" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AlertSettings" EntityType="Self.AlertSettings" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Announcements" EntityType="Self.Announcements" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BlockedPeoples" EntityType="Self.BlockedPeoples" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Blog" EntityType="Self.Blog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Campaign" EntityType="Self.Campaign" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Communications" EntityType="Self.Communications" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ConfigParameters" EntityType="Self.ConfigParameters" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Connections" EntityType="Self.Connections" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Dictionary" EntityType="Self.Dictionary" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DocumentType" EntityType="Self.DocumentType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EmailAddresses" EntityType="Self.EmailAddresses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FollowUps" EntityType="Self.FollowUps" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FrequencyType" EntityType="Self.FrequencyType" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Hits" EntityType="Self.Hits" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InterviewDiscussions" EntityType="Self.InterviewDiscussions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="InterviewNotes" EntityType="Self.InterviewNotes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Interviews" EntityType="Self.Interviews" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Invites" EntityType="Self.Invites" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Jobs" EntityType="Self.Jobs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Lists" EntityType="Self.Lists" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LoginHistories" EntityType="Self.LoginHistories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Messages" EntityType="Self.Messages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Newsletters" EntityType="Self.Newsletters" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OnlineUsers" EntityType="Self.OnlineUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PeopleMatches" EntityType="Self.PeopleMatches" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Photos" EntityType="Self.Photos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ProfileViews" EntityType="Self.ProfileViews" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Resumes" EntityType="Self.Resumes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SitePages" EntityType="Self.SitePages" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Specializations" EntityType="Self.Specializations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SubSpecializations" EntityType="Self.SubSpecializations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tips" EntityType="Self.Tips" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TrackingDetails" EntityType="Self.TrackingDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Trackings" EntityType="Self.Trackings" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Unsubscriptions" EntityType="Self.Unsubscriptions" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserAnnouncements" EntityType="Self.UserAnnouncements" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserCampaign" EntityType="Self.UserCampaign" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserProfiles" EntityType="Self.UserProfiles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="webpages_Membership" EntityType="Self.webpages_Membership" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="webpages_OAuthMembership" EntityType="Self.webpages_OAuthMembership" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="webpages_UsersInRoles" EntityType="Self.webpages_UsersInRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ListJob1C" EntityType="Self.ListJob1C" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [ListJob1C].[id] AS [id], 
+    [ListJob1C].[CompanyName] AS [CompanyName], 
+    [ListJob1C].[AboutCompany] AS [AboutCompany], 
+    [ListJob1C].[job_id] AS [job_id], 
+    [ListJob1C].[CompanyLogos] AS [CompanyLogos]
+    FROM [dbo].[ListJob1C] AS [ListJob1C]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="SMJobList" EntityType="Self.SMJobList" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [SMJobList].[Id] AS [Id], 
+    [SMJobList].[CountryName] AS [CountryName], 
+    [SMJobList].[CompanyName] AS [CompanyName], 
+    [SMJobList].[JobTitle] AS [JobTitle], 
+    [SMJobList].[MSkills] AS [MSkills], 
+    [SMJobList].[JobDescription] AS [JobDescription], 
+    [SMJobList].[JobResponsibility] AS [JobResponsibility], 
+    [SMJobList].[JobRequirement] AS [JobRequirement], 
+    [SMJobList].[JobLink] AS [JobLink], 
+    [SMJobList].[ContactNo] AS [ContactNo], 
+    [SMJobList].[Email] AS [Email], 
+    [SMJobList].[CreatedBy] AS [CreatedBy], 
+    [SMJobList].[DateCreated] AS [DateCreated], 
+    [SMJobList].[UpdatedBy] AS [UpdatedBy], 
+    [SMJobList].[DateUpdated] AS [DateUpdated], 
+    [SMJobList].[EmailSent] AS [EmailSent], 
+    [SMJobList].[Accepted] AS [Accepted], 
+    [SMJobList].[JobSource] AS [JobSource], 
+    [SMJobList].[Name] AS [Name], 
+    [SMJobList].[Source] AS [Source], 
+    [SMJobList].[Summary] AS [Summary], 
+    [SMJobList].[Overview] AS [Overview], 
+    [SMJobList].[PublishedDate] AS [PublishedDate], 
+    [SMJobList].[ClosingDate] AS [ClosingDate], 
+    [SMJobList].[EmployerId] AS [EmployerId], 
+    [SMJobList].[EmployerUrl] AS [EmployerUrl], 
+    [SMJobList].[State] AS [State], 
+    [SMJobList].[City] AS [City], 
+    [SMJobList].[JobUrl] AS [JobUrl], 
+    [SMJobList].[Category] AS [Category], 
+    [SMJobList].[Specialization] AS [Specialization], 
+    [SMJobList].[Qualification] AS [Qualification], 
+    [SMJobList].[MinimumExperience] AS [MinimumExperience], 
+    [SMJobList].[MaximumExperienc] AS [MaximumExperienc], 
+    [SMJobList].[Currencye] AS [Currencye], 
+    [SMJobList].[MaximumExperience] AS [MaximumExperience], 
+    [SMJobList].[MinimumSalary] AS [MinimumSalary], 
+    [SMJobList].[MaximumSalary] AS [MaximumSalary], 
+    [SMJobList].[JobType] AS [JobType], 
+    [SMJobList].[CategoryId] AS [CategoryId], 
+    [SMJobList].[SpecializationId] AS [SpecializationId], 
+    [SMJobList].[QualificationId] AS [QualificationId], 
+    [SMJobList].[EmploymentTypeId] AS [EmploymentTypeId], 
+    [SMJobList].[ImageType] AS [ImageType], 
+    [SMJobList].[Description] AS [Description], 
+    [SMJobList].[Currency] AS [Currency], 
+    [SMJobList].[JobID] AS [JobID], 
+    [SMJobList].[Zip] AS [Zip], 
+    [SMJobList].[Status] AS [Status], 
+    [SMJobList].[TotalViews] AS [TotalViews], 
+    [SMJobList].[JobLevel] AS [JobLevel], 
+    [SMJobList].[Image] AS [Image]
+    FROM [dbo].[SMJobList] AS [SMJobList]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="User_Certificate" EntityType="Self.User_Certificate" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [User_Certificate].[UserId] AS [UserId], 
+    [User_Certificate].[Certificate] AS [Certificate], 
+    [User_Certificate].[Institute] AS [Institute], 
+    [User_Certificate].[Logo] AS [Logo], 
+    [User_Certificate].[LogoType] AS [LogoType], 
+    [User_Certificate].[UType] AS [UType]
+    FROM [dbo].[User_Certificate] AS [User_Certificate]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="User_Education" EntityType="Self.User_Education" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [User_Education].[UserId] AS [UserId], 
+    [User_Education].[Education] AS [Education], 
+    [User_Education].[FromYr] AS [FromYr], 
+    [User_Education].[ToYr] AS [ToYr], 
+    [User_Education].[School] AS [School], 
+    [User_Education].[Grade] AS [Grade], 
+    [User_Education].[UType] AS [UType]
+    FROM [dbo].[User_Education] AS [User_Education]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="User_Experience" EntityType="Self.User_Experience" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [User_Experience].[UserId] AS [UserId], 
+    [User_Experience].[Employer] AS [Employer], 
+    [User_Experience].[Industry] AS [Industry], 
+    [User_Experience].[Roles] AS [Roles], 
+    [User_Experience].[FromMonth] AS [FromMonth], 
+    [User_Experience].[ToMonth] AS [ToMonth], 
+    [User_Experience].[FromYr] AS [FromYr], 
+    [User_Experience].[ToYr] AS [ToYr], 
+    [User_Experience].[Responsibilities] AS [Responsibilities], 
+    [User_Experience].[UType] AS [UType], 
+    [User_Experience].[CountryId] AS [CountryId], 
+    [User_Experience].[Category] AS [Category]
+    FROM [dbo].[User_Experience] AS [User_Experience]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="User_Skills" EntityType="Self.User_Skills" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [User_Skills].[UserId] AS [UserId], 
+    [User_Skills].[SkillName] AS [SkillName], 
+    [User_Skills].[Rating] AS [Rating], 
+    [User_Skills].[Percentage_Cal] AS [Percentage_Cal], 
+    [User_Skills].[UType] AS [UType]
+    FROM [dbo].[User_Skills] AS [User_Skills]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="WebsiteList" EntityType="Self.WebsiteList" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [WebsiteList].[Id] AS [Id], 
+    [WebsiteList].[CountryName] AS [CountryName], 
+    [WebsiteList].[CompanyName] AS [CompanyName], 
+    [WebsiteList].[Website] AS [Website], 
+    [WebsiteList].[Email] AS [Email], 
+    [WebsiteList].[CreatedBy] AS [CreatedBy], 
+    [WebsiteList].[DateCreated] AS [DateCreated], 
+    [WebsiteList].[UpdatedBy] AS [UpdatedBy], 
+    [WebsiteList].[DateUpdated] AS [DateUpdated], 
+    [WebsiteList].[EmailSent] AS [EmailSent], 
+    [WebsiteList].[Accepted] AS [Accepted], 
+    [WebsiteList].[Name] AS [Name], 
+    [WebsiteList].[CompanyLogo] AS [CompanyLogo], 
+    [WebsiteList].[Logo] AS [Logo], 
+    [WebsiteList].[Category] AS [Category], 
+    [WebsiteList].[companylogoslink] AS [companylogoslink], 
+    [WebsiteList].[Company_Mail] AS [Company_Mail]
+    FROM [dbo].[WebsiteList] AS [WebsiteList]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Activities_UserProfiles" Association="Self.FK_Activities_UserProfiles">
+      <End Role="UserProfiles" EntitySet="UserProfiles" />
+      <End Role="Activities" EntitySet="Activities" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlertHistories_Alerts" Association="Self.FK_AlertHistories_Alerts">
+      <End Role="Alerts" EntitySet="Alerts" />
+      <End Role="AlertHistories" EntitySet="AlertHistories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlertSettings_Alerts" Association="Self.FK_AlertSettings_Alerts">
+      <End Role="Alerts" EntitySet="Alerts" />
+      <End Role="AlertSettings" EntitySet="AlertSettings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AlertSettings_UserProfiles" Association="Self.FK_AlertSettings_UserProfiles">
+      <End Role="UserProfiles" EntitySet="UserProfiles" />
+      <End Role="AlertSettings" EntitySet="AlertSettings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InterviewDiscussions_Interviews" Association="Self.FK_InterviewDiscussions_Interviews">
+      <End Role="Interviews" EntitySet="Interviews" />
+      <End Role="InterviewDiscussions" EntitySet="InterviewDiscussions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InterviewDiscussions_UserProfiles" Association="Self.FK_InterviewDiscussions_UserProfiles">
+      <End Role="UserProfiles" EntitySet="UserProfiles" />
+      <End Role="InterviewDiscussions" EntitySet="InterviewDiscussions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InterviewNotes_JobInterviews" Association="Self.FK_InterviewNotes_JobInterviews">
+      <End Role="Interviews" EntitySet="Interviews" />
+      <End Role="InterviewNotes" EntitySet="InterviewNotes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_InterviewNotes_UserProfiles" Association="Self.FK_InterviewNotes_UserProfiles">
+      <End Role="UserProfiles" EntitySet="UserProfiles" />
+      <End Role="InterviewNotes" EntitySet="InterviewNotes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Interviews_Trackings" Association="Self.FK_Interviews_Trackings">
+      <End Role="Trackings" EntitySet="Trackings" />
+      <End Role="Interviews" EntitySet="Interviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Interviews_UserProfiles" Association="Self.FK_Interviews_UserProfiles">
+      <End Role="UserProfiles" EntitySet="UserProfiles" />
+      <End Role="Interviews" EntitySet="Interviews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Jobs_Countries" Association="Self.FK_Jobs_Countries">
+      <End Role="Lists" EntitySet="Lists" />
+      <End Role="Jobs" EntitySet="Jobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Jobs_Employers" Association="Self.FK_Jobs_Employers">
+      <End Role="UserProfiles" EntitySet="UserProfiles" />
+      <End Role="Jobs" EntitySet="Jobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Jobs_JobTypes" Association="Self.FK_Jobs_JobTypes">
+      <End Role="Lists" EntitySet="Lists" />
+      <End Role="Jobs" EntitySet="Jobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Jobs_Qualifications" Association="Self.FK_Jobs_Qualifications">
+      <End Role="Lists" EntitySet="Lists" />
+      <End Role="Jobs" EntitySet="Jobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Jobs_Specializations" Association="Self.FK_Jobs_Specializations">
+      <End Role="Specializations" EntitySet="Specializations" />
+      <End Role="Jobs" EntitySet="Jobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Jobs_States" Association="Self.FK_Jobs_States">
+      <End Role="Lists" EntitySet="Lists" />
+      <End Role="Jobs" EntitySet="Jobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Jobs_SubSpecializations" Association="Self.FK_Jobs_SubSpecializations">
+      <End Role="SubSpecializations" EntitySet="SubSpecializations" />
+      <End Role="Jobs" EntitySet="Jobs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Messages_Recipients" Association="Self.FK_Messages_Recipients">
+      <End Role="UserProfiles" EntitySet="UserProfiles" />
+      <End Role="Messages" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Messages_Senders" Association="Self.FK_Messages_Senders">
+      <End Role="UserProfiles" EntitySet="UserProfiles" />
+      <End Role="Messages" EntitySet="Messages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Newsletters_Countries" Association="Self.FK_Newsletters_Countries">
+      <End Role="Lists" EntitySet="Lists" />
+      <End Role="Newsletters" EntitySet="Newsletters" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OnlineUsers_UserProfiles" Association="Self.FK_OnlineUsers_UserProfiles">
+      <End Role="UserProfiles" EntitySet="UserProfiles" />
+      <End Role="OnlineUsers" EntitySet="OnlineUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Photos_UserProfiles" Association="Self.FK_Photos_UserProfiles">
+      <End Role="UserProfiles" EntitySet="UserProfiles" />
+      <End Role="Photos" EntitySet="Photos" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfileViews_UserProfiles" Association="Self.FK_ProfileViews_UserProfiles">
+      <End Role="UserProfiles" EntitySet="UserProfiles" />
+      <End Role="ProfileViews" EntitySet="ProfileViews" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Resumes_Specializations" Association="Self.FK_Resumes_Specializations">
+      <End Role="Specializations" EntitySet="Specializations" />
+      <End Role="Resumes" EntitySet="Resumes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Resumes_SubSpecializations" Association="Self.FK_Resumes_SubSpecializations">
+      <End Role="SubSpecializations" EntitySet="SubSpecializations" />
+      <End Role="Resumes" EntitySet="Resumes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ResumeTracking_Jobs" Association="Self.FK_ResumeTracking_Jobs">
+      <End Role="Jobs" EntitySet="Jobs" />
+      <End Role="Trackings" EntitySet="Trackings" />
+    </AssociationSet>
+    <AssociationSet Name="fk_RoleId" Association="Self.fk_RoleId">
+      <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+      <End Role="webpages_UsersInRoles" EntitySet="webpages_UsersInRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TrackingDetails_Categories" Association="Self.FK_TrackingDetails_Categories">
+      <End Role="Specializations" EntitySet="Specializations" />
+      <End Role="TrackingDetails" EntitySet="TrackingDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TrackingDetails_Countries" Association="Self.FK_TrackingDetails_Countries">
+      <End Role="Lists" EntitySet="Lists" />
+      <End Role="TrackingDetails" EntitySet="TrackingDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TrackingDetails_Specializations" Association="Self.FK_TrackingDetails_Specializations">
+      <End Role="SubSpecializations" EntitySet="SubSpecializations" />
+      <End Role="TrackingDetails" EntitySet="TrackingDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TrackingDetails_States" Association="Self.FK_TrackingDetails_States">
+      <End Role="Lists" EntitySet="Lists" />
+      <End Role="TrackingDetails" EntitySet="TrackingDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TrackingDetails_Trackings" Association="Self.FK_TrackingDetails_Trackings">
+      <End Role="Trackings" EntitySet="Trackings" />
+      <End Role="TrackingDetails" EntitySet="TrackingDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Trackings_Jobseekers" Association="Self.FK_Trackings_Jobseekers">
+      <End Role="UserProfiles" EntitySet="UserProfiles" />
+      <End Role="Trackings" EntitySet="Trackings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Trackings_UserProfiles" Association="Self.FK_Trackings_UserProfiles">
+      <End Role="UserProfiles" EntitySet="UserProfiles" />
+      <End Role="Trackings" EntitySet="Trackings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Unsubscriptions_Alerts" Association="Self.FK_Unsubscriptions_Alerts">
+      <End Role="Alerts" EntitySet="Alerts" />
+      <End Role="Unsubscriptions" EntitySet="Unsubscriptions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Certificate_UserProfiles" Association="Self.FK_User_Certificate_UserProfiles">
+      <End Role="UserProfiles" EntitySet="UserProfiles" />
+      <End Role="User_Certificate" EntitySet="User_Certificate" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Education_UserProfiles" Association="Self.FK_User_Education_UserProfiles">
+      <End Role="UserProfiles" EntitySet="UserProfiles" />
+      <End Role="User_Education" EntitySet="User_Education" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Experience_UserProfiles" Association="Self.FK_User_Experience_UserProfiles">
+      <End Role="UserProfiles" EntitySet="UserProfiles" />
+      <End Role="User_Experience" EntitySet="User_Experience" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Skills_UserProfiles" Association="Self.FK_User_Skills_UserProfiles">
+      <End Role="UserProfiles" EntitySet="UserProfiles" />
+      <End Role="User_Skills" EntitySet="User_Skills" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserAnnouncements_Announcements" Association="Self.FK_UserAnnouncements_Announcements">
+      <End Role="Announcements" EntitySet="Announcements" />
+      <End Role="UserAnnouncements" EntitySet="UserAnnouncements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserAnnouncements_UserProfiles" Association="Self.FK_UserAnnouncements_UserProfiles">
+      <End Role="UserProfiles" EntitySet="UserProfiles" />
+      <End Role="UserAnnouncements" EntitySet="UserAnnouncements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserCampaign_Campaign" Association="Self.FK_UserCampaign_Campaign">
+      <End Role="UserCampaign" EntitySet="UserCampaign" />
+      <End Role="UserCampaign1" EntitySet="UserCampaign" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserCampaign_UserProfiles" Association="Self.FK_UserCampaign_UserProfiles">
+      <End Role="UserProfiles" EntitySet="UserProfiles" />
+      <End Role="UserCampaign" EntitySet="UserCampaign" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
