@@ -29,6 +29,7 @@ jobs:
         run: |
           dir
           cd JobPortal.Web 
+          dotnet restore
           dotnet build JobPortal.Web.csproj
         
       # - name: Publish to folder
