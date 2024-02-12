@@ -28,6 +28,9 @@ jobs:
       - name: install dependencies
         run: dotnet restore ./JobPortal.Web/JobPortal.Web.csproj
 
+      - name: install wasm-tools-net6
+        run: dotnet workload install wasm-tools-net6
+
       - name: Build
         run: dotnet build ./JobPortal.Web/JobPortal.Web.csproj --configuration Release --no-restore
 
