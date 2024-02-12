@@ -36,7 +36,7 @@ jobs:
         run: |
           cd JobPortal.Web
           dir
-          msbuild /nologo /verbosity:q /t:Build /p:OutDir="\pipelinePreDeployCopyAllFilesToOneFolder\" JobPortal.Web.csproj
+          msbuild /nologo /verbosity:q /t:Build /t:Build /p:_PackageTempDir="\published\" JobPortal.Web.csproj
           dir
       - name: List all Directories 
         run: |
