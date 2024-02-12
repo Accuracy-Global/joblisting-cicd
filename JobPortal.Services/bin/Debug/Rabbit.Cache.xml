@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Rabbit.Cache</name>
+    </assembly>
+    <members>
+        <member name="T:Rabbit.Cache.CacheExtensions">
+            <summary>
+            Provide extension methods for ICache instances
+            </summary>
+        </member>
+        <member name="M:Rabbit.Cache.CacheExtensions.GetOrExecute``1(Rabbit.Cache.ICache,System.String,System.Func{``0})">
+            <summary>
+            Try to get item from the cache by its key.
+            If the returning value is default one, the function will be executed.
+            Otherwise, return value from the cache.
+            </summary>
+        </member>
+        <member name="T:Rabbit.Cache.ICache">
+            <summary>
+            Cache contracts
+            </summary>
+        </member>
+        <member name="M:Rabbit.Cache.ICache.Get``1(System.String)">
+            <summary>
+            Get from cache by given key
+            </summary>
+        </member>
+        <member name="M:Rabbit.Cache.ICache.Set``1(System.String,``0)">
+            <summary>
+            Put a value into the cache
+            </summary>
+        </member>
+        <member name="M:Rabbit.Cache.ICache.Set``1(System.String,``0,System.TimeSpan)">
+            <summary>
+            Put a value into the cache
+            </summary>
+        </member>
+        <member name="M:Rabbit.Cache.ICache.Remove(System.String)">
+            <summary>
+            Remove from cache by a given key
+            </summary>
+        </member>
+        <member name="T:Rabbit.Cache.ICacheFactory">
+            <summary>
+            ICache factory contracts
+            </summary>
+        </member>
+        <member name="M:Rabbit.Cache.ICacheFactory.Create(System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Create new instance of ICache with optional parameters
+            </summary>
+        </member>
+        <member name="T:Rabbit.Cache.Impl.InMemoryCache">
+            <summary>
+            Wrapper class around MemoryCache
+            </summary>
+        </member>
+        <member name="M:Rabbit.Cache.Impl.InMemoryCache.#ctor">
+            <summary>
+            Instantiate new instance using MemoryCache.Default
+            </summary>
+        </member>
+        <member name="M:Rabbit.Cache.Impl.InMemoryCache.#ctor(System.Runtime.Caching.MemoryCache)">
+            <summary>
+            Instantiate new instance with a custom MemoryCache
+            </summary>
+        </member>
+        <member name="T:Rabbit.Cache.Impl.InMemoryCacheFactory">
+            <summary>
+            Instantiate new InMemoryCache instance
+            </summary>
+        </member>
+    </members>
+</doc>

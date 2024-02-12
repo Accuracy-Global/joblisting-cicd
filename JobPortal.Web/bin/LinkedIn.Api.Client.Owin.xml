@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>LinkedIn.Api.Client.Owin</name>
+    </assembly>
+    <members>
+        <member name="T:LinkedIn.Api.Client.Owin.LinkedInApiClient">
+            <summary>
+            Represents the context for calling OAuth-based REST APIs of LinkedIn.
+            </summary>
+        </member>
+        <member name="M:LinkedIn.Api.Client.Owin.LinkedInApiClient.#ctor(Microsoft.Owin.IOwinRequest,System.String)">
+            <summary>
+            Creates an instance of the <see cref="T:LinkedIn.Api.Client.Owin.LinkedInApiClient"/> class.
+            </summary>
+            <param name="request">The <see cref="T:Microsoft.Owin.IOwinRequest"/> object which is used by the context to send REST-based requests to LinkedIn API server.</param>
+            <param name="accessToken">The access token of the user on whose behalf the context can be used to make REST calls.</param>
+        </member>
+        <member name="M:LinkedIn.Api.Client.Owin.LinkedInApiClient.ExecuteAsync(System.String)">
+            <summary>
+            Executes a LinkedIn REST API call.
+            </summary>
+            <param name="endpoint">The LinkedIn API endpoint.</param>
+            <returns>Returns the result of the API call as an instance of the <see cref="T:Newtonsoft.Json.Linq.JObject"/> class.</returns>
+        </member>
+        <member name="M:LinkedIn.Api.Client.Owin.LinkedInApiClient.Dispose">
+            <summary>
+            Disposes the resources of the context.
+            </summary>
+        </member>
+    </members>
+</doc>
