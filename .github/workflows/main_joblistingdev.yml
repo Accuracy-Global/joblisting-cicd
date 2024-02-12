@@ -32,11 +32,11 @@ jobs:
       # - name: install wasm-tools-net6
       #   run: dotnet workload install wasm-tools-net6
 
-      - name: Setup NuGet
-        uses: NuGet/setup-nuget@v1.0.5
+      # - name: Setup NuGet
+      #   uses: NuGet/setup-nuget@v1.0.5
 
-      - name: Restore NuGet packages
-        run: nuget restore
+      # - name: Restore NuGet packages
+      #   run: nuget restore
 
       - name: Build
         run: dotnet build ./JobPortal.Web/JobPortal.Web.csproj --configuration Release --no-restore
