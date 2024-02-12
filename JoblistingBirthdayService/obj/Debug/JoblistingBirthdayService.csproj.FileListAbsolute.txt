@@ -1,0 +1,237 @@
+C:\Workspace\JobPortal\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.exe.config
+C:\Workspace\JobPortal\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.exe
+C:\Workspace\JobPortal\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.pdb
+C:\Workspace\JobPortal\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.ProjectInstaller.resources
+C:\Workspace\JobPortal\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.GenerateResource.Cache
+C:\Workspace\JobPortal\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.exe
+C:\Workspace\JobPortal\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.pdb
+C:\Workspace\JobPortal\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csprojResolveAssemblyReference.cache
+D:\JOBLISTING\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.exe.config
+D:\JOBLISTING\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.exe
+D:\JOBLISTING\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.pdb
+D:\JOBLISTING\Joblisting\JobPortal\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csprojAssemblyReference.cache
+D:\JOBLISTING\Joblisting\JobPortal\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.ProjectInstaller.resources
+D:\JOBLISTING\Joblisting\JobPortal\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.GenerateResource.cache
+D:\JOBLISTING\Joblisting\JobPortal\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.CoreCompileInputs.cache
+D:\JOBLISTING\Joblisting\JobPortal\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.exe
+D:\JOBLISTING\Joblisting\JobPortal\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.pdb
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.exe.config
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.exe
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.pdb
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\BouncyCastle.Crypto.dll
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\MailKit.dll
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\MimeKit.dll
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\RestSharp.dll
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\System.Buffers.dll
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\BouncyCastle.Crypto.xml
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\MailKit.pdb
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\MailKit.xml
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\MimeKit.pdb
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\MimeKit.xml
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\RestSharp.xml
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\System.Buffers.xml
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csprojAssemblyReference.cache
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.ProjectInstaller.resources
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.GenerateResource.cache
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.CoreCompileInputs.cache
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.CopyComplete
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.exe
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.pdb
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.exe.config
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.exe
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.pdb
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\BouncyCastle.Crypto.dll
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\MailKit.dll
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\MimeKit.dll
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\RestSharp.dll
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\System.Buffers.dll
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\BouncyCastle.Crypto.xml
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\MailKit.pdb
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\MailKit.xml
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\MimeKit.pdb
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\MimeKit.xml
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\RestSharp.xml
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingBirthdayService\bin\Debug\System.Buffers.xml
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csprojAssemblyReference.cache
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.ProjectInstaller.resources
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.GenerateResource.cache
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.CoreCompileInputs.cache
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.CopyComplete
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.exe
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.pdb
+D:\Shalini\Repos\Joblisting\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.exe.config
+D:\Shalini\Repos\Joblisting\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.exe
+D:\Shalini\Repos\Joblisting\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.pdb
+D:\Shalini\Repos\Joblisting\JoblistingBirthdayService\bin\Debug\BouncyCastle.Crypto.dll
+D:\Shalini\Repos\Joblisting\JoblistingBirthdayService\bin\Debug\MailKit.dll
+D:\Shalini\Repos\Joblisting\JoblistingBirthdayService\bin\Debug\MimeKit.dll
+D:\Shalini\Repos\Joblisting\JoblistingBirthdayService\bin\Debug\RestSharp.dll
+D:\Shalini\Repos\Joblisting\JoblistingBirthdayService\bin\Debug\System.Buffers.dll
+D:\Shalini\Repos\Joblisting\JoblistingBirthdayService\bin\Debug\BouncyCastle.Crypto.xml
+D:\Shalini\Repos\Joblisting\JoblistingBirthdayService\bin\Debug\MailKit.pdb
+D:\Shalini\Repos\Joblisting\JoblistingBirthdayService\bin\Debug\MailKit.xml
+D:\Shalini\Repos\Joblisting\JoblistingBirthdayService\bin\Debug\MimeKit.pdb
+D:\Shalini\Repos\Joblisting\JoblistingBirthdayService\bin\Debug\MimeKit.xml
+D:\Shalini\Repos\Joblisting\JoblistingBirthdayService\bin\Debug\RestSharp.xml
+D:\Shalini\Repos\Joblisting\JoblistingBirthdayService\bin\Debug\System.Buffers.xml
+D:\Shalini\Repos\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csprojAssemblyReference.cache
+D:\Shalini\Repos\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.ProjectInstaller.resources
+D:\Shalini\Repos\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.GenerateResource.cache
+D:\Shalini\Repos\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.CoreCompileInputs.cache
+D:\Shalini\Repos\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.CopyComplete
+D:\Shalini\Repos\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.exe
+D:\Shalini\Repos\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.pdb
+D:\Dileep\Repos1\Joblisting\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.exe.config
+D:\Dileep\Repos1\Joblisting\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.exe
+D:\Dileep\Repos1\Joblisting\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.pdb
+D:\Dileep\Repos1\Joblisting\JoblistingBirthdayService\bin\Debug\BouncyCastle.Crypto.dll
+D:\Dileep\Repos1\Joblisting\JoblistingBirthdayService\bin\Debug\MailKit.dll
+D:\Dileep\Repos1\Joblisting\JoblistingBirthdayService\bin\Debug\MimeKit.dll
+D:\Dileep\Repos1\Joblisting\JoblistingBirthdayService\bin\Debug\RestSharp.dll
+D:\Dileep\Repos1\Joblisting\JoblistingBirthdayService\bin\Debug\System.Buffers.dll
+D:\Dileep\Repos1\Joblisting\JoblistingBirthdayService\bin\Debug\BouncyCastle.Crypto.xml
+D:\Dileep\Repos1\Joblisting\JoblistingBirthdayService\bin\Debug\MailKit.pdb
+D:\Dileep\Repos1\Joblisting\JoblistingBirthdayService\bin\Debug\MailKit.xml
+D:\Dileep\Repos1\Joblisting\JoblistingBirthdayService\bin\Debug\MimeKit.pdb
+D:\Dileep\Repos1\Joblisting\JoblistingBirthdayService\bin\Debug\MimeKit.xml
+D:\Dileep\Repos1\Joblisting\JoblistingBirthdayService\bin\Debug\RestSharp.xml
+D:\Dileep\Repos1\Joblisting\JoblistingBirthdayService\bin\Debug\System.Buffers.xml
+D:\Dileep\Repos1\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csprojAssemblyReference.cache
+D:\Dileep\Repos1\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.ProjectInstaller.resources
+D:\Dileep\Repos1\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.GenerateResource.cache
+D:\Dileep\Repos1\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.CoreCompileInputs.cache
+D:\Dileep\Repos1\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.CopyComplete
+D:\Dileep\Repos1\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.exe
+D:\Dileep\Repos1\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.pdb
+D:\Hamid\New1\Joblisting\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.exe.config
+D:\Hamid\New1\Joblisting\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.exe
+D:\Hamid\New1\Joblisting\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.pdb
+D:\Hamid\New1\Joblisting\JoblistingBirthdayService\bin\Debug\BouncyCastle.Crypto.dll
+D:\Hamid\New1\Joblisting\JoblistingBirthdayService\bin\Debug\MailKit.dll
+D:\Hamid\New1\Joblisting\JoblistingBirthdayService\bin\Debug\MimeKit.dll
+D:\Hamid\New1\Joblisting\JoblistingBirthdayService\bin\Debug\RestSharp.dll
+D:\Hamid\New1\Joblisting\JoblistingBirthdayService\bin\Debug\System.Buffers.dll
+D:\Hamid\New1\Joblisting\JoblistingBirthdayService\bin\Debug\BouncyCastle.Crypto.xml
+D:\Hamid\New1\Joblisting\JoblistingBirthdayService\bin\Debug\MailKit.pdb
+D:\Hamid\New1\Joblisting\JoblistingBirthdayService\bin\Debug\MailKit.xml
+D:\Hamid\New1\Joblisting\JoblistingBirthdayService\bin\Debug\MimeKit.pdb
+D:\Hamid\New1\Joblisting\JoblistingBirthdayService\bin\Debug\MimeKit.xml
+D:\Hamid\New1\Joblisting\JoblistingBirthdayService\bin\Debug\RestSharp.xml
+D:\Hamid\New1\Joblisting\JoblistingBirthdayService\bin\Debug\System.Buffers.xml
+D:\Hamid\New1\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.ProjectInstaller.resources
+D:\Hamid\New1\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.GenerateResource.cache
+D:\Hamid\New1\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.CoreCompileInputs.cache
+D:\Hamid\New1\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.CopyComplete
+D:\Hamid\New1\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.exe
+D:\Hamid\New1\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.pdb
+D:\Hamid\New1\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.AssemblyReference.cache
+D:\Hamid\New folder\Joblisting\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.exe.config
+D:\Hamid\New folder\Joblisting\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.exe
+D:\Hamid\New folder\Joblisting\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.pdb
+D:\Hamid\New folder\Joblisting\JoblistingBirthdayService\bin\Debug\BouncyCastle.Crypto.dll
+D:\Hamid\New folder\Joblisting\JoblistingBirthdayService\bin\Debug\MailKit.dll
+D:\Hamid\New folder\Joblisting\JoblistingBirthdayService\bin\Debug\MimeKit.dll
+D:\Hamid\New folder\Joblisting\JoblistingBirthdayService\bin\Debug\RestSharp.dll
+D:\Hamid\New folder\Joblisting\JoblistingBirthdayService\bin\Debug\System.Buffers.dll
+D:\Hamid\New folder\Joblisting\JoblistingBirthdayService\bin\Debug\BouncyCastle.Crypto.xml
+D:\Hamid\New folder\Joblisting\JoblistingBirthdayService\bin\Debug\MailKit.pdb
+D:\Hamid\New folder\Joblisting\JoblistingBirthdayService\bin\Debug\MailKit.xml
+D:\Hamid\New folder\Joblisting\JoblistingBirthdayService\bin\Debug\MimeKit.pdb
+D:\Hamid\New folder\Joblisting\JoblistingBirthdayService\bin\Debug\MimeKit.xml
+D:\Hamid\New folder\Joblisting\JoblistingBirthdayService\bin\Debug\RestSharp.xml
+D:\Hamid\New folder\Joblisting\JoblistingBirthdayService\bin\Debug\System.Buffers.xml
+D:\Hamid\New folder\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.AssemblyReference.cache
+D:\Hamid\New folder\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.ProjectInstaller.resources
+D:\Hamid\New folder\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.GenerateResource.cache
+D:\Hamid\New folder\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.CoreCompileInputs.cache
+D:\Hamid\New folder\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.CopyComplete
+D:\Hamid\New folder\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.exe
+D:\Hamid\New folder\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.pdb
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.exe.config
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.exe
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.pdb
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingBirthdayService\bin\Debug\BouncyCastle.Crypto.dll
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingBirthdayService\bin\Debug\MailKit.dll
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingBirthdayService\bin\Debug\MimeKit.dll
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingBirthdayService\bin\Debug\RestSharp.dll
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingBirthdayService\bin\Debug\System.Buffers.dll
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingBirthdayService\bin\Debug\BouncyCastle.Crypto.xml
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingBirthdayService\bin\Debug\MailKit.pdb
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingBirthdayService\bin\Debug\MailKit.xml
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingBirthdayService\bin\Debug\MimeKit.pdb
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingBirthdayService\bin\Debug\MimeKit.xml
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingBirthdayService\bin\Debug\RestSharp.xml
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingBirthdayService\bin\Debug\System.Buffers.xml
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.AssemblyReference.cache
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.ProjectInstaller.resources
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.GenerateResource.cache
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.CoreCompileInputs.cache
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.CopyComplete
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.exe
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.pdb
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.exe.config
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.exe
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.pdb
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingBirthdayService\bin\Debug\BouncyCastle.Crypto.dll
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingBirthdayService\bin\Debug\MailKit.dll
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingBirthdayService\bin\Debug\MimeKit.dll
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingBirthdayService\bin\Debug\RestSharp.dll
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingBirthdayService\bin\Debug\System.Buffers.dll
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingBirthdayService\bin\Debug\BouncyCastle.Crypto.xml
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingBirthdayService\bin\Debug\MailKit.pdb
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingBirthdayService\bin\Debug\MailKit.xml
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingBirthdayService\bin\Debug\MimeKit.pdb
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingBirthdayService\bin\Debug\MimeKit.xml
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingBirthdayService\bin\Debug\RestSharp.xml
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingBirthdayService\bin\Debug\System.Buffers.xml
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.AssemblyReference.cache
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.ProjectInstaller.resources
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.GenerateResource.cache
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.CoreCompileInputs.cache
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.CopyComplete
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.exe
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.pdb
+G:\Joblisting-Updated\Joblisting\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.exe.config
+G:\Joblisting-Updated\Joblisting\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.exe
+G:\Joblisting-Updated\Joblisting\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.pdb
+G:\Joblisting-Updated\Joblisting\JoblistingBirthdayService\bin\Debug\BouncyCastle.Crypto.dll
+G:\Joblisting-Updated\Joblisting\JoblistingBirthdayService\bin\Debug\MailKit.dll
+G:\Joblisting-Updated\Joblisting\JoblistingBirthdayService\bin\Debug\MimeKit.dll
+G:\Joblisting-Updated\Joblisting\JoblistingBirthdayService\bin\Debug\RestSharp.dll
+G:\Joblisting-Updated\Joblisting\JoblistingBirthdayService\bin\Debug\System.Buffers.dll
+G:\Joblisting-Updated\Joblisting\JoblistingBirthdayService\bin\Debug\BouncyCastle.Crypto.xml
+G:\Joblisting-Updated\Joblisting\JoblistingBirthdayService\bin\Debug\MailKit.pdb
+G:\Joblisting-Updated\Joblisting\JoblistingBirthdayService\bin\Debug\MailKit.xml
+G:\Joblisting-Updated\Joblisting\JoblistingBirthdayService\bin\Debug\MimeKit.pdb
+G:\Joblisting-Updated\Joblisting\JoblistingBirthdayService\bin\Debug\MimeKit.xml
+G:\Joblisting-Updated\Joblisting\JoblistingBirthdayService\bin\Debug\RestSharp.xml
+G:\Joblisting-Updated\Joblisting\JoblistingBirthdayService\bin\Debug\System.Buffers.xml
+G:\Joblisting-Updated\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.AssemblyReference.cache
+G:\Joblisting-Updated\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.ProjectInstaller.resources
+G:\Joblisting-Updated\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.GenerateResource.cache
+G:\Joblisting-Updated\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.CoreCompileInputs.cache
+G:\Joblisting-Updated\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.CopyComplete
+G:\Joblisting-Updated\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.exe
+G:\Joblisting-Updated\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.pdb
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.exe.config
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.exe
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingBirthdayService\bin\Debug\JoblistingBirthdayService.pdb
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingBirthdayService\bin\Debug\BouncyCastle.Crypto.dll
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingBirthdayService\bin\Debug\MailKit.dll
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingBirthdayService\bin\Debug\MimeKit.dll
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingBirthdayService\bin\Debug\RestSharp.dll
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingBirthdayService\bin\Debug\System.Buffers.dll
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingBirthdayService\bin\Debug\BouncyCastle.Crypto.xml
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingBirthdayService\bin\Debug\MailKit.pdb
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingBirthdayService\bin\Debug\MailKit.xml
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingBirthdayService\bin\Debug\MimeKit.pdb
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingBirthdayService\bin\Debug\MimeKit.xml
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingBirthdayService\bin\Debug\RestSharp.xml
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingBirthdayService\bin\Debug\System.Buffers.xml
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.AssemblyReference.cache
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.ProjectInstaller.resources
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.GenerateResource.cache
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.CoreCompileInputs.cache
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.csproj.CopyComplete
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.exe
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingBirthdayService\obj\Debug\JoblistingBirthdayService.pdb
