@@ -25,14 +25,18 @@ jobs:
       - name: Restore NuGet packages
         run: nuget restore
 
-      - name: Publish to folder
+      - name: create Dir
         run: |
-          mkdir pipelinePreDeployCopyAllFilesToOneFolder
           dir
           cd JobPortal.Web
           mkdir pipelinePreDeployCopyAllFilesToOneFolder
           dir
-          msbuild /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="\published\" JobPortal.Web.csproj
+          
+      - name: Publish to folder
+        run: |
+          cd JobPortal.Web
+          dir
+          msbuild /nologo /verbosity:q /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="\published\" JobPortal.Web.csproj
           dir
       - name: Directory
         run: |
