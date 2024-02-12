@@ -1,0 +1,556 @@
+C:\Workspace\JobPortal\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe.config
+C:\Workspace\JobPortal\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe
+C:\Workspace\JobPortal\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.pdb
+C:\Workspace\JobPortal\JoblistingPhoneInviteService\bin\Release\RestSharp.dll
+C:\Workspace\JobPortal\JoblistingPhoneInviteService\bin\Release\Twilio.Api.dll
+C:\Workspace\JobPortal\JoblistingPhoneInviteService\bin\Release\RestSharp.xml
+C:\Workspace\JobPortal\JoblistingPhoneInviteService\bin\Release\Twilio.Api.pdb
+C:\Workspace\JobPortal\JoblistingPhoneInviteService\bin\Release\Twilio.Api.xml
+C:\Workspace\JobPortal\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csprojResolveAssemblyReference.cache
+C:\Workspace\JobPortal\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.ProjectInstaller.resources
+C:\Workspace\JobPortal\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.GenerateResource.Cache
+C:\Workspace\JobPortal\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.exe
+C:\Workspace\JobPortal\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.pdb
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe.config
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.pdb
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.dll
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\bin\Release\MailKit.dll
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\bin\Release\MimeKit.dll
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\bin\Release\RestSharp.dll
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\bin\Release\System.Buffers.dll
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\bin\Release\Twilio.Api.dll
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.xml
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\bin\Release\MailKit.pdb
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\bin\Release\MailKit.xml
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\bin\Release\MimeKit.pdb
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\bin\Release\MimeKit.xml
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\bin\Release\RestSharp.xml
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\bin\Release\System.Buffers.xml
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\bin\Release\Twilio.Api.pdb
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\bin\Release\Twilio.Api.xml
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.ProjectInstaller.resources
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.GenerateResource.cache
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CoreCompileInputs.cache
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CopyComplete
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.exe
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.pdb
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Logging.dll
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.dll
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.dll
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.dll
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.xml
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.xml
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.xml
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe.config
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.pdb
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.dll
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.dll
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Logging.dll
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.dll
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.dll
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.dll
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.dll
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.dll
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.dll
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.dll
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.xml
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.pdb
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.xml
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.xml
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.pdb
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.xml
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.xml
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.xml
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.xml
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.xml
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.pdb
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.xml
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csprojAssemblyReference.cache
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.ProjectInstaller.resources
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.GenerateResource.cache
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CoreCompileInputs.cache
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CopyComplete
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.exe
+D:\Dileep\Repos1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.pdb
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe.config
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.pdb
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.dll
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.dll
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Logging.dll
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.dll
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.dll
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.dll
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.dll
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.dll
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.dll
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.dll
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.xml
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.pdb
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.xml
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.xml
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.pdb
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.xml
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.xml
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.xml
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.xml
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.xml
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.pdb
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.xml
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csprojAssemblyReference.cache
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.ProjectInstaller.resources
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.GenerateResource.cache
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CoreCompileInputs.cache
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CopyComplete
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.exe
+D:\Chetan\New folder\Repos1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.pdb
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe.config
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.pdb
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.dll
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.dll
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Logging.dll
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.dll
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.dll
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.dll
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.dll
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.dll
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.dll
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.dll
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.xml
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.pdb
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.xml
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.xml
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.pdb
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.xml
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.xml
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.xml
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.xml
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.xml
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.pdb
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.xml
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csprojAssemblyReference.cache
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.ProjectInstaller.resources
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.GenerateResource.cache
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CoreCompileInputs.cache
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CopyComplete
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.exe
+D:\Chetan\Repos1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.pdb
+D:\New folder\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe.config
+D:\New folder\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe
+D:\New folder\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.pdb
+D:\New folder\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.dll
+D:\New folder\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.dll
+D:\New folder\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Logging.dll
+D:\New folder\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.dll
+D:\New folder\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.dll
+D:\New folder\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.dll
+D:\New folder\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.dll
+D:\New folder\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.dll
+D:\New folder\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.dll
+D:\New folder\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.dll
+D:\New folder\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.xml
+D:\New folder\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.pdb
+D:\New folder\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.xml
+D:\New folder\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.xml
+D:\New folder\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.pdb
+D:\New folder\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.xml
+D:\New folder\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.xml
+D:\New folder\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.xml
+D:\New folder\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.xml
+D:\New folder\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.xml
+D:\New folder\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.pdb
+D:\New folder\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.xml
+D:\New folder\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.AssemblyReference.cache
+D:\New folder\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.ProjectInstaller.resources
+D:\New folder\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.GenerateResource.cache
+D:\New folder\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CoreCompileInputs.cache
+D:\New folder\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CopyComplete
+D:\New folder\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.exe
+D:\New folder\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.pdb
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe.config
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.pdb
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.dll
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.dll
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Logging.dll
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.dll
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.dll
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.dll
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.dll
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.dll
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.dll
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.dll
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.xml
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.pdb
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.xml
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.xml
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.pdb
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.xml
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.xml
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.xml
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.xml
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.xml
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.pdb
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.xml
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.AssemblyReference.cache
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.ProjectInstaller.resources
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.GenerateResource.cache
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CoreCompileInputs.cache
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CopyComplete
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.exe
+D:\Hamid\New folder\Repos\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.pdb
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe.config
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.pdb
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.dll
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.dll
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Logging.dll
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.dll
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.dll
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.dll
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.dll
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.dll
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.dll
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.dll
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.xml
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.pdb
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.xml
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.xml
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.pdb
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.xml
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.xml
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.xml
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.xml
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.xml
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.pdb
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.xml
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.AssemblyReference.cache
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.ProjectInstaller.resources
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.GenerateResource.cache
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CoreCompileInputs.cache
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CopyComplete
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.exe
+D:\Hamid\New1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.pdb
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe.config
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.pdb
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.dll
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.dll
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Logging.dll
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.dll
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.dll
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.dll
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.dll
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.dll
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.dll
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.dll
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.xml
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.pdb
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.xml
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.xml
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.pdb
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.xml
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.xml
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.xml
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.xml
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.xml
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.pdb
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.xml
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.AssemblyReference.cache
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.ProjectInstaller.resources
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.GenerateResource.cache
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CoreCompileInputs.cache
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CopyComplete
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.exe
+D:\Main-folder\Dileep\Repos\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.pdb
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe.config
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.pdb
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.dll
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.dll
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Logging.dll
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.dll
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.dll
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.dll
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.dll
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.dll
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.dll
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.dll
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.xml
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.pdb
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.xml
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.xml
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.pdb
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.xml
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.xml
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.xml
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.xml
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.xml
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.pdb
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.xml
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.AssemblyReference.cache
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.ProjectInstaller.resources
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.GenerateResource.cache
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CoreCompileInputs.cache
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CopyComplete
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.exe
+D:\Hamid\New folder1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.pdb
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe.config
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.pdb
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.dll
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.dll
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Logging.dll
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.dll
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.dll
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.dll
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.dll
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.dll
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.dll
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.dll
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.xml
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.pdb
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.xml
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.xml
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.pdb
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.xml
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.xml
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.xml
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.xml
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.xml
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.pdb
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.xml
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.AssemblyReference.cache
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.ProjectInstaller.resources
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.GenerateResource.cache
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CoreCompileInputs.cache
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CopyComplete
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.exe
+D:\Hamid\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.pdb
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe.config
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.pdb
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.dll
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.dll
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Logging.dll
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.dll
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.dll
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.dll
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.dll
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.dll
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.dll
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.dll
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.xml
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.pdb
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.xml
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.xml
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.pdb
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.xml
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.xml
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.xml
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.xml
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.xml
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.pdb
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.xml
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.ProjectInstaller.resources
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.GenerateResource.cache
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CoreCompileInputs.cache
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CopyComplete
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.exe
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.pdb
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe.config
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.pdb
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.dll
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.dll
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Logging.dll
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.dll
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.dll
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.dll
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.dll
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.dll
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.dll
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.dll
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.xml
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.pdb
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.xml
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.xml
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.pdb
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.xml
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.xml
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.xml
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.xml
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.xml
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.pdb
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.xml
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.AssemblyReference.cache
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.ProjectInstaller.resources
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.GenerateResource.cache
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CoreCompileInputs.cache
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CopyComplete
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.exe
+D:\Hamid\New folder\new1\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.pdb
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe.config
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.pdb
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.dll
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.dll
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Logging.dll
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.dll
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.dll
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.dll
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.dll
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.dll
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.dll
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.dll
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.xml
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.pdb
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.xml
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.xml
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.pdb
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.xml
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.xml
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.xml
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.xml
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.xml
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.pdb
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.xml
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.AssemblyReference.cache
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.ProjectInstaller.resources
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.GenerateResource.cache
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CoreCompileInputs.cache
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CopyComplete
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.exe
+D:\Hamid\Updated\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.pdb
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe.config
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.pdb
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.dll
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.dll
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Logging.dll
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.dll
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.dll
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.dll
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.dll
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.dll
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.dll
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.dll
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.xml
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.pdb
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.xml
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.xml
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.pdb
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.xml
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.xml
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.xml
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.xml
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.xml
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.pdb
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.xml
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.AssemblyReference.cache
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.ProjectInstaller.resources
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.GenerateResource.cache
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CoreCompileInputs.cache
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CopyComplete
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.exe
+D:\Main-folder\newone\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.pdb
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe.config
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.pdb
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.dll
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.dll
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Logging.dll
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.dll
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.dll
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.dll
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.dll
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.dll
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.dll
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.dll
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.xml
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.pdb
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.xml
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.xml
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.pdb
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.xml
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.xml
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.xml
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.xml
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.xml
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.pdb
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.xml
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.AssemblyReference.cache
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.ProjectInstaller.resources
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.GenerateResource.cache
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CoreCompileInputs.cache
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CopyComplete
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.exe
+D:\Kiran\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.pdb
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe.config
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.pdb
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.dll
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.dll
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Logging.dll
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.dll
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.dll
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.dll
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.dll
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.dll
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.dll
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.dll
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.xml
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.pdb
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.xml
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.xml
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.pdb
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.xml
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.xml
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.xml
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.xml
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.xml
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.pdb
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.xml
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.AssemblyReference.cache
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.ProjectInstaller.resources
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.GenerateResource.cache
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CoreCompileInputs.cache
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CopyComplete
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.exe
+D:\Main-folder\loc\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.pdb
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe.config
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.exe
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\JoblistingInviteSMSService.pdb
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.dll
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.dll
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Logging.dll
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.dll
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.dll
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.dll
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.dll
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.dll
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.dll
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.dll
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\BouncyCastle.Crypto.xml
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.pdb
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\MailKit.xml
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\Microsoft.IdentityModel.Tokens.xml
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.pdb
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\MimeKit.xml
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\Newtonsoft.Json.xml
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\RestSharp.xml
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\System.Buffers.xml
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\System.IdentityModel.Tokens.Jwt.xml
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.pdb
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\bin\Release\Twilio.Api.xml
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.AssemblyReference.cache
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.SuggestedBindingRedirects.cache
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.ProjectInstaller.resources
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.GenerateResource.cache
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CoreCompileInputs.cache
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.csproj.CopyComplete
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.exe
+G:\Joblisting-Updated\Joblisting\JoblistingPhoneInviteService\obj\Release\JoblistingInviteSMSService.pdb
