@@ -1,0 +1,231 @@
+C:\Workspace\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.exe.config
+C:\Workspace\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.exe
+C:\Workspace\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.pdb
+C:\Workspace\JobPortal\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.ProjectInstaller.resources
+C:\Workspace\JobPortal\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.GenerateResource.Cache
+C:\Workspace\JobPortal\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.exe
+C:\Workspace\JobPortal\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.pdb
+D:\JOBLISTING\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.exe.config
+D:\JOBLISTING\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.exe
+D:\JOBLISTING\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.pdb
+D:\JOBLISTING\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.ProjectInstaller.resources
+D:\JOBLISTING\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.GenerateResource.cache
+D:\JOBLISTING\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.CoreCompileInputs.cache
+D:\JOBLISTING\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.exe
+D:\JOBLISTING\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.pdb
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.exe.config
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.exe
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.pdb
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\BouncyCastle.Crypto.dll
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.dll
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.dll
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\RestSharp.dll
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\System.Buffers.dll
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\BouncyCastle.Crypto.xml
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.pdb
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.xml
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.pdb
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.xml
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\RestSharp.xml
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\System.Buffers.xml
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.ProjectInstaller.resources
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.GenerateResource.cache
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.CoreCompileInputs.cache
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.CopyComplete
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.exe
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.pdb
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.exe.config
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.exe
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.pdb
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\BouncyCastle.Crypto.dll
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.dll
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.dll
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\RestSharp.dll
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\System.Buffers.dll
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\BouncyCastle.Crypto.xml
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.pdb
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.xml
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.pdb
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.xml
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\RestSharp.xml
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\bin\Debug\System.Buffers.xml
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.ProjectInstaller.resources
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.GenerateResource.cache
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.CoreCompileInputs.cache
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.CopyComplete
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.exe
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.pdb
+D:\Shalini\Repos\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.exe.config
+D:\Shalini\Repos\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.exe
+D:\Shalini\Repos\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.pdb
+D:\Shalini\Repos\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\BouncyCastle.Crypto.dll
+D:\Shalini\Repos\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.dll
+D:\Shalini\Repos\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.dll
+D:\Shalini\Repos\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\RestSharp.dll
+D:\Shalini\Repos\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\System.Buffers.dll
+D:\Shalini\Repos\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\BouncyCastle.Crypto.xml
+D:\Shalini\Repos\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.pdb
+D:\Shalini\Repos\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.xml
+D:\Shalini\Repos\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.pdb
+D:\Shalini\Repos\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.xml
+D:\Shalini\Repos\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\RestSharp.xml
+D:\Shalini\Repos\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\System.Buffers.xml
+D:\Shalini\Repos\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.ProjectInstaller.resources
+D:\Shalini\Repos\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.GenerateResource.cache
+D:\Shalini\Repos\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.CoreCompileInputs.cache
+D:\Shalini\Repos\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.CopyComplete
+D:\Shalini\Repos\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.exe
+D:\Shalini\Repos\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.pdb
+D:\Dileep\Repos1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.exe.config
+D:\Dileep\Repos1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.exe
+D:\Dileep\Repos1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.pdb
+D:\Dileep\Repos1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\BouncyCastle.Crypto.dll
+D:\Dileep\Repos1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.dll
+D:\Dileep\Repos1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.dll
+D:\Dileep\Repos1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\RestSharp.dll
+D:\Dileep\Repos1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\System.Buffers.dll
+D:\Dileep\Repos1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\BouncyCastle.Crypto.xml
+D:\Dileep\Repos1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.pdb
+D:\Dileep\Repos1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.xml
+D:\Dileep\Repos1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.pdb
+D:\Dileep\Repos1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.xml
+D:\Dileep\Repos1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\RestSharp.xml
+D:\Dileep\Repos1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\System.Buffers.xml
+D:\Dileep\Repos1\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.ProjectInstaller.resources
+D:\Dileep\Repos1\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.GenerateResource.cache
+D:\Dileep\Repos1\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.CoreCompileInputs.cache
+D:\Dileep\Repos1\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.CopyComplete
+D:\Dileep\Repos1\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.exe
+D:\Dileep\Repos1\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.pdb
+D:\Hamid\New1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.exe.config
+D:\Hamid\New1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.exe
+D:\Hamid\New1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.pdb
+D:\Hamid\New1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\BouncyCastle.Crypto.dll
+D:\Hamid\New1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.dll
+D:\Hamid\New1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.dll
+D:\Hamid\New1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\RestSharp.dll
+D:\Hamid\New1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\System.Buffers.dll
+D:\Hamid\New1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\BouncyCastle.Crypto.xml
+D:\Hamid\New1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.pdb
+D:\Hamid\New1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.xml
+D:\Hamid\New1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.pdb
+D:\Hamid\New1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.xml
+D:\Hamid\New1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\RestSharp.xml
+D:\Hamid\New1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\System.Buffers.xml
+D:\Hamid\New1\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.ProjectInstaller.resources
+D:\Hamid\New1\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.GenerateResource.cache
+D:\Hamid\New1\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.CoreCompileInputs.cache
+D:\Hamid\New1\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.CopyComplete
+D:\Hamid\New1\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.exe
+D:\Hamid\New1\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.pdb
+D:\Hamid\New1\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.AssemblyReference.cache
+D:\Hamid\New folder\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.exe.config
+D:\Hamid\New folder\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.exe
+D:\Hamid\New folder\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.pdb
+D:\Hamid\New folder\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\BouncyCastle.Crypto.dll
+D:\Hamid\New folder\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.dll
+D:\Hamid\New folder\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.dll
+D:\Hamid\New folder\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\RestSharp.dll
+D:\Hamid\New folder\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\System.Buffers.dll
+D:\Hamid\New folder\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\BouncyCastle.Crypto.xml
+D:\Hamid\New folder\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.pdb
+D:\Hamid\New folder\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.xml
+D:\Hamid\New folder\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.pdb
+D:\Hamid\New folder\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.xml
+D:\Hamid\New folder\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\RestSharp.xml
+D:\Hamid\New folder\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\System.Buffers.xml
+D:\Hamid\New folder\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.AssemblyReference.cache
+D:\Hamid\New folder\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.ProjectInstaller.resources
+D:\Hamid\New folder\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.GenerateResource.cache
+D:\Hamid\New folder\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.CoreCompileInputs.cache
+D:\Hamid\New folder\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.CopyComplete
+D:\Hamid\New folder\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.exe
+D:\Hamid\New folder\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.pdb
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.exe.config
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.exe
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.pdb
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\BouncyCastle.Crypto.dll
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.dll
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.dll
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\RestSharp.dll
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\System.Buffers.dll
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\BouncyCastle.Crypto.xml
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.pdb
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.xml
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.pdb
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.xml
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\RestSharp.xml
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\System.Buffers.xml
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.AssemblyReference.cache
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.ProjectInstaller.resources
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.GenerateResource.cache
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.CoreCompileInputs.cache
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.CopyComplete
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.exe
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.pdb
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.exe.config
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.exe
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.pdb
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\BouncyCastle.Crypto.dll
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.dll
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.dll
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\RestSharp.dll
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\System.Buffers.dll
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\BouncyCastle.Crypto.xml
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.pdb
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.xml
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.pdb
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.xml
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\RestSharp.xml
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\System.Buffers.xml
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.AssemblyReference.cache
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.ProjectInstaller.resources
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.GenerateResource.cache
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.CoreCompileInputs.cache
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.CopyComplete
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.exe
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.pdb
+G:\Joblisting-Updated\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.exe.config
+G:\Joblisting-Updated\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.exe
+G:\Joblisting-Updated\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.pdb
+G:\Joblisting-Updated\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\BouncyCastle.Crypto.dll
+G:\Joblisting-Updated\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.dll
+G:\Joblisting-Updated\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.dll
+G:\Joblisting-Updated\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\RestSharp.dll
+G:\Joblisting-Updated\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\System.Buffers.dll
+G:\Joblisting-Updated\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\BouncyCastle.Crypto.xml
+G:\Joblisting-Updated\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.pdb
+G:\Joblisting-Updated\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.xml
+G:\Joblisting-Updated\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.pdb
+G:\Joblisting-Updated\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.xml
+G:\Joblisting-Updated\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\RestSharp.xml
+G:\Joblisting-Updated\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\System.Buffers.xml
+G:\Joblisting-Updated\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.AssemblyReference.cache
+G:\Joblisting-Updated\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.ProjectInstaller.resources
+G:\Joblisting-Updated\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.GenerateResource.cache
+G:\Joblisting-Updated\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.CoreCompileInputs.cache
+G:\Joblisting-Updated\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.CopyComplete
+G:\Joblisting-Updated\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.exe
+G:\Joblisting-Updated\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.pdb
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.exe.config
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.exe
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\JoblistingPeopleYouMayKnowService.pdb
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\BouncyCastle.Crypto.dll
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.dll
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.dll
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\RestSharp.dll
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\System.Buffers.dll
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\BouncyCastle.Crypto.xml
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.pdb
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MailKit.xml
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.pdb
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\MimeKit.xml
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\RestSharp.xml
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingPeopleYouMayKnowService\bin\Debug\System.Buffers.xml
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.AssemblyReference.cache
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.ProjectInstaller.resources
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.GenerateResource.cache
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.CoreCompileInputs.cache
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.csproj.CopyComplete
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.exe
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingPeopleYouMayKnowService\obj\Debug\JoblistingPeopleYouMayKnowService.pdb
