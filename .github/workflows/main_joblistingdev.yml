@@ -25,6 +25,12 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }} 
 
+      - name: install dependencies
+        run: dotnet restore ./JobPortal.Web/JobPortal.Web.csproj
+
+      - name: Build
+        run: dotnet build ./JobPortal.Web/JobPortal.Web.csproj --configuration Release --no-restore
+
       # - name: Setup MSBuild path
       #   uses: microsoft/setup-msbuild@v1.0.2
 
@@ -33,18 +39,6 @@ jobs:
 
       # - name: Restore NuGet packages
       #   run: nuget restore
-
-      - name: add dependencies
-        run: |
-          dotnet add package MSBuild.Microsoft.VisualStudio.Web.targets --version 6.0.418
-          
-
-      - name: build project
-        run: |
-          dir
-          cd JobPortal.Web 
-          dotnet restore
-          dotnet build JobPortal.Web.csproj
         
       # - name: Publish to folder
       #   run: msbuild /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="\published\" JobPortal.sln
