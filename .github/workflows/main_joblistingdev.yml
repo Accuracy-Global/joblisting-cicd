@@ -9,9 +9,6 @@ on:
       - main
   workflow_dispatch:
 
-env:
-  DOTNET_VERSION: '6.0.x'
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,14 +17,14 @@ jobs:
       - uses: actions/checkout@v4
 
       # Setup .NET Core SDK
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }} 
+      # - name: Setup .NET Core
+      #   uses: actions/setup-dotnet@v1
+      #   with:
+      #     dotnet-version: '6.0.x'
 
       - uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '4.8'
+          dotnet-version: '4.8.x'
 
       - name: install dependencies
         run: dotnet restore ./JobPortal.Web/JobPortal.Web.csproj
