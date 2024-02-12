@@ -28,7 +28,7 @@ jobs:
       - name: build project
         run: |
           dir
-          dotnet build JobPortal.sln
+          dotnet build
         
       # - name: Publish to folder
       #   run: msbuild /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="\published\" JobPortal.sln
