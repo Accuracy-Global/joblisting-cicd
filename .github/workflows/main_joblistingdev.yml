@@ -33,7 +33,7 @@ jobs:
       #   run: dotnet workload install wasm-tools-net6
 
       - name: Build
-        run: dotnet build ./JobPortal.Web/JobPortal.Web.csproj --configuration Release --no-restore
+        run: dotnet build ./JobPortal.Web/JobPortal.Web.csproj --configuration Release --no-restore --sdk-version 6.0.418
 
       # - name: Setup MSBuild path
       #   uses: microsoft/setup-msbuild@v1.0.2
