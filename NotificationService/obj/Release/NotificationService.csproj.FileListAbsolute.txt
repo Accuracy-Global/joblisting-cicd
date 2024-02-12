@@ -1,0 +1,698 @@
+C:\Workspace\JobPortal\NotificationService\bin\Release\NotificationService.exe.config
+C:\Workspace\JobPortal\NotificationService\bin\Release\NotificationService.exe
+C:\Workspace\JobPortal\NotificationService\bin\Release\NotificationService.pdb
+C:\Workspace\JobPortal\NotificationService\bin\Release\EntityFramework.dll
+C:\Workspace\JobPortal\NotificationService\bin\Release\EntityFramework.SqlServer.dll
+C:\Workspace\JobPortal\NotificationService\bin\Release\JobPortal.Data.dll
+C:\Workspace\JobPortal\NotificationService\bin\Release\System.Net.Http.Extensions.dll
+C:\Workspace\JobPortal\NotificationService\bin\Release\System.Net.Http.Primitives.dll
+C:\Workspace\JobPortal\NotificationService\bin\Release\JobPortal.Data.pdb
+C:\Workspace\JobPortal\NotificationService\bin\Release\EntityFramework.xml
+C:\Workspace\JobPortal\NotificationService\bin\Release\EntityFramework.SqlServer.xml
+C:\Workspace\JobPortal\NotificationService\bin\Release\System.Net.Http.Extensions.xml
+C:\Workspace\JobPortal\NotificationService\bin\Release\System.Net.Http.Primitives.xml
+C:\Workspace\JobPortal\NotificationService\obj\Release\NotificationService.csprojResolveAssemblyReference.cache
+C:\Workspace\JobPortal\NotificationService\obj\Release\NotificationService.exe
+C:\Workspace\JobPortal\NotificationService\obj\Release\NotificationService.pdb
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\bin\Release\NotificationService.exe.config
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\bin\Release\NotificationService.exe
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\bin\Release\NotificationService.pdb
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\bin\Release\BouncyCastle.Crypto.dll
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\bin\Release\EntityFramework.dll
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\bin\Release\EntityFramework.SqlServer.dll
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\bin\Release\JobPortal.Data.dll
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\bin\Release\MailKit.dll
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\bin\Release\MimeKit.dll
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\bin\Release\RestSharp.dll
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\bin\Release\System.Buffers.dll
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\bin\Release\System.Net.Http.Extensions.dll
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\bin\Release\System.Net.Http.Primitives.dll
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\bin\Release\JobPortal.Data.pdb
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\bin\Release\JobPortal.Data.dll.config
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\bin\Release\BouncyCastle.Crypto.xml
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\bin\Release\EntityFramework.xml
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\bin\Release\EntityFramework.SqlServer.xml
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\bin\Release\MailKit.pdb
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\bin\Release\MailKit.xml
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\bin\Release\MimeKit.pdb
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\bin\Release\MimeKit.xml
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\bin\Release\RestSharp.xml
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\bin\Release\System.Buffers.xml
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\bin\Release\System.Net.Http.Extensions.xml
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\bin\Release\System.Net.Http.Primitives.xml
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\obj\Release\NotificationService.csprojAssemblyReference.cache
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\obj\Release\NotificationService.csproj.CoreCompileInputs.cache
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\obj\Release\NotificationService.csproj.CopyComplete
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\obj\Release\NotificationService.exe
+D:\JOBLISTING2\Joblisting\JobPortal\NotificationService\obj\Release\NotificationService.pdb
+D:\Dileep\Repos1\Joblisting\NotificationService\bin\Release\NotificationService.exe.config
+D:\Dileep\Repos1\Joblisting\NotificationService\bin\Release\NotificationService.exe
+D:\Dileep\Repos1\Joblisting\NotificationService\bin\Release\NotificationService.pdb
+D:\Dileep\Repos1\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.dll
+D:\Dileep\Repos1\Joblisting\NotificationService\bin\Release\EntityFramework.dll
+D:\Dileep\Repos1\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.dll
+D:\Dileep\Repos1\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll
+D:\Dileep\Repos1\Joblisting\NotificationService\bin\Release\MailKit.dll
+D:\Dileep\Repos1\Joblisting\NotificationService\bin\Release\MimeKit.dll
+D:\Dileep\Repos1\Joblisting\NotificationService\bin\Release\RestSharp.dll
+D:\Dileep\Repos1\Joblisting\NotificationService\bin\Release\System.Buffers.dll
+D:\Dileep\Repos1\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.dll
+D:\Dileep\Repos1\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.dll
+D:\Dileep\Repos1\Joblisting\NotificationService\bin\Release\JobPortal.Data.pdb
+D:\Dileep\Repos1\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll.config
+D:\Dileep\Repos1\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.xml
+D:\Dileep\Repos1\Joblisting\NotificationService\bin\Release\EntityFramework.xml
+D:\Dileep\Repos1\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.xml
+D:\Dileep\Repos1\Joblisting\NotificationService\bin\Release\MailKit.pdb
+D:\Dileep\Repos1\Joblisting\NotificationService\bin\Release\MailKit.xml
+D:\Dileep\Repos1\Joblisting\NotificationService\bin\Release\MimeKit.pdb
+D:\Dileep\Repos1\Joblisting\NotificationService\bin\Release\MimeKit.xml
+D:\Dileep\Repos1\Joblisting\NotificationService\bin\Release\RestSharp.xml
+D:\Dileep\Repos1\Joblisting\NotificationService\bin\Release\System.Buffers.xml
+D:\Dileep\Repos1\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.xml
+D:\Dileep\Repos1\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.xml
+D:\Dileep\Repos1\Joblisting\NotificationService\obj\Release\NotificationService.csprojAssemblyReference.cache
+D:\Dileep\Repos1\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CoreCompileInputs.cache
+D:\Dileep\Repos1\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CopyComplete
+D:\Dileep\Repos1\Joblisting\NotificationService\obj\Release\NotificationService.exe
+D:\Dileep\Repos1\Joblisting\NotificationService\obj\Release\NotificationService.pdb
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\bin\Release\NotificationService.exe.config
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\bin\Release\NotificationService.exe
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\bin\Release\NotificationService.pdb
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.dll
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\bin\Release\EntityFramework.dll
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.dll
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\bin\Release\MailKit.dll
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\bin\Release\MimeKit.dll
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\bin\Release\RestSharp.dll
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\bin\Release\System.Buffers.dll
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.dll
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.dll
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\bin\Release\JobPortal.Data.pdb
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll.config
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.xml
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\bin\Release\EntityFramework.xml
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.xml
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\bin\Release\MailKit.pdb
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\bin\Release\MailKit.xml
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\bin\Release\MimeKit.pdb
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\bin\Release\MimeKit.xml
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\bin\Release\RestSharp.xml
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\bin\Release\System.Buffers.xml
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.xml
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.xml
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\obj\Release\NotificationService.csprojAssemblyReference.cache
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CoreCompileInputs.cache
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CopyComplete
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\obj\Release\NotificationService.exe
+D:\Chetan\New folder\Repos1\Joblisting\NotificationService\obj\Release\NotificationService.pdb
+D:\Chetan\Repos1\Joblisting\NotificationService\bin\Release\NotificationService.exe.config
+D:\Chetan\Repos1\Joblisting\NotificationService\bin\Release\NotificationService.exe
+D:\Chetan\Repos1\Joblisting\NotificationService\bin\Release\NotificationService.pdb
+D:\Chetan\Repos1\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.dll
+D:\Chetan\Repos1\Joblisting\NotificationService\bin\Release\EntityFramework.dll
+D:\Chetan\Repos1\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.dll
+D:\Chetan\Repos1\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll
+D:\Chetan\Repos1\Joblisting\NotificationService\bin\Release\MailKit.dll
+D:\Chetan\Repos1\Joblisting\NotificationService\bin\Release\MimeKit.dll
+D:\Chetan\Repos1\Joblisting\NotificationService\bin\Release\RestSharp.dll
+D:\Chetan\Repos1\Joblisting\NotificationService\bin\Release\System.Buffers.dll
+D:\Chetan\Repos1\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.dll
+D:\Chetan\Repos1\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.dll
+D:\Chetan\Repos1\Joblisting\NotificationService\bin\Release\JobPortal.Data.pdb
+D:\Chetan\Repos1\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll.config
+D:\Chetan\Repos1\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.xml
+D:\Chetan\Repos1\Joblisting\NotificationService\bin\Release\EntityFramework.xml
+D:\Chetan\Repos1\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.xml
+D:\Chetan\Repos1\Joblisting\NotificationService\bin\Release\MailKit.pdb
+D:\Chetan\Repos1\Joblisting\NotificationService\bin\Release\MailKit.xml
+D:\Chetan\Repos1\Joblisting\NotificationService\bin\Release\MimeKit.pdb
+D:\Chetan\Repos1\Joblisting\NotificationService\bin\Release\MimeKit.xml
+D:\Chetan\Repos1\Joblisting\NotificationService\bin\Release\RestSharp.xml
+D:\Chetan\Repos1\Joblisting\NotificationService\bin\Release\System.Buffers.xml
+D:\Chetan\Repos1\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.xml
+D:\Chetan\Repos1\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.xml
+D:\Chetan\Repos1\Joblisting\NotificationService\obj\Release\NotificationService.csprojAssemblyReference.cache
+D:\Chetan\Repos1\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CoreCompileInputs.cache
+D:\Chetan\Repos1\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CopyComplete
+D:\Chetan\Repos1\Joblisting\NotificationService\obj\Release\NotificationService.exe
+D:\Chetan\Repos1\Joblisting\NotificationService\obj\Release\NotificationService.pdb
+D:\New folder\Joblisting\NotificationService\bin\Release\NotificationService.exe.config
+D:\New folder\Joblisting\NotificationService\bin\Release\NotificationService.exe
+D:\New folder\Joblisting\NotificationService\bin\Release\NotificationService.pdb
+D:\New folder\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.dll
+D:\New folder\Joblisting\NotificationService\bin\Release\EntityFramework.dll
+D:\New folder\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.dll
+D:\New folder\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll
+D:\New folder\Joblisting\NotificationService\bin\Release\MailKit.dll
+D:\New folder\Joblisting\NotificationService\bin\Release\MimeKit.dll
+D:\New folder\Joblisting\NotificationService\bin\Release\RestSharp.dll
+D:\New folder\Joblisting\NotificationService\bin\Release\System.Buffers.dll
+D:\New folder\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.dll
+D:\New folder\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.dll
+D:\New folder\Joblisting\NotificationService\bin\Release\JobPortal.Data.pdb
+D:\New folder\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll.config
+D:\New folder\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.xml
+D:\New folder\Joblisting\NotificationService\bin\Release\EntityFramework.xml
+D:\New folder\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.xml
+D:\New folder\Joblisting\NotificationService\bin\Release\MailKit.pdb
+D:\New folder\Joblisting\NotificationService\bin\Release\MailKit.xml
+D:\New folder\Joblisting\NotificationService\bin\Release\MimeKit.pdb
+D:\New folder\Joblisting\NotificationService\bin\Release\MimeKit.xml
+D:\New folder\Joblisting\NotificationService\bin\Release\RestSharp.xml
+D:\New folder\Joblisting\NotificationService\bin\Release\System.Buffers.xml
+D:\New folder\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.xml
+D:\New folder\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.xml
+D:\New folder\Joblisting\NotificationService\obj\Release\NotificationService.csproj.AssemblyReference.cache
+D:\New folder\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CoreCompileInputs.cache
+D:\New folder\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CopyComplete
+D:\New folder\Joblisting\NotificationService\obj\Release\NotificationService.exe
+D:\New folder\Joblisting\NotificationService\obj\Release\NotificationService.pdb
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\bin\Release\NotificationService.exe.config
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\bin\Release\NotificationService.exe
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\bin\Release\NotificationService.pdb
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.dll
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\bin\Release\EntityFramework.dll
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.dll
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\bin\Release\MailKit.dll
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\bin\Release\MimeKit.dll
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\bin\Release\RestSharp.dll
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\bin\Release\System.Buffers.dll
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.dll
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.dll
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\bin\Release\JobPortal.Data.pdb
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll.config
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.xml
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\bin\Release\EntityFramework.xml
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.xml
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\bin\Release\MailKit.pdb
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\bin\Release\MailKit.xml
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\bin\Release\MimeKit.pdb
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\bin\Release\MimeKit.xml
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\bin\Release\RestSharp.xml
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\bin\Release\System.Buffers.xml
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.xml
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.xml
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\obj\Release\NotificationService.csproj.AssemblyReference.cache
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CoreCompileInputs.cache
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CopyComplete
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\obj\Release\NotificationService.exe
+D:\Hamid\New folder\Repos\Joblisting\NotificationService\obj\Release\NotificationService.pdb
+D:\Hamid\New1\Joblisting\NotificationService\bin\Release\NotificationService.exe.config
+D:\Hamid\New1\Joblisting\NotificationService\bin\Release\NotificationService.exe
+D:\Hamid\New1\Joblisting\NotificationService\bin\Release\NotificationService.pdb
+D:\Hamid\New1\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.dll
+D:\Hamid\New1\Joblisting\NotificationService\bin\Release\EntityFramework.dll
+D:\Hamid\New1\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.dll
+D:\Hamid\New1\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll
+D:\Hamid\New1\Joblisting\NotificationService\bin\Release\MailKit.dll
+D:\Hamid\New1\Joblisting\NotificationService\bin\Release\MimeKit.dll
+D:\Hamid\New1\Joblisting\NotificationService\bin\Release\RestSharp.dll
+D:\Hamid\New1\Joblisting\NotificationService\bin\Release\System.Buffers.dll
+D:\Hamid\New1\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.dll
+D:\Hamid\New1\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.dll
+D:\Hamid\New1\Joblisting\NotificationService\bin\Release\JobPortal.Data.pdb
+D:\Hamid\New1\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll.config
+D:\Hamid\New1\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.xml
+D:\Hamid\New1\Joblisting\NotificationService\bin\Release\EntityFramework.xml
+D:\Hamid\New1\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.xml
+D:\Hamid\New1\Joblisting\NotificationService\bin\Release\MailKit.pdb
+D:\Hamid\New1\Joblisting\NotificationService\bin\Release\MailKit.xml
+D:\Hamid\New1\Joblisting\NotificationService\bin\Release\MimeKit.pdb
+D:\Hamid\New1\Joblisting\NotificationService\bin\Release\MimeKit.xml
+D:\Hamid\New1\Joblisting\NotificationService\bin\Release\RestSharp.xml
+D:\Hamid\New1\Joblisting\NotificationService\bin\Release\System.Buffers.xml
+D:\Hamid\New1\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.xml
+D:\Hamid\New1\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.xml
+D:\Hamid\New1\Joblisting\NotificationService\obj\Release\NotificationService.csproj.AssemblyReference.cache
+D:\Hamid\New1\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CoreCompileInputs.cache
+D:\Hamid\New1\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CopyComplete
+D:\Hamid\New1\Joblisting\NotificationService\obj\Release\NotificationService.exe
+D:\Hamid\New1\Joblisting\NotificationService\obj\Release\NotificationService.pdb
+D:\Hamid\Repos\Joblisting\NotificationService\bin\Release\NotificationService.exe.config
+D:\Hamid\Repos\Joblisting\NotificationService\bin\Release\NotificationService.exe
+D:\Hamid\Repos\Joblisting\NotificationService\bin\Release\NotificationService.pdb
+D:\Hamid\Repos\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.dll
+D:\Hamid\Repos\Joblisting\NotificationService\bin\Release\EntityFramework.dll
+D:\Hamid\Repos\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.dll
+D:\Hamid\Repos\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll
+D:\Hamid\Repos\Joblisting\NotificationService\bin\Release\MailKit.dll
+D:\Hamid\Repos\Joblisting\NotificationService\bin\Release\MimeKit.dll
+D:\Hamid\Repos\Joblisting\NotificationService\bin\Release\RestSharp.dll
+D:\Hamid\Repos\Joblisting\NotificationService\bin\Release\System.Buffers.dll
+D:\Hamid\Repos\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.dll
+D:\Hamid\Repos\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.dll
+D:\Hamid\Repos\Joblisting\NotificationService\bin\Release\JobPortal.Data.pdb
+D:\Hamid\Repos\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll.config
+D:\Hamid\Repos\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.xml
+D:\Hamid\Repos\Joblisting\NotificationService\bin\Release\EntityFramework.xml
+D:\Hamid\Repos\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.xml
+D:\Hamid\Repos\Joblisting\NotificationService\bin\Release\MailKit.pdb
+D:\Hamid\Repos\Joblisting\NotificationService\bin\Release\MailKit.xml
+D:\Hamid\Repos\Joblisting\NotificationService\bin\Release\MimeKit.pdb
+D:\Hamid\Repos\Joblisting\NotificationService\bin\Release\MimeKit.xml
+D:\Hamid\Repos\Joblisting\NotificationService\bin\Release\RestSharp.xml
+D:\Hamid\Repos\Joblisting\NotificationService\bin\Release\System.Buffers.xml
+D:\Hamid\Repos\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.xml
+D:\Hamid\Repos\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.xml
+D:\Hamid\Repos\Joblisting\NotificationService\obj\Release\NotificationService.csproj.AssemblyReference.cache
+D:\Hamid\Repos\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CoreCompileInputs.cache
+D:\Hamid\Repos\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CopyComplete
+D:\Hamid\Repos\Joblisting\NotificationService\obj\Release\NotificationService.exe
+D:\Hamid\Repos\Joblisting\NotificationService\obj\Release\NotificationService.pdb
+D:\Mouni\Joblisting\NotificationService\bin\Release\NotificationService.exe.config
+D:\Mouni\Joblisting\NotificationService\bin\Release\NotificationService.exe
+D:\Mouni\Joblisting\NotificationService\bin\Release\NotificationService.pdb
+D:\Mouni\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.dll
+D:\Mouni\Joblisting\NotificationService\bin\Release\EntityFramework.dll
+D:\Mouni\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.dll
+D:\Mouni\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll
+D:\Mouni\Joblisting\NotificationService\bin\Release\MailKit.dll
+D:\Mouni\Joblisting\NotificationService\bin\Release\MimeKit.dll
+D:\Mouni\Joblisting\NotificationService\bin\Release\RestSharp.dll
+D:\Mouni\Joblisting\NotificationService\bin\Release\System.Buffers.dll
+D:\Mouni\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.dll
+D:\Mouni\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.dll
+D:\Mouni\Joblisting\NotificationService\bin\Release\JobPortal.Data.pdb
+D:\Mouni\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll.config
+D:\Mouni\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.xml
+D:\Mouni\Joblisting\NotificationService\bin\Release\EntityFramework.xml
+D:\Mouni\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.xml
+D:\Mouni\Joblisting\NotificationService\bin\Release\MailKit.pdb
+D:\Mouni\Joblisting\NotificationService\bin\Release\MailKit.xml
+D:\Mouni\Joblisting\NotificationService\bin\Release\MimeKit.pdb
+D:\Mouni\Joblisting\NotificationService\bin\Release\MimeKit.xml
+D:\Mouni\Joblisting\NotificationService\bin\Release\RestSharp.xml
+D:\Mouni\Joblisting\NotificationService\bin\Release\System.Buffers.xml
+D:\Mouni\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.xml
+D:\Mouni\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.xml
+D:\Mouni\Joblisting\NotificationService\obj\Release\NotificationService.csproj.AssemblyReference.cache
+D:\Mouni\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CoreCompileInputs.cache
+D:\Mouni\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CopyComplete
+D:\Mouni\Joblisting\NotificationService\obj\Release\NotificationService.exe
+D:\Mouni\Joblisting\NotificationService\obj\Release\NotificationService.pdb
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\bin\Release\NotificationService.exe.config
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\bin\Release\NotificationService.exe
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\bin\Release\NotificationService.pdb
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.dll
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\bin\Release\EntityFramework.dll
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.dll
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\bin\Release\MailKit.dll
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\bin\Release\MimeKit.dll
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\bin\Release\RestSharp.dll
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\bin\Release\System.Buffers.dll
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.dll
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.dll
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\bin\Release\JobPortal.Data.pdb
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll.config
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.xml
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\bin\Release\EntityFramework.xml
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.xml
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\bin\Release\MailKit.pdb
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\bin\Release\MailKit.xml
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\bin\Release\MimeKit.pdb
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\bin\Release\MimeKit.xml
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\bin\Release\RestSharp.xml
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\bin\Release\System.Buffers.xml
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.xml
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.xml
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\obj\Release\NotificationService.csproj.AssemblyReference.cache
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CoreCompileInputs.cache
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CopyComplete
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\obj\Release\NotificationService.exe
+D:\Main-folder\Dileep\Repos\Joblisting\NotificationService\obj\Release\NotificationService.pdb
+D:\Hamid\New folder1\Joblisting\NotificationService\bin\Release\NotificationService.exe.config
+D:\Hamid\New folder1\Joblisting\NotificationService\bin\Release\NotificationService.exe
+D:\Hamid\New folder1\Joblisting\NotificationService\bin\Release\NotificationService.pdb
+D:\Hamid\New folder1\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.dll
+D:\Hamid\New folder1\Joblisting\NotificationService\bin\Release\EntityFramework.dll
+D:\Hamid\New folder1\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.dll
+D:\Hamid\New folder1\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll
+D:\Hamid\New folder1\Joblisting\NotificationService\bin\Release\MailKit.dll
+D:\Hamid\New folder1\Joblisting\NotificationService\bin\Release\MimeKit.dll
+D:\Hamid\New folder1\Joblisting\NotificationService\bin\Release\RestSharp.dll
+D:\Hamid\New folder1\Joblisting\NotificationService\bin\Release\System.Buffers.dll
+D:\Hamid\New folder1\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.dll
+D:\Hamid\New folder1\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.dll
+D:\Hamid\New folder1\Joblisting\NotificationService\bin\Release\JobPortal.Data.pdb
+D:\Hamid\New folder1\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll.config
+D:\Hamid\New folder1\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.xml
+D:\Hamid\New folder1\Joblisting\NotificationService\bin\Release\EntityFramework.xml
+D:\Hamid\New folder1\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.xml
+D:\Hamid\New folder1\Joblisting\NotificationService\bin\Release\MailKit.pdb
+D:\Hamid\New folder1\Joblisting\NotificationService\bin\Release\MailKit.xml
+D:\Hamid\New folder1\Joblisting\NotificationService\bin\Release\MimeKit.pdb
+D:\Hamid\New folder1\Joblisting\NotificationService\bin\Release\MimeKit.xml
+D:\Hamid\New folder1\Joblisting\NotificationService\bin\Release\RestSharp.xml
+D:\Hamid\New folder1\Joblisting\NotificationService\bin\Release\System.Buffers.xml
+D:\Hamid\New folder1\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.xml
+D:\Hamid\New folder1\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.xml
+D:\Hamid\New folder1\Joblisting\NotificationService\obj\Release\NotificationService.csproj.AssemblyReference.cache
+D:\Hamid\New folder1\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CoreCompileInputs.cache
+D:\Hamid\New folder1\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CopyComplete
+D:\Hamid\New folder1\Joblisting\NotificationService\obj\Release\NotificationService.exe
+D:\Hamid\New folder1\Joblisting\NotificationService\obj\Release\NotificationService.pdb
+D:\Hamid\Joblisting\NotificationService\bin\Release\NotificationService.exe.config
+D:\Hamid\Joblisting\NotificationService\bin\Release\NotificationService.exe
+D:\Hamid\Joblisting\NotificationService\bin\Release\NotificationService.pdb
+D:\Hamid\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.dll
+D:\Hamid\Joblisting\NotificationService\bin\Release\EntityFramework.dll
+D:\Hamid\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.dll
+D:\Hamid\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll
+D:\Hamid\Joblisting\NotificationService\bin\Release\MailKit.dll
+D:\Hamid\Joblisting\NotificationService\bin\Release\MimeKit.dll
+D:\Hamid\Joblisting\NotificationService\bin\Release\RestSharp.dll
+D:\Hamid\Joblisting\NotificationService\bin\Release\System.Buffers.dll
+D:\Hamid\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.dll
+D:\Hamid\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.dll
+D:\Hamid\Joblisting\NotificationService\bin\Release\JobPortal.Data.pdb
+D:\Hamid\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll.config
+D:\Hamid\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.xml
+D:\Hamid\Joblisting\NotificationService\bin\Release\EntityFramework.xml
+D:\Hamid\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.xml
+D:\Hamid\Joblisting\NotificationService\bin\Release\MailKit.pdb
+D:\Hamid\Joblisting\NotificationService\bin\Release\MailKit.xml
+D:\Hamid\Joblisting\NotificationService\bin\Release\MimeKit.pdb
+D:\Hamid\Joblisting\NotificationService\bin\Release\MimeKit.xml
+D:\Hamid\Joblisting\NotificationService\bin\Release\RestSharp.xml
+D:\Hamid\Joblisting\NotificationService\bin\Release\System.Buffers.xml
+D:\Hamid\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.xml
+D:\Hamid\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.xml
+D:\Hamid\Joblisting\NotificationService\obj\Release\NotificationService.csproj.AssemblyReference.cache
+D:\Hamid\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CoreCompileInputs.cache
+D:\Hamid\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CopyComplete
+D:\Hamid\Joblisting\NotificationService\obj\Release\NotificationService.exe
+D:\Hamid\Joblisting\NotificationService\obj\Release\NotificationService.pdb
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\bin\Release\NotificationService.exe.config
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\bin\Release\NotificationService.exe
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\bin\Release\NotificationService.pdb
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.dll
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\bin\Release\EntityFramework.dll
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.dll
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\bin\Release\MailKit.dll
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\bin\Release\MimeKit.dll
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\bin\Release\RestSharp.dll
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\bin\Release\System.Buffers.dll
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.dll
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.dll
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\bin\Release\JobPortal.Data.pdb
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll.config
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.xml
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\bin\Release\EntityFramework.xml
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.xml
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\bin\Release\MailKit.pdb
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\bin\Release\MailKit.xml
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\bin\Release\MimeKit.pdb
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\bin\Release\MimeKit.xml
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\bin\Release\RestSharp.xml
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\bin\Release\System.Buffers.xml
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.xml
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.xml
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\obj\Release\NotificationService.csproj.AssemblyReference.cache
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CoreCompileInputs.cache
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CopyComplete
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\obj\Release\NotificationService.exe
+D:\Main-folder\Dileep\new1\Joblisting\NotificationService\obj\Release\NotificationService.pdb
+D:\Hamid\New folder\new1\Joblisting\NotificationService\bin\Release\NotificationService.exe.config
+D:\Hamid\New folder\new1\Joblisting\NotificationService\bin\Release\NotificationService.exe
+D:\Hamid\New folder\new1\Joblisting\NotificationService\bin\Release\NotificationService.pdb
+D:\Hamid\New folder\new1\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.dll
+D:\Hamid\New folder\new1\Joblisting\NotificationService\bin\Release\EntityFramework.dll
+D:\Hamid\New folder\new1\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.dll
+D:\Hamid\New folder\new1\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll
+D:\Hamid\New folder\new1\Joblisting\NotificationService\bin\Release\MailKit.dll
+D:\Hamid\New folder\new1\Joblisting\NotificationService\bin\Release\MimeKit.dll
+D:\Hamid\New folder\new1\Joblisting\NotificationService\bin\Release\RestSharp.dll
+D:\Hamid\New folder\new1\Joblisting\NotificationService\bin\Release\System.Buffers.dll
+D:\Hamid\New folder\new1\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.dll
+D:\Hamid\New folder\new1\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.dll
+D:\Hamid\New folder\new1\Joblisting\NotificationService\bin\Release\JobPortal.Data.pdb
+D:\Hamid\New folder\new1\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll.config
+D:\Hamid\New folder\new1\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.xml
+D:\Hamid\New folder\new1\Joblisting\NotificationService\bin\Release\EntityFramework.xml
+D:\Hamid\New folder\new1\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.xml
+D:\Hamid\New folder\new1\Joblisting\NotificationService\bin\Release\MailKit.pdb
+D:\Hamid\New folder\new1\Joblisting\NotificationService\bin\Release\MailKit.xml
+D:\Hamid\New folder\new1\Joblisting\NotificationService\bin\Release\MimeKit.pdb
+D:\Hamid\New folder\new1\Joblisting\NotificationService\bin\Release\MimeKit.xml
+D:\Hamid\New folder\new1\Joblisting\NotificationService\bin\Release\RestSharp.xml
+D:\Hamid\New folder\new1\Joblisting\NotificationService\bin\Release\System.Buffers.xml
+D:\Hamid\New folder\new1\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.xml
+D:\Hamid\New folder\new1\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.xml
+D:\Hamid\New folder\new1\Joblisting\NotificationService\obj\Release\NotificationService.csproj.AssemblyReference.cache
+D:\Hamid\New folder\new1\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CoreCompileInputs.cache
+D:\Hamid\New folder\new1\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CopyComplete
+D:\Hamid\New folder\new1\Joblisting\NotificationService\obj\Release\NotificationService.exe
+D:\Hamid\New folder\new1\Joblisting\NotificationService\obj\Release\NotificationService.pdb
+D:\Hamid\Updated\Joblisting\NotificationService\bin\Release\NotificationService.exe.config
+D:\Hamid\Updated\Joblisting\NotificationService\bin\Release\NotificationService.exe
+D:\Hamid\Updated\Joblisting\NotificationService\bin\Release\NotificationService.pdb
+D:\Hamid\Updated\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.dll
+D:\Hamid\Updated\Joblisting\NotificationService\bin\Release\EntityFramework.dll
+D:\Hamid\Updated\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.dll
+D:\Hamid\Updated\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll
+D:\Hamid\Updated\Joblisting\NotificationService\bin\Release\MailKit.dll
+D:\Hamid\Updated\Joblisting\NotificationService\bin\Release\MimeKit.dll
+D:\Hamid\Updated\Joblisting\NotificationService\bin\Release\RestSharp.dll
+D:\Hamid\Updated\Joblisting\NotificationService\bin\Release\System.Buffers.dll
+D:\Hamid\Updated\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.dll
+D:\Hamid\Updated\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.dll
+D:\Hamid\Updated\Joblisting\NotificationService\bin\Release\JobPortal.Data.pdb
+D:\Hamid\Updated\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll.config
+D:\Hamid\Updated\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.xml
+D:\Hamid\Updated\Joblisting\NotificationService\bin\Release\EntityFramework.xml
+D:\Hamid\Updated\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.xml
+D:\Hamid\Updated\Joblisting\NotificationService\bin\Release\MailKit.pdb
+D:\Hamid\Updated\Joblisting\NotificationService\bin\Release\MailKit.xml
+D:\Hamid\Updated\Joblisting\NotificationService\bin\Release\MimeKit.pdb
+D:\Hamid\Updated\Joblisting\NotificationService\bin\Release\MimeKit.xml
+D:\Hamid\Updated\Joblisting\NotificationService\bin\Release\RestSharp.xml
+D:\Hamid\Updated\Joblisting\NotificationService\bin\Release\System.Buffers.xml
+D:\Hamid\Updated\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.xml
+D:\Hamid\Updated\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.xml
+D:\Hamid\Updated\Joblisting\NotificationService\obj\Release\NotificationService.csproj.AssemblyReference.cache
+D:\Hamid\Updated\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CoreCompileInputs.cache
+D:\Hamid\Updated\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CopyComplete
+D:\Hamid\Updated\Joblisting\NotificationService\obj\Release\NotificationService.exe
+D:\Hamid\Updated\Joblisting\NotificationService\obj\Release\NotificationService.pdb
+D:\Hamid\New1\newone\Joblisting\NotificationService\bin\Release\NotificationService.exe.config
+D:\Hamid\New1\newone\Joblisting\NotificationService\bin\Release\NotificationService.exe
+D:\Hamid\New1\newone\Joblisting\NotificationService\bin\Release\NotificationService.pdb
+D:\Hamid\New1\newone\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.dll
+D:\Hamid\New1\newone\Joblisting\NotificationService\bin\Release\EntityFramework.dll
+D:\Hamid\New1\newone\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.dll
+D:\Hamid\New1\newone\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll
+D:\Hamid\New1\newone\Joblisting\NotificationService\bin\Release\MailKit.dll
+D:\Hamid\New1\newone\Joblisting\NotificationService\bin\Release\MimeKit.dll
+D:\Hamid\New1\newone\Joblisting\NotificationService\bin\Release\RestSharp.dll
+D:\Hamid\New1\newone\Joblisting\NotificationService\bin\Release\System.Buffers.dll
+D:\Hamid\New1\newone\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.dll
+D:\Hamid\New1\newone\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.dll
+D:\Hamid\New1\newone\Joblisting\NotificationService\bin\Release\JobPortal.Data.pdb
+D:\Hamid\New1\newone\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll.config
+D:\Hamid\New1\newone\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.xml
+D:\Hamid\New1\newone\Joblisting\NotificationService\bin\Release\EntityFramework.xml
+D:\Hamid\New1\newone\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.xml
+D:\Hamid\New1\newone\Joblisting\NotificationService\bin\Release\MailKit.pdb
+D:\Hamid\New1\newone\Joblisting\NotificationService\bin\Release\MailKit.xml
+D:\Hamid\New1\newone\Joblisting\NotificationService\bin\Release\MimeKit.pdb
+D:\Hamid\New1\newone\Joblisting\NotificationService\bin\Release\MimeKit.xml
+D:\Hamid\New1\newone\Joblisting\NotificationService\bin\Release\RestSharp.xml
+D:\Hamid\New1\newone\Joblisting\NotificationService\bin\Release\System.Buffers.xml
+D:\Hamid\New1\newone\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.xml
+D:\Hamid\New1\newone\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.xml
+D:\Hamid\New1\newone\Joblisting\NotificationService\obj\Release\NotificationService.csproj.AssemblyReference.cache
+D:\Hamid\New1\newone\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CoreCompileInputs.cache
+D:\Hamid\New1\newone\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CopyComplete
+D:\Hamid\New1\newone\Joblisting\NotificationService\obj\Release\NotificationService.exe
+D:\Hamid\New1\newone\Joblisting\NotificationService\obj\Release\NotificationService.pdb
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\bin\Release\NotificationService.exe.config
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\bin\Release\NotificationService.exe
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\bin\Release\NotificationService.pdb
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.dll
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\bin\Release\EntityFramework.dll
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.dll
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\bin\Release\MailKit.dll
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\bin\Release\MimeKit.dll
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\bin\Release\RestSharp.dll
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\bin\Release\System.Buffers.dll
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.dll
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.dll
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\bin\Release\JobPortal.Data.pdb
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll.config
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.xml
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\bin\Release\EntityFramework.xml
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.xml
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\bin\Release\MailKit.pdb
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\bin\Release\MailKit.xml
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\bin\Release\MimeKit.pdb
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\bin\Release\MimeKit.xml
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\bin\Release\RestSharp.xml
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\bin\Release\System.Buffers.xml
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.xml
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.xml
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\obj\Release\NotificationService.csproj.AssemblyReference.cache
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CoreCompileInputs.cache
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CopyComplete
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\obj\Release\NotificationService.exe
+D:\Hamid\New folder1\newone\Joblisting\NotificationService\obj\Release\NotificationService.pdb
+D:\Main-folder\newone\Joblisting\NotificationService\bin\Release\NotificationService.exe.config
+D:\Main-folder\newone\Joblisting\NotificationService\bin\Release\NotificationService.exe
+D:\Main-folder\newone\Joblisting\NotificationService\bin\Release\NotificationService.pdb
+D:\Main-folder\newone\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.dll
+D:\Main-folder\newone\Joblisting\NotificationService\bin\Release\EntityFramework.dll
+D:\Main-folder\newone\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.dll
+D:\Main-folder\newone\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll
+D:\Main-folder\newone\Joblisting\NotificationService\bin\Release\MailKit.dll
+D:\Main-folder\newone\Joblisting\NotificationService\bin\Release\MimeKit.dll
+D:\Main-folder\newone\Joblisting\NotificationService\bin\Release\RestSharp.dll
+D:\Main-folder\newone\Joblisting\NotificationService\bin\Release\System.Buffers.dll
+D:\Main-folder\newone\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.dll
+D:\Main-folder\newone\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.dll
+D:\Main-folder\newone\Joblisting\NotificationService\bin\Release\JobPortal.Data.pdb
+D:\Main-folder\newone\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll.config
+D:\Main-folder\newone\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.xml
+D:\Main-folder\newone\Joblisting\NotificationService\bin\Release\EntityFramework.xml
+D:\Main-folder\newone\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.xml
+D:\Main-folder\newone\Joblisting\NotificationService\bin\Release\MailKit.pdb
+D:\Main-folder\newone\Joblisting\NotificationService\bin\Release\MailKit.xml
+D:\Main-folder\newone\Joblisting\NotificationService\bin\Release\MimeKit.pdb
+D:\Main-folder\newone\Joblisting\NotificationService\bin\Release\MimeKit.xml
+D:\Main-folder\newone\Joblisting\NotificationService\bin\Release\RestSharp.xml
+D:\Main-folder\newone\Joblisting\NotificationService\bin\Release\System.Buffers.xml
+D:\Main-folder\newone\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.xml
+D:\Main-folder\newone\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.xml
+D:\Main-folder\newone\Joblisting\NotificationService\obj\Release\NotificationService.csproj.AssemblyReference.cache
+D:\Main-folder\newone\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CoreCompileInputs.cache
+D:\Main-folder\newone\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CopyComplete
+D:\Main-folder\newone\Joblisting\NotificationService\obj\Release\NotificationService.exe
+D:\Main-folder\newone\Joblisting\NotificationService\obj\Release\NotificationService.pdb
+D:\Kiran\Joblisting\NotificationService\bin\Release\NotificationService.exe.config
+D:\Kiran\Joblisting\NotificationService\bin\Release\NotificationService.exe
+D:\Kiran\Joblisting\NotificationService\bin\Release\NotificationService.pdb
+D:\Kiran\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.dll
+D:\Kiran\Joblisting\NotificationService\bin\Release\EntityFramework.dll
+D:\Kiran\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.dll
+D:\Kiran\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll
+D:\Kiran\Joblisting\NotificationService\bin\Release\MailKit.dll
+D:\Kiran\Joblisting\NotificationService\bin\Release\MimeKit.dll
+D:\Kiran\Joblisting\NotificationService\bin\Release\RestSharp.dll
+D:\Kiran\Joblisting\NotificationService\bin\Release\System.Buffers.dll
+D:\Kiran\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.dll
+D:\Kiran\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.dll
+D:\Kiran\Joblisting\NotificationService\bin\Release\JobPortal.Data.pdb
+D:\Kiran\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll.config
+D:\Kiran\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.xml
+D:\Kiran\Joblisting\NotificationService\bin\Release\EntityFramework.xml
+D:\Kiran\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.xml
+D:\Kiran\Joblisting\NotificationService\bin\Release\MailKit.pdb
+D:\Kiran\Joblisting\NotificationService\bin\Release\MailKit.xml
+D:\Kiran\Joblisting\NotificationService\bin\Release\MimeKit.pdb
+D:\Kiran\Joblisting\NotificationService\bin\Release\MimeKit.xml
+D:\Kiran\Joblisting\NotificationService\bin\Release\RestSharp.xml
+D:\Kiran\Joblisting\NotificationService\bin\Release\System.Buffers.xml
+D:\Kiran\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.xml
+D:\Kiran\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.xml
+D:\Kiran\Joblisting\NotificationService\obj\Release\NotificationService.csproj.AssemblyReference.cache
+D:\Kiran\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CoreCompileInputs.cache
+D:\Kiran\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CopyComplete
+D:\Kiran\Joblisting\NotificationService\obj\Release\NotificationService.exe
+D:\Kiran\Joblisting\NotificationService\obj\Release\NotificationService.pdb
+D:\Main-folder\loc\Joblisting\NotificationService\bin\Release\NotificationService.exe.config
+D:\Main-folder\loc\Joblisting\NotificationService\bin\Release\NotificationService.exe
+D:\Main-folder\loc\Joblisting\NotificationService\bin\Release\NotificationService.pdb
+D:\Main-folder\loc\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.dll
+D:\Main-folder\loc\Joblisting\NotificationService\bin\Release\EntityFramework.dll
+D:\Main-folder\loc\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.dll
+D:\Main-folder\loc\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll
+D:\Main-folder\loc\Joblisting\NotificationService\bin\Release\MailKit.dll
+D:\Main-folder\loc\Joblisting\NotificationService\bin\Release\MimeKit.dll
+D:\Main-folder\loc\Joblisting\NotificationService\bin\Release\RestSharp.dll
+D:\Main-folder\loc\Joblisting\NotificationService\bin\Release\System.Buffers.dll
+D:\Main-folder\loc\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.dll
+D:\Main-folder\loc\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.dll
+D:\Main-folder\loc\Joblisting\NotificationService\bin\Release\JobPortal.Data.pdb
+D:\Main-folder\loc\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll.config
+D:\Main-folder\loc\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.xml
+D:\Main-folder\loc\Joblisting\NotificationService\bin\Release\EntityFramework.xml
+D:\Main-folder\loc\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.xml
+D:\Main-folder\loc\Joblisting\NotificationService\bin\Release\MailKit.pdb
+D:\Main-folder\loc\Joblisting\NotificationService\bin\Release\MailKit.xml
+D:\Main-folder\loc\Joblisting\NotificationService\bin\Release\MimeKit.pdb
+D:\Main-folder\loc\Joblisting\NotificationService\bin\Release\MimeKit.xml
+D:\Main-folder\loc\Joblisting\NotificationService\bin\Release\RestSharp.xml
+D:\Main-folder\loc\Joblisting\NotificationService\bin\Release\System.Buffers.xml
+D:\Main-folder\loc\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.xml
+D:\Main-folder\loc\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.xml
+D:\Main-folder\loc\Joblisting\NotificationService\obj\Release\NotificationService.csproj.AssemblyReference.cache
+D:\Main-folder\loc\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CoreCompileInputs.cache
+D:\Main-folder\loc\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CopyComplete
+D:\Main-folder\loc\Joblisting\NotificationService\obj\Release\NotificationService.exe
+D:\Main-folder\loc\Joblisting\NotificationService\obj\Release\NotificationService.pdb
+G:\Joblisting-Updated\Joblisting\NotificationService\bin\Release\NotificationService.exe.config
+G:\Joblisting-Updated\Joblisting\NotificationService\bin\Release\NotificationService.exe
+G:\Joblisting-Updated\Joblisting\NotificationService\bin\Release\NotificationService.pdb
+G:\Joblisting-Updated\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.dll
+G:\Joblisting-Updated\Joblisting\NotificationService\bin\Release\EntityFramework.dll
+G:\Joblisting-Updated\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.dll
+G:\Joblisting-Updated\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll
+G:\Joblisting-Updated\Joblisting\NotificationService\bin\Release\MailKit.dll
+G:\Joblisting-Updated\Joblisting\NotificationService\bin\Release\MimeKit.dll
+G:\Joblisting-Updated\Joblisting\NotificationService\bin\Release\RestSharp.dll
+G:\Joblisting-Updated\Joblisting\NotificationService\bin\Release\System.Buffers.dll
+G:\Joblisting-Updated\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.dll
+G:\Joblisting-Updated\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.dll
+G:\Joblisting-Updated\Joblisting\NotificationService\bin\Release\JobPortal.Data.pdb
+G:\Joblisting-Updated\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll.config
+G:\Joblisting-Updated\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.xml
+G:\Joblisting-Updated\Joblisting\NotificationService\bin\Release\EntityFramework.xml
+G:\Joblisting-Updated\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.xml
+G:\Joblisting-Updated\Joblisting\NotificationService\bin\Release\MailKit.pdb
+G:\Joblisting-Updated\Joblisting\NotificationService\bin\Release\MailKit.xml
+G:\Joblisting-Updated\Joblisting\NotificationService\bin\Release\MimeKit.pdb
+G:\Joblisting-Updated\Joblisting\NotificationService\bin\Release\MimeKit.xml
+G:\Joblisting-Updated\Joblisting\NotificationService\bin\Release\RestSharp.xml
+G:\Joblisting-Updated\Joblisting\NotificationService\bin\Release\System.Buffers.xml
+G:\Joblisting-Updated\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.xml
+G:\Joblisting-Updated\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.xml
+G:\Joblisting-Updated\Joblisting\NotificationService\obj\Release\NotificationService.csproj.AssemblyReference.cache
+G:\Joblisting-Updated\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CoreCompileInputs.cache
+G:\Joblisting-Updated\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CopyComplete
+G:\Joblisting-Updated\Joblisting\NotificationService\obj\Release\NotificationService.exe
+G:\Joblisting-Updated\Joblisting\NotificationService\obj\Release\NotificationService.pdb
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\bin\Release\NotificationService.exe.config
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\bin\Release\NotificationService.exe
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\bin\Release\NotificationService.pdb
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.dll
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\bin\Release\EntityFramework.dll
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.dll
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\bin\Release\MailKit.dll
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\bin\Release\MimeKit.dll
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\bin\Release\RestSharp.dll
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\bin\Release\System.Buffers.dll
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.dll
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.dll
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\bin\Release\JobPortal.Data.pdb
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\bin\Release\JobPortal.Data.dll.config
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\bin\Release\BouncyCastle.Crypto.xml
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\bin\Release\EntityFramework.xml
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\bin\Release\EntityFramework.SqlServer.xml
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\bin\Release\MailKit.pdb
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\bin\Release\MailKit.xml
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\bin\Release\MimeKit.pdb
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\bin\Release\MimeKit.xml
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\bin\Release\RestSharp.xml
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\bin\Release\System.Buffers.xml
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\bin\Release\System.Net.Http.Extensions.xml
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\bin\Release\System.Net.Http.Primitives.xml
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\obj\Release\NotificationService.csproj.AssemblyReference.cache
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CoreCompileInputs.cache
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\obj\Release\NotificationService.csproj.CopyComplete
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\obj\Release\NotificationService.exe
+G:\Joblisting-Updated\Joblisting1\Joblisting\NotificationService\obj\Release\NotificationService.pdb
