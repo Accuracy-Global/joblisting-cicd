@@ -25,11 +25,8 @@ jobs:
       - name: Restore NuGet packages
         run: nuget restore
 
-      - name: create Dir
+      - name: List Dir
         run: |
-          dir
-          cd JobPortal.Web
-          mkdir pipelinePreDeployCopyAllFilesToOneFolder
           dir
           
       - name: Publish to folder
@@ -43,7 +40,7 @@ jobs:
           dir
           cd JobPortal.Web
           dir
-          cd pipelinePreDeployCopyAllFilesToOneFolder
+          cd bin
           dir
       
       - name: Upload artifact for deployment job
