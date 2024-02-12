@@ -1,0 +1,237 @@
+C:\Workspace\JobPortal\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.exe.config
+C:\Workspace\JobPortal\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.exe
+C:\Workspace\JobPortal\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.pdb
+C:\Workspace\JobPortal\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.ProjectInstaller.resources
+C:\Workspace\JobPortal\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.GenerateResource.Cache
+C:\Workspace\JobPortal\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.exe
+C:\Workspace\JobPortal\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.pdb
+C:\Workspace\JobPortal\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csprojResolveAssemblyReference.cache
+D:\JOBLISTING\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.exe.config
+D:\JOBLISTING\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.exe
+D:\JOBLISTING\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.pdb
+D:\JOBLISTING\Joblisting\JobPortal\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csprojAssemblyReference.cache
+D:\JOBLISTING\Joblisting\JobPortal\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.ProjectInstaller.resources
+D:\JOBLISTING\Joblisting\JobPortal\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.GenerateResource.cache
+D:\JOBLISTING\Joblisting\JobPortal\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.CoreCompileInputs.cache
+D:\JOBLISTING\Joblisting\JobPortal\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.exe
+D:\JOBLISTING\Joblisting\JobPortal\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.pdb
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.exe.config
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.exe
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.pdb
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\BouncyCastle.Crypto.dll
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\MailKit.dll
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\MimeKit.dll
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\RestSharp.dll
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\System.Buffers.dll
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\BouncyCastle.Crypto.xml
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\MailKit.pdb
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\MailKit.xml
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\MimeKit.pdb
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\MimeKit.xml
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\RestSharp.xml
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\System.Buffers.xml
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csprojAssemblyReference.cache
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.ProjectInstaller.resources
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.GenerateResource.cache
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.CoreCompileInputs.cache
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.CopyComplete
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.exe
+D:\JOBLISTING1\Joblisting\JobPortal\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.pdb
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.exe.config
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.exe
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.pdb
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\BouncyCastle.Crypto.dll
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\MailKit.dll
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\MimeKit.dll
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\RestSharp.dll
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\System.Buffers.dll
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\BouncyCastle.Crypto.xml
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\MailKit.pdb
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\MailKit.xml
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\MimeKit.pdb
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\MimeKit.xml
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\RestSharp.xml
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingAnnouncementService\bin\Debug\System.Buffers.xml
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csprojAssemblyReference.cache
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.ProjectInstaller.resources
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.GenerateResource.cache
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.CoreCompileInputs.cache
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.CopyComplete
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.exe
+D:\JOBLISTING2\Joblisting\JobPortal\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.pdb
+D:\Shalini\Repos\Joblisting\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.exe.config
+D:\Shalini\Repos\Joblisting\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.exe
+D:\Shalini\Repos\Joblisting\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.pdb
+D:\Shalini\Repos\Joblisting\JoblistingAnnouncementService\bin\Debug\BouncyCastle.Crypto.dll
+D:\Shalini\Repos\Joblisting\JoblistingAnnouncementService\bin\Debug\MailKit.dll
+D:\Shalini\Repos\Joblisting\JoblistingAnnouncementService\bin\Debug\MimeKit.dll
+D:\Shalini\Repos\Joblisting\JoblistingAnnouncementService\bin\Debug\RestSharp.dll
+D:\Shalini\Repos\Joblisting\JoblistingAnnouncementService\bin\Debug\System.Buffers.dll
+D:\Shalini\Repos\Joblisting\JoblistingAnnouncementService\bin\Debug\BouncyCastle.Crypto.xml
+D:\Shalini\Repos\Joblisting\JoblistingAnnouncementService\bin\Debug\MailKit.pdb
+D:\Shalini\Repos\Joblisting\JoblistingAnnouncementService\bin\Debug\MailKit.xml
+D:\Shalini\Repos\Joblisting\JoblistingAnnouncementService\bin\Debug\MimeKit.pdb
+D:\Shalini\Repos\Joblisting\JoblistingAnnouncementService\bin\Debug\MimeKit.xml
+D:\Shalini\Repos\Joblisting\JoblistingAnnouncementService\bin\Debug\RestSharp.xml
+D:\Shalini\Repos\Joblisting\JoblistingAnnouncementService\bin\Debug\System.Buffers.xml
+D:\Shalini\Repos\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csprojAssemblyReference.cache
+D:\Shalini\Repos\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.ProjectInstaller.resources
+D:\Shalini\Repos\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.GenerateResource.cache
+D:\Shalini\Repos\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.CoreCompileInputs.cache
+D:\Shalini\Repos\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.CopyComplete
+D:\Shalini\Repos\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.exe
+D:\Shalini\Repos\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.pdb
+D:\Dileep\Repos1\Joblisting\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.exe.config
+D:\Dileep\Repos1\Joblisting\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.exe
+D:\Dileep\Repos1\Joblisting\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.pdb
+D:\Dileep\Repos1\Joblisting\JoblistingAnnouncementService\bin\Debug\BouncyCastle.Crypto.dll
+D:\Dileep\Repos1\Joblisting\JoblistingAnnouncementService\bin\Debug\MailKit.dll
+D:\Dileep\Repos1\Joblisting\JoblistingAnnouncementService\bin\Debug\MimeKit.dll
+D:\Dileep\Repos1\Joblisting\JoblistingAnnouncementService\bin\Debug\RestSharp.dll
+D:\Dileep\Repos1\Joblisting\JoblistingAnnouncementService\bin\Debug\System.Buffers.dll
+D:\Dileep\Repos1\Joblisting\JoblistingAnnouncementService\bin\Debug\BouncyCastle.Crypto.xml
+D:\Dileep\Repos1\Joblisting\JoblistingAnnouncementService\bin\Debug\MailKit.pdb
+D:\Dileep\Repos1\Joblisting\JoblistingAnnouncementService\bin\Debug\MailKit.xml
+D:\Dileep\Repos1\Joblisting\JoblistingAnnouncementService\bin\Debug\MimeKit.pdb
+D:\Dileep\Repos1\Joblisting\JoblistingAnnouncementService\bin\Debug\MimeKit.xml
+D:\Dileep\Repos1\Joblisting\JoblistingAnnouncementService\bin\Debug\RestSharp.xml
+D:\Dileep\Repos1\Joblisting\JoblistingAnnouncementService\bin\Debug\System.Buffers.xml
+D:\Dileep\Repos1\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csprojAssemblyReference.cache
+D:\Dileep\Repos1\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.ProjectInstaller.resources
+D:\Dileep\Repos1\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.GenerateResource.cache
+D:\Dileep\Repos1\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.CoreCompileInputs.cache
+D:\Dileep\Repos1\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.CopyComplete
+D:\Dileep\Repos1\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.exe
+D:\Dileep\Repos1\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.pdb
+D:\Hamid\New1\Joblisting\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.exe.config
+D:\Hamid\New1\Joblisting\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.exe
+D:\Hamid\New1\Joblisting\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.pdb
+D:\Hamid\New1\Joblisting\JoblistingAnnouncementService\bin\Debug\BouncyCastle.Crypto.dll
+D:\Hamid\New1\Joblisting\JoblistingAnnouncementService\bin\Debug\MailKit.dll
+D:\Hamid\New1\Joblisting\JoblistingAnnouncementService\bin\Debug\MimeKit.dll
+D:\Hamid\New1\Joblisting\JoblistingAnnouncementService\bin\Debug\RestSharp.dll
+D:\Hamid\New1\Joblisting\JoblistingAnnouncementService\bin\Debug\System.Buffers.dll
+D:\Hamid\New1\Joblisting\JoblistingAnnouncementService\bin\Debug\BouncyCastle.Crypto.xml
+D:\Hamid\New1\Joblisting\JoblistingAnnouncementService\bin\Debug\MailKit.pdb
+D:\Hamid\New1\Joblisting\JoblistingAnnouncementService\bin\Debug\MailKit.xml
+D:\Hamid\New1\Joblisting\JoblistingAnnouncementService\bin\Debug\MimeKit.pdb
+D:\Hamid\New1\Joblisting\JoblistingAnnouncementService\bin\Debug\MimeKit.xml
+D:\Hamid\New1\Joblisting\JoblistingAnnouncementService\bin\Debug\RestSharp.xml
+D:\Hamid\New1\Joblisting\JoblistingAnnouncementService\bin\Debug\System.Buffers.xml
+D:\Hamid\New1\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.ProjectInstaller.resources
+D:\Hamid\New1\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.GenerateResource.cache
+D:\Hamid\New1\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.CoreCompileInputs.cache
+D:\Hamid\New1\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.CopyComplete
+D:\Hamid\New1\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.exe
+D:\Hamid\New1\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.pdb
+D:\Hamid\New1\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.AssemblyReference.cache
+D:\Hamid\New folder\Joblisting\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.exe.config
+D:\Hamid\New folder\Joblisting\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.exe
+D:\Hamid\New folder\Joblisting\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.pdb
+D:\Hamid\New folder\Joblisting\JoblistingAnnouncementService\bin\Debug\BouncyCastle.Crypto.dll
+D:\Hamid\New folder\Joblisting\JoblistingAnnouncementService\bin\Debug\MailKit.dll
+D:\Hamid\New folder\Joblisting\JoblistingAnnouncementService\bin\Debug\MimeKit.dll
+D:\Hamid\New folder\Joblisting\JoblistingAnnouncementService\bin\Debug\RestSharp.dll
+D:\Hamid\New folder\Joblisting\JoblistingAnnouncementService\bin\Debug\System.Buffers.dll
+D:\Hamid\New folder\Joblisting\JoblistingAnnouncementService\bin\Debug\BouncyCastle.Crypto.xml
+D:\Hamid\New folder\Joblisting\JoblistingAnnouncementService\bin\Debug\MailKit.pdb
+D:\Hamid\New folder\Joblisting\JoblistingAnnouncementService\bin\Debug\MailKit.xml
+D:\Hamid\New folder\Joblisting\JoblistingAnnouncementService\bin\Debug\MimeKit.pdb
+D:\Hamid\New folder\Joblisting\JoblistingAnnouncementService\bin\Debug\MimeKit.xml
+D:\Hamid\New folder\Joblisting\JoblistingAnnouncementService\bin\Debug\RestSharp.xml
+D:\Hamid\New folder\Joblisting\JoblistingAnnouncementService\bin\Debug\System.Buffers.xml
+D:\Hamid\New folder\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.AssemblyReference.cache
+D:\Hamid\New folder\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.ProjectInstaller.resources
+D:\Hamid\New folder\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.GenerateResource.cache
+D:\Hamid\New folder\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.CoreCompileInputs.cache
+D:\Hamid\New folder\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.CopyComplete
+D:\Hamid\New folder\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.exe
+D:\Hamid\New folder\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.pdb
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.exe.config
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.exe
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.pdb
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingAnnouncementService\bin\Debug\BouncyCastle.Crypto.dll
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingAnnouncementService\bin\Debug\MailKit.dll
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingAnnouncementService\bin\Debug\MimeKit.dll
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingAnnouncementService\bin\Debug\RestSharp.dll
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingAnnouncementService\bin\Debug\System.Buffers.dll
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingAnnouncementService\bin\Debug\BouncyCastle.Crypto.xml
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingAnnouncementService\bin\Debug\MailKit.pdb
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingAnnouncementService\bin\Debug\MailKit.xml
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingAnnouncementService\bin\Debug\MimeKit.pdb
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingAnnouncementService\bin\Debug\MimeKit.xml
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingAnnouncementService\bin\Debug\RestSharp.xml
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingAnnouncementService\bin\Debug\System.Buffers.xml
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.AssemblyReference.cache
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.ProjectInstaller.resources
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.GenerateResource.cache
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.CoreCompileInputs.cache
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.CopyComplete
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.exe
+D:\Main-folder\Dileep\new1\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.pdb
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.exe
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.pdb
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.exe.config
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.exe
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.pdb
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingAnnouncementService\bin\Debug\BouncyCastle.Crypto.dll
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingAnnouncementService\bin\Debug\MailKit.dll
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingAnnouncementService\bin\Debug\MimeKit.dll
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingAnnouncementService\bin\Debug\RestSharp.dll
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingAnnouncementService\bin\Debug\System.Buffers.dll
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingAnnouncementService\bin\Debug\BouncyCastle.Crypto.xml
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingAnnouncementService\bin\Debug\MailKit.pdb
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingAnnouncementService\bin\Debug\MailKit.xml
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingAnnouncementService\bin\Debug\MimeKit.pdb
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingAnnouncementService\bin\Debug\MimeKit.xml
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingAnnouncementService\bin\Debug\RestSharp.xml
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingAnnouncementService\bin\Debug\System.Buffers.xml
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.AssemblyReference.cache
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.ProjectInstaller.resources
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.GenerateResource.cache
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.CoreCompileInputs.cache
+D:\QServices\Accuracy\JobListing\Code\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.CopyComplete
+G:\Joblisting-Updated\Joblisting\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.exe.config
+G:\Joblisting-Updated\Joblisting\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.exe
+G:\Joblisting-Updated\Joblisting\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.pdb
+G:\Joblisting-Updated\Joblisting\JoblistingAnnouncementService\bin\Debug\BouncyCastle.Crypto.dll
+G:\Joblisting-Updated\Joblisting\JoblistingAnnouncementService\bin\Debug\MailKit.dll
+G:\Joblisting-Updated\Joblisting\JoblistingAnnouncementService\bin\Debug\MimeKit.dll
+G:\Joblisting-Updated\Joblisting\JoblistingAnnouncementService\bin\Debug\RestSharp.dll
+G:\Joblisting-Updated\Joblisting\JoblistingAnnouncementService\bin\Debug\System.Buffers.dll
+G:\Joblisting-Updated\Joblisting\JoblistingAnnouncementService\bin\Debug\BouncyCastle.Crypto.xml
+G:\Joblisting-Updated\Joblisting\JoblistingAnnouncementService\bin\Debug\MailKit.pdb
+G:\Joblisting-Updated\Joblisting\JoblistingAnnouncementService\bin\Debug\MailKit.xml
+G:\Joblisting-Updated\Joblisting\JoblistingAnnouncementService\bin\Debug\MimeKit.pdb
+G:\Joblisting-Updated\Joblisting\JoblistingAnnouncementService\bin\Debug\MimeKit.xml
+G:\Joblisting-Updated\Joblisting\JoblistingAnnouncementService\bin\Debug\RestSharp.xml
+G:\Joblisting-Updated\Joblisting\JoblistingAnnouncementService\bin\Debug\System.Buffers.xml
+G:\Joblisting-Updated\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.AssemblyReference.cache
+G:\Joblisting-Updated\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.ProjectInstaller.resources
+G:\Joblisting-Updated\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.GenerateResource.cache
+G:\Joblisting-Updated\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.CoreCompileInputs.cache
+G:\Joblisting-Updated\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.CopyComplete
+G:\Joblisting-Updated\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.exe
+G:\Joblisting-Updated\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.pdb
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.exe.config
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.exe
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingAnnouncementService\bin\Debug\JoblistingAnnouncementService.pdb
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingAnnouncementService\bin\Debug\BouncyCastle.Crypto.dll
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingAnnouncementService\bin\Debug\MailKit.dll
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingAnnouncementService\bin\Debug\MimeKit.dll
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingAnnouncementService\bin\Debug\RestSharp.dll
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingAnnouncementService\bin\Debug\System.Buffers.dll
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingAnnouncementService\bin\Debug\BouncyCastle.Crypto.xml
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingAnnouncementService\bin\Debug\MailKit.pdb
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingAnnouncementService\bin\Debug\MailKit.xml
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingAnnouncementService\bin\Debug\MimeKit.pdb
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingAnnouncementService\bin\Debug\MimeKit.xml
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingAnnouncementService\bin\Debug\RestSharp.xml
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingAnnouncementService\bin\Debug\System.Buffers.xml
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.AssemblyReference.cache
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.ProjectInstaller.resources
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.GenerateResource.cache
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.CoreCompileInputs.cache
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.csproj.CopyComplete
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.exe
+G:\Joblisting-Updated\Joblisting1\Joblisting\JoblistingAnnouncementService\obj\Debug\JoblistingAnnouncementService.pdb
