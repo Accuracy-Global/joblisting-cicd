@@ -28,7 +28,7 @@ jobs:
       - name: build project
         run: |
           dir
-          cd JobPortal.Web JobPortal.Web
+          cd JobPortal.Web JobPortal.Web.csproj
           dotnet build
         
       # - name: Publish to folder
