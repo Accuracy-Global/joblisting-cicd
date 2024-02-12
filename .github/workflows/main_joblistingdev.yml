@@ -27,7 +27,7 @@ jobs:
 
       - uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '4.8.x'
+          dotnet-version: '4.8'
 
       - name: install dependencies
         run: dotnet restore ./JobPortal.Web/JobPortal.Web.csproj
