@@ -36,10 +36,14 @@ jobs:
         run: |
           cd JobPortal.Web
           dir
-          msbuild /nologo /verbosity:q /t:Build /p:_PackageTempDir="\published\" JobPortal.Web.csproj
+          msbuild /nologo /verbosity:q /t:pipelinePreDeployCopyAllFilesToOneFolder /t:Build /p:OutDir="\pipelinePreDeployCopyAllFilesToOneFolder\" JobPortal.Web.csproj
           dir
-      - name: Directory
+      - name: List all Directories 
         run: |
+          dir
+          cd JobPortal.Web
+          dir
+          cd pipelinePreDeployCopyAllFilesToOneFolder
           dir
       
       - name: Upload artifact for deployment job
