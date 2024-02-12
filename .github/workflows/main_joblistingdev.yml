@@ -35,7 +35,11 @@ jobs:
           dir
           
         # msbuild /nologo /verbosity:m /t:Build /t:pipelinePreDeployCopyAllFilesToOneFolder /p:_PackageTempDir="\published\" JobPortal.Web.csproj
-
+      - name: Directory
+        run: |
+          dir
+          
+      
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
