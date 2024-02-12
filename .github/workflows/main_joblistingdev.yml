@@ -28,11 +28,16 @@ jobs:
       # - name: Setup MSBuild path
       #   uses: microsoft/setup-msbuild@v1.0.2
 
-      # - name: Setup NuGet
-      #   uses: NuGet/setup-nuget@v1.0.5
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1.0.5
 
       # - name: Restore NuGet packages
       #   run: nuget restore
+
+      - name: add dependencies
+        run: |
+          dotnet add package MSBuild.Microsoft.VisualStudio.Web.targets --version 6.0.418
+          
 
       - name: build project
         run: |
