@@ -28,13 +28,24 @@ jobs:
       - name: List Dir
         run: |
           dir
-          
-      - name: Publish to folder
+
+      - name: Build with dotnet
         run: |
           cd JobPortal.Web
-          dir
-          msbuild /nologo /verbosity:q /p:Configuration=Release JobPortal.Web.csproj
-          dir
+          dotnet build JobPortal.Web.csproj --configuration Release --no-restore
+
+      - name: Publish with dotnet
+        run: |
+          cd JobPortal.Web
+          dotnet publish JobPortal.Web.csproj -c Release -o ./publish
+    
+      # - name: Publish to folder
+      #   run: |
+      #     cd JobPortal.Web
+      #     dir
+      #     msbuild /nologo /verbosity:q /p:Configuration=Release JobPortal.Web.csproj
+      #     dir
+      
       - name: List all Directories 
         run: |
           dir
