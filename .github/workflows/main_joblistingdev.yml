@@ -29,22 +29,12 @@ jobs:
         run: |
           dir
 
-      - name: Build with dotnet
+      - name: Publish to folder
         run: |
           cd JobPortal.Web
-          dotnet build JobPortal.Web.csproj --configuration Release --no-restore
-
-      - name: Publish with dotnet
-        run: |
-          cd JobPortal.Web
-          dotnet publish JobPortal.Web.csproj -c Release -o ./publish
-    
-      # - name: Publish to folder
-      #   run: |
-      #     cd JobPortal.Web
-      #     dir
-      #     msbuild /nologo /verbosity:q /p:Configuration=Release JobPortal.Web.csproj
-      #     dir
+          dir
+          msbuild /nologo /verbosity:q /p:Configuration=Release JobPortal.Web.csproj
+          dir
       
       - name: List all Directories 
         run: |
@@ -58,7 +48,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ASP-app
-          path: '/published/**'
+          path: 'JobPortal.Web/bin'
 
   deploy:
     runs-on: windows-latest
