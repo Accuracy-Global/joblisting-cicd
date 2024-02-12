@@ -6,7 +6,7 @@ name: Build and deploy ASP app to Azure Web App - Joblistingdev
 on:
   push:
     branches:
-      - main
+      - main-1
   workflow_dispatch:
 
 jobs:
