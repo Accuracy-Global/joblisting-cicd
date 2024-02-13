@@ -37,7 +37,7 @@ jobs:
       - name: Build and Publish with MSBuild
         run: |
           dir
-          msbuild JobPortal.Web/JobPortal.Web.csproj
+          dotnet msbuild JobPortal.Web/JobPortal.Web.csproj
           cd Jobportal.web 
           dir
           
