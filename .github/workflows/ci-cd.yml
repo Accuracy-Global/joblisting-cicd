@@ -10,7 +10,7 @@ env:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest   # Use Windows runner for .NET Framework
     steps:
 
       # Checkout the repo
@@ -34,4 +34,4 @@ jobs:
         with: 
           app-name: ${{ env.AZURE_WEBAPP_NAME }} 
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CF75295A3BC947D5BDCC8088A7D72347 }}
-          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp'
+          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
