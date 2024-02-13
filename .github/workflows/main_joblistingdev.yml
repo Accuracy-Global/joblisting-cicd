@@ -37,10 +37,9 @@ jobs:
       - name: Build and Publish with MSBuild
         run: |
           dir
-          msbuild /p:Configuration=Release /p:Platform="AnyCPU" JobPortal.Web\JobPortal.Web.csproj
+          msbuild JobPortal.Web/JobPortal.Web.csproj
           cd Jobportal.web 
           dir
-        # msbuild /nologo /verbosity:q /t:Build /p:_PackageTempDir="\packages\" JobPortal.Web/JobPortal.Web.csproj
           
       - name: List all Directories 
         run: |
