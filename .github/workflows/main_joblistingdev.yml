@@ -67,7 +67,9 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: ASP-app
-      
+      - name: Check downloaded files
+        run: |
+          dir
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
