@@ -23,12 +23,12 @@ jobs:
           
       - name: Dotnet Restore
         run: | 
-          dotnet restore
+          dotnet restore JobPortal.sln
 
       # Run dotnet build and publish
       - name: dotnet build
         run: |
-          dotnet build --configuration Release --no-restore JobPortal.Web/JobPortal.Web.csproj
+          dotnet build --configuration Release --no-restore JobPortal.sln
 
       - name: Dotnet publish
         run: | 
