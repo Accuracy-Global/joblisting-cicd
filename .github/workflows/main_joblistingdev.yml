@@ -29,6 +29,10 @@ jobs:
         run: |
           dir
 
+      - name: Dotnet Build
+        run: |
+          dotnet build --configuration Release JobPortal.Web/JobPortal.Web.csproj
+
       - name: Build and Publish with MSBuild
         run: |
           dir
