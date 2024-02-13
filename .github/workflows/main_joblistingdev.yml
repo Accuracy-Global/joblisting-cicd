@@ -32,7 +32,7 @@ jobs:
       - name: Build and Publish with MSBuild
         run: |
           dir
-          msbuild /nologo /verbosity:q /t:Release /p:_PackageTempDir="\packages\" JobPortal.Web/JobPortal.Web.csproj
+          msbuild /nologo /verbosity:q /t:Build /p:_PackageTempDir="\packages\" JobPortal.Web/JobPortal.Web.csproj
           cd Jobportal.web 
           dir
       
