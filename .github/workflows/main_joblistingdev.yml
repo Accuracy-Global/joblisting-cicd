@@ -29,17 +29,10 @@ jobs:
         run: |
           dir
 
-      - name: Build with MSBuild
+      - name: Build and Publish with MSBuild
         run: |
           dir
-          cd JobPortal.Web
-          msbuild /t:Build /p:Configuration=Release /p:RestorePackages=false JobPortal.Web.csproj
-          dir
-
-      - name: Publish with MSBuild
-        run: |
-          dir
-          msbuild /t:Publish /p:Configuration=Release /p:RestorePackages=false JobPortal.Web/JobPortal.Web.csproj
+          msbuild /nologo /verbosity:q /t:Release /p:_PackageTempDir="\packages\" JobPortal.Web/JobPortal.Web.csproj
           cd Jobportal.web 
           dir
       
@@ -55,7 +48,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ASP-app
-          path: 'JobPortal.Web/obj/Release/Package/PackageTmp/bin'
+          path: 'JobPortal.Web/bin'
 
   deploy:
     runs-on: windows-latest
