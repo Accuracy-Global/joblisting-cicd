@@ -29,9 +29,6 @@ jobs:
         run: |
           dir
 
-      - name: MsBuild Restore cmd
-        run: msbuild /t:Restore JobPortal.Web/JobPortal.Web.csproj
-
       - name: Build with MSBuild
         run: |
           dir
