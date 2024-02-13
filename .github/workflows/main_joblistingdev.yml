@@ -31,7 +31,7 @@ jobs:
 
       - name: Dotnet Build
         run: |
-          dotnet clean
+          dotnet clean JobPortal.Web/JobPortal.Web.csproj
           dotnet build --configuration Release JobPortal.Web/JobPortal.Web.csproj
 
       - name: Build and Publish with MSBuild
