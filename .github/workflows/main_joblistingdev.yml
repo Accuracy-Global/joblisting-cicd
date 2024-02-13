@@ -32,7 +32,7 @@ jobs:
       - name: Publish to folder
         run: |
           dir
-          msbuild /nologo /verbosity:q /t:Build /p:_PackageTempDir="\published\" JobPortal.sln
+          msbuild /verbosity:q /t:Build JobPortal.sln
           dir
       
       - name: List all Directories 
