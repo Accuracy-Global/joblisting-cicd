@@ -48,7 +48,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: ASP-app
-          path: 'JobPortal.Web/obj/Release/Package/PackageTmp'
+          path: 'JobPortal.Web/bin'
 
   deploy:
     runs-on: windows-latest
