@@ -1,4 +1,4 @@
-name: Build and deploy ASP app to Azure Web App - Joblistingdev
+name: Build and deploy - Joblistingdev
 
 on:
   push:
