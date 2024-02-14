@@ -29,16 +29,11 @@ jobs:
         run: |
           dir
 
-      # - name: Dotnet Build
-      #   run: |
-      #     dotnet clean JobPortal.Web/JobPortal.Web.csproj
-      #     dotnet build --configuration Release JobPortal.Web/JobPortal.Web.csproj
-
       - name: Build and Publish with MSBuild
         run: |
           dir
-          msbuild JobPortal.Web/JobPortal.Web.csproj
-          cd Jobportal.web 
+          msbuild JobPortal.sln
+          cd Jobportal.web
           dir
           
       - name: List all Directories 
@@ -48,6 +43,15 @@ jobs:
           dir
           cd bin
           dir
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'Joblistingdev'
+          slot-name: 'Production'
+          package: 'JobPortal.Web/bin'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CF75295A3BC947D5BDCC8088A7D72347 }}
       
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -55,26 +59,26 @@ jobs:
           name: ASP-app
           path: 'JobPortal.Web/bin'
 
-  deploy:
-    runs-on: windows-latest
-    needs: build
-    environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+  # deploy:
+  #   runs-on: windows-latest
+  #   needs: build
+  #   environment:
+  #     name: 'Production'
+  #     url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v3
-        with:
-          name: ASP-app
-      - name: Check downloaded files
-        run: |
-          dir
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: 'Joblistingdev'
-          slot-name: 'Production'
-          package: .
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CF75295A3BC947D5BDCC8088A7D72347 }}
+  #   steps:
+  #     - name: Download artifact from build job
+  #       uses: actions/download-artifact@v3
+  #       with:
+  #         name: ASP-app
+  #     - name: Check downloaded files
+  #       run: |
+  #         dir
+  #     - name: Deploy to Azure Web App
+  #       id: deploy-to-webapp
+  #       uses: azure/webapps-deploy@v2
+  #       with:
+  #         app-name: 'Joblistingdev'
+  #         slot-name: 'Production'
+  #         package: .
+  #         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CF75295A3BC947D5BDCC8088A7D72347 }}
