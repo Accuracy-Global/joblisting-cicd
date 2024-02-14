@@ -1,49 +1,49 @@
-name: Build and deploy
+# name: Build and deploy
 
-on:
-  workflow_dispatch:
+# on:
+#   workflow_dispatch:
 
-env:
-  AZURE_WEBAPP_NAME: Joblistingdev    
-  AZURE_WEBAPP_PACKAGE_PATH: 'JobPortal.Web/bin'      
-  DOTNET_VERSION: '8.0.x'           # set this to the dot net version to use
+# env:
+#   AZURE_WEBAPP_NAME: Joblistingdev    
+#   AZURE_WEBAPP_PACKAGE_PATH: 'JobPortal.Web/bin'      
+#   DOTNET_VERSION: '8.0.x'           # set this to the dot net version to use
 
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest   
-    steps:
+# jobs:
+#   build-and-deploy:
+#     runs-on: ubuntu-latest   
+#     steps:
 
-      - name: Checkout the repo
-        uses: actions/checkout@v4
+#       - name: Checkout the repo
+#         uses: actions/checkout@v4
       
-      - name: Setup .NET Core
-        uses: actions/setup-dotnet@v4.0.0
-        with:
-          dotnet-version: ${{ env.DOTNET_VERSION }} 
+#       - name: Setup .NET Core
+#         uses: actions/setup-dotnet@v4.0.0
+#         with:
+#           dotnet-version: ${{ env.DOTNET_VERSION }} 
           
-      - name: Dotnet Restore
-        run: | 
-          dotnet restore JobPortal.Web/JobPortal.Web.csproj
+#       - name: Dotnet Restore
+#         run: | 
+#           dotnet restore JobPortal.Web/JobPortal.Web.csproj
 
-      # Run dotnet build and publish
-      - name: dotnet build
-        run: |
-          dotnet build --configuration Release --no-restore JobPortal.Web/JobPortal.Web.csproj
+#       # Run dotnet build and publish
+#       - name: dotnet build
+#         run: |
+#           dotnet build --configuration Release --no-restore JobPortal.Web/JobPortal.Web.csproj
 
-      - name: Dotnet publish
-        run: | 
-          dotnet publish --configuration Release --no-build --output ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+#       - name: Dotnet publish
+#         run: | 
+#           dotnet publish --configuration Release --no-build --output ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
           
-      # Deploy to Azure Web apps
-      - name: 'Run Azure webapp deploy action using publish profile credentials'
-        uses: azure/webapps-deploy@v2
-        with: 
-          app-name: ${{ env.AZURE_WEBAPP_NAME }} 
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CF75295A3BC947D5BDCC8088A7D72347 }}
-          package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
+#       # Deploy to Azure Web apps
+#       - name: 'Run Azure webapp deploy action using publish profile credentials'
+#         uses: azure/webapps-deploy@v2
+#         with: 
+#           app-name: ${{ env.AZURE_WEBAPP_NAME }} 
+#           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CF75295A3BC947D5BDCC8088A7D72347 }}
+#           package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
     
-      - name: Publish Artifacts
-        uses: actions/upload-artifact@v1.0.0
-        with:
-          name: Asp-App
-          path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+#       - name: Publish Artifacts
+#         uses: actions/upload-artifact@v1.0.0
+#         with:
+#           name: Asp-App
+#           path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
