@@ -114,6 +114,17 @@ namespace JobPortal.Web.Controllers
         {
             return View();
         }
+        [UrlPrivilegeFilter]
+        public ActionResult Support()
+        {
+            return View();
+        }
+
+        [UrlPrivilegeFilter]
+        public ActionResult Support1()
+        {
+            return View();
+        }
 
         [HttpGet]
         public ActionResult ValidateEmail()

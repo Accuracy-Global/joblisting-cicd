@@ -31,6 +31,7 @@ using JobPortal.Services.Contracts;
 using JobPortal.Web.App_Start;
 using System.Net;
 using System.Web.Script.Serialization;
+using JobPortal.Web.Models.Pagination;
 #pragma warning restore CS0234 // The type or namespace name 'Services' does not exist in the namespace 'JobPortal' (are you missing an assembly reference?)
 
 namespace JobPortal.Web.Controllers
@@ -2326,79 +2327,97 @@ namespace JobPortal.Web.Controllers
         [ValidateInput(false)]
         [AllowAnonymous]
         [UrlPrivilegeFilter]
-        public async Task<ActionResult> Search(SearchJobSeekerModel model, int pageNumber = 1)
+        public async Task<ActionResult> Search(int pageNumber = 1)
         {
-            if (Request.QueryString["returnurl"] != null)
-            {
-                ViewBag.ReturnUrl = Request["returnurl"];
-            }
-            var records = 0;
-            int pageSize = 10;
-            model.ModelList = new List<PeopleEntity>();
-            if (model == null)
-            {
-                model = new SearchJobSeekerModel();
-            }
-            else
-            {
-                if ((!string.IsNullOrEmpty(model.Where) && model.Where.Trim().Length > 0) || (!string.IsNullOrEmpty(model.Title) && model.Title.Trim().Length > 0) || model.CategoryId != null || model.SpecializationId != null || model.CountryId != null || model.StateId != null
-                    || (!string.IsNullOrEmpty(model.City) && model.City.Trim().Length > 0) || model.AgeMin != null || model.AgeMax != null || model.Experience != null || model.QualificationId != null
-                    || model.SalaryMin != null || model.SalaryMax != null)
-                {
-                    var searchResume = new SearchResume
-                    {
-                        Title = (!string.IsNullOrEmpty(model.Title) && model.Title.Trim().Length > 0) ? model.Title.Trim() : null,
-                        Where = (!string.IsNullOrEmpty(model.Where) && model.Where.Trim().Length > 0) ? model.Where.Trim() : null,
-                        CategoryId = model.CategoryId,
-                        SpecializationId = model.SpecializationId,
-                        CountryId = model.CountryId,
-                        StateId = model.StateId,
-                        City = (!string.IsNullOrEmpty(model.City) && model.City.Trim().Length > 0) ? model.City.Trim() : null,
-                        AgeMin = model.AgeMin,
-                        AgeMax = model.AgeMax,
-                        Experience = model.Experience,
-                        QualificationId = model.QualificationId,
-                        MinSalary = model.SalaryMin,
-                        MaxSalary = model.SalaryMax,
-                        Username = User != null ? User.Username : null,
-                        PageNumber = pageNumber,
-                        PageSize = pageSize
-                    };
-                    model.ModelList = await _service.Jobseekers(searchResume); //SearchService.Instance.Jobseekers(searchResume);
-                    if (model.ModelList.Count() > 0)
-                    {
-                        records = model.ModelList.Max(x => x.MaxRows.Value);
-                    }
-                }
-                ViewBag.Model = new StaticPagedList<PeopleEntity>(model.ModelList, pageNumber, pageSize, records);
-                ViewBag.Rows = records;
-            }
+            SearchJobModel model = new SearchJobModel();
+            var data = JobService.Instance.GetJobSeekers22(pageNumber);
+            //string base64String = Convert.ToBase64String(data.Select(m=>m.Image), 0, (data.Select(m => m.Image)).le);
+            //data.Select
+            //Convert.FromBase64String(data.Select(m => m.Image)); 
 
-            if (Request.IsAjaxRequest())
-            {
-                ResponseContext context = null;
-                try
-                {
-                    context = new ResponseContext()
-                    {
-                        Id = 1,
-                        Data = model,
-                    };
-                }
-                catch (Exception ex)
-                {
-                    context = new ResponseContext()
-                    {
-                        Id = 0,
-                        Data = model,
-                    };
-                }
-                return Json(context, JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                return View(model);
-            }
+            ViewBag.LatestJobs = data;
+            var pageModel = new Pager(data.FirstOrDefault().TotalRow, pageNumber, 20);
+            model.DataSize = pageModel.PageSize;
+           // model.Where = country; //changes
+            model.CurrentPage = pageModel.CurrentPage;
+            model.EndPage = pageModel.EndPage;
+            model.StartPage = pageModel.StartPage;
+            model.CurrentPage = pageModel.CurrentPage;
+            model.TotalPages = pageModel.TotalPages;
+            model.PageSize = pageModel.PageSize;
+            return View(model);
+            //if (Request.QueryString["returnurl"] != null)
+            //{
+            //    ViewBag.ReturnUrl = Request["returnurl"];
+            //}
+            //var records = 0;
+            //int pageSize = 10;
+            //model.ModelList = new List<PeopleEntity>();
+            //if (model == null)
+            //{
+            //    model = new SearchJobSeekerModel();
+            //}
+            //else
+            //{
+            //    if ((!string.IsNullOrEmpty(model.Where) && model.Where.Trim().Length > 0) || (!string.IsNullOrEmpty(model.Title) && model.Title.Trim().Length > 0) || model.CategoryId != null || model.SpecializationId != null || model.CountryId != null || model.StateId != null
+            //        || (!string.IsNullOrEmpty(model.City) && model.City.Trim().Length > 0) || model.AgeMin != null || model.AgeMax != null || model.Experience != null || model.QualificationId != null
+            //        || model.SalaryMin != null || model.SalaryMax != null)
+            //    {
+            //        var searchResume = new SearchResume
+            //        {
+            //            Title = (!string.IsNullOrEmpty(model.Title) && model.Title.Trim().Length > 0) ? model.Title.Trim() : null,
+            //            Where = (!string.IsNullOrEmpty(model.Where) && model.Where.Trim().Length > 0) ? model.Where.Trim() : null,
+            //            CategoryId = model.CategoryId,
+            //            SpecializationId = model.SpecializationId,
+            //            CountryId = model.CountryId,
+            //            StateId = model.StateId,
+            //            City = (!string.IsNullOrEmpty(model.City) && model.City.Trim().Length > 0) ? model.City.Trim() : null,
+            //            AgeMin = model.AgeMin,
+            //            AgeMax = model.AgeMax,
+            //            Experience = model.Experience,
+            //            QualificationId = model.QualificationId,
+            //            MinSalary = model.SalaryMin,
+            //            MaxSalary = model.SalaryMax,
+            //            Username = User != null ? User.Username : null,
+            //            PageNumber = pageNumber,
+            //            PageSize = pageSize
+            //        };
+            //        model.ModelList = await _service.Jobseekers(searchResume); //SearchService.Instance.Jobseekers(searchResume);
+            //        if (model.ModelList.Count() > 0)
+            //        {
+            //            records = model.ModelList.Max(x => x.MaxRows.Value);
+            //        }
+            //    }
+            //    ViewBag.Model = new StaticPagedList<PeopleEntity>(model.ModelList, pageNumber, pageSize, records);
+            //    ViewBag.Rows = records;
+            //}
+
+            //if (Request.IsAjaxRequest())
+            //{
+            //    ResponseContext context = null;
+            //    try
+            //    {
+            //        context = new ResponseContext()
+            //        {
+            //            Id = 1,
+            //            Data = model,
+            //        };
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        context = new ResponseContext()
+            //        {
+            //            Id = 0,
+            //            Data = model,
+            //        };
+            //    }
+            //    return Json(context, JsonRequestBehavior.AllowGet);
+            //}
+            //else
+            //{
+            //    return View(model);
+            //}
+
         }
         [HttpPost]
         [AllowAnonymous]

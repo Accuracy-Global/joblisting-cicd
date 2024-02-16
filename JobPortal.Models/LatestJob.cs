@@ -26,5 +26,6 @@ namespace JobPortal.Models
         public long TotalRow { get; set; }
         public string JobURL { get; set; }
         public string Qualification { get; set; }
+        public string Overview { get; set; }
     }
 }

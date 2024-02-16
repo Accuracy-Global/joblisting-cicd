@@ -928,3 +928,8 @@ G:\Joblisting-Updated\Joblisting1\Joblisting\JobPortal.Domain\obj\Debug\JobPorta
 G:\Joblisting-Updated\Joblisting1\Joblisting\JobPortal.Domain\obj\Debug\JobPortal.Domain.csproj.CopyComplete
 G:\Joblisting-Updated\Joblisting1\Joblisting\JobPortal.Domain\obj\Debug\JobPortal.Domain.dll
 G:\Joblisting-Updated\Joblisting1\Joblisting\JobPortal.Domain\obj\Debug\JobPortal.Domain.pdb
+G:\dileepgit\joblisting\JobPortal.Domain\obj\Debug\JobPortal.Domain.csproj.App.config
+G:\dileepgit\joblisting\JobPortal.Domain\obj\Debug\JobPortal.Domain.csproj.AssemblyReference.cache
+G:\dileepgit\joblisting\JobPortal.Domain\obj\Debug\JobPortal.Domain.csproj.CoreCompileInputs.cache
+G:\dileepgit\joblisting\JobPortal.Domain\obj\Debug\JobPortal.Domain.dll
+G:\dileepgit\joblisting\JobPortal.Domain\obj\Debug\JobPortal.Domain.pdb

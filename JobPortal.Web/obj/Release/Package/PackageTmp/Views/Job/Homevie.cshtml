@@ -59,6 +59,27 @@
 </head>
 
 <body>
+    <style>
+        .social-icons a {
+            color: #FFFFFF;
+            font-size: 16px;
+            border-radius: 50%;
+            background-color: black;
+            display: inline-block;
+            text-align: center;
+            border: 1px solid #fff;
+            width: 28px;
+            height: 28px;
+            line-height: 20px;
+            margin: 0.50px;
+            opacity: 0.85;
+            padding: 4.7px;
+        }
+
+            .social-icons a:hover {
+                color: white;
+            }
+    </style>
     <img class="conatiner2" src="~/Content/chatbotnew/ChatWithUS.png" onclick="openForm()" alt="cwt" height="70" width="90" />
     <link href="~/Content/chatbotnew/chatbotstyle.css" rel="stylesheet" />
     <script src="~/Content/chatbotnew/chatbotjquerry.js"></script>
@@ -106,23 +127,30 @@
     <script src="~/Content/chatbotnew/response.js"></script>
 
     <!-- ======= Hero Section ======= -->
-    <section id="hero" class="hero" style="background-image: url(/Images/vietanm1.jpg);">
+    <section id="hero" class="hero" style=" background-image: url('../../images1/Vietnam.jpg');">
         <div class="container text-center">
             <div class="row">
                 <div class="col-md-12">
                     <a class="hero-brand" href="/Vietnam" title="Home">
-                        <img alt="Bell Logo" src="~/Content/Homesinga/assetsmalsya/img/PNG/logo_tool.png" width="250" height="65" class="m-0">
+                        <div class="navbar-header" style="font-size:100px; font-weight:500;">@*<a href="~/Content/fonts/aldhabi.ttf" alt="Joblisting" height="150" width="350" class="img-responsive">*@<span class="span1" style="color: #34ba08; font-style: inherit; font-family: 'Aldhabi'">Job</span> <span class="span2" style="color: white; font-style: inherit; font-family: 'Aldhabi'">Listing</span>@*</a>*@</div>
+
+                        @*<img alt="Bell Logo" src="~/Content/Homesinga/assetsmalsya/img/PNG/logo_tool.png" width="250" height="65" class="m-0">*@
                     </a>
                 </div>
             </div>
 
             <div class="col-md-12">
+                @*<h1 style="font-size: 52px;">
+                        Find Latest Jobs in India, Recruitment, Job Search & Employment Opportunities
+                    </h1>*@
                 <h1 style="font-size: 52px;">
-                    Find Jobs in Vietnam, Employment, Vacancies and Job Search
+                    Find Latest Jobs, Part-Time & Freelance Opportunities
                 </h1>
-
+                @*<p class="tagline">
+                        Job search made easy with India's top job listings, all in one place!
+                    </p>*@
                 <p class="tagline">
-                    Create a better future for yourself with Vietnam’s one of the leading job search portal!
+                    Job search made easy with Global job listings in a Local Language!
                 </p>
                 <div class="row">
                     <div class="col" style="text-align: right;">
@@ -154,7 +182,7 @@
             <nav id="navbar" class="navbar order-last order-lg-0">
                 <ul>
                     <li><a class="nav-link scrollto active" href="/Vietnam/jobs">Search Jobs</a></li>
-                    <li><a class="nav-link scrollto" href="/search-people">Search People</a></li>
+                    @*<li><a class="nav-link scrollto" href="/search-people">Search People</a></li>*@
                     <li><a class="nav-link scrollto" href="/search-jobseekers">Search Jobseekers</a></li>
                     <li><a class="nav-link scrollto" href="/listjob">List New Job</a></li>
                     <!-- <li><a class="nav-link scrollto" href="#team">Team</a></li>
@@ -163,15 +191,69 @@
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
 
-            <div class="header-social-links d-flex align-items-center">
-                <a href="https://twitter.com/JobListing4" class="twitter"><i class="bi bi-twitter"></i></a>
-                <a href="https://www.facebook.com/Joblisitng" class="facebook"><i class="bi bi-facebook"></i></a>
-                <a href="https://www.instagram.com/joblistingportal/" class="instagram"><i class="bi bi-instagram"></i></a>
-                <a href="https://www.linkedin.com/company/joblisting-com/about/" class="google"><i class="bi bi-google"></i></a>
-                <a href="https://www.linkedin.com/in/joblisting-01/" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
 
+            <div class="social-icons" style="width:200px;height:32px; margin:20px; margin-right:-20px">
+                @*<div class="header-social-links d-flex align-items-center">*@
+                <a href="https://twitter.com/JobListing4" class="twitter">
+                    <ion-icon name="logo-twitter"></ion-icon>
+                    @*<i class="bi bi-twitter twitter-color"></i>*@
+                </a>
+
+                <a href="https://www.facebook.com/Joblisitng" class="facebook">
+                    <ion-icon name="logo-facebook"></ion-icon>
+                    @*<i class="bi bi-facebook facebook-color"></i>*@
+                </a>
+
+                <a href="https://www.instagram.com/joblistingportal/" class="instagram">
+                    <ion-icon name="logo-instagram"></ion-icon>
+                    @*<i class="bi bi-instagram instagram-color"></i>*@
+                </a>
+
+                <a href="https://www.linkedin.com/in/joblisting-01/" class="linkedin">
+                    <ion-icon name="logo-linkedin"></ion-icon>
+                    @*<i class="bi bi-linkedin linkedin-color"></i>*@
+                </a>
+                <a href="https://www.googleplus.com/in/joblisting-01/" class="google">
+                    <ion-icon name="logo-google"></ion-icon>
+                    @*<i class="bi bi-google google-color"></i>*@
+                </a>
+                <a href="https://www.yahoo.com/in/joblisting-01/" class="yahoo">
+                    <ion-icon name="logo-yahoo"></ion-icon>
+                    @*<i class="bi bi-yahoo yahoo-color"></i>*@
+                </a>
+                @*<a href="https://twitter.com/JobListing4" class="twitter"><i class="bi bi-twitter twitter-color"></i></a>
+                    <a href="https://www.facebook.com/Joblisitng" class="facebook"><i class="bi bi-facebook facebook-color"></i></a>
+                    <a href="https://www.instagram.com/joblistingportal/" class="instagram"><i class="bi bi-instagram instagram-color"></i></a>
+                    @*<a href="https://www.linkedin.com/company/joblisting-com/about/" class="google"><i class="bi bi-google"></i></a>*@
+                @*<a href="https://www.linkedin.com/in/joblisting-01/" class="linkedin"><i class="bi bi-linkedin linkedin-color"></i></a>
+                    @*<a href="https://www.whatsapp.com/Joblisitng" class="whatsapp"><i class="bu bi-whatsapp"></i></a>*@
             </div>
-            <div class="header-social-links d-flex" style="padding-top:20px; ">
+            <style>
+                .twitter-color {
+                    color: black; /* Twitter's official blue color */
+                }
+
+                .facebook-color {
+                    color: black; /* Facebook's official blue color */
+                }
+
+                .instagram-color {
+                    color: black; /* Instagram's official gradient color */
+                }
+
+                .linkedin-color {
+                    color: black; /* LinkedIn's official blue color */
+                }
+            </style>
+            <style>
+                #google_translate_element select {
+                    width: 120px;
+                    height: 32px;
+                    margin-top: -2px;
+                    border-color: #34ba08;
+                }
+            </style>
+            <div class="header-social-links d-flex" style="padding-top:20px;right:150px;">
                 <a>@Html.Partial("_LanguagePartial")</a>
             </div>
             <style>
@@ -190,16 +272,16 @@
 
                 <div class="row content">
                     <div class="col-lg-6" data-aos="fade-right">
-                        <h2>Find Job, Employment and Career opportunities</h2>
+                        <h2>Find Job, Part-Time & Freelance opportunities</h2>
                         <h3>The Easiest Way to Get Your Dream Job</h3>
                     </div>
-                    <div class="col-lg-6 pt-4 pt-lg-0" data-aos="fade-left">
+                    <div class="col-lg-5 pt-5 pt-lg-2" data-aos="fade-left">
                         <p>
                             JobListing is a global website that facilitates job hunting and range from small, medium to large scale as well as cross-sector categories such as green jobs, ethical jobs, freelance and seasonal jobs.
                         </p>
-                        <p>
-                            JobListing is a global website that facilitates job hunting and range from small, medium to large scale as well as cross-sector categories such as green jobs, ethical jobs, freelance and seasonal jobs.
-                        </p>
+                        @* <p>
+                                JobListing is a global website that facilitates job hunting and range from small, medium to large scale as well as cross-sector categories such as green jobs, ethical jobs, freelance and seasonal jobs.
+                            </p>*@
                     </div>
                 </div>
 
@@ -258,56 +340,56 @@
         </style>
 
 
-        <div class="container" style="padding-top: 20px; background: #34ba08; border-bottom: 13px solid #34ba08;">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="text-center">
-                        <span style="color: #000;">Apply process</span>
-                        <h2 style="padding-bottom: 20px;color: white;"> How it works</h2>
+        @* <div class="container" style="padding-top: 20px; background: #34ba08; border-bottom: 13px solid #34ba08;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-center">
+                            <span style="color: #000;">Apply process</span>
+                            <h2 style="padding-bottom: 20px;color: white;"> How it works</h2>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <ul class="nav nav-pills nav-justified" style="background-color: #f1f1f1;">
-                <li class="nav-item tab">
-                    <button class="nav-link tablinks btn-primary" style="color: black; background-color: white; font-weight: bold;" onclick="openCity(event, 'London')" id="defaultOpen">Search a job</button>
-                </li>
-                <li class="nav-item links ">
-                    <a class="nav-link" style="padding-top: 18px; font-size: 25px; font-weight: bold;"><i class="bi bi-arrow-right " style="color: #34ba08;"></i></a>
-                </li>
-                <li class="nav-item tab">
-                    <button class="nav-link tablinks btn-primary" style="color: black; background-color: white; font-weight: bold;" onclick="openCity(event, 'Paris')">Apply for job</button>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" style="padding-top: 18px; font-size: 25px; font-weight: bold;"><i class="bi bi-arrow-right" style="color: #34ba08; font-weight: bold;"></i></a>
-                </li>
-                <li class="nav-item tablinks tab">
-                    <button class="nav-link tablinks btn-primary" style="color: black; background-color: white; font-weight:bold;" onclick="openCity(event, 'Tokyo')">Get your job</button>
-                </li>
+                <ul class="nav nav-pills nav-justified" style="background-color: #f1f1f1;">
+                    <li class="nav-item tab">
+                        <button class="nav-link tablinks btn-primary" style="color: black; background-color: white; font-weight: bold;" onclick="openCity(event, 'London')" id="defaultOpen">Search a job</button>
+                    </li>
+                    <li class="nav-item links ">
+                        <a class="nav-link" style="padding-top: 18px; font-size: 25px; font-weight: bold;"><i class="bi bi-arrow-right " style="color: #34ba08;"></i></a>
+                    </li>
+                    <li class="nav-item tab">
+                        <button class="nav-link tablinks btn-primary" style="color: black; background-color: white; font-weight: bold;" onclick="openCity(event, 'Paris')">Apply for job</button>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" style="padding-top: 18px; font-size: 25px; font-weight: bold;"><i class="bi bi-arrow-right" style="color: #34ba08; font-weight: bold;"></i></a>
+                    </li>
+                    <li class="nav-item tablinks tab">
+                        <button class="nav-link tablinks btn-primary" style="color: black; background-color: white; font-weight:bold;" onclick="openCity(event, 'Tokyo')">Get your job</button>
+                    </li>
 
-            </ul>
+                </ul>
 
-            <div id="London" class="tabcontent">
-                <br />
-                <p>
-                    Click the  Search Jobs at the top of homepage.<br />
-                    Click the Search jobs field and enter keywords or a company name.<br />
-                    You can also select from the job roles suggested by Joblisting  based on your qualification and experience.
-                </p>
-            </div>
+                <div id="London" class="tabcontent">
+                    <br />
+                    <p>
+                        Click the  Search Jobs at the top of homepage.<br />
+                        Click the Search jobs field and enter keywords or a company name.<br />
+                        You can also select from the job roles suggested by Joblisting  based on your qualification and experience.
+                    </p>
+                </div>
 
-            <div id="Paris" class="tabcontent">
-                <br />
-                <p>
-                    Easy Apply: This allows you to apply for the job on Joblisting.<br />
-                    Apply: You’ll be redirected to the company website where you can apply for the job externally.
-                </p>
-            </div>
+                <div id="Paris" class="tabcontent">
+                    <br />
+                    <p>
+                        Easy Apply: This allows you to apply for the job on Joblisting.<br />
+                        Apply: You’ll be redirected to the company website where you can apply for the job externally.
+                    </p>
+                </div>
 
-            <div id="Tokyo" class="tabcontent">
-                <br />
-                <p>Get your dream job in  Joblisting </p>
-            </div>
-        </div>
+                <div id="Tokyo" class="tabcontent">
+                    <br />
+                    <p>Get your dream job in  Joblisting </p>
+                </div>
+            </div>*@
         <script>
             function openCity(evt, cityName) {
                 var i, tabcontent, tablinks;
@@ -461,7 +543,7 @@
                     margin: 7px;
                 }
             </style>
-            <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">Latest Jobs</h1>
+            @* <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">Latest Jobs</h1>*@
             <div class="row">
                 @if (ViewBag.LatestJob1 != null)
                 {
@@ -510,26 +592,26 @@
         <br />
         <br />
 
-        <div class="container-fluid">
-            <div class="row" style="padding-right:15px; padding-left:15px;">
-                <h1 class="text-center"><b>Our Customers</b></h1>
-                <div class="col-sm-12">
-                    <style>
-                        .imgf {
-                            padding: 15px;
-                        }
-                    </style>
-                    <marquee behavior="alternate">
-                        @foreach (var item in ViewBag.Model)
-                        {
+        @* <div class="container-fluid">
+                <div class="row" style="padding-right:15px; padding-left:15px;">
+                    <h1 class="text-center"><b>Our Customers</b></h1>
+                    <div class="col-sm-12">
+                        <style>
+                            .imgf {
+                                padding: 15px;
+                            }
+                        </style>
+                        <marquee behavior="alternate">
+                            @foreach (var item in ViewBag.Model)
+                            {
 
-                            @Html.Raw(string.Format("<text ><img padding-left='25px' height='100' width='150' float='left' class='imgf'  src=\"data:image/jpg;base64," + (item["Logo"]) + " \" /> </text>"));
+                                @Html.Raw(string.Format("<text ><img padding-left='25px' height='100' width='150' float='left' class='imgf'  src=\"data:image/jpg;base64," + (item["Logo"]) + " \" /> </text>"));
 
-                        }
-                    </marquee>
+                            }
+                        </marquee>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </div>*@
         <br />
         <!-- End Contact Section -->
 
@@ -547,6 +629,8 @@
 
     <!-- Template Main JS File -->
     <script src="~/Content/Homesinga/assetsmalsya/js/main.js"></script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
 </body>
 

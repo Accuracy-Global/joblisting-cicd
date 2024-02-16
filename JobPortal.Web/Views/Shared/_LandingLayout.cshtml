@@ -381,11 +381,10 @@
                         @*<div class="navbar-header">*@
                        
                             <div class="navbar-header">
-                                <div class="navbar-header" style="font-size: 70px; font-weight: 600; font-family:'Adobe Devanagari'">@*<a href="~/Content/fonts/aldhabi.ttf" alt="Joblisting" height="150" width="350" class="img-responsive">*@<span class="span1" style="color: #34ba08; font-style: inherit;font-family: 'Adobe Devanagari';">Job</span> <span class="span2" style="color: black; font-family: 'Adobe Devanagari';">Listing</span>@*</a>*@</div>
-                                @*<img src="~/images/logo.png" alt="Joblisting" border="0"  style="width: 350px;height: 80px;" />*@
-                                @*<a href='#'>
-                                    <img src="/Images/JobListing_Aldhabi_Font.PNG" alt="Joblisting" width="350" height="80" class="img-responsive" />
-                                </a>*@
+                                 @*<img src="~/images/logo.png" alt="Joblisting" border="0"  style="width: 350px;height: 80px;" />*@
+                                <a href='#'>
+                                    <img src="/images/joblisting_aldhabi_font.png" alt="joblisting" width="350" height="80" class="img-responsive" />
+                                </a>
                                 <button type="button" class="navbar-toggle" style="float:right;" data-toggle="collapse" data-target=".navbar-ex1-collapse"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
                             </div>
                         </div>
@@ -405,7 +404,7 @@
                                         <li>@Html.ActionLink("SEARCH JOBSEEKERS", "Search", "Jobseeker")</li>
                                         @*<li>@Html.ActionLink("SEARCH RESUMES", "SearchResumes", "Home")</li>*@
                                         <li>@Html.ActionLink("LIST JOB", "ListJob", "Employer")</li>
-                                        <li><a href="/Inbox/Index">INBOX</a></li>
+                                        <li><a href="/Account/Login">LOGIN</a></li>
                                         @*<li>@Html.ActionLink("REGISTER", "Register", "Account") </li>*@
                                         @*<li class="active1" style="padding-left: 10px;">
                             <a href='@Url.Action("Login", "Account")'>
@@ -886,7 +885,7 @@
     </script>
 
     <script type="text/javascript">
-        var ag, re, un, fn, ln, pw, cp, cn, rf, id, cd, co, bd, bm, by, ge, ed, mg, ty, RC, Rcn, Rrn, mn, sc;
+        var ag, re, un, fn, ln, pw, cp, cn, rf, id, cd, co, bd, bm, by, ge, ed, mg, ty, RC, Rcn, Rrn, mn, sc, fr, RC1;
         function rginit() {
             mn = document.getElementById("Mobile");
             ag = document.getElementById("Agreed");
@@ -907,8 +906,10 @@
             co = document.getElementById("CountryId");
             unin = document.getElementById("Universityname");
             RC = document.getElementById("divRecruiter");
+            RC1 = document.getElementById("divRecruiter1");
             Rcn = document.getElementById("CompanyName");
             Rrn = document.getElementById("RecruiterName");
+            fr = document.getElementById("divFreelaning");
             ed = document.getElementById("divError");
             re.disabled = false;
             un.focus();
@@ -918,18 +919,22 @@
             ud.setAttribute("class", "hide");
             sd.setAttribute("class", "hide");
             RC.setAttribute("class", "hide");
+            RC1.setAttribute("class", "hide");
+           
 
             ty = document.getElementById("AccountType");
 
 
             if (ty.value == 5) {
                 RC.setAttribute("class", "hide");
+                RC1.setAttribute("class", "hide");
                 cd.setAttribute("class", "show");
                 id.setAttribute("class", "hide");
                 ud.setAttribute("class", "hide");
                 sd.setAttribute("class", "hide");
             } else if (ty.value == 4) {
                 RC.setAttribute("class", "hide");
+                RC1.setAttribute("class", "hide");
                 cd.setAttribute("class", "hide");
                 id.setAttribute("class", "show");
                 ud.setAttribute("class", "hide");
@@ -937,6 +942,7 @@
             }
             else if (ty.value == 12) {
                 RC.setAttribute("class", "hide");
+                RC1.setAttribute("class", "hide");
                 cd.setAttribute("class", "hide");
                 id.setAttribute("class", "hide");
                 ud.setAttribute("class", "show");
@@ -944,6 +950,7 @@
 
             } else if (ty.value == 13) {
                 RC.setAttribute("class", "hide");
+                RC1.setAttribute("class", "hide");
                 cd.setAttribute("class", "hide");
                 id.setAttribute("class", "hide");
                 ud.setAttribute("class", "hide");
@@ -951,6 +958,7 @@
             }
             else if (ty.value == 18) {
                 RC.setAttribute("class", "hide");
+                RC1.setAttribute("class", "hide");
                 cd.setAttribute("class", "hide");
                 id.setAttribute("class", "hide");
                 ud.setAttribute("class", "hide");
@@ -958,33 +966,56 @@
             }
             else if (ty.value == 14) {
                 RC.setAttribute("class", "show");
+                RC1.setAttribute("class", "hide");
                 cd.setAttribute("class", "hide");
                 id.setAttribute("class", "hide");
                 ud.setAttribute("class", "hide");
                 sd.setAttribute("class", "hide");
             }
+            else if (ty.value == 17) {
+                RC.setAttribute("class", "hide");
+                RC1.setAttribute("class", "hide");
+                cd.setAttribute("class", "hide");
+                id.setAttribute("class", "show");
+                ud.setAttribute("class", "hide");
+                sd.setAttribute("class", "hide");
+               
+            }
+            else if (ty.value == 16) {
+                RC.setAttribute("class", "hide");
+                cd.setAttribute("class", "hide");
+                id.setAttribute("class", "hide");
+                ud.setAttribute("class", "hide");
+                sd.setAttribute("class", "hide");
+                RC1.setAttribute("class", "show");
+
+            }
 
             ty.onchange = function () {
                 if (ty.value == 5) {
                     RC.setAttribute("class", "hide");
+                    RC1.setAttribute("class", "hide");
                     cd.setAttribute("class", "show");
                     id.setAttribute("class", "hide");
                     ud.setAttribute("class", "hide");
                     sd.setAttribute("class", "hide");
                 } else if (ty.value == 4) {
                     RC.setAttribute("class", "hide");
+                    RC1.setAttribute("class", "hide");
                     cd.setAttribute("class", "hide");
                     id.setAttribute("class", "show");
                     ud.setAttribute("class", "hide");
                     sd.setAttribute("class", "hide");
                 } else if (ty.value == 12) {
                     RC.setAttribute("class", "hide");
+                    RC1.setAttribute("class", "hide");
                     cd.setAttribute("class", "hide");
                     id.setAttribute("class", "hide");
                     ud.setAttribute("class", "show");
                     sd.setAttribute("class", "hide");
                 } else if (ty.value == 13) {
                     RC.setAttribute("class", "hide");
+                    RC1.setAttribute("class", "hide");
                     cd.setAttribute("class", "hide");
                     id.setAttribute("class", "hide");
                     ud.setAttribute("class", "hide");
@@ -992,19 +1023,40 @@
                 }
                 else if (ty.value == 18) {
                     RC.setAttribute("class", "hide");
+                    RC1.setAttribute("class", "hide");
                     cd.setAttribute("class", "hide");
                     id.setAttribute("class", "hide");
                     ud.setAttribute("class", "hide");
                     sd.setAttribute("class", "show");
                 }
+                else if (ty.value == 17) {
+                    RC.setAttribute("class", "hide");
+                    RC1.setAttribute("class", "hide");
+                    cd.setAttribute("class", "hide");
+                    id.setAttribute("class", "show");
+                    ud.setAttribute("class", "hide");
+                    sd.setAttribute("class", "hide");
+                    
+                }
+                else if (ty.value == 16) {
+                    RC.setAttribute("class", "hide");
+                    cd.setAttribute("class", "hide");
+                    id.setAttribute("class", "hide");
+                    ud.setAttribute("class", "hide");
+                    sd.setAttribute("class", "hide");
+                    RC1.setAttribute("class", "show");
+
+                }
                 else if (ty.value == 14) {
                     RC.setAttribute("class", "show");
+                    RC1.setAttribute("class", "hide");
                     cd.setAttribute("class", "hide");
                     id.setAttribute("class", "hide");
                     ud.setAttribute("class", "hide");
                     sd.setAttribute("class", "hide");
                 } else {
                     RC.setAttribute("class", "hide");
+                    RC1.setAttribute("class", "hide");
                     cd.setAttribute("class", "hide");
                     id.setAttribute("class", "hide");
                     ud.setAttribute("class", "hide");

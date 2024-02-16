@@ -97,6 +97,7 @@
   <ItemGroup>
     <Compile Include="AddBlog.cs" />
     <Compile Include="IpGeolocation.cs" />
+    <Compile Include="Jobseekers.cs" />
     <Compile Include="Latestcompanies.cs" />
     <Compile Include="LatestJob21.cs" />
     <Compile Include="ListJobs1.cs" />

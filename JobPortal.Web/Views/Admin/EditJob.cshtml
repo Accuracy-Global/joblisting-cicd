@@ -6,7 +6,7 @@
 @using JobPortal.Library.Helpers
 @{
     ViewBag.Title = "Manage Job";
-    Layout = "~/Views/Shared/_CommonLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 
     UserProfile profile = MemberService.Instance.Get(ViewBag.UserInfo.UserId);
     int inboxItems = DomainService.Instance.DashboardInboxItems(User.Id, ViewBag.UserInfo.UserId);

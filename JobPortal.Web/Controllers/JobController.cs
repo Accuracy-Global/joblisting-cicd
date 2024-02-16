@@ -1910,7 +1910,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {

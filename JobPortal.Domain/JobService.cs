@@ -64,8 +64,8 @@ namespace JobPortal.Domain
             List<Job> list = new List<Job>();
             using (JobPortalEntities context = new JobPortalEntities())
             {
-                list = context.Jobs.Where(x => x.EmployerId == Id 
-                    && x.IsPublished==true && x.IsActive == true && x.IsDeleted==false 
+                list = context.Jobs.Where(x => x.EmployerId == Id
+                    && x.IsPublished == true && x.IsActive == true && x.IsDeleted == false
                     && x.IsExpired.Value == false).ToList();
             }
             return list;
@@ -231,7 +231,7 @@ namespace JobPortal.Domain
                     UserProfile profile = MemberService.Instance.Get(username);
                     //jobApplied = dataHelper.Get<Tracking>().Where(x => x.Type == applied && x.JobseekerId == profile.UserId && x.IsDeleted==false && x.JobId != null).ToList();
                     var blockedList = dataHelper.Get<BlockedPeople>().Where(x => x.BlockedId == profile.UserId).Select(x => x.BlockerId).ToList();
-                    joblist = joblist.Where(x => x.EmployerId != null  && !blockedList.Contains(x.EmployerId.Value));
+                    joblist = joblist.Where(x => x.EmployerId != null && !blockedList.Contains(x.EmployerId.Value));
                 }
                 //if (jobApplied.Count > 0)
                 //{
@@ -242,7 +242,7 @@ namespace JobPortal.Domain
                     var keywords = model.Title.Trim().ToLower().Split(' ').ToList();
                     if (keywords.Count > 0)
                     {
-                        joblist = joblist.Where(x => keywords.Any(k => (x.Title + " " + (x.Employer.Company !=null ? x.Employer.Company : "")).ToLower().Contains(k)));
+                        joblist = joblist.Where(x => keywords.Any(k => (x.Title + " " + (x.Employer.Company != null ? x.Employer.Company : "")).ToLower().Contains(k)));
                     }
                 }
 
@@ -279,7 +279,7 @@ namespace JobPortal.Domain
                     else
                     {
                         joblist =
-                            joblist.Where(x =>((x.StateId != null ? x.State.Text : "") + (x.City != null ? x.City :"")).ToLower().Contains(model.StateOrCity.ToLower()));
+                            joblist.Where(x => ((x.StateId != null ? x.State.Text : "") + (x.City != null ? x.City : "")).ToLower().Contains(model.StateOrCity.ToLower()));
                     }
                 }
 
@@ -321,18 +321,18 @@ namespace JobPortal.Domain
 
                 if (model.StartDate != null)
                 {
-                    result =  result.Where( x => x.PublishedDate.Date >= model.StartDate.Value.Date);
+                    result = result.Where(x => x.PublishedDate.Date >= model.StartDate.Value.Date);
                 }
 
                 if (model.EndDate != null)
                 {
-                    result =  result.Where( x => x.PublishedDate.Date <= model.EndDate.Value.Date);
+                    result = result.Where(x => x.PublishedDate.Date <= model.EndDate.Value.Date);
                 }
 
                 records = result.Count();
                 result = result.OrderByDescending(x => x.PublishedDate);
 
-                    result = result.Skip((offset > 0 ? (offset - 1) * rows : offset * rows)).Take(rows).ToList();
+                result = result.Skip((offset > 0 ? (offset - 1) * rows : offset * rows)).Take(rows).ToList();
             }
             return result;
         }
@@ -401,14 +401,14 @@ namespace JobPortal.Domain
                 var specializations = dataHelper.Get<JobPortal.Data.Specialization>().OrderBy(x => x.Name);
                 if (specializations.Count() > 0)
                 {
-                    list = specializations.Select( x =>
-                                new JobsByCategory
-                                {
-                                    Id = x.Id,
-                                    Category = x.Name,
-                                    PremaLink = x.FullName,
-                                    Jobs = GetJobCount(x.Id)
-                                })
+                    list = specializations.Select(x =>
+                               new JobsByCategory
+                               {
+                                   Id = x.Id,
+                                   Category = x.Name,
+                                   PremaLink = x.FullName,
+                                   Jobs = GetJobCount(x.Id)
+                               })
                             .ToList();
                 }
             }
@@ -466,15 +466,15 @@ namespace JobPortal.Domain
         /// Get top 9 most recommended jobs information.
         /// </summary>
         /// <returns>Returns top 9 jobs.</returns>
-        
+
 
 #pragma warning disable CS0246 // The type or namespace name 'LatestJob' could not be found (are you missing a using directive or an assembly reference?)
-//        public List<LatestJob> GetLatestJobs()
-//#pragma warning restore CS0246 // The type or namespace name 'LatestJob' could not be found (are you missing a using directive or an assembly reference?)
-//        {
-//            var list = ReadData<LatestJob>("GetLatestJobs");
-//            return list;
-//        }
+        //        public List<LatestJob> GetLatestJobs()
+        //#pragma warning restore CS0246 // The type or namespace name 'LatestJob' could not be found (are you missing a using directive or an assembly reference?)
+        //        {
+        //            var list = ReadData<LatestJob>("GetLatestJobs");
+        //            return list;
+        //        }
         public List<LatestJob> GetLatestJobs1()
 #pragma warning restore CS0246 // The type or namespace name 'LatestJob' could not be found (are you missing a using directive or an assembly reference?)
         {
@@ -487,12 +487,12 @@ namespace JobPortal.Domain
             var list2 = ReadData<LatestJob>("GetLatestJobsunionNew 1,8");
             return list2;
         }
-       
+
         public List<LatestJob> GetLatestJobs22(long Id)
 #pragma warning restore CS0246 // The type or namespace name 'LatestJob' could not be found (are you missing a using directive or an assembly reference?)
         {
             List<DbParameter> parameters = new List<DbParameter>();
-            parameters.Add(new SqlParameter("@JobId", Id));            
+            parameters.Add(new SqlParameter("@JobId", Id));
             return ReadData<LatestJob>("GetLatestJobsunionJOBID", parameters);
 
         }
@@ -521,8 +521,8 @@ namespace JobPortal.Domain
 
             return list2;
         }
-     
-        public List<LatestJob> GetLatestJobs22(string countryName , string location, string company, int pageNo = 1)
+
+        public List<LatestJob> GetLatestJobs22(string countryName, string location, string company, int pageNo = 1)
 #pragma warning restore CS0246 // The type or namespace name 'LatestJob' could not be found (are you missing a using directive or an assembly reference?)
         {
 
@@ -532,6 +532,17 @@ namespace JobPortal.Domain
             parameters.Add(new SqlParameter("@location", location));
             parameters.Add(new SqlParameter("@Country", countryName));
             return ReadData<LatestJob>("GetLatestJobsunionNew2old", parameters);
+        }
+
+
+        public List<Jobseekers> GetJobSeekers22(int pageNo = 1)
+#pragma warning restore CS0246 // The type or namespace name 'LatestJob' could not be found (are you missing a using directive or an assembly reference?)
+        {
+
+            List<DbParameter> parameters = new List<DbParameter>();
+            parameters.Add(new SqlParameter("@PageNumber", 0));
+            parameters.Add(new SqlParameter("@PageSize", 16));
+            return ReadData<Jobseekers>("jobseekerList", parameters);
         }
         public List<Latestcompanies> GetCompanies()
 #pragma warning restore CS0246 // The type or namespace name 'LatestJob' could not be found (are you missing a using directive or an assembly reference?)
@@ -543,7 +554,7 @@ namespace JobPortal.Domain
 #pragma warning restore CS0246 // The type or namespace name 'Companies' could not be found (are you missing a using directive or an assembly reference?)
         {
             List<DbParameter> parameters = new List<DbParameter>();
-            parameters.Add(new SqlParameter("@Company", company));        
+            parameters.Add(new SqlParameter("@Company", company));
 
             return ReadData<LatestJob>("SearchJobsNew", parameters);
 
@@ -567,32 +578,32 @@ namespace JobPortal.Domain
 
 
 #pragma warning disable CS0246 // The type or namespace name 'Companies' could not be found (are you missing a using directive or an assembly reference?)
-        public List<Companies> GetLatestCompanies1(string company,string country)
+        public List<Companies> GetLatestCompanies1(string company, string country)
 #pragma warning restore CS0246 // The type or namespace name 'Companies' could not be found (are you missing a using directive or an assembly reference?)
         {
             List<DbParameter> parameters = new List<DbParameter>();
             parameters.Add(new SqlParameter("@Company", company));
             parameters.Add(new SqlParameter("@country", country));
 
-            return  ReadData<Companies>("GetCompanies", parameters);
+            return ReadData<Companies>("GetCompanies", parameters);
 
             //var list = ReadData<Companies>("GetCompanies", parameters);
             //return list;
         }
 #pragma warning disable CS0246 // The type or namespace name 'RecommendedJob1' could not be found (are you missing a using directive or an assembly reference?)
-//        public List<RecommendedJob1> GetRecommendedJobs1(long Id)
-//#pragma warning restore CS0246 // The type or namespace name 'RecommendedJob1' could not be found (are you missing a using directive or an assembly reference?)
-//        {
-//            List<DbParameter> parameters = new List<DbParameter>();
-//            parameters.Add(new SqlParameter("@UserId", Id));
-//            var list = ReadData<RecommendedJob1>("GetRelatedJobs", parameters);
-//            return list;
-//        }
+        //        public List<RecommendedJob1> GetRecommendedJobs1(long Id)
+        //#pragma warning restore CS0246 // The type or namespace name 'RecommendedJob1' could not be found (are you missing a using directive or an assembly reference?)
+        //        {
+        //            List<DbParameter> parameters = new List<DbParameter>();
+        //            parameters.Add(new SqlParameter("@UserId", Id));
+        //            var list = ReadData<RecommendedJob1>("GetRelatedJobs", parameters);
+        //            return list;
+        //        }
         public List<LatestJob> GetRecommendedJobs1(long Id)
 #pragma warning restore CS0246 // The type or namespace name 'RecommendedJob1' could not be found (are you missing a using directive or an assembly reference?)
         {
             List<DbParameter> parameters = new List<DbParameter>();
-                      parameters.Add(new SqlParameter("@UserId", Id));
+            parameters.Add(new SqlParameter("@UserId", Id));
             var list2 = ReadData<LatestJob>("GetLatestJobsunionNew 1,4");
 
             return list2;

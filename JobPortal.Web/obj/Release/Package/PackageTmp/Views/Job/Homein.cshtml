@@ -12,7 +12,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 
 <head>
     <meta charset="utf-8">
@@ -80,6 +80,21 @@
                 color: white;
             }
     </style>
+    @* <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=loadGoogleTranslate"></script>
+        <script>
+
+            // function loadGoogleTranslate() { new google.translate.TranslateElement("google_translate_element"); }
+
+            function loadGoogleTranslate() {
+                setCookie('googtrans', '/hi', 1);
+                new google.translate.TranslateElement({ pageLanguage: 'en' }, 'google_translate_element');
+            }
+            function setCookie(key, value, expiry) {
+                var expires = new Date();
+                expires.setTime(expires.getTime() + (expiry * 24 * 60 * 60 * 1000));
+                document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+            }
+        </script>*@
     <img class="conatiner2" src="~/Content/chatbotnew/ChatWithUS.png" onclick="openForm()" alt="cwt" height="70" width="90" />
     <link href="~/Content/chatbotnew/chatbotstyle.css" rel="stylesheet" />
     <script src="~/Content/chatbotnew/chatbotjquerry.js"></script>
@@ -128,12 +143,14 @@
 
     <!-- ======= Hero Section ======= -->
     @*<img src="~/Images/india_1.jpg" />*@
-    <section id="hero" class="hero" style="background-image: url(/Images/india_1.jpg);">
+    <section id="hero" class="hero" style=" background-image: url('../../images1/india.jpg');">
         <div class="container text-center">
             <div class="row">
                 <div class="col-md-12">
-                    <a class="hero-brand" href="/india" title="Home">
-                        <img alt="Bell Logo" src="~/Content/Homesinga/assetsmalsya/img/PNG/logo_tool.png" width="250" height="65" class="m-0">
+                    <a class="hero-brand" href="/India" title="Home">
+                        <div class="navbar-header" style="font-size:100px; font-weight:500;">@*<a href="~/Content/fonts/aldhabi.ttf" alt="Joblisting" height="150" width="350" class="img-responsive">*@<span class="span1" style="color: #34ba08; font-style: inherit; font-family: 'Aldhabi'">Job</span> <span class="span2" style="color: white; font-style: inherit; font-family: 'Aldhabi'">Listing</span>@*</a>*@</div>
+
+                        @*<img alt="Bell Logo" src="~/Content/Homesinga/assetsmalsya/img/PNG/logo_tool.png" width="250" height="65" class="m-0">*@
                     </a>
                 </div>
             </div>
@@ -183,7 +200,7 @@
                     <li><a class="nav-link scrollto active" href="/india/jobs">Search Jobs</a></li>
                     @*<li><a class="nav-link scrollto" href="/search-people">Search People</a></li>*@
                     <li><a class="nav-link scrollto" href="/search-jobseekers">Search Jobseekers</a></li>
-                    <li><a class="nav-link scrollto" href="/listjob">List New Job</a></li>
+                    <li><a class="nav-link scrollto" href="/listjob">List Job</a></li>
                     <!-- <li><a class="nav-link scrollto" href="#team">Team</a></li>
                     <li><a class="nav-link scrollto" href="#contact">Contact</a></li> -->
                 </ul>
@@ -273,10 +290,15 @@
                         <h2>Find Job, Part-Time & Freelance opportunities</h2>
                         <h3>The Easiest Way to Get Your Dream Job</h3>
                     </div>
-                    <div class="col-lg-5 pt-5 pt-lg-2" data-aos="fade-left">
-                        <p>
-                            JobListing is a global website that facilitates job hunting and range from small, medium to large scale as well as cross-sector categories such as green jobs, ethical jobs, freelance and seasonal jobs.
-                        </p>
+                    <div class="col-lg-6 pt-5 pt-lg-3" data-aos="fade-left">
+                        <p style="text-align:justify;">
+                            Job Listing is a global Jobsite that gives access to a wide range of jobs across several categories such as green jobs, freelance and part-time jobs in local languages.
+                         </p>
+                        <p style="text-align:justify;">
+                            Companies of any size across the globe can search jobseekers of various categories, communicate, recruit for less Price. Companies, Agencies & Partners can get great margins on their recruitment efforts.
+
+                         </p>
+                       
                         @*<p>
                                 JobListing is a global website that facilitates job hunting and range from small, medium to large scale as well as cross-sector categories such as green jobs, ethical jobs, freelance and seasonal jobs.
                             </p>*@
@@ -339,56 +361,56 @@
         </style>
 
 
-        <div class="container" style="padding-top: 20px; background: #34ba08; border-bottom: 13px solid #34ba08;">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="text-center">
-                        @*<span style="color: #000;">Apply process</span>*@
-                        <h2 style="padding-bottom: 20px;color: white;"> How it works ?</h2>
+        @* <div class="container" style="padding-top: 20px; background: #34ba08; border-bottom: 13px solid #34ba08;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="text-center">
+                            <span style="color: #000;">Apply process</span>
+                            <h2 style="padding-bottom: 20px;color: white;"> How it works ?</h2>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <ul class="nav nav-pills nav-justified" style="background-color: #f1f1f1;">
-                <li class="nav-item tab">
-                    <button class="nav-link tablinks btn-primary" style="color: black; background-color: white; font-weight: bold;" onclick="openCity(event, 'London')" id="defaultOpen">Search a job</button>
-                </li>
-                <li class="nav-item links ">
-                    <a class="nav-link" style="padding-top: 18px; font-size: 25px; font-weight: bold;"><i class="bi bi-arrow-right " style="color: #34ba08;"></i></a>
-                </li>
-                <li class="nav-item tab">
-                    <button class="nav-link tablinks btn-primary" style="color: black; background-color: white; font-weight: bold;" onclick="openCity(event, 'Paris')">Apply for job</button>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" style="padding-top: 18px; font-size: 25px; font-weight: bold;"><i class="bi bi-arrow-right" style="color: #34ba08; font-weight: bold;"></i></a>
-                </li>
-                <li class="nav-item tablinks tab">
-                    <button class="nav-link tablinks btn-primary" style="color: black; background-color: white; font-weight:bold;" onclick="openCity(event, 'Tokyo')">Get your job</button>
-                </li>
+                <ul class="nav nav-pills nav-justified" style="background-color: #f1f1f1;">
+                    <li class="nav-item tab">
+                        <button class="nav-link tablinks btn-primary" style="color: black; background-color: white; font-weight: bold;" onclick="openCity(event, 'London')" id="defaultOpen">Search a job</button>
+                    </li>
+                    <li class="nav-item links ">
+                        <a class="nav-link" style="padding-top: 18px; font-size: 25px; font-weight: bold;"><i class="bi bi-arrow-right " style="color: #34ba08;"></i></a>
+                    </li>
+                    <li class="nav-item tab">
+                        <button class="nav-link tablinks btn-primary" style="color: black; background-color: white; font-weight: bold;" onclick="openCity(event, 'Paris')">Apply for job</button>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" style="padding-top: 18px; font-size: 25px; font-weight: bold;"><i class="bi bi-arrow-right" style="color: #34ba08; font-weight: bold;"></i></a>
+                    </li>
+                    <li class="nav-item tablinks tab">
+                        <button class="nav-link tablinks btn-primary" style="color: black; background-color: white; font-weight:bold;" onclick="openCity(event, 'Tokyo')">Get your job</button>
+                    </li>
 
-            </ul>
+                </ul>
 
-            <div id="London" class="tabcontent">
-                <br />
-                <p>
-                    Click the  Search Jobs at the top of homepage.<br />
-                    Click the Search jobs field and enter keywords or a company name.<br />
-                    You can also select from the job roles suggested by Joblisting  based on your qualification and experience.
-                </p>
-            </div>
+                <div id="London" class="tabcontent">
+                    <br />
+                    <p>
+                        Click the  Search Jobs at the top of homepage.<br />
+                        Click the Search jobs field and enter keywords or a company name.<br />
+                        You can also select from the job roles suggested by Joblisting  based on your qualification and experience.
+                    </p>
+                </div>
 
-            <div id="Paris" class="tabcontent">
-                <br />
-                <p>
-                    Easy Apply: This allows you to apply for the job on Joblisting.<br />
-                    Apply: You’ll be redirected to the company website where you can apply for the job externally.
-                </p>
-            </div>
+                <div id="Paris" class="tabcontent">
+                    <br />
+                    <p>
+                        Easy Apply: This allows you to apply for the job on Joblisting.<br />
+                        Apply: You’ll be redirected to the company website where you can apply for the job externally.
+                    </p>
+                </div>
 
-            <div id="Tokyo" class="tabcontent">
-                <br />
-                <p>Get your dream job in  Joblisting </p>
-            </div>
-        </div>
+                <div id="Tokyo" class="tabcontent">
+                    <br />
+                    <p>Get your dream job in  Joblisting </p>
+                </div>
+            </div>*@
         <script>
             function openCity(evt, cityName) {
                 var i, tabcontent, tablinks;
@@ -493,7 +515,7 @@
                     margin: 7px;
                 }
             </style>
-            <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">Latest Jobs</h1>
+            @*<h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">Latest Jobs</h1>*@
             <div class="row">
                 @if (ViewBag.LatestJob1 != null)
                 {
@@ -542,26 +564,26 @@
         <br />
         <br />
 
-        <div class="container-fluid">
-            <div class="row" style="padding-right:15px; padding-left:15px;">
-                <h1 class="text-center"><b>Our Customers</b></h1>
-                <div class="col-sm-12">
-                    <style>
-                        .imgf {
-                            padding: 15px;
-                        }
-                    </style>
-                    <marquee behavior="alternate">
-                        @foreach (var item in ViewBag.Model)
-                        {
+        @* <div class="container-fluid">
+                <div class="row" style="padding-right:15px; padding-left:15px;">
+                    <h1 class="text-center"><b>Our Customers</b></h1>
+                    <div class="col-sm-12">
+                        <style>
+                            .imgf {
+                                padding: 15px;
+                            }
+                        </style>
+                        <marquee behavior="alternate">
+                            @foreach (var item in ViewBag.Model)
+                            {
 
-                            @Html.Raw(string.Format("<text ><img padding-left='25px' height='100' width='150' float='left' class='imgf'  src=\"data:image/jpg;base64," + (item["Logo"]) + " \" /> </text>"));
+                                @Html.Raw(string.Format("<text ><img padding-left='25px' height='100' width='150' float='left' class='imgf'  src=\"data:image/jpg;base64," + (item["Logo"]) + " \" /> </text>"));
 
-                        }
-                    </marquee>
+                            }
+                        </marquee>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </div>*@
         <br />
         <!-- End Contact Section -->
 

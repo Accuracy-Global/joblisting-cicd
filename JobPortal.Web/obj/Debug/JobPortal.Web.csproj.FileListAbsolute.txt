@@ -4347,3 +4347,12 @@ G:\Joblisting-Updated\Joblisting1\Joblisting\JobPortal.Web\obj\Debug\en\JobPorta
 G:\Joblisting-Updated\Joblisting1\Joblisting\JobPortal.Web\obj\Debug\JobPortal.Web.csproj.CopyComplete
 G:\Joblisting-Updated\Joblisting1\Joblisting\JobPortal.Web\obj\Debug\JobPortal.Web.dll
 G:\Joblisting-Updated\Joblisting1\Joblisting\JobPortal.Web\obj\Debug\JobPortal.Web.pdb
+G:\dileepgit\joblisting\JobPortal.Web\obj\Debug\JobPortal.Web.csproj.App.config
+G:\dileepgit\joblisting\JobPortal.Web\obj\Debug\JobPortal.Web.csproj.AssemblyReference.cache
+G:\dileepgit\joblisting\JobPortal.Web\obj\Debug\JobPortal.Web.Resources.Resource1.resources
+G:\dileepgit\joblisting\JobPortal.Web\obj\Debug\JobPortal.Web.Resources.Resource1.hi.resources
+G:\dileepgit\joblisting\JobPortal.Web\obj\Debug\JobPortal.Web.Resources.Resource1.en.resources
+G:\dileepgit\joblisting\JobPortal.Web\obj\Debug\JobPortal.Web.csproj.GenerateResource.cache
+G:\dileepgit\joblisting\JobPortal.Web\obj\Debug\JobPortal.Web.csproj.CoreCompileInputs.cache
+G:\dileepgit\joblisting\JobPortal.Web\obj\Debug\JobPortal.Web.dll
+G:\dileepgit\joblisting\JobPortal.Web\obj\Debug\JobPortal.Web.pdb

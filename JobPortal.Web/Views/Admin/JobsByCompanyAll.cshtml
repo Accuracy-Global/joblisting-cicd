@@ -73,12 +73,12 @@
     <div class="row">
 
         <div class="col-lg-16 col-md-16 col-sm-16">
-           
+
 
             @*@Html.Partial("_MessagePartial")*@
             <div class="clear" style="height:7px;"></div>
-           
-      
+
+
             <div class="clear" style="height:1px;"></div>
             <style>
                 .Title1 {
@@ -87,42 +87,46 @@
             </style>
             <div class="row">
                 <div class="row">
-                    <div class="col-lg-14 col-md-14 col-sm-14" style="width:100%">
-                        <div class="col-lg-4 col-md-4 col-sm-4">
-                            <div class="form-group">
-                                @Html.TextBoxFor(model => model.JobTitle, new { @class = "form-control", placeholder = "Job Title" })
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <div class="form-group">
-                                        <div class='input-group date'>
-                                            @Html.TextBox("StartDate", null, new { @class = "form-control", placeholder = "FROM DATE", @title = "FROM DATE", @readonly = "readonly" })
-                                            <span class="input-group-addon">
-                                                <span class="glyphicon glyphicon-calendar"></span>
-                                            </span>
-                                        </div>
-                                    </div>
+                    @using (Html.BeginForm())
+                    {
+                        <div class="col-lg-14 col-md-14 col-sm-14" style="width:100%">
+                            <div class="col-lg-4 col-md-4 col-sm-4">
+                                <div class="form-group">
+                                    @Html.TextBoxFor(model => model.JobTitle, new { @class = "form-control", placeholder = "COMPANY NAME" })
                                 </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6">
-                                    <div class="form-group">
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
                                         <div class="form-group">
                                             <div class='input-group date'>
-                                                @Html.TextBox("EndDate", null, new { @class = "form-control", placeholder = "TO DATE", @title = "TO DATE", @readonly = "readonly" })
+                                                @Html.TextBox("StartDate", null, new { @class = "form-control", placeholder = "FROM DATE", @title = "FROM DATE", @readonly = "readonly" })
                                                 <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                 </span>
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6">
+                                        <div class="form-group">
+                                            <div class="form-group">
+                                                <div class='input-group date'>
+                                                    @Html.TextBox("EndDate", null, new { @class = "form-control", placeholder = "TO DATE", @title = "TO DATE", @readonly = "readonly" })
+                                                    <span class="input-group-addon">
+                                                        <span class="glyphicon glyphicon-calendar"></span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 text-right">
+                                <input type="submit" value="Search" class="btn btn-info btn-block" />
+                            </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-2 text-right">
-                            <input type="submit" value="Search" class="btn btn-info btn-block" />
-                        </div>
-                    </div>
+                    }
+
                 </div>
                 <div class="clear" style="height:8px;"></div>
                 <div class="col-lg-14 col-md-14 col-sm-14" style="width:100%">

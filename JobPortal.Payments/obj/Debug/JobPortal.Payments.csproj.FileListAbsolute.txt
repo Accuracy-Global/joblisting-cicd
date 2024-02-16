@@ -560,3 +560,5 @@ G:\Joblisting-Updated\Joblisting1\Joblisting\JobPortal.Payments\obj\Debug\JobPor
 G:\Joblisting-Updated\Joblisting1\Joblisting\JobPortal.Payments\obj\Debug\JobPortal.Payments.csproj.CopyComplete
 G:\Joblisting-Updated\Joblisting1\Joblisting\JobPortal.Payments\obj\Debug\JobPortal.Payments.dll
 G:\Joblisting-Updated\Joblisting1\Joblisting\JobPortal.Payments\obj\Debug\JobPortal.Payments.pdb
+G:\dileepgit\joblisting\JobPortal.Payments\obj\Debug\JobPortal.Payments.dll
+G:\dileepgit\joblisting\JobPortal.Payments\obj\Debug\JobPortal.Payments.pdb

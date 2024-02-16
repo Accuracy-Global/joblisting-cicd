@@ -74,10 +74,10 @@
     .multiSel span {
         background: #34ba08;
         color: #fff;
-        padding: 3px 15px;
-        border-radius: 20px;
-        margin-top: 5px;
-        margin-bottom: 15px;
+        padding: 1px 3px;
+        border-radius: 25px;
+        margin-top: 1px;
+        margin-bottom: 1px;
     }
 
     p.multiSel {
@@ -1838,124 +1838,127 @@
 
 <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:25%">
     <div class="col-lg-2 col-md-3 col-sm-3" style="width:280px;">
-        
-                    <div class="koh-faq-question">
-                        <ul class="nav nav-pills nav-stacked well_new" >
-                            <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;"> SUGGESTIONS <i class="fa fa-chevron-right" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="float:right; color : #34ba08" aria-hidden="true"></i></a> </li>
-                        </ul>
-                    </div>
-                    <div class="collapse" id="collapseExample">
-                        <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
+
+        <div class="koh-faq-question">
+            <ul class="nav nav-pills nav-stacked well_new">
+                <li class="active koh-faq-question-span"><a href="#" style="color: #34ba08;"> SUGGESTIONS <i class="fa fa-chevron-right" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="float:right; color : #34ba08" aria-hidden="true"></i></a> </li>
+            </ul>
+        </div>
+        <div class="collapse" id="collapseExample">
+            <ul class="nav nav-pills nav-stacked well_new" style="margin-bottom:0 !important">
 
 
-                            <li style="font-family: Calibri;">Make sure about words</li>
-                            <li style="font-family: Calibri;">Try different keywords.</li>
-                            <li style="font-family: Calibri;">Try more general keywords.</li>
-                            <li style="font-family: Calibri;">Try fewer keywords.</li>
-                            <li style="font-family: Calibri;">Try entire word.</li>
+                <li style="font-family: Calibri;">Make sure about words</li>
+                <li style="font-family: Calibri;">Try different keywords.</li>
+                <li style="font-family: Calibri;">Try more general keywords.</li>
+                <li style="font-family: Calibri;">Try fewer keywords.</li>
+                <li style="font-family: Calibri;">Try entire word.</li>
 
 
-                        </ul>
-                    </div>
-               
-    </div>
-
-
-    <div class="col-lg-2 col-md-3 col-sm-3" style="width:280px;">
-       
-                        <div class="form-group">
-
-                          
-                                <dl class="multi-dropdown">
-
-                                    <dd>
-                                        <div class="mutliSelect">
-                                            <select class="form-control _basic" style="width: 250px; height: 31px; border: 1px solid #ccc;border-radius:4px; ">
-                                                <option value="" disabled selected >MANDATORY SKILLS</option>
-                                                <option value="Ajax">Ajax</option>
-                                                <option value="ASP">ASP</option>
-                                                <option value="Android">Android</option>
-                                                <option value="Azure">Azure</option>
-                                                <option value="Azure Devops">Azure Devops</option>
-                                                <option value="Big Data">Big Data</option>
-                                                <option value="C#">C#</option>
-                                                <option value="C++">C++</option>
-                                                <option value="CSS">CSS</option>
-                                                <option value="Dejango">Dejango</option>
-                                                <option value="Data Scienes">Data Scienes</option>
-                                                <option value="Dart">Dart</option>
-                                                <option value="Flutter">Flutter</option>
-                                                <option value=".net">.net</option>
-                                                <option value="SQL">SQL</option>
-                                                <option value="MS SQL">MS SQL</option>
-                                                <option value="Jquery">Jquery</option>
-                                                <option value="Java">Java</option>
-                                                <option value="JavaScript">JavaScript</option>
-                                                <option value="HTML">HTML</option>
-                                                <option value="TFS">TFS</option>
-                                                <option value="Python">Python</option>
-                                                <option value="Xamarin">Xamarin</option>
-                                                <option value="Software">Software</option>
-                                                <option value="VB++">VB++</option>
-                                                <option value="VBNet">VBNet</option>
-                                                <option value="MVC">MVC</option>
-
-                                            </select>
-                                        </div>
-                                    </dd>
-                                  
-                                    <dt>
-                                        <dl>
-
-                                            <p class="multiSel"></p>
-                                        </dl>
-                                    </dt>
-                                </dl>
-
-
-                          
-                       
+            </ul>
         </div>
 
-
-
-
     </div>
 
-    <div class="col-lg-2 col-md-3 col-sm-3" style="width:280px;">
-        <div class="koh-tab-content">
-            <div class="koh-tab-content-body">
-                <div class="koh-faq">
-                    <div class="koh-faq-question">
-                        <div class="form-group">
-                            @Html.TextBoxFor(model => model.JobTitle, new { placeholder = "OPTIONAL SKILLS", @class = "form-control _basic", @maxlength = 50, @style = "" })
-                            @Html.ValidationMessageFor(model => model.Where)
+    @using (Html.BeginForm())
+    {
+
+        <div class="col-lg-2 col-md-3 col-sm-3" style="width:280px;">
+
+            <div class="form-group">
+               
+
+                <dl class="multi-dropdown">
+
+                        <dd>
+                            <div class="mutliSelect">
+                                <select class="form-control _basic" style="width: 250px; height: 31px; border: 1px solid #ccc;border-radius:4px; ">
+                                    <option value="" disabled selected >MANDATORY SKILLS</option>
+                                    <option value="Ajax">Ajax</option>
+                                    <option value="ASP">ASP</option>
+                                    <option value="Android">Android</option>
+                                    <option value="Azure">Azure</option>
+                                    <option value="Azure Devops">Azure Devops</option>
+                                    <option value="Big Data">Big Data</option>
+                                    <option value="C#">C#</option>
+                                    <option value="C++">C++</option>
+                                    <option value="CSS">CSS</option>
+                                    <option value="Dejango">Dejango</option>
+                                    <option value="Data Scienes">Data Scienes</option>
+                                    <option value="Dart">Dart</option>
+                                    <option value="Flutter">Flutter</option>
+                                    <option value=".net">.net</option>
+                                    <option value="SQL">SQL</option>
+                                    <option value="MS SQL">MS SQL</option>
+                                    <option value="Jquery">Jquery</option>
+                                    <option value="Java">Java</option>
+                                    <option value="JavaScript">JavaScript</option>
+                                    <option value="HTML">HTML</option>
+                                    <option value="TFS">TFS</option>
+                                    <option value="Python">Python</option>
+                                    <option value="Xamarin">Xamarin</option>
+                                    <option value="Software">Software</option>
+                                    <option value="VB++">VB++</option>
+                                    <option value="VBNet">VBNet</option>
+                                    <option value="MVC">MVC</option>
+
+                                </select>
+                            </div>
+                        </dd>
+
+                        <dt>
+                            <dl>
+
+                                <p class="multiSel"></p>
+                            </dl>
+                        </dt>
+                    </dl>
+
+
+
+
+            </div>
+
+
+
+
+        </div>
+
+        <div class="col-lg-2 col-md-3 col-sm-3" style="width:280px;">
+            <div class="koh-tab-content">
+                <div class="koh-tab-content-body">
+                    <div class="koh-faq">
+                        <div class="koh-faq-question">
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.JobTitle, new { placeholder = "OPTIONAL SKILLS", @class = "form-control _basic", @maxlength = 50, @style = "" })
+                                @Html.ValidationMessageFor(model => model.Where)
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-lg-2 col-md-3 col-sm-3" style="width:280px;">
-                       <div class=" form-group">
-                         
-                            <input id="SearchAdvance" type="submit" value="Search" style="" class="btn btn-info btn-block jsearch1" />
-                        </div>
-               
-    </div>
-    <div class="col-lg-2 col-md-3 col-sm-3" style="width:280px;">
-       
-                        <div class=" form-group">
-                          
-                            <input id="SearchAdvance" type="submit" style="" value="Advance Search" class="btn btn-info btn-block jsearch1" />
-                        </div>
-                   
-    </div>
+        <div class="col-lg-2 col-md-3 col-sm-3" style="width:280px;">
+            <div class=" form-group">
+
+                <input id="SearchAdvance" type="submit" value="Search" style="" class="btn btn-info btn-block jsearch1" />
+            </div>
+
+        </div>
+    }
+        <div class="col-lg-2 col-md-3 col-sm-3" style="width:280px;">
+
+            <div class=" form-group">
+
+                <input id="SearchAdvance" type="submit" style="" value="Advance Search" class="btn btn-info btn-block jsearch1" />
+            </div>
+
+        </div>
 
 
-    
-</div>
+
+    </div>
 
 
 

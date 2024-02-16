@@ -1085,11 +1085,11 @@
 
                                     @if (logo_counts > 0)
                                     {
-                                        <li><a href="@Url.Action("PhotoList", "Admin", new { type = 5 })">Company Photos (<span style="color:red; font-weight:bold">@logo_counts</span>)</a></li>
+                                        <li><a href="@Url.Action("PhotoList", "Admin", new { type = 5 })">Company Logo's (<span style="color:red; font-weight:bold">@logo_counts</span>)</a></li>
                                     }
                                     else
                                     {
-                                        <li><a href="@Url.Action("PhotoList", "Admin", new { type = 5 })">Company Photos</a></li>
+                                        <li><a href="@Url.Action("PhotoList", "Admin", new { type = 5 })">Company Logo's</a></li>
                                     }
 
                                     @if (photo_counts > 0)
@@ -1125,8 +1125,8 @@
                                     <li><a href="/Inbox/Index">Inbox</a></li>
                                     @*<li><a href="/admin/globalinbox">Inbox</a></li>*@
                                     <li>@Html.ActionLink("Messaging", "MessageList", "Admin")</li>
-                                    <li>@Html.ActionLink("JobSeekers", "Search", "Jobseeker")</li>
-                                    <li><a href="/jobs/">Search Jobs</a></li>
+                                    @*<li>@Html.ActionLink("JobSeekers", "Search", "Jobseeker")</li>
+                                    <li><a href="/jobs/">Search Jobs</a></li>*@
 
 
                                 </ul>

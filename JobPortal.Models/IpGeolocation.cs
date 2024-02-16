@@ -25,13 +25,14 @@ namespace JobPortal.Models
         public string continent_code { get; set; }
         public string continent_name { get; set; }
         public string country_code { get; set; }
-        public string country_name { get; set; }
+        public string country { get; set; }
         public string region_code { get; set; }
         public string region_name { get; set; }
         public string city { get; set; }
         public string zip { get; set; }
         public string latitude { get; set; }
         public string longitude { get; set; }
+        //public string country { get; set; }
     }
 
     public class Error

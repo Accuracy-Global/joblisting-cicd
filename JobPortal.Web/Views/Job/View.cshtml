@@ -137,9 +137,9 @@
 </style>
 <div class="section" style="padding-left: 15px; padding-right: 15px;">
     <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12">
+        @*<div class="col-lg-12 col-md-12 col-sm-12">
             @Html.Partial("_MessagePartial")
-        </div>
+        </div>*@
     </div>
 </div>
 @if (ViewBag.LatestJob2 != null)
@@ -192,11 +192,19 @@
                     <div class="form-group">
                         <div class="row">
                             <div class="col-12">
-                                
-                                    <h3 class="txt">About&nbsp;&nbsp;@Html.Raw(latestJob.Company)</h3>
+
+                                <h3 class="txt">About&nbsp;&nbsp;@Html.Raw(latestJob.Company)</h3>
+                                @if (latestJob.Overview == null)
+                                {
                                     <h4 class="txt" style="text-align: justify;">@Html.Raw(latestJob.Description)</h4>
-                              
-                                
+                                }
+                                else
+                                {
+                                    <h4 class="txt" style="text-align: justify;">@Html.Raw(latestJob.Overview)</h4>
+                                }
+
+
+
 
                                 @{
                                     string str = latestJob.JobURL;
@@ -282,26 +290,51 @@
 
                                             <table>
                                                 <tr>
-                                                    <td class="col-lg-6 col-md-6 col-sm-6 list-group-item"><strong>Job Type:</strong> &nbsp;&nbsp; @latestJob.JobType</td>
-
-                                                    <td class="col-lg-6 col-md-6 col-sm-6 list-group-item" rowspan="2">
-                                                        <strong>Job Description : </strong>  @Html.Raw(latestJob.Description)
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                                                    <td class="col-lg-2 col-md-2 col-sm-2 list-group-item"><strong>Job Type:</strong> &nbsp;&nbsp; @latestJob.JobType</td>
+                                                    <td class="col-lg-2 col-md-2 col-sm-2 list-group-item">
                                                         <strong>Location: </strong>@(!string.IsNullOrEmpty(latestJob.State) ? latestJob.State : "Not Available"), @latestJob.Country
                                                     </td>
-
-
+                                                    <td class="col-lg-2 col-md-2 col-sm-2 list-group-item"><strong>Experience: </strong> @latestJob.MinimumExperience</td>
                                                 </tr>
+                                            </table>
+
+                                            <table>
                                                 <tr>
-                                                    <td class="col-lg-6 col-md-6 col-sm-6 list-group-item"><strong>Experience: </strong> @latestJob.MinimumExperience</td>
-                                                    <td class="col-lg-6 col-md-6 col-sm-6 list-group-item" rowspan="2" colspan="2">
-                                                        <strong>Skill Requirements: </strong>@latestJob.Zip;
+                                                    <td class="col-lg-6 col-md-6 col-sm-6 list-group-item" rowspan="2" style="text-align: justify;">
+                                                        <strong style="text-align: justify;">Job Description : </strong><br/>@Html.Raw(latestJob.Description)
                                                     </td>
                                                 </tr>
                                             </table>
+                                            <table>
+                                                <tr>
+                                                    <td class="col-lg-4 col-md-6 col-sm-6 list-group-item" rowspan="2" colspan="2"  style="text-align: justify;">
+                                                        <strong>Skill Requirements: </strong><br/>@latestJob.Zip;
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                            @*<table>
+            <tr>
+                <td class="col-lg-6 col-md-6 col-sm-6 list-group-item"><strong>Job Type:</strong> &nbsp;&nbsp; @latestJob.JobType</td>
+
+                <td class="col-lg-6 col-md-6 col-sm-6 list-group-item" rowspan="2">
+                    <strong>Job Description : </strong>  @Html.Raw(latestJob.Description)
+                </td>
+            </tr>
+            <tr>
+                <td class="col-lg-6 col-md-6 col-sm-6 list-group-item">
+                    <strong>Location: </strong>@(!string.IsNullOrEmpty(latestJob.State) ? latestJob.State : "Not Available"), @latestJob.Country
+                </td>
+
+
+            </tr>
+            <tr>
+                <td class="col-lg-6 col-md-6 col-sm-6 list-group-item"><strong>Experience: </strong> @latestJob.MinimumExperience</td>
+                <td class="col-lg-6 col-md-6 col-sm-6 list-group-item" rowspan="2" colspan="2">
+                    <strong>Skill Requirements: </strong>@latestJob.Zip;
+                </td>
+            </tr>
+        </table>*@
 
 
                                         </div>
