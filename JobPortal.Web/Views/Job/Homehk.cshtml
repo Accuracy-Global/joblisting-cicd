@@ -1,4 +1,5 @@
-﻿@model JobPortal.Web.Models.SearchJobModel
+﻿
+@model JobPortal.Web.Models.SearchJobModel
 @using JobPortal.Library.Constants
 @using JobPortal.Library.Enumerators
 @using JobPortal.Library.Helpers
@@ -18,9 +19,9 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Job Listing</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
+    <title>Jobs in Hong kong | Search Hong kong Jobs, Employment -JobLisiting</title>
+    <meta content="Job Listing Hong kong is your one-stop destination for the top job vacancies in Hong kong. Browse through hundreds of the latest job postings and apply for the perfect job today. With our user-friendly interface and tailored job search, we make it easy for job seekers to find the right job in Hong kong." name="description">
+    <meta content="Hong kong Jobs, Employment in Hong kong,  careers,  employment,  job listings,  Hong kong job search,  job search engine Hong kong, work in Hong kong , jobs in Hong kong" name="keywords">
 
     <!-- Facebook Opengraph integration: https://developers.facebook.com/docs/sharing/opengraph -->
     <meta property="og:title" content="">
@@ -127,12 +128,12 @@
     <script src="~/Content/chatbotnew/response.js"></script>
 
     <!-- ======= Hero Section ======= -->
-    <section id="hero" class="hero" style=" background-image: url('../../images1/Cambodia.jpg');">
+    <section id="hero" class="hero" style="background-image: url('../../images1/Hong Kong.jpg');">
         <div class="container text-center">
             <div class="row">
                 <div class="col-md-12">
-                    <a class="hero-brand" href="/cambodia" title="Home">
-                        <div class="navbar-header" style="font-size:80px; font-weight:600;">@*<a href="~/Content/fonts/aldhabi.ttf" alt="Joblisting" height="150" width="350" class="img-responsive">*@<span class="span1" style="color: #34ba08; font-style: inherit; font-family:'Adobe Devanagari'">Job</span> <span class="span2" style="color:white; font-style:inherit;font-family:'Adobe Devanagari'">Listing</span>@*</a>*@</div>
+                    <a class="hero-brand" href="/Hong kong" title="Home">
+                        <div class="navbar-header" style="font-size:80px; font-weight:600;">@*<a href="~/Content/fonts/aldhabi.ttf" alt="Joblisting" height="150" width="350" class="img-responsive">*@<span class="span1" style="color: #34ba08; font-style: inherit; font-family: 'Adobe Devanagari'">Job</span> <span class="span2" style="color: white; font-style: inherit; font-family: 'Adobe Devanagari'">Listing</span>@*</a>*@</div>
 
                         @*<img alt="Bell Logo" src="~/Content/Homesinga/assetsmalsya/img/PNG/logo_tool.png" width="250" height="65" class="m-0">*@
                     </a>
@@ -155,12 +156,12 @@
                 <div class="row">
                     <div class="col" style="text-align: right;">
 
-                        <a href="/account/login" class="btn btn-full scrollto" style="background-color: #34ba08;">Login</a>
+                        <a href="/account/login" style="background-color: #34ba08;" class="btn btn-full scrollto">Login</a>
                     </div>
 
                     <div class="col" style="text-align: left;">
 
-                        <a href="/account/register" class="btn btn-full scrollto" style="background-color: #34ba08;">Register</a>
+                        <a href="/account/register" style="background-color: #34ba08;" class="btn btn-full scrollto">Register</a>
                     </div>
 
                 </div>
@@ -181,7 +182,7 @@
 
             <nav id="navbar" class="navbar order-last order-lg-0">
                 <ul>
-                    <li><a class="nav-link scrollto active" href="/cambodia/jobs">Search Jobs</a></li>
+                    <li><a class="nav-link scrollto active" href="/india/jobs">Search Jobs</a></li>
                     @*<li><a class="nav-link scrollto" href="/search-people">Search People</a></li>*@
                     <li><a class="nav-link scrollto" href="/search-jobseekers">Search Jobseekers</a></li>
                     <li><a class="nav-link scrollto" href="/listjob">List Job</a></li>
@@ -265,7 +266,6 @@
     </header><!-- End Header -->
 
     <main id="main">
-
         <div style="height:15px;"></div>
         <section id="about-us" class="about-us">
             <div class="container" data-aos="fade-up">
@@ -291,9 +291,9 @@
 
             </div>
         </section>
+
         <!-- ======= Features Section ======= -->
-        @Html.Partial("_Services")
-        <!-- End Features Section -->
+        @Html.Partial("_Services")<!-- End Features Section -->
         <style>
 
 
@@ -345,12 +345,12 @@
         </style>
 
 
-        @*<div class="container" style="padding-top: 20px; background: #34ba08; border-bottom: 13px solid #34ba08;">
+        @* <div class="container" style="padding-top: 20px; background: #34ba08; border-bottom: 13px solid #34ba08;">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="text-center">
                             <span style="color: #000;">Apply process</span>
-                            <h2 style="padding-bottom: 20px;color: white;"> How it works?</h2>
+                            <h2 style="padding-bottom: 20px;color: white;"> How it works ?</h2>
                         </div>
                     </div>
                 </div>
@@ -411,56 +411,7 @@
             }
             document.getElementById("defaultOpen").click();
         </script>
-        <!--<section id="call-to-action">
 
-        <div class="container">-->
-        <!-- Section Tittle -->
-        <!--<div class="row">
-            <div class="col-lg-12">
-                <div class="section-tittle white-text text-center">
-                    <span style="color: #34ba08;">Apply process</span>
-                    <h2 style="padding-bottom: 60px;color: #fff;"> How it works</h2>
-                </div>
-            </div>
-        </div>-->
-        <!-- Apply Process Caption -->
-        <!--<div class="row">
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-process text-center mb-30">
-                            <div class="process-ion">
-                                <span class="flaticon-search"></span>
-                            </div>
-                            <div class="process-cap">
-                                <h5 style="color: #fff;">1. Search a job</h5>
-                                <p style="color: #fff;">Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-process text-center mb-30">
-                            <div class="process-ion">
-                                <span class="flaticon-curriculum-vitae"></span>
-                            </div>
-                            <div class="process-cap">
-                                <h5 style="color: #fff;">2. Apply for job</h5>
-                                <p style="color: #fff;">Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="single-process text-center mb-30">
-                            <div class="process-ion">
-                                <span class="flaticon-tour"></span>
-                            </div>
-                            <div class="process-cap">
-                                <h5 style="color: #fff;">3. Get your job</h5>
-                                <p style="color: #fff;">Sorem spsum dolor sit amsectetur adipisclit, seddo eiusmod tempor incididunt ut laborea.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>-->
         <br /><br />
         <div class="container-fluid">
             <style>
@@ -548,7 +499,7 @@
                     margin: 7px;
                 }
             </style>
-            @* <h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">Latest Jobs</h1>*@
+            @*<h1 class="text-center mb-5 wow fadeInUp" data-wow-delay="0.1s" style="visibility: visible; animation-delay: 0.1s; animation-name: fadeInUp;">Latest Jobs</h1>*@
             <div class="row">
                 @if (ViewBag.LatestJob1 != null)
                 {
@@ -556,11 +507,11 @@
                     {
                         <div class="col-lg-3 col-xl-3 col-md-4 col-sm-6 col- shadow" style="margin-bottom:25px;">
                             <div class="row">
-                                <div class="col-lg-5 col-md-5 col-sm-4">
-                                    @Html.Raw(string.Format("<text><span><img  height='100' width='100' src=\"/Image/Avtar/" + latestJob.EmployerId + "\" /><span> </text>"))
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-5">
+                                    @Html.Raw(string.Format("<text><span><img class='img-fluid' height='100' width='100' src=\"/Image/Avtar/" + latestJob.EmployerId + "\" /><span> </text>"))
 
                                 </div>
-                                <div class="col-lg-7 col-md-7 col-sm-8">
+                                <div class="col-lg-7 col-md-7 col-sm-7 col-7">
                                     <p class="title1">@Html.Raw(latestJob.Title)</p>
                                     <b>Location: </b> @Html.Raw(string.Format("{0} {1}", latestJob.Country, latestJob.City))<br />
 
@@ -596,6 +547,7 @@
         </div>
         <br />
         <br />
+
         @* <div class="container-fluid">
                 <div class="row" style="padding-right:15px; padding-left:15px;">
                     <h1 class="text-center"><b>Our Customers</b></h1>
@@ -658,6 +610,7 @@
                 </div>
             </div>
         </footer>*@
+
     @Html.Partial("_footer")
     <!-- End Footer -->
     @*<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>*@
@@ -672,7 +625,6 @@
     <script src="~/Content/Homesinga/assetsmalsya/js/main.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
 </body>
 
 </html>
