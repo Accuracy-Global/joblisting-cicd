@@ -1820,6 +1820,74 @@ namespace JobPortal.Web.Controllers
             }
             return View(model);
         }
+        public ActionResult Homemau(string country, int i = 1, string address = null)
+
+        {
+            //, Philippines,Thailand, Japan, Pakistan, China, Afghanistan,
+            string constr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            SearchJobModel model = new SearchJobModel();
+            string countryName = "mauritius";
+            Session["cn"] = countryName;//(string)Session["cn1"];
+            string location = "";
+            string city = "";
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
+            ViewBag.LatestJob1 = data;
+            using (SqlConnection conn = new SqlConnection(constr))
+            {
+                try
+                {
+                    using (SqlCommand cmd = new SqlCommand("select top 100 Logo from WebsiteList", conn))
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                        {
+                            using (DataTable dt = new DataTable())
+                            {
+                                sda.Fill(dt);
+                                ViewBag.Model = dt.AsEnumerable();
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                { }
+            }
+            return View(model);
+        }
+        public ActionResult Homehk(string country, int i = 1, string address = null)
+
+        {
+            //, Philippines,Thailand, Japan, Pakistan, China, Afghanistan,
+            string constr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            SearchJobModel model = new SearchJobModel();
+            string countryName = "hongkong";
+            Session["cn"] = countryName;//(string)Session["cn1"];
+            string location = "";
+            string city = "";
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
+            ViewBag.LatestJob1 = data;
+            using (SqlConnection conn = new SqlConnection(constr))
+            {
+                try
+                {
+                    using (SqlCommand cmd = new SqlCommand("select top 100 Logo from WebsiteList", conn))
+                    {
+                        cmd.CommandType = CommandType.Text;
+                        using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                        {
+                            using (DataTable dt = new DataTable())
+                            {
+                                sda.Fill(dt);
+                                ViewBag.Model = dt.AsEnumerable();
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                { }
+            }
+            return View(model);
+        }
         public ActionResult Homeml(string country, int i = 1, string address = null)
         {
             bool isLogCreate = Convert.ToBoolean(ConfigurationManager.AppSettings["IsLogCreate"]);
@@ -1836,7 +1904,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -1869,7 +1937,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -1951,7 +2019,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -1983,7 +2051,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2015,7 +2083,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2048,7 +2116,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2081,7 +2149,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2113,7 +2181,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2146,7 +2214,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2179,7 +2247,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2211,7 +2279,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2244,7 +2312,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2280,7 +2348,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2314,7 +2382,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2347,7 +2415,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2380,7 +2448,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2413,7 +2481,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2446,7 +2514,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2479,7 +2547,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2511,7 +2579,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2543,7 +2611,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2575,7 +2643,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2607,7 +2675,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2639,7 +2707,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2671,7 +2739,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2703,7 +2771,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2738,7 +2806,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2772,7 +2840,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2806,7 +2874,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2840,7 +2908,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2873,7 +2941,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2916,7 +2984,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2948,7 +3016,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -2980,7 +3048,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -3012,7 +3080,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -3044,7 +3112,7 @@ namespace JobPortal.Web.Controllers
             Session["cn"] = countryName;//(string)Session["cn1"];
             string location = "";
             string city = "";
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -3130,9 +3198,9 @@ namespace JobPortal.Web.Controllers
             string location = "";
             string city = "";
             SearchJobModel model = new SearchJobModel();
-            //var data = JobService.Instance.GetLatestJobs2(country == null ? "" : country, "", i).Take(8);
-            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(8);
-            //var data = JobService.Instance.GetLatestJobs22(cn, re, city, i).Take(8);
+            //var data = JobService.Instance.GetLatestJobs2(country == null ? "" : country, "", i).Take(16);
+            var data = JobService.Instance.GetLatestJobs22(countryName == "" ? "" : countryName, location, city, 1).Take(16);
+            //var data = JobService.Instance.GetLatestJobs22(cn, re, city, i).Take(16);
             ViewBag.LatestJob1 = data;
             using (SqlConnection conn = new SqlConnection(constr))
             {
@@ -3400,6 +3468,9 @@ namespace JobPortal.Web.Controllers
                 ViewBag.Description = "Search jobs and apply for perfectly matching job according your requirements";
                 ViewBag.Keywords = "Joblisting, Job Listing, List Jobs, Search Jobs, Latest Jobs, Accounting Jobs, I.T. Jobs, Healthcare Jobs, Sales Jobs, Government Jobs, Banking Jobs, Engineering Jobs";
                 var data = JobService.Instance.GetLatestJobs22(countryNam == "" ? "" : countryNam, location, city, i);
+
+                //var ff = data.Where(m => m.Title == ".Net Developer (C#)").ToList();
+                //var ff1 = data.Where(m => m.Title.StartsWith("E")).ToList();
                 ViewBag.cn = countryNam;
                 ViewBag.LatestJobs = data;
                 //using (SqlConnection conn = new SqlConnection(constr))
@@ -3479,81 +3550,305 @@ namespace JobPortal.Web.Controllers
 
         [ValidateInput(false)]
         [HttpPost]
-        public async Task<ActionResult> SearchJobs(SearchJobModel model, int PageNumber = 1)
+        public ActionResult SearchJobs(SearchJobModel model, string country, int i = 1, int PageNumber = 1, string dileep = null)
         {
-            if (model.PageNumber <= 0)
+            string constr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            string cn = (string)Session["cnm"];
+            if (dileep != null || cn != null)
             {
-                model.PageNumber = PageNumber;
+                ViewBag.name = "jobs";
             }
-            int pageSize = 12;
 
-            var sdt = new DateTime?();
-            var edt = new DateTime?();
+            string countryName;
 
-            if ((!string.IsNullOrEmpty(model.FromDay) && !string.IsNullOrEmpty(model.FromMonth) && !string.IsNullOrEmpty(model.FromYear)) || (!string.IsNullOrEmpty(model.ToDay) && !string.IsNullOrEmpty(model.ToMonth) && !string.IsNullOrEmpty(model.ToYear)))
+            if (dileep != null)
             {
-                if ((!string.IsNullOrEmpty(model.FromDay) && !string.IsNullOrEmpty(model.FromMonth) && !string.IsNullOrEmpty(model.FromYear)))
+                if (dileep.Contains("India"))
                 {
-                    string startDate = string.Format("{0}/{1}/{2}", model.FromMonth, model.FromDay, model.FromYear);
-                    sdt = Convert.ToDateTime(startDate);
+                    cn = "india";
+                    Session["cnm"] = cn;
+
+                }
+                else if (dileep.Contains("Suriname"))
+                {
+                    cn = "suriname";
+                    Session["cnm"] = cn;
+
+                }
+                else if (dileep.Contains("Singapore"))
+                {
+                    cn = "singapore";
+                    Session["cnm"] = cn;
+
+                }
+                else if (dileep.Contains("Pakistan"))
+                {
+                    cn = "pakistan";
+                    Session["cnm"] = cn;
+
+                }
+                else if (dileep.Contains("Malaysia"))
+                {
+                    cn = "malaysia";
+                    Session["cnm"] = cn;
+
+                }
+                else if (dileep.Contains("Indonesia"))
+                {
+                    cn = "indonesia";
+                    Session["cnm"] = cn;
+
+                }
+                else if (dileep.Contains("China"))
+                {
+                    cn = "china";
+                    Session["cnm"] = cn;
+
+                }
+                else if (dileep.Contains("Afghanistan"))
+                {
+                    cn = "Afghanistan";
+                    Session["cnm"] = cn;
+
+                }
+                else if (dileep.Contains("Armenia"))
+                {
+                    cn = "Armenia";
+                    Session["cnm"] = cn;
+
+                }
+                else if (dileep.Contains("Azerbaijan"))
+                {
+                    cn = "Azerbaijan";
+                    Session["cnm"] = cn;
+
+                }
+                else if (dileep.Contains("Bahrain"))
+                {
+                    cn = "Bahrain";
+                    Session["cnm"] = cn;
+
+                }
+                else if (dileep.Contains("Bangladesh"))
+                {
+                    cn = "Bangladesh";
+                    Session["cnm"] = cn;
+
+                }
+                else if (dileep.Contains("Bhutan"))
+                {
+                    cn = "Bhutan";
+                    Session["cnm"] = cn;
+                }
+                else if (dileep.Contains("Maldives"))
+                {
+                    cn = "Maldives";
+                    Session["cnm"] = cn;
+                }
+                else if (dileep.Contains("Nepal"))
+                {
+                    cn = "Nepal";
+                    Session["cnm"] = cn;
+                }
+                else if (dileep.Contains("Myanmar"))
+                {
+                    cn = "Myanmar";
+                    Session["cnm"] = cn;
+                }
+                else if (dileep.Contains("SriLanka"))
+                {
+                    cn = "SriLanka";
+                    Session["cnm"] = cn;
+                }
+                else if (dileep.Contains("Cambodia"))
+                {
+                    cn = "Cambodia";
+                    Session["cnm"] = cn;
+                }
+                else if (dileep.Contains("Fiji"))
+                {
+                    cn = "Fiji";
+                    Session["cnm"] = cn;
+                }
+                else if (dileep.Contains("Australia"))
+                {
+                    cn = "Australia";
+                    Session["cnm"] = cn;
+                }
+                else if (dileep.Contains("Ecuador"))
+                {
+                    cn = "Ecuador";
+                    Session["cnm"] = cn;
                 }
 
-                if ((!string.IsNullOrEmpty(model.ToDay) && !string.IsNullOrEmpty(model.ToMonth) && !string.IsNullOrEmpty(model.ToYear)))
+            }
+            UserInfoEntity user = null;
+            if (User != null)
+            {
+                user = User.Info;
+
+                //string cn = (string)Session["cn"]; ;
+                if (cn != null)
                 {
-                    if ((string.IsNullOrEmpty(model.FromDay) && string.IsNullOrEmpty(model.FromMonth) && string.IsNullOrEmpty(model.FromYear)))
-                    {
-                        sdt = DateTime.Now;
-                    }
-                    string endDate = string.Format("{0}/{1}/{2}", model.ToMonth, model.ToDay, model.ToYear);
-                    edt = Convert.ToDateTime(endDate);
+                    cn = dileep;
                 }
                 else
                 {
-                    if ((!string.IsNullOrEmpty(model.FromDay) && !string.IsNullOrEmpty(model.FromMonth) && !string.IsNullOrEmpty(model.FromYear)))
-                    {
-                        edt = DateTime.Now;
-                    }
+                    cn = user.CountryName;
                 }
+                //string cn = dileep; //user.CountryName;
+                string city = "";
+                //string ip = location1.IP;
+                string re = ""; //user.StateName;
+
+
+                //SearchJobModel model = new SearchJobModel();
+                string location = "";
+                //country = cn;
+                ViewBag.Title = "Search Jobs | Apply Jobs | Joblisting.com";
+                ViewBag.Description = "Search jobs and apply for perfectly matching job according your requirements";
+                ViewBag.Keywords = "Joblisting, Job Listing, List Jobs, Search Jobs, Latest Jobs, Accounting Jobs, I.T. Jobs, Healthcare Jobs, Sales Jobs, Government Jobs, Banking Jobs, Engineering Jobs";
+                //var data = JobService.Instance.GetLatestJobs2(country == null ? "" : country, "", i);
+                var data = JobService.Instance.GetLatestJobs22(cn, re, city, i);
+                ViewBag.cn = cn;
+                ViewBag.LatestJobs = data;
+                //using (SqlConnection conn = new SqlConnection(constr))
+                //{
+                //    using (SqlCommand cmd = new SqlCommand("select count(*) from  WebJobList where CountryName='" + cn + "'", conn))
+                //    {
+                //        cmd.CommandType = CommandType.Text;
+                //        using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                //        {
+                //            using (DataTable dt = new DataTable())
+                //            {
+                //                sda.Fill(dt);
+                //                TempData["count11"] = dt.Rows[0][0];
+                //                int count1 = (int)TempData["count11"];
+                //                Session["count11"] = count1;
+                //            }
+                //        }
+                //    }
+                //}
+                //int rows = (int)Session["count11"];//data.Count();
+                var pageModel = new Pager(data.FirstOrDefault().TotalRow, i, 20);
+                model.DataSize = pageModel.PageSize;
+                model.Where = country; //changes
+                model.CurrentPage = pageModel.CurrentPage;
+                model.EndPage = pageModel.EndPage;
+                model.StartPage = pageModel.StartPage;
+                model.CurrentPage = pageModel.CurrentPage;
+                model.TotalPages = pageModel.TotalPages;
+                model.PageSize = pageModel.PageSize;
+                return View(model);
             }
 
-            var jobSearch = new SearchJob
+
+
+            else if (dileep == null)
             {
-                Title = (!string.IsNullOrEmpty(model.JobTitle) && model.JobTitle.Trim().Length > 0) ? model.JobTitle.Trim() : null,
-                Where = (!string.IsNullOrEmpty(model.Where) && model.Where.Trim().Length > 0) ? model.Where.Trim() : null,
-                CategoryId = model.CategoryId,
-                JobID = model.JobID,
-                SpecializationId = model.SpecializationId,
-                CountryId = model.CountryId,
-                StateOrCity = (!string.IsNullOrEmpty(model.State) && model.State.Trim().Length > 0) ? model.State.Trim() : null,
-                EmploymentType = model.EmploymentTypeId,
-                QualificationId = model.QualificationId,
-                StartDate = sdt,
-                EndDate = edt,
-                Zip = (!string.IsNullOrEmpty(model.ZipCode) && model.ZipCode.Trim().Length > 0) ? model.ZipCode.Trim() : null,
-                PageNumber = PageNumber,
-                PageSize = pageSize
-            };
-
-
-
-            List<LatestJob> jobs = new List<LatestJob>();
-            if ((!string.IsNullOrEmpty(model.JobTitle) && model.JobTitle.Trim().Length > 0) || (!string.IsNullOrEmpty(model.Where) && model.Where.Trim().Length > 0) || model.CategoryId != null || model.SpecializationId != null || model.CountryId != null || (!string.IsNullOrEmpty(model.State) && model.State.Trim().Length > 0) || model.EmploymentTypeId != null || model.QualificationId != null || sdt != null || edt != null || (!string.IsNullOrEmpty(model.ZipCode) && model.ZipCode.Trim().Length > 0))
-            {
-                string username = User != null ? User.Username : null;
-                jobSearch.Username = username;
-                jobs = await iJobService.SearchNew3(jobSearch);
-                // jobs = await JobService.Instance.GetLatestSearchJob1(username);
+                //SearchJobModel model = new SearchJobModel();
+                string location = "";
+                string countryNam;
+                if (Session["cnm"] != null)
+                {
+                    countryNam = (string)Session["cnm"];
+                }
+                else
+                {
+                    countryNam = (string)Session["cn"];
+                }
+                //country = countryNam;
+                //string countryName = "";
+                string city = "";
+                ViewBag.Title = "Search Jobs | Apply Jobs | Joblisting.com";
+                ViewBag.Description = "Search jobs and apply for perfectly matching job according your requirements";
+                ViewBag.Keywords = "Joblisting, Job Listing, List Jobs, Search Jobs, Latest Jobs, Accounting Jobs, I.T. Jobs, Healthcare Jobs, Sales Jobs, Government Jobs, Banking Jobs, Engineering Jobs";
+                var data = JobService.Instance.GetLatestJobs22(countryNam == "" ? "" : countryNam, location, city, 25);
+                if(model.JobTitle==null)
+                {
+                    ViewBag.cn = countryNam;
+                    ViewBag.LatestJobs = data;
+                }
+                else
+                {
+                    string strModified = model.JobTitle.Substring(0, 2);
+                    //var ff = data.Where(m => m.Title == model.JobTitle).ToList();
+                    var ff1 = data.Where(m => m.Title.StartsWith(strModified)).ToList();
+                    ViewBag.cn = countryNam;
+                    ViewBag.LatestJobs = ff1;
+                }
+               
+                //using (SqlConnection conn = new SqlConnection(constr))
+                //{
+                //    using (SqlCommand cmd = new SqlCommand("select count(*) from  WebJobList where CountryName='" + countryNam + "'", conn))
+                //    {
+                //        cmd.CommandType = CommandType.Text;
+                //        using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                //        {
+                //            using (DataTable dt = new DataTable())
+                //            {
+                //                sda.Fill(dt);
+                //                TempData["count12"] = dt.Rows[0][0];
+                //                int count1 = (int)TempData["count12"];
+                //                Session["count12"] = count1;
+                //            }
+                //        }
+                //    }
+                //}
+                //int rows = (int)Session["count12"];//data.Count();
+                var pageModel = new Pager(data.FirstOrDefault().TotalRow, i, 20);
+                model.DataSize = pageModel.PageSize;
+                model.Where = country; //changes
+                model.CurrentPage = pageModel.CurrentPage;
+                model.EndPage = pageModel.EndPage;
+                model.StartPage = pageModel.StartPage;
+                model.CurrentPage = pageModel.CurrentPage;
+                model.TotalPages = pageModel.TotalPages;
+                model.PageSize = pageModel.PageSize;
+                return View(model);
             }
-            var pageModel = new Pager(jobs.Count(), PageNumber, model.PageSize);
-            model.DataSize = pageModel.PageSize;
-            model.CurrentPage = pageModel.CurrentPage;
-            model.EndPage = pageModel.EndPage;
-            model.StartPage = pageModel.StartPage;
-            model.CurrentPage = pageModel.CurrentPage;
-            model.TotalPages = pageModel.TotalPages;
-            model.PageSize = pageModel.PageSize;
+            else
+            {
+                //SearchJobModel model = new SearchJobModel();
 
-            return Json(jobs, JsonRequestBehavior.AllowGet);
+
+                ViewBag.Title = "Search Jobs | Apply Jobs | Joblisting.com";
+                ViewBag.Description = "Search jobs and apply for perfectly matching job according your requirements";
+                ViewBag.Keywords = "Joblisting, Job Listing, List Jobs, Search Jobs, Latest Jobs, Accounting Jobs, I.T. Jobs, Healthcare Jobs, Sales Jobs, Government Jobs, Banking Jobs, Engineering Jobs";
+
+                var data = JobService.Instance.GetLatestJobs22(dileep, "", "", i);
+                ViewBag.cn = dileep;
+                ViewBag.LatestJobs = data;
+                //using (SqlConnection conn = new SqlConnection(constr))
+                //{
+                //    using (SqlCommand cmd = new SqlCommand("select count(*) from  WebJobList where CountryName='" + dileep + "'", conn))
+                //    {
+                //        cmd.CommandType = CommandType.Text;
+                //        using (SqlDataAdapter sda = new SqlDataAdapter(cmd))
+                //        {
+                //            using (DataTable dt = new DataTable())
+                //            {
+                //                sda.Fill(dt);
+                //                TempData["count1"] = dt.Rows[0][0];
+                //                int count1 = (int)TempData["count1"];
+                //                Session["count1"] = count1;                              
+                //            }
+                //        }
+                //    }
+                //}
+                // long rowss =model.TotalRow;
+                //int rows = (int)Session["count1"];//data.Count();
+                var pageModel = new Pager(data.FirstOrDefault().TotalRow, i, 20);
+                model.DataSize = pageModel.PageSize;
+                model.Where = country; //changes
+                model.CurrentPage = pageModel.CurrentPage;
+                model.EndPage = pageModel.EndPage;
+                model.StartPage = pageModel.StartPage;
+                model.CurrentPage = pageModel.CurrentPage;
+                model.TotalPages = pageModel.TotalPages;
+                model.PageSize = pageModel.PageSize;
+                return View(model);
+            }
 
 
         }

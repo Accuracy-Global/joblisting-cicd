@@ -269,112 +269,123 @@ namespace JobPortal.Web
          url: "ecuador",
          defaults: new { controller = "job", action = "homeedr", id = UrlParameter.Optional }
         );
-        //    routes.MapRoute(
-        //     name: "cambodia/jobs",
-        //     url: "cambodia/jobs",
-        //     defaults: new { controller = "job", action = "searchjobs", dileep = "Cambodia" }
-        //    );
-        //    routes.MapRoute(
-        //     name: "fiji/jobs",
-        //     url: "fiji/jobs",
-        //     defaults: new { controller = "job", action = "searchjobs", dileep = "Fiji" }
-        //    );
-        //    routes.MapRoute(
-        //     name: "australia/jobs",
-        //     url: "australia/jobs",
-        //     defaults: new { controller = "job", action = "searchjobs", dileep = "Australia" }
-        //    );
-        //    routes.MapRoute(
-        //     name: "ecuador/jobs",
-        //     url: "ecuador/jobs",
-        //     defaults: new { controller = "job", action = "searchjobs", dileep = "Ecuador" }
-        //    );
-        //    routes.MapRoute(
-        //     name: "maldives/jobs",
-        //     url: "maldives/jobs",
-        //     defaults: new { controller = "job", action = "searchjobs", dileep = "Maldives" }
-        //    );
-        //    routes.MapRoute(
-        //     name: "nepal/jobs",
-        //     url: "nepal/jobs",
-        //     defaults: new { controller = "job", action = "searchjobs", dileep = "Nepal" }
-        //    );
-        //    routes.MapRoute(
-        //     name: "myanmar/jobs",
-        //     url: "myanmar/jobs",
-        //     defaults: new { controller = "job", action = "searchjobs", dileep = "Myanmar" }
-        //    );
-        //    routes.MapRoute(
-        //     name: "srilanka/jobs",
-        //     url: "srilanka/jobs",
-        //     defaults: new { controller = "job", action = "searchjobs", dileep = "SriLanka" }
-        //    );
-        //    routes.MapRoute(
-        //     name: "suriname/jobs",
-        //     url: "suriname/jobs",
-        //     defaults: new { controller = "job", action = "searchjobs", dileep = "suriname" }
-        //    );
+            routes.MapRoute(
+       name: "Mauritius",
+       url: "Mauritius",
+       defaults: new { controller = "job", action = "Homemau", id = UrlParameter.Optional }
+      );
 
-        //    routes.MapRoute(
-        //     name: "india/jobs",
-        //     url: "india/jobs",
-        //     defaults: new { controller = "job", action = "searchjobs", dileep = "india" }
-        //    );
-        //    routes.MapRoute(
-        //     name: "singapore/jobs",
-        //     url: "singapore/jobs",
-        //     defaults: new { controller = "job", action = "searchjobs", dileep = "singapore" }
-        //    );
-        //    routes.MapRoute(
-        //     name: "pakistan/jobs",
-        //     url: "pakistan/jobs",
-        //     defaults: new { controller = "job", action = "searchjobs", dileep = "pakistan" }
-        //    );
-        //    routes.MapRoute(
-        //     name: "malaysia/jobs",
-        //     url: "malaysia/jobs",
-        //     defaults: new { controller = "job", action = "searchjobs", dileep = "malaysia" }
-        //    );
-        //    routes.MapRoute(
-        //     name: "indonesia/jobs",
-        //     url: "indonesia/jobs",
-        //     defaults: new { controller = "job", action = "searchjobs", dileep = "indonesia" }
-        //    );
-        //    routes.MapRoute(
-        //     name: "china/jobs",
-        //     url: "china/jobs",
-        //     defaults: new { controller = "job", action = "searchjobs", dileep = "china" }
-        //    );
-        //    routes.MapRoute(
-        // name: "Afghanistan/jobs",
-        // url: "Afghanistan/jobs",
-        // defaults: new { controller = "job", action = "searchjobs", dileep = "Afghanistan" }
-        //);
-        //    routes.MapRoute(
-        //    name: "Armenia/jobs",
-        //    url: "Armenia/jobs",
-        //    defaults: new { controller = "job", action = "searchjobs", dileep = "Armenia" }
-        //   );
-        //    routes.MapRoute(
-        //    name: "Azerbaijan/jobs",
-        //    url: "Azerbaijan/jobs",
-        //    defaults: new { controller = "job", action = "searchjobs", dileep = "Azerbaijan" }
-        //   );
-        //    routes.MapRoute(
-        //    name: "Bahrain/jobs",
-        //    url: "Bahrain/jobs",
-        //    defaults: new { controller = "job", action = "searchjobs", dileep = "Bahrain" }
-        //   );
-        //    routes.MapRoute(
-        //    name: "Bangladesh/jobs",
-        //    url: "Bangladesh/jobs",
-        //    defaults: new { controller = "job", action = "searchjobs", dileep = "Bangladesh" }
-        //   );
-        //    routes.MapRoute(
-        //    name: "Bhutan/jobs",
-        //    url: "Bhutan/jobs",
-        //    defaults: new { controller = "job", action = "searchjobs", dileep = "Bhutan" }
-        //   );
+            routes.MapRoute(
+         name: "hongkong",
+         url: "hongkong",
+         defaults: new { controller = "job", action = "Homehk", id = UrlParameter.Optional }
+ );
+            //    routes.MapRoute(
+            //     name: "cambodia/jobs",
+            //     url: "cambodia/jobs",
+            //     defaults: new { controller = "job", action = "searchjobs", dileep = "Cambodia" }
+            //    );
+            //    routes.MapRoute(
+            //     name: "fiji/jobs",
+            //     url: "fiji/jobs",
+            //     defaults: new { controller = "job", action = "searchjobs", dileep = "Fiji" }
+            //    );
+            //    routes.MapRoute(
+            //     name: "australia/jobs",
+            //     url: "australia/jobs",
+            //     defaults: new { controller = "job", action = "searchjobs", dileep = "Australia" }
+            //    );
+            //    routes.MapRoute(
+            //     name: "ecuador/jobs",
+            //     url: "ecuador/jobs",
+            //     defaults: new { controller = "job", action = "searchjobs", dileep = "Ecuador" }
+            //    );
+            //    routes.MapRoute(
+            //     name: "maldives/jobs",
+            //     url: "maldives/jobs",
+            //     defaults: new { controller = "job", action = "searchjobs", dileep = "Maldives" }
+            //    );
+            //    routes.MapRoute(
+            //     name: "nepal/jobs",
+            //     url: "nepal/jobs",
+            //     defaults: new { controller = "job", action = "searchjobs", dileep = "Nepal" }
+            //    );
+            //    routes.MapRoute(
+            //     name: "myanmar/jobs",
+            //     url: "myanmar/jobs",
+            //     defaults: new { controller = "job", action = "searchjobs", dileep = "Myanmar" }
+            //    );
+            //    routes.MapRoute(
+            //     name: "srilanka/jobs",
+            //     url: "srilanka/jobs",
+            //     defaults: new { controller = "job", action = "searchjobs", dileep = "SriLanka" }
+            //    );
+            //    routes.MapRoute(
+            //     name: "suriname/jobs",
+            //     url: "suriname/jobs",
+            //     defaults: new { controller = "job", action = "searchjobs", dileep = "suriname" }
+            //    );
+
+            //    routes.MapRoute(
+            //     name: "india/jobs",
+            //     url: "india/jobs",
+            //     defaults: new { controller = "job", action = "searchjobs", dileep = "india" }
+            //    );
+            //    routes.MapRoute(
+            //     name: "singapore/jobs",
+            //     url: "singapore/jobs",
+            //     defaults: new { controller = "job", action = "searchjobs", dileep = "singapore" }
+            //    );
+            //    routes.MapRoute(
+            //     name: "pakistan/jobs",
+            //     url: "pakistan/jobs",
+            //     defaults: new { controller = "job", action = "searchjobs", dileep = "pakistan" }
+            //    );
+            //    routes.MapRoute(
+            //     name: "malaysia/jobs",
+            //     url: "malaysia/jobs",
+            //     defaults: new { controller = "job", action = "searchjobs", dileep = "malaysia" }
+            //    );
+            //    routes.MapRoute(
+            //     name: "indonesia/jobs",
+            //     url: "indonesia/jobs",
+            //     defaults: new { controller = "job", action = "searchjobs", dileep = "indonesia" }
+            //    );
+            //    routes.MapRoute(
+            //     name: "china/jobs",
+            //     url: "china/jobs",
+            //     defaults: new { controller = "job", action = "searchjobs", dileep = "china" }
+            //    );
+            //    routes.MapRoute(
+            // name: "Afghanistan/jobs",
+            // url: "Afghanistan/jobs",
+            // defaults: new { controller = "job", action = "searchjobs", dileep = "Afghanistan" }
+            //);
+            //    routes.MapRoute(
+            //    name: "Armenia/jobs",
+            //    url: "Armenia/jobs",
+            //    defaults: new { controller = "job", action = "searchjobs", dileep = "Armenia" }
+            //   );
+            //    routes.MapRoute(
+            //    name: "Azerbaijan/jobs",
+            //    url: "Azerbaijan/jobs",
+            //    defaults: new { controller = "job", action = "searchjobs", dileep = "Azerbaijan" }
+            //   );
+            //    routes.MapRoute(
+            //    name: "Bahrain/jobs",
+            //    url: "Bahrain/jobs",
+            //    defaults: new { controller = "job", action = "searchjobs", dileep = "Bahrain" }
+            //   );
+            //    routes.MapRoute(
+            //    name: "Bangladesh/jobs",
+            //    url: "Bangladesh/jobs",
+            //    defaults: new { controller = "job", action = "searchjobs", dileep = "Bangladesh" }
+            //   );
+            //    routes.MapRoute(
+            //    name: "Bhutan/jobs",
+            //    url: "Bhutan/jobs",
+            //    defaults: new { controller = "job", action = "searchjobs", dileep = "Bhutan" }
+            //   );
 
             routes.MapRoute(
               name: "CountryCompanies",
@@ -1174,19 +1185,19 @@ namespace JobPortal.Web
                 url: "malaysia/{controller}/{action}/{id}",
                 defaults: new { country = "malaysia", controller = "Default", action = "Index", id = UrlParameter.Optional }
             );
-            
+
             routes.MapRoute(
                 name: "IndiaDefault",
                 url: "india/{controller}/{action}/{id}",
                 defaults: new { country = "india", controller = "Default", action = "Index", id = UrlParameter.Optional }
             );
-            
+
             routes.MapRoute(
                 name: "ChinaDefault",
                 url: "china/{controller}/{action}/{id}",
                 defaults: new { country = "china", controller = "Default", action = "Index", id = UrlParameter.Optional }
             );
-            
+
             routes.MapRoute(
                 name: "VietnamDefault",
                 url: "vietnam/{controller}/{action}/{id}",
@@ -1204,55 +1215,55 @@ namespace JobPortal.Web
                 url: "canada/{controller}/{action}/{id}",
                 defaults: new { country = "canada", controller = "Default", action = "Index", id = UrlParameter.Optional }
             );
-            
+
             routes.MapRoute(
                 name: "SurinameDefault",
                 url: "suriname/{controller}/{action}/{id}",
                 defaults: new { country = "suriname", controller = "Default", action = "Index", id = UrlParameter.Optional }
             );
-            
+
             routes.MapRoute(
                 name: "ThailandDefault",
                 url: "thailand/{controller}/{action}/{id}",
                 defaults: new { country = "thailand", controller = "Default", action = "Index", id = UrlParameter.Optional }
             );
-            
+
             routes.MapRoute(
                 name: "PhilippinesDefault",
                 url: "philippines/{controller}/{action}/{id}",
                 defaults: new { country = "philippines", controller = "Default", action = "Index", id = UrlParameter.Optional }
             );
-            
+
             routes.MapRoute(
                 name: "JapanDefault",
                 url: "japan/{controller}/{action}/{id}",
                 defaults: new { country = "japan", controller = "Default", action = "Index", id = UrlParameter.Optional }
             );
-            
+
             routes.MapRoute(
                 name: "IndonesiaDefault",
                 url: "indonesia/{controller}/{action}/{id}",
                 defaults: new { country = "indonesia", controller = "Default", action = "Index", id = UrlParameter.Optional }
             );
-            
+
             routes.MapRoute(
                 name: "AfghanistanDefault",
                 url: "afghanistan/{controller}/{action}/{id}",
                 defaults: new { country = "afghanistan", controller = "Default", action = "Index", id = UrlParameter.Optional }
             );
-            
+
             routes.MapRoute(
                 name: "BruneiDefault",
                 url: "brunei/{controller}/{action}/{id}",
                 defaults: new { country = "brunei", controller = "Default", action = "Index", id = UrlParameter.Optional }
             );
-            
+
             routes.MapRoute(
                 name: "CyprusDefault",
                 url: "cyprus/{controller}/{action}/{id}",
                 defaults: new { country = "cyprus", controller = "Default", action = "Index", id = UrlParameter.Optional }
             );
-            
+
             routes.MapRoute(
                 name: "GeorgiaDefault",
                 url: "georgia/{controller}/{action}/{id}",
