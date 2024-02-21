@@ -1,4 +1,4 @@
-﻿
+﻿@model JobPortal.Web.Models.SearchJobModel
 @using JobPortal.Models
 @using JobPortal.Library.Enumerators
 @using JobPortal.Library.Helpers
@@ -1602,75 +1602,75 @@
                                 </div>
                             </div>
                             @*  *@
-                        <div class="row">
-                            @if (ViewBag.LatestJobs != null)
-                            {
-                                foreach (Jobseekers latestJob in ViewBag.LatestJobs)
+                            <div class="row">
+                                @if (ViewBag.LatestJobs != null)
                                 {
-                            <div class="column">
-                                <div class="card">
-                                    <div class="card-container">
-                                        @*<span class="pro">PRO</span>*@
-                                        @if (latestJob.Image == null)
-                                        {
-                                            <img class="round" style="width:100px;" src="https://randomuser.me/api/portraits/women/79.jpg" alt="user" />
+                                    foreach (Jobseekers latestJob in ViewBag.LatestJobs)
+                                    {
+                                        <div class="column">
+                                            <div class="card">
+                                                <div class="card-container">
+                                                    @*<span class="pro">PRO</span>*@
+                                                    @if (latestJob.Image == null)
+                                                    {
+                                                        @*<img class="round" style="width:100px;" src="https://randomuser.me/api/portraits/women/79.jpg" alt="user" />*@
+                                                        <img class="round" style="width:100px;" src="~/Images/personblack.jpg" alt="user" />
+                                                    }
+                                                    else
+                                                    {
+                                                        string base64String = Convert.ToBase64String(latestJob.Image, 0, latestJob.Image.Length);
+                                                        <img class="round" style="width:100px;" src="data:image/png;base64,@base64String" />
+                                                    }
 
-                                        }
-                                        else
-                                        {
-                                            string base64String = Convert.ToBase64String(latestJob.Image, 0, latestJob.Image.Length);
-                                            <img class="round" style="width:100px;" src="data:image/png;base64,@base64String" />
-                                        }
+                                                    <h3>@latestJob.Name</h3>
+                                                    <h6>@latestJob.Country</h6>
+                                                    <p>@latestJob.Company</p>
 
-                                        <h3>@latestJob.Name</h3>
-                                        <h6>@latestJob.Country</h6>
-                                        <p>@latestJob.Company</p>
-
-                                        <div class="skills">
-                                            <h6>Skills</h6>
-                                            <ul>
-                                                @if (latestJob.Mskilles == null)
-                                                {
-                                                    <li>UI/UX,MVC,HTML,CSS,JavaScript,Front End Development</li>
-                                                }
-                                                else
-                                                {
-                                                    <li>@latestJob.Mskilles.ToString()</li>
-                                                }
+                                                    <div class="skills">
+                                                        <h6>Skills</h6>
+                                                        <ul>
+                                                            @if (latestJob.Mskilles == null)
+                                                            {
+                                                                <li>UI/UX,MVC,HTML,CSS,JavaScript,Front End Development</li>
+                                                            }
+                                                            else
+                                                            {
+                                                                <li>@latestJob.Mskilles.ToString()</li>
+                                                            }
 
 
-                                            </ul>
+                                                        </ul>
+                                                    </div>
+                                                    @*<div class="row">
+                                                            <i class="fa fa-envelope fa-2x" style="width:10px; height:10px; color:#34ba08;"></i>&nbsp;&nbsp;&nbsp;
+                                                            <i class="fa fa-eye fa-2x" style="color: #34ba08;"></i>&nbsp;&nbsp;&nbsp;
+                                                            <i class="fa fa-download fa-2x" style="color: #34ba08;"></i>
+                                                        </div>*@
+                                                </div>
+                                            </div>
+                                            <br />
+
                                         </div>
-                                        <div class="row">
-                                            <i class="fa fa-envelope fa-2x" style="width:10px; height:10px; color:#34ba08;"></i>&nbsp;&nbsp;&nbsp;
-                                            <i class="fa fa-eye fa-2x" style="color: #34ba08;"></i>&nbsp;&nbsp;&nbsp;
-                                            <i class="fa fa-download fa-2x" style="color: #34ba08;"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br />
-                               
-                            </div>
-                                    
+
+                                    }
+
                                 }
-                               
-                            }
-                          
-                        </div>
 
-                         
+                            </div>
+
+
 
                         </div>
-                     
+
 
                     </div>
-                   
+
                 </div>
-              
+
             </div>
-           
+
         </div>
-       
+
     </div>
 </div>
 
@@ -1866,9 +1866,9 @@
                     <div class="koh-faq">
                         <div class="koh-faq-question">
                             <div class="form-group">
-                                <input class="form-control _basic" placeholder = "OPTIONAL SKILLS"/>
-                                @*@Html.TextBoxFor(model =>model.FullName , new { placeholder = "OPTIONAL SKILLS", @class = "form-control _basic", @maxlength = 50, @style = "" })
-                                @Html.ValidationMessageFor(model => model.FullName)*@
+                                @*<input class="form-control _basic" placeholder="OPTIONAL SKILLS" />*@
+                                @Html.TextBoxFor(model => model.JobTitle, new { placeholder = "OPTIONAL SKILLS", @class = "form-control _basic", @maxlength = 50, @style = "" })
+                                @Html.ValidationMessageFor(model => model.Where)
                             </div>
                         </div>
                     </div>
