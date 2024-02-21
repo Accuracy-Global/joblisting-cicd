@@ -2337,7 +2337,7 @@ namespace JobPortal.Web.Controllers
             if (model.JobTitle == null)
             {
                 //ViewBag.cn = countryNam;
-                ViewBag.LatestJobs = data;
+                ViewBag.LatestJobs = data;    
             }
             else
             {
