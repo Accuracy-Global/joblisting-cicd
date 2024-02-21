@@ -3768,7 +3768,7 @@ namespace JobPortal.Web.Controllers
                 {
                     ViewBag.cn = countryNam;
                     ViewBag.LatestJobs = data;
-                }
+                }   
                 else
                 {
                     string strModified = model.JobTitle.Substring(0, 2);

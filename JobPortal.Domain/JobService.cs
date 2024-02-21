@@ -553,8 +553,8 @@ namespace JobPortal.Domain
             List<DbParameter> parameters = new List<DbParameter>();
             parameters.Add(new SqlParameter("@PageNumber", 0));
             parameters.Add(new SqlParameter("@PageSize", 16));
-            return ReadData<Jobseekers>("jobseekerList", parameters);
-        }
+            return ReadData<Jobseekers>("jobseekerList", parameters);   
+        }     
         public List<Latestcompanies> GetCompanies()
 #pragma warning restore CS0246 // The type or namespace name 'LatestJob' could not be found (are you missing a using directive or an assembly reference?)
         {
