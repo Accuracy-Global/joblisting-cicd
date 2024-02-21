@@ -2327,15 +2327,28 @@ namespace JobPortal.Web.Controllers
         [ValidateInput(false)]
         [AllowAnonymous]
         [UrlPrivilegeFilter]
-        public async Task<ActionResult> Search(int pageNumber = 1)
+        public async Task<ActionResult> Search(SearchJobModel model,int pageNumber = 1)
         {
-            SearchJobModel model = new SearchJobModel();
+            //SearchJobModel model = new SearchJobModel();
             var data = JobService.Instance.GetJobSeekers22(pageNumber);
             //string base64String = Convert.ToBase64String(data.Select(m=>m.Image), 0, (data.Select(m => m.Image)).le);
             //data.Select
             //Convert.FromBase64String(data.Select(m => m.Image)); 
+            if (model.JobTitle == null)
+            {
+                //ViewBag.cn = countryNam;
+                ViewBag.LatestJobs = data;
+            }
+            else
+            {
+                string strModified = model.JobTitle.Substring(0, 2);
+                //var ff = data.Where(m => m.Title == model.JobTitle).ToList();
+                var ff1 = data.Where(m => m.Title.StartsWith(strModified)).ToList();
+              //  ViewBag.cn = countryNam;
+                ViewBag.LatestJobs = ff1;
+            }
 
-            ViewBag.LatestJobs = data;
+           // ViewBag.LatestJobs = data;
             var pageModel = new Pager(data.FirstOrDefault().TotalRow, pageNumber, 20);
             model.DataSize = pageModel.PageSize;
            // model.Where = country; //changes
