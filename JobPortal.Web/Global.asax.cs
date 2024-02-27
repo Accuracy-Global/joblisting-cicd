@@ -145,18 +145,18 @@ namespace JobPortal.Web
 
                 var publicIp = locationService.GetUser_IP();
                 var locationDetail = locationService.GetUserCountryByIp(publicIp);
-                var countryName = locationDetail != null && !string.IsNullOrEmpty(locationDetail.country)  && locationDetail.country.ToLower() == "united states" ? locationDetail.country_code :
-                    locationDetail != null && string.IsNullOrEmpty(locationDetail.country) ? "us" :
-                    locationDetail != null && !string.IsNullOrEmpty(locationDetail.country) && locationDetail.country.ToLower() == "not found" ? "us" : locationDetail.country;
+                var countryName = locationDetail != null && !string.IsNullOrEmpty(locationDetail.country_name)  && locationDetail.country_name.ToLower() == "united states" ? locationDetail.country_code :
+                    locationDetail != null && string.IsNullOrEmpty(locationDetail.country_name) ? "us" :
+                    locationDetail != null && !string.IsNullOrEmpty(locationDetail.country_name) && locationDetail.country_name.ToLower() == "not found" ? "us" : locationDetail.country_name;
 
                 Session["Country"] = countryName;
                 //Session["Country"] = "malaysia";
 
                 if (string.IsNullOrEmpty(Convert.ToString(Session["Country"])))
                 {
-                    countryName = locationDetail != null && !string.IsNullOrEmpty(locationDetail.country) && locationDetail.country.ToLower() == "united states" ? locationDetail.country_code :
-                        locationDetail != null && string.IsNullOrEmpty(locationDetail.country) ? "us" :
-                        locationDetail != null && !string.IsNullOrEmpty(locationDetail.country) && locationDetail.country.ToLower() == "not found" ? "us" : locationDetail.country;
+                    countryName = locationDetail != null && !string.IsNullOrEmpty(locationDetail.country_name) && locationDetail.country_name.ToLower() == "united states" ? locationDetail.country_code :
+                        locationDetail != null && string.IsNullOrEmpty(locationDetail.country_name) ? "us" :
+                        locationDetail != null && !string.IsNullOrEmpty(locationDetail.country_name) && locationDetail.country_name.ToLower() == "not found" ? "us" : locationDetail.country_name;
                     Session["Country"] = countryName;
                 }
 
@@ -182,9 +182,9 @@ namespace JobPortal.Web
 
                 var publicIp = locationService.GetUser_IP();
                 var locationDetail = locationService.GetUserCountryByIp(publicIp);
-                var countryName = locationDetail != null && !string.IsNullOrEmpty(locationDetail.country) && locationDetail.country.ToLower() == "united states" ? locationDetail.country_code :
-                    locationDetail != null && string.IsNullOrEmpty(locationDetail.country) ? "us" :
-                    locationDetail != null && !string.IsNullOrEmpty(locationDetail.country) && locationDetail.country.ToLower() == "not found" ? "us" : locationDetail.country;
+                var countryName = locationDetail != null && !string.IsNullOrEmpty(locationDetail.country_name) && locationDetail.country_name.ToLower() == "united states" ? locationDetail.country_code :
+                    locationDetail != null && string.IsNullOrEmpty(locationDetail.country_name) ? "us" :
+                    locationDetail != null && !string.IsNullOrEmpty(locationDetail.country_name) && locationDetail.country_name.ToLower() == "not found" ? "us" : locationDetail.country_name;
 
                 Session["Country"] = countryName;
 

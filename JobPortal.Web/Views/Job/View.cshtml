@@ -186,7 +186,28 @@
                 days = ts.Days + " Days Ago";
             }
         }
+        <style>
+            .show-few-lines {
+                display: -webkit-box;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+            }
+        </style>
+        <script>
+            function readMore(ele, eve) {
+                eve.preventDefault();
+                var txt = document.querySelector(".read_more_text");
+                txt.classList.toggle("show-few-lines");
 
+                if (txt.classList.contains("show-few-lines")) {
+                    ele.innerText = "Read More";
+                } else {
+                    ele.innerText = "Read Less";
+                }
+            }
+        </script>
         <div class="container shadow-lg p-3 mb-5 bg-white rounded" style="padding: 5px;">
                 <div class="col-lg-9 col-md-9 col-sm-9" style="padding:4px; text-align:justify;top:-40px;">
                     <div class="form-group">
@@ -196,15 +217,15 @@
                                 <h3 class="txt">About&nbsp;&nbsp;@Html.Raw(latestJob.Company)</h3>
                                 @if (latestJob.Overview == null)
                                 {
-                                    <h4 class="txt" style="text-align: justify;">@Html.Raw(latestJob.Description)</h4>
+                                    <h4 class='read_more_text show-few-lines' id="showmore" style="text-align: justify; color: black;">@Html.Raw(latestJob.Description)</h4>
                                 }
                                 else
                                 {
-                                    <h4 class="txt" style="text-align: justify;">@Html.Raw(latestJob.Overview)</h4>
+                                    <h4 class='read_more_text show-few-lines' id="showmore" style="text-align: justify; color: black;">@Html.Raw(latestJob.Overview)</h4>
                                 }
 
 
-
+                                <button class="read-more-btn">Read more</button>
 
                                 @{
                                     string str = latestJob.JobURL;

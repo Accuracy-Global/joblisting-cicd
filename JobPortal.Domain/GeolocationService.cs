@@ -64,7 +64,7 @@ namespace JobPortal.Domain
                 string info = new WebClient().DownloadString(apiUrl);
                 ipInfo = JsonConvert.DeserializeObject<IpGeolocation>(info);
 
-                if (ipInfo != null && string.IsNullOrEmpty(ipInfo.country))
+                if (ipInfo != null && string.IsNullOrEmpty(ipInfo.country_name))
                 {
                     GetUserCountryByIpFree(ip);
                 }
@@ -101,7 +101,7 @@ namespace JobPortal.Domain
                 {
                     LogEntry($"GetUserCountryByIp() => {JsonConvert.SerializeObject(ipInfo)}");
 
-                    if (ipInfo != null && string.IsNullOrEmpty(ipInfo.country))
+                    if (ipInfo != null && string.IsNullOrEmpty(ipInfo.country_name))
                     {
                         return GetUserCountryByIp(ip);
                     }

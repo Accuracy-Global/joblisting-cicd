@@ -1623,7 +1623,15 @@
                                                     }
 
                                                     <h3>@latestJob.Name</h3>
-                                                    <h6>@latestJob.Country</h6>
+                                                    @if(latestJob.Country==null)
+                    {
+                                                <h6>Unknown</h6>
+                    }
+                    else
+                    {
+                                                <h6>@latestJob.Country</h6>
+                    }
+                                                    
                                                     <p>@latestJob.Company</p>
 
                                                     <div class="skills">
