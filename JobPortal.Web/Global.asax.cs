@@ -151,7 +151,7 @@ namespace JobPortal.Web
 
                 Session["Country"] = countryName;
                 //Session["Country"] = "malaysia";
-
+                 
                 if (string.IsNullOrEmpty(Convert.ToString(Session["Country"])))
                 {
                     countryName = locationDetail != null && !string.IsNullOrEmpty(locationDetail.country) && locationDetail.country.ToLower() == "united states" ? locationDetail.country_code :
