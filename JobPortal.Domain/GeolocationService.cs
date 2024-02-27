@@ -66,7 +66,7 @@ namespace JobPortal.Domain
 
                 if (ipInfo != null && string.IsNullOrEmpty(ipInfo.country))
                 {
-                    GetUserCountryByIpFree(ip);
+                    GetUserCountryByIpFree(ip); 
                 }
                 else if (ipInfo == null)
                 {
