@@ -3,7 +3,7 @@ name: Build and deploy Prod - joblistingweb
 on:
   push:
     branches:
-      - production
+      # - production
   workflow_dispatch:
 
 jobs:
