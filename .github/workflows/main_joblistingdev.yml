@@ -1,44 +1,44 @@
-name: Build and deploy - Joblistingdev
+# name: Build and deploy - Joblistingdev
 
-on:
-#   push:
-#     branches:
-      # - development
-  workflow_dispatch:
+# on:
+# #   push:
+# #     branches:
+#       # - development
+#   workflow_dispatch:
 
-jobs:
-  build-and-deploy:
-    runs-on: windows-latest
+# jobs:
+#   build-and-deploy:
+#     runs-on: windows-latest
 
-    steps:
-      - uses: actions/checkout@v4
+#     steps:
+#       - uses: actions/checkout@v4
 
-      - name: Setup MSBuild path
-        uses: microsoft/setup-msbuild@v1.0.2
+#       - name: Setup MSBuild path
+#         uses: microsoft/setup-msbuild@v1.0.2
 
-      - name: Setup NuGet
-        uses: NuGet/setup-nuget@v1.0.5
+#       - name: Setup NuGet
+#         uses: NuGet/setup-nuget@v1.0.5
 
-      - name: Restore NuGet packages
-        run: nuget restore
+#       - name: Restore NuGet packages
+#         run: nuget restore
 
-      - name: List Dir
-        run: |
-          dir
+#       - name: List Dir
+#         run: |
+#           dir
 
-      - name: Build and Publish with MSBuild
-        run: |
-          dir
-          msbuild JobPortal.sln
-          cd Jobportal.web
-          dir
+#       - name: Build and Publish with MSBuild
+#         run: |
+#           dir
+#           msbuild JobPortal.sln
+#           cd Jobportal.web
+#           dir
 
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: 'Joblistingdev'
-          slot-name: 'Production'
-          package: 'JobPortal.Web'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CF75295A3BC947D5BDCC8088A7D72347 }}
+#       - name: Deploy to Azure Web App
+#         id: deploy-to-webapp
+#         uses: azure/webapps-deploy@v2
+#         with:
+#           app-name: 'Joblistingdev'
+#           slot-name: 'Production'
+#           package: 'JobPortal.Web'
+#           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CF75295A3BC947D5BDCC8088A7D72347 }}
       
