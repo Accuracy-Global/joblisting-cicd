@@ -1895,7 +1895,7 @@ namespace JobPortal.Web.Controllers
             {
                 GeolocationService locationService = new GeolocationService();
                 string countrySession = HttpContext.Session != null && !string.IsNullOrEmpty(Convert.ToString(HttpContext.Session["Country"])) ? Convert.ToString(HttpContext.Session["Country"]) : null;
-                locationService.LogEntry($"Controller: Job, Action: Homeml => Session: {countrySession}");
+                //locationService.LogEntry($"Controller: Job, Action: Homeml => Session: {countrySession}");
             }
 
             string constr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
@@ -1969,7 +1969,7 @@ namespace JobPortal.Web.Controllers
             {
                 GeolocationService locationService = new GeolocationService();
                 string countrySession = HttpContext.Session != null && !string.IsNullOrEmpty(Convert.ToString(HttpContext.Session["Country"])) ? Convert.ToString(HttpContext.Session["Country"]) : null;
-                locationService.LogEntry($"Controller: Job, Action: Homein => Session: {countrySession}");
+               // locationService.LogEntry($"Controller: Job, Action: Homein => Session: {countrySession}");
             }
 
             string constr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
@@ -2010,7 +2010,7 @@ namespace JobPortal.Web.Controllers
             {
                 GeolocationService locationService = new GeolocationService();
                 string countrySession = HttpContext.Session != null && !string.IsNullOrEmpty(Convert.ToString(HttpContext.Session["Country"])) ? Convert.ToString(HttpContext.Session["Country"]) : null;
-                locationService.LogEntry($"Controller: Job, Action: Homesg => Session: {countrySession}");
+               // locationService.LogEntry($"Controller: Job, Action: Homesg => Session: {countrySession}");
             }
 
             string constr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
@@ -3145,7 +3145,7 @@ namespace JobPortal.Web.Controllers
             {
                 GeolocationService locationService = new GeolocationService();
                 string countrySession = HttpContext.Session != null && !string.IsNullOrEmpty(Convert.ToString(HttpContext.Session["Country"])) ? Convert.ToString(HttpContext.Session["Country"]) : null;
-                locationService.LogEntry($"Controller: Job, Action: Home => Session: { countrySession }");
+               // locationService.LogEntry($"Controller: Job, Action: Home => Session: { countrySession }");
             }
 
             TimeZone localZone = TimeZone.CurrentTimeZone;

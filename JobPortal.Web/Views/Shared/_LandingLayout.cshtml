@@ -991,6 +991,15 @@
                 RC1.setAttribute("class", "show");
 
             }
+            else if (ty.value == 11) {
+                RC.setAttribute("class", "hide");
+                RC1.setAttribute("class", "hide");
+                cd.setAttribute("class", "hide");
+                id.setAttribute("class", "show");
+                ud.setAttribute("class", "hide");
+                sd.setAttribute("class", "hide");
+
+            }
 
             ty.onchange = function () {
                 if (ty.value == 5) {
@@ -1055,7 +1064,17 @@
                     id.setAttribute("class", "hide");
                     ud.setAttribute("class", "hide");
                     sd.setAttribute("class", "hide");
-                } else {
+                }
+
+                else if (ty.value == 11) {
+                    RC.setAttribute("class", "hide");
+                    RC1.setAttribute("class", "hide");
+                    cd.setAttribute("class", "hide");
+                    id.setAttribute("class", "show");
+                    ud.setAttribute("class", "hide");
+                    sd.setAttribute("class", "hide");
+                }
+                else {
                     RC.setAttribute("class", "hide");
                     RC1.setAttribute("class", "hide");
                     cd.setAttribute("class", "hide");

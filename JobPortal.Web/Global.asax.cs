@@ -136,12 +136,12 @@ namespace JobPortal.Web
                 bool isLogCreate = Convert.ToBoolean(ConfigurationManager.AppSettings["IsLogCreate"]);
                 GeolocationService locationService = new GeolocationService();
 
-                if (isLogCreate)
-                {
-                    locationService.LogEntry("================================================================================================================");
-                    locationService.LogEntry(DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
-                    locationService.LogEntry($"Initial Url => {HttpContext.Current.Request.Url.AbsoluteUri}");
-                }
+                //if (isLogCreate)
+                //{
+                //    locationService.LogEntry("================================================================================================================");
+                //    locationService.LogEntry(DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                //    locationService.LogEntry($"Initial Url => {HttpContext.Current.Request.Url.AbsoluteUri}");
+                //}
 
                 var publicIp = locationService.GetUser_IP();
                 var locationDetail = locationService.GetUserCountryByIp(publicIp);
@@ -160,10 +160,10 @@ namespace JobPortal.Web
                     Session["Country"] = countryName;
                 }
 
-                if (isLogCreate)
-                {
-                    locationService.LogEntry($"Session_Start() => Session: {Convert.ToString(Session["Country"])}");
-                }
+                //if (isLogCreate)
+                //{
+                //    locationService.LogEntry($"Session_Start() => Session: {Convert.ToString(Session["Country"])}");
+                //}
             }
 
         }
@@ -171,8 +171,8 @@ namespace JobPortal.Web
         protected void Application_PreRequestHandlerExecute(object sender, EventArgs e)
         {
             GeolocationService locationService = new GeolocationService();
-            locationService.LogEntry("--------------------------------------");
-            locationService.LogEntry($"Application_PreRequestHandlerExecute() Initial Url => {HttpContext.Current.Request.Url.AbsoluteUri}");
+            //locationService.LogEntry("--------------------------------------");
+            //locationService.LogEntry($"Application_PreRequestHandlerExecute() Initial Url => {HttpContext.Current.Request.Url.AbsoluteUri}");
             var context = ((HttpApplication)sender).Context;
             var routeData = RouteTable.Routes.GetRouteData(new HttpContextWrapper(context));
 
@@ -188,10 +188,10 @@ namespace JobPortal.Web
 
                 Session["Country"] = countryName;
 
-                if (isLogCreate)
-                {
-                    locationService.LogEntry($"Application_PreRequestHandlerExecute() => Session: {Convert.ToString(Session["Country"])}");
-                }
+                //if (isLogCreate)
+                //{
+                //    locationService.LogEntry($"Application_PreRequestHandlerExecute() => Session: {Convert.ToString(Session["Country"])}");
+                //}
             }
         }
         #endregion
