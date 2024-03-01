@@ -29,25 +29,25 @@ namespace JobPortal.Domain
             if (HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"] != null)
             {
                 visitorsIPAddr = HttpContext.Current.Request.ServerVariables["HTTP_X_FORWARDED_FOR"].ToString();
-                LogEntry($"GetUser_IP Request.ServerVariables['HTTP_X_FORWARDED_FOR'] () => Public Ip: {visitorsIPAddr}");
+               // LogEntry($"GetUser_IP Request.ServerVariables['HTTP_X_FORWARDED_FOR'] () => Public Ip: {visitorsIPAddr}");
             }
             else if (HttpContext.Current.Request.UserHostAddress.Length != 0)
             {
                 visitorsIPAddr = HttpContext.Current.Request.UserHostAddress;
-                LogEntry($"GetUser_IP Request.UserHostAddress () => Public Ip: {visitorsIPAddr}");
+              // LogEntry($"GetUser_IP Request.UserHostAddress () => Public Ip: {visitorsIPAddr}");
             }
             //visitorsIPAddr = HttpContext.Current.Request.ServerVariables["LOCAL_ADDR"].ToString();
 
             if (visitorsIPAddr == "::1" || visitorsIPAddr.Contains("localhost"))
             {
                 visitorsIPAddr = new System.Net.WebClient().DownloadString("https://api.ipify.org");
-                LogEntry($"GetUser_IP https://api.ipify.org () => Public Ip: {visitorsIPAddr}");
+               // LogEntry($"GetUser_IP https://api.ipify.org () => Public Ip: {visitorsIPAddr}");
             }
 
             if (visitorsIPAddr.Contains(":"))
             {
                 visitorsIPAddr = visitorsIPAddr.Substring(0, visitorsIPAddr.IndexOf(':')).Trim();
-                LogEntry($"GetUser_IP After Remove Port Number () => Public Ip: {visitorsIPAddr}");
+               // LogEntry($"GetUser_IP After Remove Port Number () => Public Ip: {visitorsIPAddr}");
             }
 
             return visitorsIPAddr;
@@ -60,7 +60,7 @@ namespace JobPortal.Domain
             try
             {
                 string apiUrl = string.Format(this.geolocationFreeApi, ip);
-                locationService.LogEntry($"GeoLocation Free Api => {apiUrl}");
+               // locationService.LogEntry($"GeoLocation Free Api => {apiUrl}");
                 string info = new WebClient().DownloadString(apiUrl);
                 ipInfo = JsonConvert.DeserializeObject<IpGeolocation>(info);
 
@@ -73,12 +73,12 @@ namespace JobPortal.Domain
                     GetUserCountryByIpFree(ip);
                 }
 
-                locationService.LogEntry($"GetUserCountryByIpFree() => {JsonConvert.SerializeObject(ipInfo)}");
+               // locationService.LogEntry($"GetUserCountryByIpFree() => {JsonConvert.SerializeObject(ipInfo)}");
             }
             catch (Exception ex)
             {
                 string exp = ex.ToString();
-                locationService.LogEntry($"GetUserCountryByIpFree  Exception: => {exp}");
+                //locationService.LogEntry($"GetUserCountryByIpFree  Exception: => {exp}");
                 GetUserCountryByIpFree(ip);
             }
 
@@ -92,14 +92,14 @@ namespace JobPortal.Domain
             try
             {
                 string apiUrl = string.Format(this.geolocationApi, ip);
-                LogEntry($"GeoLocation Api => {apiUrl}");
+                //LogEntry($"GeoLocation Api => {apiUrl}");
                 string info = new WebClient().DownloadString(apiUrl);
                 ipInfo = JsonConvert.DeserializeObject<IpGeolocation>(info);
                 ipError = JsonConvert.DeserializeObject<GeoLocationError>(info);
 
                 if (ipError.error == null)
                 {
-                    LogEntry($"GetUserCountryByIp() => {JsonConvert.SerializeObject(ipInfo)}");
+                  //  LogEntry($"GetUserCountryByIp() => {JsonConvert.SerializeObject(ipInfo)}");
 
                     if (ipInfo != null && string.IsNullOrEmpty(ipInfo.country_name))
                     {
@@ -112,46 +112,46 @@ namespace JobPortal.Domain
                 }
                 else if (ipError.error.info.ToLower() == "your monthly usage limit has been reached. please upgrade your subscription plan.")
                 {
-                    LogEntry($"GetUserCountryByIp() => {JsonConvert.SerializeObject(ipError)}");
+                    //LogEntry($"GetUserCountryByIp() => {JsonConvert.SerializeObject(ipError)}");
                     return GetUserCountryByIpFree(ip);
                 }
                 else
                 {
-                    LogEntry($"GetUserCountryByIp() => {JsonConvert.SerializeObject(ipError)}");
+                   // LogEntry($"GetUserCountryByIp() => {JsonConvert.SerializeObject(ipError)}");
                     return GetUserCountryByIpFree(ip);
                 }
             }
             catch (Exception ex)
             {
                 string exp = ex.ToString();
-                LogEntry($"GetUserCountryByIp  Exception: => {exp}");
+                //LogEntry($"GetUserCountryByIp  Exception: => {exp}");
                 return GetUserCountryByIp(ip);
             }
 
             return ipInfo;
         }
 
-        public void LogEntry(string text)
-        {
-            if (this.isLogCreate)
-            {
-                try
-                {
-                    string LogFilePath = "/Log_CountrySession";
-                    var fullLogFilePath = HttpContext.Current.Server.MapPath(LogFilePath);
+        //public void LogEntry(string text)
+        //{
+        //    if (this.isLogCreate)
+        //    {
+        //        try
+        //        {
+        //            string LogFilePath = "/Log_CountrySession";
+        //            var fullLogFilePath = HttpContext.Current.Server.MapPath(LogFilePath);
 
-                    if (!Directory.Exists(fullLogFilePath))
-                    {
-                        Directory.CreateDirectory(fullLogFilePath);
-                    }
+        //            if (!Directory.Exists(fullLogFilePath))
+        //            {
+        //                Directory.CreateDirectory(fullLogFilePath);
+        //            }
 
-                    File.AppendAllText($"{fullLogFilePath}/LogFile {DateTime.Today.ToString("dd-MM-yyyy")}.txt", string.Format("{0}{1}", text, Environment.NewLine));
-                }
-                catch (Exception)
-                {
-                    LogEntry(text);
-                }
-            }
-        }
+        //            File.AppendAllText($"{fullLogFilePath}/LogFile {DateTime.Today.ToString("dd-MM-yyyy")}.txt", string.Format("{0}{1}", text, Environment.NewLine));
+        //        }
+        //        catch (Exception)
+        //        {
+        //            LogEntry(text);
+        //        }
+        //    }
+        //}
     }
 }
