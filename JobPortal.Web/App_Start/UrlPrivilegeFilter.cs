@@ -126,7 +126,7 @@ namespace JobPortal.Web.App_Start
                         if (isLogCreate)
                         {
                             GeolocationService locationService = new GeolocationService();
-                            locationService.LogEntry($"UrlPrivilegeFilter => Contoller: {controllerName}, Action: {actionName}, Session: {countrySession}");
+                           // locationService.LogEntry($"UrlPrivilegeFilter => Contoller: {controllerName}, Action: {actionName}, Session: {countrySession}");
                         }
                     }
                     else
@@ -138,7 +138,7 @@ namespace JobPortal.Web.App_Start
                         if (isLogCreate)
                         {
                             GeolocationService locationService = new GeolocationService();
-                            locationService.LogEntry($"UrlPrivilegeFilter => Contoller: {controllerName}, Action: {actionName}, Session: {countrySession}");
+                           // locationService.LogEntry($"UrlPrivilegeFilter => Contoller: {controllerName}, Action: {actionName}, Session: {countrySession}");
                         }
                     }
                 }
