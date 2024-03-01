@@ -1,7 +1,10 @@
 name: Build and deploy - Joblistingdev
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - development
+ 
 
 jobs:
   build-and-deploy:
