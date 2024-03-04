@@ -40,5 +40,10 @@ namespace JobPortal.Library.Enumerators
         [Description("Jobseeker")]
         Jobseeker = 4,
 
+
+        [Description("Workers")]
+        Workers = 11,
+       
+
     }
 }

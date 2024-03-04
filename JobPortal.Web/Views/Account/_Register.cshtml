@@ -277,11 +277,11 @@
                                             <div class="form-group">
                                                 @if (ViewBag.ReturnUrl != null && ViewBag.ReturnUrl.Contains("listjob"))
                                                 {
-                                                    @Html.DropDownListFor(model => model.AccountType, UIHelper.DropDown<SecurityRoles>(new List<int>() { 5, 17, 12, 4, 16, 14, 13, 18 }, 5), "SELECT ACCOUNT TYPE", new { @title = "ACCOUNT TYPE", @class = "form-control", @required = "required" })
+                                                    @Html.DropDownListFor(model => model.AccountType, UIHelper.DropDown<SecurityRoles>(new List<int>() { 5, 17, 12, 4, 16, 14, 13, 18, 11 }, 5), "SELECT ACCOUNT TYPE", new { @title = "ACCOUNT TYPE", @class = "form-control", @required = "required" })
                                                 }
                                                 else
                                                 {
-                                                    @Html.DropDownListFor(model => model.AccountType, UIHelper.DropDown<SecurityRoles>(new List<int>() { 5, 17, 12, 4, 16, 14, 13, 18 }), "SELECT ACCOUNT TYPE", new { @title = "ACCOUNT TYPE", @class = "form-control", @required = "required" })
+                                                    @Html.DropDownListFor(model => model.AccountType, UIHelper.DropDown<SecurityRoles>(new List<int>() { 5, 17, 12, 4, 16, 14, 13, 18, 11}), "SELECT ACCOUNT TYPE", new { @title = "ACCOUNT TYPE", @class = "form-control", @required = "required" })
                                                 }
                                                 @*@Html.ValidationMessageFor(model => model.AccountType)*@
 
