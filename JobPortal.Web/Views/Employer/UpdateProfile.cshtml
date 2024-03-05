@@ -61,7 +61,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12">
                     @if (!string.IsNullOrEmpty(Model.PremaLink))
                     {
-                        @Html.Label("About Comapany") <span style="color:#ff6a00">(Min. 150 &amp; Max. 500 characters)</span>
+                        @Html.Label("About Company") <span style="color:#ff6a00">(Min. 150 &amp; Max. 500 characters)</span>
                         @Html.TextAreaFor(model => model.Overview, new { @class = "form-control", @maxlength = 1000, @style = "height:110px;resize:vertical", @readonly = "true" })
                         @Html.ValidationMessageFor(model => model.Overview)
 
