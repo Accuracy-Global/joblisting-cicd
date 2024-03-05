@@ -136,34 +136,34 @@ namespace JobPortal.Web
                 bool isLogCreate = Convert.ToBoolean(ConfigurationManager.AppSettings["IsLogCreate"]);
                 GeolocationService locationService = new GeolocationService();
 
-                if (isLogCreate)
-                {
-                    locationService.LogEntry("================================================================================================================");
-                    locationService.LogEntry(DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
-                    locationService.LogEntry($"Initial Url => {HttpContext.Current.Request.Url.AbsoluteUri}");
-                }
+                //if (isLogCreate)
+                //{
+                //    locationService.LogEntry("================================================================================================================");
+                //    locationService.LogEntry(DateTime.Now.ToString("dd-MM-yyyy hh:mm:ss tt"));
+                //    locationService.LogEntry($"Initial Url => {HttpContext.Current.Request.Url.AbsoluteUri}");
+                //}
 
                 var publicIp = locationService.GetUser_IP();
                 var locationDetail = locationService.GetUserCountryByIp(publicIp);
-                var countryName = locationDetail != null && !string.IsNullOrEmpty(locationDetail.country)  && locationDetail.country.ToLower() == "united states" ? locationDetail.country_code :
-                    locationDetail != null && string.IsNullOrEmpty(locationDetail.country) ? "us" :
-                    locationDetail != null && !string.IsNullOrEmpty(locationDetail.country) && locationDetail.country.ToLower() == "not found" ? "us" : locationDetail.country;
+                var countryName = locationDetail != null && !string.IsNullOrEmpty(locationDetail.country_name)  && locationDetail.country_name.ToLower() == "united states" ? locationDetail.country_code :
+                    locationDetail != null && string.IsNullOrEmpty(locationDetail.country_name) ? "us" :
+                    locationDetail != null && !string.IsNullOrEmpty(locationDetail.country_name) && locationDetail.country_name.ToLower() == "not found" ? "us" : locationDetail.country_name;
 
                 Session["Country"] = countryName;
                 //Session["Country"] = "malaysia";
-
+                 
                 if (string.IsNullOrEmpty(Convert.ToString(Session["Country"])))
                 {
-                    countryName = locationDetail != null && !string.IsNullOrEmpty(locationDetail.country) && locationDetail.country.ToLower() == "united states" ? locationDetail.country_code :
-                        locationDetail != null && string.IsNullOrEmpty(locationDetail.country) ? "us" :
-                        locationDetail != null && !string.IsNullOrEmpty(locationDetail.country) && locationDetail.country.ToLower() == "not found" ? "us" : locationDetail.country;
+                    countryName = locationDetail != null && !string.IsNullOrEmpty(locationDetail.country_name) && locationDetail.country_name.ToLower() == "united states" ? locationDetail.country_code :
+                        locationDetail != null && string.IsNullOrEmpty(locationDetail.country_name) ? "us" :
+                        locationDetail != null && !string.IsNullOrEmpty(locationDetail.country_name) && locationDetail.country_name.ToLower() == "not found" ? "us" : locationDetail.country_name;
                     Session["Country"] = countryName;
                 }
 
-                if (isLogCreate)
-                {
-                    locationService.LogEntry($"Session_Start() => Session: {Convert.ToString(Session["Country"])}");
-                }
+                //if (isLogCreate)
+                //{
+                //    locationService.LogEntry($"Session_Start() => Session: {Convert.ToString(Session["Country"])}");
+                //}
             }
 
         }
@@ -171,8 +171,8 @@ namespace JobPortal.Web
         protected void Application_PreRequestHandlerExecute(object sender, EventArgs e)
         {
             GeolocationService locationService = new GeolocationService();
-            locationService.LogEntry("--------------------------------------");
-            locationService.LogEntry($"Application_PreRequestHandlerExecute() Initial Url => {HttpContext.Current.Request.Url.AbsoluteUri}");
+            //locationService.LogEntry("--------------------------------------");
+            //locationService.LogEntry($"Application_PreRequestHandlerExecute() Initial Url => {HttpContext.Current.Request.Url.AbsoluteUri}");
             var context = ((HttpApplication)sender).Context;
             var routeData = RouteTable.Routes.GetRouteData(new HttpContextWrapper(context));
 
@@ -182,16 +182,16 @@ namespace JobPortal.Web
 
                 var publicIp = locationService.GetUser_IP();
                 var locationDetail = locationService.GetUserCountryByIp(publicIp);
-                var countryName = locationDetail != null && !string.IsNullOrEmpty(locationDetail.country) && locationDetail.country.ToLower() == "united states" ? locationDetail.country_code :
-                    locationDetail != null && string.IsNullOrEmpty(locationDetail.country) ? "us" :
-                    locationDetail != null && !string.IsNullOrEmpty(locationDetail.country) && locationDetail.country.ToLower() == "not found" ? "us" : locationDetail.country;
+                var countryName = locationDetail != null && !string.IsNullOrEmpty(locationDetail.country_name) && locationDetail.country_name.ToLower() == "united states" ? locationDetail.country_code :
+                    locationDetail != null && string.IsNullOrEmpty(locationDetail.country_name) ? "us" :
+                    locationDetail != null && !string.IsNullOrEmpty(locationDetail.country_name) && locationDetail.country_name.ToLower() == "not found" ? "us" : locationDetail.country_name;
 
                 Session["Country"] = countryName;
 
-                if (isLogCreate)
-                {
-                    locationService.LogEntry($"Application_PreRequestHandlerExecute() => Session: {Convert.ToString(Session["Country"])}");
-                }
+                //if (isLogCreate)
+                //{
+                //    locationService.LogEntry($"Application_PreRequestHandlerExecute() => Session: {Convert.ToString(Session["Country"])}");
+                //}
             }
         }
         #endregion
