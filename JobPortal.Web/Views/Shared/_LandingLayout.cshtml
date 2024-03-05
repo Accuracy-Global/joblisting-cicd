@@ -376,65 +376,67 @@
     <header>
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="max-width:1550px; max-height:150px;">
             <div class="container-fluid" style="padding:0px 0px;">
-                <div class="row" style="padding-top:15px; padding-bottom:10px;">
+                <div class="row" style="padding-top:-50px; padding-bottom:10px;">
                     <div class="col-lg-4 col-md-4 col-sm-5" style="padding-left: 25px;">
                         @*<div class="navbar-header">*@ 
 
 
                         <div style="width:1000px;height:100px;">
-                           <div style="font-size: 70px; font-weight: 550; font-family: 'Adobe Devanagari';"><a class="hero-brand" href="/India" title="Home">@*<a href="~/Content/fonts/aldhabi.ttf" alt="Joblisting" height="150" width="350" class="img-responsive">*@<span style="color: #34ba08;">Job</span> <span style="color: black;">Listing</span></a>@*</a>*@</div>
+                            <div style="font-size: 70px; font-weight: 550; font-family: 'Adobe Devanagari';"><a class="hero-brand" href="/India" title="Home">@*<a href="~/Content/fonts/aldhabi.ttf" alt="Joblisting" height="150" width="350" class="img-responsive">*@<span style="color: #34ba08;">Job</span> <span style="color: black;">Listing</span></a>@*</a>*@</div>
 
                             @*<img src="~/images/logo.png" alt="Joblisting" border="0"  style="width: 350px;height: 80px;" />*@
+                            </div>
                         </div>
-                          
-                            @*<a href='#'>
-                <img src="/images/joblisting_aldhabi_font.png" alt="joblisting" width="350" height="80" class="img-responsive" />
-            </a>*@
-                            <button type="button" class="navbar-toggle" style="float:right;" data-toggle="collapse" data-target=".navbar-ex1-collapse"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
-                        </div>
+                        @*<a href='#'>
+                    <img src="/images/joblisting_aldhabi_font.png" alt="joblisting" width="350" height="80" class="img-responsive" />
+                </a>*@
+                        <button type="button" class="navbar-toggle" style="float:right;" data-toggle="collapse" data-target=".navbar-ex1-collapse"><span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
                     </div>
-                        <div class="col-lg-8 col-md-8 col-sm-7" style="padding-top: 50px; position: absolute; right: 10px;">
-                            <!-- Collect the nav links, forms, and other content for toggling -->
-                            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                                <div class="toggle_nav"></div>
-                                <ul class="nav navbar-nav bottom-100">
+                </div>
+                <div class="col-lg-8 col-md-8 col-sm-7" style="padding-top: 50px; position: absolute; right: 10px; top:50px;">
 
-                                    @*<ul class="nav navbar-nav top-right" style="max-width:900px; padding-left:10px; max-height:80px;">*@
-                                    @if (!Request.IsAuthenticated)
-                                    {
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse navbar-ex1-collapse">
+                        <div class="toggle_nav"></div>
+                        <ul class="nav navbar-nav bottom-100">
 
-                                        <li><a href="/jobs/">SEARCH JOBS</a></li>
+                            @*<ul class="nav navbar-nav top-right" style="max-width:900px; padding-left:10px; max-height:80px;">*@
+                            @if (!Request.IsAuthenticated)
+                            {
 
-                                        @*<li> @Html.ActionLink("SEARCH PEOPLE", "SearchPeople", "Home")</li>*@
-                                        <li>@Html.ActionLink("SEARCH JOBSEEKERS", "Search", "Jobseeker")</li>
-                                        @*<li>@Html.ActionLink("SEARCH RESUMES", "SearchResumes", "Home")</li>*@
-                                        <li>@Html.ActionLink("LIST JOB", "ListJob", "Employer")</li>
-                                        <li><a href="/Account/Login">LOGIN</a></li>
-                                        @*<li>@Html.ActionLink("REGISTER", "Register", "Account") </li>*@
-                                        @*<li class="active1" style="padding-left: 10px;">
+                                <li><a href="/jobs/">SEARCH JOBS</a></li>
+
+                                @*<li> @Html.ActionLink("SEARCH PEOPLE", "SearchPeople", "Home")</li>*@
+                                <li>@Html.ActionLink("SEARCH JOBSEEKERS", "Search", "Jobseeker")</li>
+                                @*<li>@Html.ActionLink("SEARCH RESUMES", "SearchResumes", "Home")</li>*@
+                                <li>@Html.ActionLink("LIST JOB", "ListJob", "Employer")</li>
+                                <li><a href="/Account/Login">LOGIN</a></li>
+
+                                @*<li>@Html.ActionLink("REGISTER", "Register", "Account") </li>*@
+                                @*<li class="active1" style="padding-left: 10px;">
                             <a href='@Url.Action("Login", "Account")'>
                                 <i class="fa fa-lock">&nbsp;</i>Login
                             </a>
                         </li>*@
-                                        /*<div style="position: absolute; top: 8px; right: 110px; display: inline-block;"><a href='@Url.Action("logoff", "account")'><img style="width:26px;height:26px;" src="~/Images/logooout.jpg" /></a></div>*/
-                                    }
-                                    else
-                                    {
-                                        //UserInfoEntity user = User.Info;
-                                        string username = user.Username;
-                                        int msg_counts = ConnectionHelper.MessageCounts(user.Id);
-                                        int apps = EmployerService.Instance.GetApplicationCount(username);
-                                        int bookmarks = EmployerService.Instance.GetBookmarkCount(username);
-                                        int interviews = EmployerService.Instance.GetInterviewCount(username);
-                                        int inboxItems = DomainService.Instance.DashboardInboxItems(user.Id);
+                                /*<div style="position: absolute; top: 8px; right: 110px; display: inline-block;"><a href='@Url.Action("logoff", "account")'><img style="width:26px;height:26px;" src="~/Images/logooout.jpg" /></a></div>*/
+                            }
+                            else
+                            {
+                                //UserInfoEntity user = User.Info;
+                                string username = user.Username;
+                                int msg_counts = ConnectionHelper.MessageCounts(user.Id);
+                                int apps = EmployerService.Instance.GetApplicationCount(username);
+                                int bookmarks = EmployerService.Instance.GetBookmarkCount(username);
+                                int interviews = EmployerService.Instance.GetInterviewCount(username);
+                                int inboxItems = DomainService.Instance.DashboardInboxItems(user.Id);
 
-                                        if (user.Role == SecurityRoles.Employers)
-                                        {
+                                if (user.Role == SecurityRoles.Employers)
+                                {
 
-                                            @*<li>@Html.ActionLink("SEARCH PEOPLE", "SearchPeople", "Home")</li>*@
-                                            <!--<li>@Html.ActionLink("SEARCH JOBSEEKERS", "Search", "Jobseeker")</li>-->
-                                            @*<li>@Html.ActionLink("SEARCH RESUMES", "SearchResumes", "Home")</li>*@
-                                            <!--if (msg_counts > 0)
+                                    @*<li>@Html.ActionLink("SEARCH PEOPLE", "SearchPeople", "Home")</li>*@
+                                    <!--<li>@Html.ActionLink("SEARCH JOBSEEKERS", "Search", "Jobseeker")</li>-->
+                                    @*<li>@Html.ActionLink("SEARCH RESUMES", "SearchResumes", "Home")</li>*@
+                                    <!--if (msg_counts > 0)
                         {
                             <li><a href="/Message/Index">MESSAGING(<span style="color:red;">@msg_counts</span>)</a></li>
                         }
@@ -452,61 +454,61 @@
                             <li><a href="/Inbox/Index">INBOX</a></li>
                         }-->
 
-                                            <li>@Html.ActionLink("LIST JOB", "Addjob", "Admin")</li>
-                                            <li>@Html.ActionLink("JOB MANAGEMENT", "Index", "Employer")</li>
-                                            <li class=""><a href='@Url.Action("Campaign", "Admin")'>CAMPAIGN</a></li>
-                                            <li class=""><a href='@Url.Action("profile", "company")'>MY ACCOUNT</a></li>
-                                            @*if (!Request.Url.ToString().Contains("connections"))
+                                    <li>@Html.ActionLink("LIST JOB", "Addjob", "Admin")</li>
+                                    <li>@Html.ActionLink("JOB MANAGEMENT", "Index", "Employer")</li>
+                                    <li class=""><a href='@Url.Action("Campaign", "Admin")'>CAMPAIGN</a></li>
+                                    <li class=""><a href='@Url.Action("profile", "company")'>MY ACCOUNT</a></li>
+                                    @*if (!Request.Url.ToString().Contains("connections"))
                             {
                                 <li>@Html.ActionLink("SETTINGS", "Index", "Network")</li>
                             }*@
 
-                                        }
-                                        else if (user.Role == SecurityRoles.Institute)
-                                        {
-                                            <li>@Html.ActionLink("SEARCH JOBSEEKERS", "SearchPeople", "Home")</li>
-                                            <li>@Html.ActionLink("SEARCH COMPANIES", "SearchCompany", "Job")</li>
-                                            if (msg_counts > 0)
-                                            {
-                                                <li><a href="/Message/Index">MESSAGING(<span style="color:red;">@msg_counts</span>)</a></li>
-                                            }
-                                            else
-                                            {
-                                                <li>@Html.ActionLink("MESSAGING", "Index", "Message")</li>
-                                            }
+                                }
+                                else if (user.Role == SecurityRoles.Institute)
+                                {
+                                    <li>@Html.ActionLink("SEARCH JOBSEEKERS", "SearchPeople", "Home")</li>
+                                    <li>@Html.ActionLink("SEARCH COMPANIES", "SearchCompany", "Job")</li>
+                                    if (msg_counts > 0)
+                                    {
+                                        <li><a href="/Message/Index">MESSAGING(<span style="color:red;">@msg_counts</span>)</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li>@Html.ActionLink("MESSAGING", "Index", "Message")</li>
+                                    }
 
-                                            if (inboxItems > 0)
-                                            {
-                                                <li><a href="/Inbox/Index">INBOX(<span style="color:red;">@inboxItems</span>)</a></li>
-                                            }
-                                            else
-                                            {
-                                                <li><a href="/Inbox/Index">INBOX</a></li>
-                                            }
-                                            if (!Request.Url.ToString().Contains("connections"))
-                                            {
-                                                <li>@Html.ActionLink("SETTINGS", "Index", "Network")</li>
-                                            }
+                                    if (inboxItems > 0)
+                                    {
+                                        <li><a href="/Inbox/Index">INBOX(<span style="color:red;">@inboxItems</span>)</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a href="/Inbox/Index">INBOX</a></li>
+                                    }
+                                    if (!Request.Url.ToString().Contains("connections"))
+                                    {
+                                        <li>@Html.ActionLink("SETTINGS", "Index", "Network")</li>
+                                    }
 
-                                        }
-                                        else if (user.Role == SecurityRoles.Jobseeker)
-                                        {
+                                }
+                                else if (user.Role == SecurityRoles.Jobseeker)
+                                {
 
-                                            <li><a href="/jobs/">SEARCH JOBS</a></li>
+                                    <li><a href="/jobs/">SEARCH JOBS</a></li>
 
-                                            <li>@Html.ActionLink("JOBSEEKERS", "SearchPeople", "Home")</li>
+                                    <li>@Html.ActionLink("JOBSEEKERS", "SearchPeople", "Home")</li>
 
 
 
-                                            if (msg_counts > 0)
-                                            {
-                                                <li><a href="/Message/Index">MESSAGING(<span style="color:red;">@msg_counts</span>)</a></li>
-                                            }
-                                            else
-                                            {
-                                                <li>@Html.ActionLink("MESSAGING", "Index", "Message")</li>
-                                            }
-                                            @*if (apps > 0)
+                                    if (msg_counts > 0)
+                                    {
+                                        <li><a href="/Message/Index">MESSAGING(<span style="color:red;">@msg_counts</span>)</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li>@Html.ActionLink("MESSAGING", "Index", "Message")</li>
+                                    }
+                                    @*if (apps > 0)
                             {
                                 <li><a href="/JobSeeker/Index">APPLICATIONS(<span style="color:red;">@apps</span>)</a></li>
                             }
@@ -515,66 +517,67 @@
                                 <li>@Html.ActionLink("APPLICATIONS", "Index", "JobSeeker")</li>
                             }*@
 
-                                            if (inboxItems > 0)
-                                            {
-                                                <li><a href="/Inbox/Index">INBOX(<span style="color:red;">@inboxItems</span>)</a></li>
-                                            }
-                                            else
-                                            {
-                                                <li><a href="/Inbox/Index">INBOX</a></li>
-                                            }
+                                    if (inboxItems > 0)
+                                    {
+                                        <li><a href="/Inbox/Index">INBOX(<span style="color:red;">@inboxItems</span>)</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a href="/Inbox/Index">INBOX</a></li>
+                                    }
 
-                                            @*<li>@Html.ActionLink("SETTINGS", "Index", "Network")</li>*@
-                                        }
-                                        else if (user.Role == SecurityRoles.Student || user.Role == SecurityRoles.Interns)
-                                        {
+                                    @*<li>@Html.ActionLink("SETTINGS", "Index", "Network")</li>*@
+                                }
+                                else if (user.Role == SecurityRoles.Student || user.Role == SecurityRoles.Interns)
+                                {
 
-                                            <li><a href="/jobs/">SEARCH JOBS</a></li>
+                                    <li><a href="/jobs/">SEARCH JOBS</a></li>
 
-                                            <li>@Html.ActionLink("SEARCH JOBSEEKERS", "SearchPeople", "Home")</li>
+                                    <li>@Html.ActionLink("SEARCH JOBSEEKERS", "SearchPeople", "Home")</li>
 
 
 
-                                            if (msg_counts > 0)
-                                            {
-                                                <li><a href="/Message/Index">MESSAGING(<span style="color:red;">@msg_counts</span>)</a></li>
-                                            }
-                                            else
-                                            {
-                                                <li>@Html.ActionLink("MESSAGING", "Index", "Message")</li>
-                                            }
-                                            if (apps > 0)
-                                            {
-                                                <li><a href="/JobSeeker/Index">APPLICATIONS(<span style="color:red;">@apps</span>)</a></li>
-                                            }
-                                            else
-                                            {
-                                                <li>@Html.ActionLink("APPLICATIONS", "Index", "JobSeeker")</li>
-                                            }
+                                    if (msg_counts > 0)
+                                    {
+                                        <li><a href="/Message/Index">MESSAGING(<span style="color:red;">@msg_counts</span>)</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li>@Html.ActionLink("MESSAGING", "Index", "Message")</li>
+                                    }
+                                    if (apps > 0)
+                                    {
+                                        <li><a href="/JobSeeker/Index">APPLICATIONS(<span style="color:red;">@apps</span>)</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li>@Html.ActionLink("APPLICATIONS", "Index", "JobSeeker")</li>
+                                    }
 
-                                            if (inboxItems > 0)
-                                            {
-                                                <li><a href="/Inbox/Index">INBOX(<span style="color:red;">@inboxItems</span>)</a></li>
-                                            }
-                                            else
-                                            {
-                                                <li><a href="/Inbox/Index">INBOX</a></li>
-                                            }
+                                    if (inboxItems > 0)
+                                    {
+                                        <li><a href="/Inbox/Index">INBOX(<span style="color:red;">@inboxItems</span>)</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a href="/Inbox/Index">INBOX</a></li>
+                                    }
 
-                                            <li>@Html.ActionLink("SETTINGS", "Index", "Network")</li>
-                                        }
-                                        else if (user.Role == SecurityRoles.RecruitmentAgency)
-                                        {
-                                            <li>
-                                                <a href="~/Admin/Index" style="display: inline-block; font-weight:700;">SETTINGS</a>
-                                            </li>
-                                        }
+                                    <li>@Html.ActionLink("SETTINGS", "Index", "Network")</li>
+                                }
+                                else if (user.Role == SecurityRoles.RecruitmentAgency)
+                                {
+                                    <li>
+                                        <a href="~/Admin/Index" style="display: inline-block; font-weight:700;">SETTINGS</a>
+                                    </li>
 
-                                        @*if (user.Role == SecurityRoles.SuperUser)
+                                }
+
+                                @*if (user.Role == SecurityRoles.SuperUser)
                         {
                             <li> @Html.ActionLink("SETTINGS", "Index", "Admin")</li>
                         }*@
-                                        @*else if (user.Role == SecurityRoles.Administrator)
+                                @*else if (user.Role == SecurityRoles.Administrator)
                         {
                             <li>
                                 @Html.ActionLink("SETTINGS", "Index", "Admin")
@@ -582,44 +585,44 @@
                         }*@
 
 
-                                        @*else if (user.Role == SecurityRoles.SuperUser || user.Role == SecurityRoles.Administrator)
+                                @*else if (user.Role == SecurityRoles.SuperUser || user.Role == SecurityRoles.Administrator)
                         {
                             <li>
                                 @Html.ActionLink("SETTINGS", "Index", "Admin")
                             </li>
                         }*@
 
-                                        <!--if (user.Role == SecurityRoles.Employers)
+                                <!--if (user.Role == SecurityRoles.Employers)
                     {-->
-                                        @*<li>@Html.ActionLink("LIST JOB", "ListJob", "Employer")</li>*@
-                                        <!--<li>@Html.ActionLink("LIST JOB", "Addjob", "Admin")</li>
+                                @*<li>@Html.ActionLink("LIST JOB", "ListJob", "Employer")</li>*@
+                                <!--<li>@Html.ActionLink("LIST JOB", "Addjob", "Admin")</li>
                     }-->
-                                        if (user.Type == 1 || User.Username == "RecruiterCom@joblisting.com" || User.Username == "vani123@accuracy.com.sg" || User.Username == "tasnim@accuracy.com.sg" || User.Username == "ganeshr@joblisting.com" || User.Username == "deepti@accuracy.com.sg" || User.Username == "doli.chauhan123@accuracy.com.sg" || User.Username == "sandhya@accuracy.com.sg" || User.Username == "shreyag1234@accuracy.com.sg" || User.Username == "pallavi123@accuracy.com.sg" || User.Username == "druthi@accuracy.com.sg" || User.Username == "baba@accuracy.com.sg" || User.Username == "anshikagupta@accuracy.com.sg" || User.Username == "dianna@accuracy.com.sg" || User.Username == "haris@joblisting.com" || User.Username == "anilkumar@joblisting.com" || User.Username == "denise@accuracy.com.sg" || User.Username == "lakshmip@accuracy.com.sg" || User.Username == "vanshika@accuracy.com.sg" || User.Username == "sarika123@accuracy.com.sg" || User.Username == "naveena@accuracy.com.sg" || User.Username == "gowthami@accuracy.com.sg")
+                                if (user.Type == 1 || User.Username == "RecruiterCom@joblisting.com" || User.Username == "vani123@accuracy.com.sg" || User.Username == "tasnim@accuracy.com.sg" || User.Username == "ganeshr@joblisting.com" || User.Username == "deepti@accuracy.com.sg" || User.Username == "doli.chauhan123@accuracy.com.sg" || User.Username == "sandhya@accuracy.com.sg" || User.Username == "shreyag1234@accuracy.com.sg" || User.Username == "pallavi123@accuracy.com.sg" || User.Username == "druthi@accuracy.com.sg" || User.Username == "baba@accuracy.com.sg" || User.Username == "anshikagupta@accuracy.com.sg" || User.Username == "dianna@accuracy.com.sg" || User.Username == "haris@joblisting.com" || User.Username == "anilkumar@joblisting.com" || User.Username == "denise@accuracy.com.sg" || User.Username == "lakshmip@accuracy.com.sg" || User.Username == "vanshika@accuracy.com.sg" || User.Username == "sarika123@accuracy.com.sg" || User.Username == "naveena@accuracy.com.sg" || User.Username == "gowthami@accuracy.com.sg")
 
-                                        {
+                                {
 
-                                            <li class=""><a href='@Url.Action("Index", "Admin")'>REGISTRATIONS</a></li>
+                                    <li class=""><a href='@Url.Action("Index", "Admin")'>REGISTRATIONS</a></li>
 
-                                            <li><a href="/admin/jobs">APPROVALS</a></li>
-                                            @*<li class=""><a href='@Url.Action("AddJob", "Admin")'>APPROVALS</a></li>*@
+                                    <li><a href="/admin/jobs">APPROVALS</a></li>
+                                    @*<li class=""><a href='@Url.Action("AddJob", "Admin")'>APPROVALS</a></li>*@
 
-                                            <li class=""><a href='@Url.Action("Campaign", "Admin")'>CAMPAIGN</a></li>
-                                            <li class=""><a href='@Url.Action("MyProfile", "Admin")'>MY ACCOUNT</a></li>
-                                            <li class=""><a href='@Url.Action("Index", "Inbox")'>SALES</a></li>
-                                            <li class=""><a href='@Url.Action("CategoryList", "Admin")'>CONTENT</a></li>
-                                            <li class=""><a href='@Url.Action("jobs", "Admin")'>JOB MANAGEMENT</a></li>
+                                    <li class=""><a href='@Url.Action("Campaign", "Admin")'>CAMPAIGN</a></li>
+                                    <li class=""><a href='@Url.Action("MyProfile", "Admin")'>MY ACCOUNT</a></li>
+                                    <li class=""><a href='@Url.Action("Index", "Inbox")'>SALES</a></li>
+                                    <li class=""><a href='@Url.Action("CategoryList", "Admin")'>CONTENT</a></li>
+                                    <li class=""><a href='@Url.Action("jobs", "Admin")'>JOB MANAGEMENT</a></li>
 
-                                        }
+                                }
 
-                                    }
+                            }
 
-                                    @*<li style="float:right;">@Html.Partial("_LanguagePartial")</li>*@
-                                    @*<li style="float:right; margin-top:-6px;">@Html.Partial("_LanguagePartial")</li>*@
-                                </ul>
-                            </div>
-                            <!-- /.navbar-collapse -->
-                        </div>
+                            @*<li style="float:right;">@Html.Partial("_LanguagePartial")</li>*@
+                            @*<li style="float:right; margin-top:-6px;">@Html.Partial("_LanguagePartial")</li>*@
+                        </ul>
                     </div>
+                    <!-- /.navbar-collapse -->
+                </div>
+            </div>
             </div>
             <div style="position: absolute; top: 25px; right: 160px; display: inline-block;">
                 <div class="social-icons" style="width:300px;height:50px;">
