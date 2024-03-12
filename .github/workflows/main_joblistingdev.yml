@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - development
-  workflow_dispatch:
+ 
 
 jobs:
   build-and-deploy:
@@ -38,7 +38,6 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'Joblistingdev'
-          slot-name: 'Production'
-          package: 'JobPortal.Web'
+          package: './JobPortal.Web'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CF75295A3BC947D5BDCC8088A7D72347 }}
       
