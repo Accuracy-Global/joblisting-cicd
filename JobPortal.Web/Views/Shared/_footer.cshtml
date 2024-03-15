@@ -98,17 +98,23 @@
                 </div>
 
                 <div class="col-lg-2 col-md-6 footer-newsletter">
-            <h3 style="font-family: Aldhabi; font-size: 20px;">Join Our Newsletter</h3>
-            @*<p style="color: rgba(255, 255, 255, 0.6);">JobListing is a global website that facilitates job hunting and range from small, medium to large scale as well as cross-sector categories such as green jobs, ethical jobs, freelance and seasonal jobs.</p>*@
+                    <h3 style="font-family: Aldhabi; font-size: 20px;">Join Our Newsletter</h3>
+                    @*<p style="color: rgba(255, 255, 255, 0.6);">JobListing is a global website that facilitates job hunting and range from small, medium to large scale as well as cross-sector categories such as green jobs, ethical jobs, freelance and seasonal jobs.</p>*@
 
 
-            @*<form action="" method="post">*@
-                <input style="width:100%;"  type="email" name="email"><br /><br />
+                    @*<form action="" method="post">*@
+                    <input style="width:100%;" type="email" name="email"><br /><br />
 
-                <input type="submit" style="width: 50%; background-color: #34ba08;border-radius:8px;height:30px;"  value="Subscribe">
-            @*</form>*@
+                    <input type="submit" style="width: 50%; background-color: #34ba08;border-radius:8px;height:30px;" value="Subscribe" onClick='redirectOnClick()'>
+                    
+                   @* <script>
+                        function redirectOnClick() {
+                            document.location = 'AdminController/NewsLetter';
+                        }
+                    </script>*@
+                    @*</form>*@
 
-        </div>
+                </div>
 
             </div>
         </div>
