@@ -105,15 +105,41 @@
                     @*<form action="" method="post">*@
                     <input style="width:100%;" type="email" name="email"><br /><br />
 
-                    <input type="submit" style="width: 50%; background-color: #34ba08;border-radius:8px;height:30px;" value="Subscribe" onClick='redirectOnClick()'>
-                    
-                   @* <script>
-                        function redirectOnClick() {
-                            document.location = 'AdminController/NewsLetter';
-                        }
-                    </script>*@
-                    @*</form>*@
+                    <input id="subscribeButton" type="submit" style="width: 50%; background-color: #34ba08;border-radius:8px;height:30px;" value="Subscribe" onClick='redirectOnClick()'>
 
+
+                    @*</form>*@
+                    <script>
+                  // Your JavaScript file (e.g., script.js)
+        $(document).ready(function() {
+            $('#subscribeButton').click(function() {
+                // Perform client-side validation if needed
+
+                // Prepare subscription data (if any)
+                var subscriptionData = {
+                    // Data to be sent to the server, e.g., email address
+                };
+
+                // Send AJAX request to server
+                $.ajax({
+                    url: '/Admin/Newsletter', // URL of your controller action
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(subscriptionData),
+                    success: function(response) {
+                        // Handle success response from server
+                        alert('Subscription successful!');
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle error response from server
+                        console.error('Error:', error);
+                        alert('Subscription failed. Please try again later.');
+                    }
+                });
+            });
+        });
+
+                </script>
                 </div>
 
             </div>
@@ -143,7 +169,7 @@
             <div class="col-sm-5">
                 <div class="social-icons" style="width:200px;height:32px; margin:20px; margin-right:-15px; margin-top:-5px">
                     @*<div class="header-social-links d-flex align-items-center">*@
-                    <a href="https://twitter.com/JobListing4" class="twitter">
+                    <a href="https://twitter.com/JobListing" class="twitter">
                         <ion-icon name="logo-twitter"></ion-icon>
                         @*<i class="bi bi-twitter twitter-color"></i>*@
                     </a>
@@ -153,7 +179,7 @@
                         @*<i class="bi bi-facebook facebook-color"></i>*@
                     </a>
 
-                    <a href="https://www.instagram.com/joblistingportal/" class="instagram">
+                    <a href="https://www.instagram.com/joblisting/" class="instagram">
                         <ion-icon name="logo-instagram"></ion-icon>
                         @*<i class="bi bi-instagram instagram-color"></i>*@
                     </a>

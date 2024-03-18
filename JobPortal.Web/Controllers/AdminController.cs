@@ -4764,7 +4764,7 @@ namespace JobPortal.Web.Controllers
             return View("OtherContents");
         }
 
-        public ActionResult NewsLetter()
+        public ActionResult NewsLetter(string email)
         {
             List<Newsletter> list = new List<Newsletter>();
             using (JobPortalEntities context = new JobPortalEntities())
@@ -4772,6 +4772,7 @@ namespace JobPortal.Web.Controllers
                 DataHelper dataHelper = new DataHelper(context);
                 list = dataHelper.Get<Newsletter>().OrderByDescending(x => x.DateCreated).ToList();
             }
+
             return View(list);
         }
 
