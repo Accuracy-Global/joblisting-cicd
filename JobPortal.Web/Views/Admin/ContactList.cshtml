@@ -8,6 +8,9 @@
 <script src="~/Scripts/world.js"></script>
 <script src="~/Scripts/jquery.tmpl.min.js"></script>
 <script src="~/Scripts/jquery.tmplPlus.min.js"></script>
+@Scripts.Render("~/bundles/jScripts")
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+
 <style>
     .cdate {
         padding-left: 0px;
@@ -50,46 +53,40 @@
     <div class="col-lg-12 col-md-12 col-sm-12">&nbsp;</div>
 </div>
 <form id="SearchForm">
+   
     <div class="row">
-        <div class="col-lg-4 col-md-4 col-sm-4">
-            <div class="form-group">
-                @Html.Label("Search By Country")
-                @Html.DropDownList("CountryId", new SelectList(SharedService.Instance.GetCountryList(), "Id", "Text"), "SELECT", new { @class = "form-control", @id = "CountryId" })
+
+        <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        <div class='input-group date'>
+                            @Html.TextBox("StartDate", null, new { @class = "form-control", placeholder = "FROM DATE", @title = "FROM DATE", @readonly = "readonly" })
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group">
+                        <div class="form-group">
+                            <div class='input-group date'>
+                                @Html.TextBox("EndDate", null, new { @class = "form-control", placeholder = "TO DATE", @title = "TO DATE", @readonly = "readonly" })
+                                <span class="input-group-addon">
+                                    <span class="glyphicon glyphicon-calendar"></span>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-4">
-            @Html.Label("From Date")
-            <div class="input-group">
-                @Html.DropDownList("fd", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control" })
-                <span class="input-group-btn" style="width:0px;"></span>
-                @Html.DropDownList("fm", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control" })
-                <span class="input-group-btn" style="width:0px;"></span>
-                @Html.DropDownList("fy", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 1)), "YEAR", new { @class = "form-control" })
-            </div>
-            <div id="fromDateError" style="color:red;"></div>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-4">
-            @Html.Label("To Date")
-            <div class="input-group">
-                @Html.DropDownList("td", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control" })
-                <span class="input-group-btn" style="width:0px;"></span>
-                @Html.DropDownList("tm", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control" })
-                <span class="input-group-btn" style="width:0px;"></span>
-                @Html.DropDownList("ty", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 1)), "YEAR", new { @class = "form-control" })
-            </div>
-            <div id="toDateError" style="color:red;"></div>
+        <div class="col-lg-2 col-md-2 col-sm-2 text-right">
+            <input type="submit" value="Search" class="btn btn-info btn-block" />
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-12 col-md-12">
-            <div class="form-group">
-                <button id="Search" type="submit" class="btn btn-info btn-block pull-right">Search</button>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12">&nbsp;</div>
-    </div>
+   
 </form>
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
