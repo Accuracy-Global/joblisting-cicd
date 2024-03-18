@@ -19,6 +19,9 @@
         maxRowSize = totalRecord;
     }
 }
+
+@Scripts.Render("~/bundles/jScripts")
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 <script src="~/Scripts/highcharts.js"></script>
 <script src="~/Scripts/map.js"></script>
 <script src="~/Scripts/world.js"></script>
@@ -80,37 +83,23 @@
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="form-group">
-                        @Html.Label("From Date")
-                        <ul class="cdate" title="From Date">
-                            <li>
-                                @Html.DropDownList("fd", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control", @style = "padding:5px;width:64px;" })
-                            </li>
-                            <li>
-                                @Html.DropDownList("fm", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control", @style = "padding:5px;" })
-                            </li>
-                            <li>
-                                @Html.DropDownList("fy", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 5)), "YEAR", new { @class = "form-control", @style = "padding:5px;width:70px;" })
-                            </li>
-                        </ul>
-                        <div id="fromDateError" style="color:red;"></div>
+                        <div class='input-group date'>
+                            @Html.TextBox("StartDate", null, new { @class = "form-control", placeholder = "FROM DATE", @title = "FROM DATE", @readonly = "readonly" })
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
                     </div>
 
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="form-group">
-                        @Html.Label("To Date")
-                        <ul class="cdate" title="To Date">
-                            <li>
-                                @Html.DropDownList("td", new SelectList(SharedService.Instance.GetDayList()), "DAY", new { @class = "form-control", @style = "padding:5px;width:64px;" })
-                            </li>
-                            <li>
-                                @Html.DropDownList("tm", new SelectList(SharedService.Instance.GetMonthList(), "Id", "Name"), "MONTH", new { @class = "form-control", @style = "padding:5px;" })
-                            </li>
-                            <li>
-                                @Html.DropDownList("ty", new SelectList(SharedService.Instance.GetYearList(false, DateTime.Now.Year - 5)), "YEAR", new { @class = "form-control", @style = "padding:5px;width:70px;" })
-                            </li>
-                        </ul>
-                        <div id="toDateError" style="color:red;"></div>
+                        <div class='input-group date'>
+                            @Html.TextBox("EndDate", null, new { @class = "form-control", placeholder = "TO DATE", @title = "TO DATE", @readonly = "readonly" })
+                            <span class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>

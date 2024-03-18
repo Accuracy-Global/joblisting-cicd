@@ -18,12 +18,14 @@
         maxRowSize = totalRecord;
     }
 }
+@Scripts.Render("~/bundles/jScripts")
+<script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
 
 <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-6">
         <div class="title-login">
             <h1 style="margin-top:-5px">Campaign</h1>
-            
+
         </div>
 
     </div>
@@ -41,7 +43,7 @@
     <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-4">
             <div class="form-group">
-                @Html.DropDownList("Type", new SelectList(new SortedDictionary<int, string>() { { 4, "Jobseeker" }, { 5, "Employers" }, { 12, "University" }, { 13, "Student" }, { 18, "Interns" }, { 0, "All" },{ 19,"Test"} }, "key", "value"), "SELECT TYPE", new { @class = "form-control" })
+                @Html.DropDownList("Type", new SelectList(new SortedDictionary<int, string>() { { 4, "Jobseeker" }, { 5, "Employers" }, { 12, "University" }, { 13, "Student" }, { 18, "Interns" }, { 0, "All" }, { 19, "Test" } }, "key", "value"), "SELECT TYPE", new { @class = "form-control" })
             </div>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6">
@@ -58,14 +60,14 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="form-group">
-                        <div class="form-group">
+                      
                             <div class='input-group date'>
                                 @Html.TextBox("EndDate", null, new { @class = "form-control", placeholder = "TO DATE", @title = "TO DATE", @readonly = "readonly" })
                                 <span class="input-group-addon">
                                     <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
                             </div>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -92,7 +94,7 @@
                 {
                      type="Test";
                 }
-                
+
                 else {
                     type = ((SecurityRoles)p.Type).ToString().TitleCase();
                 }
