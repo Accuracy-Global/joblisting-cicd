@@ -294,7 +294,12 @@
                         {
                             if (m.Deactivated == 0 && m.Deleted == 0)
                             {
-                                alinks = Html.ActionLink("Edit", "UpdateJob", new { id = m.Id }, new { title = "Edit", @class = "edit" }).ToString();
+                                    string links = string.Empty;
+                links = string.Format("<b>{0}</b>", Html.ActionLink("Edit", "UpdateJob", new { Id = m.Id }, new { title = "Edit" }).ToString());
+                links += string.Format(" | <b>{0}</b>", Html.ActionLink("Delete", "UpdateJob", new { Id = m.Id }, new { title = "Delete", onclick="return confirm('Are you sure to delete?');" }).ToString());
+                return Html.Raw(links);
+
+                               // alinks = Html.ActionLink("Edit", "UpdateJob", new { id = m.Id }, new { title = "Edit", @class = "edit" }).ToString();
                                 ////alinks + = Html.ActionLink("Edit", "UpdateJob", new { id = m.Id }, new { title = "Edit", @class = "edit" }).ToString();
                                 //alinks += "              |  <a href=\"/job/Email/" + m.Id + "\" target=\"_blank\">Email</a>";
                                 //    alinks += "              |  <a href=\"/job/SMS/" + m.Id + "\" target=\"_blank\">SMS</a>";
@@ -308,7 +313,11 @@
                                     }
                         else if (m.Expired > 0)
                         {
-                                 alinks = Html.ActionLink("Edit", "UpdateJob", new { id = m.Id }, new { title = "Edit", @class = "edit" }).ToString();
+                                 string links = string.Empty;
+                links = string.Format("<b>{0}</b>", Html.ActionLink("Edit", "UpdateJob", new { Id = m.Id }, new { title = "Edit" }).ToString());
+                links += string.Format(" | <b>{0}</b>", Html.ActionLink("Delete", "UpdateJob", new { Id = m.Id }, new { title = "Delete", onclick="return confirm('Are you sure to delete?');" }).ToString());
+                return Html.Raw(links);
+                                 //alinks = Html.ActionLink("Edit", "UpdateJob", new { id = m.Id }, new { title = "Edit", @class = "edit" }).ToString();
                             //if (m.Deleted == 0)
                             //{
                             //    alinks = Html.ActionLink("Repost", "Repost", "Employer", new { id = m.Id }, new { title = "Repost" }).ToString();
