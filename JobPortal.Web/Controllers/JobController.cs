@@ -1746,7 +1746,8 @@ namespace JobPortal.Web.Controllers
                 jobs = await iJobService.GetLatestStudent1(model.student, model.Where);
                 //jobs = await JobService.Instance.GetLatestCompanies1(model.Company, model.Where);
             }
-            return Json(jobs, JsonRequestBehavior.AllowGet);
+            //return Json(jobs, JsonRequestBehavior.AllowGet);
+            return View(model);
         }
 
 

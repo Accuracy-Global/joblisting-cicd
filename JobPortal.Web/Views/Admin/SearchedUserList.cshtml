@@ -106,7 +106,7 @@
             Header = "Name",
             Format = (item) =>
             {
-                return Html.Raw(item.FullName);
+                return Html.Raw(item.FirstName);
             }
         });
         columns.Add(new WebGridColumn()
