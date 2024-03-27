@@ -130,9 +130,11 @@
                 font-weight: normal;
             }
 </style>
+
+<link href="~/Content/css/profilecss.css" rel="stylesheet" />
 <script src="~/Scripts/jquery.tmpl.min.js"></script>
 <script src="~/Scripts/jquery.tmplPlus.min.js"></script>
-<div class="row">
+<!--<div class="row">
     <div class="col-lg-6 col-md-6">
         <div class="title-login">
             <h1 style="margin-top:-15px;">
@@ -140,8 +142,8 @@
             </h1>
             Manage known people here
         </div>
-    </div>
-    <div class="col-lg-2 col-md-2">
+    </div>-->
+    @*<div class="col-lg-2 col-md-2">
         <div class="form-group">
             @if (user != null && user.Type == 4)
             {
@@ -158,8 +160,8 @@
                 }
             }
         </div>
-    </div>
-    <div class="col-lg-2 col-md-2">
+    </div>*@
+    <!--<div class="col-lg-2 col-md-2">
         <div class="form-group"></div>
     </div>
     <div class="col-lg-2 col-md-2">
@@ -181,7 +183,7 @@
             }
             </div>
     </div>
-</div>
+</div>-->
 <div class="clear" style="height:30px;"></div>
 <style>
     .ul1 {
@@ -267,102 +269,96 @@
     }
 </style>
 <script type="text/x-jquery-tmpl" id="ResultItem">
-    <div class="row" style="display:inline-block; width:100%;">
-        <div class="col-sm-12" >
-            <div class="list-group " >
-                <div class="list-group-item" >
-                    <a role="button" style="position:absolute; top:5px; right:5px; color:red; padding:4px; height:20px; text-align:center; z-index:1000; cursor:pointer"  class="rmv" title="Remove" data-pid="${UserId}">
-                        <div class="row">
-                            <div class="col-lg-3 col-md-3 col-sm-3">
-                                <a href="/${PermaLink}">
-                                    <div style="width:60px; height:60px; background:url('/Image/Avtar?Id=${UserId}') no-repeat; background-size:contain; background-position:top center">
-                                    </div>
-                                </a>
+    <div class="row">
+        <div class="card">
+            <div class="card-container">
+               
+                    @*<a href="/${PermaLink}">
+                            <div class="round" style="width:100px; background:url('/Image/Avtar?Id=${UserId}') no-repeat; background-size:contain; background-position:top center">
                             </div>
-                            <div class="col-sm-1"></div>
-                            <div class="col-lg-8 col-md-8 col-sm-8">
-                                <div class="row">
-                                    <div class="col-lg-12 col-md-12 col-sm-12">
-                                        <i><b>Name: </b></i><a href="/${PermaLink}" title="View profile" target="_blank">${Name}</a>
-                                    </div>
-                                </div>
+                        </a>*@
 
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12">
-                                <div class="form-group">
-                                    <ul class="actionlinks" style="text-align:center;">
-                                        <li>
-                                            {{if Messages > 0 }}
-                                            <b><a href="/Message/List?SenderId=${UserId}" target="_blank">Message (<span style="color:red;">${Messages}</span>)</a></b>
-                                            {{else}}
-                                            <b><a href="/Message/List?SenderId=${UserId}" target="_blank">Message</a></b>
-                                            {{/if}}
-                                        </li>
-                                        {{if authenticated == "False"}}
-                                        <li>
-                                            &nbsp;|<b><a href="/Home/Connect?id=${UserId}" target="_blank" title="Connect">Connect</a></b>
-                                        </li>
-                                        <li>
-                                            &nbsp;|<b><a href="/${PermaLink}" title="View profile" target="_blank">View Profile</a></b>
-                                        </li>
-                                        {{/if}}
+                    <img class="round" style="width:100px;" src="/Image/Avtar?Id=${UserId}" />
 
-                                        {{if authenticated == "True" }}
 
-                                        {{if IsConnected == true }}
-                                        <li>
-                                            &nbsp;|<b><a data-aurl="/Network/Disconnect?Id=${ConnectionId}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
-                                        </li>
-                                        {{else}}
-                                        {{if InvitedByMe > 0 || InvitedBySomeone > 0}}
-                                        {{if InvitedByMe > 0}}
-                                        <li>
-                                            &nbsp;|<b><a data-aurl="/Network/Disconnect?Id=${ConnectionId}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
-                                        </li>
-                                        {{/if}}
-                                        {{if InvitedBySomeone > 0}}
-                                        <li>
-                                            &nbsp;|<b><a href="/Network/Accept?Id=${ConnectionId}&redirect=@Request.Url.ToString()" title="Accept" target="_blank">Accept</a></b>
-                                            &nbsp;|<b><a data-aurl="/Network/Disconnect?Id=${ConnectionId}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
-                                        </li>
-                                        {{/if}}
-                                        {{else}}
-                                        <li>
-                                            &nbsp;|<b><a href="/Home/Connect?id=${UserId}&redirect=@Request.Url.ToString()" title="Connect" target="_blank">Connect</a></b>
-                                        </li>
-                                        {{/if}}
-                                        {{/if}}
+                    <h3>${Name}</h3>
+                    @*<i><b>Name: </b></i><a href="/${PermaLink}" title="View profile" target="_blank">${Name}</a>*@
 
-                                        {{if BlockedByMe > 0 }}
-                                        <li>
-                                            &nbsp;|<b><a href="/Home/Unblock?id=${UserId}&redirect=@Request.Url.ToString()" title="Unblock" target="_blank">Unblock</a></b>
-                                        </li>
-                                        {{/if}}
-                                        {{if BlockedByMe <= 0 && Blocked <= 0 }}
-                                        <li>
-                                            &nbsp;|<b><a data-href="/Home/Block?email=${Username}" data-name="${Name}" role="button" data-toggle="modal" data-target="#cDialog" class="aBlock" data-role="${TypeName}" data-connected="${IsConnected}" style="cursor:pointer;" title="Block">Block</a></b>
-                                        </li>
-                                        {{/if}}
-                                        {{/if}}
+                    <div class="skills">
 
-                                        {{if Views > 0 }}
-                                        <li>
-                                            &nbsp;|<a href="/network/profilevieweddetails?Id=${UserId}" title="Profile viewed ${Views} times">View (<span style="color:red;">${Views}</span>)</a>
-                                        </li>
-                                        {{else}}
-                                        <li>
-                                            &nbsp;|<a href="/network/profilevieweddetails?Id=${UserId}" title="Profile viewed ${Views} times">View</a>
-                                        </li>
-                                        {{/if}}
-                                    </ul>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </div>
-                        </div>
-</div>
+                        <ul class="actionlinks" style="text-align:center;">
+                            <li>
+                                {{if Messages > 0 }}
+                                <b><a href="/Message/List?SenderId=${UserId}" target="_blank">Message (<span style="color:red;">${Messages}</span>)</a></b>
+                                {{else}}
+                                <b><a href="/Message/List?SenderId=${UserId}" target="_blank">Message</a></b>
+                                {{/if}}
+                            </li>
+                            {{if authenticated == "False"}}
+                            <li>
+                                &nbsp;<b><a href="/Home/Connect?id=${UserId}" target="_blank" title="Connect">Connect</a></b>
+                            </li>
+                            <li>
+                                &nbsp;<b><a href="/${PermaLink}" title="View profile" target="_blank">View Profile</a></b>
+                            </li>
+                            {{/if}}
+
+                            {{if authenticated == "True" }}
+
+                            {{if IsConnected == true }}
+                            <li>
+                                &nbsp;<b><a data-aurl="/Network/Disconnect?Id=${ConnectionId}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
+                            </li>
+                            {{else}}
+                            {{if InvitedByMe > 0 || InvitedBySomeone > 0}}
+                            {{if InvitedByMe > 0}}
+                            <li>
+                                &nbsp;<b><a data-aurl="/Network/Disconnect?Id=${ConnectionId}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
+                            </li>
+                            {{/if}}
+                            {{if InvitedBySomeone > 0}}
+                            <li>
+                                &nbsp;<b><a href="/Network/Accept?Id=${ConnectionId}&redirect=@Request.Url.ToString()" title="Accept" target="_blank">Accept</a></b>
+                                &nbsp;<b><a data-aurl="/Network/Disconnect?Id=${ConnectionId}&redirect=@Request.Url.ToString()" role="button" data-toggle="modal" data-target="#discDialog" class="disc" style="cursor:pointer;" title="Disconnect">Disconnect</a></b>
+                            </li>
+                            {{/if}}
+                            {{else}}
+                            <li>
+                                &nbsp;<b><a href="/Home/Connect?id=${UserId}&redirect=@Request.Url.ToString()" title="Connect" target="_blank">Connect</a></b>
+                            </li>
+                            {{/if}}
+                            {{/if}}
+
+                            {{if BlockedByMe > 0 }}
+                            <li>
+                                &nbsp;<b><a href="/Home/Unblock?id=${UserId}&redirect=@Request.Url.ToString()" title="Unblock" target="_blank">Unblock</a></b>
+                            </li>
+                            {{/if}}
+                            {{if BlockedByMe <= 0 && Blocked <= 0 }}
+                            <li>
+                                &nbsp;<b><a data-href="/Home/Block?email=${Username}" data-name="${Name}" role="button" data-toggle="modal" data-target="#cDialog" class="aBlock" data-role="${TypeName}" data-connected="${IsConnected}" style="cursor:pointer;" title="Block">Block</a></b>
+                            </li>
+                            {{/if}}
+                            {{/if}}
+
+                            @*{{if Views > 0 }}
+                                <li>
+                                    &nbsp;|<a href="/network/profilevieweddetails?Id=${UserId}" title="Profile viewed ${Views} times">View (<span style="color:red;">${Views}</span>)</a>
+                                </li>
+                                {{else}}
+                                <li>
+                                    &nbsp;|<a href="/network/profilevieweddetails?Id=${UserId}" title="Profile viewed ${Views} times">View</a>
+                                </li>
+                                {{/if}}*@
+                        </ul>
+                    </div>
+
+
             </div>
         </div>
-    </div>
+        <br />
+  </div>
+
+
+
 </script>

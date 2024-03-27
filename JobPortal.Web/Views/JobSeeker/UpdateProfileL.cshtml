@@ -1,0 +1,3282 @@
+﻿@model JobPortal.Web.Models.JobseekerProfileModel
+@using JobPortal.Data
+@using System.Globalization
+@using JobPortal.Domain
+@using JobPortal.Library.Enumerators
+@using JobPortal.Library.Helpers
+@using JobPortal.Web.Models
+@using JobPortal.Models
+@{ var model1 = ViewBag.model1 as JobPortal.Web.Models.ConnectionModel; }
+
+@{
+
+    ViewBag.Title = "My Profile & Resume";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    UserInfo defaultUser = null;
+
+    UserInfoEntity member = ViewBag.Profile;
+    UserInfoEntity uinfo = null;
+
+    decimal weightage = 0;
+    decimal width = 0;
+    decimal width1 = 0;
+    UserInfoEntity user = null;
+    if (User != null)
+    {
+        user = User.Info;
+        weightage = MemberService.Instance.GetProfileWeightage(user.Id);
+        if (weightage < 25)
+        {
+            width = 25;
+        }
+        else
+        {
+            width = weightage;
+        }
+    }
+    Photo photo = MemberService.Instance.GetPhoto("Profile", user.Username);
+    List<User_Skills> skillslist = MemberService.Instance.GetUserskill(user.Id);
+    List<User_Experience> explist = MemberService.Instance.GetUserexp(user.Id);
+    List<User_Education> edulist = MemberService.Instance.GetUseredu(user.Id);
+    List<User_Certificate> cerlist = MemberService.Instance.GetUsercer(user.Id);
+
+    var eye = "<svg class='lnr lnr-eye' viewBox='0 0 18 18'><path d='M10,6.978c-1.666,0-3.022,1.356-3.022,3.022S8.334,13.022,10,13.022s3.022-1.356,3.022-3.022S11.666,6.978,10,6.978M10,12.267c-1.25,0-2.267-1.017-2.267-2.267c0-1.25,1.016-2.267,2.267-2.267c1.251,0,2.267,1.016,2.267,2.267C12.267,11.25,11.251,12.267,10,12.267 M18.391,9.733l-1.624-1.639C14.966,6.279,12.563,5.278,10,5.278S5.034,6.279,3.234,8.094L1.609,9.733c-0.146,0.147-0.146,0.386,0,0.533l1.625,1.639c1.8,1.815,4.203,2.816,6.766,2.816s4.966-1.001,6.767-2.816l1.624-1.639C18.536,10.119,18.536,9.881,18.391,9.733 M16.229,11.373c-1.656,1.672-3.868,2.594-6.229,2.594s-4.573-0.922-6.23-2.594L2.41,10l1.36-1.374C5.427,6.955,7.639,6.033,10,6.033s4.573,0.922,6.229,2.593L17.59,10L16.229,11.373z'></path></svg>";
+    var shr = "<svg class='lnr lnr-share' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none' /><path d='M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z' /></svg>";
+    var msg = "<svg class='lnr lnr-bubble' viewBox='0 0 1024 1024'><path d='M25.6 972.8c-11.507 0-21.6-7.677-24.67-18.766s1.634-22.864 11.501-28.784c86.57-51.942 122.485-127.414 135.218-162.755-94.088-72.048-147.648-171.746-147.648-276.094 0-52.704 13.23-103.755 39.323-151.736 24.902-45.794 60.406-86.806 105.526-121.899 91.504-71.17 212.802-110.365 341.55-110.365s250.046 39.195 341.552 110.366c45.118 35.093 80.624 76.104 105.526 121.899 26.091 47.979 39.322 99.030 39.322 151.734 0 52.702-13.23 103.755-39.322 151.736-24.902 45.794-60.408 86.806-105.526 121.899-91.506 71.17-212.803 110.365-341.552 110.365-52.907 0-104.8-6.627-154.437-19.707-21.974 14.637-63.040 40.605-112.086 65.005-76.163 37.89-141.528 57.102-194.277 57.102zM486.4 153.6c-239.97 0-435.2 149.294-435.2 332.8 0 92.946 51.432 182.379 141.107 245.368 8.797 6.178 12.795 17.194 10.013 27.576-5.984 22.325-26.363 83.597-80.878 142.734 66.659-23.341 138.424-63.832 191.434-100.286 6.296-4.328 14.197-5.621 21.544-3.52 48.558 13.888 99.691 20.928 151.981 20.928 239.97 0 435.2-149.294 435.2-332.8s-195.23-332.8-435.2-332.8z'></path></svg>";
+    var blk = "<svg class='lnr lnr-block' viewBox='0 0 24 24'><path d='M0 0h24v24H0z' fill='none' /><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM4 12c0-4.42 3.58-8 8-8 1.85 0 3.55.63 4.9 1.69L5.69 16.9C4.63 15.55 4 13.85 4 12zm8 8c-1.85 0-3.55-.63-4.9-1.69L18.31 7.1C19.37 8.45 20 10.15 20 12c0 4.42-3.58 8-8 8z' /></svg>";
+    var camara = "<svg class='lnr-camera' viewBox='0 0 32 32'><path d='M9.5 19c0 3.59 2.91 6.5 6.5 6.5s6.5-2.91 6.5-6.5-2.91-6.5-6.5-6.5-6.5 2.91-6.5 6.5zM30 8h-7c-0.5-2-1-4-3-4h-8c-2 0-2.5 2-3 4h-7c-1.1 0-2 0.9-2 2v18c0 1.1 0.9 2 2 2h28c1.1 0 2-0.9 2-2v-18c0-1.1-0.9-2-2-2zM16 27.875c-4.902 0-8.875-3.973-8.875-8.875s3.973-8.875 8.875-8.875c4.902 0 8.875 3.973 8.875 8.875s-3.973 8.875-8.875 8.875zM30 14h-4v-2h4v2z'></path></svg>";
+
+
+}
+
+@Scripts.Render("~/bundles/jScripts")
+<style>
+    #siin {
+        display: flex;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: conic-gradient(#34ba08 var(--progress), #eeeeee 0deg);
+        font-size: 0;
+    }
+
+        #siin::after {
+            content: attr(data-progress) '%';
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            width: 100%;
+            margin: 15px;
+            border-radius: 50%;
+            background: white;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+    /* .progress-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(closest-side, white 79%, transparent 80% 100%), conic-gradient(hotpink 75%, pink 0);
+        }
+
+            .progress-bar::before {
+                content: "75%";
+            }
+
+    */
+
+    div.ex1 {
+        background-color: white;
+        width: 320px;
+        height: 145px;
+        overflow: auto;
+    }
+
+    div#ymk {
+        background-color: white;
+        width: 320px;
+        height: 195px;
+        overflow: hidden;
+        /*overflow-y: scroll;
+            overflow-x: hidden;*/
+    }
+
+        div#ymk:hover {
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    /* Create three equal columns that floats next to each other */
+    .column {
+        float: left;
+        width: 10.33%;
+        padding: 10px;
+        height: 380px; /* Should be removed. Only for demonstration */
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+</style>
+<style>
+    .autocomplete {
+        /*the container must be positioned relative:*/
+        position: relative;
+        display: inline-block;
+    }
+    .autocomplete-items {
+        position: absolute;
+        border: 1px solid #d4d4d4;
+        border-bottom: none;
+        border-top: none;
+        z-index: 99;
+        /*position the autocomplete items to be the same width as the container:*/
+        top:; 100%;
+        left: 0;
+        right: 0;
+    }
+
+        .autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+        background-color: #fff;
+            border-bottom: 1px solid #d4d4d4;
+        }
+
+            .autocomplete-items div:hover {
+        /*when hovering an item:*/
+        background-color: #e9e9e9;
+            }
+
+    .autocomplete-active {
+        /*when navigating through the items using the arrow keys:*/
+        background-color: DodgerBlue !important;
+    color: #ffffff;
+    }
+    .square110::after {
+    background: url("@Url.Action("Avtar", "Image", new { Id= user.Id })") no-repeat 0 0 / contain;
+        background-position: center center;
+    }
+
+    .square110 {
+        cursor: pointer;
+        border-radius: 50%;
+        font-size: 75px;
+        font-weight: 700;
+        height: 110px;
+        width: 105px;
+        background-color: #fff;
+        top:10px;
+    }
+
+        .square110::after {
+
+    content: "";
+    display: block;
+    height: 0;
+        padding-bottom: 100%;
+    width: 100%;
+    }
+</style>
+<style>
+    .idate {
+        /*width:125px;*/
+    }
+
+    .isubject {
+        /*width:200px;*/
+    }
+
+    .iaction {
+        width: 10%;
+    }
+
+    /*.list-group-item:hover {
+            background-color: #e9e8e8;
+        }*/
+
+    .seemore {
+        text-align: right;
+    }
+
+        .seemore > a {
+            color: #000000;
+            font-family: "Roboto", sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .seemore i {
+            font-size: 16px;
+            padding: 0 0 0 5px;
+            vertical-align: middle;
+        }
+
+    .sponsored {
+        background: #ffffff;
+    }
+
+    .sponsored {
+        background: #fff none repeat scroll 0 0;
+        padding: 0px 15px 0;
+        margin-top: -6px;
+    }
+
+    .abcdesign {
+        margin: 0 0 18px 0;
+    }
+
+        .abcdesign > h3 {
+            color: #333;
+            font-size: 14px;
+            margin: 0 0 11px 0;
+        }
+
+    .sub-heading h2 {
+        color: #000;
+        font-size: 14px;
+        margin: 0 0 20px;
+        padding-bottom: 6px;
+        position: relative;
+        font-weight: bold;
+    }
+
+        .sub-heading h2::after {
+            border-bottom: 2px solid #e93100;
+            bottom: 0;
+            content: "";
+            display: block;
+            left: 0;
+            position: absolute;
+            width: 100%;
+        }
+
+    /* .fa-angle-down::before {
+        content: '^';
+        display: block;
+        transition: transform .2s ease;
+        transform: rotate(0);
+        left: 0;
+    }
+
+    .rotate.fa-angle-down::before {
+        transform: rotate(180deg);
+    }*/
+</style>
+<style>
+    i.fa-angle-down {
+        float: left;
+        /* position:absolute;
+        right:-0px;
+     */
+        /*  display: inline;
+        justify-content: inline-end;*/
+    }
+
+    a.my-class {
+        color: dodgerblue
+    }
+
+    /*.abd {
+        display: table;
+        width: 100%;*/ /*Optional*/
+    /*table-layout: fixed;*/ /*Optional*/
+    /*border-spacing: 10px;*/ /*Optional*/
+    /*}
+
+    .abd1 {
+        display: table-cell;
+        background-color: #D3D3D3;
+        height:35px;*/ /*Optional*/
+    /*}*/
+</style>
+<style>
+    .star-cb-group {
+        /* remove inline-block whitespace */
+        font-size: 0;
+        /* flip the order so we can use the + and ~ combinators */
+        unicode-bidi: bidi-override;
+        direction: rtl;
+        /* the hidden clearer */
+    }
+
+        .star-cb-group * {
+            font-size: 1.5rem;
+        }
+
+        .star-cb-group > input {
+            display: none;
+        }
+
+            .star-cb-group > input + label {
+                /* only enough room for the star */
+                display: inline-block;
+                overflow: hidden;
+                text-indent: 9999px;
+                width: 2em;
+                white-space: nowrap;
+                cursor: pointer;
+            }
+
+                .star-cb-group > input + label:before {
+                    display: inline-block;
+                    text-indent: -9999px;
+                    content: "?";
+                    color: #888;
+                }
+
+                .star-cb-group > input:checked ~ label:before, .star-cb-group > input + label:hover ~ label:before, .star-cb-group > input + label:hover:before {
+                    content: "?";
+                    color: #e52;
+                    text-shadow: 0 0 1px #333;
+                }
+
+        .star-cb-group > .star-cb-clear + label {
+            text-indent: -9999px;
+            width: 1em;
+            margin-left: -.5em;
+        }
+
+            .star-cb-group > .star-cb-clear + label:before {
+                width: 1em;
+            }
+
+        .star-cb-group:hover > input + label:before {
+            content: "?";
+            color: #888;
+            text-shadow: none;
+        }
+
+        .star-cb-group:hover > input + label:hover ~ label:before, .star-cb-group:hover > input + label:hover:before {
+            content: "?";
+            color: #e52;
+            text-shadow: 0 0 1px #333;
+        }
+
+    .lnr {
+        fill: currentColor;
+        width: 1em;
+        height: 1em;
+        vertical-align: -0.05em;
+    }
+
+    .lnr-eye {
+        color: #0F52BA;
+        font-size: 18px;
+    }
+
+    .lnr-share {
+        color: #0F52BA;
+        font-size: 15px;
+    }
+
+    .lnr-bubble {
+        color: #0F52BA;
+        font-size: 15px;
+    }
+
+    .lnr-block {
+        color: red;
+        font-size: 15px;
+    }
+
+    .lnr-block-disabled {
+        color: #A9ABA2;
+        font-size: 15px;
+    }
+
+    .lnr-camera {
+        fill: red;
+        color: red;
+        font-size: 32px;
+        width: 1em;
+        height: 1em;
+    }
+
+
+    .post-content-section {
+        padding-top: 5px;
+        min-height: 58px;
+    }
+
+        .post-content-section h3 {
+            font-size: 12px;
+            margin: 0;
+            color: #999;
+            text-align: left;
+            text-transform: uppercase;
+        }
+
+            .post-content-section h3 a {
+                color: #999;
+                font-weight: bold;
+            }
+
+        .post-content-section > p {
+            color: #333;
+            font-family: 'Roboto', sans-serif;
+            font-size: 12px;
+            line-height: 16px;
+            margin: 0 0 6px;
+            padding: 2px 0 0;
+            text-align: justify;
+            font-weight: 400;
+        }
+</style>
+<style>
+    .editor {
+        box-shadow: 0 0 2px #CCC;
+        min-height: 150px;
+        overflow: auto;
+        padding: 1em;
+        resize: vertical;
+        outline: none;
+        border: 1px solid #CCC;
+    }
+
+    .toolbar {
+        border: 1px solid #CCC;
+        text-align: left;
+        background-color: #f2f2f2;
+        padding: 2px;
+    }
+
+        .toolbar a,
+        .fore-wrapper,
+        .back-wrapper {
+            font-family: 'Candal';
+            border-radius: 1px;
+            color: black;
+            width: 1.5em;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+            .toolbar a:hover,
+            .fore-wrapper:hover,
+            .back-wrapper:hover {
+                background: #f2f2f2;
+                border-color: #8c8c8c;
+            }
+
+    a[data-command='redo'],
+    a[data-command='strikeThrough'],
+    a[data-command='justifyFull'],
+    a[data-command='insertOrderedList'],
+    a[data-command='outdent'],
+    a[data-command='p'],
+    a[data-command='superscript'] {
+        margin-right: 5px;
+        border-radius: 0 3px 3px 0;
+    }
+
+    a[data-command='undo'],
+    .fore-wrapper,
+    a[data-command='justifyLeft'],
+    a[data-command='insertUnorderedList'],
+    a[data-command='indent'],
+    a[data-command='h1'],
+    a[data-command='subscript'] {
+        border-radius: 3px 0 0 3px;
+    }
+
+    a.palette-item {
+        height: 1em;
+        border-radius: 3px;
+        margin: 2px;
+        width: 1em;
+        border: 1px solid #CCC;
+    }
+
+        a.palette-item:hover {
+            border: 1px solid #CCC;
+            box-shadow: 0 0 3px #333;
+        }
+
+    .fore-palette,
+    .back-palette {
+        display: none;
+    }
+
+    .fore-wrapper,
+    .back-wrapper {
+        display: inline-block;
+        cursor: pointer;
+    }
+
+        .fore-wrapper:hover .fore-palette,
+        .back-wrapper:hover .back-palette {
+            display: block;
+            float: left;
+            position: absolute;
+            padding: 3px;
+            width: 160px;
+            background: #FFF;
+            border: 1px solid #DDD;
+            box-shadow: 0 0 5px #CCC;
+            height: 70px;
+        }
+
+    .fore-palette a,
+    .back-palette a {
+        background: #FFF;
+        margin-bottom: 2px;
+    }
+
+    .bday {
+        padding-left: 0px;
+        list-style-type: none;
+    }
+
+        .bday li {
+            display: inline-block;
+        }
+
+
+
+    .text {
+        font-size: 16px;
+        line-height: 165%;
+        color: black;
+    }
+
+        .text p {
+            margin: 8px 0;
+        }
+
+    #problemtext, #problemanswer {
+        display: inline;
+    }
+
+    /* #problemanswer {
+        border: 1px dotted #ddd;
+    }*/
+
+    .job-card-subtitle {
+        color: var(--subtitle-color);
+        font-size: 13px;
+        margin-top: 14px;
+        line-height: 1.6em;
+        border: thick;
+    }
+
+
+    #right {
+        float: right;
+        background: white;
+        box-sizing: border-box;
+        right: 0px;
+        width: 350px;
+        height: 490px;
+        
+        overflow: hidden;
+        position: absolute;
+        
+    }
+
+    div#right:hover {
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
+
+    .job-card-subtitle1 {
+        color: var(--subtitle-color);
+        font-size: 13px;
+        max-height: 14px;
+        overflow-wrap: break-word;
+        /*overflow: hidden;*/
+        line-height: 1.6em;
+    }
+
+
+    #content {
+        height: 100%;
+    }
+
+    #left {
+        float: left;
+        width: 60%;
+        background: white;
+        height: 100%;
+        overflow: auto;
+        box-sizing: border-box;
+        padding: 0.4em;
+    }
+
+    .card-buttons {
+        margin-right: 12px;
+    }
+
+    .card-buttons-msg {
+        background-color: var(--inactive-color);
+        color: var(--subtitle-color);
+    }
+
+    .card-buttons,
+    .card-buttons-msg {
+        padding: 5px;
+        width: 100%;
+        font-size: 12px;
+        cursor: pointer;
+    }
+
+    .job-detail-buttons {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        margin-top: 6px;
+    }
+
+    .search-buttons {
+        width: 94px;
+        min-height: 35px;
+        color: black;
+        border-color: #34ba08;
+        background-color: white;
+        padding: 8px;
+        border-radius: 5px;
+        font-size: 0.9vw;
+        font-weight: 400;
+        margin-top: 14px;
+        line-height: 18px;
+        text-align: center;
+        display: inline-block;
+        border: 2px solid green;
+    }
+
+    .bookviewshare {
+        display: block;
+        width: 90px;
+        min-height: 35px;
+        background: #34ba08;
+        padding: 10px;
+        text-align: center;
+        border-radius: 5px;
+        color: white;
+        font-weight: bold;
+        line-height: 18px;
+        background-color: #34ba08 !important;
+        // border-block-color:#34ba08;
+    }
+
+        .bookviewshare:hover {
+            background-color: white;
+            color: white;
+        }
+
+        .bookviewshare:focus {
+            background-color: #34ba08;
+            color: white;
+        }
+
+    .job-overview-buttons .search-buttons {
+        background-color: var(--inactive-color);
+        font-size: 0.9vw;
+        padding: 6px 8px;
+        margin-top: 0;
+        font-weight: 500;
+    }
+
+    .overview-card:hover .job-overview-buttons .search-buttons.time-button,
+    .overview-card:hover .job-overview-buttons .search-buttons.level-button {
+        background-color: #575ad8;
+        color: #fff;
+    }
+
+    .job-overview-buttons .search-buttons.time-button {
+        color: var(--time-button);
+        margin-right: 8px;
+    }
+
+    .job-overview-buttons .search-buttons.level-button {
+        color: var(--level-button);
+    }
+
+    .job-card-buttons {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        margin-top: 5px;
+    }
+
+    .job-card-title {
+        font-weight: 600;
+        /*margin-top: 16px;*/
+        font-size: 14px;
+    }
+
+    .overview-card:hover .job-card-title,
+    .overview-card:hover .job-stat {
+        color: #fff;
+    }
+
+    .job-title-wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+        .job-title-wrapper .job-card-title {
+            font-size: 20px;
+            margin-top: 0;
+            font-weight: 600;
+        }
+
+
+    .overview-detail .job-card-title,
+    .overview-detail .job-card-subtitle {
+        margin-top: 4px;
+    }
+
+    .overview-detail .job-card-subtitle {
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    .overview-card:hover .job-card-subtitle,
+    .overview-card:hover .job-day {
+        color: #dedede;
+    }
+</style>
+
+<SCRIPT>
+    $(document).on('click', '.toggle-title', function () {
+        $(this).parent()
+            .toggleClass('toggled-on')
+            .toggleClass('toggled-off');
+    });
+</SCRIPT>
+<style>
+    .toggled-on .toggle-content {
+        display: block;
+        margin-top: 20px;
+        padding: 20px;
+        border-radius: 10px;
+    }
+
+    .toggle-content {
+        box-shadow: inset 0px 0px 10px #0c0b41;
+    }
+
+        .toggle-content p {
+            margin: 15px 0 15px 0;
+        }
+
+    .toggled-on .fa-angle-down {
+        display: none;
+    }
+
+    .toggle-title {
+        cursor: pointer;
+        position: relative;
+        padding-left: 55px;
+        background-color: #aeaeae;
+    }
+
+        .toggle-title i {
+            position: absolute;
+            left: 0;
+            font-size: 2.5em;
+        }
+
+    .toggled-off .toggle-content {
+        display: none;
+    }
+
+    .toggled-off .fa-angle-up {
+        display: none;
+    }
+
+
+    details > summary:before, details[open] > summary:before {
+        content: '';
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        right: 20px;
+        background-image: url("data:image/svg+xml,%3Csvg width='14' height='9' viewBox='0 0 14 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L7 7.5L13 1.5' stroke='%230039A6' stroke-width='2'/%3E%3C/svg%3E%0A");
+        background-repeat: no-repeat;
+        background-position: center center;
+        transition: .2s;
+    }
+
+    details[open] > summary:before {
+        transform: rotate(180deg);
+    }
+
+
+
+    #details1 > #summary1:before, details[open] > #summary1:before {
+        content: '';
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        right: 20px;
+        background-image: url("data:image/svg+xml,%3Csvg width='14' height='9' viewBox='0 0 14 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L7 7.5L13 1.5' stroke='%230039A6' stroke-width='2'/%3E%3C/svg%3E%0A");
+        background-repeat: no-repeat;
+        background-position: center center;
+        transition: .2s;
+    }
+
+    #details1[open] > #summary1:before {
+        transform: rotate(180deg);
+    }
+
+
+
+    #container {
+        width: 100%;
+    }
+
+    #one, #two, #three, #four, #five {
+        /*  width: 25%;
+        height: 50%;*/
+    }
+
+    #one {
+        display: inline-block;
+    }
+
+    #two {
+        display: inline-block;
+    }
+
+    #three {
+        display: inline-block;
+    }
+
+    #four {
+        display: inline-block;
+    }
+
+
+
+
+    .dileep {
+        height: 80px;
+        line-height: 80px;
+        width: 80px;
+        font-size: 2em;
+        font-weight: bold;
+        border-radius: 50%;
+        background-color: #4CAF50;
+        color: white;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .pointer {
+        cursor: pointer;
+    }
+
+        .pointer:hover {
+            background-color: black;
+        }
+
+    .card-img-top {
+        width: 50%;
+        border-radius: 50%;
+        margin: 0 auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .card {
+        padding: 1em 0.5em 0.5em;
+        text-align: center;
+        border-radius: 1em;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        width: 90px;
+    }
+
+    .card-title {
+        font-weight: bold;
+        font-size: 0.8em;
+        color: #34ba08;
+        white-space: nowrap;
+    }
+
+    .btn-primary {
+        border-radius: 2em;
+        padding: 0.5em 1.5em;
+    }
+</style>
+@using (Html.BeginForm("UpdateProfileL", "Jobseeker", FormMethod.Post, new { @autocomplete = "off" }))
+{
+    <div class="row" id="lines">
+        <div id="problemoverall">
+
+
+            <div id="problem" class="text">
+                <div id="problemoverall">
+
+                    <div class="col-lg-8 col-md-8 col-sm-8" id="problemtext">
+                        @Html.ValidationSummary(true)
+                        @Html.HiddenFor(model => model.Id)
+                        @Html.HiddenFor(model => model.Type)
+                        @Html.HiddenFor(model => model.ReturnUrl)
+                        <div class="row">
+
+                            <div class="col-lg-8 col-md-8">
+                                <div class="title-login">
+                                    <h1 style="margin-top: -15px;">MY PROFILE</h1>
+
+                                </div>
+                            </div>
+
+
+                            <div id="container">
+                                <div id="one">
+
+
+                                    @*@if (!string.IsNullOrEmpty(user.Content))
+                                        {*@
+
+                                    @if (width == 100)
+                                    {
+
+                                        <a href='@Url.Action("Download", "Jobseeker", new {id = Model.Id, redirect = Request.Url.ToString()})'>
+
+                                            <img src="~/Images/downloadsmall.jpg" style="height: 25px; width: 25px; color: aqua;" border="0" role="button" />
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="#" onClick="alert('Hi! please compelete your profile.')">
+
+                                            <img src="~/Images/downloadsmall.jpg" style="height:25px;width:25px;color:aqua;" border="0" />
+                                        </a>
+                                    }
+
+
+                                </div>
+                                <div id="two">
+
+                                    <a href="https://apps.apple.com/in/app/job-listing/id1575724994">
+                                        <img src="~/Images/IOSimg.jpg" class="pointer" style="height:29px;width:29px;" border="0" />
+
+                                    </a>
+
+
+                                </div>
+                                <div id="three">
+                                    <a href="https://play.google.com/store/apps/details?id=com.accuracy.joblisting">
+
+                                        <img src="~/Images/android22.png" style="height:25px;width:25px;" border="0" />
+
+                                    </a>
+                                </div>
+                                <div id="four">
+
+                                </div>
+
+
+
+
+
+
+
+                            </div>
+                        </div>
+
+                        <div id="divMsgBox" class="message-instruction" style="display:none">
+                            <div style="text-align:center; padding:25px;"><i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom" style="font-size: 32px; color: #34ba08;"></i></div>
+                        </div>
+                        @*@Html.Partial("_MessagePartial")*@
+                        <div class="col-lg-12 col-md-12 col-sm-12" id="pdf">
+
+                            <div class="row" style="height:160px; padding: 5px; border: #c9cacc 1px solid; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;">
+                                <div class="col-lg-12 col-md-12 col-sm-12" id="pe">
+
+                                    <h4 class="card-title" style="text-align: center; font-family:Calibri">
+                                        <b style="color: maroon; text-transform: uppercase;font-size:15px;">@Model.Title</b><span style="float: right; display: none; text-transform: uppercase;" id="pe1">
+                                            <button type="button" class="btn btn-primary float-right" width="14" height="14" data-toggle="modal"
+                                                    data-target=".bd-example-modal-lg">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-pencil" viewBox="0 0 14 14">
+                                                    <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+                                                </svg>
+                                            </button>
+                                        </span>
+                                    </h4>
+
+
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="col-lg-3 col-md-3 col-sm-3" style="height:130px;width:130px;">
+                                        @*<div class="square110" href="#" role="button" data-toggle='modal' data-target='#uploadDialog' title="Upload photo"></div>
+                                            <img src="img_avatar.png" alt="Avatar" style="width:200px">*@
+
+                                        <img src="~/Images/personblack.jpg" class="square110" role="button" alt="Avatar" data-toggle='modal' data-target='#uploadDialog' title="Upload photo" style="position: absolute; top:-28px;" />
+                                        @*<img src="~/Images/sdi.jpg" />*@
+
+
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-9">
+                                        <h5 style="font-family: Calibri">@Model.FirstName &nbsp; @Model.LastName</h5>
+
+                                        @if (user.StateName != null)
+                                        {
+                                            <h5 style="font-family: Calibri">@user.StateName &nbsp; @user.CountryName</h5>
+                                        }
+
+
+                                        else
+                                        {
+                                            <h5 style="font-family: Calibri">@user.CountryName</h5>
+                                        }
+
+                                        <div id="siin" data-progress="@Math.Round(width)" style="--progress:@width%; position: absolute; top: 0px; right: 0px;">100%</div>
+
+                                    </div>
+
+
+                                </div>
+
+                                @if (!string.IsNullOrEmpty(Model.PremaLink))
+                                {
+                                    <div id="divWebAddressDisplay" style="position: absolute; top: 125px;">
+                                        Web&nbsp;Address:&nbsp;&nbsp;<a href="~/JobSeeker/Resume12?uid=@user.Id" target="_blank" style="word-break:normal;font-family:Calibri;">@Request.Url.Scheme://@Request.Url.Authority/@Model.PremaLink</a>
+                                    </div>
+
+
+                                }
+                            </div>
+
+                            <div class="clear" style="height:1px;"></div>
+
+
+
+                            <div class="row" style="padding: 5px; border: #c9cacc 1px solid; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;">
+                                <div class="col-lg-12 col-md-12 col-sm-12" id="pe_2">
+                                    <h4 style="font-family: Calibri; font-size: 14px;">
+                                        <b style="color:#34ba08">
+                                            <i class="fa fa-angle-down" style="color: #34ba08; font-size: 20px;" onclick="myFunction()"></i>
+                                            &nbsp; SKILLS<span style="float: right; display: none; font-family: Calibri;" id="pe2">
+                                                <button type="button" class="btn btn-success float-right" width="14" height="14" data-toggle="modal" data-target="#exampleModal">
+
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 14 14">
+                                                        <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z" />
+                                                    </svg>
+                                                </button>
+                                            </span>
+                                        </b>
+                                    </h4>
+
+                                    <hr />
+
+                                    @for (int i = 0; i < skillslist.Count; i++)
+                                    {
+                                        if (((decimal)@skillslist[i].Percentage_Cal) < 25)
+                                        {
+                                            width1 = 25;
+                                        }
+                                        else
+                                        {
+                                            width1 = ((decimal)@skillslist[i].Percentage_Cal);
+                                        }
+
+
+                                        string rowid1 = "skd" + i.ToString();
+                                        string rowid2 = "skdd" + i.ToString();
+
+                                        <div class="col-lg-12 col-md-12 col-sm-12" id="@rowid1" onmouseenter="myEnterFunction('@i');" onmouseleave="myLeaveFunction('@i');">
+
+                                            <div id="dil" class="collapse">
+                                                <div class="col-lg-5 col-md-5 col-sm-5" style="font-family: Calibri; font-size: 96%; ">
+
+
+                                                    @skillslist[i].SkillName
+                                                    <!-- <span style="float: right; padding-right: 450px;"> </span>-->
+                                                </div>
+                                                <div class="col-lg-7 col-md-7 col-sm-7">
+
+
+                                                    <div class="col-lg-2 col-md-2 col-sm-2">
+
+                                                        @Math.Round(((decimal)@skillslist[i].Percentage_Cal))%
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div style="float: right;display:none;" id="@rowid2">
+
+
+                                                <button type="button" class="btn btn-danger float-right" width="14" height="14" onclick="DeleteUsers('@skillslist[i].SkillName')">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-trash" viewBox="0 0 14 14">
+                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                                    </svg>
+                                                </button>
+
+                                            </div>
+
+                                        </div>
+
+
+
+                                    }
+
+
+
+
+
+                                </div>
+
+                            </div>
+
+
+
+
+                            @*///*@
+
+
+                            @*////*@
+
+                            <div class="clear" style="height:3px;"></div>
+                            <div class="row" style="padding: 5px; border: #c9cacc 1px solid; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;">
+                                <div class="col-lg-12 col-md-12 col-sm-12" id="pe_3">
+                                    <h4 class="card-title" style="font-family: Calibri; font-size: 14px;">
+                                        <b style="color:#34ba08">
+                                            <i class="fa fa-angle-down" style="color: #34ba08;font-size:20px;" onclick="myFunction1()"></i>
+                                            &nbsp;
+                                            EXPERIENCE<span style="float: right;display:none" id="pe3">
+                                                <button type="button" class="btn btn-success float-right" width="14" height="14" data-toggle="modal" data-target="#exampleModalexp">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 14 14">
+                                                        <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z" />
+                                                    </svg>
+                                                </button>
+                                            </span>
+                                        </b>
+                                    </h4>
+
+                                    <hr />
+
+                                    <div id="dil1" class="collapse">
+
+                                        @for (int k = 0; k < explist.Count; k++)
+                                        {
+
+                                            <div class="row">
+
+                                                @{string row11 = "exd" + k.ToString();
+                                                    string row22 = "exdd" + k.ToString();}
+
+                                                <div class="col-lg-12 col-md-12 col-sm-12" id="@row11" onmouseenter="myEnterFunctionex('@k');" onmouseleave="myLeaveFunctionex('@k');">
+
+                                                    @*<div class="col-lg-2 col-md-2 col-sm-2" style="font-family: Calibri">
+                                                            Employer
+                                                        </div>*@
+                                                    <div class="col-lg-5 col-md-5 col-sm-5" style="font-family: Calibri">
+                                                        <b>
+                                                            @explist[k].Employer, @explist[k].CountryId
+                                                        </b>
+                                                    </div>
+                                                    @*<div class="col-lg-2 col-md-2 col-sm-2" style="font-family: Calibri">
+                                                            Industry
+                                                        </div>*@
+                                                    <div class="col-lg-5 col-md-5 col-sm-5" style="font-family: Calibri">
+
+                                                        @explist[k].Industry
+                                                    </div>
+                                                    @{List<Inboxv> list1 = DomainService.Instance.VerUnVer(user.Id, explist[k].Employer, explist[k].Industry, explist[k].CountryId);
+                                                        if (list1.Count != 0)
+                                                        {
+                                                            <div class="col-lg-2 col-md-2 col-sm-2">
+
+                                                                <img src="~/Images/h1.png" style="height:30px;width:90px" />
+
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="col-lg-2 col-md-2 col-sm-2">
+
+                                                                <img src="~/Images/h.png" style="height:30px;width:90px" data-toggle="modal" data-target="#exampleModalconn" onclick="LoadV('@explist[k].Employer','@explist[k].Industry',' @explist[k].CountryId')" />
+
+                                                            </div>
+                                                        }
+                                                    }
+
+
+
+                                                    <div style="float: right; display:none" id="@row22">
+
+                                                        <button type="button" class="btn btn-danger float-right" width="14" height="14" onclick="LoadDeleteExp('@explist[k].Employer','@explist[k].Industry')">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-trash" viewBox="0 0 14 14">
+                                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <br>
+                                            List<User_Experience>
+                                                exprlist = MemberService.Instance.GetUserexpr(user.Id, explist[k].Employer, explist[k].Industry, explist[k].Category);
+                                            for (int j = 0; j < exprlist.Count; j++)
+                                            {
+                                                var resultm = exprlist[j].ToYr - exprlist[j].FromYr;
+                                                var result1 = exprlist[j].ToMonth - exprlist[j].FromMonth;
+                                                string yers = resultm.ToString() + " Yrs " + result1.ToString() + " Months";
+                                                string monthName = new DateTime(Convert.ToInt32(exprlist[j].FromYr), Convert.ToInt32(exprlist[j].FromMonth), 1).ToString("MMM", CultureInfo.InvariantCulture);
+                                                string monthName1 = new DateTime(Convert.ToInt32(exprlist[j].ToYr), Convert.ToInt32(exprlist[j].ToMonth), 1).ToString("MMM", CultureInfo.InvariantCulture);
+
+                                                <div id="dil">
+                                                    <div class="row">
+                                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                                            @*<div class="col-lg-2 col-md-2 col-sm-2" style="font-family: Calibri">
+                                                                    Role
+                                                                </div>*@
+                                                            <div class="col-lg-5 col-md-5 col-sm-5" style="font-family: Calibri">
+
+                                                                @exprlist[j].Roles
+
+                                                            </div>
+                                                            <div class="col-lg-6 col-md-6 col-sm-6" style="font-family: Calibri">
+                                                                @*if(@exprlist[j].FromMonth.ToString() ="3")
+                                                                    {*@
+
+
+                                                                @monthName @exprlist[j].FromYr - @monthName1 @exprlist[j].ToYr  (@yers)
+                                                                @*}*@
+                                                                @*</div>
+                                                                    <div class="col-lg-4 col-md-4 col-sm-4" style="font-family: Calibri">*@
+
+
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                                            <div class="col-lg-5 col-md-5 col-sm-5" style="font-family: Calibri;font-size:14px;">
+                                                                <b>Roles & Responsibilites</b>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="row">
+                                                        @{string rowi1 = "rd" + k.ToString() + j.ToString();
+                                                            string rowi2 = "rdd" + k.ToString() + j.ToString();}
+                                                        <div class="col-lg-12 col-md-12 col-sm-12" id="@rowi1" onmouseenter="myEnterFunctionr('@k','@j');" onmouseleave="myLeaveFunctionr('@k','@j');">
+
+                                                            <div class="col-lg-11 col-md-11 col-sm-11" style="font-family: Calibri">
+                                                                @Html.Raw(exprlist[j].Responsibilities.Replace("[", "<").Replace("]", ">").Replace("'", "\"").Replace("andnbsp", "&nbsp;"))
+                                                            </div>
+                                                            <div style="float: right;display:none" id="@rowi2">
+                                                                @{string rowid = "respname" + k.ToString() + j.ToString();}
+
+                                                                <input type="hidden" id="@rowid" name="@rowid" value="@exprlist[j].Responsibilities.Replace("[", "<").Replace("]", ">").Replace("'", "\"").Replace("andnbsp", "&nbsp;")" />
+
+
+
+                                                                <button type="button" class="btn btn-primary float-right" width="14" height="14"
+                                                                        onclick="LoadEditExp('@exprlist[j].FromMonth', '@exprlist[j].ToMonth', '@exprlist[j].FromYr', '@exprlist[j].ToYr', '@explist[k].Employer', '@explist[k].Industry', '@exprlist[j].Roles','@k','@j','@explist[k].CountryId','@explist[k].Category');"
+                                                                        data-toggle="modal" data-target="#exampleModalrr">
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-pencil" viewBox="0 0 14 14">
+                                                                        <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z" />
+                                                                    </svg>
+                                                                </button>
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <br>
+
+                                            }
+                                            <hr />
+
+                                        }
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clear" style="height: 3px;"></div>
+                            <div class="row" style="padding: 5px; border: #c9cacc 1px solid; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;">
+                                <div class="col-lg-12 col-md-12 col-sm-12" id="pe_4">
+                                    <h4 class="card-title" style="font-family: Calibri; font-size: 14px;">
+                                        <b style="color:#34ba08">
+                                            <i class="fa fa-angle-down" style="color: #34ba08;font-size:20px;" onclick="myFunction2()"></i>
+                                            &nbsp; EDUCATION<span style="float: right;display:none" id="pe4">
+                                                <button type="button" class="btn btn-success float-right" width="14" height="14" data-toggle="modal" data-target="#exampleModaledu">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 14 14">
+                                                        <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z" />
+                                                    </svg>
+                                                </button>
+                                            </span>
+                                        </b>
+                                    </h4>
+                                    <hr />
+                                    <div id="dil2" class="collapse">
+                                        @for (int m = 0; m < edulist.Count; m++)
+                                        {
+                                            <div class="row">
+
+                                                @{string rwi1 = "edd" + m.ToString();
+                                                    string rwi2 = "eddd" + m.ToString();}
+                                                <div class="col-lg-14 col-md-14 col-sm-14" id="@rwi1" onmouseenter="myEnterFunctioned('@m');" onmouseleave="myLeaveFunctioned('@m');">
+
+
+
+                                                    <div class="col-lg-4 col-md-4 col-sm-4" style="font-family: Calibri">
+
+                                                        @edulist[m].Education
+
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-3 col-sm-3" style="font-family: Calibri">
+                                                        @edulist[m].School
+                                                        @*</div>
+                                                            <div class="col-lg-4 col-md-4 col-sm-4" style="font-family: Calibri">*@
+
+
+                                                    </div>
+                                                    <div class="col-lg-2 col-md-2 col-sm-2" style="font-family: Calibri">
+
+                                                        @edulist[m].FromYr - @edulist[m].ToYr
+
+                                                    </div>
+                                                    @{List<Inboxv1> list2 = DomainService.Instance.VerUnVer1(user.Id, @edulist[m].Education, @edulist[m].School, @edulist[m].FromYr.ToString(), @edulist[m].ToYr.ToString());
+                                                        if (list2.Count != 0)
+                                                        {
+                                                            <div class="col-lg-3 col-md-3 col-sm-3">
+
+                                                                <img src="~/Images/h1.png" style="height:30px;width:90px" />
+
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="col-lg-2 col-md-2 col-sm-2">
+
+                                                                <img src="~/Images/h.png" style="height:30px;width:90px" data-toggle="modal" data-target="#exampleModaledv" onclick="LoadVE('@edulist[m].Education','@edulist[m].School','@edulist[m].FromYr','@edulist[m].ToYr')" />
+
+                                                            </div>
+                                                        }
+                                                    }
+
+                                                    <div style="float: right;display:none" id="@rwi2">
+                                                        <button type="button" class="btn btn-danger float-right" width="14" height="14" onclick="LoadDeleteEdu('@edulist[m].Education')">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-trash" viewBox="0 0 14 14">
+                                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+
+
+
+
+
+
+                                            <!--<div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12" style="font-family: Calibri">-->
+                                            @*<div class="col-lg-2 col-md-2 col-sm-2">
+                                                    School/College
+                                                </div>*@
+                                            <!--<div class="col-lg-6 col-md-6 col-sm-6">
+
+                                                @edulist[m].School
+
+                                            </div>-->
+                                            @*<div class="col-lg-2 col-md-2 col-sm-2">
+                                                Grade
+                                                </div>*@
+                                            <!--<div class="col-lg-6 col-md-6 col-sm-6">
+
+                                                        @edulist[m].Grade
+                                                    </div>
+
+
+                                                </div>
+
+                                            </div>-->
+
+
+                                            <hr />
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clear" style="height: 3px;"></div>
+                            <div class="row" style="padding: 5px; border: #c9cacc 1px solid; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;">
+                                <div class="col-lg-12 col-md-12 col-sm-12" id="pe_5">
+
+                                    <h4 class="card-title" style="font-family: Calibri; font-size:14px;">
+                                        <b style="color:#34ba08">
+                                            <i class="fa fa-angle-down" style="color: #34ba08;font-size:20px;" onclick="myFunction3()"></i>
+                                            &nbsp;
+                                            PROFESSIONAL CERTIFICATIONS<span style="float: right;display:none" id="pe5">
+
+                                                <button type="button" class="btn btn-success float-right" width="14" height="14" data-toggle="modal" data-target="#exampleModalc">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 14 14">
+                                                        <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z" />
+                                                    </svg>
+                                                </button>
+                                            </span>
+                                        </b>
+                                    </h4>
+
+                                    <hr />
+                                    <div id="dil3" class="collapse">
+                                        @for (int m1 = 0; m1 < cerlist.Count; m1++)
+                                        {
+                                            <div class="row">
+                                                @{string rw1 = "cd" + m1.ToString();
+                                                    string rw2 = "cdd" + m1.ToString();}
+                                                <div class="col-lg-12 col-md-12 col-sm-12" id="@rw1" onmouseenter="myEnterFunctionc('@m1');" onmouseleave="myLeaveFunctionc('@m1');">
+
+                                                    <div class="col-lg-9 col-md-9 col-sm-9" style="font-family: Calibri">
+
+
+                                                        <img src="data:image/png;base64, @cerlist[m1].Logo" style="height:20px;width:20px;" border="0" />   @cerlist[m1].Certificate
+                                                    </div>
+                                                    <div style="float: right;display:none" id="@rw2">
+                                                        <button type="button" class="btn btn-danger float-right" width="14" height="14" onclick="DeleteCert('@cerlist[m1].Certificate')">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-trash" viewBox="0 0 14 14">
+                                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                                            </svg>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <hr />
+                                        }
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        @if (user.IsConfirmed)
+                        {
+                            <div class="modal fade" id="uploadDialog" tabindex="-1" role="dialog" aria-labelledby="uploadDialogLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <h4 class="modal-title" id="uploadDialogLabel" style="font-family: Calibri">
+                                                Upload Photo
+                                            </h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group" style="font-family: Calibri">
+                                                @Html.Label("Upload Photo")
+                                                (JPG, PNG or GIF up to size of 1024 KB.)
+
+                                                <input id="Photo" name="Photo" type="file" title="JPG, PNG or GIF up to size of 1024 KB." placeholder="UPLOAD PHOTO" class="form-control" />
+                                                <div id="divPhotoError" style="color: red; font-weight: bold;"></div>
+                                                <div class="clear"></div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            @Html.HiddenFor(model => model.Id)
+                                            <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px;">Close</button>
+                                            <button type="button" id="photoUpload" class="btn btn-primary" style="width:75px;">Submit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+
+
+
+                        <div class="modal fade" id="deleteDialog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" style="width:325px">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">
+                                            Delete Photo
+                                        </h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div style="font-size:1.5em;">Are you sure to delete photo?</div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        @Html.HiddenFor(model => model.Id)
+                                        <button type="button" id="deleteUpload" class="btn btn-primary" data-dismiss="modal" style="width:75px;" formnovalidate="formnovalidate">Yes</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px;">No</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Edit Intro-->
+                        <div class="modal fade bd-example-modal-lg" id="exampleModalCenter" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document" style="width:770px">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title"><b>EDIT INTRO</b></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.FirstName)
+
+                                                        @Html.TextBoxFor(model => model.FirstName, new { placeholder = "FIRST NAME", @class = "form-control", @maxlength = 20 })
+                                                        @Html.ValidationMessageFor(model => model.FirstName)
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.LastName)
+
+                                                        @Html.TextBoxFor(model => model.LastName, new { placeholder = "LAST NAME", @class = "form-control", @maxlength = 20 })
+                                                        @Html.ValidationMessageFor(model => model.LastName)
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div class="form-group" title="Providing birth date helps to make sure that\nyou get right experience for your age!">
+                                                        <label>Birth Date</label>
+                                                        <div class=" input-group">
+                                                            <select id="BDay" name="BDay" Style="width:80px" title="Birth Day" class="form-control">
+                                                                <option value="">DAY</option>
+                                                                <option value="1">1</option>
+                                                                <option value="2">2</option>
+                                                                <option value="3">3</option>
+                                                                <option value="4">4</option>
+                                                                <option value="5">5</option>
+                                                                <option value="6">6</option>
+                                                                <option value="7">7</option>
+                                                                <option value="8">8</option>
+                                                                <option value="9">9</option>
+                                                                <option value="10">10</option>
+                                                                <option value="11">11</option>
+                                                                <option value="12">12</option>
+                                                                <option value="13">13</option>
+                                                                <option value="14">14</option>
+                                                                <option value="15">15</option>
+                                                                <option value="16">16</option>
+                                                                <option value="17">17</option>
+                                                                <option value="18">18</option>
+                                                                <option value="19">19</option>
+                                                                <option value="20">20</option>
+                                                                <option value="21">21</option>
+                                                                <option value="22">22</option>
+                                                                <option value="23">23</option>
+                                                                <option value="24">24</option>
+                                                                <option value="25">25</option>
+                                                                <option value="26">26</option>
+                                                                <option value="27">27</option>
+                                                                <option value="28">28</option>
+                                                                <option value="29">29</option>
+                                                                <option value="30">30</option>
+                                                                <option value="31">31</option>
+                                                            </select>
+                                                            <span class="input-group-btn" style="width:0px;"></span>
+                                                            <select id="BMonth" name="BMonth" Style="width:80px" title="Birth Month" class="form-control">
+                                                                <option value="">MONTH</option>
+                                                                <option value="1">January</option>
+                                                                <option value="2">February</option>
+                                                                <option value="3">March</option>
+                                                                <option value="4">April</option>
+                                                                <option value="5">May</option>
+                                                                <option value="6">June</option>
+                                                                <option value="7">July</option>
+                                                                <option value="8">August</option>
+                                                                <option value="9">September</option>
+                                                                <option value="10">October</option>
+                                                                <option value="11">November</option>
+                                                                <option value="12">December</option>
+                                                            </select>
+                                                            <span class="input-group-btn" style="width:0px;"></span>
+                                                            @Html.DropDownListFor(model => model.BYear, new SelectList(SharedService.Instance.GetYearList(true, DateTime.Now.Year)), "YEAR", new { @class = "form-control", placeholder = "YEAR", @style = "width:120px;" })
+                                                        </div>
+                                                        @Html.ValidationMessageFor(model => model.BYear)
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        @Html.Label("Gender")
+                                                        @Html.DropDownListFor(model => model.Gender, new SelectList(new List<string>() { "Male", "Female" }), "--SELECT--", new { @class = "form-control" })
+                                                        @Html.ValidationMessageFor(model => model.Gender)
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        @Html.Label("Mobile Number")
+
+                                                        <div class="input-group">
+                                                            @Html.DropDownList("MobileCountryCode", new SelectList(Model.CountryWithCodes, "Value", "Key", Model.MobileCountryCode), new { @class = "form-control", @required = "required", @style = "width:150px" })
+                                                            <span class="input-group-btn" style="width:0px;"></span>
+
+                                                            @Html.TextBoxFor(model => model.Mobile, new { @class = "form-control", placeholder = "MOBILE NUMBER", maxlength = "15", @style = "height:33px;width:180px" })
+                                                        </div>
+
+                                                        @Html.ValidationMessageFor(model => model.Mobile)
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.Address)
+
+                                                        @Html.TextBoxFor(model => model.Address, new { placeholder = "ADDRESS", @class = "form-control", @maxlength = 255, @style = "height:33px;" })
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.CountryId)
+                                                        @Html.DropDownListFor(model => Model.CountryId, new SelectList(Model.Countries, "Id", "Text", Model.CountryId), "--SELECT--", new { @class = "form-control" })
+                                                        @Html.ValidationMessageFor(model => model.CountryId)
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.StateId)
+                                                        @Html.DropDownListFor(model => Model.StateId, new SelectList(Model.States, "Id", "Text", Model.StateId), "--SELECT--", new { @class = "form-control" })
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.City)
+                                                        @Html.TextBoxFor(model => model.City, new { placeholder = "CITY", @class = "form-control", @maxlength = 50 })
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <div class="form-group">
+                                                        @Html.LabelFor(model => model.Zip)
+                                                        @Html.TextBoxFor(model => model.Zip, new { placeholder = "ZIP CODE", @class = "form-control", @maxlength = 15 })
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="submit" value="Submit" class="btn btn-info save" style="width: 100px" />
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal" type="submit">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Skills-->
+
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document" style="width:770px">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel"><b>ADD SKILLS</b></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <label><b>&nbsp;&nbsp;&nbsp;Skills(Maximum Characters 10)</b></label>
+                                                    </div>
+
+                                                    <div class="autocomplete" style="width:300px;">
+                                                        <div class="row">
+                                                            <input type="name" id="skill" class="form-control" maxlength="10" placeholder="Skills(ex: Data Analyst)">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <label><b>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;Rating</b></label>
+                                                    </div>
+                                                    <div style="width:300px;">
+                                                        <div class="row">
+                                                            <span class="star-cb-group">
+                                                                <input type="radio" id="rating-5" name="rating" value="5" />
+                                                                <label for="rating-5">5</label>
+                                                                <input type="radio" id="rating-4" name="rating" value="4" />
+                                                                <label for="rating-4">4</label>
+                                                                <input type="radio" id="rating-3" name="rating" value="3" />
+                                                                <label for="rating-3">3</label>
+                                                                <input type="radio" id="rating-2" name="rating" value="2" />
+                                                                <label for="rating-2">2</label>
+                                                                <input type="radio" id="rating-1" name="rating" value="1" checked="checked" />
+                                                                <label for="rating-1">1</label>
+                                                                <input type="radio" id="rating-0" name="rating" value="0" class="star-cb-clear" />
+                                                                <label for="rating-0">0</label>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div id="divSkillError" style="color: red; font-weight: bold;"></div>
+                                                        <div class="clear"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px;">Close</button>
+                                        <button type="button" class="btn btn-primary" id="SkillUpload" style="width:75px;" formnovalidate="formnovalidate">Submit</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Verify-->
+
+                        <div class="modal fade" id="exampleModalconn" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document" style="width:770px">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel"><b>Verify By Email</b></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <fieldset style="padding:14px; margin-top:-5px;">
+                                                    <div class="row">
+                                                        <div class="col-lg-4 col-md-4 col-sm-4">
+                                                            <div class="form-group">
+                                                                @Html.TextBox("Company", "", new { @class = "form-control", @readonly = "true", @id = "vcom" })
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-4 col-sm-4">
+                                                            <div class="form-group">
+                                                                @Html.TextBox("Industry", "", new { @class = "form-control", @readonly = "true", @id = "vind" })
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-4 col-sm-4">
+                                                            <div class="form-group">
+                                                                @Html.TextBox("Country", "", new { @class = "form-control", @readonly = "true", @id = "vcon" })
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                                            <div class="form-group">
+                                                                @Html.TextBox("EmailName", "", new { @class = "form-control", @placeholder = "Provide Name Of the Person", @title = "Email Name", @id = "emailname" })
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                                            <div class="form-group">
+                                                                @Html.TextBox("EmailAddress", "", new { @class = "form-control", @placeholder = "PROVIDE EMAIL ADDRESS", @title = "Email Address", @id = "emailverify" })
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <div id="EmailEditor">
+                                                                    <label><b>Email</b></label>
+                                                                    <input type="hidden" id="Email" name="Email" />
+                                                                    <div class="toolbar">
+                                                                        <a href="#" data-command='indent'>
+                                                                            <svg style="width:21px; height:21px;">
+                                                                                <g id="format-indent-increase"><path d="M3 21h18v-2H3v2zM3 8v8l4-4-4-4zm8 9h10v-2H11v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z" /></g>
+                                                                            </svg>
+                                                                        </a>
+                                                                        <a href="#" data-command='outdent'>
+                                                                            <svg style="width:21px; height:21px;">
+                                                                                <g id="format-indent-decrease"><path d="M11 17h10v-2H11v2zm-8-5l4 4V8l-4 4zm0 9h18v-2H3v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z" /></g>
+                                                                            </svg>
+                                                                        </a>
+                                                                        <a href="#" data-command='insertUnorderedList'><svg style="width:21px; height:21px;"><g id="format-list-bulleted"><path d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12.17c-.74 0-1.33.6-1.33 1.33s.6 1.33 1.33 1.33 1.33-.6 1.33-1.33-.59-1.33-1.33-1.33zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z" /></g></svg></a>
+                                                                        <a href="#" data-command='insertOrderedList'><svg style="width:21px; height:21px;"><g id="format-list-numbered"><path d="M2 17h2v.5H3v1h1v.5H2v1h3v-4H2v1zm1-9h1V4H2v1h1v3zm-1 3h1.8L2 13.1v.9h3v-1H3.2L5 10.9V10H2v1zm5-6v2h14V5H7zm0 14h14v-2H7v2zm0-6h14v-2H7v2z" /></g></svg></a>
+                                                                    </div>
+                                                                    <div class="editor form-control" style="height:200px; overflow-x:hidden; overflow-y:auto" data-field="Email" contenteditable="true" data-char="2500" data-maxchar="2500" id="Email1">
+
+                                                                        @DateTime.Now
+                                                                        <br />
+                                                                        JobListing Recruitment Team<br />
+                                                                        Hyderabad,500072
+                                                                        <br />
+                                                                        <br />
+                                                                        Dear Mr./Ms. @@person ,
+                                                                        <br />
+                                                                        This letter is to verify that Name has been employed at com.
+                                                                        <br />
+                                                                        If you require any additional information regarding Name, please feel free to contact me at 9090808078.
+                                                                        <br />
+                                                                        <br />
+                                                                        Sincerely,<br />
+                                                                        JobListing Recruitment Team<br />
+                                                                        Hyderabad.
+
+
+
+                                                                    </div>
+
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-4 col-md-4 col-sm-12 col-lg-offset-8 col-md-offset-8">
+                                                            <div class="form-group">
+                                                                <button type="button" class="btn btn-primary" id="Verify" style="width:150px;" formnovalidate="formnovalidate">Verify By Mail</button>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </fieldset>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal" style="width:150px;">Close</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Verify Education-->
+
+                        <div class="modal fade" id="exampleModaledv" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document" style="width:770px">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel"><b>Verify By Email</b></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                                <fieldset style="padding:14px; margin-top:-5px;">
+                                                    <div class="row">
+                                                        <div class="col-lg-4 col-md-4 col-sm-4">
+                                                            <div class="form-group">
+                                                                @Html.TextBox("Eduaction", "", new { @class = "form-control", @readonly = "true", @id = "edv" })
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-4 col-sm-4">
+                                                            <div class="form-group">
+                                                                @Html.TextBox("School/College", "", new { @class = "form-control", @readonly = "true", @id = "scv" })
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-2 col-sm-2">
+                                                            <div class="form-group">
+                                                                @Html.TextBox("From", "", new { @class = "form-control", @readonly = "true", @id = "ftv" })
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-2 col-md-2 col-sm-2">
+                                                            <div class="form-group">
+                                                                @Html.TextBox("To", "", new { @class = "form-control", @readonly = "true", @id = "ttv" })
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                                            <div class="form-group">
+                                                                @Html.TextBox("EmailName", "", new { @class = "form-control", @placeholder = "Provide Name Of the Person", @title = "Email Name", @id = "emailname1" })
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-12 col-md-12 col-sm-12">
+                                                            <div class="form-group">
+                                                                @Html.TextBox("EmailAddress", "", new { @class = "form-control", @placeholder = "PROVIDE EMAIL ADDRESS", @title = "Email Address", @id = "emailverify1" })
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <div id="EmailEditor1">
+                                                                    <label><b>Email</b></label>
+                                                                    <input type="hidden" id="Email3" name="Email3" />
+                                                                    <div class="toolbar">
+                                                                        <a href="#" data-command='indent'>
+                                                                            <svg style="width:21px; height:21px;">
+                                                                                <g id="format-indent-increase"><path d="M3 21h18v-2H3v2zM3 8v8l4-4-4-4zm8 9h10v-2H11v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z" /></g>
+                                                                            </svg>
+                                                                        </a>
+                                                                        <a href="#" data-command='outdent'>
+                                                                            <svg style="width:21px; height:21px;">
+                                                                                <g id="format-indent-decrease"><path d="M11 17h10v-2H11v2zm-8-5l4 4V8l-4 4zm0 9h18v-2H3v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z" /></g>
+                                                                            </svg>
+                                                                        </a>
+                                                                        <a href="#" data-command='insertUnorderedList'><svg style="width:21px; height:21px;"><g id="format-list-bulleted"><path d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12.17c-.74 0-1.33.6-1.33 1.33s.6 1.33 1.33 1.33 1.33-.6 1.33-1.33-.59-1.33-1.33-1.33zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z" /></g></svg></a>
+                                                                        <a href="#" data-command='insertOrderedList'><svg style="width:21px; height:21px;"><g id="format-list-numbered"><path d="M2 17h2v.5H3v1h1v.5H2v1h3v-4H2v1zm1-9h1V4H2v1h1v3zm-1 3h1.8L2 13.1v.9h3v-1H3.2L5 10.9V10H2v1zm5-6v2h14V5H7zm0 14h14v-2H7v2zm0-6h14v-2H7v2z" /></g></svg></a>
+                                                                    </div>
+                                                                    <div class="editor form-control" style="height:200px; overflow-x:hidden; overflow-y:auto" data-field="Email3" contenteditable="true" data-char="2500" data-maxchar="2500" id="Email2">
+
+                                                                        @DateTime.Now
+                                                                        <br />
+                                                                        JobListing Recruitment Team<br />
+                                                                        Hyderabad,500072
+                                                                        <br />
+                                                                        <br />
+                                                                        Dear Mr./Ms. @@person ,
+                                                                        <br />
+                                                                        This letter is to verify that Name has been Studied at sc from fyr-tyr.
+                                                                        <br />
+                                                                        If you require any additional information regarding Name, please feel free to contact me at 9090808078.
+                                                                        <br />
+                                                                        <br />
+                                                                        Sincerely,<br />
+                                                                        JobListing Recruitment Team<br />
+                                                                        Hyderabad.
+
+
+
+                                                                    </div>
+
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-4 col-md-4 col-sm-12 col-lg-offset-8 col-md-offset-8">
+                                                            <div class="form-group">
+                                                                <button type="button" class="btn btn-primary" id="Verify1" style="width:150px;" formnovalidate="formnovalidate">Verify By Mail</button>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </fieldset>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px;">Close</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ADD NEW EXPERIENCE (LINE 93) -->
+
+                        <div class="modal fade" id="exampleModalexp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document" style="width:770px">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel"><b>ADD EXPERIENCE</b></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label><b>Employer</b></label>
+                                                    <input type="name" id="Employer" class="form-control" placeholder="Current Employer (For Example, Company Inc.)">
+
+
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label><b>Country</b></label>
+                                                    @Html.DropDownList("Country", new SelectList(Model.Countries, "Id", "Text", Model.CountryId), "--SELECT--", new { @class = "form-control", @id = "cid" })
+
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label><b>Industry</b></label>
+                                                    @Html.DropDownList("Industry", new SelectList(Model.Categories, "Id", "Name", Model.CategoryId), "--SELECT--", new { @class = "form-control", @id = "ind" })
+
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label><b>Category</b></label>
+                                                    @Html.DropDownList("Category", new SelectList(Model.Specialisations, "Id", "Name", Model.SpecializationId), "--SELECT--", new { @class = "form-control", @id = "cat" })
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div id="divExpError" style="color: red; font-weight: bold;"></div>
+                                            <div class="clear"></div>
+                                        </div>
+                                        <div class="row">
+
+                                            <h4 class="card-title">
+                                                <b>
+                                                    &nbsp;&nbsp;&nbsp;Roles&Responsibities<span style="float: right;">
+                                                        <button type="button" class="btn btn-success float-right" width="14" height="14" data-toggle="modal" data-target="#exampleModalrr">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 14 14">
+                                                                <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z" />
+                                                            </svg>
+                                                        </button>
+                                                    </span>
+                                                </b>
+                                            </h4>
+
+                                            <hr />
+
+                                            <p class="card-text" id="partialDiv">
+                                                @Html.Partial("_RRPartial")
+                                            </p>
+                                            <br>
+                                            <hr />
+
+
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px;">Close</button>
+                                        <button type="button" class="btn btn-primary" id="ExpUpload" style="width:75px;" formnovalidate="formnovalidate">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ADD Role EXPERIENCE (LINE 93) -->
+
+                        <div class="modal fade" id="exampleModalrr" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document" style="width:770px">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel"><b>ROLES && RESPONSIBILITIES</b></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <div class="row">
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label><b>Role</b></label>
+
+                                                    <input type="name" id="Role" class="form-control" placeholder="Role">
+                                                </div>
+                                            </div>
+
+
+                                            <div class="col-lg-6 col-md-6 col-sm-12">
+                                                <div class="row">
+                                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="CurrentEmployerFromMonth">From</label>
+                                                            <div class="input-group" style="width:100%">
+                                                                <select id="FromMonth" name="FromMonth" class="form-control">
+                                                                    <option value="">MONTH</option>
+                                                                    <option>01</option>
+                                                                    <option>02</option>
+                                                                    <option>03</option>
+                                                                    <option>04</option>
+                                                                    <option>05</option>
+                                                                    <option>06</option>
+                                                                    <option>07</option>
+                                                                    <option>08</option>
+                                                                    <option>09</option>
+                                                                    <option>10</option>
+                                                                    <option>11</option>
+                                                                    <option>12</option>
+                                                                </select>
+                                                                <span class="input-group-btn" style="width:0px;"></span>
+                                                                @Html.DropDownList("From", new SelectList(SharedService.Instance.GetYearList(true, DateTime.Now.Year)), "YEAR", new { @class = "form-control", @id = "fromyr" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                                        <div class="form-group">
+                                                            <label for="CurrentEmployerToYear">To</label>
+                                                            <div class="input-group" style="width:100%">
+                                                                <select id="ToMonth" name="ToMonth" class="form-control">
+                                                                    <option value="">MONTH</option>
+                                                                    <option>01</option>
+                                                                    <option>02</option>
+                                                                    <option>03</option>
+                                                                    <option>04</option>
+                                                                    <option>05</option>
+                                                                    <option>06</option>
+                                                                    <option>07</option>
+                                                                    <option>08</option>
+                                                                    <option>09</option>
+                                                                    <option>10</option>
+                                                                    <option>11</option>
+                                                                    <option>12</option>
+                                                                </select>
+                                                                <span class="input-group-btn" style="width:0px;"></span>
+                                                                @Html.DropDownList("To", new SelectList(SharedService.Instance.GetYearList(true, DateTime.Now.Year)), "YEAR", new { @class = "form-control", @id = "toyr" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="form-group">
+                                                    <div id="ProfessionalExperienceEditor">
+                                                        <label><b>Responsibilites</b></label>
+                                                        <input type="hidden" id="ProfessionalExperience" name="ProfessionalExperience" />
+                                                        <div class="toolbar">
+                                                            <a href="#" data-command='indent'>
+                                                                <svg style="width:21px; height:21px;">
+                                                                    <g id="format-indent-increase"><path d="M3 21h18v-2H3v2zM3 8v8l4-4-4-4zm8 9h10v-2H11v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z" /></g>
+                                                                </svg>
+                                                            </a>
+                                                            <a href="#" data-command='outdent'>
+                                                                <svg style="width:21px; height:21px;">
+                                                                    <g id="format-indent-decrease"><path d="M11 17h10v-2H11v2zm-8-5l4 4V8l-4 4zm0 9h18v-2H3v2zM3 3v2h18V3H3zm8 6h10V7H11v2zm0 4h10v-2H11v2z" /></g>
+                                                                </svg>
+                                                            </a>
+                                                            <a href="#" data-command='insertUnorderedList'><svg style="width:21px; height:21px;"><g id="format-list-bulleted"><path d="M4 10.5c-.83 0-1.5.67-1.5 1.5s.67 1.5 1.5 1.5 1.5-.67 1.5-1.5-.67-1.5-1.5-1.5zm0-6c-.83 0-1.5.67-1.5 1.5S3.17 7.5 4 7.5 5.5 6.83 5.5 6 4.83 4.5 4 4.5zm0 12.17c-.74 0-1.33.6-1.33 1.33s.6 1.33 1.33 1.33 1.33-.6 1.33-1.33-.59-1.33-1.33-1.33zM7 19h14v-2H7v2zm0-6h14v-2H7v2zm0-8v2h14V5H7z" /></g></svg></a>
+                                                            <a href="#" data-command='insertOrderedList'><svg style="width:21px; height:21px;"><g id="format-list-numbered"><path d="M2 17h2v.5H3v1h1v.5H2v1h3v-4H2v1zm1-9h1V4H2v1h1v3zm-1 3h1.8L2 13.1v.9h3v-1H3.2L5 10.9V10H2v1zm5-6v2h14V5H7zm0 14h14v-2H7v2zm0-6h14v-2H7v2z" /></g></svg></a>
+                                                        </div>
+                                                        <div class="editor form-control" style="height:200px; overflow-x:hidden; overflow-y:auto" data-field="ProfessionalExperience" contenteditable="true" data-char="2500" data-maxchar="2500" id="address">
+
+                                                        </div>
+                                                        <div class="chars_left"></div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="row">
+                                            <div id="divExperienceError" style="color: red; font-weight: bold;"></div>
+                                            <div class="clear"></div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px;">Close</button>
+                                        <button type="button" class="btn btn-primary" id="ExpRRUpload" style="width:75px;" formnovalidate="formnovalidate">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ADD NEW EDUCATION (LINE 121) -->
+
+                        <div class="modal fade" id="exampleModaledu" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document" style="width:770px">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel"><b>ADD EDUCATION</b></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label><b>Education(Maximum Characters 10)</b></label>
+                                                    <input type="name" class="form-control" id="Education" maxlength="10" placeholder="Qualifications">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="from"><b>From</b><span style="color: red;">*</span></label>
+                                                    @Html.DropDownList("Year", new SelectList(SharedService.Instance.GetYearList(true, DateTime.Now.Year)), "YEAR", new { @class = "form-control", placeholder = "YEAR", @style = "width:150px", @id = "fyr" })
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label for="to"><b>To</b><span style="color: red;">*</span></label>
+                                                    @Html.DropDownList("Year", new SelectList(SharedService.Instance.GetYearList(true, DateTime.Now.Year)), "YEAR", new { @class = "form-control", placeholder = "YEAR", @style = "width:150px", @id = "tyr" })
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label><b>School/University</b></label>
+                                                    <input type="name" id="University" class="form-control" placeholder="School/University">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label><b>Grade</b></label>
+                                                    <input type="name" id="Grade" class="form-control" placeholder="Grade">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div id="divEducationError" style="color: red; font-weight: bold;"></div>
+                                            <div class="clear"></div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px;">Close</button>
+                                        <button type="button" class="btn btn-primary" id="EducationUpload" style="width:75px;" formnovalidate="formnovalidate">Submit</button>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-------Logo------>
+                        <!-- ADD PROFESSIONAL CERTIFICATES (LINE 147) -->
+
+                        <div class="modal fade" id="exampleModalc" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document" style="width:770px">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabelc"><b>PROFESSIONAL CERTIFICATES</b></h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label><b>Certificate</b></label>
+                                                    <input type="name" id="Certificate" class="form-control" placeholder="Certificate">
+
+
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label><b>Institute</b></label>
+                                                    <input type="name" id="Institute" class="form-control" placeholder="Institute">
+
+
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+
+
+                                                @Html.Label("Upload Logo")
+                                                (JPG, PNG or GIF up to size of 1024 KB.)
+
+
+                                                <input id="Logo" name="Logo" type="file" title="JPG, PNG or GIF up to size of 1024 KB." placeholder="UPLOAD LOGO" class="form-control" />
+                                                <div id="divLogoError" style="color: red; font-weight: bold;"></div>
+                                                <div class="clear"></div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        @Html.HiddenFor(model => model.Id)
+                                        <button type="button" class="btn btn-default" data-dismiss="modal" style="width:75px;">Close</button>
+                                        <button type="button" class="btn btn-primary" id="logoUpload" style="width:75px;" formnovalidate="formnovalidate">Submit</button>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                    <div>
+
+
+                        <div style="height:1px;"></div>
+                        <div style="color: #34ba08; font-family: Calibri; font-size: 14px; font-weight: 600; text-decoration: none; text-size-adjust: 100%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RECOMMENDED&nbsp;JOBS</div>
+
+                        <div id="right">
+
+                            <div class="row">
+
+                                <div class="job">
+                                    <div class="wrapper">
+
+                                        <div style="height:8px;"></div>
+                                        @if (user.Type == 4 || user.Type == 13 || user.Type == 18)
+                                        {
+                                        }
+
+                                        else if (user.Type == 5)
+                                        {
+
+                                        }
+                                    <div class="job-cards" style="max-width: 550px; margin-left: 20px;">
+                                        @if (ViewBag.result < 1)
+                                        {
+
+                                        }
+                                        else if (ViewBag.RecommendedJobs1 != null)
+                                        {
+                                            foreach (LatestJob recommendedJob in ViewBag.RecommendedJobs1)
+                                            {
+                                                
+                                                <br />
+
+
+
+                                                <div class="job-card">
+                                                    <div class="row" style="min-height:45px;">
+                                                        <div class="col-md-5">
+                                                            @*<text>
+
+                                                                <span><img height="100" width="100" src=\"/Image/Avtar/" + recommendedJob.EmployerId + "\"><span> </span></span>
+
+                                                            </text>*@
+
+                                                            @Html.Raw(string.Format("<text><span><img  height='100' width='100' style='border-radius: 50%;' src=\"/Image/Avtar/" + recommendedJob.EmployerId + "\" /><span> </text>"))
+
+                                                        </div>
+                                                        <div class="col-md-7" style="padding-right:2px;">
+                                                            <div class="job-card-title">@recommendedJob.Title</div>
+                                                            <div class="job-card-subtitle">
+                                                                <b>Location: </b>@recommendedJob.Country
+                                                            </div>
+                                                            <div class="job-card-subtitle1">
+                                                                <div class="row" style="padding-top: 0px;width: 100%;margin-top: 6px;">
+                                                                    <div class="col-md-12">
+                                                                        <b>Status: </b> @recommendedJob.Status
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="job-card-buttons">
+                                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;">@recommendedJob.JobType</button>
+
+
+                                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;">@recommendedJob.MinimumExperience </button>
+
+                                                        <button class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;">Senior Level</button>
+                                                    </div>
+                                                    <div class="job-card-buttons">
+
+
+
+                                                        <a class="search-buttons card-buttons detail-btn-override" style="pointer-events: none;width:93px;" href="/singapore/job/View/@recommendedJob.JobID" target="_blank">View</a>
+                                                        <a class="search-buttons card-buttons detail-btn-override"  style="pointer-events: none;width:93px;" href="/singapore/job/Email/@recommendedJob.JobID;" target="_blank">Share</a>
+                                                        <a class="search-buttons card-buttons detail-btn-override"  style="pointer-events: none;width:93px;" href="/singapore/JobSeeker/BookMarkedJobs/@recommendedJob.JobID" target="_blank" title="Bookmark this job.">Bookmark</a>
+                                                    </div>
+                                                </div>
+
+
+
+                                                <!-- card end -->
+                                            }
+                                        }
+
+
+                                    </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        @*<marquee width="40%" direction="up" height="30%">
+                                This is sample scrolling text.
+                            </marquee>*@
+                        @*Dileep*@
+
+                       
+
+                        @*dileep end*@
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js">
+</script>
+
+
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.2/jspdf.debug.js"></script>
+<script>
+    $('.fa-angle-down').click(function () {
+        $(this).toggleClass('rotate')
+    })
+</script>
+
+<script>
+    function myFunction() {
+        var x = document.getElementById("dil");
+        if (x.style.display == "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+    function myFunction1() {
+        var x = document.getElementById("dil1");
+        if (x.style.display == "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+    function myFunction2() {
+        var x = document.getElementById("dil2");
+        if (x.style.display == "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+    function myFunction3() {
+        var x = document.getElementById("dil3");
+        if (x.style.display == "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }
+    }
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" language="javascript">
+    var ed = "";
+    $(document).ready(function () {
+        var max_chars = 2500; //max characters
+        var max_for_html = 2500; //max characters for html tags
+        var allowed_keys = [8, 13, 16, 17, 18, 20, 33, 34, 35, 36, 37, 38, 39, 40, 46];
+        var chars_without_html = 0;
+        var chars_with_html = 0;
+        $("#cat").empty();
+        $("#cat").append("<option value =\"\">--SELECT--</option>");
+        $("#cid").prop('selectedIndex', 0)
+        $("#ind").prop('selectedIndex', 0)
+        $("#vcom").val("");
+            $("#vcon").val("");
+             $("#vind").val("");
+    $("#pe").on("mouseenter", function() {
+    var cont = document.getElementById('pe1');
+      cont.style.display = "block";
+
+}).on("mouseleave", function() {
+     var cont = document.getElementById('pe1');
+      cont.style.display = "none";
+});
+        $("#pe_2").on("mouseenter", function () {
+            var cont = document.getElementById('pe2');
+            cont.style.display = "block";
+
+        }).on("mouseleave", function () {
+            var cont = document.getElementById('pe2');
+            cont.style.display = "none";
+        });
+        $("#pe_3").on("mouseenter", function () {
+            var cont = document.getElementById('pe3');
+            cont.style.display = "block";
+
+        }).on("mouseleave", function () {
+            var cont = document.getElementById('pe3');
+            cont.style.display = "none";
+        });
+
+        $("#pe_4").on("mouseenter", function () {
+            var cont = document.getElementById('pe4');
+            cont.style.display = "block";
+
+        }).on("mouseleave", function () {
+            var cont = document.getElementById('pe4');
+            cont.style.display = "none";
+        });
+
+        $("#pe_5").on("mouseenter", function () {
+            var cont = document.getElementById('pe5');
+            cont.style.display = "block";
+
+        }).on("mouseleave", function () {
+            var cont = document.getElementById('pe5');
+            cont.style.display = "none";
+        });
+
+
+
+
+
+        function alarmChars() {
+            if (chars_without_html > (max_chars - 25)) {
+                $('.chars_left').css('color', 'red');
+            } else {
+                $('.chars_left').css('color', 'gray');
+            }
+        }
+
+
+        $(".editor").focusin(function () {
+            max_chars = $(this).data("char");
+            max_for_html = $(this).data("maxchar");
+            chars_without_html = $.trim($(this).html().replace(/(<([^>]+)>)/ig, "")).length;
+            var eid = '#' + $(this).data('field') + 'Editor > .chars_left';
+            $(eid).html("<b style=\"color:#000\">Remaining characters:</b> " + (max_chars - chars_without_html));
+            alarmChars();
+        });
+
+        $(".editor").mouseenter(function () {
+            max_chars = $(this).data("char");
+            max_for_html = $(this).data("maxchar");
+            chars_without_html = $.trim($(this).html().replace(/(<([^>]+)>)/ig, "")).length;
+            var eid = '#' + $(this).data('field') + 'Editor > .chars_left';
+            $(eid).html("<b style=\"color:#000\">Remaining characters:</b> " + (max_chars - chars_without_html));
+            alarmChars();
+        });
+
+        $(".editor").bind("paste", function (e) {
+            var pastedData = e.originalEvent.clipboardData.getData('text');
+            document.execCommand('insertText', false, pastedData);
+            return false;
+        });
+
+
+        $(".editor").keydown(function (e) {
+            max_chars = $(this).data("char");
+            max_for_html = $(this).data("maxchar");
+            chars_with_html = $(this).html().length;
+            var key = e.which;
+            var eid = '#' + $(this).data('field') + 'Editor > .chars_left';
+            $(eid).html("<b style=\"color:red\">Remaining characters:</b> " + (max_for_html - chars_with_html));
+
+            if (allowed_keys.indexOf(key) != -1) {
+                alarmChars();
+                return;
+            }
+
+            if (chars_with_html > max_for_html) {
+                return false;
+            }
+            alarmChars();
+        });
+
+        $(".editor").focusout(function () {
+            var l = $(this).text().trim().length;
+            if (l > 0) {
+                $("#" + $(this).data("field")).val($(this).html());
+            } else {
+                $("#" + $(this).data("field")).val(null);
+            }
+        });
+
+        $('.toolbar a').click(function (e) {
+            var command = $(this).data('command');
+            if (command == 'h1' || command == 'h2' || command == 'p') {
+                document.execCommand('formatBlock', false, command);
+            }
+            if (command == 'forecolor' || command == 'backcolor') {
+                document.execCommand($(this).data('command'), false, $(this).data('value'));
+            }
+            if (command == 'createlink' || command == 'insertimage') {
+                url = prompt('Enter the link here: ', 'http:\/\/');
+                document.execCommand($(this).data('command'), false, url);
+            } else {
+                document.execCommand($(this).data('command'), false, null);
+            };
+            return false;
+        });
+
+        $("#divMsgBox").hide();
+        $("#divMsgBox").addClass("message-instruction");
+        $("#divMsgBox").removeClass("message-info");
+        $("#lnkbUploadPhoto").click(function () {
+            $("#divMsgBox").hide();
+            $("#divMsgBox").addClass("message-instruction");
+            $("#divMsgBox").removeClass("message-info");
+        });
+
+
+        $("#ExpUpload").click(function () {
+            $("#exampleModalexp").modal("hide");
+            $("#Employer").val("");
+            $("#cat").empty();
+            $("#cat").append("<option value =\"\">--SELECT--</option>");
+            $("#cid").prop('selectedIndex', 0)
+            $("#ind").prop('selectedIndex', 0)
+
+
+
+            window.location.reload();
+            //window.location.href = "@Url.Action("UpdateProfileL", "Jobseeker")";
+        });
+
+
+
+
+
+
+
+
+
+        $("#ExpRRUpload").click(function () {
+            var fmonth = $("#FromMonth").val();
+            var tmonth = $("#ToMonth").val();
+             var fromyr = $("#fromyr").val();
+             var toyr = $("#toyr").val();
+             var emp = $("#Employer").val();
+             var x=document.getElementById("ind");
+            var ind = x.options[x.selectedIndex].text;
+             var y=document.getElementById("cat");
+             var cat = y.options[y.selectedIndex].text;
+            var ind1 = $("#ind :selected").text();
+            var cat1 = $("#cat :selected").text();
+            var cid = $("#cid option:selected").text();
+            var role = $("#Role").val();
+            if ($("#ProfessionalExperienceEditor > .editor").text().trim().length > 0) {
+                $("#ProfessionalExperience").val($("#ProfessionalExperienceEditor > .editor").html());
+                $("#address").val($("#ProfessionalExperienceEditor > .editor").html());
+            } else {
+                $("#ProfessionalExperience").val(null);
+                $("#address").val(null);
+            }
+            var address1 = $("#address").html().replace(/</g, "[").replace(/>/g, "]").replace(/"/g, "'").replace(/&nbsp;/g, "andnbsp");
+
+            if (emp != null && ind != "--SELECT--" && cat != "--SELECT--") {
+
+                if (emp != null && ind != "--SELECT--" && role != null && cat != "--SELECT--" ) {
+                 //per = ratingValue / 5 * 100;
+                    $("#exampleModalrr").modal("hide");
+                    $.post('@Url.Action("ExperienceUpload", "JsonHelper")', { Username: "@user.Username", employer: emp, frommonth: fmonth, tomonth: tmonth, fromyr: fromyr, toyr: toyr, ind: ind, role: role, resp: address1.toString(), cid: cid ,cat:cat},
+                        function (result) {
+
+            $.post('@Url.Action("GetRResp", "JobSeeker")', { userid: @user.Id, emp: emp, ind: ind,cat:cat },
+                function (result) {
+                    $('#partialDiv').html(result);
+
+               });
+                        $("#FromMonth").val("MONTH");
+                        $("#ToMonth").val("MONTH");
+                        $("#fromyr").val("YEAR");
+                        $("#toyr").val("YEAR");
+
+                       $("#Role").val("");
+                        $("#address").val("");
+                       $("#Grade").val("");
+                           $("#divMsgBox").show();
+                           $("#divMsgBox").html(result);
+                           $("#divMsgBox").removeClass("message-instruction");
+                            $("#divMsgBox").addClass("message-info");
+                            window.location.reload();
+                    });
+                } else {
+                    $("#divExperienceError").html("Please fill all!");
+                    //$("#photoUpload").attr('disabled', true);
+                }
+
+            } else {
+                $("#exampleModalrr").modal("hide");
+                $("#divExpError").html("Please fill emploment and select industry!");
+                //$("#photoUpload").attr('disabled', true);
+            }
+        });
+
+
+        $(".profileError").hide();
+
+
+
+
+        $("#Logo").change(function () {
+            var file = document.getElementById('Logo').files[0];
+            var defineSize = 1024 * 1024;
+            var fileSize;
+            if (file.size == undefined) {
+                fileSize = file.fileSize;
+            } else {
+                fileSize = file.size
+            }
+            var name = file.name;
+            var ext = name.substr(name.lastIndexOf(".") + 1, 4).toLowerCase();
+            var allowed = "png, jpg, jpeg, gif";
+            $("#divLogoError").html("");
+            if (name.length > 0) {
+                if (allowed.indexOf(ext) < 0) {
+                    $("#divLogoError").html("Only JPG,JPEG, PNG, GIF files are allowed!");
+                    $("#logoUpload").attr('disabled', true);
+                } else {
+                    if (fileSize > defineSize) {
+                        $("#divLogoError").html("File upload failed - Exceeded max file size (500 KB)!");
+                        $("#logoUpload").attr('disabled', true);
+                    } else {
+                        $("#divLogoError").html("");
+                        $("#logoUpload").attr('disabled', false);
+                    }
+                }
+            } else {
+                $("#divLogoError").html("Please select file!");
+                $("#logoUpload").attr('disabled', true);
+            }
+        });
+
+
+        $("#SkillUpload").click(function () {
+
+           
+            for (i = 0; i < document.getElementsByName('rating').length; i++) {
+                if (document.getElementsByName('rating')[i].checked == true) {
+                    var ratingValue = document.getElementsByName('rating')[i].value;
+                    break;
+                }
+            }
+
+
+             var skillv = $("#skill").val();
+
+
+
+            if (skillv != null && ratingValue !=0) {
+                per = ratingValue / 5 * 100;
+                $("#exampleModal").modal("hide");
+                 $.post('@Url.Action("SkillUpload", "JsonHelper")', { Username: "@user.Username", skill: skillv, val: ratingValue, per: per },
+                     function (result) {
+                         $("#skill").val("");
+                           $("#divMsgBox").show();
+                           $("#divMsgBox").html(result);
+                           $("#divMsgBox").removeClass("message-instruction");
+                         $("#divMsgBox").addClass("message-info");
+                         //window.location.reload();
+                         location.reload(true);
+                          @*//window.location.href = "@Url.Action("UpdateProfileL", "Jobseeker")";*@
+                       });
+
+            } else {
+                $("#divSkillError").html("Please fill the name && rating of your skill!");
+                //$("#photoUpload").attr('disabled', true);
+            }
+        });
+
+        $("#logoUpload").click(function () {
+            var file = document.getElementById('Logo').files[0];
+            var cert = $("#Certificate").val();
+            var Inst = $("#Institute").val();
+            if (file != null) {
+                $("#exampleModalc").modal("hide");
+                var name = file.name;
+                var ext = name.substr(name.lastIndexOf(".") + 1, 4).toLowerCase();
+
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function (e) {
+                    var binaryString = e.target.result.toString();
+                    binaryString = binaryString.replace("data:image/png;base64,", "");
+                    binaryString = binaryString.replace("data:image/jpeg;base64,", "");
+                    binaryString = binaryString.replace("data:image/gif;base64,", "");
+                    binaryString = binaryString.replace("data:image/jpg;base64,", "");
+
+                    var type = "";
+                    if (ext == "jpg") {
+                        type = "data:image/jpg;base64";
+                    } else if (ext == "jpeg") {
+                        type = "data:image/jpeg;base64";
+                    } else if (ext == "png") {
+                        type = "data:image/png;base64";
+                    } else if (ext == "gif") {
+                        type = "data:image/gif;base64";
+                    }
+
+                    $.post('@Url.Action("LogoCertUpload", "JsonHelper")', { Username: "@user.Username", data: binaryString, area: "Certificate", type: type, certificate: cert, institute: Inst },
+                        function (result) {
+                            $("#Certificate").val("");
+                             $("#Institute").val("");
+                           $("#divMsgBox").show();
+                           $("#divMsgBox").html(result);
+                           $("#divMsgBox").removeClass("message-instruction");
+                            $("#divMsgBox").addClass("message-info");
+                            window.location.reload();
+                             //window.location.href = "@Url.Action("UpdateProfileL", "Jobseeker")";
+                       });
+                };
+            } else {
+                $("#divLogoError").html("Please select file!");
+                //$("#photoUpload").attr('disabled', true);
+            }
+        });
+
+
+           $("#Verify").click(function () {
+
+              var emailv = $("#emailverify").val();
+              var emailname = $("#emailname").val();
+
+              var comv = $("#vcom").val();
+              var conv = $("#vcon").val();
+              var indv = $("#vind").val();
+              var body1 = $("#Email1").html().replace(/</g, "[").replace(/>/g, "]").replace(/"/g, "'").replace(/&nbsp;/g, "andnbsp");
+
+
+              if (emailv != null ) {
+                 //per = ratingValue / 5 * 100;
+                  $("#exampleModalconn").modal("hide");
+                  $.post('@Url.Action("InviteViaEmail", "JobSeeker")', { Username: "@user.Username", emailv: emailv, emailname: emailname, comv: comv, indv: indv, conv: conv, body1: body1 },
+                    function (result) {
+                        $("#vcom").val("");
+                        $("#vcon").val("");
+                        $("#vind").val("");
+                        $("#emailverify").val("");
+                        $("#emailname").val("");
+                           $("#divMsgBox").show();
+                           $("#divMsgBox").html(result);
+                           $("#divMsgBox").removeClass("message-instruction");
+                        $("#divMsgBox").addClass("message-info");
+                         //window.location.href = "@Url.Action("UpdateProfileL", "Jobseeker")";
+                        window.location.reload();
+                       });
+
+            } else {
+                //$("#divEducationError").html("Please fill all the fields!");
+                //$("#photoUpload").attr('disabled', true);
+            }
+        });
+
+          $("#Verify1").click(function () {
+
+              var emailv1 = $("#emailverify1").val();
+              var emailname1 = $("#emailname1").val();
+
+              var edv = $("#edv").val();
+              var scv = $("#scv").val();
+              var ftv = $("#ftv").val();
+              var ttv = $("#ttv").val();
+              var body2 = $("#Email2").html().replace(/</g, "[").replace(/>/g, "]").replace(/"/g, "'").replace(/&nbsp;/g, "andnbsp");
+
+
+              if (emailv1 != null ) {
+                 //per = ratingValue / 5 * 100;
+                  $("#exampleModaledv").modal("hide");
+                  $.post('@Url.Action("InviteViaEmailEd", "JobSeeker")', { Username: "@user.Username", emailv1: emailv1, emailname1: emailname1, edv: edv, scv: scv, ftv: ftv,ttv:ttv, body2: body2 },
+                    function (result) {
+                        $("#edv").val("");
+                        $("#scv").val("");
+                        $("#ftv").val("");
+                        $("#emailverify1").val("");
+                        $("#emailname1").val("");
+                           $("#divMsgBox").show();
+                           $("#divMsgBox").html(result);
+                           $("#divMsgBox").removeClass("message-instruction");
+                        $("#divMsgBox").addClass("message-info");
+                         //window.location.href = "@Url.Action("UpdateProfileL", "Jobseeker")";
+                        window.location.reload();
+                       });
+
+            } else {
+                //$("#divEducationError").html("Please fill all the fields!");
+                //$("#photoUpload").attr('disabled', true);
+            }
+        });
+
+
+
+         $("#EducationUpload").click(function () {
+
+             var fromyr = $("#fyr").val();
+             var toyr = $("#tyr").val();
+             var education = $("#Education").val();
+             var school = $("#University").val();
+             var grade = $("#Grade").val();
+
+
+             if (education != null ) {
+                 //per = ratingValue / 5 * 100;
+                 $("#exampleModaledu").modal("hide");
+                $.post('@Url.Action("EducationUpload", "JsonHelper")', { Username: "@user.Username",  education:education, fromyr:fromyr, toyr:toyr, school:school,  grade:grade },
+                    function (result) {
+                        $("#fyr").val("YEAR");
+                       $("#tyr").val("YEAR");
+                       $("#Education").val("");
+                        $("#University").val("");
+                        var grade = $("#Grade").val();
+                           $("#divMsgBox").show();
+                           $("#divMsgBox").html(result);
+                           $("#divMsgBox").removeClass("message-instruction");
+                        $("#divMsgBox").addClass("message-info");
+                         //window.location.href = "@Url.Action("UpdateProfileL", "Jobseeker")";
+                        window.location.reload();
+                       });
+
+            } else {
+                $("#divEducationError").html("Please fill all the fields!");
+                //$("#photoUpload").attr('disabled', true);
+            }
+        });
+
+          $(".square110").click(function () {
+            var confirmed = "@user.IsConfirmed";
+            if (confirmed == "False") {
+                window.location.href = "@Url.Action("ConfirmRegistration","Account")";
+            }
+        });
+
+        $("#lnkbUploadPhoto").click(function () {
+            var confirmed = "@user.IsConfirmed";
+            if (confirmed == "False") {
+                window.location.href = "@Url.Action("ConfirmRegistration","Account")";
+            }
+            $(".modal-body #divPhotoError").html("");
+            $(".modal-body #Photo").val("");
+        });
+
+        $("#Photo").change(function () {
+            var file = document.getElementById('Photo').files[0];
+            var defineSize = 1024 * 1024;
+            var fileSize;
+            if (file.size == undefined) {
+                fileSize = file.fileSize;
+            } else {
+                fileSize = file.size
+            }
+            var name = file.name;
+            var ext = name.substr(name.lastIndexOf(".") + 1, 4).toLowerCase();
+            var allowed = "png, jpg, jpeg, gif";
+            $("#divPhotoError").html("");
+            if (name.length > 0) {
+                if (allowed.indexOf(ext) < 0) {
+                    $("#divPhotoError").html("Only JPG,JPEG, PNG, GIF files are allowed!");
+                    $("#photoUpload").attr('disabled', true);
+                } else {
+                    if (fileSize > defineSize) {
+                        $("#divPhotoError").html("File upload failed - Exceeded max file size (500 KB)!");
+                        $("#photoUpload").attr('disabled', true);
+                    } else {
+                        $("#divPhotoError").html("");
+                        $("#photoUpload").attr('disabled', false);
+                    }
+                }
+            } else {
+                $("#divPhotoError").html("Please select file!");
+                $("#photoUpload").attr('disabled', true);
+            }
+        });
+
+        $("#photoUpload").click(function () {
+            var file = document.getElementById('Photo').files[0];
+            if (file != null) {
+                $("#uploadDialog").modal("hide");
+                var name = file.name;
+                var ext = name.substr(name.lastIndexOf(".") + 1, 4).toLowerCase();
+
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function (e) {
+                    var binaryString = e.target.result.toString();
+                    binaryString = binaryString.replace("data:image/png;base64,", "");
+                    binaryString = binaryString.replace("data:image/jpeg;base64,", "");
+                    binaryString = binaryString.replace("data:image/gif;base64,", "");
+                    binaryString = binaryString.replace("data:image/jpg;base64,", "");
+
+                    var type = "";
+                    if (ext == "jpg") {
+                        type = "data:image/jpg;base64";
+                    } else if (ext == "jpeg") {
+                        type = "data:image/jpeg;base64";
+                    } else if (ext == "png") {
+                        type = "data:image/png;base64";
+                    } else if (ext == "gif") {
+                        type = "data:image/gif;base64";
+                    }
+
+                    $.post('@Url.Action("PictureUpload", "JsonHelper")', { Username: "@user.Username", data: binaryString, area: "Profile", type: type, size: "contain" },
+                       function (result) {
+                           $("#divMsgBox").show();
+                           $("#divMsgBox").html(result);
+                           $("#divMsgBox").removeClass("message-instruction");
+                           $("#divMsgBox").addClass("message-info");
+                       });
+                };
+            } else {
+                $("#divPhotoError").html("Please select file!");
+                //$("#photoUpload").attr('disabled', true);
+            }
+        });
+
+
+
+        $("#deleteUpload").click(function () {
+            $.post('@Url.Action("DeleteImage", "JsonHelper")', { Username: "@user.Username" },
+               function (result) {
+                   toastr.info(result);
+                   window.location.reload();
+               });
+        });
+
+
+
+
+        $(".save").click(function () {
+            var flag = true;
+
+            return flag;
+        });
+
+        $("#ind").change(function () {
+              $("#cat").empty();
+            $("#cat").append("<option value =\"\">--SELECT--</option>");
+            $.post('@Url.Action("GetSpecializations", "JsonHelper")', { categoryid: $('option:selected', $(this)).val() },
+                    function (result) {
+                        if (result.length != 0) {
+                            $("#cat").empty();
+                            $("#cat").append("<option value =\"\">--SELECT--</option>");
+                            $(result).each(function () {
+                                $("#cat").append("<option value =" + this.Value + ">" + this.Text + "</option>");
+                            });
+                        }
+                    });
+         });
+        $("#cat").change(function () {
+
+             var emp = $("#Employer").val();
+             var x = document.getElementById("ind");
+             var ind = x.options[x.selectedIndex].text;
+              var y = document.getElementById("cat");
+             var cat = y.options[y.selectedIndex].text;
+            $.post('@Url.Action("GetRResp", "JobSeeker")', { userid: @user.Id, emp: emp, ind: ind,cat:cat},
+                function (result) {
+                    $('#partialDiv').html(result);
+
+               });
+         });
+
+
+
+
+          $("#CountryId").change(function () {
+            $.post('@Url.Action("GetDialingCode", "JsonHelper")', { countryId: $(this).val() },
+               function (result) {
+                   $("#MobileCountryCode").val(result);
+
+               });
+        });
+
+        var mcc = $("#MobileCountryCode").val();
+        var pcc = $("#PhoneCountryCode").val();
+
+        if ((mcc == "" || mcc == null) || (pcc == "" || pcc == null)) {
+            $.post('@Url.Action("GetDialingCode", "JsonHelper")', { countryId: $("#CountryId").val() },
+               function (result) {
+                   if (mcc == "" || mcc == null) {
+                       $("#MobileCountryCode").val(result);
+                   } else {
+                       $("#MobileCountryCode").val(mcc)
+                   }
+
+               });
+        }
+        var baseUrl = "@Request.Url.Scheme://@Request.Url.Authority/";
+
+
+        var logID = 'log',
+            log = $('<div id="' + logID + '"></div>');
+        $('body').append(log);
+        $('[type*="radio"]').change(function () {
+            var me = $(this);
+            log.html(me.attr('value'));
+        });
+
+
+
+    });
+
+
+    function myEnterFunction(n) {
+     var cont = document.getElementById('skdd'+n);
+ cont.style.display = "block";
+}
+     function myLeaveFunction(n) {
+     var cont1 = document.getElementById('skdd'+n);
+  cont1.style.display = "none";
+}
+
+    function myEnterFunctionc(n1) {
+     var cont3 = document.getElementById('cdd'+n1);
+ cont3.style.display = "block";
+}
+     function myLeaveFunctionc(n1) {
+     var cont4 = document.getElementById('cdd'+n1);
+  cont4.style.display = "none";
+}
+    function myEnterFunctioned(n2) {
+     var cont5 = document.getElementById('eddd'+n2);
+ cont5.style.display = "block";
+}
+     function myLeaveFunctioned(n2) {
+     var cont6 = document.getElementById('eddd'+n2);
+  cont6.style.display = "none";
+}
+    function myEnterFunctionex(n3) {
+     var cont7 = document.getElementById('exdd'+n3);
+ cont7.style.display = "block";
+}
+     function myLeaveFunctionex(n3) {
+     var cont8 = document.getElementById('exdd'+n3);
+  cont8.style.display = "none";
+}
+    function myEnterFunctionr(n4,m4) {
+     var cont9 = document.getElementById('rdd'+n4+m4);
+ cont9.style.display = "block";
+}
+     function myLeaveFunctionr(n4,m4) {
+     var cont10 = document.getElementById('rdd'+n4+m4);
+  cont10.style.display = "none";
+}
+
+    function DeleteUsers(skillname) {
+
+            $.post('@Url.Action("deleteskill", "JobSeeker")', { userid: @user.Id, skillname: skillname},
+                function (result) {
+                    location.reload(true);
+                    //window.location.reload();
+                         //window.location.href = "@Url.Action("UpdateProfileL", "Jobseeker")";
+                });
+    }
+
+
+    function DeleteCert(certname) {
+
+        $.post('@Url.Action("deletecert", "JobSeeker")', { userid: @user.Id, cert: certname },
+            function (result) {
+                window.location.reload();
+
+            });
+    }
+    function LoadDeleteExp(emp,ind) {
+
+        $.post('@Url.Action("deleteexp", "JobSeeker")', { userid: @user.Id, emp: emp,ind:ind },
+            function (result) {
+                window.location.reload();
+
+            });
+    }
+     function LoadDeleteEdu(edu) {
+
+        $.post('@Url.Action("deleteedu", "JobSeeker")', { userid: @user.Id, edu: edu },
+            function (result) {
+                window.location.reload();
+
+            });
+    }
+
+
+
+    function LoadEditExp(fmonth, tmonth, fromyr, toyr, emp, ind, role,k, j,cid,cat) {
+        $("#address").html($("#respname"+k+j).val());
+
+        $("#FromMonth").val('0'+fmonth);
+        $("#ToMonth").val('0'+tmonth);
+        $("#fromyr").val(fromyr);
+        $("#toyr").val(toyr);
+        $("#Employer").val(emp);
+        $("#ind option:selected").text(ind);
+        $("#cat option:selected").text(cat);
+        $("#cid option:selected").text(cid);
+        $("#Role").val(role);
+
+
+        }
+
+         function LoadVE( ed, sc,fr, to) {
+
+            $("#edv").val(ed);
+            $("#scv").val(sc);
+             $("#ftv").val(fr);
+              $("#ttv").val(to);
+            var s = $("#Email2").html();
+            var s1 = s.replace("Name", "@user.FirstName" + "@user.LastName");
+             var s2 = s1.replace("sc", sc);
+             var s3 = s2.replace("fyr", fr);
+             var s4 = s3.replace("tyr", to);
+             var s5 = s4.replace("Name", "@user.FirstName" + "@user.LastName");
+             $("#Email2").html(s5);
+
+         }
+        function LoadV( emp, ind, con) {
+
+            $("#vcom").val(emp);
+            $("#vcon").val(con);
+            $("#vind").val(ind);
+            var s = $("#Email1").html();
+            var s1 = s.replace("Name", "@user.FirstName" + "@user.LastName");
+            var s2 = s1.replace("com", emp);
+            var s3 = s2.replace("Name", "@user.FirstName" + "@user.LastName");
+            $("#Email1").html(s3);
+
+         }
+
+</script>
+

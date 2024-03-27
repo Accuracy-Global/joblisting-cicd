@@ -914,7 +914,7 @@ namespace JobPortal.Web.Controllers
                     }
                     else
                     {
-                        message = "<div>Upload profile before applying to any job(s), <a href=\"/Jobseeker/UpdateProfile1\">CLICK HERE</a> to upload!</div>";
+                        message = "<div>Upload profile before applying to any job(s), <a href=\"/Jobseeker/UpdateProfileL\">CLICK HERE</a> to upload!</div>";
                     }
                 }
                 else

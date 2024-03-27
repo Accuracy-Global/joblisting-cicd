@@ -120,7 +120,7 @@ namespace JobPortal.Web.Controllers
                 decimal weightage = MemberService.Instance.GetProfileWeightage(id);
                 if (weightage < 90)
                 {
-                    return RedirectToAction("UpdateProfile1", "Jobseeker", new { type = type, returnUrl = string.Format("/package/promote?id={0}&type=P&returnurl={1}", id, returnUrl) });
+                    return RedirectToAction("UpdateProfileL", "Jobseeker", new { type = type, returnUrl = string.Format("/package/promote?id={0}&type=P&returnurl={1}", id, returnUrl) });
                 }
             }
             ViewBag.Promote = helper.PromotePrice(id, type);

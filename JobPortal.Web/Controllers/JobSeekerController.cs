@@ -107,7 +107,7 @@ namespace JobPortal.Web.Controllers
                     flag = "Deleted successfully!";
                 }
             }
-            return View("UpdateProfile1", "JobSeeker");
+            return View("UpdateProfileL", "JobSeeker");
         }
         [Authorize]
         [System.Web.Mvc.HttpPost]
@@ -124,7 +124,7 @@ namespace JobPortal.Web.Controllers
                     flag = "Deleted successfully!";
                 }
             }
-            return View("UpdateProfile1", "JobSeeker");
+            return View("UpdateProfileL", "JobSeeker");
         }
         [Authorize]
         [System.Web.Mvc.HttpPost]
@@ -142,7 +142,7 @@ namespace JobPortal.Web.Controllers
                 }
             }
 
-            return View("UpdateProfile1", "JobSeeker");
+            return View("UpdateProfileL", "JobSeeker");
         }
 
 
@@ -185,7 +185,7 @@ namespace JobPortal.Web.Controllers
                     if (i == 1)
                     {
                         flag = "Verified Mail Send successfully!";
-                        return RedirectToAction("UpdateProfile1", "JobSeeker");
+                        return RedirectToAction("UpdateProfileL", "JobSeeker");
                     }
 
 
@@ -203,7 +203,7 @@ namespace JobPortal.Web.Controllers
             return Json(flag, JsonRequestBehavior.AllowGet);
 
 
-            // return View("UpdateProfile1", "JobSeeker");
+            // return View("UpdateProfileL", "JobSeeker");
 
         }
 
@@ -242,7 +242,7 @@ namespace JobPortal.Web.Controllers
                     if (i == 1)
                     {
                         flag = "Verified Mail Send successfully!";
-                        return RedirectToAction("UpdateProfile1", "JobSeeker");
+                        return RedirectToAction("UpdateProfileL", "JobSeeker");
                     }
 
 
@@ -260,7 +260,7 @@ namespace JobPortal.Web.Controllers
             return Json(flag, JsonRequestBehavior.AllowGet);
 
 
-            // return View("UpdateProfile1", "JobSeeker");
+            // return View("UpdateProfileL", "JobSeeker");
 
         }
 
@@ -782,7 +782,7 @@ namespace JobPortal.Web.Controllers
                             decimal weightage = MemberService.Instance.GetProfileWeightage(Convert.ToInt32(id));
                             if (weightage < 90)
                             {
-                                return RedirectToAction("UpdateProfile1", "Jobseeker", new { type = type, returnUrl = string.Format("/package/promote?id={0}&type=P&returnurl={1}", id, url) });
+                                return RedirectToAction("UpdateProfileL", "Jobseeker", new { type = type, returnUrl = string.Format("/package/promote?id={0}&type=P&returnurl={1}", id, url) });
                             }
                         }
                         ViewBag.Promote = helper.PromotePrice(Convert.ToInt32(id), type);
@@ -908,7 +908,7 @@ namespace JobPortal.Web.Controllers
 
             }
             //return Json(context, JsonRequestBehavior.AllowGet);
-            return View("UpdateProfile1", "JobSeeker");
+            return View("UpdateProfileL", "JobSeeker");
 
         }
 
@@ -971,7 +971,7 @@ namespace JobPortal.Web.Controllers
 
             }
             //return Json(context, JsonRequestBehavior.AllowGet);
-            return View("UpdateProfile1", "JobSeeker");
+            return View("UpdateProfileL", "JobSeeker");
 
         }
 
@@ -991,7 +991,7 @@ namespace JobPortal.Web.Controllers
                     flag = "Deleted successfully!";
                 }
             }
-            return View("UpdateProfile1", "JobSeeker");
+            return View("UpdateProfileL", "JobSeeker");
         }
         public ActionResult ShowCareerTip(long Id)
         {
@@ -1289,11 +1289,11 @@ namespace JobPortal.Web.Controllers
         /// </summary>
         /// <returns></returns>
         [Authorize]
-        [UrlPrivilegeFilter]
-        public ActionResult UpdateProfile1(string type = null, string returnUrl = null)
+     
+        public ActionResult UpdateProfileL(string type = null, string returnUrl = null)
         {
             long id;
-            LocationModel location1 = new LocationModel();
+           LocationModel location1 = new LocationModel();
             Dictionary<string, string> dict = new Dictionary<string, string>();
             string url = "https://ipinfo.io/json?token=18061b6ccf594f";
             using (WebClient client = new WebClient())
@@ -1304,9 +1304,9 @@ namespace JobPortal.Web.Controllers
             string cn = ""; //location1.Country;
             string city = ""; //location1.City;
             string ip = ""; //location1.IP;
-            string re = location1.region;
+            //string re = location1.region;
             int i = 1;
-            var jobss = JobService.Instance.GetLatestJobs22(cn, re, city, i).Take(5);
+            var jobss = JobService.Instance.GetLatestJobs22(cn, "Karnataka", city, i).Take(2);
 
             ViewBag.Id = 180954;
             //ViewBag.LatestJob1 = result;
@@ -1516,7 +1516,7 @@ namespace JobPortal.Web.Controllers
                     TempData["Error"] = "Only .doc, .docx, .pdf files are allowed!";
                 }
             }
-            return Redirect("/Jobseeker/UpdateProfile1");
+            return Redirect("/Jobseeker/UpdateProfileL");
         }
 
         public ActionResult DeleteImage(string Username, string Reason = "")
@@ -1549,7 +1549,7 @@ namespace JobPortal.Web.Controllers
                 MemberService.Instance.Track(activity);
             }
             TempData["SaveData"] = "Photo deleted successfully!";
-            return Redirect("/Jobseeker/UpdateProfile1");
+            return Redirect("/Jobseeker/UpdateProfileL");
         }
 
         public ActionResult DeletePhoto(JobseekerProfileModel model)
@@ -1561,11 +1561,11 @@ namespace JobPortal.Web.Controllers
                 dataHelper.Update<UserProfile>(original, User.Username);
             }
             TempData["SaveData"] = "Photo deleted successfully!";
-            return Redirect("/Jobseeker/UpdateProfile1");
+            return Redirect("/Jobseeker/UpdateProfileL");
         }
         [Authorize]
         [HttpPost]
-        public ActionResult UpdateProfile1(JobseekerProfileModel model)
+        public ActionResult UpdateProfileL(JobseekerProfileModel model)
         {
             long id;
             LocationModel location1 = new LocationModel();
@@ -1704,7 +1704,7 @@ namespace JobPortal.Web.Controllers
             }
             else
             {
-                return RedirectToAction("UpdateProfile1", "Jobseeker", new { type = model.Type, returnurl = model.ReturnUrl });
+                return RedirectToAction("UpdateProfileL", "Jobseeker", new { type = model.Type, returnurl = model.ReturnUrl });
             }
            
             
