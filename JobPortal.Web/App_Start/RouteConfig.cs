@@ -603,16 +603,21 @@ namespace JobPortal.Web
                 defaults: new { controller = "Interview", action = "Index", id = UrlParameter.Optional }
             );
 
+
+           
+
+
+
             routes.MapRoute(
                 name: "CountryProfileAndResume",
                 url: "{country}/profile-resume",
-                defaults: new { country = UrlParameter.Optional, controller = "JobSeeker", action = "UpdateProfile1", id = UrlParameter.Optional }
+                defaults: new { country = UrlParameter.Optional, controller = "JobSeeker", action = "UpdateProfileL", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(
                 name: "ProfileAndResume",
                 url: "profile-resume",
-                defaults: new { controller = "JobSeeker", action = "UpdateProfile1", id = UrlParameter.Optional }
+                defaults: new { controller = "JobSeeker", action = "UpdateProfileL", id = UrlParameter.Optional }
             );
 
             routes.MapRoute(

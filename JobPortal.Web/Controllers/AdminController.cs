@@ -9632,7 +9632,7 @@ namespace JobPortal.Web.Controllers
             }
             else
             {
-                return RedirectToAction("UpdateProfile1", "Jobseeker", new { type = model.Type, returnurl = model.ReturnUrl });
+                return RedirectToAction("UpdateProfileL", "Jobseeker", new { type = model.Type, returnurl = model.ReturnUrl });
             }
         }
         //public ActionResult ManageIndividual1(JobseekerProfileModel model)

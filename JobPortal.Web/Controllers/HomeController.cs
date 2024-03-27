@@ -1545,7 +1545,7 @@ namespace JobPortal.Web.Controllers
 
                     if (member.Type == 4)
                     {
-                        return RedirectToAction("UpdateProfile1", "JobSeeker");
+                        return RedirectToAction("UpdateProfileL", "JobSeeker");
                     }
                     else if(member.Type==5)
                     {
